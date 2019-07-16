@@ -28,11 +28,11 @@ class UsersTableSeeder extends Seeder
 		Model::unguard();
 
 		$roles = [
-			'admin' => 'admin@site.com',
-			'moderator' => 'moderator@site.com',
-			'user' => 'user@site.com',
-			'girl' => 'girl@site.com',
-			'club_owner' => 'club_owner@site.com',
+			'admin',
+			'moderator',
+			'user',
+			'girl',
+			'club_owner',
 		];
 
 		foreach ($roles as $role => $email) {
