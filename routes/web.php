@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('set-locale/{lang}', 'SwitchLanguageController')->name('set_locale');
-
-Route::group(['prefix' => LanguageService::getPrefix()], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+Route::get('/', function () {
+	return view('welcome');
 });
