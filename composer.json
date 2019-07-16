@@ -15,7 +15,8 @@
         "laravel/tinker": "^1.0",
         "nwidart/laravel-modules": "^5.0",
         "predis/predis": "^1.1",
-        "santigarcor/laratrust": "^5.2"
+        "santigarcor/laratrust": "^5.2",
+        "spatie/laravel-medialibrary": "^7.0.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",

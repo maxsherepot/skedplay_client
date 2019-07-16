@@ -2,14 +2,15 @@
 
 namespace Modules\Users\Entities;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-	use LaratrustUserTrait, Notifiable;
+	use HasMediaTrait, LaratrustUserTrait, Notifiable;
 
 	/**
 	 * The database table used by the model.
