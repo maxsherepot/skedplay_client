@@ -16,6 +16,7 @@ class UsersDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
-    }
+		$this->call(LaratrustSeeder::class);
+		$this->call(UsersTableSeeder::class);
+	}
 }

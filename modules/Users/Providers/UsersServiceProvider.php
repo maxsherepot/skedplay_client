@@ -45,7 +45,9 @@ class UsersServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('users.php'),
+//            __DIR__ . '/../config/config.php' => config_path('users.php'),
+            __DIR__ . '/../config/laratrust.php' => config_path('laratrust.php'),
+            __DIR__ . '/../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
         ], 'config');
         $this->mergeConfigFrom(
             __DIR__ . '/../config/config.php', 'users'
