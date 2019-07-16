@@ -45,10 +45,10 @@ class UsersServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/config.php' => config_path('users.php'),
+            __DIR__ . '/../config/config.php' => config_path('users.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/config.php', 'users'
+            __DIR__ . '/../config/config.php', 'users'
         );
     }
 
@@ -96,7 +96,7 @@ class UsersServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            app(Factory::class)->load(__DIR__.'/Database/factories');
+            app(Factory::class)->load(__DIR__.'/database/factories');
         }
     }
 

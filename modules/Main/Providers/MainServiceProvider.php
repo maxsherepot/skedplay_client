@@ -26,7 +26,7 @@ class MainServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/Migrations');
     }
 
     /**
@@ -47,10 +47,10 @@ class MainServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/config.php' => config_path('main.php'),
+            __DIR__ . '/../config/config.php' => config_path('main.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/config.php', 'main'
+            __DIR__ . '/../config/config.php', 'main'
         );
     }
 
@@ -63,7 +63,7 @@ class MainServiceProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/main');
 
-        $sourcePath = __DIR__ . '/../Resources/views';
+        $sourcePath = __DIR__ . '/../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -86,7 +86,7 @@ class MainServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'main');
         } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'main');
+            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'main');
         }
     }
 
@@ -98,7 +98,7 @@ class MainServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (! app()->environment('production')) {
-            app(Factory::class)->load(__DIR__ . '/../Database/factories');
+            app(Factory::class)->load(__DIR__ . '/../database/factories');
         }
     }
 
