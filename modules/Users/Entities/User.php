@@ -7,10 +7,11 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements HasMedia
 {
-	use HasMediaTrait, LaratrustUserTrait, Notifiable;
+	use HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
 
 	/**
 	 * The database table used by the model.
