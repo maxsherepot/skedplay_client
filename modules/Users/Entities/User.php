@@ -44,10 +44,8 @@ class User extends Authenticatable implements HasMedia
     protected $hidden = ['password', 'remember_token'];
 
     const REGISTER_TYPES = [
-        self::ACCOUNT_ADMIN,
         self::ACCOUNT_CLIENT,
         self::ACCOUNT_MODEL,
-        self::ACCOUNT_MODERATOR,
         self::ACCOUNT_CLUB_OWNER
     ];
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Api\GraphQL\Mutations;
 
@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Http\Requests\UserRequest;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Auth\Events\Registered;
+use Modules\Users\Entities\User;
 
 class Registration
 {
@@ -40,13 +42,24 @@ class Registration
             throw new GraphQLValidationException($e->errors(), "Input validation failed");
         }
 
-        return $this->userRepository->register($args['data']);
+        event(new Registered($user = $this->create($args['data'])));
+
+        return $this->userRepository->register($user);
+    }
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    public function create(array $data): User
+    {
+        return $this->userRepository->store($data);
     }
 
     /**
      * @return array
      */
-    protected function rules()
+    protected function rules(): array
     {
         return (new UserRequest())->rules();
     }

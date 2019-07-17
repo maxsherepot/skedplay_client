@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Users\Repositories;
 
@@ -7,21 +7,12 @@ use Modules\Users\Entities\User;
 class UserRepository
 {
     /**
-     * @param array $args
+     * @param $user
      * @return array
      */
-    public function register(array $args)
+    public function register(User $user): array
     {
-        /** @var User $user */
-        $user = User::create($args);
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-
-        /**
-         * Todo:
-         * add role
-         * add permission?
-         * register event
-         */
 
         $response = [
             'access_token' => $token,
@@ -29,5 +20,14 @@ class UserRepository
         ];
 
         return $response;
+    }
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    public function store(array $data): User
+    {
+        return User::create($data);
     }
 }
