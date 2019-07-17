@@ -1,0 +1,40 @@
+type User {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    gender: String
+    birtday: Date
+    club_type: String
+    phone: String!
+    email: String!
+    user_type: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+input UserRegisterInput {
+    first_name: String!
+    last_name: String!
+    gender: String
+    birtday: Date
+    club_type: String
+    phone: String!
+    email: String!
+    user_type: String!
+    password: String!
+    password_confirmation: String!
+}
+
+type UserRegisterPayload {
+    access_token: String!
+    user: User!
+}
+
+extend type Query {
+    users: [User!]! @paginate(type: "paginator" model: "Modules\\Users\\Entities\\User")
+    user(id: ID @eq): User @find(model: "Modules\\Users\\Entities\\User")
+}
+
+extend type Mutation {
+    register(data: UserRegisterInput): UserRegisterPayload @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Registration@resolve")
+}

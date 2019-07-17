@@ -10,18 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('main')->group(function() {
-    Route::get('/', 'MainController@index');
-
-    Route::group(
-        [
-            'namespace' => 'Activation',
-            'prefix' => 'activation',
-            'as' => 'activation.'
-        ],
-        function() {
-            Route::get('confirm/{type}/{token}', 'ConfirmController');
-        }
-    );
-});

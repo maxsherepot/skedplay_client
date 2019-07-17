@@ -1,20 +1,20 @@
 <?php
 
 return [
-    'role_structure' => [
-        'admin' => [
+    'role_structure'       => [
+        'admin'      => [
             'users' => 'c,r,u,d',
         ],
-        'user' => [
+        'client'     => [
             'users' => 'r,u'
         ],
-		'girl' => [
-			'users' => 'r,u'
-		],
-		'club_owner' => [
-			'users' => 'r,u'
-		],
-        'moderator' => [
+        'model'      => [
+            'users' => 'r,u'
+        ],
+        'club_owner' => [
+            'users' => 'r,u'
+        ],
+        'moderator'  => [
             'users' => 'c,r,u,d'
         ],
     ],
@@ -23,7 +23,7 @@ return [
 //            'users' => 'c,r,u'
 //        ],
     ],
-    'permissions_map' => [
+    'permissions_map'      => [
         'c' => 'create',
         'r' => 'read',
         'u' => 'update',

@@ -3,13 +3,6 @@ input LoginInput {
     password: String!
 }
 
-input RegistrationInput {
-    name: String!
-    email: String!
-    password: String!
-    password_confirmation: String!
-}
-
 input RefreshTokenInput {
     refresh_token: String
 }
@@ -19,11 +12,6 @@ type AuthPayload {
     refresh_token: String!
     expires_in: Int!
     token_type: String!
-    user: User!
-}
-
-type RegisterPayload {
-    access_token: String!
     user: User!
 }
 

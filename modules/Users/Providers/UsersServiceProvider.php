@@ -21,9 +21,7 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
         $this->registerFactories();
     }
 
@@ -45,49 +43,9 @@ class UsersServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-//            __DIR__ . '/../config/config.php' => config_path('users.php'),
             __DIR__ . '/../config/laratrust.php' => config_path('laratrust.php'),
             __DIR__ . '/../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
         ], 'config');
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php', 'users'
-        );
-    }
-
-    /**
-     * Register views.
-     *
-     * @return void
-     */
-    public function registerViews()
-    {
-        $viewPath = resource_path('views/modules/users');
-
-        $sourcePath = __DIR__ . '/../resources/views';
-
-        $this->publishes([
-            $sourcePath => $viewPath,
-        ]);
-
-        $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path.'/modules/users';
-        }, \Config::get('view.paths')), [$sourcePath]), 'users');
-    }
-
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $langPath = resource_path('lang/modules/users');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'users');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'users');
-        }
     }
 
     /**

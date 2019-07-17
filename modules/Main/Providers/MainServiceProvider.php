@@ -22,9 +22,6 @@ class MainServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerTranslations();
-        $this->registerConfig();
-        $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../database/Migrations');
     }
@@ -37,57 +34,6 @@ class MainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-    }
-
-    /**
-     * Register config.
-     *
-     * @return void
-     */
-    protected function registerConfig()
-    {
-        $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('main.php'),
-        ], 'config');
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php', 'main'
-        );
-    }
-
-    /**
-     * Register views.
-     *
-     * @return void
-     */
-    public function registerViews()
-    {
-        $viewPath = resource_path('views/modules/main');
-
-        $sourcePath = __DIR__ . '/../resources/views';
-
-        $this->publishes([
-            $sourcePath => $viewPath
-        ],'views');
-
-        $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/modules/main';
-        }, \Config::get('view.paths')), [$sourcePath]), 'main');
-    }
-
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $langPath = resource_path('lang/modules/main');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'main');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'main');
-        }
     }
 
     /**
