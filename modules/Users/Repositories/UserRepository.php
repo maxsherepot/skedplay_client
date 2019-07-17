@@ -16,6 +16,13 @@ class UserRepository
         $user = User::create($args);
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
+        /**
+         * Todo:
+         * add role
+         * add permission?
+         * register event
+         */
+
         $response = [
             'access_token' => $token,
             'user'         => $user
