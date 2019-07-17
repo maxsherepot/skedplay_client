@@ -62,6 +62,4 @@ class Registration
     {
         return $this->getValidationFactory()->make($data, $rules, $messages, $customAttributes)->validate();
     }
-
-
 }

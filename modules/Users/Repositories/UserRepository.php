@@ -2,7 +2,6 @@
 
 namespace Modules\Users\Repositories;
 
-use Illuminate\Support\Facades\Hash;
 use Modules\Users\Entities\User;
 
 class UserRepository
@@ -13,11 +12,8 @@ class UserRepository
      */
     public function register(array $args)
     {
-        $request['password'] = Hash::make($args['password']);
-
         /** @var User $user */
         $user = User::create($args);
-
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
         $response = [
@@ -26,10 +22,5 @@ class UserRepository
         ];
 
         return $response;
-    }
-
-    public function store($args)
-    {
-
     }
 }
