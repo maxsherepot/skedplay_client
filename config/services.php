@@ -20,6 +20,11 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
+    'nexmo' => [
+        'key' => env('NEXMO_API_KEY'),
+        'secret' => env('NEXMO_API_SECRET'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

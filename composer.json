@@ -16,9 +16,11 @@
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
         "mll-lab/laravel-graphql-playground": "^1.1",
+        "nexmo/client": "^1.8",
         "nuwave/lighthouse": "^3.7",
         "nwidart/laravel-modules": "^5.0",
         "predis/predis": "^1.1",
+        "propaganistas/laravel-phone": "^4.2",
         "santigarcor/laratrust": "^5.2",
         "spatie/laravel-medialibrary": "^7.0.0"
     },

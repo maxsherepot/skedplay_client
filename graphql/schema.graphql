@@ -7,6 +7,8 @@ type Query
 
 type Mutation {
     login(data: LoginInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
+    sendVerificationCode(data: SendVerificationCodeInput): SendVerificationCodePayload! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\SendVerificationCode@resolve")
+    checkVerificationCode(data: CheckVerificationCodeInput): CheckVerificationCodePayload! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\CheckVerificationCode@resolve")
     refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
     logout: LogoutResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve")
     forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ForgotPassword@resolve")

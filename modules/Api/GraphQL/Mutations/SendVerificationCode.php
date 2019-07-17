@@ -3,32 +3,24 @@
 namespace Modules\Api\GraphQL\Mutations;
 
 use Joselfonseca\LighthouseGraphQLPassport\Exceptions\ValidationException as GraphQLValidationException;
+use Modules\Api\Http\Requests\SendVerificationCodeRequest;
 use Modules\Users\Services\SmsVerification\SmsVerification;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Validation\ValidationException;
-use Modules\Users\Repositories\UserRepository;
-use Modules\Users\Http\Requests\UserRequest;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Auth\Events\Registered;
-use Modules\Users\Entities\User;
 
-class Registration
+class SendVerificationCode
 {
     use ValidatesRequests;
 
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
     /**
      * @var SmsVerification
      */
     private $verification;
 
-    public function __construct(UserRepository $userRepository, SmsVerification $verification)
+    public function __construct(SmsVerification $verification)
     {
-        $this->userRepository = $userRepository;
         $this->verification = $verification;
     }
 
@@ -48,26 +40,16 @@ class Registration
             throw new GraphQLValidationException($e->errors(), "Input validation failed");
         }
 
-        event(new Registered($user = $this->create($args['data'])));
-
-        return $this->userRepository->register($user);
+        return $this->verification->sendCode($args['data']['phone']);
     }
 
-    /**
-     * @param array $data
-     * @return User
-     */
-    public function create(array $data): User
-    {
-        return $this->userRepository->store($data);
-    }
 
     /**
      * @return array
      */
     protected function rules(): array
     {
-        return (new UserRequest())->rules();
+        return (new SendVerificationCodeRequest())->rules();
     }
 
     /**
