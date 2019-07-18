@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Users\Services\SmsVerification;
+namespace Modules\Users\Services\SmsVerification\Code;
 
 use Illuminate\Support\Facades\Cache;
 use Modules\Users\Services\SmsVerification\Exceptions\GenerateCodeException;
@@ -9,7 +9,7 @@ use Modules\Users\Services\SmsVerification\Exceptions\ValidateCodeException;
 /**
  * Class CodeProcessor
  */
-class CodeProcessor
+class CodeProcessor implements CodeProcessorInterface
 {
     /**
      * Prefix for cache keys
@@ -26,31 +26,14 @@ class CodeProcessor
      * @var int
      */
     private $minutesLifetime = 10;
-    /**
-     * Singleton instance
-     * @var
-     */
-    private static $instance;
-
-    /**
-     * Singleton
-     * @return CodeProcessor
-     */
-    public static function getInstance()
-    {
-        if (is_null(static::$instance)) {
-            static::$instance = new static();
-        }
-        return static::$instance;
-    }
 
     /**
      * Generate code, save it in Cache, return it
      * @param string $phoneNumber
-     * @return string
+     * @return int
      * @throws GenerateCodeException
      */
-    public function generateCode($phoneNumber)
+    public function generateCode(string $phoneNumber): int
     {
         try {
             $randomFunction = 'random_int';
@@ -62,14 +45,16 @@ class CodeProcessor
             $code = $randomFunction(pow(10, $this->codeLength - 1), pow(10, $this->codeLength) - 1);
             Cache::put(
                 $this->cachePrefix . $code,
-                $this->trimPhoneNumber($phoneNumber),
+                $phoneNumber,
                 now()->addSeconds(
                     $this->getLifetime()
                 )
             );
+
         } catch (\Exception $e) {
             throw new GenerateCodeException('Code generation failed', 0, $e);
         }
+
         return $code;
     }
 
@@ -80,12 +65,12 @@ class CodeProcessor
      * @return bool
      * @throws ValidateCodeException
      */
-    public function validateCode($code, $phoneNumber)
+    public function validateCode(string $code, string $phoneNumber): bool
     {
         try {
             $codeValue = Cache::get($this->cachePrefix . $code);
 
-            if ($codeValue && ($codeValue == $this->trimPhoneNumber($phoneNumber))) {
+            if ($codeValue && ($codeValue == $phoneNumber)) {
                 Cache::forget($this->cachePrefix . $code);
                 return true;
             }
@@ -96,18 +81,9 @@ class CodeProcessor
     }
 
     /**
-     * @param $phoneNumber
-     * @return string
-     */
-    private function trimPhoneNumber($phoneNumber)
-    {
-        return trim(ltrim($phoneNumber, '+'));
-    }
-
-    /**
      * @return int Seconds
      */
-    public function getLifetime()
+    public function getLifetime(): int
     {
         return $this->minutesLifetime * 60;
     }

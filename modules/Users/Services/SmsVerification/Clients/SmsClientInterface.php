@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Users\Services\SmsVerification;
+namespace Modules\Users\Services\SmsVerification\Clients;
 
 interface SmsClientInterface
 {
@@ -10,5 +10,5 @@ interface SmsClientInterface
      * @param string $text
      * @return bool
      */
-    public function send($to, $text);
+    public function send(string $to, string $text): bool;
 }

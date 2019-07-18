@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Users\Services\SmsVerification;
+namespace Modules\Users\Services\SmsVerification\Clients;
 
 use Modules\Users\Services\SmsVerification\Exceptions\SenderException;
 
@@ -29,7 +29,7 @@ class NexmoSmsClient implements SmsClientInterface
      * @return bool
      * @throws SenderException
      */
-    public function send($to, $text)
+    public function send(string $to, string $text): bool
     {
         try {
             $message = $this->client->message()->send([

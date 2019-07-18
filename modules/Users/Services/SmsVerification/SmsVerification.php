@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Users\Services\SmsVerification;
 
 use Modules\Users\Services\SmsVerification\Exceptions\SmsVerificationException;
 use Modules\Users\Services\SmsVerification\Exceptions\ValidationException;
+use Modules\Users\Services\SmsVerification\Code\CodeProcessorInterface;
+use Modules\Users\Services\SmsVerification\Clients\SmsClientInterface;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use Illuminate\Support\Facades\Log;
 
@@ -13,21 +15,31 @@ use Illuminate\Support\Facades\Log;
 class SmsVerification
 {
     /**
-     * @var NexmoSmsClient
+     * @var SmsClientInterface
      */
     private $smsClient;
+    /**
+     * @var CodeProcessorInterface
+     */
+    private $codeProcessor;
 
-    public function __construct(SmsClientInterface $smsClient)
+    /**
+     * SmsVerification constructor.
+     * @param SmsClientInterface $smsClient
+     * @param CodeProcessorInterface $codeProcessor
+     */
+    public function __construct(SmsClientInterface $smsClient, CodeProcessorInterface $codeProcessor)
     {
         $this->smsClient = $smsClient;
+        $this->codeProcessor = $codeProcessor;
     }
 
     /**
      * Send code
-     * @param $phoneNumber
+     * @param string $phoneNumber
      * @return array
      */
-    public function sendCode($phoneNumber)
+    public function sendCode(string $phoneNumber): array
     {
         $exceptionClass = null;
         $expiresAt = null;
@@ -38,7 +50,9 @@ class SmsVerification
             static::validatePhoneNumber($phoneNumber);
 
             $now = time();
-            $code = CodeProcessor::getInstance()->generateCode($phoneNumber);
+            $code = $this->codeProcessor->generateCode(
+                static::trimPhoneNumber($phoneNumber)
+            );
             $text = 'SMS verification code: ' . $code;
 
             $success = $this->smsClient->send($phoneNumber, $text);
@@ -46,7 +60,7 @@ class SmsVerification
             $description = $success ? 'OK' : 'Error';
 
             if ($success) {
-                $response['expires_at'] = $now + CodeProcessor::getInstance()->getLifetime();
+                $response['expires_at'] = $now + $this->codeProcessor->getLifetime();
             }
 
         } catch (\Exception $e) {
@@ -71,7 +85,7 @@ class SmsVerification
      * @param $phoneNumber
      * @return array
      */
-    public function checkCode($code, $phoneNumber)
+    public function checkCode(string $code, string $phoneNumber): array
     {
         $exceptionClass = null;
         $response = [];
@@ -80,9 +94,14 @@ class SmsVerification
             if (!is_numeric($code)) {
                 throw new ValidationException('Incorrect code was provided');
             }
+
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
             static::validatePhoneNumber($phoneNumber);
-            $success = CodeProcessor::getInstance()->validateCode($code, $phoneNumber);
+
+            $success = $this->codeProcessor->validateCode($code,
+                static::trimPhoneNumber($phoneNumber)
+            );
+
             $description = $success ? 'OK' : 'Wrong code';
         } catch (\Exception $e) {
             $description = $e->getMessage();
@@ -94,6 +113,7 @@ class SmsVerification
         }
         $response['success'] = $success;
         $response['description'] = $description;
+
         return $response;
     }
 
@@ -102,9 +122,18 @@ class SmsVerification
      * @param string $phoneNumber
      * @return string
      */
-    protected static function normalizePhoneNumber($phoneNumber): string
+    protected static function normalizePhoneNumber(string $phoneNumber): string
     {
         return (string)PhoneNumber::make($phoneNumber);
+    }
+
+    /**
+     * @param $phoneNumber
+     * @return string
+     */
+    private static function trimPhoneNumber(string $phoneNumber): string
+    {
+        return trim(ltrim($phoneNumber, '+'));
     }
 
     /**
@@ -112,7 +141,7 @@ class SmsVerification
      * @param string $phoneNumber
      * @throws ValidationException
      */
-    protected static function validatePhoneNumber($phoneNumber)
+    protected static function validatePhoneNumber(string $phoneNumber)
     {
         // Todo: Add patterns.
         $patterns = [
