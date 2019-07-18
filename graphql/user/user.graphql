@@ -1,3 +1,9 @@
+#enum UserType {
+#    CLIENT @enum(value: "client")
+#    MODEL @enum(value: "model")
+#    CLUB_OWNER @enum(value: "club_owner")
+#}
+
 type User {
     id: ID!
     first_name: String!
@@ -36,5 +42,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    register(data: UserRegisterInput): UserRegisterPayload @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Registration@resolve")
+    register(data: UserRegisterInput): UserRegisterPayload @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\Registration@resolve")
 }

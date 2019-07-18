@@ -2,32 +2,26 @@
 
 namespace Modules\Users\Repositories;
 
+use Illuminate\Support\Collection;
 use Modules\Users\Entities\User;
 
 class UserRepository
 {
     /**
-     * @param $user
-     * @return array
+     * @param Collection $collection
+     * @return User
      */
-    public function register(User $user): array
+    public function store(Collection $collection): User
     {
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-
-        $response = [
-            'access_token' => $token,
-            'user'         => $user
-        ];
-
-        return $response;
+        return User::create($collection->toArray());
     }
 
     /**
-     * @param array $data
-     * @return User
+     * @param User $user
+     * @return string
      */
-    public function store(array $data): User
+    public function createToken(User $user): string
     {
-        return User::create($data);
+        return $user->createToken('Laravel Password Grant Client')->accessToken;
     }
 }
