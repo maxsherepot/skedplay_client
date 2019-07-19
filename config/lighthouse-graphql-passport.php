@@ -10,7 +10,7 @@ return [
     | support the password grant
     |
     */
-    'client_id' => env('PASSPORT_CLIENT_ID', '1'),
+    'client_id'     => env('PASSPORT_CLIENT_ID', '1'),
     /*
     |--------------------------------------------------------------------------
     | Client secret
@@ -30,7 +30,7 @@ return [
     | the default location
     |
     */
-	'schema' => base_path('graphql/auth.graphql'),
+    'schema'        => base_path('modules/Api/routes/graphql/auth.graphql'),
     /*
     |--------------------------------------------------------------------------
     | Username Column
@@ -40,5 +40,5 @@ return [
     | the user.
     |
     */
-    'username' => 'email'
+    'username'      => 'email'
 ];
