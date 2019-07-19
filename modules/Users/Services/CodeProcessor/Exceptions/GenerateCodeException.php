@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Users\Services\SmsVerification\Exceptions;
+namespace Modules\Users\Services\CodeProcessor\Exceptions;
 
 /**
  * This exception is being used for exceptions during Code generating process.
  * Class GenerateCodeException
  */
-class GenerateCodeException extends SmsVerificationException
+class GenerateCodeException extends CodeProcessorException
 {
     public function getErrorCode()
     {

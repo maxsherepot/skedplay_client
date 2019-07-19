@@ -2,14 +2,13 @@
 
 namespace Modules\Users\Entities;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements HasMedia
+class User extends AuthUser implements HasMedia
 {
     use HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
 

@@ -17,6 +17,15 @@ class UserRepository
     }
 
     /**
+     * @param $phone
+     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     */
+    public function getByPhone($phone)
+    {
+        return User::where('phone', $phone)->first();
+    }
+
+    /**
      * @param User $user
      * @return string
      */

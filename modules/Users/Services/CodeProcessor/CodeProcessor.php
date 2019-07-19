@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Users\Services\SmsVerification\Code;
+namespace Modules\Users\Services\CodeProcessor;
 
+use Modules\Users\Services\CodeProcessor\Exceptions\GenerateCodeException;
+use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
+use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Illuminate\Support\Facades\Cache;
-use Modules\Users\Services\SmsVerification\Exceptions\GenerateCodeException;
-use Modules\Users\Services\SmsVerification\Exceptions\ValidateCodeException;
 
 /**
  * Class CodeProcessor
@@ -30,10 +31,10 @@ class CodeProcessor implements CodeProcessorInterface
     /**
      * Generate code, save it in Cache, return it
      * @param string $phoneNumber
-     * @return int
+     * @return string
      * @throws GenerateCodeException
      */
-    public function generateCode(string $phoneNumber): int
+    public function generateCode(string $phoneNumber): string
     {
         try {
             $randomFunction = 'random_int';
@@ -43,6 +44,7 @@ class CodeProcessor implements CodeProcessorInterface
             }
 
             $code = $randomFunction(pow(10, $this->codeLength - 1), pow(10, $this->codeLength) - 1);
+
             Cache::put(
                 $this->cachePrefix . $code,
                 $phoneNumber,
@@ -55,7 +57,7 @@ class CodeProcessor implements CodeProcessorInterface
             throw new GenerateCodeException('Code generation failed', 0, $e);
         }
 
-        return $code;
+        return (string) $code;
     }
 
     /**

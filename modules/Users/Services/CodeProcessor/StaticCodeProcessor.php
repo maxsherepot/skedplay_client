@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Users\Services\SmsVerification\Code;
+namespace Modules\Users\Services\CodeProcessor;
 
-use Modules\Users\Services\SmsVerification\Exceptions\ValidateCodeException;
+use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
+use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -25,11 +26,11 @@ class StaticCodeProcessor implements CodeProcessorInterface
     /**
      * Generate code, save it in Cache, return it
      * @param string $phoneNumber
-     * @return int
+     * @return string
      */
-    public function generateCode(string $phoneNumber): int
+    public function generateCode(string $phoneNumber): string
     {
-        $code = 0000;
+        $code = '0000';
 
         Cache::put(
             $this->cachePrefix . $code,

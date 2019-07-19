@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Users\Services\SmsVerification\Exceptions;
+namespace Modules\Users\Services\Sms\Exceptions;
 
 /**
  * This exception is basic exception
  * Class SmsVerificationException
  */
-abstract class SmsVerificationException extends \RuntimeException
+abstract class VerificationException extends \RuntimeException
 {
     abstract public function getErrorCode();
 }

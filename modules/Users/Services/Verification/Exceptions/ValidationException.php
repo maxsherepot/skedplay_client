@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Users\Services\SmsVerification\Exceptions;
+namespace Modules\Users\Services\Sms\Exceptions;
 
 /**
  * This exception is being used for input validation exceptions
  * Class ValidateCodeException
  */
-class ValidationException extends SmsVerificationException
+class ValidationException extends VerificationException
 {
     public function getErrorCode()
     {

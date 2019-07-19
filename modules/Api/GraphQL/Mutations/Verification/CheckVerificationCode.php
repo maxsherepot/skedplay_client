@@ -2,19 +2,19 @@
 
 namespace Modules\Api\GraphQL\Mutations\Verification;
 
-use Modules\Users\Services\SmsVerification\SmsVerification;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Modules\Users\Services\Verification\Verification;
 use Modules\Api\GraphQL\Mutations\BaseMutation;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class CheckVerificationCode extends BaseMutation
 {
     /**
-     * @var SmsVerification
+     * @var Verification
      */
     private $verification;
 
-    public function __construct(SmsVerification $verification)
+    public function __construct(Verification $verification)
     {
         $this->verification = $verification;
     }
@@ -32,10 +32,12 @@ class CheckVerificationCode extends BaseMutation
         $data = collect($args['data']);
         $this->validation($data, $this->rules());
 
-        return $this->verification->checkCode(
+        $this->verification->checkCode(
             $data->get('code'),
             $data->get('phone')
         );
+
+        return $this->verification->response();
     }
 
     /**

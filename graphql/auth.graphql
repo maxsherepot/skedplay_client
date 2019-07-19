@@ -25,10 +25,9 @@ type AuthPayload {
 }
 
 type SendVerificationCodePayload {
-    expires_at: String!
-    error: String
-    success: String!
-    description: String!
+    expires_at: String
+    status: String!
+    message: String
 }
 
 type CheckVerificationCodePayload {
@@ -42,13 +41,14 @@ type LogoutResponse {
     message: String
 }
 
-type ForgotPasswordResponse {
-    status: String!
-    message: String
+input ForgotPasswordInput {
+    phone: String!
 }
 
-input ForgotPasswordInput {
-    email: String!
+type ForgotPasswordResponse {
+    expires_at: String
+    status: String!
+    message: String
 }
 
 input NewPasswordWithCodeInput {
