@@ -6,6 +6,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Modules\Users\Services\Verification\Verification;
 use Modules\Api\GraphQL\Mutations\BaseMutation;
 use GraphQL\Type\Definition\ResolveInfo;
+use Modules\Users\Entities\User;
 
 class SendVerification extends BaseMutation
 {
@@ -32,16 +33,18 @@ class SendVerification extends BaseMutation
         $data = collect($args['data']);
         $this->validation($data, $this->rules());
 
-        $code = $this->verification->getCode($phoneNumber = $data->get('phone'));
+        $code = $this->verification
+            ->setUser(new User([
+                'phone' => $phoneNumber = $data->get('phone')
+            ]))
+            ->getCode($phoneNumber);
 
         /** Mb callback */
         $this->verification->sendCode(
-            'Your register verification code: ' . $code,
-            $phoneNumber
+            'Your register verification code: ' . $code
         );
 
         return $this->verification->response();
-
     }
 
     /**

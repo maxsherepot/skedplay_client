@@ -42,21 +42,15 @@ class Verification implements VerificationInterface
 
     /**
      * @param $message
-     * @param $phoneNumber
      */
-    public function sendCode($message, $phoneNumber)
+    public function sendCode($message)
     {
         try {
             if ($this->user instanceof User) {
                 $this->user->notify(new ResetPasswordNotification(
                     $message,
-                    $phoneNumber
+                    $this->user->phone
                 ));
-            } else {
-                app()->make('sms')
-                    ->send($message)
-                    ->to($phoneNumber)
-                    ->dispatch();
             }
 
             $this->response->put('status', self::VERIFICATION_SEND_SUCCESS);

@@ -56,8 +56,7 @@ class ForgotPassword extends BaseMutation
                 ->getCode($user->phone);
 
             $this->verification->sendCode(
-                'Your verification code: ' . $code,
-                $user->phone
+                'Your verification code: ' . $code
             );
 
         } catch (\Exception $e) {
