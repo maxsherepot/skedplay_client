@@ -3,7 +3,7 @@
 namespace Modules\Users\Services\Verification;
 
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
-use Modules\Users\Services\Sms\Exceptions\VerificationException;
+use Modules\Users\Services\Verification\Contracts\VerificationInterface;
 use Modules\Users\Services\Sms\Exceptions\ValidationException;
 use Modules\Users\Notifications\ResetPasswordNotification;
 use Modules\Users\Services\CodeProcessor\CodeProcessor;
@@ -15,7 +15,7 @@ use Modules\Users\Entities\User;
 /**
  * Class Verification
  */
-class Verification
+class Verification implements VerificationInterface
 {
     /**
      * @var CodeProcessor
@@ -43,7 +43,6 @@ class Verification
     /**
      * @param $message
      * @param $phoneNumber
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function sendCode($message, $phoneNumber)
     {
@@ -60,10 +59,13 @@ class Verification
                     ->dispatch();
             }
 
-            $this->response->put('status', 'CODE_SEND_SUCCESS');
+            $this->response->put('status', self::VERIFICATION_SEND_SUCCESS);
+            $this->response->put('message', 'Verification request send success.');
 
         } catch (\Exception $e) {
-            $this->response->put('status', 'CODE_SEND_FAILED');
+            $this->response->put('status', self::VERIFICATION_CHECK_FAILED);
+            $this->response->put('message', 'Verification request was failed.');
+
             Log::error('Verification code sending was failed: ' . $e->getMessage());
         }
     }
@@ -88,9 +90,13 @@ class Verification
             );
 
             $this->response->put('expires_at', $now + $this->codeProcessor->getLifetime());
+            $this->response->put('status', self::GENERATE_CODE_SUCCESS);
+            $this->response->put('message', 'Generate code was success.');
 
         } catch (\Exception $e) {
-            $this->response->put('status', 'CODE_GENERATE_FAILED');
+            $this->response->put('status', self::GENERATE_CODE_FAILED);
+            $this->response->put('message', 'Generate code was failed.');
+
             Log::error('Verification code generate was failed: ' . $e->getMessage());
         }
 
@@ -126,18 +132,18 @@ class Verification
                 $this->codeProcessor->deleteCode($code);
             }
 
-            $description = $success ? 'OK' : 'Wrong code';
+            $this->response->put('status', $success ? self::VERIFICATION_CHECK_SUCCESS : self::VERIFICATION_CHECK_FAILED);
 
         } catch (\Exception $e) {
             $description = $e->getMessage();
+
+            $this->response->put('status', self::VERIFICATION_CHECK_FAILED);
+            $this->response->put('message', $description);
+
             if (!($e instanceof ValidationException)) {
                 Log::error('SMS Verification check was failed: ' . $description);
             }
-            $success = false;
-            $this->response->put('error', ($e instanceof VerificationException) ? $e->getErrorCode() : 999);
         }
-        $this->response->put('success', $success);
-        $this->response->put('description', $description);
     }
 
     /**

@@ -1,15 +1,22 @@
+interface Status {
+    status: String!
+    message: String
+}
+
 input LoginInput {
     username: String!
     password: String!
 }
 
-input SendVerificationCodeInput {
+input ForgotPasswordInput {
     phone: String!
 }
 
-input CheckVerificationCodeInput {
+input NewPasswordWithCodeInput {
     code: String!
     phone: String!
+    password: String!
+    password_confirmation: String!
 }
 
 input RefreshTokenInput {
@@ -24,41 +31,38 @@ type AuthPayload {
     user: User!
 }
 
-type SendVerificationCodePayload {
-    expires_at: String
-    status: String!
-    message: String
-}
-
-type CheckVerificationCodePayload {
-    error: String
-    success: String!
-    description: String!
-}
-
-type LogoutResponse {
-    status: String!
-    message: String
-}
-
-input ForgotPasswordInput {
+input SendVerificationInput {
     phone: String!
 }
 
-type ForgotPasswordResponse {
-    expires_at: String
-    status: String!
-    message: String
-}
-
-input NewPasswordWithCodeInput {
+input CheckVerificationInput {
     code: String!
     phone: String!
-    password: String!
-    password_confirmation: String!
 }
 
-type NewPasswordResponse {
-    success: String!
-    description: String
+type SendVerificationResponse implements Status {
+    expires_at: String
+    status: String!
+    message: String
+}
+
+type CheckVerificationResponse implements Status {
+    status: String!
+    message: String
+}
+
+type LogoutResponse implements Status {
+    status: String!
+    message: String
+}
+
+type ForgotPasswordResponse implements Status {
+    expires_at: String
+    status: String!
+    message: String
+}
+
+type NewPasswordResponse implements Status {
+    status: String!
+    message: String
 }

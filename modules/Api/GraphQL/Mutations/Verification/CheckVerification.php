@@ -7,7 +7,7 @@ use Modules\Users\Services\Verification\Verification;
 use Modules\Api\GraphQL\Mutations\BaseMutation;
 use GraphQL\Type\Definition\ResolveInfo;
 
-class SendVerificationCode extends BaseMutation
+class CheckVerification extends BaseMutation
 {
     /**
      * @var Verification
@@ -32,15 +32,12 @@ class SendVerificationCode extends BaseMutation
         $data = collect($args['data']);
         $this->validation($data, $this->rules());
 
-        $code = $this->verification->getCode($phoneNumber = $data->get('phone'));
-
-        $this->verification->sendCode(
-            'Your register verification code: ' . $code,
-            $phoneNumber
+        $this->verification->checkCode(
+            $data->get('code'),
+            $data->get('phone'),
         );
 
         return $this->verification->response();
-
     }
 
     /**
@@ -49,6 +46,7 @@ class SendVerificationCode extends BaseMutation
     protected function rules(): array
     {
         return [
+            'code'  => 'required|string|max:6',
             'phone' => 'bail|required|string|max:255|phone:AUTO,US',
         ];
     }
