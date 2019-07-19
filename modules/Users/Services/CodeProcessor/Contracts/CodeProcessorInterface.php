@@ -25,6 +25,12 @@ interface CodeProcessorInterface
     public function validateCode(string $code, string $phoneNumber): bool;
 
     /**
+     * Delete code in Cache
+     * @param string $code
+     */
+    public function deleteCode(string $code): void;
+
+    /**
      * @return int
      */
     public function getLifetime(): int;

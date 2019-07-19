@@ -57,7 +57,7 @@ class CodeProcessor implements CodeProcessorInterface
             throw new GenerateCodeException('Code generation failed', 0, $e);
         }
 
-        return (string) $code;
+        return (string)$code;
     }
 
     /**
@@ -73,13 +73,20 @@ class CodeProcessor implements CodeProcessorInterface
             $codeValue = Cache::get($this->cachePrefix . $code);
 
             if ($codeValue && ($codeValue == $phoneNumber)) {
-                Cache::forget($this->cachePrefix . $code);
                 return true;
             }
         } catch (\Exception $e) {
             throw new ValidateCodeException('Code validation failed', 0, $e);
         }
         return false;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function deleteCode(string $code): void
+    {
+        Cache::forget($this->cachePrefix . $code);
     }
 
     /**

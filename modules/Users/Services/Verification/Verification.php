@@ -99,10 +99,11 @@ class Verification
 
     /**
      * Check code
-     * @param $code
-     * @param $phoneNumber
+     * @param string $code
+     * @param string $phoneNumber
+     * @param callable $callback
      */
-    public function checkCode(string $code, string $phoneNumber): void
+    public function checkCode(string $code, string $phoneNumber, callable $callback = null): void
     {
         try {
             if (!is_numeric($code)) {
@@ -112,9 +113,18 @@ class Verification
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
             static::validatePhoneNumber($phoneNumber);
 
-            $success = $this->codeProcessor->validateCode($code,
+            $success = $this->codeProcessor->validateCode(
+                $code,
                 static::trimPhoneNumber($phoneNumber)
             );
+
+            if ($success && is_callable($callback)) {
+                $callback();
+            }
+
+            if ($success) {
+                $this->codeProcessor->deleteCode($code);
+            }
 
             $description = $success ? 'OK' : 'Wrong code';
 

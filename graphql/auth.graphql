@@ -52,8 +52,13 @@ type ForgotPasswordResponse {
 }
 
 input NewPasswordWithCodeInput {
-    email: String!
-    token: String!
+    code: String!
+    phone: String!
     password: String!
     password_confirmation: String!
+}
+
+type NewPasswordResponse {
+    success: String!
+    description: String
 }

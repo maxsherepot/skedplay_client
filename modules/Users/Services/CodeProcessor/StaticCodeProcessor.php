@@ -56,13 +56,21 @@ class StaticCodeProcessor implements CodeProcessorInterface
             $codeValue = Cache::get($this->cachePrefix . $code);
 
             if ($codeValue && ($codeValue == $phoneNumber)) {
-                Cache::forget($this->cachePrefix . $code);
                 return true;
             }
         } catch (\Exception $e) {
             throw new ValidateCodeException('Code validation failed', 0, $e);
         }
         return false;
+    }
+
+    /**
+     * Delete code in Cache
+     * @param string $code
+     */
+    public function deleteCode(string $code): void
+    {
+        Cache::forget($this->cachePrefix . $code);
     }
 
     /**

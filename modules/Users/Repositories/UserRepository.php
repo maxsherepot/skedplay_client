@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Repositories;
 
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
 use Modules\Users\Entities\User;
 
@@ -23,6 +24,23 @@ class UserRepository
     public function getByPhone($phone)
     {
         return User::where('phone', $phone)->first();
+    }
+
+    /**
+     *
+     * Reset the given user's password.
+     *
+     * @param string $password
+     * @param $user
+     * @return void
+     */
+    public function resetPassword($password, $user)
+    {
+        $user->password = $password;
+
+        $user->save();
+
+        event(new PasswordReset($user));
     }
 
     /**

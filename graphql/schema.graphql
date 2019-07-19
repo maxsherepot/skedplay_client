@@ -9,10 +9,12 @@ type Mutation {
     login(data: LoginInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
     sendVerificationCode(data: SendVerificationCodeInput): SendVerificationCodePayload! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Verification\\SendVerificationCode@resolve")
     checkVerificationCode(data: CheckVerificationCodeInput): CheckVerificationCodePayload! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Verification\\CheckVerificationCode@resolve")
+
     forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\ForgotPassword@resolve")
+    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\ResetPassword@resolve")
+
     refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
     logout: LogoutResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve")
-    updateForgottenPassword(data: NewPasswordWithCodeInput): ForgotPasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\ResetPassword@resolve")
 }
 
 #import user/*.graphql
