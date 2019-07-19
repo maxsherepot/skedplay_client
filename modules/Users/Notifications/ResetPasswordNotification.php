@@ -52,7 +52,6 @@ class ResetPasswordNotification extends Notification
     public function toSms($notifiable)
     {
         return (new SmsBuilder)
-            ->via('logger')
             ->send($this->message)
             ->to($this->phoneNumber);
     }

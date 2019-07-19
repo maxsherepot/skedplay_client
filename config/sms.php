@@ -10,7 +10,7 @@ return [
     | You can switch to a different driver at runtime.
     |
     */
-    'default' => 'logger',
+    'default' => env('SMS_DRIVER', 'logger'),
     /*
     |--------------------------------------------------------------------------
     | List of Drivers
