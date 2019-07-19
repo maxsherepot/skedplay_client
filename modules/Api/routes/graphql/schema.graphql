@@ -18,4 +18,4 @@ type Mutation {
     refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
 }
 
-#import user/*.graphql
+#import types/*.graphql

@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Entities;
 
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -11,6 +12,11 @@ use Laravel\Passport\HasApiTokens;
 class User extends AuthUser implements HasMedia
 {
     use HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
+
+    use Authorizable {
+        Authorizable::can insteadof LaratrustUserTrait;
+        LaratrustUserTrait::can as laratrustCan;
+    }
 
     const ACCOUNT_ADMIN = 'admin';
     const ACCOUNT_CLIENT = 'client';

@@ -18,6 +18,15 @@ class UserRepository
     }
 
     /**
+     * @param Collection $collection
+     * @return bool
+     */
+    public function update(Collection $collection): bool
+    {
+        //
+    }
+
+    /**
      * @param $phone
      * @return \Illuminate\Database\Eloquent\Model|null|object|static
      */

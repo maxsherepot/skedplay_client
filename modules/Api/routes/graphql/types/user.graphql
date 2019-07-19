@@ -1,3 +1,5 @@
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
 #enum UserType {
 #    CLIENT @enum(value: "client")
 #    MODEL @enum(value: "model")
@@ -31,16 +33,32 @@ input UserRegisterInput {
     password_confirmation: String!
 }
 
+input UserUpdateInput {
+    id: ID!
+    first_name: String
+    last_name: String
+    gender: String
+    birtday: Date
+    club_type: String
+    phone: String
+    email: String
+    user_type: String
+    password: String
+    password_confirmation: String
+}
+
 type UserRegisterPayload {
     access_token: String!
     user: User!
 }
 
-extend type Query {
+extend type Query @middleware(checks: ["auth:api"]) {
     users: [User!]! @paginate(type: "paginator" model: "Modules\\Users\\Entities\\User")
     user(id: ID @eq): User @find(model: "Modules\\Users\\Entities\\User")
 }
 
 extend type Mutation {
     register(data: UserRegisterInput): UserRegisterPayload @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\Registration@resolve")
+
+    update(data: UserUpdateInput): User @middleware(checks: ["auth:api"]) @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\UserMutator@update")
 }
