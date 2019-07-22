@@ -16,6 +16,8 @@ type User {
     phone: String!
     email: String!
     user_type: String
+    lat: String
+    lng: String
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -29,6 +31,8 @@ input UserRegisterInput {
     phone: String!
     email: String!
     user_type: String!
+    lat: String
+    lng: String
     password: String!
     password_confirmation: String!
 }
@@ -43,6 +47,8 @@ input UserUpdateInput {
     phone: String
     email: String
     user_type: String
+    lat: String
+    lng: String
     password: String
     password_confirmation: String
 }

@@ -3,7 +3,9 @@
 namespace Modules\Users\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Users\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
+use Modules\Users\Entities\User;
 
 class UsersServiceProvider extends ServiceProvider
 {
@@ -21,8 +23,11 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        User::observe(UserObserver::class);
+
         $this->registerConfig();
         $this->registerFactories();
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**

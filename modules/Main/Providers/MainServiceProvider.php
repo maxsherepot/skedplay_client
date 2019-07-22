@@ -2,9 +2,8 @@
 
 namespace Modules\Main\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Modules\Main\Http\Controllers\Contracts\Activation\ActivationContract;
+use Illuminate\Support\ServiceProvider;
 
 class MainServiceProvider extends ServiceProvider
 {
@@ -23,7 +22,7 @@ class MainServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerFactories();
-        $this->loadMigrationsFrom(__DIR__ . '/../database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     /**
