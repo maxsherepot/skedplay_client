@@ -14,9 +14,15 @@ class UserMutator extends BaseMutation
      */
     private $userRepository;
 
+    /**
+     * @var User
+     */
+    private $user;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->user = request()->user('api');
     }
 
     /**
@@ -27,12 +33,37 @@ class UserMutator extends BaseMutation
      * @return array
      * @throws \Exception
      */
-    public function update($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    public function update($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array
     {
-        /**
-         * Validate in schema definition
-         */
-        $data = collect($args['data']);
-        dd($data);
+        $data = collect($args);
+        $result = $this->userRepository->update($this->user, $data);
+
+        return $result ? $this->success() : $this->fail();
+    }
+
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @param \Nuwave\Lighthouse\Support\Contracts\GraphQLContext|null $context
+     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
+     * @return array
+     * @throws \Exception
+     */
+    public function uploadPhotos($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    {
+        $this->userRepository->saveAttachments($this->user, $args['files'], 'photos');
+    }
+
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @param \Nuwave\Lighthouse\Support\Contracts\GraphQLContext|null $context
+     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
+     * @return array
+     * @throws \Exception
+     */
+    public function uploadVideos($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    {
+        $this->userRepository->saveAttachments($this->user, $args['files'], 'videos');
     }
 }

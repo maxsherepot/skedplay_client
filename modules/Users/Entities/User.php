@@ -85,4 +85,10 @@ class User extends AuthUser implements HasMedia
     {
         $this->attributes['password'] = \Hash::make($value);
     }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('photos');
+        $this->addMediaCollection('videos');
+    }
 }

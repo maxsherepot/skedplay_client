@@ -2,9 +2,11 @@
 
 namespace Modules\Users\Repositories;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
 use Modules\Users\Entities\User;
+use Illuminate\Support\Str;
 
 class UserRepository
 {
@@ -18,12 +20,13 @@ class UserRepository
     }
 
     /**
+     * @param User $user
      * @param Collection $collection
      * @return bool
      */
-    public function update(Collection $collection): bool
+    public function update(User $user, Collection $collection): bool
     {
-        //
+        return $user->update($collection->toArray());
     }
 
     /**
@@ -59,5 +62,35 @@ class UserRepository
     public function createToken(User $user): string
     {
         return $user->createToken('Laravel Password Grant Client')->accessToken;
+    }
+
+    /**
+     * Save user attachments
+     * @param User $user
+     * @param $files
+     * @param string $collection
+     */
+    public function saveAttachments(User $user, $files, $collection = 'photos')
+    {
+        foreach ($files as $file) {
+            $this->saveFile($user, $file, $collection);
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param UploadedFile $file
+     * @param $collection
+     * @return void
+     */
+    public function saveFile(User $user, UploadedFile $file, $collection)
+    {
+        $fileName = $file->getClientOriginalName();
+        $extension = Str::slug($file->getClientOriginalExtension());
+        $storeName = md5($fileName . time()) . '.' . $extension;
+
+        $user->addMedia($file)
+            ->usingName($storeName)
+            ->toMediaCollection($collection, 'media');
     }
 }
