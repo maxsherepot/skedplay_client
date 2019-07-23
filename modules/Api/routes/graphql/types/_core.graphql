@@ -1,0 +1,15 @@
+interface Status {
+    status: Boolean!
+    message: String
+}
+
+type Query {
+    me: User @auth
+}
+
+type File {
+    id: ID!
+    path: String!
+    filename: String!
+    mimetype: String!
+}

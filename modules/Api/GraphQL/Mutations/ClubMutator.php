@@ -3,16 +3,17 @@
 namespace Modules\Api\GraphQL\Mutations;
 
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Repositories\UserRepository;
+use Modules\Main\Repositories\ClubRepository;
 use GraphQL\Type\Definition\ResolveInfo;
 use Modules\Users\Entities\User;
+use Modules\Main\Entities\Club;
 
-class UserMutator extends BaseMutation
+class ClubMutator extends BaseMutation
 {
     /**
-     * @var UserRepository
+     * @var ClubRepository
      */
-    private $userRepository;
+    private $clubRepository;
 
     /**
      * @var User
@@ -24,9 +25,9 @@ class UserMutator extends BaseMutation
      */
     private $rules;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(ClubRepository $clubRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->clubRepository = $clubRepository;
         $this->user = request()->user('api');
         $this->rules = $this->rules();
     }
@@ -34,22 +35,33 @@ class UserMutator extends BaseMutation
     public function rules(): array
     {
         return [
-            'first_name'        => 'string|max:255',
-            'last_name'         => 'nullable|string|max:255',
-            'gender'            => 'nullable|string|max:255',
-            'birthday'          => 'nullable|date',
-            'club_type'         => 'nullable|string|max:255',
-            'phone'             => 'string|max:255|unique:users,phone',
-            'email'             => 'string|email|max:255|unique:users,email',
-            'password'          => 'string|min:6|confirmed',
-            'user_type'         => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
-            'address'           => 'nullable|string|max:255',
-            'type'              => 'nullable|string|max:255',
-            'short_description' => 'nullable|string|max:255',
-            'description'       => 'nullable|string',
-            'lat'               => 'string|nullable',
-            'lng'               => 'string|nullable',
+            'name'        => 'string|max:255',
+            'type'        => 'nullable|string|max:255',
+            'address'     => 'nullable|string|max:255',
+            'website'     => 'nullable|string|max:255',
+            'phone'       => 'nullable|string',
+            'description' => 'nullable|string',
+            'lat'         => 'string|nullable',
+            'lng'         => 'string|nullable',
         ];
+    }
+
+    /**
+     * @param $rootValue
+     * @param array $args
+     * @param \Nuwave\Lighthouse\Support\Contracts\GraphQLContext|null $context
+     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
+     * @return \Modules\Main\Entities\Club
+     * @throws \Exception
+     */
+    public function create($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Club
+    {
+        $data = collect($args['input']);
+
+        $this->validation($data, $this->rules);
+        $club = $this->clubRepository->store($this->user, $data);
+
+        return $club;
     }
 
     /**
@@ -65,7 +77,9 @@ class UserMutator extends BaseMutation
         $data = collect($args);
 
         $this->validation($data, $this->rules);
-        $result = $this->userRepository->update($this->user, $data);
+
+        $club = $this->clubRepository->getById($args['id']);
+        $result = $this->clubRepository->update($club, $data);
 
         return $result ? $this->success() : $this->fail();
     }
@@ -80,7 +94,7 @@ class UserMutator extends BaseMutation
      */
     public function uploadPhotos($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $this->userRepository->saveAttachments($this->user, $args['files'], 'photos');
+        $this->clubRepository->saveAttachments($this->user, $args['files'], 'photos');
     }
 
     /**
@@ -93,6 +107,6 @@ class UserMutator extends BaseMutation
      */
     public function uploadVideos($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $this->userRepository->saveAttachments($this->user, $args['files'], 'videos');
+        $this->clubRepository->saveAttachments($this->user, $args['files'], 'videos');
     }
 }

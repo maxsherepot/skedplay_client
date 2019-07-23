@@ -17,9 +17,15 @@ class Registration extends BaseMutation
      */
     private $userRepository;
 
+    /**
+     * @var array
+     */
+    private $rules;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->rules = $this->rules();
     }
 
     /**
@@ -33,7 +39,7 @@ class Registration extends BaseMutation
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $data = collect($args['data']);
-        $this->validation($data, $this->rules());
+        $this->validation($data, $this->rules);
 
         event(new Registered($user = $this->create($data)));
 
@@ -64,11 +70,11 @@ class Registration extends BaseMutation
             'birthday'   => 'nullable|date',
             'club_type'  => 'nullable|string|max:255',
             'phone'      => 'string|max:255|unique:users,phone',
-            'email'     => 'required|string|email|max:255|unique:users,email',
-            'password'  => 'required|string|min:6|confirmed',
-            'user_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
-            'lat'       => 'string|nullable',
-            'lng'       => 'string|nullable',
+            'email'      => 'required|string|email|max:255|unique:users,email',
+            'password'   => 'required|string|min:6|confirmed',
+            'user_type'  => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
+            'lat'        => 'string|nullable',
+            'lng'        => 'string|nullable',
         ];
     }
 }

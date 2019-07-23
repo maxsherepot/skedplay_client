@@ -29,7 +29,7 @@ input UserInput {
     password_confirmation: String
 }
 
-type UserPayload {
+type UserPayload implements Status {
     status: Boolean!
     message: String
 }
@@ -40,8 +40,16 @@ extend type Query @middleware(checks: ["auth:api"]) {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    update(id: ID!, input: UserInput @spread): UserPayload @updateUserValidation @field(resolver: "UserMutator@update")
+    updateUser(
+        id: ID!,
+        input: UserInput @spread
+    ): UserPayload @field(resolver: "UserMutator@update")
 
-    uploadPhotos(files: [Upload!]!): [File!]! @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"]) @field(resolver: "UserMutator@uploadPhotos")
-    uploadVideos(files: [Upload!]!): [File!]! @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"]) @field(resolver: "UserMutator@uploadVideos")
+    uploadUserPhotos(
+        files: [Upload!]!
+    ): [File!]! @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"]) @field(resolver: "UserMutator@uploadPhotos")
+
+    uploadUserVideos(
+        files: [Upload!]!
+    ): [File!]! @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"]) @field(resolver: "UserMutator@uploadVideos")
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Main\Entities;
 
+use Modules\Users\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,7 @@ class Club extends Model implements HasMedia
         'address',
         'phone',
         'description',
+        'user_id',
         'lat',
         'lng',
     ];
@@ -46,5 +48,15 @@ class Club extends Model implements HasMedia
     {
         $this->addMediaCollection('photos');
         $this->addMediaCollection('videos');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function club_owner()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -17,6 +17,7 @@ class CreateClubsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
+            $table->unsignedBigInteger('user_id');
 
             $table->string('website')->nullable();
             $table->string('address')->nullable();

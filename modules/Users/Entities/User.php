@@ -8,6 +8,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Modules\Main\Entities\Club;
 
 class User extends AuthUser implements HasMedia
 {
@@ -94,5 +95,10 @@ class User extends AuthUser implements HasMedia
     {
         $this->addMediaCollection('photos');
         $this->addMediaCollection('videos');
+    }
+
+    public function clubs()
+    {
+        return $this->belongsToMany(Club::class);
     }
 }

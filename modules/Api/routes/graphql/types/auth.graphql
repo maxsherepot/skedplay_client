@@ -1,7 +1,4 @@
-interface Status {
-    status: String!
-    message: String
-}
+
 
 input LoginInput {
     username: String!
@@ -62,31 +59,27 @@ input CheckVerificationInput {
 
 type SendVerificationResponse implements Status {
     expires_at: String
-    status: String!
+    status: Boolean!
     message: String
 }
 
 type CheckVerificationResponse implements Status {
-    status: String!
+    status: Boolean!
     message: String
 }
 
 type LogoutResponse implements Status {
-    status: String!
+    status: Boolean!
     message: String
 }
 
 type ForgotPasswordResponse implements Status {
     expires_at: String
-    status: String!
+    status: Boolean!
     message: String
 }
 
 type NewPasswordResponse implements Status {
-    status: String!
+    status: Boolean!
     message: String
-}
-
-type Query {
-    me: User @auth
 }
