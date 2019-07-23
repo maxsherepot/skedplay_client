@@ -58,7 +58,7 @@ class Registration extends BaseMutation
     protected function rules(): array
     {
         return [
-            'first_name' => 'sometimes|string|max:255',
+            'first_name' => 'string|max:255',
             'last_name'  => 'nullable|string|max:255',
             'gender'     => 'nullable|string|max:255',
             'birthday'   => 'nullable|date',

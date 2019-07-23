@@ -1,3 +1,4 @@
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -5,17 +6,15 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query
 
-type Mutation {
-    login(data: LoginInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
-    logout: LogoutResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve")
-
-    sendVerificationCode(data: SendVerificationInput): SendVerificationResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Verification\\SendVerification@resolve")
-    checkVerificationCode(data: CheckVerificationInput): CheckVerificationResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Verification\\CheckVerification@resolve")
-
-    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\ForgotPassword@resolve")
-    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\ResetPassword@resolve")
-
-    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
+type Mutation @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
+    register(data: RegisterInput): RegisterPayload @field(resolver: "Auth\\Registration@resolve")
+    login(data: LoginInput): AuthPayload! @field(resolver: "Auth\\Login@resolve")
+    logout: LogoutResponse! @field(resolver: "Auth\\Logout@resolve")
+    sendVerificationCode(data: SendVerificationInput): SendVerificationResponse! @field(resolver: "Verification\\SendVerification@resolve")
+    checkVerificationCode(data: CheckVerificationInput): CheckVerificationResponse! @field(resolver: "Verification\\CheckVerification@resolve")
+    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Auth\\ForgotPassword@resolve")
+    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Auth\\ResetPassword@resolve")
+    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Auth\\RefreshToken@resolve")
 }
 
 #import types/*.graphql

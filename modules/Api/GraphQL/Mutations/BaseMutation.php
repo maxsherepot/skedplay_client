@@ -2,14 +2,15 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Joselfonseca\LighthouseGraphQLPassport\Exceptions\ValidationException as GraphQLValidationException;
+use Modules\Api\GraphQL\Exceptions\ValidationException as GraphQLValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Api\GraphQL\Mutations\Traits\Statusable;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Collection;
 
 abstract class BaseMutation
 {
-    use ValidatesRequests;
+    use ValidatesRequests, Statusable;
 
     /**
      * @param Collection $data

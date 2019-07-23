@@ -57,6 +57,11 @@ directive @belongsToMany(
     scopes: [String!]
 ) on FIELD_DEFINITION
 
+"""
+Runs the bcrypt function on the argument it is defined on.
+"""
+directive @bcrypt on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 directive @broadcast(
     """
     Name of the subscription that should be retriggered as a result of this operation..
@@ -81,6 +86,7 @@ directive @builder(
     method: String!
 ) on FIELD_DEFINITION
 
+"""Cache the result of a resolver."""
 directive @cache(
     """
     Set the duration it takes for the cache to expire in seconds.
@@ -93,6 +99,9 @@ directive @cache(
     """
     private: Boolean = false
 ) on FIELD_DEFINITION
+
+"""Modifies Cache key"""
+directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @can(
     """
@@ -231,6 +240,20 @@ directive @globalId(
     decode: String = "ARRAY"
 ) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
 
+"""
+Converts between IDs/types and global IDs.
+When used upon a field, it encodes,
+when used upon an argument, it decodes.
+"""
+directive @globalId(
+    """
+    By default, an array of `[$type, $id]` is returned when decoding.
+    You may limit this to returning just one of both.
+    Allowed values: "ARRAY", "TYPE", "ID"
+  """
+    decode: String = "ARRAY"
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
+
 directive @group(
     """
     Specify which middleware to apply to all child-fields.
@@ -242,6 +265,10 @@ directive @group(
     """
     namespace: String
 ) on FIELD_DEFINITION
+
+directive @namespace (
+    field: String!
+) on FIELD_DEFINITION | OBJECT
 
 directive @hasMany(
     """
@@ -545,13 +572,7 @@ Verify that a column's value is between two values.
 The type of the input value this is defined upon should be
 an `input` object with two fields.
 """
-directive @whereBetween(
-    """
-    Specify the database column to compare.
-    Only required if database column has a different name than the attribute in your schema.
-    """
-    key: String
-) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @whereBetween on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 """
 Add a dynamically client-controlled where constraint to a fields query.

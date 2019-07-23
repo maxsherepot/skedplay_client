@@ -23,6 +23,26 @@ input RefreshTokenInput {
     refresh_token: String
 }
 
+input RegisterInput {
+    first_name: String!
+    last_name: String!
+    gender: String
+    birtday: Date
+    club_type: String
+    phone: String!
+    email: String!
+    user_type: String!
+    lat: String
+    lng: String
+    password: String!
+    password_confirmation: String!
+}
+
+type RegisterPayload {
+    access_token: String!
+    user: User!
+}
+
 type AuthPayload {
     access_token: String!
     refresh_token: String!
@@ -65,4 +85,8 @@ type ForgotPasswordResponse implements Status {
 type NewPasswordResponse implements Status {
     status: String!
     message: String
+}
+
+type Query {
+    me: User @auth
 }

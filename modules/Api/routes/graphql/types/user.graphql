@@ -1,10 +1,9 @@
-scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
-
-#enum UserType {
-#    CLIENT @enum(value: "client")
-#    MODEL @enum(value: "model")
-#    CLUB_OWNER @enum(value: "club_owner")
-#}
+type File {
+    id: ID!
+    path: String!
+    filename: String!
+    mimetype: String!
+}
 
 type User {
     id: ID!
@@ -22,23 +21,7 @@ type User {
     updated_at: DateTime!
 }
 
-input UserRegisterInput {
-    first_name: String!
-    last_name: String!
-    gender: String
-    birtday: Date
-    club_type: String
-    phone: String!
-    email: String!
-    user_type: String!
-    lat: String
-    lng: String
-    password: String!
-    password_confirmation: String!
-}
-
-input UserUpdateInput {
-    id: ID!
+input UserInput {
     first_name: String
     last_name: String
     gender: String
@@ -53,9 +36,9 @@ input UserUpdateInput {
     password_confirmation: String
 }
 
-type UserRegisterPayload {
-    access_token: String!
-    user: User!
+type UserPayload {
+    status: Boolean!
+    message: String
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
@@ -63,8 +46,9 @@ extend type Query @middleware(checks: ["auth:api"]) {
     user(id: ID @eq): User @find(model: "Modules\\Users\\Entities\\User")
 }
 
-extend type Mutation {
-    register(data: UserRegisterInput): UserRegisterPayload @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\Auth\\Registration@resolve")
+extend type Mutation @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
+    update(id: ID!, input: UserInput @spread): UserPayload @updateUserValidation @field(resolver: "UserMutator@update")
 
-    update(data: UserUpdateInput): User @middleware(checks: ["auth:api"]) @field(resolver: "Modules\\Api\\GraphQL\\Mutations\\UserMutator@update")
+    uploadPhotos(files: [Upload!]!): [File!]! @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"]) @field(resolver: "UserMutator@uploadPhotos")
+    uploadVideos(files: [Upload!]!): [File!]! @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"]) @field(resolver: "UserMutator@uploadVideos")
 }

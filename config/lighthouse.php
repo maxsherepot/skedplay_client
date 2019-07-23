@@ -91,14 +91,14 @@ return [
     */
 
     'namespaces' => [
-        'models'        => ['App', 'App\\Models'],
-        'queries'       => 'App\\GraphQL\\Queries',
-        'mutations'     => 'App\\GraphQL\\Mutations',
-        'subscriptions' => 'App\\GraphQL\\Subscriptions',
-        'interfaces'    => 'App\\GraphQL\\Interfaces',
-        'unions'        => 'App\\GraphQL\\Unions',
-        'scalars'       => 'App\\GraphQL\\Scalars',
-        'directives'    => ['App\\GraphQL\\Directives'],
+        'models'        => ['Modules\\Users\\Entities'],
+        'queries'       => 'Modules\\Api\\GraphQL\\Queries',
+        'mutations'     => 'Modules\\Api\\GraphQL\\Mutations',
+        'subscriptions' => 'Modules\\Api\\GraphQL\\Subscriptions',
+        'interfaces'    => 'Modules\\Api\\GraphQL\\Interfaces',
+        'unions'        => 'Modules\\Api\\GraphQL\\Unions',
+        'scalars'       => 'Modules\\Api\\GraphQL\\Scalars',
+        'directives'    => ['Modules\\Api\\GraphQL\\Directives'],
     ],
 
     /*
