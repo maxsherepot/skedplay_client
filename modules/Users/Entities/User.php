@@ -43,6 +43,10 @@ class User extends AuthUser implements HasMedia
         'email',
         'password',
         'user_type',
+        'address',
+        'type',
+        'short_description',
+        'description',
         'lat',
         'lng',
     ];

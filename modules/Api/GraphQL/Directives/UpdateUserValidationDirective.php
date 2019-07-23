@@ -23,18 +23,22 @@ class UpdateUserValidationDirective extends ValidationDirective
     public function rules(): array
     {
         return [
-            'id'         => 'required',
-            'first_name' => 'string|max:255',
-            'last_name'  => 'nullable|string|max:255',
-            'gender'     => 'nullable|string|max:255',
-            'birthday'   => 'nullable|date',
-            'club_type'  => 'nullable|string|max:255',
-            'phone'      => 'string|max:255|unique:users,phone',
-            'email'      => 'string|email|max:255|unique:users,email',
-            'password'   => 'string|min:6|confirmed',
-            'user_type'  => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
-            'lat'        => 'string|nullable',
-            'lng'        => 'string|nullable',
+            'id'                => 'required',
+            'first_name'        => 'string|max:255',
+            'last_name'         => 'nullable|string|max:255',
+            'gender'            => 'nullable|string|max:255',
+            'birthday'          => 'nullable|date',
+            'club_type'         => 'nullable|string|max:255',
+            'phone'             => 'string|max:255|unique:users,phone',
+            'email'             => 'string|email|max:255|unique:users,email',
+            'password'          => 'string|min:6|confirmed',
+            'user_type'         => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
+            'address'           => 'nullable|string|max:255',
+            'type'              => 'nullable|string|max:255',
+            'short_description' => 'nullable|string|max:255',
+            'description'       => 'nullable|string',
+            'lat'               => 'string|nullable',
+            'lng'               => 'string|nullable',
         ];
     }
 }
