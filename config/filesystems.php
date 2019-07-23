@@ -64,13 +64,11 @@ return [
 			'url' => env('AWS_URL'),
 		],
 
-		'disks' => [
-			'media' => [
-				'driver' => 'local',
-				'root' => public_path() . '/media',
-				'url' => env('APP_URL') . '/media',
-				'visibility' => 'public',
-			],
-		],
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path() . '/media',
+            'url' => env('APP_URL') . '/media',
+            'visibility' => 'public',
+        ],
 	],
 ];
