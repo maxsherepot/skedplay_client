@@ -7,6 +7,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\Models\Media;
 use Laravel\Passport\HasApiTokens;
 use Modules\Main\Entities\Club;
 
@@ -43,7 +44,7 @@ class User extends AuthUser implements HasMedia
         'phone',
         'email',
         'password',
-        'user_type',
+        'account_type',
         'address',
         'type',
         'short_description',
@@ -97,8 +98,23 @@ class User extends AuthUser implements HasMedia
         $this->addMediaCollection('videos');
     }
 
-    public function clubs()
+    public function registerMediaConversions(Media $media = null)
     {
-        return $this->belongsToMany(Club::class);
+        $this->addMediaConversion('small')
+            ->width(160)
+            ->height(220);
+
+        $this->addMediaConversion('medium')
+            ->width(330)
+            ->height(460);
+
+        $this->addMediaConversion('large')
+            ->width(535)
+            ->height(785);
+    }
+
+    public function club()
+    {
+        return $this->hasMany(Club::class);
     }
 }

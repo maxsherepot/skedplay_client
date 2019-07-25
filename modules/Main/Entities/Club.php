@@ -3,6 +3,7 @@
 namespace Modules\Main\Entities;
 
 use Modules\Users\Entities\User;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -46,15 +47,33 @@ class Club extends Model implements HasMedia
 
     public function registerMediaCollections()
     {
+        $this->addMediaCollection('logo');
         $this->addMediaCollection('photos');
         $this->addMediaCollection('videos');
     }
 
-    public function users()
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('medium')
+            ->width(420)
+            ->height(275);
+
+        $this->addMediaConversion('large')
+            ->width(535)
+            ->height(785);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function models()
     {
         return $this->belongsToMany(User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function club_owner()
     {
         return $this->belongsTo(User::class);

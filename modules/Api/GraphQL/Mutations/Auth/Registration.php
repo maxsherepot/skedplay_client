@@ -64,17 +64,17 @@ class Registration extends BaseMutation
     protected function rules(): array
     {
         return [
-            'first_name' => 'string|max:255',
-            'last_name'  => 'nullable|string|max:255',
-            'gender'     => 'nullable|string|max:255',
-            'birthday'   => 'nullable|date',
-            'club_type'  => 'nullable|string|max:255',
-            'phone'      => 'string|max:255|unique:users,phone',
-            'email'      => 'required|string|email|max:255|unique:users,email',
-            'password'   => 'required|string|min:6|confirmed',
-            'user_type'  => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
-            'lat'        => 'string|nullable',
-            'lng'        => 'string|nullable',
+            'first_name'   => 'string|max:255',
+            'last_name'    => 'nullable|string|max:255',
+            'gender'       => 'nullable|string|max:255',
+            'birthday'     => 'nullable|date',
+            'club_type'    => 'nullable|string|max:255',
+            'phone'        => 'string|max:255|unique:users,phone',
+            'email'        => 'required|string|email|max:255|unique:users,email',
+            'password'     => 'required|string|min:6|confirmed',
+            'account_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
+            'lat'          => 'string|nullable',
+            'lng'          => 'string|nullable',
         ];
     }
 }

@@ -73,14 +73,14 @@ class LaratrustSeeder extends Seeder
 
             // Create default user for each role
             $user = \Modules\Users\Entities\User::create([
-                'first_name' => $this->faker->firstName,
-                'last_name'  => $this->faker->lastName,
-                'gender'     => $this->faker->randomElement($genders),
-                'birthday'   => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
-                'phone'      => $this->faker->phoneNumber,
-                'email'      => $key . '@site.com',
-                'password'   => 'password',
-                'user_type'  => $key,
+                'first_name'   => $this->faker->firstName,
+                'last_name'    => $this->faker->lastName,
+                'gender'       => $this->faker->randomElement($genders),
+                'birthday'     => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
+                'phone'        => $this->faker->phoneNumber,
+                'email'        => $key . '@site.com',
+                'password'     => 'password',
+                'account_type' => $key,
             ]);
 
             $user->attachRole($role);
@@ -103,7 +103,7 @@ class LaratrustSeeder extends Seeder
                         'email'          => $key . '@site.com',
                         'password'       => 'password',
                         'remember_token' => Str::random(10),
-                        'user_type'      => $key,
+                        'account_type'   => $key,
                     ]);
                     $permissions = [];
 

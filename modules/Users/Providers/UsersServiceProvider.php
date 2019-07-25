@@ -48,7 +48,7 @@ class UsersServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../config/laratrust.php' => config_path('laratrust.php'),
+            __DIR__ . '/../config/laratrust.php'        => config_path('laratrust.php'),
             __DIR__ . '/../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
         ], 'config');
     }
@@ -61,7 +61,7 @@ class UsersServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            app(Factory::class)->load(__DIR__.'/database/factories');
+            app(Factory::class)->load(__DIR__ . '/../database/factories');
         }
     }
 

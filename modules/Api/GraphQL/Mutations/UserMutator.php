@@ -42,7 +42,7 @@ class UserMutator extends BaseMutation
             'phone'             => 'string|max:255|unique:users,phone',
             'email'             => 'string|email|max:255|unique:users,email',
             'password'          => 'string|min:6|confirmed',
-            'user_type'         => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
+            'account_type'      => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'address'           => 'nullable|string|max:255',
             'type'              => 'nullable|string|max:255',
             'short_description' => 'nullable|string|max:255',

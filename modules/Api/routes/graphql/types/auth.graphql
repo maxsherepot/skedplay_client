@@ -28,7 +28,7 @@ input RegisterInput {
     club_type: String
     phone: String!
     email: String!
-    user_type: String!
+    account_type: String!
     lat: String
     lng: String
     password: String!
