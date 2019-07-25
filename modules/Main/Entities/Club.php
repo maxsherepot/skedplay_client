@@ -74,8 +74,8 @@ class Club extends Model implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function club_owner()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

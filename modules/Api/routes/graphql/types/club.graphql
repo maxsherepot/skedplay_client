@@ -8,6 +8,8 @@ type Club {
     description: String
     lat: String
     lng: String
+    owner: User @belongsTo
+    models: [User] @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
 }
