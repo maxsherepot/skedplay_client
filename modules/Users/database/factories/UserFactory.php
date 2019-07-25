@@ -4,6 +4,8 @@
 
 use Faker\Generator as Faker;
 use Modules\Users\Entities\User;
+use Modules\Users\Services\Imager\ImagerWorker;
+use Modules\Users\Services\Imager\Varieties\ModelImager;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,18 @@ $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
         'phone'      => $faker->phoneNumber,
         'password'   => 'password',
     ];
-    
+
 })->afterCreating(\Modules\Users\Entities\User::class, function (User $user) {
     $user->attachRole($user->account_type);
+
+    $imager = (new ImagerWorker(new ModelImager()))->imager();
+
+    collect(range(0, 6))
+        ->map(function () use ($user, $imager) {
+            $pathToFile = $imager->random()->getImagePath();
+
+            $user->addMedia(storage_path('app/' . $pathToFile))
+                ->preservingOriginal()
+                ->toMediaCollection('photos', 'media');
+        });
 });
