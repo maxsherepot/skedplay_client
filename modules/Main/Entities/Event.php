@@ -3,19 +3,26 @@
 namespace Modules\Main\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait;
 
     protected $fillable = [
         'title',
         'description',
         'event_type_id',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('main_photo');
+    }
 
     /**
      * @return MorphTo
