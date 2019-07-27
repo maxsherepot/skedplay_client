@@ -1,0 +1,9 @@
+type Price {
+    id: ID!
+    name: String!
+    pivot: PricePivot!
+}
+
+type PricePivot {
+    cost: String
+}

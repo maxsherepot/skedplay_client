@@ -44,11 +44,12 @@ class UserMutator extends BaseMutation
             'password'          => 'string|min:6|confirmed',
             'account_type'      => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'address'           => 'nullable|string|max:255',
-            'type'              => 'nullable|string|max:255',
+            'type'              => 'required|string|max:255|in:' . implode(',', User::MODEL_TYPES),
             'short_description' => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'lat'               => 'string|nullable',
             'lng'               => 'string|nullable',
+            'vip'               => 'boolean',
         ];
     }
 

@@ -2,14 +2,19 @@
 
 namespace Modules\Users\Entities;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Modules\Main\Entities\Event;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\Models\Media;
 use Laravel\Passport\HasApiTokens;
-use Modules\Main\Entities\Club;
+use Modules\Main\Entities\Service;
+use Modules\Main\Entities\Price;
+use Carbon\Carbon;
 
 class User extends AuthUser implements HasMedia
 {
@@ -30,6 +35,19 @@ class User extends AuthUser implements HasMedia
     const ACCOUNT_MODERATOR = 'moderator';
     const ACCOUNT_CLUB_OWNER = 'club_owner';
 
+    const MODEL_EUROPEAN = 'european';
+    const MODEL_ASIAN = 'asian';
+
+    const REGISTER_TYPES = [
+        self::ACCOUNT_CLIENT,
+        self::ACCOUNT_MODEL,
+        self::ACCOUNT_CLUB_OWNER
+    ];
+
+    const MODEL_TYPES = [
+        self::MODEL_EUROPEAN,
+        self::MODEL_ASIAN,
+    ];
     /**
      * The attributes that are mass assignable.
      *
@@ -40,6 +58,7 @@ class User extends AuthUser implements HasMedia
         'last_name',
         'gender',
         'birthday',
+        'age',
         'club_type',
         'phone',
         'email',
@@ -51,6 +70,7 @@ class User extends AuthUser implements HasMedia
         'description',
         'lat',
         'lng',
+        'vip',
     ];
 
     /**
@@ -59,12 +79,6 @@ class User extends AuthUser implements HasMedia
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    const REGISTER_TYPES = [
-        self::ACCOUNT_CLIENT,
-        self::ACCOUNT_MODEL,
-        self::ACCOUNT_CLUB_OWNER
-    ];
 
     /**
      * @param $coordinates
@@ -80,6 +94,16 @@ class User extends AuthUser implements HasMedia
             $this->lat = $coordinates[0];
             $this->lng = $coordinates[1];
         }
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function setBirthdayAttribute($value)
+    {
+        $this->attributes['birthday'] = $value;
+        $this->attributes['age'] = Carbon::parse($value)->age ?? null;
     }
 
     /**
@@ -113,8 +137,29 @@ class User extends AuthUser implements HasMedia
             ->height(785);
     }
 
-    public function club()
+    /**
+     * @return BelongsToMany
+     */
+    public function services(): BelongsToMany
     {
-        return $this->hasMany(Club::class);
+        return $this->belongsToMany(Service::class)
+            ->withPivot(['extra', 'cost']);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function prices(): BelongsToMany
+    {
+        return $this->belongsToMany(Price::class)
+            ->withPivot('cost');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function events(): MorphMany
+    {
+        return $this->morphMany(Event::class, 'eventable');
     }
 }

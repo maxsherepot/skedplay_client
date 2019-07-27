@@ -5,16 +5,6 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query
-
-type Mutation @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    register(data: RegisterInput): RegisterPayload @field(resolver: "Auth\\Registration@resolve")
-    login(data: LoginInput): AuthPayload! @field(resolver: "Auth\\Login@resolve")
-    logout: LogoutResponse! @field(resolver: "Auth\\Logout@resolve")
-    sendVerificationCode(data: SendVerificationInput): SendVerificationResponse! @field(resolver: "Verification\\SendVerification@resolve")
-    checkVerificationCode(data: CheckVerificationInput): CheckVerificationResponse! @field(resolver: "Verification\\CheckVerification@resolve")
-    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Auth\\ForgotPassword@resolve")
-    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Auth\\ResetPassword@resolve")
-    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Auth\\RefreshToken@resolve")
-}
+type Mutation
 
 #import types/*.graphql

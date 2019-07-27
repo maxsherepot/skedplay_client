@@ -1,9 +1,13 @@
 <?php
 
-namespace Modules\Main\database\seeders;
+namespace Modules\Main\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Main\Entities\Club;
+use Modules\Main\Entities\Event;
+use Modules\Main\Entities\Price;
+use Modules\Users\Entities\User;
+use Modules\Main\Entities\Service;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ClubImager;
@@ -36,13 +40,52 @@ class ClubTableSeeder extends Seeder
                     factory(\Modules\Users\Entities\User::class, 5)
                         ->state('model')
                         ->create()
+                        ->each(function (User $user) {
+                            $this->addServices($user);
+                            $this->addPrices($user);
+                            $this->addEvents($user);
+                        })
                 );
-                $this->addAttachments($club);
+//                $this->addAttachments($club);
+                $this->addEvents($club);
             });
 
         $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
     }
 
+    public function addServices(User $user)
+    {
+        $services = Service::all();
+
+        $mapping = $services->random(5)->mapWithKeys(function ($service) {
+            // Extra if have cost..
+            $isExtra = (bool)rand(0, 1);
+
+            return [
+                $service->id => [
+                    'cost'  => $isExtra ? (float)random_int(99, 399) : null,
+                    'extra' => $isExtra
+                ],
+            ];
+        })->toArray();
+
+        $user->services()->sync($mapping);
+    }
+
+    public function addPrices(User $user)
+    {
+        $prices = Price::all();
+
+        $mapping = $prices->random(5)->mapWithKeys(function ($price) {
+            return [
+                $price->id => [
+                    'cost' => (float)random_int(99, 399),
+                ],
+            ];
+        })->toArray();
+
+        $user->prices()->sync($mapping);
+    }
 
     public function addAttachments(Club $club)
     {
@@ -54,5 +97,13 @@ class ClubTableSeeder extends Seeder
                     ->preservingOriginal()
                     ->toMediaCollection('photos', 'media');
             });
+    }
+
+    public function addEvents(Model $model)
+    {
+        /** @var Club|User $model */
+        $model->events()->saveMany(
+            factory(\Modules\Main\Entities\Event::class, 5)->make()
+        );
     }
 }

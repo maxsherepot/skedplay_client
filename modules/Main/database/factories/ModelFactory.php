@@ -2,11 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-use \Modules\Main\Entities\{
-    Club,
-};
+use Faker\Generator as Faker;
+use Modules\Main\Entities\{Club, Event, EventType, Price, Service};
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +38,28 @@ $factory->define(Club::class, function (Faker $faker) {
         'lat'         => $faker->latitude,
         'lng'         => $faker->longitude,
     ];
+});
+
+$factory->define(Service::class, function (Faker $faker) {
+    return [];
+});
+
+$factory->define(Price::class, function (Faker $faker) {
+    return [];
+});
+
+$factory->define(Event::class, function (Faker $faker) {
+    $eventTypes = EventType::all();
+    $typeId = $eventTypes->random()->id;
+
+    return [
+        'title'         => $faker->title,
+        'description'   => $faker->text(500),
+        'event_type_id' => $typeId,
+    ];
+});
+
+$factory->define(EventType::class, function (Faker $faker) {
+    return [];
 });
 

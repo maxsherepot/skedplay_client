@@ -10,6 +10,7 @@ type Club {
     lng: String
     owner: User @belongsTo
     models: [User] @belongsToMany
+    events: [Event] @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -31,25 +32,22 @@ type ClubPayload implements Status {
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    clubs: [Club!]! @paginate(type: "paginator" model: "Modules\\Main\\Entities\\Club")
-    club(id: ID @eq): Club @find(model: "Modules\\Main\\Entities\\Club")
+    clubs: [Club!]! @paginate
+    club(id: ID @eq): Club @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    createClub(
-        input: ClubInput
-    ): Club @field(resolver: "ClubMutator@create")
+    createClub(input: ClubInput): Club
+    @field(resolver: "ClubMutator@create")
 
-    updateClub(
-        id: ID!,
-        input: ClubInput @spread
-    ): ClubPayload @field(resolver: "ClubMutator@update")
+    updateClub(id: ID!,input: ClubInput @spread): ClubPayload
+    @field(resolver: "ClubMutator@update")
 
-    uploadClubPhotos(
-        files: [Upload!]!
-    ): [File!]! @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"]) @field(resolver: "ClubMutator@uploadPhotos")
+    uploadClubPhotos(files: [Upload!]!): [File!]!
+    @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])
+    @field(resolver: "ClubMutator@uploadPhotos")
 
-    uploadClubVideos(
-        files: [Upload!]!
-    ): [File!]! @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"]) @field(resolver: "ClubMutator@uploadVideos")
+    uploadClubVideos(files: [Upload!]!): [File!]!
+    @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"])
+    @field(resolver: "ClubMutator@uploadVideos")
 }

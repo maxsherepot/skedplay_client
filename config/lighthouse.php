@@ -91,7 +91,10 @@ return [
     */
 
     'namespaces' => [
-        'models'        => ['Modules\\Users\\Entities'],
+        'models'        => [
+            'Modules\\Users\\Entities',
+            'Modules\\Main\\Entities'
+        ],
         'queries'       => 'Modules\\Api\\GraphQL\\Queries',
         'mutations'     => 'Modules\\Api\\GraphQL\\Mutations',
         'subscriptions' => 'Modules\\Api\\GraphQL\\Subscriptions',

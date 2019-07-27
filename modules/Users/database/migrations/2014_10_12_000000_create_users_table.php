@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('gender')->nullable();
             $table->date('birthday')->nullable();
+            $table->integer('age')->nullable();
             $table->string('club_type')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('email')->unique();
@@ -30,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('short_description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
+            $table->boolean('vip')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

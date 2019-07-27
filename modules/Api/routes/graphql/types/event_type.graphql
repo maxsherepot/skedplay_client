@@ -1,0 +1,6 @@
+type EventType {
+    id: ID!
+    name: String!
+    slug: String!
+}
+

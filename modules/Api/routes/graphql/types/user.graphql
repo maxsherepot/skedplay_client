@@ -4,14 +4,20 @@ type User {
     last_name: String!
     gender: String
     birtday: Date
+    age: Int
     club_type: String
     phone: String!
     email: String!
+    type: String
     account_type: String
     lat: String
     lng: String
+    vip: Boolean
     created_at: DateTime!
     updated_at: DateTime!
+    events: [Event] @belongsToMany
+    prices: [Price] @belongsToMany
+    services: [Service] @belongsToMany
 }
 
 input UserInput {
@@ -22,9 +28,11 @@ input UserInput {
     club_type: String
     phone: String
     email: String
+    type: String
     account_type: String
     lat: String
     lng: String
+    vip: Boolean
     password: String
     password_confirmation: String
 }
@@ -34,22 +42,28 @@ type UserPayload implements Status {
     message: String
 }
 
+input UserFilters {
+    services: [Int] @whereHas(key: "id", method: "whereIn")
+    age: AgeRange @whereBetween
+    type: String @where
+    account_type: String @where
+    vip: Boolean @where
+}
+
 extend type Query @middleware(checks: ["auth:api"]) {
-    users: [User!]! @paginate(type: "paginator" model: "Modules\\Users\\Entities\\User")
-    user(id: ID @eq): User @find(model: "Modules\\Users\\Entities\\User")
+    users(filters: UserFilters @spread): [User!]! @paginate
+    user(id: ID @eq): User @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    updateUser(
-        id: ID!,
-        input: UserInput @spread
-    ): UserPayload @field(resolver: "UserMutator@update")
+    updateUser(id: ID!,input: UserInput @spread): UserPayload
+    @field(resolver: "UserMutator@update")
 
-    uploadUserPhotos(
-        files: [Upload!]!
-    ): [File!]! @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"]) @field(resolver: "UserMutator@uploadPhotos")
+    uploadUserPhotos(files: [Upload!]!): [File!]!
+    @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])
+    @field(resolver: "UserMutator@uploadPhotos")
 
-    uploadUserVideos(
-        files: [Upload!]!
-    ): [File!]! @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"]) @field(resolver: "UserMutator@uploadVideos")
+    uploadUserVideos(files: [Upload!]!): [File!]!
+    @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"])
+    @field(resolver: "UserMutator@uploadVideos")
 }

@@ -1,0 +1,10 @@
+type Service {
+    id: ID!
+    name: String!
+    pivot: ServicePivot!
+}
+
+type ServicePivot {
+    cost: String
+    extra: Boolean!
+}

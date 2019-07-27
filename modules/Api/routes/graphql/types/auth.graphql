@@ -1,5 +1,3 @@
-
-
 input LoginInput {
     username: String!
     password: String!
@@ -82,4 +80,15 @@ type ForgotPasswordResponse implements Status {
 type NewPasswordResponse implements Status {
     status: Boolean!
     message: String
+}
+
+type Mutation @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
+    register(data: RegisterInput): RegisterPayload @field(resolver: "Auth\\Registration@resolve")
+    login(data: LoginInput): AuthPayload! @field(resolver: "Auth\\Login@resolve")
+    logout: LogoutResponse! @field(resolver: "Auth\\Logout@resolve")
+    sendVerificationCode(data: SendVerificationInput): SendVerificationResponse! @field(resolver: "Verification\\SendVerification@resolve")
+    checkVerificationCode(data: CheckVerificationInput): CheckVerificationResponse! @field(resolver: "Verification\\CheckVerification@resolve")
+    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Auth\\ForgotPassword@resolve")
+    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Auth\\ResetPassword@resolve")
+    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Auth\\RefreshToken@resolve")
 }

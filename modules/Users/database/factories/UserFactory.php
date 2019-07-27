@@ -25,9 +25,13 @@ $factory->state(\Modules\Users\Entities\User::class, 'club_owner', function (Fak
     ];
 });
 
-$factory->state(\Modules\Users\Entities\User::class, 'model', [
-    'account_type' => User::ACCOUNT_MODEL,
-]);
+$factory->state(\Modules\Users\Entities\User::class, 'model', function (Faker $faker) {
+    return [
+        'account_type' => User::ACCOUNT_MODEL,
+        'type'         => $faker->randomElement(User::MODEL_TYPES),
+        'vip'          => (bool)rand(0, 1),
+    ];
+});
 
 $factory->state(\Modules\Users\Entities\User::class, 'client', [
     'account_type' => User::ACCOUNT_CLIENT,
@@ -52,14 +56,14 @@ $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
 })->afterCreating(\Modules\Users\Entities\User::class, function (User $user) {
     $user->attachRole($user->account_type);
 
-    $imager = (new ImagerWorker(new ModelImager()))->imager();
-
-    collect(range(0, 6))
-        ->map(function () use ($user, $imager) {
-            $pathToFile = $imager->random()->getImagePath();
-
-            $user->addMedia(storage_path('app/' . $pathToFile))
-                ->preservingOriginal()
-                ->toMediaCollection('photos', 'media');
-        });
+//    $imager = (new ImagerWorker(new ModelImager()))->imager();
+//
+//    collect(range(0, 6))
+//        ->map(function () use ($user, $imager) {
+//            $pathToFile = $imager->random()->getImagePath();
+//
+//            $user->addMedia(storage_path('app/' . $pathToFile))
+//                ->preservingOriginal()
+//                ->toMediaCollection('photos', 'media');
+//        });
 });
