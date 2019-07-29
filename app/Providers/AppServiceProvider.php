@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'girl' => 'Modules\Users\Entities\Girl',
             'user' => 'Modules\Users\Entities\User',
-            'club' => 'Modules\Main\Entities\Club',
+            'club' => 'Modules\Users\Entities\Club',
         ]);
     }
 }

@@ -3,9 +3,9 @@
 namespace Modules\Api\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
-use Modules\Main\Entities\Club;
-use Modules\Main\Repositories\ClubRepository;
+use Modules\Users\Entities\Club;
 use Modules\Users\Entities\User;
+use Modules\Users\Repositories\ClubRepository;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ClubMutator extends BaseMutation
@@ -51,7 +51,7 @@ class ClubMutator extends BaseMutation
      * @param array $args
      * @param \Nuwave\Lighthouse\Support\Contracts\GraphQLContext|null $context
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
-     * @return \Modules\Main\Entities\Club
+     * @return \Modules\Users\Entities\Club
      * @throws \Exception
      */
     public function create($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Club

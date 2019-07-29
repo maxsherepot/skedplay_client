@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Repositories;
+namespace Modules\Users\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Modules\Main\Entities\Club;
+use Modules\Users\Entities\Club;
 use Modules\Users\Entities\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

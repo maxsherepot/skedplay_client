@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Database\Seeders;
+namespace Modules\Users\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Main\Entities\Club;
 use Modules\Main\Entities\Price;
 use Modules\Main\Entities\Service;
+use Modules\Users\Entities\Club;
 use Modules\Users\Entities\Girl;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ClubImager;
@@ -32,7 +32,7 @@ class ClubTableSeeder extends Seeder
         $start = now();
         $this->command->info('Club seeder started');
 
-        factory(\Modules\Main\Entities\Club::class, 3)
+        factory(\Modules\Users\Entities\Club::class, 3)
             ->create()
             ->each(function (Club $club) {
                 $club->girls()->saveMany(

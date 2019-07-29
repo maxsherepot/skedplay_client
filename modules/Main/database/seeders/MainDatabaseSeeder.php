@@ -19,6 +19,5 @@ class MainDatabaseSeeder extends Seeder
         $this->call(EventTypeTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
         $this->call(PriceTableSeeder::class);
-        $this->call(ClubTableSeeder::class);
     }
 }

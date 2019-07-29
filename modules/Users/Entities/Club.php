@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Main\Entities;
+namespace Modules\Users\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Users\Entities\Girl;
-use Modules\Users\Entities\User;
+use Modules\Main\Entities\Event;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
