@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Users\Services\UserLocations;
+namespace Modules\Main\Services\Location;
 
 class LocationCoordinatesIpService
 {

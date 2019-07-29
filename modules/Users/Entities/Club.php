@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Main\Entities\Event;
+use Modules\Main\Services\Location\HasLocation;
+use Modules\Main\Services\Location\Locationable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Club extends Model implements HasMedia
+class Club extends Model implements HasMedia, HasLocation
 {
-    use HasMediaTrait, SoftDeletes;
+    use Locationable, HasMediaTrait, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -24,12 +26,7 @@ class Club extends Model implements HasMedia
         'phone',
         'description',
         'user_id',
-        'lat',
-        'lng',
     ];
-
-    const DEFAULT_LATITUDE = '40.6976701';
-    const DEFAULT_LONGITUDE = '-74.259875';
 
     public function registerMediaCollections()
     {

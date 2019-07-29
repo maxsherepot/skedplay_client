@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Main\Entities\Event;
 use Modules\Main\Entities\Price;
 use Modules\Main\Entities\Service;
+use Modules\Main\Services\Location\HasLocation;
+use Modules\Main\Services\Location\Locationable;
+use Tightenco\Parental\HasParent;
 
-class Girl extends User
+class Girl extends User implements HasLocation
 {
-    use \Tightenco\Parental\HasParent;
+    use Locationable, HasParent;
 
     const GIRL_EUROPEAN = 1;
     const GIRL_ASIAN = 2;
@@ -25,7 +28,7 @@ class Girl extends User
         parent::boot();
 
         static::addGlobalScope(function ($query) {
-            // Todo: Filter by girl role
+            // Todo: filter by girl role
         });
     }
 

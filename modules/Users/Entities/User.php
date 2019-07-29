@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Users\Entities;
 
@@ -19,9 +19,6 @@ class User extends AuthUser implements HasMedia
         Authorizable::can insteadof LaratrustUserTrait;
         LaratrustUserTrait::can as laratrustCan;
     }
-
-    const DEFAULT_LATITUDE = '40.6976701';
-    const DEFAULT_LONGITUDE = '-74.259875';
 
     const ACCOUNT_ADMIN = 'admin';
     const ACCOUNT_CLIENT = 'client';
@@ -53,12 +50,9 @@ class User extends AuthUser implements HasMedia
         'email',
         'password',
         'account_type',
-        'address',
         'type',
         'short_description',
         'description',
-        'lat',
-        'lng',
         'vip',
     ];
 
