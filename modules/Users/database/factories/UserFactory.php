@@ -39,8 +39,8 @@ $factory->state(\Modules\Users\Entities\User::class, 'client', [
 
 $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
     $genders = [
-        'male',
-        'female',
+        User::GENDER_MALE,
+        User::GENDER_FEMALE,
     ];
 
     return [

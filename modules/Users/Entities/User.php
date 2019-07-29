@@ -33,8 +33,8 @@ class User extends AuthUser implements HasMedia
     const ACCOUNT_MODERATOR = 'moderator';
     const ACCOUNT_CLUB_OWNER = 'club_owner';
 
-    const MODEL_EUROPEAN = 'european';
-    const MODEL_ASIAN = 'asian';
+    const MODEL_EUROPEAN = 1;
+    const MODEL_ASIAN = 2;
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
@@ -46,6 +46,10 @@ class User extends AuthUser implements HasMedia
         self::MODEL_EUROPEAN,
         self::MODEL_ASIAN,
     ];
+
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+
     /**
      * The attributes that are mass assignable.
      *
