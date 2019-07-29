@@ -4,7 +4,7 @@ interface Status {
 }
 
 type Query {
-    me: User @auth
+    me: User @auth(guard:"api")
 }
 
 type File {
