@@ -29,6 +29,10 @@ class CreateClubsTable extends Migration
             $table->string('lng')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

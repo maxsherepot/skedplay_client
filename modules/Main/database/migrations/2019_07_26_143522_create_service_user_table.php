@@ -19,6 +19,15 @@ class CreateServiceUserTable extends Migration
 
             $table->boolean('extra')->default(0);
             $table->decimal('cost')->nullable();
+
+            $table->foreign('service_id')
+                ->references('id')->on('services')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->index(['user_id', 'service_id']);
         });
     }
 
