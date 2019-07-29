@@ -2,11 +2,10 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Modules\Main\Repositories\EventRepository;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Repositories\UserRepository;
 use GraphQL\Type\Definition\ResolveInfo;
+use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class EventMutator extends BaseMutation
 {

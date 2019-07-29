@@ -2,15 +2,16 @@
 
 namespace Modules\Main\Entities;
 
-use Modules\Users\Entities\User;
-use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Users\Entities\Girl;
+use Modules\Users\Entities\User;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class Club extends Model implements HasMedia
 {
@@ -52,9 +53,9 @@ class Club extends Model implements HasMedia
     /**
      * @return BelongsToMany
      */
-    public function models(): BelongsToMany
+    public function girls(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Girl::class);
     }
 
     /**

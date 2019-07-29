@@ -2,10 +2,10 @@
 
 namespace Modules\Main\Database\Seeders;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Seeder;
-use Modules\Main\Entities\EventType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use Modules\Main\Entities\EventType;
 
 class EventTypeTableSeeder extends Seeder
 {

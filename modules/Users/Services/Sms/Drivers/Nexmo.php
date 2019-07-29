@@ -3,9 +3,9 @@
 namespace Modules\Users\Services\Sms\Drivers;
 
 use Modules\Users\Services\Sms\Abstracts\Driver;
+use Nexmo\Client;
 use Nexmo\Client\Credentials\Basic;
 use Nexmo\Message\Text;
-use Nexmo\Client;
 
 class Nexmo extends Driver
 {

@@ -2,9 +2,9 @@
 
 namespace Modules\Users\Services\CodeProcessor;
 
+use Illuminate\Support\Facades\Cache;
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Class StaticCodeProcessor

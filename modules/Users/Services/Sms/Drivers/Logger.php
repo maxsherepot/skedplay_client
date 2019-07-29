@@ -2,8 +2,8 @@
 
 namespace Modules\Users\Services\Sms\Drivers;
 
-use Modules\Users\Services\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
+use Modules\Users\Services\Sms\Abstracts\Driver;
 
 class Logger extends Driver
 {

@@ -2,13 +2,12 @@
 
 namespace Modules\Main\Database\Seeders;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Modules\Main\Entities\Club;
-use Modules\Main\Entities\Event;
 use Modules\Main\Entities\Price;
-use Modules\Users\Entities\User;
 use Modules\Main\Entities\Service;
-use Illuminate\Database\Eloquent\Model;
+use Modules\Users\Entities\User;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ClubImager;
 

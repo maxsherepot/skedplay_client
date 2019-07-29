@@ -2,8 +2,8 @@
 
 namespace Modules\Users\Services\Sms\Channels;
 
-use Modules\Users\Services\Sms\SmsBuilder;
 use Illuminate\Notifications\Notification;
+use Modules\Users\Services\Sms\SmsBuilder;
 
 class SmsChannel
 {

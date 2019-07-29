@@ -2,19 +2,19 @@
 
 namespace Modules\Users\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\Models\Media;
+use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
-use Modules\Main\Entities\Service;
 use Modules\Main\Entities\Event;
 use Modules\Main\Entities\Price;
-use Carbon\Carbon;
+use Modules\Main\Entities\Service;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class User extends AuthUser implements HasMedia
 {
@@ -34,18 +34,10 @@ class User extends AuthUser implements HasMedia
     const ACCOUNT_MODERATOR = 'moderator';
     const ACCOUNT_CLUB_OWNER = 'club_owner';
 
-    const MODEL_EUROPEAN = 1;
-    const MODEL_ASIAN = 2;
-
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
         self::ACCOUNT_MODEL,
         self::ACCOUNT_CLUB_OWNER
-    ];
-
-    const MODEL_TYPES = [
-        self::MODEL_EUROPEAN,
-        self::MODEL_ASIAN,
     ];
 
     const GENDER_MALE = 1;

@@ -2,11 +2,11 @@
 
 namespace Modules\Users\Repositories;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
-use Modules\Users\Entities\User;
 use Illuminate\Support\Str;
+use Modules\Users\Entities\User;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserRepository
 {

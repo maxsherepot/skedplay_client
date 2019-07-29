@@ -2,10 +2,10 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Repositories\UserRepository;
 use GraphQL\Type\Definition\ResolveInfo;
 use Modules\Users\Entities\User;
+use Modules\Users\Repositories\UserRepository;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UserMutator extends BaseMutation
 {

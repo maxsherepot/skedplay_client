@@ -2,11 +2,11 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Main\Repositories\ClubRepository;
 use GraphQL\Type\Definition\ResolveInfo;
-use Modules\Users\Entities\User;
 use Modules\Main\Entities\Club;
+use Modules\Main\Repositories\ClubRepository;
+use Modules\Users\Entities\User;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ClubMutator extends BaseMutation
 {

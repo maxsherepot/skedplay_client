@@ -2,8 +2,6 @@
 
 namespace Modules\Users\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Modules\Users\Listeners\UserRegisterListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class UsersEventServiceProvider extends ServiceProvider

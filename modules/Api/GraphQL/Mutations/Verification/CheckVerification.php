@@ -2,10 +2,10 @@
 
 namespace Modules\Api\GraphQL\Mutations\Verification;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Services\Verification\Verification;
-use Modules\Api\GraphQL\Mutations\BaseMutation;
 use GraphQL\Type\Definition\ResolveInfo;
+use Modules\Api\GraphQL\Mutations\BaseMutation;
+use Modules\Users\Services\Verification\Verification;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class CheckVerification extends BaseMutation
 {

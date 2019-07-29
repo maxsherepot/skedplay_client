@@ -2,8 +2,8 @@
 
 namespace Modules\Api\GraphQL\Mutations\Auth;
 
-use Illuminate\Support\Facades\Auth;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
