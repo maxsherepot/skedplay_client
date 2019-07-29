@@ -3,7 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use Modules\Main\Entities\{Event, EventType, Price, Service};
+use Modules\Main\Entities\{Event, EventType, PriceType, Service};
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ $factory->define(Service::class, function (Faker $faker) {
     return [];
 });
 
-$factory->define(Price::class, function (Faker $faker) {
+$factory->define(PriceType::class, function (Faker $faker) {
     return [];
 });
 

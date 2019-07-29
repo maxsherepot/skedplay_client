@@ -4,7 +4,7 @@ namespace Modules\Users\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Main\Entities\Price;
+use Modules\Main\Entities\PriceType;
 use Modules\Main\Entities\Service;
 use Modules\Users\Entities\Club;
 use Modules\Users\Entities\Girl;
@@ -72,7 +72,7 @@ class ClubTableSeeder extends Seeder
 
     public function addPrices(Girl $girl)
     {
-        $prices = Price::all();
+        $prices = PriceType::all();
 
         $mapping = $prices->random(5)->mapWithKeys(function ($price) {
             return [

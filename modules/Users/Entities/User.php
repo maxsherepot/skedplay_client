@@ -2,7 +2,6 @@
 
 namespace Modules\Users\Entities;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -56,24 +55,12 @@ class User extends AuthUser implements HasMedia
         'vip',
     ];
 
-    protected $appends = [
-        'age'
-    ];
-
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    /**
-     * @return int
-     */
-    public function getAgeAttribute()
-    {
-        return Carbon::parse($this->attributes['birthday'])->age;
-    }
 
     /**
      * This mutator automatically hashes the password.

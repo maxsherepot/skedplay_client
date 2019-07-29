@@ -2,10 +2,11 @@
 
 namespace Modules\Users\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Main\Entities\Event;
-use Modules\Main\Entities\Price;
+use Modules\Main\Entities\PriceType;
 use Modules\Main\Entities\Service;
 use Modules\Main\Services\Location\HasLocation;
 use Modules\Main\Services\Location\Locationable;
@@ -23,6 +24,10 @@ class Girl extends User implements HasLocation
         self::GIRL_ASIAN,
     ];
 
+    protected $appends = [
+        'age'
+    ];
+
     public static function boot()
     {
         parent::boot();
@@ -30,6 +35,15 @@ class Girl extends User implements HasLocation
         static::addGlobalScope(function ($query) {
             // Todo: filter by girl role
         });
+    }
+
+    /**
+     * Get girl age
+     * @return int
+     */
+    public function getAgeAttribute(): int
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
     }
 
     /**
@@ -46,7 +60,7 @@ class Girl extends User implements HasLocation
      */
     public function prices(): BelongsToMany
     {
-        return $this->belongsToMany(Price::class)
+        return $this->belongsToMany(PriceType::class)
             ->withPivot('cost');
     }
 

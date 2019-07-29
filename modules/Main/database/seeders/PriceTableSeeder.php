@@ -4,7 +4,7 @@ namespace Modules\Main\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Main\Entities\Price;
+use Modules\Main\Entities\PriceType;
 
 class PriceTableSeeder extends Seeder
 {
@@ -31,7 +31,7 @@ class PriceTableSeeder extends Seeder
         ];
 
         foreach ($prices as $price) {
-            Price::create([
+            PriceType::create([
                 'name' => $price
             ]);
         }
