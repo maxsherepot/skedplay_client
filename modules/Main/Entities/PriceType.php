@@ -15,7 +15,7 @@ class PriceType extends Model
     ];
 
     /**
-     * Set the price type's name.
+     * Set the price type's name in slug format.
      *
      * @param string $value
      * @return void

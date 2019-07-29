@@ -4,7 +4,6 @@ namespace Modules\Main\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Modules\Main\Entities\EventType;
 
 class EventTypeTableSeeder extends Seeder
@@ -27,10 +26,9 @@ class EventTypeTableSeeder extends Seeder
             'Discount',
         ];
 
-        foreach ($eventTypes as $type) {
+        foreach ($eventTypes as $name) {
             EventType::create([
-                'name' => $type,
-                'slug' => Str::slug($type),
+                'name' => $name,
             ]);
         }
 
