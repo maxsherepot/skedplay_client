@@ -4,7 +4,6 @@ type User {
     last_name: String!
     gender: String
     birthday: Date
-    age: Int
     club_type: String
     phone: String!
     email: String!
