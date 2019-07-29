@@ -3,6 +3,7 @@
 namespace Modules\Users\Repositories;
 
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Modules\Users\Entities\User;
@@ -10,6 +11,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserRepository
 {
+    const PER_PAGE = 15;
+
+    /**
+     * @param $perPage
+     * @param User $user
+     * @return LengthAwarePaginator
+     */
+    public function paginate($perPage, User $user): LengthAwarePaginator
+    {
+        return $user->paginate($perPage ?? self::PER_PAGE);
+    }
+
     /**
      * @param Collection $collection
      * @return User

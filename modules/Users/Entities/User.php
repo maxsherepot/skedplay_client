@@ -6,13 +6,15 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
+use Modules\Main\Services\Location\HasLocation;
+use Modules\Main\Services\Location\Locationable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class User extends AuthUser implements HasMedia
+class User extends AuthUser implements HasMedia, HasLocation
 {
-    use HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
+    use Locationable, HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;

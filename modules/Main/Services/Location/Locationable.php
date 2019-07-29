@@ -29,8 +29,9 @@ trait Locationable
                     $coordinates = (new LocationCoordinatesIpService())
                         ->setIp($ip)
                         ->getCoordinates();
-                    $model->lat = $coordinates->lat;
-                    $model->lng = $coordinates->lng;
+                    $model->lat = $coordinates->lat ?? self::DEFAULT_LATITUDE;
+                    $model->lng = $coordinates->lng ?? self::DEFAULT_LONGITUDE;
+
                 } catch (\Exception $e) {
                 }
             }

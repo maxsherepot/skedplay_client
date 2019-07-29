@@ -12,9 +12,9 @@ use Modules\Main\Services\Location\HasLocation;
 use Modules\Main\Services\Location\Locationable;
 use Tightenco\Parental\HasParent;
 
-class Girl extends User implements HasLocation
+class Girl extends User
 {
-    use Locationable, HasParent;
+    use HasParent;
 
     const GIRL_EUROPEAN = 1;
     const GIRL_ASIAN = 2;

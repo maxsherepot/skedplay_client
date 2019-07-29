@@ -18,3 +18,14 @@ input AgeRange {
     from: Int!
     to: Int!
 }
+
+type PaginatorInfo {
+    count: Int
+    currentPage: Int
+    firstItem: Int
+    hasMorePages: Boolean
+    lastItem: Int
+    lastPage: Int
+    perPage: Int
+    total: Int
+}

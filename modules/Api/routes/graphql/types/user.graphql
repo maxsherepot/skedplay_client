@@ -33,25 +33,31 @@ input UserInput {
     password_confirmation: String
 }
 
+type UserPaginator {
+    data: [User!]! @field(resolver: "Nuwave\\Lighthouse\\Pagination\\PaginatorField@dataResolver")
+    paginator: PaginatorInfo @field(resolver: "Nuwave\\Lighthouse\\Pagination\\PaginatorField@paginatorInfoResolver")
+}
+
 type UserPayload implements Status {
     status: Boolean!
     message: String
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    users: [User!]! @paginate
-    user(id: ID @eq): User @find
+    users(count: Int!, page: Int): UserPaginator
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@index")
+
+    user(user: ID): User
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@show")
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
     updateUser(user: ID!,input: UserInput @spread): UserPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@update")
 
-    uploadUserPhotos(files: [Upload!]!): [File!]!
-    @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])
-    @field(resolver: "UserMutator@uploadPhotos")
+    uploadUserPhoto(files: [Upload!]!): [File!]!
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadPhotos")
 
-    uploadUserVideos(files: [Upload!]!): [File!]!
-    @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"])
-    @field(resolver: "UserMutator@uploadVideos")
+    uploadUserVideo(files: [Upload!]!): [File!]!
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadVideos")
 }
