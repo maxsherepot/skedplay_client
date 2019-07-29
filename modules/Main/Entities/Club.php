@@ -2,14 +2,13 @@
 
 namespace Modules\Main\Entities;
 
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Users\Entities\User;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -31,23 +30,6 @@ class Club extends Model implements HasMedia
 
     const DEFAULT_LATITUDE = '40.6976701';
     const DEFAULT_LONGITUDE = '-74.259875';
-    const DEFAULT_COORDINATES = self::DEFAULT_LATITUDE . ', ' . self::DEFAULT_LONGITUDE;
-
-    /**
-     * @param $coordinates
-     */
-    public function setCoordinatesAttribute($coordinates)
-    {
-        if (is_array($coordinates)) {
-            $this->lat = $coordinates['lat'] ?? self::DEFAULT_LATITUDE;
-            $this->lng = $coordinates['lng'] ?? self::DEFAULT_LONGITUDE;
-        }
-        if (is_string($coordinates)) {
-            $coordinates = explode(',', str_replace(' ', '', $coordinates));
-            $this->lat = $coordinates[0];
-            $this->lng = $coordinates[1];
-        }
-    }
 
     public function registerMediaCollections()
     {

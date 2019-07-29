@@ -16,13 +16,13 @@ class LocationCoordinatesIpService
     }
 
     /**
-     * @return array
+     * @return object
      */
-    public function getCoordinates(): array
+    public function getCoordinates(): object
     {
         $this->data = \Location::get($this->getIp());
 
-        return [
+        return (object)[
             'lat' => $this->data->latitude,
             'lng' => $this->data->longitude,
         ];

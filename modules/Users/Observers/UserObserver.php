@@ -11,7 +11,11 @@ class UserObserver
     {
         if (is_null($user->lat) && is_null($user->lng) && $ip = request()->ip()) {
             try {
-                $user->coordinates = (new LocationCoordinatesIpService())->setIp($ip)->getCoordinates();
+                $coordinates = (new LocationCoordinatesIpService())
+                    ->setIp($ip)
+                    ->getCoordinates();
+                $user->lat = $coordinates->lat ?? User::DEFAULT_LATITUDE;
+                $user->lng = $coordinates->lng ?? User::DEFAULT_LONGITUDE;
             } catch (\Exception $e) {
             }
         }
