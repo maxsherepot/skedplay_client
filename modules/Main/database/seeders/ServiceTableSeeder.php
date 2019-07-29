@@ -2,9 +2,9 @@
 
 namespace Modules\Main\Database\Seeders;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Modules\Main\Entities\Service;
-use Illuminate\Database\Eloquent\Model;
 
 class ServiceTableSeeder extends Seeder
 {

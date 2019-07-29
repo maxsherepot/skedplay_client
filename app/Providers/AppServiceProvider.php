@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Laravel\Telescope\TelescopeServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Telescope\TelescopeServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-		if ($this->app->isLocal()) {
-			$this->app->register(TelescopeServiceProvider::class);
-		}
+        if ($this->app->isLocal()) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Relation::morphMap([
+            'girl' => 'Modules\Users\Entities\Girl',
+            'user' => 'Modules\Users\Entities\User',
+            'club' => 'Modules\Users\Entities\Club',
+        ]);
     }
 }

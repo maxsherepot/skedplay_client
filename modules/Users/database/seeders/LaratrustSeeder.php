@@ -2,9 +2,9 @@
 
 namespace Modules\Users\Database\Seeders;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class LaratrustSeeder extends Seeder

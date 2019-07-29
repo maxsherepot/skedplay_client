@@ -2,13 +2,13 @@
 
 namespace Modules\Api\GraphQL\Mutations\Auth;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Api\GraphQL\Mutations\BaseMutation;
-use Modules\Users\Repositories\UserRepository;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Collection;
+use Modules\Api\GraphQL\Mutations\BaseMutation;
 use Modules\Users\Entities\User;
+use Modules\Users\Repositories\UserRepository;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Registration extends BaseMutation
 {

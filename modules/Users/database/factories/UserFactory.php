@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
+use Modules\Users\Entities\Girl;
 use Modules\Users\Entities\User;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ModelImager;
@@ -25,29 +26,19 @@ $factory->state(\Modules\Users\Entities\User::class, 'club_owner', function (Fak
     ];
 });
 
-$factory->state(\Modules\Users\Entities\User::class, 'model', function (Faker $faker) {
-    return [
-        'account_type' => User::ACCOUNT_MODEL,
-        'type'         => $faker->randomElement(User::MODEL_TYPES),
-        'vip'          => (bool)rand(0, 1),
-    ];
-});
-
 $factory->state(\Modules\Users\Entities\User::class, 'client', [
     'account_type' => User::ACCOUNT_CLIENT,
 ]);
 
 $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
-    $genders = [
-        User::GENDER_MALE,
-        User::GENDER_FEMALE,
-    ];
-
     return [
         'email'      => $faker->unique()->safeEmail,
         'first_name' => $faker->firstName,
         'last_name'  => $faker->lastName,
-        'gender'     => $faker->randomElement($genders),
+        'gender'     => $faker->randomElement([
+            User::GENDER_MALE,
+            User::GENDER_FEMALE,
+        ]),
         'birthday'   => $faker->date($format = 'Y-m-d', $max = '2003-05-05'),
         'phone'      => $faker->phoneNumber,
         'password'   => 'password',
@@ -63,6 +54,38 @@ $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
 //            $pathToFile = $imager->random()->getImagePath();
 //
 //            $user->addMedia(storage_path('app/' . $pathToFile))
+//                ->preservingOriginal()
+//                ->toMediaCollection('photos', 'media');
+//        });
+});
+
+$factory->define(\Modules\Users\Entities\Girl::class, function (Faker $faker) {
+    return [
+        'email'        => $faker->unique()->safeEmail,
+        'first_name'   => $faker->firstName,
+        'last_name'    => $faker->lastName,
+        'gender'       => $faker->randomElement([
+            User::GENDER_MALE,
+            User::GENDER_FEMALE,
+        ]),
+        'birthday'     => $faker->date($format = 'Y-m-d', $max = '2003-05-05'),
+        'phone'        => $faker->phoneNumber,
+        'password'     => 'password',
+        'account_type' => User::ACCOUNT_GIRL,
+        'type'         => $faker->randomElement(Girl::GIRL_TYPES),
+        'vip'          => (bool)rand(0, 1),
+    ];
+
+})->afterCreating(\Modules\Users\Entities\Girl::class, function (Girl $girl) {
+    $girl->attachRole($girl->account_type);
+
+//    $imager = (new ImagerWorker(new ModelImager()))->imager();
+//
+//    collect(range(0, 6))
+//        ->map(function () use ($user, $imager) {
+//            $pathToFile = $imager->random()->getImagePath();
+//
+//            $girl->addMedia(storage_path('app/' . $pathToFile))
 //                ->preservingOriginal()
 //                ->toMediaCollection('photos', 'media');
 //        });

@@ -4,9 +4,8 @@ namespace Modules\Users\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Modules\Users\Services\Sms\SmsBuilder;
 use Modules\Users\Services\Sms\Channels\SmsChannel;
+use Modules\Users\Services\Sms\SmsBuilder;
 
 class ResetPasswordNotification extends Notification
 {

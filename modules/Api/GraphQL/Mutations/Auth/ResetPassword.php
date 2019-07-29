@@ -2,11 +2,11 @@
 
 namespace Modules\Api\GraphQL\Mutations\Auth;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Services\Verification\Verification;
+use GraphQL\Type\Definition\ResolveInfo;
 use Modules\Api\GraphQL\Mutations\BaseMutation;
 use Modules\Users\Repositories\UserRepository;
-use GraphQL\Type\Definition\ResolveInfo;
+use Modules\Users\Services\Verification\Verification;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ResetPassword extends BaseMutation
 {

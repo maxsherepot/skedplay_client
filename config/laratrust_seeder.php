@@ -8,7 +8,7 @@ return [
         'client'     => [
             'users' => 'r,u'
         ],
-        'model'      => [
+        'girl'      => [
             'users' => 'r,u'
         ],
         'club_owner' => [

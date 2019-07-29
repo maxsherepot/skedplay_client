@@ -2,8 +2,8 @@
 
 namespace Modules\Users\Services\CodeProcessor;
 
-use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Illuminate\Support\ServiceProvider;
+use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 
 /**
  * Class CodeProcessorProvider

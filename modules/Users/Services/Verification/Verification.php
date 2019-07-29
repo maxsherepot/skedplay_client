@@ -2,15 +2,15 @@
 
 namespace Modules\Users\Services\Verification;
 
-use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
-use Modules\Users\Services\Verification\Contracts\VerificationInterface;
-use Modules\Users\Services\Sms\Exceptions\ValidationException;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Modules\Users\Entities\User;
 use Modules\Users\Notifications\ResetPasswordNotification;
 use Modules\Users\Services\CodeProcessor\CodeProcessor;
+use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
+use Modules\Users\Services\Sms\Exceptions\ValidationException;
+use Modules\Users\Services\Verification\Contracts\VerificationInterface;
 use Propaganistas\LaravelPhone\PhoneNumber;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Collection;
-use Modules\Users\Entities\User;
 
 /**
  * Class Verification

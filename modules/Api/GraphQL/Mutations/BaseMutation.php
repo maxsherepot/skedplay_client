@@ -2,11 +2,11 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Modules\Api\GraphQL\Exceptions\ValidationException as GraphQLValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Api\GraphQL\Mutations\Traits\Statusable;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
+use Modules\Api\GraphQL\Exceptions\ValidationException as GraphQLValidationException;
+use Modules\Api\GraphQL\Mutations\Traits\Statusable;
 
 abstract class BaseMutation
 {

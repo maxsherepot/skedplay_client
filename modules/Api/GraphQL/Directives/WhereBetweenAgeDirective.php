@@ -24,19 +24,19 @@ class WhereBetweenAgeDirective extends BaseDirective implements ArgBuilderDirect
      */
     public function handleBuilder($builder, $value)
     {
-        $from = $value['from'];
-        $to = $value['to'];
+        $minAge = $value['from'];
+        $maxAge = $value['to'];
 
-        if (is_null($to)) {
-            $to = $from;
+        if (is_null($maxAge)) {
+            $maxAge = $minAge;
         }
 
+        $min = now()->subYears($maxAge + 1)->format('Y-m-d');
+        $max = now()->subYears($minAge)->endOfDay()->format('Y-m-d');
+
         return $builder->whereBetween(
-            $this->directiveArgValue('key', $this->definitionNode->name->value),
-            [
-                now()->subYears($to)->addYear()->subDay()->format('Y-m-d'),
-                now()->subYears($from)->format('Y-m-d')
-            ]
+            $this->directiveArgValue('key', 'birthday'),
+            [$min, $max]
         );
     }
 

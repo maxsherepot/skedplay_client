@@ -2,8 +2,8 @@
 
 namespace Modules\Users\Observers;
 
-use Modules\Users\Services\UserLocations\LocationCoordinatesIpService;
 use Modules\Users\Entities\User;
+use Modules\Users\Services\UserLocations\LocationCoordinatesIpService;
 
 class UserObserver
 {

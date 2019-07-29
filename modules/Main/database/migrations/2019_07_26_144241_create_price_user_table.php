@@ -17,6 +17,15 @@ class CreatePriceUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('price_id');
             $table->decimal('cost');
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->foreign('price_id')
+                ->references('id')->on('prices')
+                ->onDelete('cascade');
+
+            $table->index(['user_id', 'price_id']);
         });
     }
 

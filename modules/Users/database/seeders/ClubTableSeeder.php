@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Modules\Main\Database\Seeders;
+namespace Modules\Users\Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Modules\Main\Entities\Club;
-use Modules\Main\Entities\Event;
-use Modules\Main\Entities\Price;
-use Modules\Users\Entities\User;
-use Modules\Main\Entities\Service;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use Modules\Main\Entities\Price;
+use Modules\Main\Entities\Service;
+use Modules\Users\Entities\Club;
+use Modules\Users\Entities\Girl;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ClubImager;
 
@@ -33,17 +32,16 @@ class ClubTableSeeder extends Seeder
         $start = now();
         $this->command->info('Club seeder started');
 
-        factory(\Modules\Main\Entities\Club::class, 3)
+        factory(\Modules\Users\Entities\Club::class, 3)
             ->create()
             ->each(function (Club $club) {
-                $club->models()->saveMany(
-                    factory(\Modules\Users\Entities\User::class, 5)
-                        ->state('model')
+                $club->girls()->saveMany(
+                    factory(\Modules\Users\Entities\Girl::class, 5)
                         ->create()
-                        ->each(function (User $user) {
-                            $this->addServices($user);
-                            $this->addPrices($user);
-                            $this->addEvents($user);
+                        ->each(function (Girl $girl) {
+                            $this->addServices($girl);
+                            $this->addPrices($girl);
+                            $this->addEvents($girl);
                         })
                 );
 //                $this->addAttachments($club);
@@ -53,7 +51,7 @@ class ClubTableSeeder extends Seeder
         $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
     }
 
-    public function addServices(User $user)
+    public function addServices(Girl $girl)
     {
         $services = Service::all();
 
@@ -69,10 +67,10 @@ class ClubTableSeeder extends Seeder
             ];
         })->toArray();
 
-        $user->services()->sync($mapping);
+        $girl->services()->sync($mapping);
     }
 
-    public function addPrices(User $user)
+    public function addPrices(Girl $girl)
     {
         $prices = Price::all();
 
@@ -84,7 +82,7 @@ class ClubTableSeeder extends Seeder
             ];
         })->toArray();
 
-        $user->prices()->sync($mapping);
+        $girl->prices()->sync($mapping);
     }
 
     public function addAttachments(Club $club)
@@ -101,7 +99,7 @@ class ClubTableSeeder extends Seeder
 
     public function addEvents(Model $model)
     {
-        /** @var Club|User $model */
+        /** @var Club|Girl $model */
         $model->events()->saveMany(
             factory(\Modules\Main\Entities\Event::class, 5)->make()
         );

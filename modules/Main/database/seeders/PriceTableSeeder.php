@@ -2,9 +2,9 @@
 
 namespace Modules\Main\Database\Seeders;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Modules\Main\Entities\Price;
-use Illuminate\Database\Eloquent\Model;
 
 class PriceTableSeeder extends Seeder
 {

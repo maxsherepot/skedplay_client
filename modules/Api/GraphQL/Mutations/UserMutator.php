@@ -2,10 +2,11 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Modules\Users\Repositories\UserRepository;
 use GraphQL\Type\Definition\ResolveInfo;
+use Modules\Users\Entities\Girl;
 use Modules\Users\Entities\User;
+use Modules\Users\Repositories\UserRepository;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UserMutator extends BaseMutation
 {
@@ -44,7 +45,7 @@ class UserMutator extends BaseMutation
             'password'          => 'string|min:6|confirmed',
             'account_type'      => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'address'           => 'nullable|string|max:255',
-            'type'              => 'required|string|max:255|in:' . implode(',', User::MODEL_TYPES),
+            'type'              => 'required|string|max:255|in:' . implode(',', Girl::GIRL_TYPES),
             'short_description' => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'lat'               => 'string|nullable',
