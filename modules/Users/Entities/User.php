@@ -14,6 +14,7 @@ use Laravel\Passport\HasApiTokens;
 use Modules\Main\Entities\Service;
 use Modules\Main\Entities\Event;
 use Modules\Main\Entities\Price;
+use Carbon\Carbon;
 
 class User extends AuthUser implements HasMedia
 {
@@ -74,12 +75,24 @@ class User extends AuthUser implements HasMedia
         'vip',
     ];
 
+    protected $appends = [
+        'age'
+    ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * @return int
+     */
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+    }
 
     /**
      * This mutator automatically hashes the password.

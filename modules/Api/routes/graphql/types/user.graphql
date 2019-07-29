@@ -3,7 +3,7 @@ type User {
     first_name: String!
     last_name: String!
     gender: String
-    birtday: Date
+    birthday: Date
     age: Int
     club_type: String
     phone: String!
@@ -24,7 +24,7 @@ input UserInput {
     first_name: String
     last_name: String
     gender: String
-    birtday: Date
+    birthday: Date
     club_type: String
     phone: String
     email: String
@@ -44,7 +44,7 @@ type UserPayload implements Status {
 
 input UserFilters {
     services: [Int] @whereHas(key: "id", method: "whereIn")
-    age: AgeRange @whereBetween
+    age: AgeRange @whereBetweenAge(key: "birthday")
     type: String @where
     account_type: String @where
     vip: Boolean @where

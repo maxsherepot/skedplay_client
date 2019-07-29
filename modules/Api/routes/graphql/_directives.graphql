@@ -3,6 +3,10 @@ directive @whereHas(
     method: String
 ) on INPUT_FIELD_DEFINITION
 
+directive @whereBetweenAge(
+    key: String
+) on INPUT_FIELD_DEFINITION
+
 directive @all(
     """
     Specify the class name of the model to use.
