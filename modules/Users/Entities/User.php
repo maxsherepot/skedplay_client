@@ -3,15 +3,10 @@
 namespace Modules\Users\Entities;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
-use Modules\Main\Entities\Event;
-use Modules\Main\Entities\Price;
-use Modules\Main\Entities\Service;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -30,13 +25,13 @@ class User extends AuthUser implements HasMedia
 
     const ACCOUNT_ADMIN = 'admin';
     const ACCOUNT_CLIENT = 'client';
-    const ACCOUNT_MODEL = 'model';
+    const ACCOUNT_GIRL = 'girl';
     const ACCOUNT_MODERATOR = 'moderator';
     const ACCOUNT_CLUB_OWNER = 'club_owner';
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
-        self::ACCOUNT_MODEL,
+        self::ACCOUNT_GIRL,
         self::ACCOUNT_CLUB_OWNER
     ];
 
@@ -115,31 +110,5 @@ class User extends AuthUser implements HasMedia
         $this->addMediaConversion('large')
             ->width(535)
             ->height(785);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function services(): BelongsToMany
-    {
-        return $this->belongsToMany(Service::class)
-            ->withPivot(['extra', 'cost']);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function prices(): BelongsToMany
-    {
-        return $this->belongsToMany(Price::class)
-            ->withPivot('cost');
-    }
-
-    /**
-     * @return MorphMany
-     */
-    public function events(): MorphMany
-    {
-        return $this->morphMany(Event::class, 'eventable');
     }
 }

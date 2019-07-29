@@ -15,9 +15,6 @@ type User {
     vip: Boolean
     created_at: DateTime!
     updated_at: DateTime!
-    events: [Event] @belongsToMany
-    prices: [Price] @belongsToMany
-    services: [Service] @belongsToMany
 }
 
 input UserInput {
@@ -42,16 +39,8 @@ type UserPayload implements Status {
     message: String
 }
 
-input UserFilters {
-    services: [Int] @whereHas(key: "id", method: "whereIn")
-    age: AgeRange @whereBetweenAge(key: "birthday")
-    type: String @where
-    account_type: String @where
-    vip: Boolean @where
-}
-
 extend type Query @middleware(checks: ["auth:api"]) {
-    users(filters: UserFilters @spread): [User!]! @paginate
+    users: [User!]! @paginate
     user(id: ID @eq): User @find
 }
 

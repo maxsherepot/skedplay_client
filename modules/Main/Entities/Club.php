@@ -55,7 +55,7 @@ class Club extends Model implements HasMedia
      */
     public function girls(): BelongsToMany
     {
-        return $this->belongsToMany(Girl::class);
+        return $this->belongsToMany(Girl::class, 'club_user');
     }
 
     /**
