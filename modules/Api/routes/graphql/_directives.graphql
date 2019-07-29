@@ -7,6 +7,22 @@ directive @whereBetweenAge(
     key: String
 ) on INPUT_FIELD_DEFINITION
 
+"""
+Assign a resolver function to a field.
+"""
+directive @router(
+    """
+    A reference to the resolver function to be used.
+    Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+    """
+    action: String!
+
+    """
+    Supply additional data to the resolver.
+    """
+    args: [String!]
+) on FIELD_DEFINITION
+
 directive @all(
     """
     Specify the class name of the model to use.

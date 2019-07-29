@@ -55,9 +55,9 @@ extend type Query @middleware(checks: ["auth:api"]) {
     user(id: ID @eq): User @find
 }
 
-extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    updateUser(id: ID!,input: UserInput @spread): UserPayload
-    @field(resolver: "UserMutator@update")
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    updateUser(user: ID!,input: UserInput @spread): UserPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@update")
 
     uploadUserPhotos(files: [Upload!]!): [File!]!
     @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])

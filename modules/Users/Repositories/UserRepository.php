@@ -22,11 +22,13 @@ class UserRepository
     /**
      * @param User $user
      * @param Collection $collection
-     * @return bool
+     * @return User
      */
-    public function update(User $user, Collection $collection): bool
+    public function update(User $user, Collection $collection): User
     {
-        return $user->update($collection->toArray());
+        $user->update($collection->toArray());
+
+        return $user;
     }
 
     /**

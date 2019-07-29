@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+Route::get('/users/{user}', [\Modules\Api\Http\Controllers\UserController::class, 'show']);
