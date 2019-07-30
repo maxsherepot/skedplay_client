@@ -3,8 +3,8 @@
 namespace Modules\Api\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Modules\Users\Entities\Girl;
-use Modules\Users\Entities\User;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -18,13 +18,23 @@ class UserUpdateRequest extends FormRequest
         return [
             'first_name'        => 'string|max:255',
             'last_name'         => 'nullable|string|max:255',
-            'gender'            => 'nullable|string|max:255',
-            'birthday'          => 'nullable|date',
-            'club_type'         => 'nullable|string|max:255',
-            'phone'             => 'sometimes|string|max:255|unique:users,phone',
-            'email'             => 'sometimes|string|email|max:255|unique:users,email',
+            'phone'             => [
+                'bail',
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('users', 'phone')->ignore($this->user)
+            ],
+            'email'             => [
+                'bail',
+                'required',
+                'string',
+                'email',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($this->user)
+            ],
             'password'          => 'string|min:6|confirmed',
-            'account_type'      => 'string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'address'           => 'nullable|string|max:255',
             'type'              => 'string|max:255|in:' . implode(',', Girl::GIRL_TYPES),
             'short_description' => 'nullable|string|max:255',
