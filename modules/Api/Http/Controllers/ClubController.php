@@ -5,8 +5,11 @@ namespace Modules\Api\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
+use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\UploadPhotoRequest;
 use Modules\Api\Http\Requests\UploadVideoRequest;
+use Modules\Main\Entities\Event;
+use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\Club;
 use Modules\Users\Repositories\ClubRepository;
 use Nwidart\Modules\Routing\Controller;
@@ -20,9 +23,15 @@ class ClubController extends Controller
      */
     protected $clubs;
 
-    public function __construct(ClubRepository $repository)
+    /**
+     * @var EventRepository
+     */
+    protected $events;
+
+    public function __construct(ClubRepository $clubs, EventRepository $events)
     {
-        $this->clubs = $repository;
+        $this->clubs = $clubs;
+        $this->events = $events;
     }
 
     /**
@@ -76,5 +85,18 @@ class ClubController extends Controller
         $this->authorize('update', $club);
 
         $this->clubs->saveAttachments($club, $request->files, 'videos');
+    }
+
+    /**
+     * @param Club $club
+     * @param EventCreateRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function createEvent(Club $club, EventCreateRequest $request)
+    {
+        $this->authorize('create', Event::class);
+
+        return $this->events->store($club, collect($request->all()));
     }
 }

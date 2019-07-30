@@ -3,9 +3,12 @@
 namespace Modules\Api\Http\Controllers;
 
 use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\UploadPhotoRequest;
 use Modules\Api\Http\Requests\UploadVideoRequest;
 use Modules\Api\Http\Requests\User\UserUpdateRequest;
+use Modules\Main\Entities\Event;
+use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\UserRepository;
 use Nwidart\Modules\Routing\Controller;
@@ -14,11 +17,20 @@ class UserController extends Controller
 {
     use Statusable;
 
+    /**
+     * @var UserRepository
+     */
     protected $users;
 
-    public function __construct(UserRepository $repository)
+    /**
+     * @var EventRepository
+     */
+    protected $events;
+
+    public function __construct(UserRepository $users, EventRepository $events)
     {
-        $this->users = $repository;
+        $this->users = $users;
+        $this->events = $events;
     }
 
     /**
@@ -60,5 +72,18 @@ class UserController extends Controller
         $this->authorize('update', $user);
 
         $this->users->saveAttachments($user, $request->files, 'videos');
+    }
+
+    /**
+     * @param User $user
+     * @param EventCreateRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function createEvent(User $user, EventCreateRequest $request)
+    {
+        $this->authorize('create', Event::class);
+
+        return $this->events->store($user, collect($request->all()));
     }
 }

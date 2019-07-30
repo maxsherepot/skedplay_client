@@ -3,10 +3,27 @@ type Event {
     title: String!
     description: String!
     type: EventType! @belongsTo
+    club: Club! @belongsTo
 }
 
+input EventInput {
+    title: String!
+    description: String!
+    event_type_id: Int!
+    club_id: Int!
+}
+
+input EventUpdateInput {
+    title: String
+    description: String
+    event_type_id: Int
+    club_id: Int
+}
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
+    updateEvent(input: EventUpdateInput @spread): Event
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@update")
+
     uploadEventPhoto(event: ID!, files: [Upload!]!): [File!]!
     @router(action: "Modules\\Api\\Http\\Controllers\\EventController@uploadMainPhoto")
 }

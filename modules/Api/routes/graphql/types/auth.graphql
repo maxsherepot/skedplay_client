@@ -82,7 +82,7 @@ type NewPasswordResponse implements Status {
     message: String
 }
 
-type Mutation {
+extend type Mutation {
     register(input: RegisterInput! @spread): RegisterPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@register")
 

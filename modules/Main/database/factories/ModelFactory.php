@@ -4,6 +4,7 @@
 
 use Faker\Generator as Faker;
 use Modules\Main\Entities\{Event, EventType, PriceType, Service};
+use Modules\Users\Entities\Club;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,16 @@ $factory->define(PriceType::class, function (Faker $faker) {
 
 $factory->define(Event::class, function (Faker $faker) {
     $eventTypes = EventType::all();
+    $clubs = Club::all();
+
     $typeId = $eventTypes->random()->id;
+    $clubId = $clubs->random()->id;
 
     return [
         'title'         => $faker->text(50),
         'description'   => $faker->text(500),
         'event_type_id' => $typeId,
+        'club_id'       => $clubId,
     ];
 });
 

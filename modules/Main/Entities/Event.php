@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Users\Entities\Club;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -17,6 +18,7 @@ class Event extends Model implements HasMedia
         'title',
         'description',
         'event_type_id',
+        'club_id',
     ];
 
     public function registerMediaCollections()
@@ -38,5 +40,13 @@ class Event extends Model implements HasMedia
     public function type(): BelongsTo
     {
         return $this->belongsTo(EventType::class, 'event_type_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function club(): BelongsTo
+    {
+        return $this->belongsTo(Club::class);
     }
 }

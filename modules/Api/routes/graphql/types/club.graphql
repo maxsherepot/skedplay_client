@@ -48,4 +48,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
     uploadClubVideo(club: ID!, files: [Upload!]!): [File!]!
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadVideo")
+
+    createClubEvent(club: ID!, input: EventInput @spread): Event
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@createEvent")
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Users\Policies;
 
@@ -9,7 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $authUser, User $user)
+    /**
+     * @param User $authUser
+     * @param User $user
+     * @return bool
+     */
+    public function update(User $authUser, User $user): bool
     {
         return $authUser->owns($user, 'id') || $authUser->hasPermission('update-users');
     }

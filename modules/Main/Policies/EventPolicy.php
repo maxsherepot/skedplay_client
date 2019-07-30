@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Users\Policies;
+namespace Modules\Main\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Modules\Users\Entities\Club;
+use Modules\Main\Entities\Event;
 use Modules\Users\Entities\User;
 
-class ClubPolicy
+class EventPolicy
 {
     use HandlesAuthorization;
 
@@ -16,16 +16,16 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create-clubs');
+        return $user->hasPermission('create-events');
     }
 
     /**
      * @param User $user
-     * @param Club $club
+     * @param Event $event
      * @return bool
      */
-    public function update(User $user, Club $club): bool
+    public function update(User $user, Event $event): bool
     {
-        return $user->owns($club, 'id') || $user->hasPermission('update-clubs');
+        return $user->owns($event, 'id') || $user->hasPermission('update-events');
     }
 }

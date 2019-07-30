@@ -2,11 +2,12 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Api\Http\Requests\Event\EventUpdateRequest;
 use Modules\Api\Http\Requests\UploadPhotoRequest;
 use Modules\Main\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
+use Nwidart\Modules\Routing\Controller;
 
 class EventController extends Controller
 {
@@ -23,15 +24,29 @@ class EventController extends Controller
     }
 
     /**
+     * @param EventUpdateRequest $request
+     * @param Event $event
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function update(EventUpdateRequest $request, Event $event)
+    {
+        $this->authorize('update', $event);
+
+        $event = $this->events->update($event, collect($request->all()));
+
+        return $this->success();
+    }
+
+    /**
      * @param UploadPhotoRequest $request
      * @param Event $event
      * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function uploadMainPhoto(UploadPhotoRequest $request, Event $event)
     {
-        /**
-         * TODO EVENT POLICY
-         */
+        $this->authorize('update', $event);
 
         $this->events->saveFile($event, $request->file('file'), 'main_photo');
     }

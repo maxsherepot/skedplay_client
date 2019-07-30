@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
+use Modules\Main\Entities\Event;
 use Modules\Main\Services\Location\HasLocation;
 use Modules\Main\Services\Location\Locationable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
