@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Main\Entities\Event;
 use Modules\Main\Entities\PriceType;
 use Modules\Main\Entities\Service;
-use Modules\Main\Services\Location\HasLocation;
-use Modules\Main\Services\Location\Locationable;
 use Tightenco\Parental\HasParent;
 
 class Girl extends User
@@ -22,6 +20,11 @@ class Girl extends User
     const GIRL_TYPES = [
         self::GIRL_EUROPEAN,
         self::GIRL_ASIAN,
+    ];
+
+    protected $fillable = [
+        'gender',
+        'birthday',
     ];
 
     protected $appends = [

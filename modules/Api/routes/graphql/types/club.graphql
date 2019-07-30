@@ -18,10 +18,10 @@ type Club {
 input ClubInput {
     name: String!
     type: String!
-    address: String
+    address: String!
     website: String
-    phone: String
-    description: String
+    phone: String!
+    description: String!
     lat: String
     lng: String
 }
@@ -36,18 +36,16 @@ extend type Query @middleware(checks: ["auth:api"]) {
     club(id: ID @eq): Club @find
 }
 
-extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    createClub(input: ClubInput): Club
-    @field(resolver: "ClubMutator@create")
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createClub(input: ClubInput @spread): Club
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@create")
 
-    updateClub(id: ID!,input: ClubInput @spread): ClubPayload
-    @field(resolver: "ClubMutator@update")
+    updateClub(club: ID!, input: ClubInput @spread): ClubPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@update")
 
-    uploadClubPhotos(files: [Upload!]!): [File!]!
-    @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])
-    @field(resolver: "ClubMutator@uploadPhotos")
+    uploadClubPhoto(files: [Upload!]!): [File!]!
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadPhoto")
 
-    uploadClubVideos(files: [Upload!]!): [File!]!
-    @rules(apply: ["required", "mimetypes:video/avi,video/mpeg,video/quicktime", "max:100040"])
-    @field(resolver: "ClubMutator@uploadVideos")
+    uploadClubVideo(files: [Upload!]!): [File!]!
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadVideo")
 }

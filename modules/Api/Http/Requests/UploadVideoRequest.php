@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Api\Http\Requests\User;
+namespace Modules\Api\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUploadVideoRequest extends FormRequest
+class UploadVideoRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

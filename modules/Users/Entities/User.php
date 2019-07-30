@@ -44,8 +44,6 @@ class User extends AuthUser implements HasMedia, HasLocation
     protected $fillable = [
         'first_name',
         'last_name',
-        'gender',
-        'birthday',
         'club_type',
         'phone',
         'email',
@@ -93,5 +91,10 @@ class User extends AuthUser implements HasMedia, HasLocation
         $this->addMediaConversion('large')
             ->width(535)
             ->height(785);
+    }
+
+    public function clubs()
+    {
+        return $this->hasMany(Club::class);
     }
 }
