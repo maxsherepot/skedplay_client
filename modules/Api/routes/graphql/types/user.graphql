@@ -8,7 +8,6 @@ type User {
     phone: String!
     email: String!
     type: String
-    account_type: String
     lat: String
     lng: String
     vip: Boolean
@@ -25,7 +24,6 @@ input UserInput {
     phone: String
     email: String
     type: String
-    account_type: String
     lat: String
     lng: String
     vip: Boolean

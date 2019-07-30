@@ -36,7 +36,7 @@ class UserUpdateRequest extends FormRequest
             ],
             'password'          => 'string|min:6|confirmed',
             'address'           => 'nullable|string|max:255',
-            'type'              => 'string|max:255|in:' . implode(',', Girl::GIRL_TYPES),
+            'type'              => 'numeric|in:' . implode(',', Girl::GIRL_TYPES),
             'short_description' => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'lat'               => 'nullable|string',

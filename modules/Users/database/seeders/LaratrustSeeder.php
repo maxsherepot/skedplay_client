@@ -80,7 +80,6 @@ class LaratrustSeeder extends Seeder
                 'phone'        => $this->faker->phoneNumber,
                 'email'        => $key . '@site.com',
                 'password'     => 'password',
-                'account_type' => $key,
             ]);
 
             $user->attachRole($role);
@@ -103,7 +102,6 @@ class LaratrustSeeder extends Seeder
                         'email'          => $key . '@site.com',
                         'password'       => 'password',
                         'remember_token' => Str::random(10),
-                        'account_type'   => $key,
                     ]);
                     $permissions = [];
 

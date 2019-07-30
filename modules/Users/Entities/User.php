@@ -36,6 +36,11 @@ class User extends AuthUser implements HasMedia, HasLocation
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
 
+    const REGISTER_GENDERS = [
+        self::GENDER_MALE,
+        self::GENDER_FEMALE,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,7 +53,6 @@ class User extends AuthUser implements HasMedia, HasLocation
         'phone',
         'email',
         'password',
-        'account_type',
         'type',
         'short_description',
         'description',

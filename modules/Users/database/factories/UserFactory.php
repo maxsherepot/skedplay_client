@@ -21,25 +21,17 @@ use Modules\Users\Services\Imager\Varieties\ModelImager;
 
 $factory->state(\Modules\Users\Entities\User::class, 'club_owner', function (Faker $faker) {
     return [
-        'account_type' => User::ACCOUNT_CLUB_OWNER,
-        'club_type'    => $faker->randomElement(['Club', 'Studio']),
+        'club_type' => $faker->randomElement(['Club', 'Studio']),
     ];
 });
 
-$factory->state(\Modules\Users\Entities\User::class, 'client', [
-    'account_type' => User::ACCOUNT_CLIENT,
-]);
+$factory->state(\Modules\Users\Entities\User::class, 'client', []);
 
 $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
     return [
         'email'      => $faker->unique()->safeEmail,
         'first_name' => $faker->firstName,
         'last_name'  => $faker->lastName,
-        'gender'     => $faker->randomElement([
-            User::GENDER_MALE,
-            User::GENDER_FEMALE,
-        ]),
-        'birthday'   => $faker->date($format = 'Y-m-d', $max = '2003-05-05'),
         'phone'      => $faker->phoneNumber,
         'password'   => 'password',
     ];
@@ -61,19 +53,18 @@ $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
 
 $factory->define(\Modules\Users\Entities\Girl::class, function (Faker $faker) {
     return [
-        'email'        => $faker->unique()->safeEmail,
-        'first_name'   => $faker->firstName,
-        'last_name'    => $faker->lastName,
-        'gender'       => $faker->randomElement([
-            User::GENDER_MALE,
-            User::GENDER_FEMALE,
+        'email'      => $faker->unique()->safeEmail,
+        'first_name' => $faker->firstName,
+        'last_name'  => $faker->lastName,
+        'gender'     => $faker->randomElement([
+            Girl::GENDER_MALE,
+            Girl::GENDER_FEMALE,
         ]),
-        'birthday'     => $faker->date($format = 'Y-m-d', $max = '2003-05-05'),
-        'phone'        => $faker->phoneNumber,
-        'password'     => 'password',
-        'account_type' => User::ACCOUNT_GIRL,
-        'type'         => $faker->randomElement(Girl::GIRL_TYPES),
-        'vip'          => (bool)rand(0, 1),
+        'birthday'   => $faker->date($format = 'Y-m-d', $max = '2003-05-05'),
+        'phone'      => $faker->phoneNumber,
+        'password'   => 'password',
+        'type'       => $faker->randomElement(Girl::GIRL_TYPES),
+        'vip'        => (bool)rand(0, 1),
     ];
 
 })->afterCreating(\Modules\Users\Entities\Girl::class, function (Girl $girl) {
