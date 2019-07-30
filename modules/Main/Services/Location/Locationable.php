@@ -21,12 +21,13 @@ trait Locationable
 
     public static function bootLocationable()
     {
-        static::created(function (Model $model) {
+        static::creating(function (Model $model) {
             if (is_null($model->lat) && is_null($model->lng) && $ip = request()->ip()) {
                 try {
                     $coordinates = (new LocationCoordinatesIpService())
                         ->setIp($ip)
                         ->getCoordinates();
+
                     $model->lat = $coordinates->lat ?? self::DEFAULT_LATITUDE;
                     $model->lng = $coordinates->lng ?? self::DEFAULT_LONGITUDE;
 
