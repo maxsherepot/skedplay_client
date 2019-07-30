@@ -2,8 +2,6 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\User\UserUpdateRequest;
@@ -21,25 +19,6 @@ class UserController extends Controller
     public function __construct(UserRepository $repository)
     {
         $this->users = $repository;
-    }
-
-    /**
-     * @param Request $request
-     * @param User $user
-     * @return LengthAwarePaginator
-     */
-    public function index(Request $request, User $user): LengthAwarePaginator
-    {
-        return $this->users->paginate($request->get('count'), $user);
-    }
-
-    /**
-     * @param User $user
-     * @return User
-     */
-    public function show(User $user): User
-    {
-        return $user;
     }
 
     /**

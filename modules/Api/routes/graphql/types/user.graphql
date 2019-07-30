@@ -33,22 +33,14 @@ input UserInput {
     password_confirmation: String
 }
 
-type UserPaginator {
-    data: [User!]! @field(resolver: "Nuwave\\Lighthouse\\Pagination\\PaginatorField@dataResolver")
-    paginator: PaginatorInfo @field(resolver: "Nuwave\\Lighthouse\\Pagination\\PaginatorField@paginatorInfoResolver")
-}
-
 type UserPayload implements Status {
     status: Boolean!
     message: String
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    users(count: Int!, page: Int): UserPaginator
-    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@index")
-
-    user(user: ID): User
-    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@show")
+    users: [User!]! @paginate
+    user(id: ID @eq): User @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
