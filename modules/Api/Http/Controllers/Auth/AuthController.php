@@ -46,6 +46,8 @@ class AuthController extends BaseAuthResolver
             collect($request->all())
         )));
 
+        $user->attachRole($request->get('account_type'));
+
         return [
             'access_token' => $this->users->createToken($user),
             'user'         => $user,

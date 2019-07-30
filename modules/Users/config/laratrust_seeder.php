@@ -4,18 +4,23 @@ return [
     'role_structure'       => [
         'admin'      => [
             'users' => 'c,r,u,d',
-        ],
-        'client'     => [
-            'users' => 'r,u'
-        ],
-        'girl'      => [
-            'users' => 'r,u'
-        ],
-        'club_owner' => [
-            'users' => 'r,u'
+            'clubs' => 'c,r,u,d',
         ],
         'moderator'  => [
-            'users' => 'c,r,u,d'
+            'users' => 'c,r,u,d',
+            'clubs' => 'r,u',
+        ],
+        'client'     => [
+            'users' => 'r,u',
+            'clubs' => 'r',
+        ],
+        'girl'       => [
+            'users' => 'r,u',
+            'clubs' => 'r',
+        ],
+        'club_owner' => [
+            'users' => 'r,u',
+            'clubs' => 'c,r,u,d',
         ],
     ],
     'permission_structure' => [
