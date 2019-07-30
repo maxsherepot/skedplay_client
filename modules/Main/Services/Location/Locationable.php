@@ -14,11 +14,9 @@ trait Locationable
      */
     public function initializeLocationable()
     {
-        array_merge($this->fillable, [
-            'lat',
-            'lng',
-            'address'
-        ]);
+        $this->fillable[] = 'lat';
+        $this->fillable[] = 'lng';
+        $this->fillable[] = 'address';
     }
 
     public static function bootLocationable()
