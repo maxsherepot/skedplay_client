@@ -43,9 +43,9 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     updateClub(club: ID!, input: ClubInput @spread): ClubPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@update")
 
-    uploadClubPhoto(files: [Upload!]!): [File!]!
+    uploadClubPhoto(club: ID!, files: [Upload!]!): [File!]!
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadPhoto")
 
-    uploadClubVideo(files: [Upload!]!): [File!]!
+    uploadClubVideo(club: ID!, files: [Upload!]!): [File!]!
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadVideo")
 }

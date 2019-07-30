@@ -6,8 +6,7 @@ type Event {
 }
 
 
-extend type Mutation @middleware(checks: ["auth:api"]) @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    uploadEventPhoto(file: Upload!): [File!]!
-        @rules(apply: ["required", "file", "mimes:jpeg,jpg,png", "max:4000"])
-        @field(resolver: "EventMutator@uploadMainPhoto")
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    uploadEventPhoto(event: ID!, files: [Upload!]!): [File!]!
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@uploadMainPhoto")
 }
