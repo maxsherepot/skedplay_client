@@ -82,13 +82,28 @@ type NewPasswordResponse implements Status {
     message: String
 }
 
-type Mutation @namespace(field: "Modules\\Api\\GraphQL\\Mutations") {
-    register(data: RegisterInput): RegisterPayload @field(resolver: "Auth\\Registration@resolve")
-    login(data: LoginInput): AuthPayload! @field(resolver: "Auth\\Login@resolve")
-    logout: LogoutResponse! @field(resolver: "Auth\\Logout@resolve")
-    sendVerificationCode(data: SendVerificationInput): SendVerificationResponse! @field(resolver: "Verification\\SendVerification@resolve")
-    checkVerificationCode(data: CheckVerificationInput): CheckVerificationResponse! @field(resolver: "Verification\\CheckVerification@resolve")
-    forgotPassword(data: ForgotPasswordInput!): ForgotPasswordResponse! @field(resolver: "Auth\\ForgotPassword@resolve")
-    updateForgottenPassword(data: NewPasswordWithCodeInput): NewPasswordResponse! @field(resolver: "Auth\\ResetPassword@resolve")
-    refreshToken(data: RefreshTokenInput): AuthPayload! @field(resolver: "Auth\\RefreshToken@resolve")
+type Mutation {
+    register(input: RegisterInput! @spread): RegisterPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@register")
+
+    login(input: LoginInput! @spread): AuthPayload!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@login")
+
+    logout: LogoutResponse!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@logout")
+
+    forgotPassword(input: ForgotPasswordInput! @spread): ForgotPasswordResponse!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@forgotPassword")
+
+    resetPassword(input: NewPasswordWithCodeInput! @spread): NewPasswordResponse!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@resetPassword")
+
+    refreshToken(input: RefreshTokenInput! @spread): AuthPayload!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\AuthController@refreshToken")
+
+    sendVerificationCode(input: SendVerificationInput! @spread): SendVerificationResponse!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\VerificationController@send")
+
+    checkVerificationCode(input: CheckVerificationInput! @spread): CheckVerificationResponse!
+    @router(action: "Modules\\Api\\Http\\Controllers\\Auth\\VerificationController@check")
 }
