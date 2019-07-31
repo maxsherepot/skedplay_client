@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 use Laravel\Telescope\TelescopeServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws \Exception
      */
     public function boot()
     {
@@ -32,5 +34,7 @@ class AppServiceProvider extends ServiceProvider
             'user' => 'Modules\Users\Entities\User',
             'club' => 'Modules\Users\Entities\Club',
         ]);
+
+        Cashier::useCurrency('usd', '$');
     }
 }

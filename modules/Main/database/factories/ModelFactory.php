@@ -4,6 +4,7 @@
 
 use Faker\Generator as Faker;
 use Modules\Main\Entities\{Event, EventType, PriceType, Service};
+use Modules\Main\Services\Cashier\Plan;
 use Modules\Users\Entities\Club;
 
 /*
@@ -44,3 +45,6 @@ $factory->define(EventType::class, function (Faker $faker) {
     return [];
 });
 
+$factory->define(Plan::class, function (Faker $faker) {
+    return [];
+});

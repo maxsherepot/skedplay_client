@@ -30,6 +30,10 @@ class CreateUsersTable extends Migration
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->boolean('vip')->default(0);
+
+            /** Cashier columns */
+            $table->timestamp('trial_ends_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
