@@ -27,19 +27,47 @@ class CashierTest extends TestCase
 
     public function testNewUserSubscription()
     {
-        $user = factory(User::class)->create();
-
-        $plan = factory(Plan::class)->create([
+        [$user, $plan] = $this->subscribeUserOnPlan([
             'name' => 'free',
-            'cost' => 0
+            'cost' => 0,
         ]);
-
-        $user->newSubscription('main', $plan->id)
-            ->create();
 
         $this->assertDatabaseHas('subscriptions', [
             'user_id' => $user->id,
             'plan_id' => $plan->id,
         ]);
+    }
+
+    public function testUserSubscribed()
+    {
+        [$user, $plan] = $this->subscribeUserOnPlan([
+            'name' => 'free',
+            'cost' => 0,
+        ]);
+
+        $this->assertTrue(
+            $user->subscribed('main', $plan->id)
+        );
+    }
+
+    /**
+     * Potential trait method
+     *
+     * @param array $options
+     * @return array
+     */
+    public function subscribeUserOnPlan(array $options)
+    {
+        $user = factory(User::class)->create();
+
+        $plan = factory(Plan::class)->create([
+            'name' => $options['name'],
+            'cost' => $options['cost']
+        ]);
+
+        $user->newSubscription('main', $plan->id)
+            ->create();
+
+        return [$user, $plan];
     }
 }

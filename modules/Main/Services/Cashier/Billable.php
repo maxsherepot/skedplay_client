@@ -100,13 +100,13 @@ trait Billable
     }
 
     /**
-     * Determine if the Stripe model has a given subscription.
+     * Determine if the Owner model has a given subscription.
      *
      * @param string $subscription
-     * @param string|null $plan
+     * @param string|null $plan_id
      * @return bool
      */
-    public function subscribed($subscription = 'default', $plan = null)
+    public function subscribed($subscription = 'default', $plan_id = null)
     {
         $subscription = $this->subscription($subscription);
 
@@ -114,12 +114,12 @@ trait Billable
             return false;
         }
 
-        if (is_null($plan)) {
+        if (is_null($plan_id)) {
             return $subscription->valid();
         }
 
         return $subscription->valid() &&
-            $subscription->stripe_plan === $plan;
+            $subscription->plan_id === $plan_id;
     }
 
     /**
@@ -163,7 +163,7 @@ trait Billable
     }
 
     /**
-     * Determine if the Stripe model is actively subscribed to one of the given plans.
+     * Determine if the Owner model is actively subscribed to one of the given plans.
      *
      * @param array|string $plans
      * @param string $subscription
