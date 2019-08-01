@@ -91,6 +91,8 @@ class CashierTest extends TestCase
 
         $user->subscription('main', $plan->id)->swap(2);
 
+        dd($user->subscription('main', $plan->id));
+
         $this->assertTrue(
             $user->subscribed('main', 2)
         );

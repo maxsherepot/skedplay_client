@@ -4,9 +4,7 @@ namespace Modules\Main\Services\Cashier;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use LogicException;
-use Stripe\Error\Card as StripeCard;
 
 class Subscription extends Model
 {
@@ -35,6 +33,7 @@ class Subscription extends Model
     protected $dates = [
         'current_period_start', 'current_period_end',
         'trial_ends_at', 'ends_at',
+        'trial_start', 'trial_end',
         'created_at', 'updated_at',
     ];
 
@@ -232,54 +231,6 @@ class Subscription extends Model
     }
 
     /**
-     * Increment the quantity of the subscription.
-     *
-     * @param int $count
-     * @return $this
-     */
-    public function incrementQuantity($count = 1)
-    {
-        $this->updateQuantity($this->quantity + $count);
-
-        return $this;
-    }
-
-    /**
-     * Decrement the quantity of the subscription.
-     *
-     * @param int $count
-     * @return $this
-     */
-    public function decrementQuantity($count = 1)
-    {
-        $this->updateQuantity(max(1, $this->quantity - $count));
-
-        return $this;
-    }
-
-    /**
-     * Update the quantity of the subscription.
-     *
-     * @param int $quantity
-     * @param \Stripe\Customer|null $customer
-     * @return $this
-     */
-    public function updateQuantity($quantity, $customer = null)
-    {
-        $subscription = $this->asStripeSubscription();
-
-        $subscription->quantity = $quantity;
-
-        $subscription->save();
-
-        $this->quantity = $quantity;
-
-        $this->save();
-
-        return $this;
-    }
-
-    /**
      * Force the trial to end immediately.
      *
      * This method must be combined with swap, resume, etc.
@@ -344,8 +295,6 @@ class Subscription extends Model
     {
         $this->cancel_at_period_end = true;
 
-        $this->save();
-
         // If the user was on trial, we will set the grace period to end when the trial
         // would have ended. Otherwise, we'll retrieve the end of the billing period
         // period and make that the end of the grace period for this current user.
@@ -392,24 +341,28 @@ class Subscription extends Model
      */
     public function resume()
     {
+        /**
+         * Todo: Payment
+         */
+
         if (!$this->onGracePeriod()) {
             throw new LogicException('Unable to resume subscription that is not within grace period.');
         }
 
-        $this->cancel_at_period_end = false;
-
         if ($this->onTrial()) {
-            $this->trial_end = $this->trial_ends_at->getTimestamp();
+            $trialEnd = $this->trial_ends_at->getTimestamp();
         } else {
-            $this->trial_end = now();
+            $trialEnd = now();
         }
-
-        $this->save();
 
         // Finally, we will remove the ending timestamp from the user's record in the
         // local database to indicate that the subscription is active again and is
         // no longer "cancelled". Then we will save this record in the database.
-        $this->fill(['ends_at' => null])->save();
+        $this->fill([
+            'ends_at'              => null,
+            'cancel_at_period_end' => false,
+            'trial_end'            => $trialEnd
+        ])->save();
 
         return $this;
     }
