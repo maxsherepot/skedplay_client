@@ -13,10 +13,11 @@ class CashierTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Create
-     * Resume
+     * Create +
+     * Resume +
      * Swap
-     * Cancel
+     * Cancel +
+     * cancelNow +
      */
 
     public function testCreatePlan()
@@ -53,13 +54,47 @@ class CashierTest extends TestCase
         ]);
 
         /** @var Subscription $subscription */
-        $subscription = $user->subscription('main')->cancel();
+        $subscription = $user->subscription('main', $plan->id)->cancel();
 
         $this->assertTrue(
             $subscription->cancelled()
         );
     }
 
+    public function testResumeUserSubscription()
+    {
+        [$user, $plan] = $this->subscribeUserOnPlan([
+            'name' => 'free',
+            'cost' => 0,
+        ]);
+
+        /** @var Subscription $subscription */
+        $subscription = $user->subscription('main', $plan->id)->cancel();
+
+        $this->assertTrue(
+            $subscription->cancelled()
+        );
+
+        $subscription->resume();
+
+        $this->assertTrue(
+            $subscription->active()
+        );
+    }
+
+    public function testSwapUserSubscription()
+    {
+        [$user, $plan] = $this->subscribeUserOnPlan([
+            'name' => 'free',
+            'cost' => 0,
+        ]);
+
+        $user->subscription('main', $plan->id)->swap(2);
+
+        $this->assertTrue(
+            $user->subscribed('main', 2)
+        );
+    }
 
     /**
      * Potential trait method

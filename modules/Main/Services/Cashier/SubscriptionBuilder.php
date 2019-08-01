@@ -158,8 +158,12 @@ class SubscriptionBuilder
 
         if ($this->skipTrial) {
             $trialEndsAt = null;
+            $trialStart = null;
+            $trialEnd = null;
         } else {
             $trialEndsAt = $this->trialExpires;
+            $trialStart = now();
+            $trialEnd = $trialEndsAt;
         }
 
         return $this->owner->subscriptions()->create([
@@ -167,6 +171,8 @@ class SubscriptionBuilder
             'plan_id'       => $this->plan_id,
             'quantity'      => $this->quantity,
             'trial_ends_at' => $trialEndsAt,
+            'trial_end'     => $trialStart,
+            'trial_start'   => $trialEnd,
             'ends_at'       => null,
         ]);
     }

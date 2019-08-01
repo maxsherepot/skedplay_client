@@ -39,13 +39,6 @@ class Subscription extends Model
     ];
 
     /**
-     * Indicates if the plan change should be prorated.
-     *
-     * @var bool
-     */
-    protected $prorate = true;
-
-    /**
      * Get the user that owns the subscription.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -277,25 +270,11 @@ class Subscription extends Model
 
         $subscription->quantity = $quantity;
 
-        $subscription->prorate = $this->prorate;
-
         $subscription->save();
 
         $this->quantity = $quantity;
 
         $this->save();
-
-        return $this;
-    }
-
-    /**
-     * Indicate that the plan change should not be prorated.
-     *
-     * @return $this
-     */
-    public function noProrate()
-    {
-        $this->prorate = false;
 
         return $this;
     }
@@ -317,52 +296,40 @@ class Subscription extends Model
     /**
      * Swap the subscription to a new Stripe plan.
      *
-     * @param string $plan
+     * @param $plan_id
      * @return $this
      */
-    public function swap($plan)
+    public function swap($plan_id)
     {
-        $subscription = $this->asStripeSubscription();
-
-        $subscription->plan = $plan;
-
-        $subscription->prorate = $this->prorate;
-
-        $subscription->cancel_at_period_end = false;
-
-        if (!is_null($this->billingCycleAnchor)) {
-            $subscription->billing_cycle_anchor = $this->billingCycleAnchor;
-        }
-
         // If no specific trial end date has been set, the default behavior should be
         // to maintain the current trial state, whether that is "active" or to run
         // the swap out with the exact number of days left on this current plan.
         if ($this->onTrial()) {
-            $subscription->trial_end = $this->trial_ends_at->getTimestamp();
+            $trialEnd = $this->trial_ends_at->getTimestamp();
         } else {
-            $subscription->trial_end = 'now';
+            $trialEnd = now();
         }
 
-        // Again, if no explicit quantity was set, the default behaviors should be to
-        // maintain the current quantity onto the new plan. This is a sensible one
-        // that should be the expected behavior for most developers with Stripe.
-        if ($this->quantity) {
-            $subscription->quantity = $this->quantity;
-        }
+        /**
+         * Todo: Payment
+         */
 
-        $subscription->save();
-
-        try {
-            $this->user->invoice(['subscription' => $subscription->id]);
-        } catch (StripeCard $exception) {
-            // When the payment for the plan swap fails, we continue to let the user swap to the
-            // new plan. This is because Stripe may attempt to retry the payment later on. If
-            // all attempts to collect payment fail, webhooks will handle any update to it.
-        }
+        /**
+         * Todo:Create user invoice
+         */
+//        try {
+//            $this->user->invoice(['subscription' => $subscription->id]);
+//        } catch (StripeCard $exception) {
+//            // When the payment for the plan swap fails, we continue to let the user swap to the
+//            // new plan. This is because Stripe may attempt to retry the payment later on. If
+//            // all attempts to collect payment fail, webhooks will handle any update to it.
+//        }
 
         $this->fill([
-            'stripe_plan' => $plan,
-            'ends_at'     => null,
+            'cancel_at_period_end' => false,
+            'trial_end'            => $trialEnd,
+            'plan_id'              => $plan_id,
+            'ends_at'              => null,
         ])->save();
 
         return $this;
@@ -400,9 +367,7 @@ class Subscription extends Model
      */
     public function cancelNow()
     {
-        $subscription = $this->asStripeSubscription();
-
-        $subscription->cancel();
+        $this->cancel();
 
         $this->markAsCancelled();
 
@@ -431,22 +396,15 @@ class Subscription extends Model
             throw new LogicException('Unable to resume subscription that is not within grace period.');
         }
 
-        $subscription = $this->asStripeSubscription();
-
-        $subscription->cancel_at_period_end = false;
-
-        // To resume the subscription we need to set the plan parameter on the Stripe
-        // subscription object. This will force Stripe to resume this subscription
-        // where we left off. Then, we'll set the proper trial ending timestamp.
-        $subscription->plan = $this->stripe_plan;
+        $this->cancel_at_period_end = false;
 
         if ($this->onTrial()) {
-            $subscription->trial_end = $this->trial_ends_at->getTimestamp();
+            $this->trial_end = $this->trial_ends_at->getTimestamp();
         } else {
-            $subscription->trial_end = 'now';
+            $this->trial_end = now();
         }
 
-        $subscription->save();
+        $this->save();
 
         // Finally, we will remove the ending timestamp from the user's record in the
         // local database to indicate that the subscription is active again and is
@@ -454,37 +412,5 @@ class Subscription extends Model
         $this->fill(['ends_at' => null])->save();
 
         return $this;
-    }
-
-    /**
-     * Sync the tax percentage of the user to the subscription.
-     *
-     * @return void
-     */
-    public function syncTaxPercentage()
-    {
-        $subscription = $this->asStripeSubscription();
-
-        $subscription->tax_percent = $this->user->taxPercentage();
-
-        $subscription->save();
-    }
-
-    /**
-     * Get the subscription as a Stripe subscription object.
-     *
-     * @return \Stripe\Subscription
-     * @throws \LogicException
-     */
-    public function asStripeSubscription()
-    {
-        /** @var Collection $subscriptions */
-        $subscription = $this->user->subscriptions()->find($this->id);
-
-        if (!$subscription) {
-            throw new LogicException('The owner model does not have any subscription.');
-        }
-
-        return $subscription;
     }
 }

@@ -29,6 +29,10 @@ class CreateSubscriptionsTable extends Migration
             $table->timestamp('current_period_start');
             $table->timestamp('current_period_end');
 
+            $table->timestamp('trial_start')->nullable();
+            $table->timestamp('trial_end')->nullable();
+
+
             $table->timestamps();
         });
     }
