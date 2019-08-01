@@ -148,21 +148,6 @@ trait Billable
     }
 
     /**
-     * Apply a coupon to the billable entity.
-     *
-     * @param string $coupon
-     * @return void
-     */
-    public function applyCoupon($coupon)
-    {
-        $customer = $this->asStripeCustomer();
-
-        $customer->coupon = $coupon;
-
-        $customer->save();
-    }
-
-    /**
      * Determine if the Owner model is actively subscribed to one of the given plans.
      *
      * @param array|string $plans

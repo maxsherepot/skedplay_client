@@ -21,6 +21,14 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('quantity');
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
+
+            /** Like Stripe columns */
+            $table->boolean('cancel_at_period_end')->default(false);
+            $table->timestamp('canceled_at')->nullable();
+
+            $table->timestamp('current_period_start');
+            $table->timestamp('current_period_end');
+
             $table->timestamps();
         });
     }

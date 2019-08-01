@@ -3,13 +3,23 @@
 namespace Modules\Main\Services\Cashier;
 
 use Carbon\Carbon;
-use LogicException;
-use DateTimeInterface;
-use Stripe\Error\Card as StripeCard;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use LogicException;
+use Stripe\Error\Card as StripeCard;
 
 class Subscription extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Subscription $subscription) {
+            $subscription->current_period_start = now();
+            $subscription->current_period_end = now()->addMonth();
+        });
+    }
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -23,6 +33,7 @@ class Subscription extends Model
      * @var array
      */
     protected $dates = [
+        'current_period_start', 'current_period_end',
         'trial_ends_at', 'ends_at',
         'created_at', 'updated_at',
     ];
@@ -33,13 +44,6 @@ class Subscription extends Model
      * @var bool
      */
     protected $prorate = true;
-
-    /**
-     * The date on which the billing cycle should be anchored.
-     *
-     * @var string|null
-     */
-    protected $billingCycleAnchor = null;
 
     /**
      * Get the user that owns the subscription.
@@ -248,21 +252,6 @@ class Subscription extends Model
     }
 
     /**
-     *  Increment the quantity of the subscription, and invoice immediately.
-     * Todo: Remove stripe
-     * @param int $count
-     * @return $this
-     */
-    public function incrementAndInvoice($count = 1)
-    {
-        $this->incrementQuantity($count);
-
-        $this->user->invoice(['subscription' => $this->stripe_id]);
-
-        return $this;
-    }
-
-    /**
      * Decrement the quantity of the subscription.
      *
      * @param int $count
@@ -307,23 +296,6 @@ class Subscription extends Model
     public function noProrate()
     {
         $this->prorate = false;
-
-        return $this;
-    }
-
-    /**
-     * Change the billing cycle anchor on a plan change.
-     *
-     * @param \DateTimeInterface|int|string $date
-     * @return $this
-     */
-    public function anchorBillingCycleOn($date = 'now')
-    {
-        if ($date instanceof DateTimeInterface) {
-            $date = $date->getTimestamp();
-        }
-
-        $this->billingCycleAnchor = $date;
 
         return $this;
     }
@@ -403,11 +375,9 @@ class Subscription extends Model
      */
     public function cancel()
     {
-        $subscription = $this->asStripeSubscription();
+        $this->cancel_at_period_end = true;
 
-        $subscription->cancel_at_period_end = true;
-
-        $subscription->save();
+        $this->save();
 
         // If the user was on trial, we will set the grace period to end when the trial
         // would have ended. Otherwise, we'll retrieve the end of the billing period
@@ -415,9 +385,7 @@ class Subscription extends Model
         if ($this->onTrial()) {
             $this->ends_at = $this->trial_ends_at;
         } else {
-            $this->ends_at = Carbon::createFromTimestamp(
-                $subscription->current_period_end
-            );
+            $this->ends_at = $this->current_period_end;
         }
 
         $this->save();
@@ -510,12 +478,13 @@ class Subscription extends Model
      */
     public function asStripeSubscription()
     {
-        $subscriptions = $this->user->asStripeCustomer()->subscriptions;
+        /** @var Collection $subscriptions */
+        $subscription = $this->user->subscriptions()->find($this->id);
 
-        if (!$subscriptions) {
-            throw new LogicException('The Stripe customer does not have any subscriptions.');
+        if (!$subscription) {
+            throw new LogicException('The owner model does not have any subscription.');
         }
 
-        return $subscriptions->retrieve($this->stripe_id);
+        return $subscription;
     }
 }

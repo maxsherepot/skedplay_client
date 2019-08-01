@@ -4,12 +4,20 @@ namespace Modules\Main\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Main\Services\Cashier\Plan;
+use Modules\Main\Services\Cashier\Subscription;
 use Modules\Users\Entities\User;
 use Tests\TestCase;
 
 class CashierTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * Create
+     * Resume
+     * Swap
+     * Cancel
+     */
 
     public function testCreatePlan()
     {
@@ -32,23 +40,26 @@ class CashierTest extends TestCase
             'cost' => 0,
         ]);
 
-        $this->assertDatabaseHas('subscriptions', [
-            'user_id' => $user->id,
-            'plan_id' => $plan->id,
-        ]);
+        $this->assertTrue(
+            $user->subscribed('main', $plan->id)
+        );
     }
 
-    public function testUserSubscribed()
+    public function testCancelUserSubscription()
     {
         [$user, $plan] = $this->subscribeUserOnPlan([
             'name' => 'free',
             'cost' => 0,
         ]);
 
+        /** @var Subscription $subscription */
+        $subscription = $user->subscription('main')->cancel();
+
         $this->assertTrue(
-            $user->subscribed('main', $plan->id)
+            $subscription->cancelled()
         );
     }
+
 
     /**
      * Potential trait method
