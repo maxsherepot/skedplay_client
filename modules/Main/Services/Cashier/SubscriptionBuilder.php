@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Main\Services\Cashier;
 
 use Carbon\Carbon;
-use DateTimeInterface;
 
 class SubscriptionBuilder
 {
@@ -48,13 +47,6 @@ class SubscriptionBuilder
      * @var bool
      */
     protected $skipTrial = false;
-
-    /**
-     * The date on which the billing cycle should be anchored.
-     *
-     * @var int|null
-     */
-    protected $billingCycleAnchor = null;
 
     /**
      * The coupon code being applied to the customer.
@@ -130,23 +122,6 @@ class SubscriptionBuilder
     }
 
     /**
-     * Change the billing cycle anchor on a plan creation.
-     *
-     * @param \DateTimeInterface|int $date
-     * @return $this
-     */
-    public function anchorBillingCycleOn($date)
-    {
-        if ($date instanceof DateTimeInterface) {
-            $date = $date->getTimestamp();
-        }
-
-        $this->billingCycleAnchor = $date;
-
-        return $this;
-    }
-
-    /**
      * The coupon to apply to a new subscription.
      *
      * @param string $coupon
@@ -160,10 +135,7 @@ class SubscriptionBuilder
     }
 
     /**
-     * Add a new Stripe subscription to the Stripe model.
-     *
-     * @param array $options
-     * @return \Laravel\Cashier\Subscription
+     * Add a new Stripe subscription to the owner model.
      */
     public function add()
     {
@@ -172,33 +144,16 @@ class SubscriptionBuilder
 
     /**
      * Create a new subscription.
-     *
-     * @return \Laravel\Cashier\Subscription
      */
     public function create()
     {
         /**
-         * Payment method
+         * Fake payment method
          */
+        $payment = (new Omnipay())->purchase([]);
 
-        $params = [
-            'amount' => 1,
-            'returnUrl' => '/test2',
-            'cancelUrl' => '/test3',
-        ];
-
-        $response = \Omnipay::purchase($params)->send();
-
-        dd($response);
-        if ($response->isSuccessful()) {
-            // payment was successful: update database
-            print_r($response);
-        } elseif ($response->isRedirect()) {
-            // redirect to offsite payment gateway
-            return $response->getRedirectResponse();
-        } else {
-            // payment failed: display message to customer
-            echo $response->getMessage();
+        if (!$payment) {
+            return new \Exception('Payment not yet');
         }
 
         if ($this->skipTrial) {
@@ -213,22 +168,6 @@ class SubscriptionBuilder
             'quantity'      => $this->quantity,
             'trial_ends_at' => $trialEndsAt,
             'ends_at'       => null,
-        ]);
-    }
-
-    /**
-     * Build the payload for subscription creation.
-     *
-     * @return array
-     */
-    protected function buildPayload()
-    {
-        return array_filter([
-            'billing_cycle_anchor' => $this->billingCycleAnchor,
-            'coupon'               => $this->coupon,
-            'plan_id'              => $this->plan_id,
-            'quantity'             => $this->quantity,
-            'trial_end'            => $this->getTrialEndForPayload(),
         ]);
     }
 

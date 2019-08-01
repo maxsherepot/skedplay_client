@@ -3,21 +3,17 @@
 return [
 
     /** The default gateway name */
-    'gateway' => 'Stripe',
+    'gateway' => 'PayPal_Express',
 
     /** The default settings, applied to all gateways */
     'defaults' => [
-        'testMode' => false,
+        'testMode' => true,
     ],
 
     /** Gateway specific parameters */
     'gateways' => [
-        'Stripe' => [
-            'username' => '',
-            'landingPage' => ['billing', 'login'],
-        ],
         'PayPal_Express' => [
-            'username' => '',
+            'username' => 'bat.format-facilitator@gmail.com',
             'landingPage' => ['billing', 'login'],
         ],
     ],
