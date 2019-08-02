@@ -30,6 +30,6 @@ class EventPolicy
             return $user->clubs->contains($event->eventable_id);
         }
 
-        return $user->owns($event, 'eventable_id') || $user->hasPermission('update-events');
+        return $user->owns($event, 'eventable_id') && $user->hasPermission('update-events');
     }
 }
