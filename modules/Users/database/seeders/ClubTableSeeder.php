@@ -8,6 +8,7 @@ use Modules\Main\Entities\PriceType;
 use Modules\Main\Entities\Service;
 use Modules\Users\Entities\Club;
 use Modules\Users\Entities\Girl;
+use Modules\Users\Entities\User;
 use Modules\Users\Services\Imager\ImagerWorker;
 use Modules\Users\Services\Imager\Varieties\ClubImager;
 
@@ -42,6 +43,8 @@ class ClubTableSeeder extends Seeder
                             $this->addServices($girl);
                             $this->addPrices($girl);
                             $this->addEvents($girl);
+
+                            $girl->attachRole(User::ACCOUNT_GIRL);
                         })
                 );
 //                $this->addAttachments($club);

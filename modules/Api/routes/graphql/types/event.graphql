@@ -20,8 +20,13 @@ input EventUpdateInput {
     club_id: Int
 }
 
+type EventPayload implements Status {
+    status: Boolean!
+    message: String
+}
+
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    updateEvent(input: EventUpdateInput @spread): Event
+    updateEvent(event: ID!, input: EventUpdateInput @spread): EventPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EventController@update")
 
     uploadEventPhoto(event: ID!, files: [Upload!]!): [File!]!

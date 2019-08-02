@@ -33,9 +33,9 @@ class EventController extends Controller
     {
         $this->authorize('update', $event);
 
-        $event = $this->events->update($event, collect($request->all()));
+        $response = $this->events->update($event, collect($request->all()));
 
-        return $this->success();
+        return $response ? $this->success() : $this->fail();
     }
 
     /**

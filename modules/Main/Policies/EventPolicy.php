@@ -26,6 +26,10 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        return $user->owns($event, 'id') || $user->hasPermission('update-events');
+        if ($event->eventable_type === 'club') {
+            return $user->clubs->contains($event->eventable_id);
+        }
+
+        return $user->owns($event, 'eventable_id') || $user->hasPermission('update-events');
     }
 }

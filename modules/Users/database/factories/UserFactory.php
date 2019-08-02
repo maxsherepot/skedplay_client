@@ -23,6 +23,8 @@ $factory->state(\Modules\Users\Entities\User::class, 'club_owner', function (Fak
     return [
         'club_type' => $faker->randomElement(['Club', 'Studio']),
     ];
+})->afterCreatingState(\Modules\Users\Entities\User::class, 'club_owner', function (User $user) {
+    $user->attachRole(User::ACCOUNT_CLUB_OWNER);
 });
 
 $factory->state(\Modules\Users\Entities\User::class, 'client', []);
@@ -37,7 +39,6 @@ $factory->define(\Modules\Users\Entities\User::class, function (Faker $faker) {
     ];
 
 })->afterCreating(\Modules\Users\Entities\User::class, function (User $user) {
-    $user->attachRole($user->account_type);
 
 //    $imager = (new ImagerWorker(new ModelImager()))->imager();
 //
@@ -68,8 +69,6 @@ $factory->define(\Modules\Users\Entities\Girl::class, function (Faker $faker) {
     ];
 
 })->afterCreating(\Modules\Users\Entities\Girl::class, function (Girl $girl) {
-    $girl->attachRole($girl->account_type);
-
 //    $imager = (new ImagerWorker(new ModelImager()))->imager();
 //
 //    collect(range(0, 6))
