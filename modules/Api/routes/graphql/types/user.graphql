@@ -50,7 +50,4 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
     uploadUserVideo(user: ID!, files: [Upload!]!): [File!]!
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadVideo")
-
-    createUserEvent(user: ID!, input: EventInput @spread): Event
-    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@createEvent")
 }
