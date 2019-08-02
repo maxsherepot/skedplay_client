@@ -39,6 +39,21 @@ class EventController extends Controller
     }
 
     /**
+     * @param Event $event
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
+     */
+    public function delete(Event $event)
+    {
+        $this->authorize('delete', $event);
+
+        $response = $this->events->delete($event);
+
+        return $response ? $this->success() : $this->fail();
+    }
+
+    /**
      * @param UploadPhotoRequest $request
      * @param Event $event
      * @return void

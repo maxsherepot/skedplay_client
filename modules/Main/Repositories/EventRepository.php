@@ -33,4 +33,14 @@ class EventRepository
     {
         return $event->update($collection->toArray());
     }
+
+    /**
+     * @param Event $event
+     * @return bool
+     * @throws \Exception
+     */
+    public function delete(Event $event): bool
+    {
+        return $event->delete();
+    }
 }
