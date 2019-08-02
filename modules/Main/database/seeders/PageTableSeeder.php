@@ -51,11 +51,11 @@ class PageTableSeeder extends Seeder
             ]
         ];
 
-        foreach ($pages as $page) {
-            $instance = new Page;
-            $this->setTranslations($instance, $page);
-            $instance->save();
-        }
+//        foreach ($pages as $page) {
+//            $instance = new Page;
+//            $this->setTranslations($instance, $page);
+//            $instance->save();
+//        }
 
         $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
     }
