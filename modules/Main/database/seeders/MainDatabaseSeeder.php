@@ -20,5 +20,6 @@ class MainDatabaseSeeder extends Seeder
         $this->call(ServiceTableSeeder::class);
         $this->call(PriceTableSeeder::class);
         $this->call(PlanTableSeeder::class);
+        $this->call(PageTableSeeder::class);
     }
 }

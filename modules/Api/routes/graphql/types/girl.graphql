@@ -24,3 +24,9 @@ extend type Query @middleware(checks: ["auth:api"]) {
     girls(filters: GirlFilters @spread): [Girl!]! @paginate
     girl(id: ID @eq): Girl @find
 }
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    createGirlEvent(girl: ID!, input: EventInput @spread): Event
+    @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@createEvent")
+}
+
