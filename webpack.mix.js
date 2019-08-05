@@ -11,8 +11,19 @@ const mix = require('laravel-mix');
  |
  */
 
+let entry = 'resources/js/app.js';
+const tag = process.env.npm_config_tag;
+
+switch (tag) {
+  case 'main':
+    entry = 'resources/js/main.js';
+  case 'app':
+  default:
+    break;
+}
+
 mix
-  .react('resources/js/app.js', '')
+  .react(entry, '')
   .setPublicPath('public/js/app')
   .webpackConfig({
     output: {
