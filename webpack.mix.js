@@ -20,7 +20,7 @@ mix
       chunkFilename: 'chunk/[name].js',
     },
     resolve: {
-      extensions: ['.js', '.vue', '.json'],
+      extensions: ['.js', '.jsx', '.json'],
       alias: {
         '@': path.resolve(__dirname, 'resources/js/'),
       },
