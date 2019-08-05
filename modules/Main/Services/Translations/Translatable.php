@@ -17,24 +17,26 @@ trait Translatable
             /* @var Translatable $model */
             return $model->saveTranslations();
         });
+
+        static::updated(function (Model $model) {
+            /* @var Translatable $model */
+            return $model->saveTranslations();
+        });
     }
 
     public function setAttribute($key, $value)
     {
         [$attribute, $locale] = $this->getAttributeAndLocale($key);
 
-        /**
-         * Attach $attribute -> $value to new translation
-         */
-
         if ($this->isTranslationAttribute($attribute)) {
-            $translation = $this->getTranslationOrNew($locale);
 
+            $translation = $this->getTranslationOrNew($attribute, $locale);
             $translation->key = $attribute;
             $translation->value = $value;
 
             return $this;
         }
+
 
         return parent::setAttribute($key, $value);
     }
@@ -46,40 +48,46 @@ trait Translatable
         /** @var Model $translation */
         $translation = new $modelName();
         $translation->setAttribute($this->getLocaleKey(), $locale);
+
         $this->translations->add($translation);
         return $translation;
     }
 
     /**
+     * @param string|null $attribute
      * @param string|null $locale
      * @return Model|null
      */
-    public function getTranslation(?string $locale = null): ?Model
+    public function getTranslation(?string $attribute = null, ?string $locale = null): ?Model
     {
-        $locale = $locale ?: $this->locale();
-
-        if ($translation = $this->getTranslationByLocaleKey($locale)) {
+        if ($translation = $this->getTranslationByAttribute($attribute, $locale)) {
             return $translation;
         }
 
         return null;
     }
 
-    private function getTranslationByLocaleKey(string $key): ?Model
+    private function getTranslationByAttribute(string $attribute, string $locale): ?Model
     {
         foreach ($this->translations as $translation) {
-            if ($translation->getAttribute($this->getLocaleKey()) == $key) {
+            if ($translation->getAttribute('key') == $attribute
+                && $translation->getAttribute($this->getLocaleKey()) == $locale) {
                 return $translation;
             }
         }
         return null;
     }
 
-    public function getTranslationOrNew(?string $locale = null): Model
+    /**
+     * @param string|null $attribute
+     * @param string|null $locale
+     * @return Model|null
+     */
+    public function getTranslationOrNew(?string $attribute = null, ?string $locale = null): ?Model
     {
         $locale = $locale ?: $this->locale();
 
-        if (($translation = $this->getTranslation($locale)) === null) {
+        if (($translation = $this->getTranslation($attribute, $locale)) === null) {
             $translation = $this->getNewTranslation($locale);
         }
 
@@ -112,6 +120,7 @@ trait Translatable
         if (!$this->relationLoaded('translations')) {
             return $saved;
         }
+
         /** @var Model $this */
         foreach ($this->translations as $translation) {
             if ($saved && $this->isTranslationDirty($translation)) {
@@ -119,12 +128,8 @@ trait Translatable
                     $translation->setConnection($connectionName);
                 }
 
-                /**
-                 * Todo: add entity info
-                 * entity_id
-                 * entity_type
-                 */
-//                $translation->setAttribute($this->getTranslationRelationKey(), $this->getKey());
+                $translation->setAttribute('entity_type', self::MORPH_TYPE);
+                $translation->setAttribute('entity_id', $this->getKey());
                 $saved = $translation->save();
             }
         }

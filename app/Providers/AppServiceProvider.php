@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Cashier\Cashier;
 use Laravel\Telescope\TelescopeServiceProvider;
+use Modules\Main\Entities\Page;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,11 +30,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
-            'girl' => 'Modules\Users\Entities\Girl',
-            'user' => 'Modules\Users\Entities\User',
-            'club' => 'Modules\Users\Entities\Club',
+            'girl'           => 'Modules\Users\Entities\Girl',
+            'user'           => 'Modules\Users\Entities\User',
+            'club'           => 'Modules\Users\Entities\Club',
+            Page::MORPH_TYPE => 'Modules\Main\Entities\Page',
         ]);
-
-        Cashier::useCurrency('usd', '$');
     }
 }

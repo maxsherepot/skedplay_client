@@ -11,7 +11,7 @@ class Translation extends Model
     protected $fillable = [
         'key',
         'value',
-        'locale_id',
+        'locale',
     ];
 
     /**

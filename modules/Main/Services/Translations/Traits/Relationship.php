@@ -23,7 +23,7 @@ trait Relationship
         if ($namespace = $this->getTranslationModelNamespace()) {
             $modelName = $namespace;
         }
-        return $modelName . config('translatable.translation_suffix', 'Translation');
+        return $modelName . 'Translation';
     }
 
     /**
