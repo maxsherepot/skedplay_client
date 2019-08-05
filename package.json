@@ -1,6 +1,7 @@
 {
   "name": "skidplay",
   "scripts": {
+    "lint": "eslint resources/js -c .eslintrc.json --ext js,jsx",
     "dev": "npm run development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "npm run development -- --watch",
@@ -19,13 +20,13 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
-    "husky": "^3.0.2",
     "laravel-mix": "^4.1.2",
-    "lint-staged": "^9.2.1",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "prettier": "^1.18.2"
   },
   "dependencies": {
     "apollo-boost": "^0.4.3",
@@ -50,17 +51,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "resources/js/**/*.{js,jsx}": [
-      "eslint",
-      "pretty-quick --staged",
-      "git add"
-    ]
-  }
+  ]
 }
