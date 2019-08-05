@@ -53,11 +53,6 @@ trait Translatable
         return $translation;
     }
 
-    /**
-     * @param string|null $attribute
-     * @param string|null $locale
-     * @return Model|null
-     */
     public function getTranslation(?string $attribute = null, ?string $locale = null): ?Model
     {
         if ($translation = $this->getTranslationByAttribute($attribute, $locale)) {
@@ -69,6 +64,7 @@ trait Translatable
 
     private function getTranslationByAttribute(string $attribute, string $locale): ?Model
     {
+        /** @var Model $translation */
         foreach ($this->translations as $translation) {
             if ($translation->getAttribute('key') == $attribute
                 && $translation->getAttribute($this->getLocaleKey()) == $locale) {
@@ -78,11 +74,6 @@ trait Translatable
         return null;
     }
 
-    /**
-     * @param string|null $attribute
-     * @param string|null $locale
-     * @return Model|null
-     */
     public function getTranslationOrNew(?string $attribute = null, ?string $locale = null): ?Model
     {
         $locale = $locale ?: $this->locale();
@@ -121,7 +112,7 @@ trait Translatable
             return $saved;
         }
 
-        /** @var Model $this */
+        /** @var Model $translation */
         foreach ($this->translations as $translation) {
             if ($saved && $this->isTranslationDirty($translation)) {
                 if (!empty($connectionName = $this->getConnectionName())) {
@@ -136,9 +127,6 @@ trait Translatable
         return $saved;
     }
 
-    /**
-     * @internal will change to protected
-     */
     public function getLocaleKey(): string
     {
         return $this->localeKey ?: 'locale';

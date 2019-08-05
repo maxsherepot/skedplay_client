@@ -4,7 +4,7 @@ namespace Modules\Main\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Main\Entities\Pages\Page;
+use Modules\Main\Entities\Page;
 
 class PageTableSeeder extends Seeder
 {
@@ -51,11 +51,11 @@ class PageTableSeeder extends Seeder
             ]
         ];
 
-//        foreach ($pages as $page) {
-//            $instance = new Page;
-//            $this->setTranslations($instance, $page);
-//            $instance->save();
-//        }
+        foreach ($pages as $page) {
+            $instance = new Page;
+            $this->setTranslations($instance, $page);
+            $instance->save();
+        }
 
         $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
     }
@@ -68,7 +68,9 @@ class PageTableSeeder extends Seeder
     {
         foreach ($page as $locale => $translations) {
             foreach ($translations as $key => $value) {
-                $instance->setTranslation($key, $locale, $value);
+                app()->setLocale($locale);
+
+                $instance->$key = $value;
             }
         }
     }
