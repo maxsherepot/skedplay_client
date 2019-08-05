@@ -1,4 +1,3 @@
-// import components
-import Page from './Page';
+import Home from './Page';
 
-export default Page;
+export default Home;

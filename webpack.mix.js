@@ -11,11 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/app.js', '')
-    .setPublicPath('public/js/app')
-    .webpackConfig({
-        output: {
-            publicPath: '/app/',
-            chunkFilename: 'chunk/[name].js'
-        }
-    });
+mix
+  .react('resources/js/app.js', '')
+  .setPublicPath('public/js/app')
+  .webpackConfig({
+    output: {
+      publicPath: '/app/',
+      chunkFilename: 'chunk/[name].js',
+    },
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        '@': path.resolve(__dirname, 'resources/js/'),
+      },
+    },
+  });

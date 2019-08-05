@@ -1,7 +1,16 @@
 {
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["react", "prettier"],
   "rules": {
+    "react/jsx-closing-tag-location": {},
     "react/jsx-filename-extension": [
       1,
       {
@@ -9,7 +18,7 @@
       }
     ],
     "prettier/prettier": "error",
-    "max-len": ["error", 80]
+    "max-len": ["error", 100]
   },
   "env": {
     "browser": true
@@ -17,7 +26,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "./config/webpack-common-config.js"
+        "config": "node_modules/laravel-mix/setup/webpack.config.js"
       }
     }
   }

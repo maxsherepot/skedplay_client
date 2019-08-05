@@ -1,14 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-
-import routes from './routes';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from '@/pages/home';
 
 const Routes = () => (
   <Router>
     <Switch>
-      {routes.map(({ component: Component, ...rest }, i) => {
-        return <Route {...rest} render={props => <Component {...props} />} />;
-      })}
+      <Route exact path="/" component={Home} />
     </Switch>
   </Router>
 );
