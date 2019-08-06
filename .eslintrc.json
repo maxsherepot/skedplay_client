@@ -10,7 +10,6 @@
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["react", "prettier"],
   "rules": {
-    "react/jsx-closing-tag-location": {},
     "react/jsx-filename-extension": [
       1,
       {

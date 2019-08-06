@@ -11,29 +11,21 @@ const mix = require('laravel-mix');
  |
  */
 
-let entry = 'resources/js/app.js';
-const tag = process.env.npm_config_tag;
-
-switch (tag) {
-  case 'main':
-    entry = 'resources/js/main.js';
-  case 'app':
-  default:
-    break;
-}
+const app = process.env.npm_config_app || 'main';
 
 mix
-  .react(entry, '')
-  .setPublicPath('public/js/app')
+  .react(`resources/js/apps/${app}/app.js`, '')
+  .setPublicPath(`public/js/apps/${app}`)
   .webpackConfig({
     output: {
-      publicPath: '/app/',
-      chunkFilename: 'chunk/[name].js',
+      publicPath: `/js/apps/${app}/`,
+      filename: '[name].js',
+      chunkFilename: `chunks/[name].app.js`,
     },
     resolve: {
       extensions: ['.js', '.jsx', '.json'],
       alias: {
-        '@': path.resolve(__dirname, 'resources/js/'),
+        '@': path.resolve(__dirname, `resources/js/apps/${app}`),
       },
     },
   });
