@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import LoginForm from './LoginForm';
+import LoginForm from '@/pages/login/LoginForm';
+import Error from '@/components/Error';
 
 const LOGIN_USER = gql`
   mutation login($username: String!, $password: String!) {
@@ -26,7 +27,11 @@ export default function Login() {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occurred</p>;
 
-  return <LoginForm onLogin={login} />;
+  return (
+    <Fragment>
+      <Error error={error} />
+      <LoginForm onLogin={login} error={error} />
+    </Fragment>
+  );
 }
