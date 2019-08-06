@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
@@ -11,11 +11,17 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   cache,
   link: new HttpLink({
-    uri: 'http://127.0.0.1:8000/graphql',
+    uri: 'http://demo.local/graphql',
     headers: {
       authorization: localStorage.getItem('token'),
     },
   }),
+});
+
+cache.writeData({
+  data: {
+    isLoggedIn: !!localStorage.getItem('token'),
+  },
 });
 
 render(

@@ -4,12 +4,19 @@
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "modules": true
     }
   },
   "extends": ["airbnb", "prettier", "prettier/react"],
   "plugins": ["react", "prettier"],
   "rules": {
+    "camelcase": [
+      "error",
+      {
+        "ignoreDestructuring": true
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
       {
