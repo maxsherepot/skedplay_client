@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/users/{user}', [\Modules\Api\Http\Controllers\UserController::class, 'show']);
+Route::get( '/{any}', [App\Http\Controllers\AppController::class, 'render'])->where('any', '.*');
