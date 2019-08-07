@@ -16,11 +16,10 @@ input GirlFilters {
     services: [Int] @whereHas(key: "id", method: "whereIn")
     age: AgeRange @whereBetweenAge(key: "birthday")
     type: String @where
-    account_type: String @where
     vip: Boolean @where
 }
 
-extend type Query @middleware(checks: ["auth:api"]) {
+extend type Query {
     girls(filters: GirlFilters @spread): [Girl!]! @paginate
     girl(id: ID @eq): Girl @find
 }
