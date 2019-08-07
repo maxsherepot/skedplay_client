@@ -1,14 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Api\Http\Controllers\Auth;
+namespace Modules\Users\Http\Controllers\Auth;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Modules\Api\Http\Requests\Auth\ForgotPasswordRequest;
-use Modules\Api\Http\Requests\Auth\RegistrationRequest;
-use Modules\Api\Http\Requests\Auth\ResetPasswordRequest;
+use Modules\Users\Http\Requests\Auth\ForgotPasswordRequest;
+use Modules\Users\Http\Requests\Auth\ResetPasswordRequest;
 use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Services\Verification\Verification;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
@@ -36,23 +34,7 @@ class AuthController extends BaseAuthResolver
         $this->verification = $verification;
     }
 
-    /**
-     * @param RegistrationRequest $request
-     * @return array
-     */
-    public function register(RegistrationRequest $request): array
-    {
-        event(new Registered($user = $this->users->store(
-            collect($request->all())
-        )));
 
-        $user->attachRole($request->get('account_type'));
-
-        return [
-            'access_token' => $this->users->createToken($user),
-            'user'         => $user,
-        ];
-    }
 
     /**
      * @param Request $request

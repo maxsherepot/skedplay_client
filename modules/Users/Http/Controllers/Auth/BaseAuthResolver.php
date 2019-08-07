@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Api\Http\Controllers\Auth;
+namespace Modules\Users\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;

@@ -18,7 +18,7 @@ services:
       - .docker/mysql/.env
     volumes:
       - db_data2:/var/lib/mysql
-    
+
   front:
     image: abiosoft/caddy
     container_name: "skidplay_front"
@@ -70,6 +70,15 @@ services:
     depends_on:
       - mysql
       - redis
+
+  php:
+    image: flameplace_app:alpine
+    container_name: "skidplay_php"
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+
 
 volumes:
   db_data2:

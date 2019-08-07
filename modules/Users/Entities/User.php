@@ -8,10 +8,11 @@ use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Modules\Clubs\Entities\Club;
 use Modules\Girls\Entities\Girl;
+use Modules\Girls\Entities\GirlOwnerInterface;
 use Modules\Main\Services\Cashier\Billable;
 use Spatie\MediaLibrary\Models\Media;
 
-class User extends AuthUser
+class User extends AuthUser implements GirlOwnerInterface
 {
     use Billable, HasApiTokens, LaratrustUserTrait, Notifiable;
 
@@ -20,11 +21,9 @@ class User extends AuthUser
         LaratrustUserTrait::can as laratrustCan;
     }
 
-    const ACCOUNT_ADMIN = 'admin';
-    const ACCOUNT_CLIENT = 'client';
-    const ACCOUNT_GIRL = 'girl';
-    const ACCOUNT_MODERATOR = 'moderator';
-    const ACCOUNT_CLUB_OWNER = 'club_owner';
+    const ACCOUNT_CLIENT = Role::CLIENT;
+    const ACCOUNT_GIRL = Role::GIRL_OWNER;
+    const ACCOUNT_CLUB_OWNER = Role::CLUB_OWNER;
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
@@ -47,7 +46,9 @@ class User extends AuthUser
      */
     protected $fillable = [
         'name',
+        'phone',
         'birthday',
+        'age',
         'gender',
         'email',
         'password',

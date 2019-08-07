@@ -47,6 +47,8 @@ class BossCommand extends Command
         $this->info('call module:seed');
         $this->call('module:seed');
 
+        $this->call('passport:install', ['--force' => true]);
+
         $this->alert('Sosality complete, it took');
     }
 }

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Api\Http\Controllers\Auth;
+namespace Modules\Users\Http\Controllers\Auth;
 
-use Modules\Api\Http\Requests\Auth\CheckVerificationRequest;
-use Modules\Api\Http\Requests\Auth\SendVerificationRequest;
+use Modules\Users\Http\Requests\Auth\CheckVerificationRequest;
+use Modules\Users\Http\Requests\Auth\SendVerificationRequest;
 use Modules\Users\Entities\User;
 use Modules\Users\Services\Verification\Verification;
 

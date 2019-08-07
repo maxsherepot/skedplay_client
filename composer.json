@@ -12,6 +12,7 @@
         "barryvdh/laravel-cors": "^0.11.3",
         "barryvdh/laravel-ide-helper": "^2.6",
         "barryvdh/laravel-omnipay": "0.3.*@dev",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/cashier": "^9.3",
         "laravel/framework": "5.8.*",

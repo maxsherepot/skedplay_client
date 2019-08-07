@@ -2,7 +2,7 @@ type Girl {
     id: ID!
     first_name: String!
     last_name: String!
-    gender: String
+    gender: Int
     age: Int
     vip: Boolean
     created_at: DateTime!

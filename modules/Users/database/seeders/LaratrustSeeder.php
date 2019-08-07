@@ -112,7 +112,7 @@ class LaratrustSeeder extends Seeder
             'gender'   => $this->faker->randomElement(User::REGISTER_GENDERS),
             'birthday' => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
             'email'    => $key.'@site.com',
-            'phone'    => $this->faker->phoneNumber,
+            'phone'    => $this->faker->unique()->phoneNumber,
             'password' => 'password',
         ]);
     }

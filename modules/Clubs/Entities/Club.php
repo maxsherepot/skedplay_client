@@ -10,12 +10,13 @@ use Modules\Girls\Entities\Girl;
 use Modules\Events\Entities\Event;
 use Modules\Common\Services\Location\HasLocation;
 use Modules\Common\Services\Location\Locationable;
+use Modules\Girls\Entities\GirlOwnerInterface;
 use Modules\Users\Entities\User;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Club extends Model implements HasMedia, HasLocation
+class Club extends Model implements HasMedia, HasLocation, GirlOwnerInterface
 {
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable;
 

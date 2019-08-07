@@ -331,6 +331,20 @@ directive @hasOne(
     scopes: [String!]
 ) on FIELD_DEFINITION
 
+
+directive @morphOne(
+    """
+    Specify the relationship method name in the model class,
+    if it is named different from the field in the schema.
+    """
+    relation: String
+
+    """
+    Apply scopes to the underlying query.
+    """
+    scopes: [String!]
+) on FIELD_DEFINITION
+
 directive @in(
     """
     Specify the database column to compare.

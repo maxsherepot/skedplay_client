@@ -1,24 +1,21 @@
 type User {
     id: ID!
-    first_name: String!
-    last_name: String!
+    name: String!
     gender: String
-    birthday: Date
-    club_type: String
+    age: Int
     phone: String!
     email: String!
-    type: String
     lat: String
     lng: String
-    vip: Boolean
     created_at: DateTime!
     updated_at: DateTime!
+    girl: Girl @hasOne
 }
 
 input UserInput {
     first_name: String
     last_name: String
-    gender: String
+    gender: Int
     birthday: Date
     club_type: String
     phone: String
@@ -37,7 +34,6 @@ type UserPayload implements Status {
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    users: [User!]! @paginate
     user(id: ID @eq): User @find
 }
 

@@ -41,6 +41,7 @@ return [
     */
 
     'route' => [
+        'uri'        => 'graphql',
         'prefix'     => '',
         'middleware' => [
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
@@ -93,7 +94,11 @@ return [
     'namespaces' => [
         'models'        => [
             'Modules\\Users\\Entities',
-            'Modules\\Main\\Entities'
+            'Modules\\Main\\Entities',
+            'Modules\\Clubs\\Entities',
+            'Modules\\Girls\\Entities',
+            'Modules\\Events\\Entities',
+            'Modules\\Common\\Entities',
         ],
         'queries'       => 'Modules\\Api\\GraphQL\\Queries',
         'mutations'     => 'Modules\\Api\\GraphQL\\Mutations',
@@ -184,7 +189,7 @@ return [
     |
     */
 
-    'controller' => \Nuwave\Lighthouse\Support\Http\Controllers\GraphQLController::class . '@query',
+    'controller' => \Nuwave\Lighthouse\Support\Http\Controllers\GraphQLController::class.'@query',
 
     /*
     |--------------------------------------------------------------------------
@@ -272,7 +277,7 @@ return [
             ],
             'pusher' => [
                 'driver'     => 'pusher',
-                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@pusher',
+                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
         ],

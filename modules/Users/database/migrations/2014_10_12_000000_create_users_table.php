@@ -19,11 +19,13 @@ class CreateUsersTable extends Migration
 
             $table->string('name');
 
+            $table->string('phone')->unique();
+            $table->string('email')->unique();
+
             $table->string('gender')->nullable();
             $table->date('birthday')->nullable();
+            $table->integer('age')->nullable();
 
-            $table->string('phone')->unique()->nullable();
-            $table->string('email')->unique();
             $table->string('password');
 
             /** Cashier columns */

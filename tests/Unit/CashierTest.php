@@ -2,7 +2,7 @@
 
 namespace Modules\Main\Tests\Unit;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Modules\Main\Services\Cashier\Plan;
 use Modules\Main\Services\Cashier\Subscription;
 use Modules\Users\Entities\User;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class CashierTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /**
      * Create +
