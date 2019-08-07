@@ -71,19 +71,6 @@ class SubscriptionBuilder
     }
 
     /**
-     * Specify the quantity of the subscription.
-     *
-     * @param int $quantity
-     * @return $this
-     */
-    public function quantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
      * Specify the number of days of the trial.
      *
      * @param int $trialDays
@@ -169,7 +156,6 @@ class SubscriptionBuilder
         return $this->owner->subscriptions()->create([
             'name'          => $this->name,
             'plan_id'       => $this->plan_id,
-            'quantity'      => $this->quantity,
             'trial_ends_at' => $trialEndsAt,
             'trial_end'     => $trialStart,
             'trial_start'   => $trialEnd,

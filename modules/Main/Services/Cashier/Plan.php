@@ -3,10 +3,12 @@
 namespace Modules\Main\Services\Cashier;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Modules\Common\Entities\Traits\NameSlugable;
 
 class Plan extends Model
 {
+    use NameSlugable;
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -15,7 +17,6 @@ class Plan extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'name',
         'cost',
         'description',
     ];
@@ -28,17 +29,4 @@ class Plan extends Model
     protected $dates = [
         'created_at', 'updated_at',
     ];
-
-
-    /**
-     * Set the price type's name in slug format.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = Str::slug($value);
-    }
-
 }

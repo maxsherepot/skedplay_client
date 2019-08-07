@@ -5,9 +5,12 @@ namespace Modules\Main\Services\Cashier;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use LogicException;
+use Modules\Main\Services\Cashier\Traits\Scopes;
 
 class Subscription extends Model
 {
+    use Scopes;
+
     protected static function boot()
     {
         parent::boot();
@@ -80,19 +83,6 @@ class Subscription extends Model
     }
 
     /**
-     * Filter query by active.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeActive($query)
-    {
-        $query->whereNull('ends_at')->orWhere(function ($query) {
-            $query->onGracePeriod();
-        });
-    }
-
-    /**
      * Determine if the subscription is recurring and not on trial.
      *
      * @return bool
@@ -100,17 +90,6 @@ class Subscription extends Model
     public function recurring()
     {
         return !$this->onTrial() && !$this->cancelled();
-    }
-
-    /**
-     * Filter query by recurring.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeRecurring($query)
-    {
-        $query->notOnTrial()->notCancelled();
     }
 
     /**
@@ -124,28 +103,6 @@ class Subscription extends Model
     }
 
     /**
-     * Filter query by cancelled.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeCancelled($query)
-    {
-        $query->whereNotNull('ends_at');
-    }
-
-    /**
-     * Filter query by not cancelled.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeNotCancelled($query)
-    {
-        $query->whereNull('ends_at');
-    }
-
-    /**
      * Determine if the subscription has ended and the grace period has expired.
      *
      * @return bool
@@ -153,17 +110,6 @@ class Subscription extends Model
     public function ended()
     {
         return $this->cancelled() && !$this->onGracePeriod();
-    }
-
-    /**
-     * Filter query by ended.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeEnded($query)
-    {
-        $query->cancelled()->notOnGracePeriod();
     }
 
     /**
@@ -177,28 +123,6 @@ class Subscription extends Model
     }
 
     /**
-     * Filter query by on trial.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeOnTrial($query)
-    {
-        $query->whereNotNull('trial_ends_at')->where('trial_ends_at', '>', Carbon::now());
-    }
-
-    /**
-     * Filter query by not on trial.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeNotOnTrial($query)
-    {
-        $query->whereNull('trial_ends_at')->orWhere('trial_ends_at', '<=', Carbon::now());
-    }
-
-    /**
      * Determine if the subscription is within its grace period after cancellation.
      *
      * @return bool
@@ -206,28 +130,6 @@ class Subscription extends Model
     public function onGracePeriod()
     {
         return $this->ends_at && $this->ends_at->isFuture();
-    }
-
-    /**
-     * Filter query by on grace period.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeOnGracePeriod($query)
-    {
-        $query->whereNotNull('ends_at')->where('ends_at', '>', Carbon::now());
-    }
-
-    /**
-     * Filter query by not on grace period.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeNotOnGracePeriod($query)
-    {
-        $query->whereNull('ends_at')->orWhere('ends_at', '<=', Carbon::now());
     }
 
     /**

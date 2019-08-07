@@ -12,33 +12,10 @@ class CashierTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * Create +
-     * Resume +
-     * Swap
-     * Cancel +
-     * cancelNow +
-     */
-
-    public function testCreatePlan()
-    {
-        $plan = factory(Plan::class)->create([
-            'name' => 'free',
-            'cost' => 0
-        ]);
-
-        $this->assertDatabaseHas('plans', [
-            'id'   => $plan->id,
-            'name' => $plan->name,
-            'cost' => $plan->cost,
-        ]);
-    }
-
     public function testNewUserSubscription()
     {
         [$user, $plan] = $this->subscribeUserOnPlan([
             'name' => 'free',
-            'cost' => 0,
         ]);
 
         $this->assertTrue(
@@ -65,7 +42,6 @@ class CashierTest extends TestCase
     {
         [$user, $plan] = $this->subscribeUserOnPlan([
             'name' => 'free',
-            'cost' => 0,
         ]);
 
         /** @var Subscription $subscription */
@@ -82,21 +58,20 @@ class CashierTest extends TestCase
         );
     }
 
-    public function testSwapUserSubscription()
-    {
-        [$user, $plan] = $this->subscribeUserOnPlan([
-            'name' => 'free',
-            'cost' => 0,
-        ]);
-
-        $user->subscription('main', $plan->id)->swap(2);
-
-        dd($user->subscription('main', $plan->id));
-
-        $this->assertTrue(
-            $user->subscribed('main', 2)
-        );
-    }
+//    public function testSwapUserSubscription()
+//    {
+//        [$user, $plan] = $this->subscribeUserOnPlan([
+//            'name' => 'free',
+//        ]);
+//
+//        $user->subscription('main', $plan->id)->swap(2);
+//
+//        dd($user->subscription('main', $plan->id));
+//
+//        $this->assertTrue(
+//            $user->subscribed('main', 2)
+//        );
+//    }
 
     /**
      * Potential trait method
@@ -108,10 +83,7 @@ class CashierTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $plan = factory(Plan::class)->create([
-            'name' => $options['name'],
-            'cost' => $options['cost']
-        ]);
+        $plan = Plan::where('name', $options['name'])->first();
 
         $user->newSubscription('main', $plan->id)
             ->create();
