@@ -14,6 +14,8 @@ class Translation extends Model
         'locale',
     ];
 
+    public $timestamps = false;
+
     /**
      * Get all of the owning entity.
      *

@@ -24,8 +24,8 @@ class Faq extends Model
     /**
      * @return HasMany
      */
-    public function categories(): HasMany
+    public function items()
     {
-        return $this->hasMany(FaqCategory::class);
+        return $this->hasMany(FaqItem::class);
     }
 }

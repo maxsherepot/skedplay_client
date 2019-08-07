@@ -17,12 +17,11 @@ class CreateTranslatesTable extends Migration
             $table->bigIncrements('id');
 
             $table->morphs('entity');
+
             $table->string('locale');
 
             $table->string('key');
             $table->longText('value');
-
-            $table->timestamps();
         });
     }
 

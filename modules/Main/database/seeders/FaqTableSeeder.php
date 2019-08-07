@@ -10,6 +10,7 @@ use Modules\Main\Entities\FaqItem;
 
 class FaqTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -24,67 +25,30 @@ class FaqTableSeeder extends Seeder
 
         $faq = [
             'Services and tariffs' => [
-                'Types of paid services'         => [
-                    [
-                        'title' => 'About types of paid services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                    [
-                        'title' => 'View types of paid services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                ],
-                'How can i order paid services?' => [
-                    [
-                        'title' => 'About can you order paid services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                    [
-                        'title' => 'View you can order paid services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                ],
-                'The cost of services'           => [
-                    [
-                        'title' => 'About cost of services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                    [
-                        'title' => 'View cost of services',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                ],
-                'How can i do payment?'          => [
-                    [
-                        'title' => 'Options you payment',
-                        'text'  => 'Lorem ipsum dolor sit ammet',
-                    ],
-                ],
+                'Types of paid services',
+                'How can i order paid services?',
+                'The cost of services',
+                'How can i do payment?'
             ]
         ];
 
-        foreach ($faq as $name => $item) {
-            $newFaq = new Faq;
+        foreach ($faq as $name => $items) {
+            $newFaq       = new Faq;
             $newFaq->name = $name;
             $newFaq->save();
 
-            foreach ($item as $categoryName => $items) {
-                $category = FaqCategory::create([
-                    'name'   => $categoryName,
-                    'faq_id' => $newFaq->id
-                ]);
+            foreach ($items as $title) {
 
-                foreach ($items as $item) {
-                    FaqItem::create([
-                        'title'           => $item['title'],
-                        'text'            => $item['text'],
-                        'faq_category_id' => $category->id,
-                    ]);
-                }
+                /**
+                 * TODO FAKER GENERATE TEXT
+                 */
+                $text = $title;
+
+                $newFaq->items()->create(compact('title', 'text'));
             }
         }
 
-        $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
+        $this->command->info('Time completed: '.$start->diffForHumans(null, true));
     }
 
 }

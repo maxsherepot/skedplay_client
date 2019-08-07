@@ -15,6 +15,6 @@ class FaqItem extends Model
 
     public $translatable = ['title', 'text'];
 
-    protected $fillable = ['title', 'text', 'faq_category_id'];
+    protected $fillable = ['title', 'text', 'faq_id'];
 
 }

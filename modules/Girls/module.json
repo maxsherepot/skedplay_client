@@ -1,0 +1,14 @@
+{
+    "name": "Girls",
+    "alias": "girls",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 3,
+    "providers": [
+        "Modules\\Girls\\Providers\\GirlsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

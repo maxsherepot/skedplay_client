@@ -14,8 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         \Modules\Users\Entities\User::class => \Modules\Users\Policies\UserPolicy::class,
-        \Modules\Users\Entities\Club::class => \Modules\Users\Policies\ClubPolicy::class,
-        \Modules\Main\Entities\Event::class => \Modules\Main\Policies\EventPolicy::class,
+        \Modules\Clubs\Entities\Club::class => \Modules\Clubs\Policies\ClubPolicy::class,
+        \Modules\Events\Entities\Event::class => \Modules\Events\Policies\EventPolicy::class,
     ];
 
     /**

@@ -16,9 +16,10 @@ class CreateFaqItemsTable extends Migration
         Schema::create('faq_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('faq_category_id');
-            $table->foreign('faq_category_id')
-                ->references('id')->on('faq_categories')
+            $table->unsignedBigInteger('faq_id');
+
+            $table->foreign('faq_id')
+                ->references('id')->on('faq')
                 ->onDelete('cascade');
 
             $table->softDeletes();

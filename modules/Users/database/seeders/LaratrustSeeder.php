@@ -6,9 +6,11 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Modules\Users\Entities\User;
 
 class LaratrustSeeder extends Seeder
 {
+
     /**
      * @var \Faker\Generator
      */
@@ -29,25 +31,20 @@ class LaratrustSeeder extends Seeder
         $this->command->info('Truncating User, Role and Permission tables');
         $this->truncateLaratrustTables();
 
-        $genders = [
-            'male',
-            'female',
-        ];
-
-        $config = config('laratrust_seeder.role_structure');
+        $config         = config('laratrust_seeder.role_structure');
         $userPermission = config('laratrust_seeder.permission_structure');
-        $mapPermission = collect(config('laratrust_seeder.permissions_map'));
+        $mapPermission  = collect(config('laratrust_seeder.permissions_map'));
 
         foreach ($config as $key => $modules) {
             // Create a new role
-            $role = \Modules\Users\Entities\Role::create([
+            $role        = \Modules\Users\Entities\Role::create([
                 'name'         => $key,
                 'display_name' => ucwords(str_replace('_', ' ', $key)),
                 'description'  => ucwords(str_replace('_', ' ', $key))
             ]);
             $permissions = [];
 
-            $this->command->info('Creating Role ' . strtoupper($key));
+            $this->command->info('Creating Role '.strtoupper($key));
 
             // Reading role permission modules
             foreach ($modules as $module => $value) {
@@ -57,12 +54,12 @@ class LaratrustSeeder extends Seeder
                     $permissionValue = $mapPermission->get($perm);
 
                     $permissions[] = \Modules\Users\Entities\Permission::firstOrCreate([
-                        'name'         => $permissionValue . '-' . $module,
-                        'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                        'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                        'name'         => $permissionValue.'-'.$module,
+                        'display_name' => ucfirst($permissionValue).' '.ucfirst($module),
+                        'description'  => ucfirst($permissionValue).' '.ucfirst($module),
                     ])->id;
 
-                    $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
+                    $this->command->info('Creating Permission to '.$permissionValue.' for '.$module);
                 }
             }
 
@@ -72,37 +69,20 @@ class LaratrustSeeder extends Seeder
             $this->command->info("Creating '{$key}' user");
 
             // Create default user for each role
-            $user = \Modules\Users\Entities\User::create([
-                'first_name'   => $this->faker->firstName,
-                'last_name'    => $this->faker->lastName,
-                'gender'       => $this->faker->randomElement($genders),
-                'birthday'     => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
-                'phone'        => $this->faker->phoneNumber,
-                'email'        => $key . '@site.com',
-                'password'     => 'password',
-            ]);
+            $user = $this->storeUser($key);
 
             $user->attachRole($role);
         }
 
         // Creating user with permissions
-        if (!empty($userPermission)) {
+        if (! empty($userPermission)) {
 
             foreach ($userPermission as $key => $modules) {
 
                 foreach ($modules as $module => $value) {
 
                     // Create default user for each permission set
-                    $user = \Modules\Users\Entities\User::create([
-                        'first_name'     => $this->faker->firstName,
-                        'last_name'      => $this->faker->lastName,
-                        'gender'         => $this->faker->randomElement($genders),
-                        'birthday'       => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
-                        'phone'          => $this->faker->phoneNumber,
-                        'email'          => $key . '@site.com',
-                        'password'       => 'password',
-                        'remember_token' => Str::random(10),
-                    ]);
+                    $user        = $this->storeUser($key);
                     $permissions = [];
 
                     foreach (explode(',', $value) as $p => $perm) {
@@ -110,12 +90,12 @@ class LaratrustSeeder extends Seeder
                         $permissionValue = $mapPermission->get($perm);
 
                         $permissions[] = \Modules\Users\Entities\Permission::firstOrCreate([
-                            'name'         => $permissionValue . '-' . $module,
-                            'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                            'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                            'name'         => $permissionValue.'-'.$module,
+                            'display_name' => ucfirst($permissionValue).' '.ucfirst($module),
+                            'description'  => ucfirst($permissionValue).' '.ucfirst($module),
                         ])->id;
 
-                        $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
+                        $this->command->info('Creating Permission to '.$permissionValue.' for '.$module);
                     }
                 }
 
@@ -123,6 +103,18 @@ class LaratrustSeeder extends Seeder
                 $user->permissions()->sync($permissions);
             }
         }
+    }
+
+    protected function storeUser($key)
+    {
+        return User::create([
+            'name'     => $key,
+            'gender'   => $this->faker->randomElement(User::REGISTER_GENDERS),
+            'birthday' => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
+            'email'    => $key.'@site.com',
+            'phone'    => $this->faker->phoneNumber,
+            'password' => 'password',
+        ]);
     }
 
     /**

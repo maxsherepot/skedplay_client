@@ -1,0 +1,14 @@
+{
+    "name": "Clubs",
+    "alias": "clubs",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 2,
+    "providers": [
+        "Modules\\Clubs\\Providers\\ClubsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

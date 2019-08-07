@@ -10,8 +10,6 @@
         "Modules\\Users\\Providers\\UsersEventServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

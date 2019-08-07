@@ -32,12 +32,11 @@ class MainServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(RouteServiceProvider::class);
     }
 
     /**
      * Register an additional directory of factories.
-     * 
+     *
      * @return void
      */
     public function registerFactories()

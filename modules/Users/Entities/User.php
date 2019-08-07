@@ -6,16 +6,14 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
+use Modules\Clubs\Entities\Club;
+use Modules\Girls\Entities\Girl;
 use Modules\Main\Services\Cashier\Billable;
-use Modules\Main\Services\Location\HasLocation;
-use Modules\Main\Services\Location\Locationable;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class User extends AuthUser implements HasMedia, HasLocation
+class User extends AuthUser
 {
-    use Billable, Locationable, HasMediaTrait, HasApiTokens, LaratrustUserTrait, Notifiable;
+    use Billable, HasApiTokens, LaratrustUserTrait, Notifiable;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;
@@ -48,16 +46,11 @@ class User extends AuthUser implements HasMedia, HasLocation
      * @var array
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'club_type',
-        'phone',
+        'name',
+        'birthday',
+        'gender',
         'email',
         'password',
-        'type',
-        'short_description',
-        'description',
-        'vip',
         'trial_ends_at',
     ];
 
@@ -99,8 +92,19 @@ class User extends AuthUser implements HasMedia, HasLocation
             ->height(785);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function clubs()
     {
         return $this->hasMany(Club::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function girl()
+    {
+        return $this->morphOne(Girl::class, 'owner');
     }
 }

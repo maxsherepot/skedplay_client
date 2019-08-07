@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateFaqTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -15,7 +16,6 @@ class CreateFaqTable extends Migration
     {
         Schema::create('faq', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->softDeletes();
             $table->timestamps();
         });
