@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Main\Tests\Unit;
+namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Modules\Main\Services\Cashier\Plan;
