@@ -10,6 +10,7 @@ use Modules\Users\Services\CodeProcessor\CodeProcessor;
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Modules\Users\Services\Sms\Exceptions\ValidationException;
 use Modules\Users\Services\Verification\Contracts\VerificationInterface;
+use Modules\Users\Services\Verification\Traits\Statusable;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
@@ -17,6 +18,8 @@ use Propaganistas\LaravelPhone\PhoneNumber;
  */
 class Verification implements VerificationInterface
 {
+    use Statusable;
+
     /**
      * @var CodeProcessor
      */
@@ -53,12 +56,10 @@ class Verification implements VerificationInterface
                 ));
             }
 
-            $this->response->put('status', self::VERIFICATION_SEND_SUCCESS);
-            $this->response->put('message', 'Verification request send success.');
+            $this->response = $this->success(self::VERIFICATION_SEND_SUCCESS);
 
         } catch (\Exception $e) {
-            $this->response->put('status', self::VERIFICATION_CHECK_FAILED);
-            $this->response->put('message', 'Verification request was failed.');
+            $this->response = $this->fail(self::VERIFICATION_CHECK_FAILED);
 
             Log::error('Verification code sending was failed: ' . $e->getMessage());
         }
@@ -83,13 +84,11 @@ class Verification implements VerificationInterface
                 static::trimPhoneNumber($phoneNumber)
             );
 
+            $this->response = $this->success(self::GENERATE_CODE_SUCCESS);
             $this->response->put('expires_at', $now + $this->codeProcessor->getLifetime());
-            $this->response->put('status', self::GENERATE_CODE_SUCCESS);
-            $this->response->put('message', 'Generate code was success.');
 
         } catch (\Exception $e) {
-            $this->response->put('status', self::GENERATE_CODE_FAILED);
-            $this->response->put('message', 'Generate code was failed.');
+            $this->fail(self::GENERATE_CODE_FAILED);
 
             Log::error('Verification code generate was failed: ' . $e->getMessage());
         }
@@ -126,16 +125,13 @@ class Verification implements VerificationInterface
                 $this->codeProcessor->deleteCode($code);
             }
 
-            $this->response->put('status', $success ? self::VERIFICATION_CHECK_SUCCESS : self::VERIFICATION_CHECK_FAILED);
+            $this->response = $this->success($success ? self::VERIFICATION_CHECK_SUCCESS : self::VERIFICATION_CHECK_FAILED);
 
         } catch (\Exception $e) {
-            $description = $e->getMessage();
-
-            $this->response->put('status', self::VERIFICATION_CHECK_FAILED);
-            $this->response->put('message', $description);
+            $this->fail(self::VERIFICATION_CHECK_FAILED);
 
             if (!($e instanceof ValidationException)) {
-                Log::error('SMS Verification check was failed: ' . $description);
+                Log::error('SMS Verification check was failed: ' . $e->getMessage());
             }
         }
     }

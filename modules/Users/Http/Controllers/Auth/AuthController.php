@@ -35,7 +35,6 @@ class AuthController extends BaseAuthResolver
     }
 
 
-
     /**
      * @param Request $request
      * @return array
@@ -82,6 +81,7 @@ class AuthController extends BaseAuthResolver
             $user = $this->users->getByPhone($request->get('phone'));
 
             if (is_null($user)) {
+                $this->verification->fail($this->verification::VERIFICATION_SEND_FAILED);
                 throw new \Exception("User with such a phone is not found");
             }
 

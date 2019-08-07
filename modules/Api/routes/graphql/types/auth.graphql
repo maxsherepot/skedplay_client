@@ -46,6 +46,13 @@ type AuthPayload {
     user: User!
 }
 
+type RefrestTokenPayload {
+    access_token: String!
+    refresh_token: String!
+    expires_in: Int!
+    token_type: String!
+}
+
 input SendVerificationInput {
     phone: String!
 }
@@ -98,7 +105,7 @@ extend type Mutation {
     resetPassword(input: NewPasswordWithCodeInput! @spread): NewPasswordResponse!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@resetPassword")
 
-    refreshToken(input: RefreshTokenInput! @spread): AuthPayload!
+    refreshToken(input: RefreshTokenInput! @spread): RefrestTokenPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@refreshToken")
 
     sendVerificationCode(input: SendVerificationInput! @spread): SendVerificationResponse!
