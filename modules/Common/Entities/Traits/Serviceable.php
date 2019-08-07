@@ -13,5 +13,4 @@ trait Serviceable {
     {
         return $this->morphToMany(Service::class, 'serviceable')->withPivot('price');
     }
-
 }

@@ -4,19 +4,23 @@ type Girl {
     last_name: String!
     gender: Int
     age: Int
-    vip: Boolean
     created_at: DateTime!
     updated_at: DateTime!
+    type: [GirlType] @belongsTo
     events: [Event] @belongsToMany
     prices: [Price] @belongsToMany
     services: [Service] @belongsToMany
 }
 
+type GirlType {
+    id: ID!
+    name: String!
+}
+
 input GirlFilters {
-    services: [Int] @whereHas(key: "id", method: "whereIn")
-    age: AgeRange @whereBetweenAge(key: "birthday")
-    type: String @where
-    vip: Boolean @where
+    services: [Int] @whereHas(key: "service_id", method: "whereIn")
+    age: AgeRange @whereBetween
+    type: String @whereBetween
 }
 
 extend type Query {

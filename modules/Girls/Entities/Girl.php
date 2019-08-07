@@ -3,6 +3,7 @@
 namespace Modules\Girls\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
 use Modules\Common\Services\Location\HasLocation;
@@ -13,7 +14,6 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Girl extends Model implements HasMedia, HasLocation
 {
-
     use Locationable, HasMediaTrait, Priceable, Serviceable;
 
     protected $fillable = [
@@ -30,7 +30,7 @@ class Girl extends Model implements HasMedia, HasLocation
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(GirlType::class, 'girl_type_id');
     }
@@ -48,6 +48,6 @@ class Girl extends Model implements HasMedia, HasLocation
      */
     public function events()
     {
-        return $this->morphMany(Event::class, 'eventable');
+        return $this->morphMany(Event::class, 'owner');
     }
 }

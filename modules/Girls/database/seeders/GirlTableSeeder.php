@@ -3,8 +3,8 @@
 namespace Modules\Girls\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Database\Seeders\CommonableSeeder;
 use Modules\Girls\Entities\Girl;
 use Modules\Girls\Entities\GirlType;
 use Modules\Users\Entities\Role;
@@ -12,6 +12,7 @@ use Modules\Users\Entities\User;
 
 class GirlTableSeeder extends Seeder
 {
+    use CommonableSeeder;
 
     protected $faker;
 
@@ -59,6 +60,9 @@ class GirlTableSeeder extends Seeder
         $girl->type()->associate(GirlType::inRandomOrder()->first());
         $girl->owner()->associate($owner);
         $girl->save();
+
+        $this->attachPrices($girl);
+        $this->attachServices($girl);
 
         return $girl;
     }

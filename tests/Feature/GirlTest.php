@@ -19,7 +19,7 @@ class GirlTest extends TestCase
                 }
             }
         }
-        ')->assertJson([
+        ')->assertJsonStructure([
             'data' => [
                 'girls' => [
                     'data' => [
@@ -27,6 +27,31 @@ class GirlTest extends TestCase
                             'first_name'
                         ]
                     ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testShow()
+    {
+        $this->graphQL('
+        {
+            girl(id: 1) {
+                id
+                first_name
+                last_name
+                gender
+                age
+            }
+        }
+        ')->assertJsonStructure([
+            'data' => [
+                'girl' => [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'gender',
+                    'age',
                 ]
             ]
         ]);
