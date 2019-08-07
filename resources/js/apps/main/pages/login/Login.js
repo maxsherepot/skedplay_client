@@ -31,7 +31,7 @@ export default function Login() {
   return (
     <Fragment>
       <Error error={error} />
-      <LoginForm onLogin={login} error={error} />
+      <LoginForm onLogin={login} />
     </Fragment>
   );
 }
