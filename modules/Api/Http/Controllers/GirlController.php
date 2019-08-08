@@ -12,7 +12,6 @@ use Modules\Girls\Entities\Girl;
 use Modules\Girls\Repositories\GirlRepository;
 use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
-use Symfony\Component\HttpFoundation\FileBag;
 
 class GirlController extends Controller
 {
@@ -72,7 +71,7 @@ class GirlController extends Controller
     {
         $this->authorize('update', $girl);
 
-        $this->girls->saveAttachments($girl, $request->files, 'photos');
+        $this->girls->saveFile($girl, $request->file('file'), 'photos');
     }
 
     /**
@@ -85,6 +84,6 @@ class GirlController extends Controller
     {
         $this->authorize('update', $girl);
 
-        $this->girls->saveAttachments($girl, $request->files, 'videos');
+        $this->girls->saveFile($girl, $request->file('file'), 'videos');
     }
 }

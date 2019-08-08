@@ -120,6 +120,17 @@ class GirlTest extends TestCase
             ]);
     }
 
+//    public function testDeleteUploadedPhoto()
+//    {
+//        return $this->actingAs($this->getUser(), 'api')
+//            ->uploadPhotoQuery()
+//            ->assertJsonStructure([
+//                'data' => [
+//                    'uploadGirlPhoto'
+//                ]
+//            ]);
+//    }
+
     protected function update(Collection $data)
     {
         return $this->postGraphQL(
@@ -148,17 +159,17 @@ class GirlTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($girl: ID!, $files: [Upload!]!) { uploadGirlPhoto(girl: $girl, files: $files) }",
+                    "query": "mutation Upload($girl: ID!, $file: Upload!) { uploadGirlPhoto(girl: $girl, file: $file) }",
                     "variables": {
                         "girl": 1,
-                        "files": null
+                        "file": null
                     }
                 }
                 ',
                 'map'        => /* @lang JSON */
                     '
                     {
-                        "0": ["variables.files"]
+                        "0": ["variables.file"]
                     }
                 ',
             ],
@@ -175,17 +186,17 @@ class GirlTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($girl: ID!, $files: [Upload!]!) { uploadGirlVideo(girl: $girl, files: $files) }",
+                    "query": "mutation Upload($girl: ID!, $file: Upload!) { uploadGirlVideo(girl: $girl, file: $file) }",
                     "variables": {
                         "girl": 1,
-                        "files": null
+                        "file": null
                     }
                 }
                 ',
                 'map'        => /* @lang JSON */
                     '
                     {
-                        "0": ["variables.files"]
+                        "0": ["variables.file"]
                     }
                 ',
             ],

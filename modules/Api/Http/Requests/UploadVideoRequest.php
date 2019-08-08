@@ -14,8 +14,7 @@ class UploadVideoRequest extends FormRequest
     public function rules()
     {
         return [
-            'files'   => 'required',
-            'files.*' => 'required|mimetypes:video/avi,video/mpeg,video/quicktime',
+            'file' => 'required|file|mimes:avi,mpeg,quicktime,mp4',
         ];
     }
 
