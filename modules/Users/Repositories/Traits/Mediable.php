@@ -3,11 +3,11 @@
 namespace Modules\Users\Repositories\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use Modules\Main\Entities\Event;
-use Modules\Users\Entities\Club;
+use Modules\Clubs\Entities\Club;
+use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait Mediable
 {

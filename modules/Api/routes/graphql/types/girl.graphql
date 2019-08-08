@@ -52,5 +52,11 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
     createGirlEvent(girl: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@createEvent")
+
+    uploadGirlPhoto(girl: ID!, files: [Upload!]!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@uploadPhoto")
+
+    uploadGirlVideo(girl: ID!, files: [Upload!]!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@uploadVideo")
 }
 

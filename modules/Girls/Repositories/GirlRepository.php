@@ -6,10 +6,11 @@ use Illuminate\Support\Collection;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Girls\Entities\Girl;
 use Modules\Girls\Entities\GirlOwnerInterface;
+use Modules\Users\Repositories\Traits\Mediable;
 
 class GirlRepository
 {
-    use Statusable;
+    use Statusable, Mediable;
 
     /**
      * @param GirlOwnerInterface $owner

@@ -14,10 +14,7 @@ class UploadPhotoRequest extends FormRequest
     public function rules()
     {
         return [
-            'required',
-            'file',
-            'mimes:jpeg,jpg,png',
-            'max:4000',
+            'files.*' => 'required|file|mimes:jpeg,jpg,png|max:4000',
         ];
     }
 

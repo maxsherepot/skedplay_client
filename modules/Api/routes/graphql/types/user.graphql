@@ -40,10 +40,4 @@ extend type Query @middleware(checks: ["auth:api"]) {
 extend type Mutation @middleware(checks: ["auth:api"]) {
     updateUser(user: ID!, input: UserInput @spread): UserPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@update")
-
-    uploadUserPhoto(user: ID!, files: [Upload!]!): [File!]!
-    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadPhoto")
-
-    uploadUserVideo(user: ID!, files: [Upload!]!): [File!]!
-    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadVideo")
 }

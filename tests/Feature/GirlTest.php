@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
@@ -97,6 +98,28 @@ class GirlTest extends TestCase
             ]);
     }
 
+    public function testUploadPhoto()
+    {
+        return $this->actingAs($this->getUser(), 'api')
+            ->uploadPhotoQuery()
+            ->assertJsonStructure([
+                'data' => [
+                    'uploadGirlPhoto'
+                ]
+            ]);
+    }
+
+    public function testUploadVideo()
+    {
+        return $this->actingAs($this->getUser(), 'api')
+            ->uploadVideoQuery()
+            ->assertJsonStructure([
+                'data' => [
+                    'uploadGirlVideo'
+                ]
+            ]);
+    }
+
     protected function update(Collection $data)
     {
         return $this->postGraphQL(
@@ -116,5 +139,59 @@ class GirlTest extends TestCase
                 'variables' => $data->all(),
             ],
             );
+    }
+
+    protected function uploadPhotoQuery()
+    {
+        return $this->multipartGraphQL(
+            [
+                'operations' => /* @lang JSON */
+                    '
+                {
+                    "query": "mutation Upload($girl: ID!, $files: [Upload!]!) { uploadGirlPhoto(girl: $girl, files: $files) }",
+                    "variables": {
+                        "girl": 1,
+                        "files": null
+                    }
+                }
+                ',
+                'map'        => /* @lang JSON */
+                    '
+                    {
+                        "0": ["variables.files"]
+                    }
+                ',
+            ],
+            [
+                '0' => UploadedFile::fake()->create('image.jpg', 500),
+            ]
+        );
+    }
+
+    protected function uploadVideoQuery()
+    {
+        return $this->multipartGraphQL(
+            [
+                'operations' => /* @lang JSON */
+                    '
+                {
+                    "query": "mutation Upload($girl: ID!, $files: [Upload!]!) { uploadGirlVideo(girl: $girl, files: $files) }",
+                    "variables": {
+                        "girl": 1,
+                        "files": null
+                    }
+                }
+                ',
+                'map'        => /* @lang JSON */
+                    '
+                    {
+                        "0": ["variables.files"]
+                    }
+                ',
+            ],
+            [
+                '0' => UploadedFile::fake()->create('video.avi', 1000),
+            ]
+        );
     }
 }

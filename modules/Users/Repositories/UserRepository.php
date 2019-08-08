@@ -5,12 +5,9 @@ namespace Modules\Users\Repositories;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
 use Modules\Users\Entities\User;
-use Modules\Users\Repositories\Traits\Mediable;
 
 class UserRepository
 {
-    use Mediable;
-
     /**
      * @param Collection $collection
      * @return User
