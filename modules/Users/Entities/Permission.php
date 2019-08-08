@@ -6,25 +6,25 @@ use Laratrust\Models\LaratrustPermission;
 
 class Permission extends LaratrustPermission
 {
-    const USERS_CREATE = 'users-create';
-    const USERS_READ = 'users-read';
-    const USERS_UPDATE = 'users-update';
-    const USERS_DELETE = 'users-delete';
+    const CREATE_USERS = 'create-users';
+    const READ_USERS = 'read-users';
+    const UPDATE_USERS = 'update-users';
+    const DELETE_USERS = 'delete-users';
 
-    const CLUBS_CREATE = 'clubs-create';
-    const CLUBS_READ = 'clubs-read';
-    const CLUBS_UPDATE = 'clubs-update';
-    const CLUBS_DELETE = 'clubs-delete';
+    const CREATE_CLUBS = 'create-clubs';
+    const READ_CLUBS = 'read-clubs';
+    const UPDATE_CLUBS = 'update-clubs';
+    const DELETE_CLUBS = 'delete-clubs';
 
-    const GIRLS_CREATE = 'girls-create';
-    const GIRLS_READ = 'girls-read';
-    const GIRLS_UPDATE = 'girls-update';
-    const GIRLS_DELETE = 'girls-delete';
+    const CREATE_GIRLS = 'create-girls';
+    const READ_GIRLS = 'read-girls';
+    const UPDATE_GIRLS = 'update-girls';
+    const DELETE_GIRLS = 'delete-girls';
 
-    const EVENTS_CREATE = 'events-create';
-    const EVENTS_READ = 'events-read';
-    const EVENTS_UPDATE = 'events-update';
-    const EVENTS_DELETE = 'events-delete';
+    const CREATE_EVENTS = 'create-events';
+    const READ_EVENTS = 'read-events';
+    const UPDATE_EVENTS = 'update-events';
+    const DELETE_EVENTS = 'delete-events';
 
 
 }
