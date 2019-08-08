@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
+use Modules\Users\Entities\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,6 +12,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class GirlTest extends TestCase
 {
     use DatabaseTransactions;
+
+    public function getUser($email = 'girl@site.com')
+    {
+        return User::where('email', $email)->first();
+    }
 
     public function testSearch()
     {
@@ -62,11 +68,6 @@ class GirlTest extends TestCase
 
     public function testUpdateByUser()
     {
-        $credentials = collect([
-            'username' => 'girl@site.com',
-            'password' => 'password',
-        ]);
-
         $data = collect([
             'id'         => 1,
             'first_name' => 'New first name',
@@ -74,7 +75,7 @@ class GirlTest extends TestCase
             'age'        => 30,
         ]);
 
-        $this->update($credentials, $data)->assertJson([
+        $this->actingAs($this->getUser(), 'api')->update($data)->assertJson([
             'data' => [
                 'updateGirl' => [
                     'status'  => true,
@@ -86,11 +87,6 @@ class GirlTest extends TestCase
 
     public function testUpdateByClub()
     {
-        $credentials = collect([
-            'username' => 'club_owner@site.com',
-            'password' => 'password',
-        ]);
-
         $data = collect([
             'id'         => 2,
             'first_name' => 'New first name',
@@ -98,52 +94,19 @@ class GirlTest extends TestCase
             'age'        => 31,
         ]);
 
-        $this->update($credentials, $data)->assertJson([
-            'data' => [
-                'updateGirl' => [
-                    'status'  => true,
-                    'message' => null,
+        $this->actingAs($this->getUser('club_owner@site.com'), 'api')
+            ->update($data)->assertJson([
+                'data' => [
+                    'updateGirl' => [
+                        'status'  => true,
+                        'message' => null,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
     }
 
-    /**
-     * @param Collection $data
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-
-    protected function login(Collection $data)
+    protected function update(Collection $data)
     {
-        return $this->postGraphQL([
-            'query'     => '
-                mutation ($username: String!, $password: String!) {
-                    login(input: {
-                        username: $username
-                        password: $password
-                    }) {
-                        access_token
-                        refresh_token
-                        expires_in
-                        token_type
-                        user {
-                            id
-                            name
-                            phone
-                            email
-                        }
-                    }
-                }
-            ',
-            'variables' => $data->all(),
-        ]);
-    }
-
-    protected function update(Collection $credentials, Collection $data)
-    {
-        $response = $this->login($credentials);
-        $access_token = $response->json('data.login.access_token');
-
         return $this->postGraphQL(
             [
                 'query'     => '
@@ -160,7 +123,6 @@ class GirlTest extends TestCase
             ',
                 'variables' => $data->all(),
             ],
-            ['Authorization' => "Bearer $access_token"]
-        );
+            );
     }
 }
