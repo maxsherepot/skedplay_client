@@ -26,7 +26,7 @@ class EventTest extends TestCase
         ]);
 
         $this->actingAs($this->getUser(), 'api')
-            ->update($data)->assertJson([
+            ->updateQuery($data)->assertJson([
                 'data' => [
                     'updateEvent' => [
                         'status'  => true,
@@ -49,7 +49,7 @@ class EventTest extends TestCase
         ]);
 
         $this->actingAs($this->getUser('club_owner@site.com'), 'api')
-            ->update($data)->assertJson([
+            ->updateQuery($data)->assertJson([
                 'data' => [
                     'updateEvent' => [
                         'status'  => true,
@@ -59,7 +59,45 @@ class EventTest extends TestCase
             ]);
     }
 
-    protected function update(Collection $data)
+    public function testDeleteEventByUser()
+    {
+        $event = Event::where('owner_type', (new User())->getMorphClass())->first();
+
+        $data = collect([
+            'event' => $event->id,
+        ]);
+
+        $this->actingAs($this->getUser(), 'api')
+            ->deleteQuery($data)->assertJson([
+                'data' => [
+                    'updateEvent' => [
+                        'status'  => true,
+                        'message' => null,
+                    ]
+                ]
+            ]);
+    }
+
+    public function testDeleteEventByClub()
+    {
+        $event = Event::where('owner_type', (new Club())->getMorphClass())->first();
+
+        $data = collect([
+            'event' => $event->id,
+        ]);
+
+        $this->actingAs($this->getUser('club_owner@site.com'), 'api')
+            ->deleteQuery($data)->assertJson([
+                'data' => [
+                    'updateEvent' => [
+                        'status'  => true,
+                        'message' => null,
+                    ]
+                ]
+            ]);
+    }
+
+    protected function updateQuery(Collection $data)
     {
         return $this->postGraphQL(
             [
@@ -71,6 +109,22 @@ class EventTest extends TestCase
                         event_type_id: $event_type_id
                         club_id: $club_id
                     }) {
+                        status
+                        message
+                    }
+                }
+            ',
+                'variables' => $data->all(),
+            ]);
+    }
+
+    protected function deleteQuery(Collection $data)
+    {
+        return $this->postGraphQL(
+            [
+                'query'     => '
+                mutation ($event: ID!) {
+                    updateEvent(event: $event) {
                         status
                         message
                     }

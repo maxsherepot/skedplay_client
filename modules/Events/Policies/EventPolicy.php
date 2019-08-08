@@ -27,8 +27,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        return $user->events_club_owners->contains($event->id)
-            || $user->owns($event, 'owner_id')
+        return ($user->events_club_owners->contains($event->id) || $user->owns($event, 'owner_id'))
             && $user->hasPermission(Permission::UPDATE_EVENTS);
     }
 
@@ -39,13 +38,7 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-//        dd($user);
-//        dd($user->roles()->get());
-        if ($event->eventable_type === 'club') {
-            return $user->clubs->contains($event->eventable_id);
-        }
-
-        // Girl | Not User
-        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::DELETE_EVENTS);
+        return ($user->events_club_owners->contains($event->id) || $user->owns($event, 'owner_id'))
+            && $user->hasPermission(Permission::DELETE_EVENTS);
     }
 }
