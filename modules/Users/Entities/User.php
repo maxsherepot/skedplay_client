@@ -108,4 +108,14 @@ class User extends AuthUser implements GirlOwnerInterface
     {
         return $this->morphOne(Girl::class, 'owner');
     }
+
+    public function girls_club_owners()
+    {
+        return $this->hasManyThrough(
+            Girl::class,
+            Club::class,
+            'user_id',
+            'owner_id'
+        )->where('owner_type', (new Club())->getMorphClass());
+    }
 }

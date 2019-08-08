@@ -18,10 +18,8 @@ class GirlPolicy
      */
     public function update(User $user, Girl $girl): bool
     {
-        if ($girl->isClubOwn) {
-            return $user->clubs->contains($girl->owner_id);
-        }
-
-        return $user->owns($girl, 'owner_id') || $user->hasPermission(Permission::GIRLS_UPDATE);
+        return $user->girls_club_owners->contains($girl->id)
+            || $user->owns($girl, 'owner_id')
+            || $user->hasPermission(Permission::UPDATE_GIRLS);
     }
 }

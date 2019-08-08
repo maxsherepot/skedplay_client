@@ -52,14 +52,4 @@ class Girl extends Model implements HasMedia, HasLocation
     {
         return $this->morphMany(Event::class, 'owner');
     }
-
-    public function getIsUserOwnAttribute()
-    {
-        return $this->owner_type === (new User)->getMorphClass();
-    }
-
-    public function getIsClubOwnAttribute(): bool
-    {
-        return $this->owner_type === (new Club())->getMorphClass();
-    }
 }

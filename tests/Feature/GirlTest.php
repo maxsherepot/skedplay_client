@@ -4,19 +4,11 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
-use Modules\Users\Entities\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GirlTest extends TestCase
 {
     use DatabaseTransactions;
-
-    public function getUser($email = 'girl@site.com')
-    {
-        return User::where('email', $email)->first();
-    }
 
     public function testSearch()
     {
