@@ -17,6 +17,24 @@ type GirlType {
     name: String!
 }
 
+input GirlInput {
+    first_name: String
+    last_name: String
+    gender: Int
+    age: Int
+    girl_type_id: Int
+    description: String
+    address: String
+    text: String
+    lat: String
+    lng: String
+}
+
+type GirlPayload implements Status {
+    status: Boolean!
+    message: String
+}
+
 input GirlFilters {
     services: [Int] @whereHas(key: "service_id", method: "whereIn")
     age: AgeRange @whereBetween
@@ -29,6 +47,9 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
+    updateGirl(girl: ID!, input: GirlInput @spread): GirlPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@update")
+
     createGirlEvent(girl: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\GirlController@createEvent")
 }

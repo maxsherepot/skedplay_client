@@ -3,6 +3,7 @@
 namespace Modules\Girls\database\seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Database\Seeders\CommonableSeeder;
 use Modules\Girls\Entities\Girl;
@@ -31,7 +32,7 @@ class GirlTableSeeder extends Seeder
         }
 
         foreach (Club::all() as $club) {
-            for ($i = 0; $i >= random_int(1, 4); $i++) {
+            for ($i = 0; $i <= random_int(1, 4); $i++) {
                 $this->createGirl($club);
             }
         }

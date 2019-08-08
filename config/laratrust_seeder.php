@@ -5,27 +5,32 @@ return [
         'admin'      => [
             'users'  => 'c,r,u,d',
             'clubs'  => 'c,r,u,d',
+            'girls'  => 'c,r,u,d',
             'events' => 'c,r,u,d',
         ],
         'moderator'  => [
             'users'  => 'c,r,u,d',
             'clubs'  => 'r,u',
+            'girls'  => 'r,u',
             'events' => 'r,u',
 
         ],
         'client'     => [
             'users'  => 'r,u',
             'clubs'  => 'r',
+            'girls'  => 'r',
             'events' => 'r',
         ],
         'girl'       => [
             'users'  => 'r,u',
             'clubs'  => 'r',
+            'girls'  => 'c,r,u,d',
             'events' => 'c,r,u,d',
         ],
         'club_owner' => [
             'users'  => 'r,u',
             'clubs'  => 'c,r,u,d',
+            'girls'  => 'c,r,u,d',
             'events' => 'c,r,u,d',
         ],
     ],

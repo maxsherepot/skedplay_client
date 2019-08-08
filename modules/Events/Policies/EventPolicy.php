@@ -4,6 +4,7 @@ namespace Modules\Events\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Modules\Events\Entities\Event;
+use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\User;
 
 class EventPolicy
@@ -16,7 +17,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create-events');
+        return $user->hasPermission(Permission::EVENTS_CREATE);
     }
 
     /**
@@ -30,7 +31,7 @@ class EventPolicy
             return $user->clubs->contains($event->eventable_id);
         }
 
-        return $user->owns($event, 'eventable_id') && $user->hasPermission('update-events');
+        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::EVENTS_UPDATE);
     }
 
     /**
@@ -47,6 +48,6 @@ class EventPolicy
         }
 
         // Girl | Not User
-        return $user->owns($event, 'eventable_id') && $user->hasPermission('delete-events');
+        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::EVENTS_DELETE);
     }
 }
