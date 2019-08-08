@@ -17,7 +17,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission(Permission::EVENTS_CREATE);
+        return $user->hasPermission(Permission::CREATE_EVENTS);
     }
 
     /**
@@ -27,11 +27,9 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        if ($event->eventable_type === 'club') {
-            return $user->clubs->contains($event->eventable_id);
-        }
-
-        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::EVENTS_UPDATE);
+        return $user->events_club_owners->contains($event->id)
+            || $user->owns($event, 'owner_id')
+            && $user->hasPermission(Permission::UPDATE_EVENTS);
     }
 
     /**
@@ -48,6 +46,6 @@ class EventPolicy
         }
 
         // Girl | Not User
-        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::EVENTS_DELETE);
+        return $user->owns($event, 'eventable_id') && $user->hasPermission(Permission::DELETE_EVENTS);
     }
 }

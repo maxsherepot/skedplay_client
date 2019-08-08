@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Modules\Clubs\Entities\Club;
+use Modules\Events\Entities\Event;
 use Modules\Girls\Entities\Girl;
 use Modules\Girls\Entities\GirlOwnerInterface;
 use Modules\Main\Services\Cashier\Billable;
@@ -113,6 +114,16 @@ class User extends AuthUser implements GirlOwnerInterface
     {
         return $this->hasManyThrough(
             Girl::class,
+            Club::class,
+            'user_id',
+            'owner_id'
+        )->where('owner_type', (new Club())->getMorphClass());
+    }
+
+    public function events_club_owners()
+    {
+        return $this->hasManyThrough(
+            Event::class,
             Club::class,
             'user_id',
             'owner_id'

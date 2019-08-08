@@ -5,7 +5,7 @@ namespace Modules\Api\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Event\EventUpdateRequest;
 use Modules\Api\Http\Requests\UploadPhotoRequest;
-use Modules\Main\Entities\Event;
+use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
 

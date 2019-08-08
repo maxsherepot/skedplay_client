@@ -20,6 +20,6 @@ class GirlPolicy
     {
         return $user->girls_club_owners->contains($girl->id)
             || $user->owns($girl, 'owner_id')
-            || $user->hasPermission(Permission::UPDATE_GIRLS);
+            && $user->hasPermission(Permission::UPDATE_GIRLS);
     }
 }

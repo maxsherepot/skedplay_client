@@ -4,6 +4,7 @@ namespace Modules\Clubs\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Modules\Clubs\Entities\Club;
+use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\User;
 
 class ClubPolicy
@@ -16,7 +17,7 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create-clubs');
+        return $user->hasPermission(Permission::CREATE_CLUBS);
     }
 
     /**
@@ -26,6 +27,6 @@ class ClubPolicy
      */
     public function update(User $user, Club $club): bool
     {
-        return $user->owns($club, 'id') || $user->hasPermission('update-clubs');
+        return $user->owns($club, 'id') || $user->hasPermission(Permission::UPDATE_CLUBS);
     }
 }
