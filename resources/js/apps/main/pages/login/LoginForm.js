@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import Recaptcha from 'react-recaptcha';
+import transformGraphQLErrors from '@/utils';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -18,24 +19,32 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { onLogin } = this.props;
+    const { onSubmit, error } = this.props;
 
     return (
       <Formik
-        initialValues={{ username: '', password: '', recaptcha: '' }}
+        initialValues={{ username: '', password: '', recaptcha: 'afafafafaf' }}
         validationSchema={Yup.object().shape({
           username: Yup.string().required('Field is required'),
           password: Yup.string().required('Field is required'),
-          recaptcha: Yup.string().required('Field is required'),
+          // recaptcha: Yup.string().required('Field is required'),
         })}
-        onSubmit={({ username, password, recaptcha }, { setSubmitting }) => {
-          onLogin({
+        onSubmit={async ({ username, password, recaptcha }, { setSubmitting, setErrors }) => {
+          console.log(error);
+
+          await onSubmit({
             variables: {
               username,
               password,
               recaptcha,
             },
-          });
+          }).then(res => console.log(res));
+
+          // if (error && error.graphQLErrors.length) {
+          //   console.log(transformGraphQLErrors(error.graphQLErrors)[0]);
+          // }
+
+          // setErrors();
           setSubmitting(false);
         }}
       >
@@ -46,7 +55,7 @@ class LoginForm extends Component {
               <ErrorMessage name="username" component="div" />
               <Field type="password" name="password" />
               <ErrorMessage name="password" component="div" />
-              <div className="form-group">
+              {/* <div className="form-group">
                 <Recaptcha
                   sitekey="6LdhMbIUAAAAAJwdU2c6JCp1w4t9yhtzc6aJt0nT"
                   render="explicit"
@@ -56,7 +65,7 @@ class LoginForm extends Component {
                   onloadCallback={() => {}}
                 />
                 {errors.recaptcha && touched.recaptcha && <p>{errors.recaptcha}</p>}
-              </div>
+              </div> */}
               <button type="submit" disabled={isSubmitting}>
                 Login
               </button>
@@ -69,7 +78,8 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
 export default LoginForm;
