@@ -11,7 +11,8 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   cache,
   link: new HttpLink({
-    uri: 'http://demo.local/graphql',
+    uri: 'http://127.0.0.1:8000/graphql',
+    // uri: 'http://demo.local/graphql',
     headers: {
       authorization: localStorage.getItem('token'),
     },

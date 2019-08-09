@@ -7,19 +7,17 @@ import { LOGIN_USER } from '@/query/LoginQuery';
 export default function Login() {
   const client = useApolloClient();
 
-  const [login, { loading, error }] = useMutation(LOGIN_USER, {
+  const [login, { error }] = useMutation(LOGIN_USER, {
     onCompleted({ login: { access_token } }) {
       localStorage.setItem('token', access_token);
       client.writeData({ data: { isLoggedIn: true } });
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-
   return (
     <Fragment>
       <Error error={error} />
-      <LoginForm onSubmit={login} error={error} />
+      <LoginForm onSubmit={login} />
     </Fragment>
   );
 }
