@@ -7,6 +7,8 @@ use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
 
 interface CodeProcessorInterface
 {
+    public const REGISTER_VERIFIED = 'REGISTER_VERIFIED';
+
     /**
      * Generate code, save it in Cache, return it
      * @param string $phoneNumber

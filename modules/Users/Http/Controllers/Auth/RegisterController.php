@@ -9,6 +9,7 @@ use Modules\Girls\Repositories\GirlRepository;
 use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;
+use Modules\Users\Services\Verification\Verification;
 
 class RegisterController extends Controller
 {
@@ -17,14 +18,20 @@ class RegisterController extends Controller
      * @var UserRepository
      */
     protected $users;
+    /**
+     * @var Verification
+     */
+    private $verification;
 
     /**
      * AuthController constructor.
      * @param UserRepository $userRepository
+     * @param Verification $verification
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, Verification $verification)
     {
         $this->users = $userRepository;
+        $this->verification = $verification;
     }
 
     /**
@@ -33,6 +40,8 @@ class RegisterController extends Controller
      */
     public function register(RegistrationRequest $request): array
     {
+        $this->verification->checkStatus($request->get('phone'));
+
         $data = $this->prepareUserData($request->all());
 
         $user = $this->users->store($data);
@@ -59,7 +68,7 @@ class RegisterController extends Controller
         $data = collect($data);
         $data->put('name', $data->only(['first_name', 'last_name'])->implode(' '));
 
-        if($birthday = $data->get('birthday')) {
+        if ($birthday = $data->get('birthday')) {
             $data->put('age', Carbon::parse($birthday)->age);
         }
 

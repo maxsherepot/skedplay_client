@@ -76,9 +76,6 @@ class RegistrationTest extends TestCase
         ]);
     }
 
-
-
-
     protected function registration(Collection $data)
     {
         $data = $data->merge([

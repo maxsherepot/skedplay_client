@@ -2,15 +2,16 @@
 
 namespace Modules\Users\Services\CodeProcessor;
 
-use Illuminate\Support\Facades\Cache;
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
-use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
+use Modules\Users\Services\CodeProcessor\Traits\Support;
 
 /**
  * Class StaticCodeProcessor
  */
 class StaticCodeProcessor implements CodeProcessorInterface
 {
+    use Support;
+
     /**
      * Prefix for cache keys
      * @var string
@@ -32,52 +33,8 @@ class StaticCodeProcessor implements CodeProcessorInterface
     {
         $code = '0000';
 
-        Cache::put(
-            $this->cachePrefix . $code,
-            $phoneNumber,
-            now()->addSeconds(
-                $this->getLifetime()
-            )
-        );
+        $this->putInCache($code, $phoneNumber);
 
         return $code;
-    }
-
-    /**
-     * Check code in Cache
-     * @param string $code
-     * @param string $phoneNumber
-     * @return bool
-     * @throws ValidateCodeException
-     */
-    public function validateCode(string $code, string $phoneNumber): bool
-    {
-        try {
-            $codeValue = Cache::get($this->cachePrefix . $code);
-
-            if ($codeValue && ($codeValue == $phoneNumber)) {
-                return true;
-            }
-        } catch (\Exception $e) {
-            throw new ValidateCodeException('Code validation failed', 0, $e);
-        }
-        return false;
-    }
-
-    /**
-     * Delete code in Cache
-     * @param string $code
-     */
-    public function deleteCode(string $code): void
-    {
-        Cache::forget($this->cachePrefix . $code);
-    }
-
-    /**
-     * @return int Seconds
-     */
-    public function getLifetime(): int
-    {
-        return $this->minutesLifetime * 60;
     }
 }

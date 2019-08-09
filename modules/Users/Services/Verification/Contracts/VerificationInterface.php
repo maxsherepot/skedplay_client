@@ -13,6 +13,9 @@ interface VerificationInterface
     public const VERIFICATION_CHECK_SUCCESS = 'verification.check.success';
     public const VERIFICATION_CHECK_FAILED = 'verification.check.failed';
 
+    public const VERIFICATION_STATUS_SUCCESS = 'verification.status.success';
+    public const VERIFICATION_STATUS_FAILED = 'verification.status.failed';
+
     /**
      * Get verification code
      * @param string $phoneNumber

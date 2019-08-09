@@ -137,6 +137,32 @@ class Verification implements VerificationInterface
     }
 
     /**
+     * Check status
+     * @param string $phoneNumber
+     * @param callable $callback
+     */
+    public function checkStatus(string $phoneNumber, callable $callback = null): void
+    {
+        try {
+            $phoneNumber = static::normalizePhoneNumber($phoneNumber);
+            static::validatePhoneNumber($phoneNumber);
+
+            $success = $this->codeProcessor->validateStatus(
+                static::trimPhoneNumber($phoneNumber)
+            );
+
+            if ($success && is_callable($callback)) {
+                $callback();
+            }
+
+            $this->response = $this->success($success ? self::VERIFICATION_STATUS_SUCCESS : self::VERIFICATION_STATUS_FAILED);
+
+        } catch (\Exception $e) {
+            $this->fail(self::VERIFICATION_STATUS_FAILED);
+        }
+    }
+
+    /**
      * Response result
      * @return array
      */

@@ -2,26 +2,29 @@
 
 namespace Modules\Users\Services\CodeProcessor;
 
-use Illuminate\Support\Facades\Cache;
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Modules\Users\Services\CodeProcessor\Exceptions\GenerateCodeException;
-use Modules\Users\Services\CodeProcessor\Exceptions\ValidateCodeException;
+use Modules\Users\Services\CodeProcessor\Traits\Support;
 
 /**
  * Class CodeProcessor
  */
 class CodeProcessor implements CodeProcessorInterface
 {
+    use Support;
+
     /**
      * Prefix for cache keys
      * @var string
      */
     private $cachePrefix = 'SVC:';
+
     /**
      * Code length
      * @var int
      */
     private $codeLength = 4;
+
     /**
      * Lifetime of codes in minutes
      * @var int
@@ -44,56 +47,12 @@ class CodeProcessor implements CodeProcessorInterface
             }
 
             $code = $randomFunction(pow(10, $this->codeLength - 1), pow(10, $this->codeLength) - 1);
-
-            Cache::put(
-                $this->cachePrefix . $code,
-                $phoneNumber,
-                now()->addSeconds(
-                    $this->getLifetime()
-                )
-            );
+            $this->putInCache($code, $phoneNumber);
 
         } catch (\Exception $e) {
             throw new GenerateCodeException('Code generation failed', 0, $e);
         }
 
         return (string)$code;
-    }
-
-    /**
-     * Check code in Cache
-     * @param string $code
-     * @param string $phoneNumber
-     * @return bool
-     * @throws ValidateCodeException
-     */
-    public function validateCode(string $code, string $phoneNumber): bool
-    {
-        try {
-            $codeValue = Cache::get($this->cachePrefix . $code);
-
-            if ($codeValue && ($codeValue == $phoneNumber)) {
-                return true;
-            }
-        } catch (\Exception $e) {
-            throw new ValidateCodeException('Code validation failed', 0, $e);
-        }
-        return false;
-    }
-
-    /**
-     * @param string $code
-     */
-    public function deleteCode(string $code): void
-    {
-        Cache::forget($this->cachePrefix . $code);
-    }
-
-    /**
-     * @return int Seconds
-     */
-    public function getLifetime(): int
-    {
-        return $this->minutesLifetime * 60;
     }
 }
