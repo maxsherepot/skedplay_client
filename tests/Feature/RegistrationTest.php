@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 class RegistrationTest extends TestCase
 {
-
     use DatabaseTransactions, WithFaker;
 
     protected function getPhone()
@@ -54,7 +53,7 @@ class RegistrationTest extends TestCase
             'birthday'     => '1992-02-25',
             'phone'        => $this->getPhone(),
             'gender'       => User::GENDER_FEMALE,
-            'account_type' => User::ACCOUNT_GIRL
+            'account_type' => User::ACCOUNT_GIRL,
         ]);
 
         $this->registration($data)->assertJsonStructure([
@@ -65,7 +64,7 @@ class RegistrationTest extends TestCase
                         'name',
                         'email',
                         'phone',
-                        'girl'  => [
+                        'girl' => [
                             'first_name',
                             'last_name',
                             'gender'
@@ -82,6 +81,7 @@ class RegistrationTest extends TestCase
             'phone'                 => $this->faker->phoneNumber,
             'password'              => 'password',
             'password_confirmation' => 'password',
+            'recaptcha'             => 'afafggheghr',
         ]);
 
         $phone = $data->get('phone');
@@ -91,7 +91,21 @@ class RegistrationTest extends TestCase
 
         return $this->postGraphQL([
             'query'     => '
-                mutation ($phone: String!, $email: String!, $first_name: String!, $last_name: String, $birthday: Date, $gender: Int, $account_type: String!, $club_type_id: Int, $lat: String, $lng: String, $password: String!, $password_confirmation: String!) {
+                mutation (
+                    $phone: String!, 
+                    $email: String!, 
+                    $first_name: String!, 
+                    $last_name: String, 
+                    $birthday: Date, 
+                    $gender: Int, 
+                    $account_type: String!, 
+                    $club_type_id: Int,
+                    $lat: String, 
+                    $lng: String, 
+                    $password: String!, 
+                    $password_confirmation: String!
+                    $recaptcha: String!
+                ) {
                     register(input: {
                         account_type: $account_type,
                         first_name: $first_name,
@@ -105,6 +119,7 @@ class RegistrationTest extends TestCase
                         lng: $lng,
                         password: $password,
                         password_confirmation: $password_confirmation
+                        recaptcha: $recaptcha
                     }) {
                         access_token,
                         user {

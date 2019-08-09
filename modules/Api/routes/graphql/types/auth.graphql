@@ -32,6 +32,7 @@ input RegisterInput {
     lng: String
     password: String!
     password_confirmation: String!
+    recaptcha: String!
 }
 
 type RegisterPayload {

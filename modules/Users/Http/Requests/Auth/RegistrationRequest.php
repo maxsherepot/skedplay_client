@@ -4,6 +4,7 @@ namespace Modules\Users\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Users\Entities\User;
+use Modules\Users\Rules\CaptchaRule;
 
 class RegistrationRequest extends FormRequest
 {
@@ -15,6 +16,7 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         $root = [
+            'recaptcha'    => ['required', 'string', new CaptchaRule],
             'account_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'nullable|string|max:255',
