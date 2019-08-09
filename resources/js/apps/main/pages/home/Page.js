@@ -33,44 +33,48 @@ const REGISTER = gql`
 `;
 
 const Home = () => (
-  <Mutation mutation={REGISTER}>
-    {(register, { loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
-      let account_type, first_name, phone, email, password, password_confirmation;
+    <div>Home page</div>
+)
 
-      return (
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            register({
-              variables: {
-                account_type: 'club_owner',
-                club_type: 'club',
-                first_name: first_name.value,
-                phone: phone.value,
-                email: email.value,
-                password: password.value,
-                password_confirmation: password_confirmation.value,
-              },
-            });
-          }}
-        >
-          <input type="text" placeholder="Enter first name" ref={node => (first_name = node)} />
-          <input type="text" placeholder="Enter phone" ref={node => (phone = node)} />
-          <input type="text" placeholder="Enter email" ref={node => (email = node)} />
-          <input type="password" placeholder="Enter password" ref={node => (password = node)} />
-          <input
-            type="password"
-            placeholder="Enter password confirmation"
-            ref={node => (password_confirmation = node)}
-          />
-
-          <button type="submit">Зарегистрироваться</button>
-        </form>
-      );
-    }}
-  </Mutation>
-);
+// const Home = () => (
+//   <Mutation mutation={REGISTER}>
+//     {(register, { loading, error, data }) => {
+//       if (loading) return <p>Loading...</p>;
+//       if (error) return <p>Error :(</p>;
+//       let account_type, first_name, phone, email, password, password_confirmation;
+//
+//       return (
+//         <form
+//           onSubmit={e => {
+//             e.preventDefault();
+//             register({
+//               variables: {
+//                 account_type: 'club_owner',
+//                 club_type: 'club',
+//                 first_name: first_name.value,
+//                 phone: phone.value,
+//                 email: email.value,
+//                 password: password.value,
+//                 password_confirmation: password_confirmation.value,
+//               },
+//             });
+//           }}
+//         >
+//           <input type="text" placeholder="Enter first name" ref={node => (first_name = node)} />
+//           <input type="text" placeholder="Enter phone" ref={node => (phone = node)} />
+//           <input type="text" placeholder="Enter email" ref={node => (email = node)} />
+//           <input type="password" placeholder="Enter password" ref={node => (password = node)} />
+//           <input
+//             type="password"
+//             placeholder="Enter password confirmation"
+//             ref={node => (password_confirmation = node)}
+//           />
+//
+//           <button type="submit">Зарегистрироваться</button>
+//         </form>
+//       );
+//     }}
+//   </Mutation>
+// );
 
 export default Home;

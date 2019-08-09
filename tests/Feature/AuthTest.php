@@ -22,8 +22,9 @@ class AuthTest extends TestCase
     public function testLogin()
     {
         $data = collect([
-            'username' => 'client@site.com',
-            'password' => 'password',
+            'username'  => 'client@site.com',
+            'password'  => 'password',
+            'recaptcha' => 'afdhgedrh',
         ]);
 
         $this->login($data)->assertJsonStructure([
@@ -47,8 +48,9 @@ class AuthTest extends TestCase
     public function testLogout()
     {
         $data = collect([
-            'username' => 'client@site.com',
-            'password' => 'password',
+            'username'  => 'client@site.com',
+            'password'  => 'password',
+            'recaptcha' => 'afdhgedrh',
         ]);
 
         $response = $this->login($data);
@@ -85,6 +87,7 @@ class AuthTest extends TestCase
         $data = collect([
             'phone'                 => $phone,
             'code'                  => '0000',
+            'recaptcha'             => '',
             'password'              => 'newpassword',
             'password_confirmation' => 'newpassword',
         ]);
@@ -106,8 +109,9 @@ class AuthTest extends TestCase
     public function testRefreshToken()
     {
         $data = collect([
-            'username' => 'client@site.com',
-            'password' => 'password',
+            'username'  => 'client@site.com',
+            'password'  => 'password',
+            'recaptcha' => 'afdhgedrh',
         ]);
 
         $response = $this->login($data);
@@ -129,10 +133,11 @@ class AuthTest extends TestCase
     {
         return $this->postGraphQL([
             'query'     => '
-                mutation ($username: String!, $password: String!) {
+                mutation ($username: String!, $password: String!, $recaptcha: String!) {
                     login(input: {
                         username: $username
                         password: $password
+                        recaptcha: $recaptcha
                     }) {
                         access_token
                         refresh_token
@@ -218,5 +223,4 @@ class AuthTest extends TestCase
             ]
         ]);
     }
-
 }

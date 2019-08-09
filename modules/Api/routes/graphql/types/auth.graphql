@@ -1,6 +1,7 @@
 input LoginInput {
     username: String!
     password: String!
+    recaptcha: String!
 }
 
 input ForgotPasswordInput {

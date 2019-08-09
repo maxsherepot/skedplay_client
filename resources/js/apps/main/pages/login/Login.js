@@ -5,12 +5,12 @@ import LoginForm from '@/pages/login/LoginForm';
 import Error from '@/components/Error';
 
 const LOGIN_USER = gql`
-  mutation login($username: String!, $password: String!) {
-    login(input: { username: $username, password: $password }) {
+  mutation login($username: String!, $password: String!, $recaptcha: String!) {
+    login(input: { username: $username, password: $password, recaptcha: $recaptcha }) {
       access_token
       user {
         id
-        first_name
+        name
       }
     }
   }

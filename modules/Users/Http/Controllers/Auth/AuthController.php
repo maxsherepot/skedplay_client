@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Modules\Users\Http\Requests\Auth\ForgotPasswordRequest;
+use Modules\Users\Http\Requests\Auth\LoginRequest;
 use Modules\Users\Http\Requests\Auth\ResetPasswordRequest;
 use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Services\Verification\Verification;
@@ -34,13 +35,12 @@ class AuthController extends BaseAuthResolver
         $this->verification = $verification;
     }
 
-
     /**
-     * @param Request $request
+     * @param LoginRequest $request
      * @return array
-     * @throws \Nuwave\Lighthouse\Exceptions\AuthenticationException
+     * @throws AuthenticationException
      */
-    public function login(Request $request): array
+    public function login(LoginRequest $request): array
     {
         $credentials = $this->buildCredentials($request->all());
         $response = $this->makeRequest($credentials);
