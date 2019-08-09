@@ -69,8 +69,8 @@ class AuthTest extends TestCase
     public function testForgotPassword()
     {
         $this->forgotPassword(
-            $this->getPhone()
-        )->assertJson([
+            $this->getPhone(),
+            )->assertJson([
             'data' => [
                 'forgotPassword' => [
                     'status'  => true,
@@ -176,8 +176,8 @@ class AuthTest extends TestCase
     {
         return $this->postGraphQL([
             'query'     => '
-                mutation($phone: String!) {
-                    forgotPassword(input: { phone: $phone }) {
+                mutation($phone: String!, $recaptcha: String!) {
+                    forgotPassword(input: { phone: $phone, recaptcha: $recaptcha }) {
                         expires_at
                         status
                         message
@@ -185,7 +185,8 @@ class AuthTest extends TestCase
                 }
             ',
             'variables' => [
-                'phone' => $phone
+                'phone'     => $phone,
+                'recaptcha' => 'afafafaf',
             ]
         ]);
     }

@@ -3,6 +3,7 @@
 namespace Modules\Users\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Users\Rules\CaptchaRule;
 
 class ForgotPasswordRequest extends FormRequest
 {
@@ -14,7 +15,9 @@ class ForgotPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'bail|required|string|max:255|phone:AUTO,US',
+            'phone'     => 'bail|required|string|max:255|phone:AUTO,US',
+            'recaptcha' => ['bail', 'required', 'string', new CaptchaRule],
+
         ];
     }
 
