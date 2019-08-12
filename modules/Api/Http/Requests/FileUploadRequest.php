@@ -3,6 +3,7 @@
 namespace Modules\Api\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 
 class FileUploadRequest extends FormRequest
@@ -22,8 +23,11 @@ class FileUploadRequest extends FormRequest
         ];
 
         switch ($this->request->get('collection')) {
+            case Club::CLUB_LOGO_COLLECTION:
+            case Club::CLUB_PHOTO_COLLECTION:
             case Employee::EMPLOYEE_PHOTO_COLLECTION:
                 return $photoRules;
+            case Club::CLUB_VIDEO_COLLECTION:
             case Employee::EMPLOYEE_VIDEO_COLLECTION:
                 return $videoRules;
             default:
