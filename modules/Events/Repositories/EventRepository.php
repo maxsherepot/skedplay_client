@@ -4,9 +4,9 @@ namespace Modules\Main\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Clubs\Entities\Club;
-use Modules\Girls\Entities\Girl;
 use Modules\Users\Repositories\Traits\Mediable;
 
 class EventRepository
@@ -20,7 +20,7 @@ class EventRepository
      */
     public function store(Model $model, Collection $collection): \Illuminate\Database\Eloquent\Model
     {
-        /** @var Club|Girl $model */
+        /** @var Club|Employee $model */
         return $model->events()->create($collection->toArray());
     }
 

@@ -11,10 +11,14 @@ use Modules\Common\Services\Location\Locationable;
 use Modules\Events\Entities\Event;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class Employee extends Model implements HasMedia, HasLocation
 {
     use Locationable, HasMediaTrait, Priceable, Serviceable;
+
+    const EMPLOYEE_PHOTO_COLLECTION = 'employee-photo';
+    const EMPLOYEE_VIDEO_COLLECTION = 'employee-video';
 
     const TYPE_GIRL = 1;
     const TYPE_BOY = 2;
@@ -54,5 +58,26 @@ class Employee extends Model implements HasMedia, HasLocation
     public function events()
     {
         return $this->morphMany(Event::class, 'owner');
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(static::EMPLOYEE_PHOTO_COLLECTION);
+        $this->addMediaCollection(static::EMPLOYEE_VIDEO_COLLECTION);
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+//        $this->addMediaConversion('small')
+//            ->width(160)
+//            ->height(220);
+//
+//        $this->addMediaConversion('medium')
+//            ->width(330)
+//            ->height(460);
+//
+//        $this->addMediaConversion('large')
+//            ->width(535)
+//            ->height(785);
     }
 }

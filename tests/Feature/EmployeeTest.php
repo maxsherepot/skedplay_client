@@ -5,11 +5,17 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Modules\Employees\Entities\Employee;
+use Spatie\MediaLibrary\Models\Media;
 use Tests\TestCase;
 
 class EmployeeTest extends TestCase
 {
     use DatabaseTransactions;
+
+    /**
+     * Todo: Add get photo/video by url tests
+     */
 
     public function testSearch()
     {
@@ -102,9 +108,11 @@ class EmployeeTest extends TestCase
     {
         return $this->actingAs($this->getUser(), 'api')
             ->uploadPhotoQuery()
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
-                    'uploadEmployeePhoto'
+                    'uploadEmployeeFile' => [
+                        'status' => true
+                    ]
                 ]
             ]);
     }
@@ -113,23 +121,80 @@ class EmployeeTest extends TestCase
     {
         return $this->actingAs($this->getUser(), 'api')
             ->uploadVideoQuery()
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
-                    'uploadEmployeeVideo'
+                    'uploadEmployeeFile' => [
+                        'status' => true
+                    ]
                 ]
             ]);
     }
 
-//    public function testDeleteUploadedPhoto()
-//    {
-//        return $this->actingAs($this->getUser(), 'api')
-//            ->uploadPhotoQuery()
-//            ->assertJsonStructure([
-//                'data' => [
-//                    'uploadEmployeePhoto'
-//                ]
-//            ]);
-//    }
+    public function testDeleteUploadedPhoto()
+    {
+        $this->actingAs($this->getUser(), 'api')
+            ->uploadPhotoQuery()
+            ->assertJson([
+                'data' => [
+                    'uploadEmployeeFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+
+        $media = Media::where([
+            'model_type' => (new Employee)->getMorphClass(),
+            'model_id'   => 1,
+        ])->first();
+
+        $data = collect([
+            'employee' => 1,
+            'file_id'  => $media->id,
+        ]);
+
+        $this->actingAs($this->getUser(), 'api')
+            ->deleteFileQuery($data)
+            ->assertJson([
+                'data' => [
+                    'deleteEmployeeFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+    }
+
+    public function testDeleteUploadedVideo()
+    {
+        $this->actingAs($this->getUser(), 'api')
+            ->uploadVideoQuery()
+            ->assertJson([
+                'data' => [
+                    'uploadEmployeeFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+
+        $media = Media::where([
+            'model_type' => (new Employee)->getMorphClass(),
+            'model_id'   => 1,
+        ])->first();
+
+        $data = collect([
+            'employee' => 1,
+            'file_id'  => $media->id,
+        ]);
+
+        $this->actingAs($this->getUser(), 'api')
+            ->deleteFileQuery($data)
+            ->assertJson([
+                'data' => [
+                    'deleteEmployeeFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+    }
 
     protected function update(Collection $data)
     {
@@ -159,9 +224,10 @@ class EmployeeTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($employee: ID!, $file: Upload!) { uploadEmployeePhoto(employee: $employee, file: $file) }",
+                    "query": "mutation Upload($employee: ID!, $collection: String!, $file: Upload!) { uploadEmployeeFile(employee: $employee, collection: $collection, file: $file) { status message } }",
                     "variables": {
                         "employee": 1,
+                        "collection": "employee-photo",
                         "file": null
                     }
                 }
@@ -169,12 +235,12 @@ class EmployeeTest extends TestCase
                 'map'        => /* @lang JSON */
                     '
                     {
-                        "0": ["variables.file"]
+                        "file": ["variables.file"]
                     }
                 ',
             ],
             [
-                '0' => UploadedFile::fake()->create('image.jpg', 500),
+                'file' => UploadedFile::fake()->image('image.jpg'),
             ]
         );
     }
@@ -186,9 +252,10 @@ class EmployeeTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($employee: ID!, $file: Upload!) { uploadEmployeeVideo(employee: $employee, file: $file) }",
+                    "query": "mutation Upload($employee: ID!, $collection: String!, $file: Upload!) { uploadEmployeeFile(employee: $employee, collection: $collection, file: $file) { status message } }",
                     "variables": {
                         "employee": 1,
+                        "collection": "employee-video",
                         "file": null
                     }
                 }
@@ -196,13 +263,28 @@ class EmployeeTest extends TestCase
                 'map'        => /* @lang JSON */
                     '
                     {
-                        "0": ["variables.file"]
+                        "file": ["variables.file"]
                     }
                 ',
             ],
             [
-                '0' => UploadedFile::fake()->create('video.avi', 1000),
+                'file' => UploadedFile::fake()->create('video.avi', 1000),
             ]
         );
+    }
+
+    protected function deleteFileQuery(Collection $data)
+    {
+        return $this->postGraphQL([
+            'query'     => '
+                mutation ($employee: ID!, $file_id: Int!) {
+                    deleteEmployeeFile(employee: $employee, file_id: $file_id) {
+                        status
+                        message
+                    }
+                }
+            ',
+            'variables' => $data->all(),
+        ]);
     }
 }

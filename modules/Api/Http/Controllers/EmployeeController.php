@@ -5,8 +5,8 @@ namespace Modules\Api\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
-use Modules\Api\Http\Requests\UploadPhotoRequest;
-use Modules\Api\Http\Requests\UploadVideoRequest;
+use Modules\Api\Http\Requests\FileDeleteRequest;
+use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Events\Entities\Event;
@@ -62,28 +62,38 @@ class EmployeeController extends Controller
     }
 
     /**
-     * @param UploadPhotoRequest $request
+     * @param FileUploadRequest $request
      * @param Employee $employee
-     * @return void
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadPhoto(UploadPhotoRequest $request, Employee $employee)
+    public function uploadFile(FileUploadRequest $request, Employee $employee)
     {
         $this->authorize('update', $employee);
 
-        $this->employees->saveFile($employee, $request->file('file'), 'photos');
+        try {
+            $this->employees->saveFile($employee, $request->file('file'), $request->get('collection'));
+            return $this->success();
+        } catch (\Exception $exception) {
+            return $this->fail();
+        }
     }
 
     /**
-     * @param UploadVideoRequest $request
+     * @param FileDeleteRequest $request
      * @param Employee $employee
-     * @return void
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadVideo(UploadVideoRequest $request, Employee $employee)
+    public function deleteFile(FileDeleteRequest $request, Employee $employee)
     {
         $this->authorize('update', $employee);
 
-        $this->employees->saveFile($employee, $request->file('file'), 'videos');
+        try {
+            $this->employees->deleteFile($employee, $request->get('file_id'));
+            return $this->success();
+        } catch (\Exception $exception) {
+            return $this->fail();
+        }
     }
 }

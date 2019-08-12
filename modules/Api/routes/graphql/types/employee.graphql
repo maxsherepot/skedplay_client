@@ -32,7 +32,7 @@ input EmployeeInput {
     lng: String
 }
 
-type EmployeePayload implements Status {
+type StatusPayload implements Status {
     status: Boolean!
     message: String
 }
@@ -49,16 +49,16 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    updateEmployee(employee: ID!, input: EmployeeInput @spread): EmployeePayload
+    updateEmployee(employee: ID!, input: EmployeeInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@update")
 
     createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
 
-    uploadEmployeePhoto(employee: ID!, file: Upload!): String
-    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadPhoto")
+    uploadEmployeeFile(employee: ID!, collection: String!, file: Upload!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadFile")
 
-    uploadEmployeeVideo(employee: ID!, file: Upload!): String
-    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadVideo")
+    deleteEmployeeFile(employee: ID!, file_id: Int!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@deleteFile")
 }
 

@@ -43,4 +43,16 @@ trait Mediable
             ->usingName($storeName)
             ->toMediaCollection($collection, $this->diskName);
     }
+
+    /**
+     * @param Model $model
+     * @param $id
+     * @return void
+     * @throws \Spatie\MediaLibrary\Exceptions\MediaCannotBeDeleted
+     */
+    public function deleteFile(Model $model, $id)
+    {
+        /** @var Club|User|Event $model */
+        $model->deleteMedia($id);
+    }
 }

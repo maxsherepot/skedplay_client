@@ -11,7 +11,6 @@ use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
 use Modules\Main\Services\Cashier\Billable;
-use Spatie\MediaLibrary\Models\Media;
 
 class User extends AuthUser implements EmployeeOwnerInterface
 {
@@ -71,27 +70,6 @@ class User extends AuthUser implements EmployeeOwnerInterface
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::make($value);
-    }
-
-    public function registerMediaCollections()
-    {
-        $this->addMediaCollection('photos');
-        $this->addMediaCollection('videos');
-    }
-
-    public function registerMediaConversions(Media $media = null)
-    {
-        $this->addMediaConversion('small')
-            ->width(160)
-            ->height(220);
-
-        $this->addMediaConversion('medium')
-            ->width(330)
-            ->height(460);
-
-        $this->addMediaConversion('large')
-            ->width(535)
-            ->height(785);
     }
 
     /**
