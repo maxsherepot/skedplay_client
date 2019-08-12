@@ -14,7 +14,7 @@ class FileDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_id' => 'bail|required'
+            'file_id' => 'required'
         ];
     }
 
