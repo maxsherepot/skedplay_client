@@ -1,0 +1,64 @@
+type Employee {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    gender: Int
+    age: Int
+    type: Int
+    created_at: DateTime!
+    updated_at: DateTime!
+    race_type: [EmployeeRaceType] @belongsTo
+    events: [Event] @belongsToMany
+    prices: [Price] @belongsToMany
+    services: [Service] @belongsToMany
+}
+
+type EmployeeRaceType {
+    id: ID!
+    name: String!
+}
+
+input EmployeeInput {
+    first_name: String
+    last_name: String
+    gender: Int
+    age: Int
+    type: Int
+    race_type_id: Int
+    description: String
+    address: String
+    text: String
+    lat: String
+    lng: String
+}
+
+type EmployeePayload implements Status {
+    status: Boolean!
+    message: String
+}
+
+input EmployeeFilters {
+    services: [Int] @whereHas(key: "service_id", method: "whereIn")
+    age: AgeRange @whereBetween
+    race_type: String @whereBetween
+}
+
+extend type Query {
+    employees(filters: EmployeeFilters @spread): [Employee!]! @paginate
+    employee(id: ID @eq): Employee @find
+}
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    updateEmployee(employee: ID!, input: EmployeeInput @spread): EmployeePayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@update")
+
+    createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
+
+    uploadEmployeePhoto(employee: ID!, file: Upload!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadPhoto")
+
+    uploadEmployeeVideo(employee: ID!, file: Upload!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadVideo")
+}
+

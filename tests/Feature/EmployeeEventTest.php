@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class GirlEventTest extends TestCase
+class EmployeeEventTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -19,13 +19,13 @@ class GirlEventTest extends TestCase
             'description'   => 'About my special event!',
             'event_type_id' => 1,
             'club_id'       => 1,
-            'girl'          => $user->girl->id,
+            'employee'          => $user->employee->id,
         ]);
 
         $this->actingAs($user, 'api')
             ->create($data)->assertJsonStructure([
                 'data' => [
-                    'createGirlEvent' => [
+                    'createEmployeeEvent' => [
                         'id',
                         'title',
                         'description',
@@ -47,8 +47,8 @@ class GirlEventTest extends TestCase
         return $this->postGraphQL(
             [
                 'query'     => '
-                mutation ($girl: ID!, $title: String!, $description: String!, $event_type_id: Int! $club_id: Int!) {
-                    createGirlEvent(girl: $girl, input: {
+                mutation ($employee: ID!, $title: String!, $description: String!, $event_type_id: Int! $club_id: Int!) {
+                    createEmployeeEvent(employee: $employee, input: {
                         title: $title
                         description: $description
                         event_type_id: $event_type_id

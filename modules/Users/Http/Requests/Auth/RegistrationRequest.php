@@ -32,7 +32,7 @@ class RegistrationRequest extends FormRequest
                 ]);
                 break;
             case User::ACCOUNT_CLIENT:
-            case User::ACCOUNT_GIRL:
+            case User::ACCOUNT_EMPLOYEE:
                 $root = array_merge($root, [
                     'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
                     'birthday' => 'required|date',

@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $email
      * @return mixed
      */
-    public function getUser($email = 'girl@site.com')
+    public function getUser($email = 'employee@site.com')
     {
         return User::where('email', $email)->first();
     }

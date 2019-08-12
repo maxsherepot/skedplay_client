@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Girls\Entities;
+namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Common\Entities\Traits\NameSlugable;
 
-class GirlType extends Model
+class EmployeeRaceType extends Model
 {
     use NameSlugable;
 

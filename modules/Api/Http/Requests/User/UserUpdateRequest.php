@@ -4,7 +4,7 @@ namespace Modules\Api\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Users\Entities\Girl;
+use Modules\Employees\Entities\Employee;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -36,7 +36,6 @@ class UserUpdateRequest extends FormRequest
             ],
             'password'          => 'string|min:6|confirmed',
             'address'           => 'nullable|string|max:255',
-            'type'              => 'numeric|in:' . implode(',', Girl::GIRL_TYPES),
             'short_description' => 'nullable|string|max:255',
             'description'       => 'nullable|string',
             'lat'               => 'nullable|string',

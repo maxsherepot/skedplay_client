@@ -16,10 +16,10 @@ class Permission extends LaratrustPermission
     const UPDATE_CLUBS = 'update-clubs';
     const DELETE_CLUBS = 'delete-clubs';
 
-    const CREATE_GIRLS = 'create-girls';
-    const READ_GIRLS = 'read-girls';
-    const UPDATE_GIRLS = 'update-girls';
-    const DELETE_GIRLS = 'delete-girls';
+    const CREATE_EMPLOYEES = 'create-employees';
+    const READ_EMPLOYEES = 'read-employees';
+    const UPDATE_EMPLOYEES = 'update-employees';
+    const DELETE_EMPLOYEES = 'delete-employees';
 
     const CREATE_EVENTS = 'create-events';
     const READ_EVENTS = 'read-events';

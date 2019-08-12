@@ -3,30 +3,35 @@
 return [
     'role_structure'       => [
         'admin'      => [
-            'users'  => 'c,r,u,d',
-            'clubs'  => 'c,r,u,d',
-            'events' => 'c,r,u,d',
+            'users'     => 'c,r,u,d',
+            'clubs'     => 'c,r,u,d',
+            'employees' => 'c,r,u,d',
+            'events'    => 'c,r,u,d',
         ],
         'moderator'  => [
-            'users'  => 'c,r,u,d',
-            'clubs'  => 'r,u',
-            'events' => 'r,u',
+            'users'     => 'c,r,u,d',
+            'clubs'     => 'r,u',
+            'employees' => 'r,u',
+            'events'    => 'r,u',
 
         ],
         'client'     => [
-            'users'  => 'r,u',
-            'clubs'  => 'r',
-            'events' => 'r',
+            'users'     => 'r,u',
+            'clubs'     => 'r',
+            'employees' => 'r',
+            'events'    => 'r',
         ],
-        'girl'       => [
-            'users'  => 'r,u',
-            'clubs'  => 'r',
-            'events' => 'c,r,u,d',
+        'employee'   => [
+            'users'     => 'r,u',
+            'clubs'     => 'r',
+            'employees' => 'c,r,u,d',
+            'events'    => 'c,r,u,d',
         ],
         'club_owner' => [
-            'users'  => 'r,u',
-            'clubs'  => 'c,r,u,d',
-            'events' => 'c,r,u,d',
+            'users'     => 'r,u',
+            'clubs'     => 'c,r,u,d',
+            'employees' => 'c,r,u,d',
+            'events'    => 'c,r,u,d',
         ],
     ],
     'permission_structure' => [

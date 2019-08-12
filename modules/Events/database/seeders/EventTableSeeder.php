@@ -24,7 +24,7 @@ class EventTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (User::whereRoleIs(Role::GIRL_OWNER)->get() as $user) {
+        foreach (User::whereRoleIs(Role::EMPLOYEE_OWNER)->get() as $user) {
             $this->createEvents($user);
         }
 

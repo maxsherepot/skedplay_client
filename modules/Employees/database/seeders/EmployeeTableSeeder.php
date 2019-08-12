@@ -1,17 +1,16 @@
 <?php
 
-namespace Modules\Girls\database\seeders;
+namespace Modules\Employees\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Database\Seeders\CommonableSeeder;
-use Modules\Girls\Entities\Girl;
-use Modules\Girls\Entities\GirlType;
+use Modules\Employees\Entities\Employee;
+use Modules\Employees\Entities\EmployeeRaceType;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
 
-class GirlTableSeeder extends Seeder
+class EmployeeTableSeeder extends Seeder
 {
     use CommonableSeeder;
 
@@ -27,7 +26,7 @@ class GirlTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (User::whereRoleIs(Role::GIRL_OWNER)->get() as $user) {
+        foreach (User::whereRoleIs(Role::EMPLOYEE_OWNER)->get() as $user) {
             $this->createGirl($user);
         }
 
@@ -40,25 +39,25 @@ class GirlTableSeeder extends Seeder
 
     /**
      * @param $owner
-     * @return Girl
+     * @return Employee
      * @throws \Exception
      */
     public function createGirl($owner)
     {
-        $girl = new Girl([
+        $girl = new Employee([
             'first_name'  => $this->faker->firstName,
             'last_name'   => $this->faker->lastName,
             'gender'      => $this->faker->randomElement(User::REGISTER_GENDERS),
             'age'         => random_int(20, 50),
             'description' => $this->faker->text,
             'text'        => $this->faker->text(1000),
-
-            'address' => $this->faker->address,
-            'lat'     => $this->faker->latitude,
-            'lng'     => $this->faker->longitude
+            'type'        => random_int(1, 3),
+            'address'     => $this->faker->address,
+            'lat'         => $this->faker->latitude,
+            'lng'         => $this->faker->longitude
         ]);
 
-        $girl->type()->associate(GirlType::inRandomOrder()->first());
+        $girl->race_type()->associate(EmployeeRaceType::inRandomOrder()->first());
         $girl->owner()->associate($owner);
         $girl->save();
 

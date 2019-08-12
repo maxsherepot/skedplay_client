@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Girls\Providers;
+namespace Modules\Employees\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class GirlsServiceProvider extends ServiceProvider
+class EmployeesServiceProvider extends ServiceProvider
 {
     /**
      * Boot the application events.

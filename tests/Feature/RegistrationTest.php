@@ -44,7 +44,7 @@ class RegistrationTest extends TestCase
         ]);
     }
 
-    public function testRegistrationGirl()
+    public function testRegistrationEmployee()
     {
         $data = collect([
             'first_name'   => 'Natasha',
@@ -53,7 +53,7 @@ class RegistrationTest extends TestCase
             'birthday'     => '1992-02-25',
             'phone'        => $this->getPhone(),
             'gender'       => User::GENDER_FEMALE,
-            'account_type' => User::ACCOUNT_GIRL,
+            'account_type' => User::ACCOUNT_EMPLOYEE,
         ]);
 
         $this->registration($data)->assertJsonStructure([
@@ -64,7 +64,7 @@ class RegistrationTest extends TestCase
                         'name',
                         'email',
                         'phone',
-                        'girl' => [
+                        'employee' => [
                             'first_name',
                             'last_name',
                             'gender'
@@ -126,7 +126,7 @@ class RegistrationTest extends TestCase
                             name,
                             email,
                             phone,
-                            girl {
+                            employee {
                                 first_name,
                                 last_name,
                                 gender

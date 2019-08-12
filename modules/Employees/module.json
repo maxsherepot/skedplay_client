@@ -1,12 +1,12 @@
 {
-    "name": "Girls",
-    "alias": "girls",
+    "name": "Employees",
+    "alias": "employees",
     "description": "",
     "keywords": [],
     "active": 1,
     "order": 3,
     "providers": [
-        "Modules\\Girls\\Providers\\GirlsServiceProvider"
+        "Modules\\Employees\\Providers\\EmployeesServiceProvider"
     ],
     "aliases": {},
     "files": [],

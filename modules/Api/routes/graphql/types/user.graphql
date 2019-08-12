@@ -9,7 +9,7 @@ type User {
     lng: String
     created_at: DateTime!
     updated_at: DateTime!
-    girl: Girl @hasOne
+    employee: Employee @hasOne
 }
 
 input UserInput {

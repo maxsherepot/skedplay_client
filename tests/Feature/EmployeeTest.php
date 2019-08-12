@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class GirlTest extends TestCase
+class EmployeeTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -15,7 +15,7 @@ class GirlTest extends TestCase
     {
         $this->graphQL('
         {
-            girls(filters: {services: [1]}, count: 1) {
+            employees(filters: {services: [1]}, count: 1) {
                 data {
                     first_name
                 }
@@ -23,7 +23,7 @@ class GirlTest extends TestCase
         }
         ')->assertJsonStructure([
             'data' => [
-                'girls' => [
+                'employees' => [
                     'data' => [
                         [
                             'first_name'
@@ -38,7 +38,7 @@ class GirlTest extends TestCase
     {
         $this->graphQL('
         {
-            girl(id: 1) {
+            employee(id: 1) {
                 id
                 first_name
                 last_name
@@ -48,7 +48,7 @@ class GirlTest extends TestCase
         }
         ')->assertJsonStructure([
             'data' => [
-                'girl' => [
+                'employee' => [
                     'id',
                     'first_name',
                     'last_name',
@@ -70,7 +70,7 @@ class GirlTest extends TestCase
 
         $this->actingAs($this->getUser(), 'api')->update($data)->assertJson([
             'data' => [
-                'updateGirl' => [
+                'updateEmployee' => [
                     'status'  => true,
                     'message' => null,
                 ]
@@ -90,7 +90,7 @@ class GirlTest extends TestCase
         $this->actingAs($this->getUser('club_owner@site.com'), 'api')
             ->update($data)->assertJson([
                 'data' => [
-                    'updateGirl' => [
+                    'updateEmployee' => [
                         'status'  => true,
                         'message' => null,
                     ]
@@ -104,7 +104,7 @@ class GirlTest extends TestCase
             ->uploadPhotoQuery()
             ->assertJsonStructure([
                 'data' => [
-                    'uploadGirlPhoto'
+                    'uploadEmployeePhoto'
                 ]
             ]);
     }
@@ -115,7 +115,7 @@ class GirlTest extends TestCase
             ->uploadVideoQuery()
             ->assertJsonStructure([
                 'data' => [
-                    'uploadGirlVideo'
+                    'uploadEmployeeVideo'
                 ]
             ]);
     }
@@ -126,7 +126,7 @@ class GirlTest extends TestCase
 //            ->uploadPhotoQuery()
 //            ->assertJsonStructure([
 //                'data' => [
-//                    'uploadGirlPhoto'
+//                    'uploadEmployeePhoto'
 //                ]
 //            ]);
 //    }
@@ -137,7 +137,7 @@ class GirlTest extends TestCase
             [
                 'query'     => '
                 mutation ($id: ID!, $first_name: String!, $last_name: String!, $age: Int!) {
-                    updateGirl(girl: $id, input: {
+                    updateEmployee(employee: $id, input: {
                         first_name: $first_name
                         last_name: $last_name
                         age: $age
@@ -159,9 +159,9 @@ class GirlTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($girl: ID!, $file: Upload!) { uploadGirlPhoto(girl: $girl, file: $file) }",
+                    "query": "mutation Upload($employee: ID!, $file: Upload!) { uploadEmployeePhoto(employee: $employee, file: $file) }",
                     "variables": {
-                        "girl": 1,
+                        "employee": 1,
                         "file": null
                     }
                 }
@@ -186,9 +186,9 @@ class GirlTest extends TestCase
                 'operations' => /* @lang JSON */
                     '
                 {
-                    "query": "mutation Upload($girl: ID!, $file: Upload!) { uploadGirlVideo(girl: $girl, file: $file) }",
+                    "query": "mutation Upload($employee: ID!, $file: Upload!) { uploadEmployeeVideo(employee: $employee, file: $file) }",
                     "variables": {
-                        "girl": 1,
+                        "employee": 1,
                         "file": null
                     }
                 }

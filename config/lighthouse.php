@@ -96,7 +96,7 @@ return [
             'Modules\\Users\\Entities',
             'Modules\\Main\\Entities',
             'Modules\\Clubs\\Entities',
-            'Modules\\Girls\\Entities',
+            'Modules\\Employees\\Entities',
             'Modules\\Events\\Entities',
             'Modules\\Common\\Entities',
         ],

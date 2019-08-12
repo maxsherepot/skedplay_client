@@ -10,7 +10,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\Girls\\Providers\\GirlsServiceProvider"
+                "Modules\\Employees\\Providers\\EmployeesServiceProvider"
             ],
             "aliases": {
                 
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Girls\\": ""
+            "Modules\\Employees\\": ""
         }
     }
 }

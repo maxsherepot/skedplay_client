@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Api\Http\Requests\Girl;
+namespace Modules\Api\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GirlUpdateRequest extends FormRequest
+class EmployeeUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,7 +18,8 @@ class GirlUpdateRequest extends FormRequest
             'last_name'    => 'nullable|string|max:255',
             'age'          => 'integer',
             'gender'       => 'nullable|integer',
-            'girl_type_id' => 'bail|nullable|integer|exists:girl_types:id',
+            'type'         => 'integer',
+            'race_type_id' => 'bail|nullable|integer|exists:employee_race_types:id',
             'description'  => 'nullable|string',
             'text'         => 'nullable|string',
             'address'      => 'nullable|string|max:255',

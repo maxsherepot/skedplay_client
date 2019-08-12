@@ -5,7 +5,7 @@ namespace Modules\Users\Http\Controllers\Auth;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Routing\Controller;
-use Modules\Girls\Repositories\GirlRepository;
+use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;
@@ -50,8 +50,8 @@ class RegisterController extends Controller
         $data->put('user_id', $user->id);
 
         switch ($request->get('account_type')) {
-            case User::ACCOUNT_GIRL:
-                (new GirlRepository())->store($user, $data);
+            case User::ACCOUNT_EMPLOYEE:
+                (new EmployeeRepository())->store($user, $data);
                 break;
         }
 

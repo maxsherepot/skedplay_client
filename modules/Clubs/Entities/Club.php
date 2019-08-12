@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
-use Modules\Girls\Entities\Girl;
-use Modules\Events\Entities\Event;
 use Modules\Common\Services\Location\HasLocation;
 use Modules\Common\Services\Location\Locationable;
-use Modules\Girls\Entities\GirlOwnerInterface;
+use Modules\Employees\Entities\Employee;
+use Modules\Employees\Entities\EmployeeOwnerInterface;
+use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Club extends Model implements HasMedia, HasLocation, GirlOwnerInterface
+class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable;
 
@@ -59,9 +59,9 @@ class Club extends Model implements HasMedia, HasLocation, GirlOwnerInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function girls()
+    public function employees()
     {
-        return $this->morphMany(Girl::class, 'owner');
+        return $this->morphMany(Employee::class, 'owner');
     }
 
     /**

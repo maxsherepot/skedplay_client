@@ -9,7 +9,7 @@ type Club {
     lat: String
     lng: String
     owner: User @belongsTo
-    girls: [Girl] @belongsToMany
+    employees: [Employee] @belongsToMany
     events: [Event] @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!

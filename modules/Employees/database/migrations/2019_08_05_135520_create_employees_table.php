@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGirlsTable extends Migration
+class CreateEmployeesTable extends Migration
 {
 
     /**
@@ -14,7 +14,7 @@ class CreateGirlsTable extends Migration
      */
     public function up()
     {
-        Schema::create('girls', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('first_name');
@@ -24,7 +24,8 @@ class CreateGirlsTable extends Migration
             $table->integer('age');
             $table->tinyInteger('gender')->nullable();
 
-            $table->unsignedInteger('girl_type_id')->nullable();
+            $table->unsignedInteger('race_type_id')->nullable();
+            $table->unsignedInteger('type')->nullable();
 
             $table->morphs('owner');
 
@@ -35,9 +36,9 @@ class CreateGirlsTable extends Migration
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
 
-            $table->foreign('girl_type_id')
+            $table->foreign('race_type_id')
                 ->references('id')
-                ->on('girl_types')
+                ->on('employee_race_types')
                 ->onDelete('SET null');
 
 
@@ -53,6 +54,6 @@ class CreateGirlsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('girls');
+        Schema::dropIfExists('employees');
     }
 }

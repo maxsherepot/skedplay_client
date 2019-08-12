@@ -7,13 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Modules\Clubs\Entities\Club;
+use Modules\Employees\Entities\Employee;
+use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
-use Modules\Girls\Entities\Girl;
-use Modules\Girls\Entities\GirlOwnerInterface;
 use Modules\Main\Services\Cashier\Billable;
 use Spatie\MediaLibrary\Models\Media;
 
-class User extends AuthUser implements GirlOwnerInterface
+class User extends AuthUser implements EmployeeOwnerInterface
 {
     use Billable, HasApiTokens, LaratrustUserTrait, Notifiable;
 
@@ -23,12 +23,12 @@ class User extends AuthUser implements GirlOwnerInterface
     }
 
     const ACCOUNT_CLIENT = Role::CLIENT;
-    const ACCOUNT_GIRL = Role::GIRL_OWNER;
+    const ACCOUNT_EMPLOYEE = Role::EMPLOYEE_OWNER;
     const ACCOUNT_CLUB_OWNER = Role::CLUB_OWNER;
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
-        self::ACCOUNT_GIRL,
+        self::ACCOUNT_EMPLOYEE,
         self::ACCOUNT_CLUB_OWNER
     ];
 
@@ -105,15 +105,15 @@ class User extends AuthUser implements GirlOwnerInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function girl()
+    public function employee()
     {
-        return $this->morphOne(Girl::class, 'owner');
+        return $this->morphOne(Employee::class, 'owner');
     }
 
-    public function girls_club_owners()
+    public function employees_club_owners()
     {
         return $this->hasManyThrough(
-            Girl::class,
+            Employee::class,
             Club::class,
             'user_id',
             'owner_id'
