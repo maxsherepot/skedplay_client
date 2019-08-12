@@ -6,11 +6,11 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
-use Modules\Api\Http\Requests\UploadPhotoRequest;
-use Modules\Api\Http\Requests\UploadVideoRequest;
-use Modules\Main\Entities\Event;
+use Modules\Api\Http\Requests\FileDeleteRequest;
+use Modules\Api\Http\Requests\FileUploadRequest;
+use Modules\Clubs\Entities\Club;
+use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
-use Modules\Users\Entities\Club;
 use Modules\Users\Repositories\ClubRepository;
 use Nwidart\Modules\Routing\Controller;
 
@@ -56,35 +56,45 @@ class ClubController extends Controller
     {
         $this->authorize('update', $club);
 
-        $club = $this->clubs->update($club, collect($request->all()));
+        $this->clubs->update($club, collect($request->all()));
 
         return $this->success();
     }
 
     /**
-     * @param UploadPhotoRequest $request
+     * @param FileUploadRequest $request
      * @param Club $club
-     * @return void
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadPhoto(UploadPhotoRequest $request, Club $club)
+    public function uploadFile(FileUploadRequest $request, Club $club)
     {
         $this->authorize('update', $club);
 
-        $this->clubs->saveAttachments($club, $request->files, 'photos');
+        try {
+            $this->clubs->saveFile($club, $request->file('file'), $request->get('collection'));
+            return $this->success();
+        } catch (\Exception $exception) {
+            return $this->fail();
+        }
     }
 
     /**
-     * @param UploadVideoRequest $request
+     * @param FileDeleteRequest $request
      * @param Club $club
-     * @return void
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadVideo(UploadVideoRequest $request, Club $club)
+    public function deleteFile(FileDeleteRequest $request, Club $club)
     {
         $this->authorize('update', $club);
 
-        $this->clubs->saveAttachments($club, $request->files, 'videos');
+        try {
+            $this->clubs->deleteFile($club, $request->get('file_id'));
+            return $this->success();
+        } catch (\Exception $exception) {
+            return $this->fail();
+        }
     }
 
     /**

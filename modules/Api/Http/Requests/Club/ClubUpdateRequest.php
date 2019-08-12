@@ -14,14 +14,16 @@ class ClubUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'required|string|max:255',
-            'type'        => 'required|string|max:255',
-            'address'     => 'required|string|max:255',
-            'website'     => 'nullable|string|max:255',
-            'phone'       => 'required|string',
-            'description' => 'required|string',
-            'lat'         => 'nullable|string',
-            'lng'         => 'nullable|string',
+            'name'         => 'required|string|max:255',
+            'club_type_id' => 'bail|integer|exists:club_types,id',
+            'email'        => 'email',
+            'website'      => 'nullable|string|max:255',
+            'phones'       => 'nullable',
+            'phones.*'     => 'string',
+            'description'  => 'string',
+            'address'      => 'nullable|string|max:255',
+            'lat'          => 'nullable|string',
+            'lng'          => 'nullable|string',
         ];
     }
 

@@ -3,6 +3,9 @@
 namespace Modules\Clubs\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
@@ -20,6 +23,10 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
 {
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable;
 
+    const CLUB_LOGO_COLLECTION = 'club-logo';
+    const CLUB_PHOTO_COLLECTION = 'club-photo';
+    const CLUB_VIDEO_COLLECTION = 'club-video';
+
     protected $fillable = [
         'name',
         'slug',
@@ -31,14 +38,46 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     ];
 
     protected $casts = [
-        'phones'
+        'phones' => 'array'
     ];
+
+    /**
+     * @return MorphMany
+     */
+    public function employees(): MorphMany
+    {
+        return $this->morphMany(Employee::class, 'owner');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function type(): HasOne
+    {
+        return $this->hasOne(ClubType::class, 'id', 'club_type_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function events(): MorphMany
+    {
+        return $this->morphMany(Event::class, 'owner');
+    }
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('logo');
-        $this->addMediaCollection('photos');
-        $this->addMediaCollection('videos');
+        $this->addMediaCollection(self::CLUB_LOGO_COLLECTION);
+        $this->addMediaCollection(self::CLUB_PHOTO_COLLECTION);
+        $this->addMediaCollection(self::CLUB_VIDEO_COLLECTION);
     }
 
     /**
@@ -47,44 +86,12 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('medium')
-            ->width(420)
-            ->height(275);
-
-        $this->addMediaConversion('large')
-            ->width(535)
-            ->height(785);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function employees()
-    {
-        return $this->morphMany(Employee::class, 'owner');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function type()
-    {
-        return $this->hasOne(ClubType::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function owner()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function events()
-    {
-        return $this->morphMany(Event::class, 'eventable');
+//        $this->addMediaConversion('medium')
+//            ->width(420)
+//            ->height(275);
+//
+//        $this->addMediaConversion('large')
+//            ->width(535)
+//            ->height(785);
     }
 }

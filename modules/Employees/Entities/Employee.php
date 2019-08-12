@@ -62,8 +62,8 @@ class Employee extends Model implements HasMedia, HasLocation
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(static::EMPLOYEE_PHOTO_COLLECTION);
-        $this->addMediaCollection(static::EMPLOYEE_VIDEO_COLLECTION);
+        $this->addMediaCollection(self::EMPLOYEE_PHOTO_COLLECTION);
+        $this->addMediaCollection(self::EMPLOYEE_VIDEO_COLLECTION);
     }
 
     public function registerMediaConversions(Media $media = null)

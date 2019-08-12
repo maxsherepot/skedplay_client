@@ -32,11 +32,6 @@ input EmployeeInput {
     lng: String
 }
 
-type StatusPayload implements Status {
-    status: Boolean!
-    message: String
-}
-
 input EmployeeFilters {
     services: [Int] @whereHas(key: "service_id", method: "whereIn")
     age: AgeRange @whereBetween

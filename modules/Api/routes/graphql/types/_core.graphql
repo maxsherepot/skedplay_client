@@ -3,6 +3,11 @@ interface Status {
     message: String
 }
 
+type StatusPayload implements Status {
+    status: Boolean!
+    message: String
+}
+
 type Query {
     me: User @auth(guard:"api")
 }
