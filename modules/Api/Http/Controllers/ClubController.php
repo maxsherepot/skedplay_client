@@ -5,10 +5,16 @@ namespace Modules\Api\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
+use Modules\Api\Http\Requests\Common\SyncPricesRequest;
+use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\PriceType;
+use Modules\Common\Entities\Service;
+use Modules\Common\Repositories\PriceRepository;
+use Modules\Common\Repositories\ServiceRepository;
 use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Repositories\ClubRepository;
@@ -28,10 +34,22 @@ class ClubController extends Controller
      */
     protected $events;
 
-    public function __construct(ClubRepository $clubs, EventRepository $events)
+    /**
+     * @var ServiceRepository
+     */
+    private $services;
+
+    /**
+     * @var PriceRepository
+     */
+    private $prices;
+
+    public function __construct(ClubRepository $clubs, EventRepository $events, ServiceRepository $services, PriceRepository $prices)
     {
         $this->clubs = $clubs;
         $this->events = $events;
+        $this->services = $services;
+        $this->prices = $prices;
     }
 
     /**
@@ -108,5 +126,31 @@ class ClubController extends Controller
         $this->authorize('create', Event::class);
 
         return $this->events->store($club, collect($request->all()));
+    }
+
+    /**
+     * @param Club $club
+     * @param SyncServicesRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function syncServices(Club $club, SyncServicesRequest $request)
+    {
+        $this->authorize('create', Service::class);
+
+        return $this->services->sync($club, collect($request->all()));
+    }
+
+    /**
+     * @param Club $club
+     * @param SyncPricesRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function syncPrices(Club $club, SyncPricesRequest $request)
+    {
+        $this->authorize('create', PriceType::class);
+
+        return $this->prices->sync($club, collect($request->all()));
     }
 }

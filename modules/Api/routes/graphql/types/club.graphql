@@ -11,6 +11,8 @@ type Club {
     lng: String
     owner: User @belongsTo
     employees: [Employee] @belongsToMany
+    prices: [Price] @belongsToMany
+    services: [Service] @belongsToMany
     events: [Event] @belongsToMany
 }
 
@@ -61,4 +63,10 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
     createClubEvent(club: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@createEvent")
+
+    syncClubServices(club: ID!, services: [ServiceInput!]): Club
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncServices")
+
+    syncClubPrices(club: ID!, prices: [PriceInput!]): Club
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncPrices")
 }

@@ -2,14 +2,17 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Api\Http\Requests\Common\SyncPricesRequest;
+use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
+use Modules\Common\Repositories\PriceRepository;
+use Modules\Common\Repositories\ServiceRepository;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Events\Entities\Event;
@@ -30,10 +33,22 @@ class EmployeeController extends Controller
      */
     protected $events;
 
-    public function __construct(EmployeeRepository $employees, EventRepository $events)
+    /**
+     * @var ServiceRepository
+     */
+    private $services;
+
+    /**
+     * @var PriceRepository
+     */
+    private $prices;
+
+    public function __construct(EmployeeRepository $employees, EventRepository $events, ServiceRepository $services, PriceRepository $prices)
     {
         $this->employees = $employees;
         $this->events = $events;
+        $this->services = $services;
+        $this->prices = $prices;
     }
 
     /**
@@ -66,28 +81,28 @@ class EmployeeController extends Controller
 
     /**
      * @param Employee $employee
-     * @param Request $request
+     * @param SyncServicesRequest $request
      * @return \Illuminate\Database\Eloquent\Model
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function syncServices(Employee $employee, Request $request)
+    public function syncServices(Employee $employee, SyncServicesRequest $request)
     {
         $this->authorize('create', Service::class);
 
-        return $this->employees->syncServices($employee, collect($request->all()));
+        return $this->services->sync($employee, collect($request->all()));
     }
 
     /**
      * @param Employee $employee
-     * @param Request $request
+     * @param SyncPricesRequest $request
      * @return \Illuminate\Database\Eloquent\Model
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function syncPrices(Employee $employee, Request $request)
+    public function syncPrices(Employee $employee, SyncPricesRequest $request)
     {
         $this->authorize('create', PriceType::class);
 
-        return $this->employees->syncPrices($employee, collect($request->all()));
+        return $this->prices->sync($employee, collect($request->all()));
     }
 
     /**

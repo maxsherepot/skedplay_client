@@ -38,49 +38,4 @@ class EmployeeRepository
 
         return $employee;
     }
-
-    /**
-     * @param Employee $employee
-     * @param Collection $collection
-     * @return Employee
-     */
-    public function syncServices(Employee $employee, Collection $collection): Employee
-    {
-        $services = collect(
-            $collection->get('services')
-        );
-
-        $services = $services->mapWithKeys(function ($service) {
-            return [
-                $service['id'] => ['price' => $service['price']]
-            ];
-        });
-
-        $employee->services()->sync($services);
-
-        return $employee;
-    }
-
-    /**
-     * @param Employee $employee
-     * @param Collection $collection
-     * @return Employee
-     */
-    public function syncPrices(Employee $employee, Collection $collection): Employee
-    {
-        $prices = collect(
-            $collection->get('prices')
-        );
-
-        $prices = $prices->mapWithKeys(function ($price) {
-            return [
-                $price['id'] => ['price' => $price['price']]
-            ];
-        });
-
-        $employee->prices()->sync($prices);
-
-        return $employee;
-    }
-
 }
