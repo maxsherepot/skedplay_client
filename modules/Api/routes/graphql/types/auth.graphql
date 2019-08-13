@@ -65,29 +65,8 @@ input CheckVerificationInput {
     phone: String!
 }
 
-type SendVerificationResponse implements Status {
+type StatusWithExpiriesPayload implements Status {
     expires_at: String
-    status: Boolean!
-    message: String
-}
-
-type CheckVerificationResponse implements Status {
-    status: Boolean!
-    message: String
-}
-
-type LogoutResponse implements Status {
-    status: Boolean!
-    message: String
-}
-
-type ForgotPasswordResponse implements Status {
-    expires_at: String
-    status: Boolean!
-    message: String
-}
-
-type NewPasswordResponse implements Status {
     status: Boolean!
     message: String
 }
@@ -99,21 +78,21 @@ extend type Mutation {
     login(input: LoginInput! @spread): AuthPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@login")
 
-    logout: LogoutResponse!
+    logout: StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@logout")
 
-    forgotPassword(input: ForgotPasswordInput! @spread): ForgotPasswordResponse!
+    forgotPassword(input: ForgotPasswordInput! @spread): StatusWithExpiriesPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@forgotPassword")
 
-    resetPassword(input: NewPasswordWithCodeInput! @spread): NewPasswordResponse!
+    resetPassword(input: NewPasswordWithCodeInput! @spread): StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@resetPassword")
 
     refreshToken(input: RefreshTokenInput! @spread): RefrestTokenPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@refreshToken")
 
-    sendVerificationCode(input: SendVerificationInput! @spread): SendVerificationResponse!
+    sendVerificationCode(input: SendVerificationInput! @spread): StatusWithExpiriesPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\VerificationController@send")
 
-    checkVerificationCode(input: CheckVerificationInput! @spread): CheckVerificationResponse!
+    checkVerificationCode(input: CheckVerificationInput! @spread): StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\VerificationController@check")
 }
