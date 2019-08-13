@@ -67,39 +67,6 @@ trait Billable
     }
 
     /**
-     * Determine if the Stripe model is on trial.
-     *
-     * @param string $subscription
-     * @param string|null $plan
-     * @return bool
-     */
-    public function onTrial($subscription = 'default', $plan = null)
-    {
-        if (func_num_args() === 0 && $this->onGenericTrial()) {
-            return true;
-        }
-
-        $subscription = $this->subscription($subscription);
-
-        if (is_null($plan)) {
-            return $subscription && $subscription->onTrial();
-        }
-
-        return $subscription && $subscription->onTrial() &&
-            $subscription->stripe_plan === $plan;
-    }
-
-    /**
-     * Determine if the Stripe model is on a "generic" trial at the model level.
-     *
-     * @return bool
-     */
-    public function onGenericTrial()
-    {
-        return $this->trial_ends_at && $this->trial_ends_at->isFuture();
-    }
-
-    /**
      * Determine if the Owner model has a given subscription.
      *
      * @param string $subscription

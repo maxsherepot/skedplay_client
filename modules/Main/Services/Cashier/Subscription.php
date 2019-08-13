@@ -34,10 +34,11 @@ class Subscription extends Model
      * @var array
      */
     protected $dates = [
-        'current_period_start', 'current_period_end',
-        'trial_ends_at', 'ends_at',
-        'trial_start', 'trial_end',
-        'created_at', 'updated_at',
+        'current_period_start',
+        'current_period_end',
+        'ends_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -69,7 +70,7 @@ class Subscription extends Model
      */
     public function valid()
     {
-        return $this->active() || $this->onTrial() || $this->onGracePeriod();
+        return $this->active() || $this->onGracePeriod();
     }
 
     /**
@@ -89,7 +90,7 @@ class Subscription extends Model
      */
     public function recurring()
     {
-        return !$this->onTrial() && !$this->cancelled();
+        return !$this->cancelled();
     }
 
     /**
@@ -113,16 +114,6 @@ class Subscription extends Model
     }
 
     /**
-     * Determine if the subscription is within its trial period.
-     *
-     * @return bool
-     */
-    public function onTrial()
-    {
-        return $this->trial_ends_at && $this->trial_ends_at->isFuture();
-    }
-
-    /**
      * Determine if the subscription is within its grace period after cancellation.
      *
      * @return bool
@@ -133,20 +124,6 @@ class Subscription extends Model
     }
 
     /**
-     * Force the trial to end immediately.
-     *
-     * This method must be combined with swap, resume, etc.
-     *
-     * @return $this
-     */
-    public function skipTrial()
-    {
-        $this->trial_ends_at = null;
-
-        return $this;
-    }
-
-    /**
      * Swap the subscription to a new Stripe plan.
      *
      * @param $plan_id
@@ -154,15 +131,6 @@ class Subscription extends Model
      */
     public function swap($plan_id)
     {
-        // If no specific trial end date has been set, the default behavior should be
-        // to maintain the current trial state, whether that is "active" or to run
-        // the swap out with the exact number of days left on this current plan.
-        if ($this->onTrial()) {
-            $trialEnd = $this->trial_ends_at->getTimestamp();
-        } else {
-            $trialEnd = now();
-        }
-
         /**
          * Todo: Payment
          */
@@ -180,7 +148,6 @@ class Subscription extends Model
 
         $this->fill([
             'cancel_at_period_end' => false,
-            'trial_end'            => $trialEnd,
             'plan_id'              => $plan_id,
             'ends_at'              => null,
         ])->save();
@@ -197,14 +164,7 @@ class Subscription extends Model
     {
         $this->cancel_at_period_end = true;
 
-        // If the user was on trial, we will set the grace period to end when the trial
-        // would have ended. Otherwise, we'll retrieve the end of the billing period
-        // period and make that the end of the grace period for this current user.
-        if ($this->onTrial()) {
-            $this->ends_at = $this->trial_ends_at;
-        } else {
-            $this->ends_at = $this->current_period_end;
-        }
+        $this->ends_at = $this->current_period_end;
 
         $this->save();
 
@@ -251,19 +211,9 @@ class Subscription extends Model
             throw new LogicException('Unable to resume subscription that is not within grace period.');
         }
 
-        if ($this->onTrial()) {
-            $trialEnd = $this->trial_ends_at->getTimestamp();
-        } else {
-            $trialEnd = now();
-        }
-
-        // Finally, we will remove the ending timestamp from the user's record in the
-        // local database to indicate that the subscription is active again and is
-        // no longer "cancelled". Then we will save this record in the database.
         $this->fill([
             'ends_at'              => null,
             'cancel_at_period_end' => false,
-            'trial_end'            => $trialEnd
         ])->save();
 
         return $this;

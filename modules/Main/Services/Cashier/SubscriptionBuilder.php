@@ -2,8 +2,6 @@
 
 namespace Modules\Main\Services\Cashier;
 
-use Carbon\Carbon;
-
 class SubscriptionBuilder
 {
     /**
@@ -28,27 +26,6 @@ class SubscriptionBuilder
     protected $plan_id;
 
     /**
-     * The quantity of the subscription.
-     *
-     * @var int
-     */
-    protected $quantity = 1;
-
-    /**
-     * The date and time the trial will expire.
-     *
-     * @var \Carbon\Carbon|\Carbon\CarbonInterface
-     */
-    protected $trialExpires;
-
-    /**
-     * Indicates that the trial should end immediately.
-     *
-     * @var bool
-     */
-    protected $skipTrial = false;
-
-    /**
      * The coupon code being applied to the customer.
      *
      * @var string|null
@@ -68,44 +45,6 @@ class SubscriptionBuilder
         $this->name = $name;
         $this->plan_id = $plan_id;
         $this->owner = $owner;
-    }
-
-    /**
-     * Specify the number of days of the trial.
-     *
-     * @param int $trialDays
-     * @return $this
-     */
-    public function trialDays($trialDays)
-    {
-        $this->trialExpires = Carbon::now()->addDays($trialDays);
-
-        return $this;
-    }
-
-    /**
-     * Specify the ending date of the trial.
-     *
-     * @param \Carbon\Carbon|\Carbon\CarbonInterface $trialUntil
-     * @return $this
-     */
-    public function trialUntil($trialUntil)
-    {
-        $this->trialExpires = $trialUntil;
-
-        return $this;
-    }
-
-    /**
-     * Force the trial to end immediately.
-     *
-     * @return $this
-     */
-    public function skipTrial()
-    {
-        $this->skipTrial = true;
-
-        return $this;
     }
 
     /**
@@ -143,39 +82,10 @@ class SubscriptionBuilder
             return new \Exception('Payment not yet');
         }
 
-        if ($this->skipTrial) {
-            $trialEndsAt = null;
-            $trialStart = null;
-            $trialEnd = null;
-        } else {
-            $trialEndsAt = $this->trialExpires;
-            $trialStart = now();
-            $trialEnd = $trialEndsAt;
-        }
-
         return $this->owner->subscriptions()->create([
-            'name'          => $this->name,
-            'plan_id'       => $this->plan_id,
-            'trial_ends_at' => $trialEndsAt,
-            'trial_end'     => $trialStart,
-            'trial_start'   => $trialEnd,
-            'ends_at'       => null,
+            'name'    => $this->name,
+            'plan_id' => $this->plan_id,
+            'ends_at' => null,
         ]);
-    }
-
-    /**
-     * Get the trial ending date for the Stripe payload.
-     *
-     * @return int|null
-     */
-    protected function getTrialEndForPayload()
-    {
-        if ($this->skipTrial) {
-            return 'now';
-        }
-
-        if ($this->trialExpires) {
-            return $this->trialExpires->getTimestamp();
-        }
     }
 }

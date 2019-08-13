@@ -28,9 +28,6 @@ class CreateUsersTable extends Migration
 
             $table->string('password');
 
-            /** Cashier columns */
-            $table->timestamp('trial_ends_at')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
         });

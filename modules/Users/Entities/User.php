@@ -52,7 +52,6 @@ class User extends AuthUser implements EmployeeOwnerInterface
         'gender',
         'email',
         'password',
-        'trial_ends_at',
     ];
 
     /**

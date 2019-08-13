@@ -27,7 +27,7 @@ trait Scopes
      */
     public function scopeRecurring($query)
     {
-        $query->notOnTrial()->notCancelled();
+        $query->notCancelled();
     }
 
     /**
@@ -61,28 +61,6 @@ trait Scopes
     public function scopeEnded($query)
     {
         $query->cancelled()->notOnGracePeriod();
-    }
-
-    /**
-     * Filter query by on trial.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeOnTrial($query)
-    {
-        $query->whereNotNull('trial_ends_at')->where('trial_ends_at', '>', Carbon::now());
-    }
-
-    /**
-     * Filter query by not on trial.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return void
-     */
-    public function scopeNotOnTrial($query)
-    {
-        $query->whereNull('trial_ends_at')->orWhere('trial_ends_at', '<=', Carbon::now());
     }
 
     /**

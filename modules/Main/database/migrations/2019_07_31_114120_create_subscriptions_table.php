@@ -18,7 +18,6 @@ class CreateSubscriptionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plan_id');
             $table->string('name');
-            $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
 
             /** Like Stripe columns */
@@ -27,10 +26,6 @@ class CreateSubscriptionsTable extends Migration
 
             $table->timestamp('current_period_start');
             $table->timestamp('current_period_end');
-
-            $table->timestamp('trial_start')->nullable();
-            $table->timestamp('trial_end')->nullable();
-
 
             $table->timestamps();
         });
