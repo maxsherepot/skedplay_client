@@ -5,6 +5,10 @@ type Service {
 }
 
 type ServicePivot {
-    cost: String
-    extra: Boolean!
+    price: String
+}
+
+input ServiceInput {
+    id: String
+    price: String
 }

@@ -26,5 +26,13 @@ class Permission extends LaratrustPermission
     const UPDATE_EVENTS = 'update-events';
     const DELETE_EVENTS = 'delete-events';
 
+    const CREATE_SERVICES = 'create-services';
+    const READ_SERVICES = 'read-services';
+    const UPDATE_SERVICES = 'update-services';
+    const DELETE_SERVICES = 'delete-services';
 
+    const CREATE_PRICES = 'create-prices';
+    const READ_PRICES = 'read-prices';
+    const UPDATE_PRICES = 'update-prices';
+    const DELETE_PRICES = 'delete-prices';
 }

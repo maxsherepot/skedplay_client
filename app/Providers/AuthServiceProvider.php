@@ -17,6 +17,8 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Clubs\Entities\Club::class         => \Modules\Clubs\Policies\ClubPolicy::class,
         \Modules\Employees\Entities\Employee::class => \Modules\Employees\Policies\EmployeePolicy::class,
         \Modules\Events\Entities\Event::class       => \Modules\Events\Policies\EventPolicy::class,
+        \Modules\Common\Entities\Service::class     => \Modules\Common\Policies\ServicePolicy::class,
+        \Modules\Common\Entities\PriceType::class   => \Modules\Common\Policies\PriceTypePolicy::class,
     ];
 
     /**

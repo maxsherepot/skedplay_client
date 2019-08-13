@@ -7,12 +7,16 @@ return [
             'clubs'     => 'c,r,u,d',
             'employees' => 'c,r,u,d',
             'events'    => 'c,r,u,d',
+            'services'  => 'c,r,u,d',
+            'prices'    => 'c,r,u,d',
         ],
         'moderator'  => [
             'users'     => 'c,r,u,d',
             'clubs'     => 'r,u',
             'employees' => 'r,u',
             'events'    => 'r,u',
+            'services'  => 'r,u',
+            'prices'    => 'r,u',
 
         ],
         'client'     => [
@@ -20,18 +24,24 @@ return [
             'clubs'     => 'r',
             'employees' => 'r',
             'events'    => 'r',
+            'services'  => 'r',
+            'prices'    => 'r',
         ],
         'employee'   => [
             'users'     => 'r,u',
             'clubs'     => 'r',
             'employees' => 'c,r,u,d',
             'events'    => 'c,r,u,d',
+            'services'  => 'c,r,u,d',
+            'prices'    => 'c,r,u,d',
         ],
         'club_owner' => [
             'users'     => 'r,u',
             'clubs'     => 'c,r,u,d',
             'employees' => 'c,r,u,d',
             'events'    => 'c,r,u,d',
+            'services'  => 'c,r,u,d',
+            'prices'    => 'c,r,u,d',
         ],
     ],
     'permission_structure' => [

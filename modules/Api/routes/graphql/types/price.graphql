@@ -5,5 +5,10 @@ type Price {
 }
 
 type PricePivot {
-    cost: String
+    price: String
+}
+
+input PriceInput {
+    id: String
+    price: String
 }
