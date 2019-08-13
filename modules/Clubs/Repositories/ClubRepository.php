@@ -4,10 +4,11 @@ namespace Modules\Users\Repositories;
 
 use Illuminate\Support\Collection;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Contracts\HasMediable;
+use Modules\Common\Traits\Mediable;
 use Modules\Users\Entities\User;
-use Modules\Users\Repositories\Traits\Mediable;
 
-class ClubRepository
+class ClubRepository implements HasMediable
 {
     use Mediable;
 

@@ -3,10 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Modules\Clubs\Entities\Club;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
+use Spatie\MediaLibrary\Models\Media;
 use Tests\TestCase;
 
 class EventTest extends TestCase
@@ -97,6 +99,52 @@ class EventTest extends TestCase
             ]);
     }
 
+    public function testUploadPhoto()
+    {
+        return $this->actingAs($this->getUser(), 'api')
+            ->uploadPhotoQuery()
+            ->assertJson([
+                'data' => [
+                    'uploadEventFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+    }
+
+    public function testDeleteUploadedPhoto()
+    {
+        $this->actingAs($this->getUser(), 'api')
+            ->uploadPhotoQuery()
+            ->assertJson([
+                'data' => [
+                    'uploadEventFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+
+        $media = Media::where([
+            'model_type' => (new Event())->getMorphClass(),
+            'model_id'   => 1,
+        ])->first();
+
+        $data = collect([
+            'event' => 1,
+            'file_id'  => $media->id,
+        ]);
+
+        $this->actingAs($this->getUser(), 'api')
+            ->deleteFileQuery($data)
+            ->assertJson([
+                'data' => [
+                    'deleteEventFile' => [
+                        'status' => true
+                    ]
+                ]
+            ]);
+    }
+
     protected function updateQuery(Collection $data)
     {
         return $this->postGraphQL(
@@ -132,6 +180,49 @@ class EventTest extends TestCase
             ',
                 'variables' => $data->all(),
             ]);
+    }
+
+    protected function uploadPhotoQuery()
+    {
+        return $this->multipartGraphQL(
+            [
+                'operations' => /* @lang JSON */
+                    '
+                {
+                    "query": "mutation Upload($event: ID!, $collection: String!, $file: Upload!) { uploadEventFile(event: $event, collection: $collection, file: $file) { status message } }",
+                    "variables": {
+                        "event": 1,
+                        "collection": "event-main-photo",
+                        "file": null
+                    }
+                }
+                ',
+                'map'        => /* @lang JSON */
+                    '
+                    {
+                        "file": ["variables.file"]
+                    }
+                ',
+            ],
+            [
+                'file' => UploadedFile::fake()->image('image.jpg'),
+            ]
+        );
+    }
+
+    protected function deleteFileQuery(Collection $data)
+    {
+        return $this->postGraphQL([
+            'query'     => '
+                mutation ($event: ID!, $file_id: Int!) {
+                    deleteEventFile(event: $event, file_id: $file_id) {
+                        status
+                        message
+                    }
+                }
+            ',
+            'variables' => $data->all(),
+        ]);
     }
 
 }

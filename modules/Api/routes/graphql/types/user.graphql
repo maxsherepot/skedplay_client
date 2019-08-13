@@ -1,29 +1,21 @@
 type User {
     id: ID!
     name: String!
-    gender: String
-    age: Int
     phone: String!
     email: String!
-    lat: String
-    lng: String
-    created_at: DateTime!
-    updated_at: DateTime!
+    gender: Int
+    birthday: String
+    age: Int
     employee: Employee @hasOne
 }
 
 input UserInput {
-    first_name: String
-    last_name: String
-    gender: Int
-    birthday: Date
-    club_type: String
+    name: String
     phone: String
     email: String
-    type: String
-    lat: String
-    lng: String
-    vip: Boolean
+    gender: Int
+    birthday: String
+    age: Int
     password: String
     password_confirmation: String
 }

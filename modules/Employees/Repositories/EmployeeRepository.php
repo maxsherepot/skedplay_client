@@ -3,14 +3,14 @@
 namespace Modules\Employees\Repositories;
 
 use Illuminate\Support\Collection;
-use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Common\Contracts\HasMediable;
+use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
-use Modules\Users\Repositories\Traits\Mediable;
 
-class EmployeeRepository
+class EmployeeRepository implements HasMediable
 {
-    use Statusable, Mediable;
+    use Mediable;
 
     /**
      * @param EmployeeOwnerInterface $owner

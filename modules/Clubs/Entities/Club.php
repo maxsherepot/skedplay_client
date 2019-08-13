@@ -23,9 +23,9 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
 {
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable;
 
-    const CLUB_LOGO_COLLECTION = 'club-logo';
-    const CLUB_PHOTO_COLLECTION = 'club-photo';
-    const CLUB_VIDEO_COLLECTION = 'club-video';
+    const LOGO_COLLECTION = 'club-logo';
+    const PHOTO_COLLECTION = 'club-photo';
+    const VIDEO_COLLECTION = 'club-video';
 
     protected $fillable = [
         'name',
@@ -75,9 +75,9 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::CLUB_LOGO_COLLECTION);
-        $this->addMediaCollection(self::CLUB_PHOTO_COLLECTION);
-        $this->addMediaCollection(self::CLUB_VIDEO_COLLECTION);
+        $this->addMediaCollection(self::LOGO_COLLECTION);
+        $this->addMediaCollection(self::PHOTO_COLLECTION);
+        $this->addMediaCollection(self::VIDEO_COLLECTION);
     }
 
     /**

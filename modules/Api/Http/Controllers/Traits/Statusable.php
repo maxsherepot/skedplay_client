@@ -5,30 +5,33 @@ namespace Modules\Api\Http\Controllers\Traits;
 trait Statusable
 {
     /**
-     * @param array $data
+     * @param string|null $message
      * @return array
      */
-    protected function success(array $data = []): array
+    protected function success(string $message = null): array
     {
-        return $this->getStatusWithPayload(true, $data);
+        return $this->getStatusWithPayload(true, $message);
     }
 
     /**
-     * @param array $data
+     * @param string|null $message
      * @return array
      */
-    protected function fail(array $data = []): array
+    protected function fail(string $message = null): array
     {
-        return $this->getStatusWithPayload(false, $data);
+        return $this->getStatusWithPayload(false, $message);
     }
 
     /**
      * @param bool $status
-     * @param array $data
+     * @param null $message
      * @return array
      */
-    protected function getStatusWithPayload($status = true, $data = []): array
+    protected function getStatusWithPayload($status = true, $message = null): array
     {
-        return compact('status', 'data');
+        return [
+            'status'  => $status,
+            'message' => $message
+        ];
     }
 }

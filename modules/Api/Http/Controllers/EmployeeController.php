@@ -116,10 +116,19 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         try {
-            $this->employees->saveFile($employee, $request->file('file'), $request->get('collection'));
-            return $this->success();
+            $this->employees->saveFile(
+                $employee,
+                $request->file('file'),
+                $request->get('collection')
+            );
+
+            return $this->success(
+                $this->employees::UPLOAD_FILE_SUCCESS
+            );
         } catch (\Exception $exception) {
-            return $this->fail();
+            return $this->fail(
+                $this->employees::UPLOAD_FILE_FAILED
+            );
         }
     }
 
@@ -134,10 +143,18 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         try {
-            $this->employees->deleteFile($employee, $request->get('file_id'));
-            return $this->success();
+            $this->employees->deleteFile(
+                $employee,
+                $request->get('file_id')
+            );
+
+            return $this->success(
+                $this->employees::DELETE_FILE_SUCCESS
+            );
         } catch (\Exception $exception) {
-            return $this->fail();
+            return $this->fail(
+                $this->employees::DELETE_FILE_FAILED
+            );
         }
     }
 }

@@ -4,7 +4,8 @@ namespace Modules\Api\Http\Controllers;
 
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Event\EventUpdateRequest;
-use Modules\Api\Http\Requests\UploadPhotoRequest;
+use Modules\Api\Http\Requests\FileDeleteRequest;
+use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
@@ -54,16 +55,55 @@ class EventController extends Controller
     }
 
     /**
-     * @param UploadPhotoRequest $request
+     * @param FileUploadRequest $request
      * @param Event $event
-     * @return void
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadMainPhoto(UploadPhotoRequest $request, Event $event)
+    public function uploadFile(FileUploadRequest $request, Event $event)
     {
         $this->authorize('update', $event);
 
-        $this->events->saveFile($event, $request->file('file'), 'main_photo');
+        try {
+            $this->events->saveFile(
+                $event,
+                $request->file('file'),
+                $request->get('collection')
+            );
+
+            return $this->success(
+                $this->events::UPLOAD_FILE_SUCCESS
+            );
+        } catch (\Exception $exception) {
+            return $this->fail(
+                $this->events::UPLOAD_FILE_FAILED
+            );
+        }
     }
 
+    /**
+     * @param FileDeleteRequest $request
+     * @param Event $event
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function deleteFile(FileDeleteRequest $request, Event $event)
+    {
+        $this->authorize('update', $event);
+
+        try {
+            $this->events->deleteFile(
+                $event,
+                $request->get('file_id')
+            );
+
+            return $this->success(
+                $this->events::DELETE_FILE_SUCCESS
+            );
+        } catch (\Exception $exception) {
+            return $this->fail(
+                $this->events::DELETE_FILE_FAILED
+            );
+        }
+    }
 }

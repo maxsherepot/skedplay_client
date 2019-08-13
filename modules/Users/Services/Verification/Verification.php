@@ -4,13 +4,13 @@ namespace Modules\Users\Services\Verification;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Users\Entities\User;
 use Modules\Users\Notifications\ResetPasswordNotification;
 use Modules\Users\Services\CodeProcessor\CodeProcessor;
 use Modules\Users\Services\CodeProcessor\Contracts\CodeProcessorInterface;
 use Modules\Users\Services\Sms\Exceptions\ValidationException;
 use Modules\Users\Services\Verification\Contracts\VerificationInterface;
-use Modules\Users\Services\Verification\Traits\Statusable;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
@@ -39,7 +39,7 @@ class Verification implements VerificationInterface
     public function __construct(CodeProcessorInterface $codeProcessor)
     {
         $this->codeProcessor = $codeProcessor;
-        $this->response = collect();
+        $this->response = [];
         $this->user = null;
     }
 
@@ -84,11 +84,13 @@ class Verification implements VerificationInterface
                 static::trimPhoneNumber($phoneNumber)
             );
 
-            $this->response = $this->success(self::GENERATE_CODE_SUCCESS);
-            $this->response->put('expires_at', $now + $this->codeProcessor->getLifetime());
+            $this->response = array_merge(
+                $this->success(self::GENERATE_CODE_SUCCESS),
+                ['expires_at' => $now + $this->codeProcessor->getLifetime()]
+            );
 
         } catch (\Exception $e) {
-            $this->fail(self::GENERATE_CODE_FAILED);
+            $this->response = $this->fail(self::GENERATE_CODE_FAILED);
 
             Log::error('Verification code generate was failed: ' . $e->getMessage());
         }
@@ -128,7 +130,7 @@ class Verification implements VerificationInterface
             $this->response = $this->success($success ? self::VERIFICATION_CHECK_SUCCESS : self::VERIFICATION_CHECK_FAILED);
 
         } catch (\Exception $e) {
-            $this->fail(self::VERIFICATION_CHECK_FAILED);
+            $this->response = $this->fail(self::VERIFICATION_CHECK_FAILED);
 
             if (!($e instanceof ValidationException)) {
                 Log::error('SMS Verification check was failed: ' . $e->getMessage());
@@ -158,7 +160,7 @@ class Verification implements VerificationInterface
             $this->response = $this->success($success ? self::VERIFICATION_STATUS_SUCCESS : self::VERIFICATION_STATUS_FAILED);
 
         } catch (\Exception $e) {
-            $this->fail(self::VERIFICATION_STATUS_FAILED);
+            $this->response = $this->fail(self::VERIFICATION_STATUS_FAILED);
         }
     }
 
@@ -168,7 +170,7 @@ class Verification implements VerificationInterface
      */
     public function response(): array
     {
-        return $this->response->toArray();
+        return $this->response;
     }
 
     /**

@@ -4,12 +4,13 @@ namespace Modules\Main\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Modules\Common\Contracts\HasMediable;
+use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Clubs\Entities\Club;
-use Modules\Users\Repositories\Traits\Mediable;
 
-class EventRepository
+class EventRepository implements HasMediable
 {
     use Mediable;
 

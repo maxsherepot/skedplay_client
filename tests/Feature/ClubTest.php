@@ -185,7 +185,7 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadClubFile' => [
-                        'status' => true
+                        'status' => true,
                     ]
                 ]
             ]);

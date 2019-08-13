@@ -90,10 +90,19 @@ class ClubController extends Controller
         $this->authorize('update', $club);
 
         try {
-            $this->clubs->saveFile($club, $request->file('file'), $request->get('collection'));
-            return $this->success();
+            $this->clubs->saveFile(
+                $club,
+                $request->file('file'),
+                $request->get('collection')
+            );
+
+            return $this->success(
+                $this->clubs::UPLOAD_FILE_SUCCESS
+            );
         } catch (\Exception $exception) {
-            return $this->fail();
+            return $this->fail(
+                $this->clubs::UPLOAD_FILE_FAILED
+            );
         }
     }
 
@@ -108,10 +117,17 @@ class ClubController extends Controller
         $this->authorize('update', $club);
 
         try {
-            $this->clubs->deleteFile($club, $request->get('file_id'));
-            return $this->success();
+            $this->clubs->deleteFile(
+                $club,
+                $request->get('file_id')
+            );
+            return $this->success(
+                $this->clubs::DELETE_FILE_SUCCESS
+            );
         } catch (\Exception $exception) {
-            return $this->fail();
+            return $this->fail(
+                $this->clubs::DELETE_FILE_FAILED
+            );
         }
     }
 

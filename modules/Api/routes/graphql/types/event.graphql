@@ -27,6 +27,12 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     deleteEvent(event: ID!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EventController@delete")
 
-    uploadEventPhoto(event: ID!, files: [Upload!]!): [File!]!
-    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@uploadMainPhoto")
+    uploadEventFile(event: ID!, collection: String!, file: Upload!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@uploadFile")
+
+    deleteEventFile(event: ID!, collection: String!, file: Upload!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@uploadFile")
+
+    deleteEventFile(event: ID!, file_id: Int!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventController@deleteFile")
 }

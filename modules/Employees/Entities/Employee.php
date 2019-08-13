@@ -17,8 +17,8 @@ class Employee extends Model implements HasMedia, HasLocation
 {
     use Locationable, HasMediaTrait, Priceable, Serviceable;
 
-    const EMPLOYEE_PHOTO_COLLECTION = 'employee-photo';
-    const EMPLOYEE_VIDEO_COLLECTION = 'employee-video';
+    const PHOTO_COLLECTION = 'employee-photo';
+    const VIDEO_COLLECTION = 'employee-video';
 
     const TYPE_GIRL = 1;
     const TYPE_BOY = 2;
@@ -62,8 +62,8 @@ class Employee extends Model implements HasMedia, HasLocation
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::EMPLOYEE_PHOTO_COLLECTION);
-        $this->addMediaCollection(self::EMPLOYEE_VIDEO_COLLECTION);
+        $this->addMediaCollection(self::PHOTO_COLLECTION);
+        $this->addMediaCollection(self::VIDEO_COLLECTION);
     }
 
     public function registerMediaConversions(Media $media = null)

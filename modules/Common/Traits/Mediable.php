@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Users\Repositories\Traits;
+namespace Modules\Common\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;

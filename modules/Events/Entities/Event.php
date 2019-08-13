@@ -14,6 +14,8 @@ class Event extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait;
 
+    const MAIN_PHOTO_COLLECTION = 'event-main-photo';
+
     protected $fillable = [
         'title',
         'description',
@@ -23,7 +25,7 @@ class Event extends Model implements HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('main_photo');
+        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION);
     }
 
     /**
