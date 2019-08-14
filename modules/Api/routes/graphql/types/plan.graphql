@@ -1,0 +1,14 @@
+type Plan {
+    id: ID!
+    name: String!
+    price: String!
+}
+
+extend type Query {
+    plans: [Plan!]! @all
+}
+
+extend type Mutation {
+    subscribeOnPlan(plan: ID!, user: ID!): Plan
+    @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@subscribe")
+}
