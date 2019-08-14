@@ -54,6 +54,7 @@ class RegistrationTest extends TestCase
             'phone'        => $this->getPhone(),
             'gender'       => User::GENDER_FEMALE,
             'account_type' => User::ACCOUNT_EMPLOYEE,
+            'plan_id'      => 1,
         ]);
 
         $this->registration($data)->assertJsonStructure([
@@ -92,6 +93,7 @@ class RegistrationTest extends TestCase
         return $this->postGraphQL([
             'query'     => '
                 mutation (
+                    $plan_id: Int, 
                     $phone: String!, 
                     $email: String!, 
                     $first_name: String!, 
@@ -107,6 +109,7 @@ class RegistrationTest extends TestCase
                     $recaptcha: String!
                 ) {
                     register(input: {
+                        plan_id: $plan_id,
                         account_type: $account_type,
                         first_name: $first_name,
                         last_name: $last_name,

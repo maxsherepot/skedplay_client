@@ -17,6 +17,7 @@ class RegistrationRequest extends FormRequest
     {
         $root = [
             'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],
+            'plan_id'      => 'bail|numeric|exists:plans,id',
             'account_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'nullable|string|max:255',

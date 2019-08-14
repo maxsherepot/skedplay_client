@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Routing\Controller;
 use Modules\Employees\Repositories\EmployeeRepository;
+use Modules\Main\Services\Cashier\Plan;
 use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;
@@ -13,7 +14,6 @@ use Modules\Users\Services\Verification\Verification;
 
 class RegisterController extends Controller
 {
-
     /**
      * @var UserRepository
      */
@@ -47,6 +47,11 @@ class RegisterController extends Controller
         $user = $this->users->store($data);
         $user->attachRole($request->get('account_type'));
 
+        $user->newSubscription(
+            'main',
+            $request->get('plan_id', Plan::where('name', 'free')->first()->id)
+        )->create();
+
         $data->put('user_id', $user->id);
 
         switch ($request->get('account_type')) {
@@ -72,9 +77,6 @@ class RegisterController extends Controller
             $data->put('age', Carbon::parse($birthday)->age);
         }
 
-
         return $data;
     }
-
-
 }

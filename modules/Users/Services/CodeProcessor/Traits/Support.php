@@ -40,7 +40,6 @@ trait Support
     {
         $status = Cache::get($this->cachePrefix . $phoneNumber);
 
-        Log::info((string)($status === self::REGISTER_VERIFIED));
         if ($status === self::REGISTER_VERIFIED) {
             return true;
         }

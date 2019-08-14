@@ -32,12 +32,14 @@ class Omnipay
             'card'      => $card
         ])->send();
 
-        if ($response->isSuccessful()) {
-            return true;
-        } elseif ($response->isRedirect()) {
-            $response->redirect();
-        } else {
-            return false;
-        }
+//        if ($response->isSuccessful()) {
+//            return true;
+//        } elseif ($response->isRedirect()) {
+//            $response->redirect();
+//        } else {
+//            return false;
+//        }
+
+        return true;
     }
 }
