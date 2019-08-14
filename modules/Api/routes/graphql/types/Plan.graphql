@@ -1,0 +1,9 @@
+type Plan {
+    id: ID!
+    name: String!
+    price: String!
+}
+
+extend type Query {
+    plans: [Plan!]! @all
+}

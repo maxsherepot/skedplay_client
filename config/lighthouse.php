@@ -95,6 +95,7 @@ return [
         'models'        => [
             'Modules\\Users\\Entities',
             'Modules\\Main\\Entities',
+            'Modules\\Main\\Services\\Cashier',
             'Modules\\Clubs\\Entities',
             'Modules\\Employees\\Entities',
             'Modules\\Events\\Entities',

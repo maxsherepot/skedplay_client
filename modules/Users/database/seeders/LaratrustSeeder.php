@@ -130,7 +130,6 @@ class LaratrustSeeder extends Seeder
         DB::table('role_user')->truncate();
         \Modules\Users\Entities\User::truncate();
         \Modules\Users\Entities\Role::truncate();
-        \Modules\Users\Entities\Permission::truncate();
         Schema::enableForeignKeyConstraints();
     }
 }

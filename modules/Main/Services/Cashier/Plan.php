@@ -17,7 +17,7 @@ class Plan extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'cost',
+        'price',
         'description',
     ];
 

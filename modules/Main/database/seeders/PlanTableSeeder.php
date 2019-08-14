@@ -26,10 +26,10 @@ class PlanTableSeeder extends Seeder
             'premium'  => 350,
         ];
 
-        foreach ($plans as $name => $cost) {
+        foreach ($plans as $name => $price) {
             Plan::create([
-                'name' => $name,
-                'cost' => (float)$cost,
+                'name'  => $name,
+                'price' => (float)$price,
             ]);
         }
 
