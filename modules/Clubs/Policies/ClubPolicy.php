@@ -5,6 +5,7 @@ namespace Modules\Clubs\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Modules\Clubs\Entities\Club;
 use Modules\Users\Entities\Permission;
+use Modules\Users\Entities\PermissionPlan;
 use Modules\Users\Entities\User;
 
 class ClubPolicy
@@ -17,7 +18,7 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission(Permission::CREATE_CLUBS);
+        return $user->hasPermissionPlan(PermissionPlan::MAX_CLUB) && $user->hasPermission(Permission::CREATE_CLUBS);
     }
 
     /**

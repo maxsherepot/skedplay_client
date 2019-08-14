@@ -16,9 +16,7 @@ class MainDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(PlanTableSeeder::class);
         $this->call(PageTableSeeder::class);
         $this->call(FaqTableSeeder::class);
-        $this->call(PlanPermissionTableSeeder::class);
     }
 }

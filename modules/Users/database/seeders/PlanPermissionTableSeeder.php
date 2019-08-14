@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Main\Database\Seeders;
+namespace Modules\Users\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -59,15 +59,13 @@ class PlanPermissionTableSeeder extends Seeder
             'max-club-video'   => [1, 1, 1],
         ];
 
-        foreach ($plans as $plan) {
-            foreach ($permissions as $key => $permission) {
-                $permission_ids[$plan->id][$key] =
-                    \Modules\Users\Entities\Permission::create([
-                        'name'         => $key . '-' . $plan->name,
-                        'display_name' => ucfirst($permission['title']) . ' ' . ucfirst($plan->name),
-                        'description'  => null,
-                    ])->id;
-            }
+        foreach ($permissions as $key => $permission) {
+            $permission_ids[$key] =
+                \Modules\Users\Entities\Permission::create([
+                    'name'         => $key,
+                    'display_name' => ucfirst($permission['title']),
+                    'description'  => null,
+                ])->id;
         }
 
         $this->assignValues($permissions, $permission_ids, $permission_values);
@@ -79,10 +77,9 @@ class PlanPermissionTableSeeder extends Seeder
     {
         foreach ($permissions as $key => $permission) {
             for ($i = 0; $i <= 2; $i++) {
-                $planId = ($i + 1);
                 DB::table('permission_plan')->insert([
-                    'plan_id'       => $planId,
-                    'permission_id' => $ids[$planId][$key],
+                    'plan_id'       => ($i + 1),
+                    'permission_id' => $ids[$key],
                     'value'         => $values[$key][$i],
                 ]);
             }

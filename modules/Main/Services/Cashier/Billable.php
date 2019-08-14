@@ -35,26 +35,6 @@ trait Billable
     }
 
     /**
-     * Add an invoice item to the customer's upcoming invoice.
-     *
-     * @param string $description
-     * @param int $amount
-     * @param array $options
-     */
-    public function tab($description, $amount, array $options = [])
-    {
-
-        $options = array_merge([
-            'customer'    => $this->stripe_id,
-            'amount'      => $amount,
-            'currency'    => $this->preferredCurrency(),
-            'description' => $description,
-        ], $options);
-
-        // Create InvoiceItem
-    }
-
-    /**
      * Begin creating a new subscription.
      *
      * @param string $subscription

@@ -28,12 +28,6 @@ class PlanController extends Controller
 
     public function subscribe(Plan $plan, User $user)
     {
-        /**
-         * Steps.
-         * 1. subscribe
-         * 2. if not free plan redirect to payment
-         */
-//        dd($user, $plan);
         $user->newSubscription('main', $plan->id)->create();
     }
 }
