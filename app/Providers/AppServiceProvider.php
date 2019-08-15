@@ -10,6 +10,8 @@ use Modules\Employees\Entities\Employee;
 use Modules\Main\Entities\Faq;
 use Modules\Main\Entities\FaqItem;
 use Modules\Main\Entities\Page;
+use Modules\Main\Services\Cashier\PaymentInterface;
+use Modules\Main\Services\Cashier\PayPal;
 use Modules\Users\Entities\User;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,5 +44,10 @@ class AppServiceProvider extends ServiceProvider
             Faq::MORPH_TYPE     => 'Modules\Main\Entities\Faq',
             FaqItem::MORPH_TYPE => 'Modules\Main\Entities\FaqItem',
         ]);
+
+        $this->app->bind(
+            PaymentInterface::class,
+            PayPal::class
+        );
     }
 }
