@@ -1,39 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Traits;
+
+use Modules\Billing\Entities\Subscription;
+use Modules\Billing\Services\Cashier;
+use Modules\Billing\Services\SubscriptionBuilder;
 
 trait Billable
 {
-    /**
-     * Make a "one off" charge on the customer for the given amount.
-     *
-     * @param int $amount
-     * @param array $options
-     */
-    public function charge($amount, array $options = [])
-    {
-        $options = array_merge([
-            'currency' => $this->preferredCurrency(),
-        ], $options);
-
-        $options['amount'] = $amount;
-
-        // etc..
-    }
-
-    /**
-     * Refund a customer for a charge.
-     *
-     * @param string $charge
-     * @param array $options
-     */
-    public function refund($charge, array $options = [])
-    {
-        $options['charge'] = $charge;
-
-        //
-    }
-
     /**
      * Begin creating a new subscription.
      *

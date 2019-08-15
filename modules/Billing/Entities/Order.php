@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +17,5 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['transaction_id', 'amount', 'payment_status'];
+    protected $fillable = ['user_id', 'plan_id', 'transaction_id', 'amount', 'payment_status'];
 }

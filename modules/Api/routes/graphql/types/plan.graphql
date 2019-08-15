@@ -4,11 +4,15 @@ type Plan {
     price: String!
 }
 
+type SubscribePayload {
+    redirect_url: String
+}
+
 extend type Query {
     plans: [Plan!]! @all
 }
 
 extend type Mutation {
-    subscribeOnPlan(plan: ID!, user: ID!): Plan
+    subscribeOnPlan(plan: ID!, user: ID!): SubscribePayload
     @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@subscribe")
 }

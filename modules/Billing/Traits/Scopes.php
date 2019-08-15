@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Services\Cashier\Traits;
+namespace Modules\Billing\Traits;
 
 use Carbon\Carbon;
 

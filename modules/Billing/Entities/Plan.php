@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Common\Entities\Traits\NameSlugable;

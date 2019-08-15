@@ -5,7 +5,7 @@ namespace Modules\Users\Database\Seeders;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Main\Services\Cashier\Plan;
+use Modules\Billing\Entities\Plan;
 
 class PlanPermissionTableSeeder extends Seeder
 {

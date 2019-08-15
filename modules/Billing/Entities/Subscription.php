@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use LogicException;
-use Modules\Main\Services\Cashier\Traits\Scopes;
+use Modules\Billing\Services\Cashier;
+use Modules\Billing\Traits\Scopes;
 
 class Subscription extends Model
 {

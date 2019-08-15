@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Contracts;
 
-interface PaymentInterface
+interface PaymentGatewayInterface
 {
     /**
      * @return mixed

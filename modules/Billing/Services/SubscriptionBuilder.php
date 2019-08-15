@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Services;
 
 class SubscriptionBuilder
 {
@@ -73,15 +73,6 @@ class SubscriptionBuilder
      */
     public function create()
     {
-        /**
-         * Fake payment method
-         */
-        $payment = (new Omnipay())->purchase([]);
-
-        if (!$payment) {
-            return new \Exception('Payment not yet');
-        }
-
         return $this->owner->subscriptions()->create([
             'name'    => $this->name,
             'plan_id' => $this->plan_id,

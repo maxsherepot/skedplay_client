@@ -17,7 +17,6 @@ class UsersDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(LaratrustSeeder::class);
-        $this->call(PlanTableSeeder::class);
         $this->call(PlanPermissionTableSeeder::class);
     }
 }

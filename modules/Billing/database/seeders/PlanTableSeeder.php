@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Users\Database\Seeders;
+namespace Modules\Billing\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Main\Services\Cashier\Plan;
+use Modules\Billing\Entities\Plan;
 
 class PlanTableSeeder extends Seeder
 {

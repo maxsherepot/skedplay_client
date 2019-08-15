@@ -1,11 +1,15 @@
 <?php
 
-namespace Modules\Main\Services\Cashier;
+namespace Modules\Billing\Services\Gateway;
 
+use Modules\Billing\Contracts\PaymentGatewayInterface;
 use Omnipay\Omnipay;
 
-class PayPal implements PaymentInterface
+class PayPal implements PaymentGatewayInterface
 {
+    const COMPLETED_URL = '/payment/checkout/%d/completed';
+    const CANCELLED_URL = '/payment/checkout/%d/cancelled';
+
     /**
      * @return mixed
      */
@@ -55,7 +59,7 @@ class PayPal implements PaymentInterface
      */
     public function getCancelUrl($order)
     {
-        return route('payment.checkout.cancelled', $order->id);
+        return sprintf(self::CANCELLED_URL, $order->id);
     }
 
     /**
@@ -64,7 +68,7 @@ class PayPal implements PaymentInterface
      */
     public function getReturnUrl($order)
     {
-        return route('payment.checkout.completed', $order->id);
+        return sprintf(self::COMPLETED_URL, $order->id);
     }
 
     /**
