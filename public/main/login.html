@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login
+    </title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer nonce="TlTaVoIzubKseRmM7XYSvQ"></script>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body class="font-body">
+    <div class="animation-background">
+      <div class="animation-gradient"><img class="animation-background__angle" src="/img/angle.svg"></div>
+      <div class="animation-background__footer"></div>
+    </div>
+    <div class="modal">
+      <div class="modal__dialog"><a class="modal__logo block text-center" href="/"><img class="inline-block" src="/img/logo.svg"></a>
+        <div class="modal__content">
+          <div class="modal__content__header relative z-1"><a class="animation-arrow-left text-sm" href="#back">
+              <svg class="stroke-red inline-block" width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 8H1M1 8L7.85714 15M1 8L7.85714 1" stroke-linejoin="round"></path>
+              </svg> Back</a>
+            <div class="text-4xl font-extrabold tracking-tightest absolute top-0 left-0 w-full h-full flex justify-center items-center -z-1 uppercase">Login
+            </div>
+            <div class="block">EN
+            </div>
+          </div>
+          <div class="modal__content__body">
+            <div class="mt-4 form-group">
+              <label>Phone number</label>
+              <input class="form-control" type="text" value="+41 79">
+            </div>
+            <div class=" form-group">
+              <label>Password</label>
+              <input class="form-control" type="text">
+            </div>
+            <div class="flex px-3 my-5">
+              <div class="w-1/2">
+                <input type="checkbox" id="login-remember-me">
+                <label for="login-remember-me"><span></span>Remember me
+                </label>
+              </div>
+              <div class="w-1/2 text-right"><a class="text-sm transition hover:opacity-75" href="#forgot">Los t your password?</a></div>
+            </div>
+            <div class="flex justify-center my-5"><!-- BEGIN: ReCAPTCHA implementation example. -->
+    <div id="recaptcha-demo" class="g-recaptcha" data-sitekey="6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
+         data-callback="onSuccess"></div>
+    <script nonce="TlTaVoIzubKseRmM7XYSvQ">
+        var onSuccess = function (response) {
+            var errorDivs = document.getElementsByClassName("recaptcha-error");
+            if (errorDivs.length) {
+                errorDivs[0].className = "";
+            }
+            var errorMsgs = document.getElementsByClassName("recaptcha-error-message");
+            if (errorMsgs.length) {
+                errorMsgs[0].parentNode.removeChild(errorMsgs[0]);
+            }
+        };</script><!-- Optional noscript fallback. -->
+    <noscript>
+        <div style="width: 302px; height: 462px;">
+            <iframe src="https://www.google.com/recaptcha/api/fallback?k=6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
+                    frameborder="0"
+                    scrolling="no"></iframe>
+            <div><textarea id="g-recaptcha-response" name="g-recaptcha-response"
+                           class="g-recaptcha-response"></textarea></div>
+        </div>
+        <br></noscript><!-- END: ReCAPTCHA implementation example. -->
+            </div>
+            <button class="btn text-xl">Login
+            </button><a class="block mt-5 text-center text-red transition hover:text-pink text-lg" href="registration.html">Create account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>
