@@ -5,6 +5,10 @@ type Plan {
 }
 
 type SubscribePayload {
+    invoice_id: String
+}
+
+type PaymentPayload {
     redirect_url: String
 }
 
@@ -15,4 +19,7 @@ extend type Query {
 extend type Mutation {
     subscribeOnPlan(plan: ID!, user: ID!): SubscribePayload
     @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@subscribe")
+
+    checkout(invoice: ID!, gateway: String!): PaymentPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@checkout")
 }

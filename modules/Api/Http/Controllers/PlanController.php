@@ -4,12 +4,14 @@ namespace Modules\Api\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Api\Http\Requests\Billing\CheckoutRequest;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
 use Modules\Billing\Entities\Invoice;
 use Modules\Billing\Entities\Plan;
 use Modules\Billing\Events\SubscribeOnPlanEvent;
 use Modules\Billing\Repositories\InvoiceRepository;
 use Modules\Billing\Services\Cashier;
+use Modules\Billing\Services\Gateway\PayPal;
 use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
@@ -33,50 +35,70 @@ class PlanController extends Controller
 
     /**
      * PlanController constructor.
-     * @param PaymentGatewayInterface $payment
      * @param EventRepository $repository
      * @param InvoiceRepository $invoices
      */
-    public function __construct(PaymentGatewayInterface $payment, EventRepository $repository, InvoiceRepository $invoices)
+    public function __construct(EventRepository $repository, InvoiceRepository $invoices)
     {
         $this->events = $repository;
-        $this->payment = $payment;
         $this->invoices = $invoices;
     }
 
-    public function subscribe(Plan $plan, User $user)
+    /**
+     * @param Plan $plan
+     * @param User $user
+     * @return array
+     */
+    public function subscribe(Plan $plan, User $user): array
     {
-        $url = null;
+        $invoiceId = null;
 
         switch ($plan->name) {
             case "personal":
             case "premium":
-                $url = $this->checkout(
-                    $this->newInvoice($plan, $user)
-                );
+                $invoiceId = $this->newInvoice($plan, $user)->id;
                 break;
             default:
             case "free":
-                event(new SubscribeOnPlanEvent($user, $this->getFreePlanId()));
+                event(new SubscribeOnPlanEvent($user, $plan->id));
                 break;
         }
 
         return [
-            'redirect_url' => $url,
+            'invoice_id' => $invoiceId,
         ];
     }
 
-    protected function checkout(Invoice $invoice)
+    /**
+     * @param Invoice $invoice
+     * @param CheckoutRequest $request
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function checkout(Invoice $invoice, CheckoutRequest $request): array
     {
         $url = null;
+        $payment = null;
+
+        switch ($request->input('gateway')) {
+            case "sms":
+//                $payment = app()->make(SmsGateway::class);
+                break;
+            case "paypal":
+                $payment = app()->make(PayPal::class);
+                break;
+            default:
+                break;
+        }
 
         try {
-            $response = $this->payment->purchase([
+            /** @var PaymentGatewayInterface $payment */
+            $response = $payment->purchase([
                 'amount'        => Cashier::formatAmount($invoice->amount),
                 'transactionId' => $invoice->transaction_id,
                 'currency'      => Cashier::usesCurrency(),
-                'cancelUrl'     => $this->payment->getCancelUrl($invoice),
-                'returnUrl'     => $this->payment->getReturnUrl($invoice),
+                'cancelUrl'     => $payment->getCancelUrl($invoice),
+                'returnUrl'     => $payment->getReturnUrl($invoice),
             ]);
 
             if ($response->isRedirect()) {
@@ -86,7 +108,9 @@ class PlanController extends Controller
             Log::info('Checkout error: ' . $exception->getMessage());
         }
 
-        return $url;
+        return [
+            'redirect_url' => $url,
+        ];
     }
 
     /**
@@ -104,13 +128,5 @@ class PlanController extends Controller
         ]);
 
         return $this->invoices->store($data);
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getFreePlanId()
-    {
-        return Plan::where('name', 'free')->first()->id;
     }
 }

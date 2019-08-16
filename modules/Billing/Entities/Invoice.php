@@ -11,6 +11,14 @@ class Invoice extends Model
     const COMPLETED = 1;
     const PENDING = 0;
 
+    const PAYPAL_GATEWAY = 'paypal';
+    const SMS_GATEWAY = 'sms';
+
+    const AVAILABLE_GATEWAY = [
+        self::PAYPAL_GATEWAY,
+        self::SMS_GATEWAY,
+    ];
+
     /**
      * @var array
      */
