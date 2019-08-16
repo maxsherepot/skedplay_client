@@ -1,12 +1,36 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Billing\Services\Gateway;
 
+use Illuminate\Http\Request;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
+use Modules\Billing\Entities\Transaction;
+use Modules\Billing\Repositories\TransactionRepository;
 use Omnipay\Omnipay;
+use PayPal\IPN\Listener\Http\ArrayListener;
 
 class PayPal implements PaymentGatewayInterface
 {
+    /**
+     * @var Request
+     */
+    private $request;
+    /**
+     * @var TransactionRepository
+     */
+    private $transactions;
+
+    /**
+     * PayPal constructor.
+     * @param Request $request
+     * @param TransactionRepository $transactions
+     */
+    public function __construct(Request $request, TransactionRepository $transactions)
+    {
+        $this->request = $request;
+        $this->transactions = $transactions;
+    }
+
     /**
      * @return mixed
      */
@@ -50,37 +74,75 @@ class PayPal implements PaymentGatewayInterface
         return $response;
     }
 
+
     /**
-     * @param $invoice
+     * @param Transaction $transaction
+     * @param string $env
+     * @return mixed
+     */
+    public function webhook(Transaction $transaction, string $env)
+    {
+        $listener = new ArrayListener;
+
+        if ($env === 'sandbox') {
+            $listener->useSandbox();
+        }
+
+        $listener->setData($this->request->all());
+        $listener = $listener->run();
+
+        $listener->onInvalid(function () use ($transaction) {
+            $this->transactions->handle(Transaction::CANCELED, $transaction);
+        });
+
+        $listener->onVerified(function () use ($transaction) {
+            $this->transactions->handle(Transaction::COMPLETED, $transaction);
+        });
+
+        $listener->onVerificationFailure(function () use ($transaction) {
+            $this->transactions->handle(Transaction::CANCELED, $transaction);
+        });
+
+        $listener->listen();
+    }
+
+    /**
+     * @param $transaction
      * @return string
      */
-    public function getCancelUrl($invoice)
+    public function getCancelUrl($transaction): string
     {
         return url(
-            sprintf(self::CANCELLED_URL, $invoice->id)
+            sprintf(self::CANCELLED_URL, $transaction->id)
         );
     }
 
     /**
-     * @param $invoice
+     * @param $transaction
      * @return string
      */
-    public function getReturnUrl($invoice)
+    public function getReturnUrl($transaction): string
     {
         return url(
-            sprintf(self::COMPLETED_URL, $invoice->id)
+            sprintf(self::COMPLETED_URL, $transaction->id)
         );
     }
 
     /**
-     * @param $invoice
+     * For start ngrok you should run "ngrok http --host-header=demo.local 80"
+     * For local test replace line 86-88, on: return "https://*.ngrok.io" . vsprintf(self::NOTIFY_URL, [$transaction->id, $env]);
+     *
+     * @param $transaction
      * @return string
      */
-    public function getNotifyUrl($invoice)
+    public function getNotifyUrl($transaction): string
     {
         $env = config('services.paypal.sandbox') ? "sandbox" : "live";
-        return "https://80e3f238.ngrok.io/webhook/payment/{$invoice->id}/$env";
-//        return route('webhook.payment.ipn', [$invoice->id, $env]);
+
+//        return url(
+//            vsprintf(self::NOTIFY_URL, [$transaction->id, $env])
+//        );
+        return "https://80e3f238.ngrok.io" . vsprintf(self::NOTIFY_URL, [$transaction->id, $env]);
     }
 
 }

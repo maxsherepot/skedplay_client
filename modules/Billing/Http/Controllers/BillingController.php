@@ -4,23 +4,21 @@ namespace Modules\Billing\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
+use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
 use Modules\Billing\Entities\Invoice;
-use Modules\Billing\Entities\PayPalIPN;
-use Modules\Billing\Repositories\IPNRepository;
-use PayPal\IPN\Event\IPNInvalid;
-use PayPal\IPN\Event\IPNVerificationFailure;
-use PayPal\IPN\Event\IPNVerified;
-use PayPal\IPN\Listener\Http\ArrayListener;
+use Modules\Billing\Entities\Transaction;
+use Modules\Billing\Http\Requests\CompletedRequest;
+use Modules\Billing\Repositories\TransactionRepository;
+use Modules\Billing\Services\Cashier;
 
 class BillingController extends Controller
 {
+    use Statusable;
+
     /**
-     * @var PaymentGatewayInterface
-     */
-    private $payment;
-    /**
-     * @var IPNRepository
+     * @var TransactionRepository
      */
     private $repository;
     /**
@@ -28,40 +26,61 @@ class BillingController extends Controller
      */
     private $request;
 
-    public function __construct(PaymentGatewayInterface $payment, IPNRepository $repository, Request $request)
+    public function __construct(TransactionRepository $repository, Request $request)
     {
-        $this->payment = $payment;
         $this->repository = $repository;
         $this->request = $request;
     }
 
     /**
-     * @param Invoice $invoice
-     * @param $env
+     * @param Transaction $transaction
+     * @param CompletedRequest $request
+     * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function webhook(Invoice $invoice, $env)
+    public function completed(Transaction $transaction, CompletedRequest $request)
     {
-        $listener = new ArrayListener;
+        $payment = app()->make(
+            Invoice::getPayment($transaction->payment_method)
+        );
 
-        if ($env === 'sandbox') {
-            $listener->useSandbox();
+        try {
+            /** @var PaymentGatewayInterface $payment */
+            $response = $payment->complete([
+                'token'         => $request->get('token'),
+                'payerId'       => $request->get('payerId'),
+                'amount'        => Cashier::formatAmount($transaction->invoice->amount),
+                'transactionId' => $transaction->id,
+                'currency'      => Cashier::usesCurrency(),
+                'cancelUrl'     => $payment->getCancelUrl($transaction),
+                'returnUrl'     => $payment->getReturnUrl($transaction),
+                'notifyUrl'     => $payment->getNotifyUrl($transaction),
+            ]);
+
+            if ($response->isSuccessful()) {
+                $transaction->update([
+                    'payment_txn_id' => $response->getTransactionReference(),
+                    'status'         => Invoice::PENDING,
+                ]);
+                return $this->success();
+            }
+        } catch (\Exception $exception) {
+            Log::info('Completed error: ' . $exception->getMessage());
         }
+        return $this->fail();
+    }
 
-        $listener->setData($this->request->all());
-        $listener = $listener->run();
+    /**
+     * @param Transaction $transaction
+     * @param $env
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function webhook(Transaction $transaction, $env)
+    {
+        $payment = app()->make(
+            Invoice::getPayment($transaction->payment_method)
+        );
 
-        $listener->onInvalid(function (IPNInvalid $event) use ($invoice) {
-            $this->repository->handle($event, PayPalIPN::IPN_INVALID, $invoice);
-        });
-
-        $listener->onVerified(function (IPNVerified $event) use ($invoice) {
-            $this->repository->handle($event, PayPalIPN::IPN_VERIFIED, $invoice);
-        });
-
-        $listener->onVerificationFailure(function (IPNVerificationFailure $event) use ($invoice) {
-            $this->repository->handle($event, PayPalIPN::IPN_FAILURE, $invoice);
-        });
-
-        $listener->listen();
+        $payment->webhook($transaction, $env);
     }
 }

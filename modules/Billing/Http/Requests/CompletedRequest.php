@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Api\Http\Requests\Billing;
+namespace Modules\Billing\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,9 +14,9 @@ class CompletedRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoice' => 'bail|required|numeric|exists:invoices,id',
-            'token'   => 'required|string',
-            'payerId' => 'required|string',
+            'transaction' => 'bail|required|numeric|exists:transactions,id',
+            'token'       => 'required|string',
+            'payerId'     => 'required|string',
         ];
     }
 

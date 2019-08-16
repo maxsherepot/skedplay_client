@@ -1,11 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Modules\Billing\Contracts;
+
+use Modules\Billing\Entities\Transaction;
 
 interface PaymentGatewayInterface
 {
     const COMPLETED_URL = '/payment/checkout/%d/completed';
     const CANCELLED_URL = '/payment/checkout/%d/cancelled';
+    const NOTIFY_URL = '/webhook/payment/%d/%s';
 
     /**
      * @return mixed
@@ -25,20 +28,27 @@ interface PaymentGatewayInterface
     public function complete(array $parameters);
 
     /**
-     * @param $order
-     * @return string
+     * @param Transaction $transaction
+     * @param string $env
+     * @return mixed
      */
-    public function getCancelUrl($order);
+    public function webhook(Transaction $transaction, string $env);
 
     /**
-     * @param $order
+     * @param $transaction
      * @return string
      */
-    public function getReturnUrl($order);
+    public function getCancelUrl($transaction): string;
 
     /**
-     * @param $order
+     * @param $transaction
      * @return string
      */
-    public function getNotifyUrl($order);
+    public function getReturnUrl($transaction): string;
+
+    /**
+     * @param $transaction
+     * @return string
+     */
+    public function getNotifyUrl($transaction): string;
 }

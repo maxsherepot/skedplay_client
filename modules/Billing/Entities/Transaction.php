@@ -4,12 +4,10 @@ namespace Modules\Billing\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Modules\Billing\Contracts\HasPayment;
 use Modules\Billing\Traits\Paymentable;
-use Modules\Users\Entities\User;
 
-class Invoice extends Model implements HasPayment
+class Transaction extends Model implements HasPayment
 {
     use Paymentable;
 
@@ -22,25 +20,17 @@ class Invoice extends Model implements HasPayment
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'plan_id',
-        'amount',
+        'invoice_id',
+        'payment_txn_id',
+        'payment_method',
         'status',
     ];
 
     /**
      * @return BelongsTo
      */
-    public function user(): BelongsTo
+    public function invoice(): BelongsTo
     {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function transaction(): HasOne
-    {
-        return $this->hasOne(Transaction::class);
+        return $this->belongsTo(Invoice::class);
     }
 }

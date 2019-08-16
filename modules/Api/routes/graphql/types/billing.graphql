@@ -1,6 +1,6 @@
 #extend type Query
 
 extend type Mutation {
-    billingCompleted(invoice: ID!, token: String!, payerId: String!): StatusPayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\BillingController@completed")
+    billingCompleted(transaction: ID!, token: String!, payerId: String!): StatusPayload
+    @router(action: "Modules\\Billing\\Http\\Controllers\\BillingController@completed")
 }

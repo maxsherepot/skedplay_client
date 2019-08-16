@@ -18,8 +18,8 @@ extend type Query {
 
 extend type Mutation {
     subscribeOnPlan(plan: ID!, user: ID!): SubscribePayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@subscribe")
+    @router(action: "Modules\\Billing\\Http\\Controllers\\PlanController@subscribe")
 
     checkout(invoice: ID!, gateway: String!): PaymentPayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\PlanController@checkout")
+    @router(action: "Modules\\Billing\\Http\\Controllers\\PlanController@checkout")
 }

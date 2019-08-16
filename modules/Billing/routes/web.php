@@ -2,5 +2,4 @@
 
 use Modules\Billing\Http\Controllers\BillingController;
 
-Route::post('/webhook/payment/{order?}/{env?}', [BillingController::class, 'webhook'])
-    ->name('webhook.payment.ipn');
+Route::post('/webhook/payment/{transaction?}/{env?}', [BillingController::class, 'webhook']);

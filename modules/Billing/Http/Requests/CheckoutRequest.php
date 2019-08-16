@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Api\Http\Requests\Billing;
+namespace Modules\Billing\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Billing\Entities\Invoice;
