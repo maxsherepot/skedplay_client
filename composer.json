@@ -30,6 +30,7 @@
         "santigarcor/laratrust": "^5.2",
         "spatie/laravel-medialibrary": "^7.0.0",
         "stevebauman/location": "^3.0",
+        "sudiptpa/paypal-ipn": "^2.0",
         "tightenco/parental": "0.7"
     },
     "require-dev": {

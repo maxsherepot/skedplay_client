@@ -59,7 +59,9 @@ class PayPal implements PaymentGatewayInterface
      */
     public function getCancelUrl($order)
     {
-        return sprintf(self::CANCELLED_URL, $order->id);
+        return url(
+            sprintf(self::CANCELLED_URL, $order->id)
+        );
     }
 
     /**
@@ -68,7 +70,9 @@ class PayPal implements PaymentGatewayInterface
      */
     public function getReturnUrl($order)
     {
-        return sprintf(self::COMPLETED_URL, $order->id);
+        return url(
+            sprintf(self::COMPLETED_URL, $order->id)
+        );
     }
 
     /**

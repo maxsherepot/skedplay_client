@@ -56,7 +56,7 @@ class BillingController extends Controller
             // Todo: Mb this swap plan in order->plan_id?
             $order->update([
                 'transaction_id' => $response->getTransactionReference(),
-                'payment_status' => Order::PAYMENT_COMPLETED,
+                'payment_status' => Order::COMPLETED,
             ]);
             return $this->success();
         }

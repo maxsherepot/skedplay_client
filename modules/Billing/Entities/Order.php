@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    const PAYMENT_COMPLETED = 1;
-    const PAYMENT_PENDING = 0;
+    const COMPLETED = 1;
+    const PENDING = 0;
 
     /**
      * @var array
@@ -18,4 +18,24 @@ class Order extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'plan_id', 'transaction_id', 'amount', 'payment_status'];
+
+    /**
+     * Payment completed.
+     *
+     * @return boolean
+     */
+    public function paid()
+    {
+        return in_array($this->payment_status, [self::COMPLETED]);
+    }
+
+    /**
+     * Payment is still pending.
+     *
+     * @return boolean
+     */
+    public function unpaid()
+    {
+        return in_array($this->payment_status, [self::PENDING]);
+    }
 }
