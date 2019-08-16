@@ -139,10 +139,9 @@ class PayPal implements PaymentGatewayInterface
     {
         $env = config('services.paypal.sandbox') ? "sandbox" : "live";
 
-//        return url(
-//            vsprintf(self::NOTIFY_URL, [$transaction->id, $env])
-//        );
-        return "https://80e3f238.ngrok.io" . vsprintf(self::NOTIFY_URL, [$transaction->id, $env]);
+        return url(
+            vsprintf(self::NOTIFY_URL, [$transaction->id, $env])
+        );
     }
 
 }
