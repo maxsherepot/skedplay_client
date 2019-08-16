@@ -3,7 +3,6 @@
 namespace Modules\Billing\Services;
 
 use Exception;
-use Illuminate\Support\Str;
 
 class Cashier
 {
@@ -130,12 +129,8 @@ class Cashier
             return call_user_func(static::$formatCurrencyUsing, $amount);
         }
 
-        $amount = number_format($amount / 100, 2);
+        $amount = number_format($amount, 2, '.', '');
 
-        if (Str::startsWith($amount, '-')) {
-            return '-' . static::usesCurrencySymbol() . ltrim($amount, '-');
-        }
-
-        return static::usesCurrencySymbol() . $amount;
+        return $amount;
     }
 }

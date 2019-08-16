@@ -8,6 +8,7 @@ use Modules\Billing\Contracts\PaymentGatewayInterface;
 use Modules\Billing\Entities\Order;
 use Modules\Billing\Entities\Plan;
 use Modules\Billing\Repositories\OrderRepository;
+use Modules\Billing\Services\Cashier;
 use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
@@ -69,19 +70,21 @@ class PlanController extends Controller
     {
         $url = null;
 
-        $response = $this->payment->purchase([
-            'amount'        => $order->amount,
-            'transactionId' => $order->transaction_id,
-            'currency'      => 'USD', // Todo: Get Cashier current currency
-            'cancelUrl'     => $this->payment->getCancelUrl($order),
-            'returnUrl'     => $this->payment->getReturnUrl($order),
-        ]);
+        try {
+            $response = $this->payment->purchase([
+                'amount'        => Cashier::formatAmount($order->amount),
+                'transactionId' => $order->transaction_id,
+                'currency'      => Cashier::usesCurrency(),
+                'cancelUrl'     => $this->payment->getCancelUrl($order),
+                'returnUrl'     => $this->payment->getReturnUrl($order),
+            ]);
 
-        if ($response->isRedirect()) {
-            $url = $response->getRedirectUrl();
+            if ($response->isRedirect()) {
+                $url = $response->getRedirectUrl();
+            }
+        } catch (\Exception $exception) {
+            Log::info('Checkout error: ' . $exception->getMessage());
         }
-
-        Log::info('Checkout error: ' . $response->getMessage());
 
         return $url;
     }

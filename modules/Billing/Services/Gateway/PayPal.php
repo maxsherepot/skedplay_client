@@ -18,10 +18,10 @@ class PayPal implements PaymentGatewayInterface
         $gateway = Omnipay::create('PayPal_Express');
 
         $gateway->initialize([
-            'username'  => config('services.paypal_express.username'),
-            'password'  => config('services.paypal_express.password'),
-            'signature' => config('services.paypal_express.signature'),
-            'testMode'  => config('services.paypal_express.sandbox'),
+            'username'  => config('services.paypal.username'),
+            'password'  => config('services.paypal.password'),
+            'signature' => config('services.paypal.signature'),
+            'testMode'  => config('services.paypal.sandbox'),
         ]);
 
         return $gateway;
@@ -82,8 +82,8 @@ class PayPal implements PaymentGatewayInterface
     public function getNotifyUrl($order)
     {
         $env = config('services.paypal.sandbox') ? "sandbox" : "live";
-
-        return route('webhook.payment.ipn', [$order->id, $env]);
+        return "https://80e3f238.ngrok.io/webhook/payment/{$order->id}/$env";
+//        return route('webhook.payment.ipn', [$order->id, $env]);
     }
 
 }

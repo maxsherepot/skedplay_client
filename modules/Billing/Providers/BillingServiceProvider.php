@@ -5,6 +5,8 @@ namespace Modules\Billing\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
+use Modules\Billing\Entities\Order;
+use Modules\Billing\Observers\OrderObserver;
 use Modules\Billing\Services\Gateway\PayPal;
 
 class BillingServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class BillingServiceProvider extends ServiceProvider
             PaymentGatewayInterface::class,
             PayPal::class
         );
+
+        Order::observe(OrderObserver::class);
     }
 
     /**
