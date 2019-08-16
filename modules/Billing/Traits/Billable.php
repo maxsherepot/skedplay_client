@@ -3,7 +3,6 @@
 namespace Modules\Billing\Traits;
 
 use Modules\Billing\Entities\Subscription;
-use Modules\Billing\Services\Cashier;
 use Modules\Billing\Services\SubscriptionBuilder;
 
 trait Billable
@@ -103,15 +102,5 @@ trait Billable
         return !is_null($this->subscriptions->first(function ($value) use ($plan) {
             return $value->stripe_plan === $plan && $value->valid();
         }));
-    }
-
-    /**
-     * Get the Stripe supported currency used by the entity.
-     *
-     * @return string
-     */
-    public function preferredCurrency()
-    {
-        return Cashier::usesCurrency();
     }
 }

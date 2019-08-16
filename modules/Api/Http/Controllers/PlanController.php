@@ -7,6 +7,7 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
 use Modules\Billing\Entities\Order;
 use Modules\Billing\Entities\Plan;
+use Modules\Billing\Events\SubscribeOnPlanEvent;
 use Modules\Billing\Repositories\OrderRepository;
 use Modules\Billing\Services\Cashier;
 use Modules\Main\Repositories\EventRepository;
@@ -56,8 +57,7 @@ class PlanController extends Controller
                 break;
             default:
             case "free":
-                $user->newSubscription('main', $this->getFreePlanId())
-                    ->create();
+                event(new SubscribeOnPlanEvent($user, $this->getFreePlanId()));
                 break;
         }
 

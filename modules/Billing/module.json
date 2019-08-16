@@ -6,7 +6,8 @@
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\Billing\\Providers\\BillingServiceProvider"
+        "Modules\\Billing\\Providers\\BillingServiceProvider",
+        "Modules\\Billing\\Providers\\BillingEventServiceProvider"
     ],
     "aliases": {},
     "files": [],

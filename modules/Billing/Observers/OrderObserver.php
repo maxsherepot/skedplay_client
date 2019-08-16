@@ -3,7 +3,7 @@
 namespace Modules\Billing\Observers;
 
 use Modules\Billing\Entities\Order;
-use Modules\Users\Entities\User;
+use Modules\Billing\Events\PaymentCompleteEvent;
 
 class OrderObserver
 {
@@ -16,11 +16,7 @@ class OrderObserver
     public function updated(Order $order)
     {
         if ($order->isDirty('payment_status') && $order->paid()) {
-            /** @var User $user */
-            $user = $order->user;
-
-            $user->newSubscription('main', $order->plan_id)
-                ->create();
+            event(new PaymentCompleteEvent($order));
         }
     }
 }
