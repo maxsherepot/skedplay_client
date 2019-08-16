@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Billing\CompletedRequest;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
-use Modules\Billing\Entities\Order;
-use Modules\Billing\Repositories\OrderRepository;
+use Modules\Billing\Entities\Invoice;
+use Modules\Billing\Repositories\InvoiceRepository;
 use Modules\Billing\Services\Cashier;
 use Nwidart\Modules\Routing\Controller;
 
@@ -20,50 +20,48 @@ class BillingController extends Controller
      */
     private $payment;
     /**
-     * @var OrderRepository
+     * @var InvoiceRepository
      */
-    private $orders;
+    private $invoices;
 
     /**
      * PlanController constructor.
      * @param PaymentGatewayInterface $payment
-     * @param OrderRepository $orders
      */
-    public function __construct(PaymentGatewayInterface $payment, OrderRepository $orders)
+    public function __construct(PaymentGatewayInterface $payment)
     {
         $this->payment = $payment;
-        $this->orders = $orders;
     }
 
     /**
-     * @param Order $order
+     * @param Invoice $invoice
      * @param CompletedRequest $request
-     * @return mixed
+     * @return array
      */
-    public function completed(Order $order, CompletedRequest $request)
+    public function completed(Invoice $invoice, CompletedRequest $request)
     {
-        $response = $this->payment->complete([
-            'token'         => $request->get('token'),
-            'payerId'       => $request->get('payerId'),
-            'amount'        => Cashier::formatAmount($order->amount),
-            'transactionId' => $order->transaction_id,
-            'currency'      => Cashier::usesCurrency(),
-            'cancelUrl'     => $this->payment->getCancelUrl($order),
-            'returnUrl'     => $this->payment->getReturnUrl($order),
-            'notifyUrl'     => $this->payment->getNotifyUrl($order),
-        ]);
-
-        if ($response->isSuccessful()) {
-            $order->update([
-                'transaction_id' => $response->getTransactionReference(),
-                'payment_status' => Order::PENDING,
+        try {
+            $response = $this->payment->complete([
+                'token'         => $request->get('token'),
+                'payerId'       => $request->get('payerId'),
+                'amount'        => Cashier::formatAmount($invoice->amount),
+                'transactionId' => $invoice->transaction_id,
+                'currency'      => Cashier::usesCurrency(),
+                'cancelUrl'     => $this->payment->getCancelUrl($invoice),
+                'returnUrl'     => $this->payment->getReturnUrl($invoice),
+                'notifyUrl'     => $this->payment->getNotifyUrl($invoice),
             ]);
-            return $this->success();
+
+            if ($response->isSuccessful()) {
+                $invoice->update([
+                    'transaction_id' => $response->getTransactionReference(),
+                    'payment_status' => Invoice::PENDING,
+                ]);
+                return $this->success();
+            }
+        } catch (\Exception $exception) {
+            Log::info('Completed error: ' . $exception->getMessage());
         }
-
-        Log::info('Completed error: ' . $response->getMessage());
-
         return $this->fail();
     }
-
 }

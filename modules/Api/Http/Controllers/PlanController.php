@@ -5,10 +5,10 @@ namespace Modules\Api\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
-use Modules\Billing\Entities\Order;
+use Modules\Billing\Entities\Invoice;
 use Modules\Billing\Entities\Plan;
 use Modules\Billing\Events\SubscribeOnPlanEvent;
-use Modules\Billing\Repositories\OrderRepository;
+use Modules\Billing\Repositories\InvoiceRepository;
 use Modules\Billing\Services\Cashier;
 use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
@@ -27,21 +27,21 @@ class PlanController extends Controller
      */
     protected $events;
     /**
-     * @var OrderRepository
+     * @var InvoiceRepository
      */
-    private $orders;
+    private $invoices;
 
     /**
      * PlanController constructor.
      * @param PaymentGatewayInterface $payment
      * @param EventRepository $repository
-     * @param OrderRepository $orders
+     * @param InvoiceRepository $invoices
      */
-    public function __construct(PaymentGatewayInterface $payment, EventRepository $repository, OrderRepository $orders)
+    public function __construct(PaymentGatewayInterface $payment, EventRepository $repository, InvoiceRepository $invoices)
     {
         $this->events = $repository;
         $this->payment = $payment;
-        $this->orders = $orders;
+        $this->invoices = $invoices;
     }
 
     public function subscribe(Plan $plan, User $user)
@@ -52,7 +52,7 @@ class PlanController extends Controller
             case "personal":
             case "premium":
                 $url = $this->checkout(
-                    $this->newOrder($plan, $user)
+                    $this->newInvoice($plan, $user)
                 );
                 break;
             default:
@@ -66,17 +66,17 @@ class PlanController extends Controller
         ];
     }
 
-    protected function checkout(Order $order)
+    protected function checkout(Invoice $invoice)
     {
         $url = null;
 
         try {
             $response = $this->payment->purchase([
-                'amount'        => Cashier::formatAmount($order->amount),
-                'transactionId' => $order->transaction_id,
+                'amount'        => Cashier::formatAmount($invoice->amount),
+                'transactionId' => $invoice->transaction_id,
                 'currency'      => Cashier::usesCurrency(),
-                'cancelUrl'     => $this->payment->getCancelUrl($order),
-                'returnUrl'     => $this->payment->getReturnUrl($order),
+                'cancelUrl'     => $this->payment->getCancelUrl($invoice),
+                'returnUrl'     => $this->payment->getReturnUrl($invoice),
             ]);
 
             if ($response->isRedirect()) {
@@ -92,9 +92,9 @@ class PlanController extends Controller
     /**
      * @param Plan $plan
      * @param User $user
-     * @return Order
+     * @return Invoice
      */
-    protected function newOrder(Plan $plan, User $user): Order
+    protected function newInvoice(Plan $plan, User $user): Invoice
     {
         $data = collect([
             'user_id'        => $user->id,
@@ -103,7 +103,7 @@ class PlanController extends Controller
             'amount'         => $plan->price,
         ]);
 
-        return $this->orders->store($data);
+        return $this->invoices->store($data);
     }
 
     /**

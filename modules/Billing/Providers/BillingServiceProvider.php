@@ -3,10 +3,9 @@
 namespace Modules\Billing\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
-use Modules\Billing\Entities\Order;
-use Modules\Billing\Observers\OrderObserver;
+use Modules\Billing\Entities\Invoice;
+use Modules\Billing\Observers\InvoiceObserver;
 use Modules\Billing\Services\Gateway\PayPal;
 
 class BillingServiceProvider extends ServiceProvider
@@ -18,7 +17,6 @@ class BillingServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->app->bind(
@@ -26,7 +24,7 @@ class BillingServiceProvider extends ServiceProvider
             PayPal::class
         );
 
-        Order::observe(OrderObserver::class);
+        Invoice::observe(InvoiceObserver::class);
     }
 
     /**
@@ -37,18 +35,6 @@ class BillingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-    }
-
-    /**
-     * Register an additional directory of factories.
-     *
-     * @return void
-     */
-    public function registerFactories()
-    {
-        if (!app()->environment('production')) {
-            app(Factory::class)->load(__DIR__ . '/../database/factories');
-        }
     }
 
     /**

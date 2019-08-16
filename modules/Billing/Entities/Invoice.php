@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Users\Entities\User;
 
-class Order extends Model
+class Invoice extends Model
 {
     const COMPLETED = 1;
     const PENDING = 0;
@@ -19,7 +19,14 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'plan_id', 'transaction_id', 'amount', 'payment_status'];
+    protected $fillable = [
+        'user_id',
+        'plan_id',
+        'transaction_id',
+        'amount',
+        'payment_status',
+        'payment_method'
+    ];
 
     /**
      * Payment completed.

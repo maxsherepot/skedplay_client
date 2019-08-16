@@ -7,9 +7,6 @@ use Omnipay\Omnipay;
 
 class PayPal implements PaymentGatewayInterface
 {
-    const COMPLETED_URL = '/payment/checkout/%d/completed';
-    const CANCELLED_URL = '/payment/checkout/%d/cancelled';
-
     /**
      * @return mixed
      */
@@ -54,36 +51,36 @@ class PayPal implements PaymentGatewayInterface
     }
 
     /**
-     * @param $order
+     * @param $invoice
      * @return string
      */
-    public function getCancelUrl($order)
+    public function getCancelUrl($invoice)
     {
         return url(
-            sprintf(self::CANCELLED_URL, $order->id)
+            sprintf(self::CANCELLED_URL, $invoice->id)
         );
     }
 
     /**
-     * @param $order
+     * @param $invoice
      * @return string
      */
-    public function getReturnUrl($order)
+    public function getReturnUrl($invoice)
     {
         return url(
-            sprintf(self::COMPLETED_URL, $order->id)
+            sprintf(self::COMPLETED_URL, $invoice->id)
         );
     }
 
     /**
-     * @param $order
+     * @param $invoice
      * @return string
      */
-    public function getNotifyUrl($order)
+    public function getNotifyUrl($invoice)
     {
         $env = config('services.paypal.sandbox') ? "sandbox" : "live";
-        return "https://80e3f238.ngrok.io/webhook/payment/{$order->id}/$env";
-//        return route('webhook.payment.ipn', [$order->id, $env]);
+        return "https://80e3f238.ngrok.io/webhook/payment/{$invoice->id}/$env";
+//        return route('webhook.payment.ipn', [$invoice->id, $env]);
     }
 
 }

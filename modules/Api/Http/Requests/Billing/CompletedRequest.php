@@ -14,7 +14,7 @@ class CompletedRequest extends FormRequest
     public function rules()
     {
         return [
-            'order'   => 'bail|required|numeric|exists:orders,id',
+            'invoice' => 'bail|required|numeric|exists:invoices,id',
             'token'   => 'required|string',
             'payerId' => 'required|string',
         ];

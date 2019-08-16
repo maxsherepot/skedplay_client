@@ -16,7 +16,7 @@ class CreatePaypalIpnRecords extends Migration
         Schema::create('paypal_ipn_records', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('order_id')->nullable();
+            $table->integer('invoice_id')->nullable();
             $table->string('verified');
             $table->string('transaction_id');
             $table->string('payment_status');

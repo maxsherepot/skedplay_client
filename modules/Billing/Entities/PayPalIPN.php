@@ -53,8 +53,8 @@ class PayPalIPN extends Model
     /**
      * @return mixed
      */
-    public function orders()
+    public function invoices()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Invoice::class);
     }
 }

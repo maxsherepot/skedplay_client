@@ -3,7 +3,7 @@
 namespace Modules\Billing\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Modules\Billing\Entities\Order;
+use Modules\Billing\Entities\Invoice;
 use Modules\Users\Entities\User;
 
 class PaymentCompleteEvent
@@ -20,12 +20,12 @@ class PaymentCompleteEvent
     /**
      * Create a new event instance.
      *
-     * @param Order $order
+     * @param Invoice $invoice
      */
-    public function __construct(Order $order)
+    public function __construct(Invoice $invoice)
     {
-        $this->plan_id = $order->plan_id;
-        $this->user = $order->user;
+        $this->plan_id = $invoice->plan_id;
+        $this->user = $invoice->user;
     }
 
     /**

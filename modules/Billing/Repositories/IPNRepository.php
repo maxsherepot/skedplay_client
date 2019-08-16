@@ -3,7 +3,7 @@
 namespace Modules\Billing\Repositories;
 
 use Illuminate\Http\Request;
-use Modules\Billing\Entities\Order;
+use Modules\Billing\Entities\Invoice;
 use Modules\Billing\Entities\PayPalIPN;
 
 class IPNRepository
@@ -24,9 +24,9 @@ class IPNRepository
     /**
      * @param $event
      * @param $verified
-     * @param Order $order
+     * @param Invoice $invoice
      */
-    public function handle($event, $verified, Order $order)
+    public function handle($event, $verified, Invoice $invoice)
     {
         /** @var \PayPal\IPN\IPNMessage $object */
         $object = $event->getMessage();
@@ -35,7 +35,7 @@ class IPNRepository
         $paypal = PayPalIPN::create([
             'verified'        => $verified,
             'transaction_id'  => $object->get('txn_id'),
-            'order_id'        => $order ? $order->id : null,
+            'invoice_id'      => $invoice ? $invoice->id : null,
             'payment_status'  => $object->get('payment_status'),
             'request_method'  => $this->request->method(),
             'request_url'     => $this->request->url(),
@@ -44,9 +44,9 @@ class IPNRepository
         ]);
 
         if ($paypal->isVerified() && $paypal->isCompleted()) {
-            if ($order && $order->unpaid()) {
-                $order->update([
-                    'payment_status' => $order::COMPLETED,
+            if ($invoice && $invoice->unpaid()) {
+                $invoice->update([
+                    'payment_status' => $invoice::COMPLETED,
                     'transaction_id' => $object->get('txn_id')
                 ]);
             }

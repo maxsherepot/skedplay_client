@@ -5,7 +5,7 @@ namespace Modules\Billing\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Billing\Contracts\PaymentGatewayInterface;
-use Modules\Billing\Entities\Order;
+use Modules\Billing\Entities\Invoice;
 use Modules\Billing\Entities\PayPalIPN;
 use Modules\Billing\Repositories\IPNRepository;
 use PayPal\IPN\Event\IPNInvalid;
@@ -36,10 +36,10 @@ class BillingController extends Controller
     }
 
     /**
-     * @param Order $order
+     * @param Invoice $invoice
      * @param $env
      */
-    public function webhook(Order $order, $env)
+    public function webhook(Invoice $invoice, $env)
     {
         $listener = new ArrayListener;
 
@@ -50,16 +50,16 @@ class BillingController extends Controller
         $listener->setData($this->request->all());
         $listener = $listener->run();
 
-        $listener->onInvalid(function (IPNInvalid $event) use ($order) {
-            $this->repository->handle($event, PayPalIPN::IPN_INVALID, $order);
+        $listener->onInvalid(function (IPNInvalid $event) use ($invoice) {
+            $this->repository->handle($event, PayPalIPN::IPN_INVALID, $invoice);
         });
 
-        $listener->onVerified(function (IPNVerified $event) use ($order) {
-            $this->repository->handle($event, PayPalIPN::IPN_VERIFIED, $order);
+        $listener->onVerified(function (IPNVerified $event) use ($invoice) {
+            $this->repository->handle($event, PayPalIPN::IPN_VERIFIED, $invoice);
         });
 
-        $listener->onVerificationFailure(function (IPNVerificationFailure $event) use ($order) {
-            $this->repository->handle($event, PayPalIPN::IPN_FAILURE, $order);
+        $listener->onVerificationFailure(function (IPNVerificationFailure $event) use ($invoice) {
+            $this->repository->handle($event, PayPalIPN::IPN_FAILURE, $invoice);
         });
 
         $listener->listen();

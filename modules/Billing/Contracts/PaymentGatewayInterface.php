@@ -4,6 +4,9 @@ namespace Modules\Billing\Contracts;
 
 interface PaymentGatewayInterface
 {
+    const COMPLETED_URL = '/payment/checkout/%d/completed';
+    const CANCELLED_URL = '/payment/checkout/%d/cancelled';
+
     /**
      * @return mixed
      */
