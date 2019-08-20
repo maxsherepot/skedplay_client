@@ -1,0 +1,27 @@
+{
+  "name": "skidplay",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.0.1",
+    "@apollo/react-ssr": "^3.0.1",
+    "apollo-boost": "^0.4.4",
+    "apollo-link-context": "^1.0.18",
+    "cookie": "^0.4.0",
+    "formik": "^1.5.8",
+    "graphql": "^14.4.2",
+    "https-proxy-agent": "^2.2.2",
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.15",
+    "next": "9.0.4",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-recaptcha": "^2.3.10",
+    "yup": "^0.27.0"
+  }
+}
