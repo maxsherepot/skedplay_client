@@ -1,3 +1,5 @@
+import "static/css/main.css";
+
 import App from "next/app";
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
