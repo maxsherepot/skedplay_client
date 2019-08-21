@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import transformGraphQLValidationErrors from "utils";
 import Captcha from "components/Captcha";
+import { InputField } from "components/forms";
 
 const LoginForm = ({ onSubmit }) => {
   return (
     <Formik
-      initialValues={{ username: "", password: "", recaptcha: "" }}
+      initialValues={{ phone_number: "", password: "", recaptcha: "" }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().required(),
+        phone_number: Yup.string().required(), // Todo: add phone number validation
         password: Yup.string().required(),
         recaptcha: Yup.string().required()
       })}
@@ -28,18 +29,31 @@ const LoginForm = ({ onSubmit }) => {
         setSubmitting(false);
       }}
     >
-      {({ handleSubmit, isSubmitting, setFieldValue }) => (
+      {({ handleSubmit, isSubmitting, setFieldValue, touched, errors }) => (
         <Form onSubmit={handleSubmit}>
-          <Field type="email" name="username" />
-          <ErrorMessage name="username" component="div" />
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" component="div" />
+          <InputField
+            label="Phone number"
+            name="phone_number"
+            error={
+              touched.phone_number && errors.phone_number
+                ? errors.phone_number
+                : null
+            }
+          />
+
+          <InputField
+            label="Password"
+            name="password"
+            error={touched.password && errors.password ? errors.password : null}
+          />
+
           <Field
             name="recaptcha"
             setFieldValue={setFieldValue}
             component={Captcha}
           />
           <ErrorMessage name="recaptcha" component="div" />
+
           <button type="submit" disabled={isSubmitting}>
             Login
           </button>
