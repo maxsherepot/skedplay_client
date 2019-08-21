@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Recaptcha from "react-recaptcha";
+import classNames from "classnames";
 
 // Todo: rewrite to function component with use hooks
 class Captcha extends Component {
@@ -13,17 +14,20 @@ class Captcha extends Component {
   }
 
   render() {
-    const { key, setFieldValue } = this.props;
+    const { key, setFieldValue, error } = this.props;
 
     return (
-      <Recaptcha
-        sitekey={key}
-        render="explicit"
-        verifyCallback={response => {
-          setFieldValue("recaptcha", response);
-        }}
-        onloadCallback={() => {}}
-      />
+      <div className={classNames("form-group", { error })}>
+        {error && <label>{error}</label>}
+        <Recaptcha
+          sitekey={key}
+          render="explicit"
+          verifyCallback={response => {
+            setFieldValue("recaptcha", response);
+          }}
+          onloadCallback={() => {}}
+        />
+      </div>
     );
   }
 }

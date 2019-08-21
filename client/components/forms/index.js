@@ -5,6 +5,7 @@ import BirthdayInput from "components/forms/BirthdayInput";
 /**
  * Inputs
  */
-import InputField from "components/forms/InputField";
+import TextField from "components/forms/TextField";
+import CheckboxField from "components/forms/CheckboxField";
 
-export { LoginForm, RegisterForm, BirthdayInput, InputField };
+export { LoginForm, RegisterForm, BirthdayInput, TextField, CheckboxField };

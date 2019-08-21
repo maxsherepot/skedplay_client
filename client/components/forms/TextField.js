@@ -3,23 +3,26 @@ import PropTypes from "prop-types";
 import { Field } from "formik";
 import classNames from "classnames";
 
-function InputField({ label, name, error }) {
+function TextField({ className, label, name, error }) {
   return (
-    <div className={classNames("form-group", { error })}>
+    <div className={classNames("form-group", className, { error })}>
       <label htmlFor={name}>{error ? error : label}</label>
 
       <Field
         name={name}
-        render={({ field }) => <input className="form-control" {...field} />}
+        render={({ field }) => (
+          <input type="text" id={name} className="form-control" {...field} />
+        )}
       />
     </div>
   );
 }
 
-InputField.propTypes = {
+TextField.propTypes = {
+  className: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   error: PropTypes.string
 };
 
-export default InputField;
+export default TextField;

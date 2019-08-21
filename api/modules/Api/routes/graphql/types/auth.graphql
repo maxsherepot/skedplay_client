@@ -1,99 +1,100 @@
 input LoginInput {
-    username: String!
-    password: String!
-    recaptcha: String!
+  username: String!
+  password: String!
+  recaptcha: String!
+  remember_me: Boolean
 }
 
 input ForgotPasswordInput {
-    phone: String!
-    recaptcha: String!
+  phone: String!
+  recaptcha: String!
 }
 
 input NewPasswordWithCodeInput {
-    code: String!
-    phone: String!
-    password: String!
-    password_confirmation: String!
+  code: String!
+  phone: String!
+  password: String!
+  password_confirmation: String!
 }
 
 input RefreshTokenInput {
-    refresh_token: String
+  refresh_token: String
 }
 
 input RegisterInput {
-    account_type: String!
-    plan_id: Int
-    first_name: String!
-    last_name: String
-    gender: Int
-    birthday: Date
-    club_type_id: Int
-    phone: String!
-    email: String!
-    lat: String
-    lng: String
-    password: String!
-    password_confirmation: String!
-    recaptcha: String!
+  account_type: String!
+  plan_id: Int
+  first_name: String!
+  last_name: String
+  gender: Int
+  birthday: Date
+  club_type_id: Int
+  phone: String!
+  email: String!
+  lat: String
+  lng: String
+  password: String!
+  password_confirmation: String!
+  recaptcha: String!
 }
 
 type RegisterPayload {
-    access_token: String!
-    user: User!
+  access_token: String!
+  user: User!
 }
 
 type AuthPayload {
-    access_token: String!
-    refresh_token: String!
-    expires_in: Int!
-    token_type: String!
-    user: User!
+  access_token: String!
+  refresh_token: String!
+  expires_in: Int!
+  token_type: String!
+  user: User!
 }
 
 type RefrestTokenPayload {
-    access_token: String!
-    refresh_token: String!
-    expires_in: Int!
-    token_type: String!
+  access_token: String!
+  refresh_token: String!
+  expires_in: Int!
+  token_type: String!
 }
 
 input SendVerificationInput {
-    phone: String!
+  phone: String!
 }
 
 input CheckVerificationInput {
-    code: String!
-    phone: String!
+  code: String!
+  phone: String!
 }
 
 type StatusWithExpiriesPayload implements Status {
-    expires_at: String
-    status: Boolean!
-    message: String
+  expires_at: String
+  status: Boolean!
+  message: String
 }
 
 extend type Mutation {
-    register(input: RegisterInput! @spread): RegisterPayload
+  register(input: RegisterInput! @spread): RegisterPayload
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\RegisterController@register")
 
-    login(input: LoginInput! @spread): AuthPayload!
+  login(input: LoginInput! @spread): AuthPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@login")
 
-    logout: StatusPayload!
+  logout: StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@logout")
 
-    forgotPassword(input: ForgotPasswordInput! @spread): StatusWithExpiriesPayload!
+  forgotPassword(input: ForgotPasswordInput! @spread): StatusWithExpiriesPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@forgotPassword")
 
-    resetPassword(input: NewPasswordWithCodeInput! @spread): StatusPayload!
+  resetPassword(input: NewPasswordWithCodeInput! @spread): StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@resetPassword")
 
-    refreshToken(input: RefreshTokenInput! @spread): RefrestTokenPayload!
+  refreshToken(input: RefreshTokenInput! @spread): RefrestTokenPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@refreshToken")
 
-    sendVerificationCode(input: SendVerificationInput! @spread): StatusWithExpiriesPayload!
+  sendVerificationCode(input: SendVerificationInput! @spread): StatusWithExpiriesPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\VerificationController@send")
 
-    checkVerificationCode(input: CheckVerificationInput! @spread): StatusPayload!
+  checkVerificationCode(input: CheckVerificationInput! @spread): StatusPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\VerificationController@check")
 }
