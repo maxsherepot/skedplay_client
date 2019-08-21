@@ -1,5 +1,5 @@
 input LoginInput {
-  username: String!
+  phone: String!
   password: String!
   recaptcha: String!
   remember_me: Boolean

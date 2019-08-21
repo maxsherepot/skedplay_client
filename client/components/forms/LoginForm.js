@@ -12,13 +12,13 @@ const LoginForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{
-        phone_number: "",
+        phone: "",
         password: "",
         recaptcha: "",
         remember_me: ""
       }}
       validationSchema={Yup.object().shape({
-        phone_number: Yup.string().required(), // Todo: add phone number validation
+        phone: Yup.string().required(), // Todo: add phone number validation
         password: Yup.string().required(),
         recaptcha: Yup.string().required(),
         remember_me: Yup.bool()
@@ -31,7 +31,6 @@ const LoginForm = ({ onSubmit }) => {
             }
           });
         } catch (e) {
-          console.log(e.graphQLErrors);
           setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
         }
         setSubmitting(false);
@@ -42,16 +41,13 @@ const LoginForm = ({ onSubmit }) => {
           <TextField
             className="mt-4"
             label="Phone number"
-            name="phone_number"
-            error={
-              touched.phone_number && errors.phone_number
-                ? errors.phone_number
-                : null
-            }
+            name="phone"
+            error={touched.phone && errors.phone ? errors.phone : null}
           />
 
           <TextField
             label="Password"
+            type="password"
             name="password"
             error={touched.password && errors.password ? errors.password : null}
           />

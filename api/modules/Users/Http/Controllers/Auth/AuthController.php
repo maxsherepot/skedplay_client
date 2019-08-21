@@ -43,10 +43,11 @@ class AuthController extends BaseAuthResolver
     public function login(LoginRequest $request): array
     {
         $credentials = $this->buildCredentials($request->all());
+        \Log::info('ttt', $credentials);
         $response = $this->makeRequest($credentials);
 
         $model = app(config('auth.providers.users.model'));
-        $user = $model->where('email', $request->get('username'))->firstOrFail();
+        $user = $model->where('phone', $request->get('phone'))->firstOrFail();
         $response['user'] = $user;
 
         return $response;
