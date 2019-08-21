@@ -2,14 +2,14 @@ import gql from "graphql-tag";
 
 export const LOGIN_USER = gql`
   mutation login(
-    $phone: String!
+    $username: String!
     $password: String!
     $recaptcha: String!
     $remember_me: Boolean
   ) {
     login(
       input: {
-        phone: $phone
+        username: $username
         password: $password
         recaptcha: $recaptcha
         remember_me: $remember_me

@@ -15,7 +15,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone'         => 'required',
+            'username'      => 'required',
             'password'      => 'required',
             'recaptcha'     => ['bail', 'required', 'string', new CaptchaRule],
             'remember_me'   => 'nullable|boolean',

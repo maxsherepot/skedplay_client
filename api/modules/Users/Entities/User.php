@@ -63,6 +63,17 @@ class User extends AuthUser implements EmployeeOwnerInterface
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * Find the user instance for the given username.
+     *
+     * @param  string  $username
+     * @return \Modules\Users\Entities\User
+     */
+    public function findForPassport($username)
+    {
+        return $this->where('phone', $username)->first();
+    }
+
+    /**
      * This mutator automatically hashes the password.
      *
      * @var string

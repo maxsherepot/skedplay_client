@@ -12,13 +12,13 @@ const LoginForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{
-        phone: "",
+        username: "",
         password: "",
         recaptcha: "",
         remember_me: ""
       }}
       validationSchema={Yup.object().shape({
-        phone: Yup.string().required(), // Todo: add phone number validation
+        username: Yup.string().required(), // Todo: add phone number validation
         password: Yup.string().required(),
         recaptcha: Yup.string().required(),
         remember_me: Yup.bool()
@@ -41,8 +41,8 @@ const LoginForm = ({ onSubmit }) => {
           <TextField
             className="mt-4"
             label="Phone number"
-            name="phone"
-            error={touched.phone && errors.phone ? errors.phone : null}
+            name="username"
+            error={touched.username && errors.username ? errors.username : null}
           />
 
           <TextField
