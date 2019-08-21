@@ -4,29 +4,31 @@ import Link from "next/link";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import LoginBox from "components/LoginBox";
+import RegisterBox from "components/RegisterBox";
 
-function Login() {
+function Register() {
   return (
     <Fragment>
-      <LoginBox />
+      <RegisterBox />
       <hr />
-      New?{" "}
-      <Link href="/register">
-        <a>Register</a>
+      Already have an account?{" "}
+      <Link href="/login">
+        <a>Sign in</a>
       </Link>
     </Fragment>
   );
 }
 
-Login.getInitialProps = async ctx => {
+Register.getInitialProps = async ctx => {
   const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 
   if (loggedInUser.me) {
+    // Already signed in? No need to continue.
+    // Throw them back to the main page
     redirect(ctx, "/");
   }
 
   return {};
 };
 
-export default Login;
+export default Register;
