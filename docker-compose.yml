@@ -32,6 +32,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 8080:8080
     volumes:
       - ./.docker/caddy/Caddyfile:/etc/Caddyfile
       - ./.docker/caddy/caddyssl:/etc/caddycerts
@@ -45,7 +46,7 @@ services:
     container_name: "skidplay_node"
     tty: true
     ports:
-      - 8080:8080
+      - 3000:3000
     volumes:
       - ./client:/app
     depends_on:

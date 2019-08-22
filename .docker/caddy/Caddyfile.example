@@ -1,4 +1,11 @@
 http://demo.local {
+    proxy / node:3000 {
+        transparent
+    }
+}
+
+
+http://demo.local:8080 {
     tls off
     root /app/public
     gzip
