@@ -3,12 +3,24 @@ import React, { Fragment } from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
+import Logo from "components/Logo";
+import ArrowBack from "components/ArrowBack";
 import RegisterBox from "components/RegisterBox";
+import Modal from "components/Modal";
+import AnimationBackground from "components/AnimationBackground";
 
 function Register() {
   return (
     <Fragment>
-      <RegisterBox />
+      <AnimationBackground />
+      <Modal
+        logo={<Logo />}
+        title="Sing up"
+        left={<ArrowBack href="/" title="Back" />}
+        right={<div className="block">EN</div> /** Move to language selector */}
+      >
+        <RegisterBox />
+      </Modal>
     </Fragment>
   );
 }

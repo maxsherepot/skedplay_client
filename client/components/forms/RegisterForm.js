@@ -1,11 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
+import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
+import { TextField } from "components/forms";
 import Captcha from "components/Captcha";
-import { BirthdayInput } from "components/forms";
 
 const RegisterForm = ({ onSubmit }) => {
   return (
@@ -48,37 +49,43 @@ const RegisterForm = ({ onSubmit }) => {
         setSubmitting(false);
       }}
     >
-      {({ handleSubmit, isSubmitting, setFieldValue }) => (
+      {({ handleSubmit, isSubmitting, setFieldValue, touched, errors }) => (
         <Form onSubmit={handleSubmit}>
-          <Field type="text" name="first_name" placeholder="First name" />
-          <ErrorMessage name="first_name" component="div" />
-          <Field type="text" name="phone" placeholder="Phone" />
-          <ErrorMessage name="phone" component="div" />
-          <Field type="text" name="email" placeholder="Email" />
-          <ErrorMessage name="email" component="div" />
+          {/** Add multistep logic */}
+          <div className="block text-lg text-center mt-4 font-medium">
+            Step 1 / 3
+          </div>
 
-          <Field type="text" name="gender" placeholder="Gender" />
-          <ErrorMessage name="gender" component="div" />
-
-          <BirthdayInput />
-
-          <Field type="password" name="password" placeholder="Password" />
-          <ErrorMessage name="password" component="div" />
-          <Field
-            type="password"
-            name="password_confirmation"
-            placeholder="Password confirmation"
+          <TextField
+            className="mt-4"
+            label="Phone number"
+            name="username"
+            error={touched.username && errors.username ? errors.username : null}
           />
-          <ErrorMessage name="password_confirmation" component="div" />
-          <Field
-            name="recaptcha"
-            setFieldValue={setFieldValue}
-            component={Captcha}
-          />
-          <ErrorMessage name="recaptcha" component="div" />
-          <button type="submit" disabled={isSubmitting}>
-            Register
+
+          <div className="flex justify-center my-4">
+            <Field
+              name="recaptcha"
+              setFieldValue={setFieldValue}
+              error={
+                touched.password && errors.password ? errors.password : null
+              }
+              component={Captcha}
+            />
+          </div>
+
+          <div className="block text-xs text-center leading-normal mb-8 px-6">
+            By clicking the “sing up” button, I agree to the terms of service
+            and personal data processing policy
+          </div>
+          <button className="btn text-xl" type="submit" disabled={isSubmitting}>
+            Next step
           </button>
+          <Link href="/login">
+            <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
+              Already have an account
+            </a>
+          </Link>
         </Form>
       )}
     </Formik>
