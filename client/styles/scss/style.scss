@@ -1,0 +1,14 @@
+@import "fonts";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+.container {
+  padding: 0 20px;
+}
