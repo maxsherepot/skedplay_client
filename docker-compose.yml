@@ -38,6 +38,7 @@ services:
       - ./api:/app
     depends_on:
       - app
+      - node
 
   node:
     build: .docker/node

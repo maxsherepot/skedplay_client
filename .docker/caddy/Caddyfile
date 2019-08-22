@@ -1,4 +1,5 @@
 http://demo.local {
+    proxy / node:3000
     tls off
     root /app/public
     gzip
