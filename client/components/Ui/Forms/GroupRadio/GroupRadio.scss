@@ -1,0 +1,25 @@
+.group-radio {
+  @apply flex bg-white rounded-full;
+  padding: 5px;
+  input[type='radio'] {
+    display: none;
+
+    & + label {
+      @apply text-xs text-black rounded-full bg-white cursor-pointer px-5 transition font-medium;
+      line-height: 40px;
+      height: 40px;
+
+      &:hover {
+        @apply text-red;
+      }
+
+    }
+    &:checked + label {
+      @apply bg-red text-white;
+    }
+
+    @screen md {
+      @apply text-lg;
+    }
+  }
+}
