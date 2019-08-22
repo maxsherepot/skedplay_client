@@ -1,13 +1,15 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Field } from "formik";
+import { Field, useFormikContext } from "formik";
 
-function CheckboxField({ label, name, error }) {
+function CheckboxField({ label, name }) {
+  const { touched, errors } = useFormikContext();
+  const error = touched[name] && errors[name] ? errors[name] : null;
+
   return (
-    <Field
-      name={name}
-      render={({ field }) => (
-        <Fragment>
+    <Field name={name}>
+      {({ field }) => (
+        <>
           <input
             type="checkbox"
             id={name}
@@ -17,16 +19,15 @@ function CheckboxField({ label, name, error }) {
           <label htmlFor={name}>
             <span /> {error ? error : label}
           </label>
-        </Fragment>
+        </>
       )}
-    />
+    </Field>
   );
 }
 
 CheckboxField.propTypes = {
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  error: PropTypes.string
+  name: PropTypes.string.isRequired
 };
 
 export default CheckboxField;

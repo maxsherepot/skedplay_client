@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
@@ -36,33 +36,15 @@ const LoginForm = ({ onSubmit }) => {
         setSubmitting(false);
       }}
     >
-      {({ handleSubmit, isSubmitting, setFieldValue, touched, errors }) => (
-        <Form onSubmit={handleSubmit}>
-          <TextField
-            className="mt-4"
-            label="Phone number"
-            name="username"
-            error={touched.username && errors.username ? errors.username : null}
-          />
+      {({ handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
+          <TextField className="mt-4" label="Phone number" name="username" />
 
-          <TextField
-            label="Password"
-            type="password"
-            name="password"
-            error={touched.password && errors.password ? errors.password : null}
-          />
+          <TextField label="Password" type="password" name="password" />
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
-              <CheckboxField
-                label="Remember me"
-                name="remember_me"
-                error={
-                  touched.remember_me && errors.remember_me
-                    ? errors.remember_me
-                    : null
-                }
-              />
+              <CheckboxField label="Remember me" name="remember_me" />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">
@@ -74,14 +56,7 @@ const LoginForm = ({ onSubmit }) => {
           </div>
 
           <div className="flex justify-center my-5">
-            <Field
-              name="recaptcha"
-              setFieldValue={setFieldValue}
-              error={
-                touched.password && errors.password ? errors.password : null
-              }
-              component={Captcha}
-            />
+            <Field name="recaptcha" as={Captcha} />
           </div>
 
           <button type="submit" className="btn text-xl" disabled={isSubmitting}>
@@ -93,7 +68,7 @@ const LoginForm = ({ onSubmit }) => {
               Create account
             </a>
           </Link>
-        </Form>
+        </form>
       )}
     </Formik>
   );

@@ -60,6 +60,7 @@ type RefrestTokenPayload {
 
 input SendVerificationInput {
   phone: String!
+  recaptcha: String!
 }
 
 input CheckVerificationInput {

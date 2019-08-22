@@ -5,7 +5,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import Logo from "components/Logo";
 import ArrowBack from "components/ArrowBack";
-import RegisterBox from "components/RegisterBox";
+import { RegisterBox } from "components/Registration";
 import Modal from "components/Modal";
 import AnimationBackground from "components/ui/AnimationBackground/AnimationBackground";
 
