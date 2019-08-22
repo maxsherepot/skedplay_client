@@ -6,9 +6,6 @@ public/sitemaps
 config/front.php
 vendor
 .idea
-.docker/caddy/caddyssl
-.docker/caddy/Caddyfile
-
 Homestead.json
 Homestead.yaml
 .phpstorm.meta.php

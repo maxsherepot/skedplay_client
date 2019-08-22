@@ -1,2 +1,7 @@
 .idea
 .vscode
+
+.docker/caddy/caddyssl
+.docker/caddy/Caddyfile
+.docker/mysql/.env
+.docker/centrifugo/config.json
