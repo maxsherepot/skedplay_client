@@ -1,6 +1,7 @@
 import React from "react";
+import './AnimationBackground.scss'
 
-function AnimationBackgorund() {
+function AnimationBackground() {
   return (
     <div className="animation-background">
       <div className="animation-gradient">
@@ -14,4 +15,4 @@ function AnimationBackgorund() {
   );
 }
 
-export default AnimationBackgorund;
+export default AnimationBackground;

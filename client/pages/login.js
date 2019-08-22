@@ -7,7 +7,7 @@ import Logo from "components/Logo";
 import ArrowBack from "components/ArrowBack";
 import Modal from "components/Modal";
 import LoginBox from "components/LoginBox";
-import AnimationBackground from "components/AnimationBackground";
+import AnimationBackground from "components/ui/AnimationBackground/AnimationBackground";
 
 function Login() {
   return (

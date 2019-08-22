@@ -1,0 +1,42 @@
+.animation-background {
+  z-index: -1;
+  @apply fixed top-0 left-0 w-full h-screen;
+  .animation-gradient {
+    height: 57.6%;
+    @apply block w-full relative;
+    &_full {
+      @apply h-full;
+    }
+  }
+  &__angle {
+    @apply absolute left-0 w-full z-10;
+    bottom: -1px;
+    max-width: calc(100% + 1px);
+  }
+  &__footer {
+    height: 42.4%;
+    @apply block w-full bg-xs-grey;
+  }
+}
+
+.animation-gradient {
+  background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.shadow-down-gradient {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 68.67%)
+}

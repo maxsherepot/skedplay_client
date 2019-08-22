@@ -7,7 +7,7 @@ import Logo from "components/Logo";
 import ArrowBack from "components/ArrowBack";
 import RegisterBox from "components/RegisterBox";
 import Modal from "components/Modal";
-import AnimationBackground from "components/AnimationBackground";
+import AnimationBackground from "components/ui/AnimationBackground/AnimationBackground";
 
 function Register() {
   return (
