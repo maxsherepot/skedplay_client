@@ -1,9 +1,6 @@
 http://demo.local {
-    proxy / node:3000 {
-        transparent
-    }
+    proxy / node:3000
 }
-
 
 http://demo.local:8080 {
     tls off

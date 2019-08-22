@@ -1,18 +1,16 @@
+import "./../FormControl/FormControl.scss";
+
 import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
-import classNames from "classnames";
+import { FormGroup } from "components/ui";
 
 function TextField({ className, label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
   return (
-    <div
-      className={classNames("form-group", className, {
-        error
-      })}
-    >
+    <FormGroup className={className} error={error ? true : false}>
       <label htmlFor={name}>{error ? error : label}</label>
 
       <Field name={name}>
@@ -20,7 +18,7 @@ function TextField({ className, label, name, ...rest }) {
           <input {...rest} id={name} className="form-control" {...field} />
         )}
       </Field>
-    </div>
+    </FormGroup>
   );
 }
 

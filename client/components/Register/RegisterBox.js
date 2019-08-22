@@ -5,7 +5,7 @@ import { Field } from "formik";
 import * as Yup from "yup";
 
 import { REGISTER_USER, SEND_VERTIFICATION_CODE } from "queries";
-import { TextField } from "components/forms";
+import { TextField } from "components/ui";
 import Captcha from "components/Captcha";
 import { RegisterForm } from "components/Register";
 
