@@ -24,30 +24,14 @@ const RegisterBox = () => {
     onCompleted
   });
 
-  const Page1 = props => (
-    <div>
-      {console.log(props) || (
-        <div>
-          <label>First Name</label>
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <RegisterForm onSubmit={register}>
       <RegisterForm.Step>
         <TextField className="mt-4" label="Phone number" name="phone" />
 
-        {/* <div className="flex justify-center my-4">
-          <Field
-            name="recaptcha"
-            setFieldValue={setFieldValue}
-            error={touched.password && errors.password ? errors.password : null}
-            component={Captcha}
-          />
+        <div className="flex justify-center my-4">
+          <Field name="recaptcha" as={Captcha} />
         </div>
-        <Page1 /> */}
 
         <div className="block text-xs text-center leading-normal mb-8 px-6">
           By clicking the “sing up” button, I agree to the terms of service and
