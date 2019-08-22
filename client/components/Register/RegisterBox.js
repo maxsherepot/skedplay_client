@@ -4,10 +4,10 @@ import redirect from "lib/redirect";
 import { Field } from "formik";
 import * as Yup from "yup";
 
-import { REGISTER_USER } from "queries";
+import { REGISTER_USER, SEND_VERTIFICATION_CODE } from "queries";
 import { TextField } from "components/forms";
 import Captcha from "components/Captcha";
-import { RegisterForm } from "components/Registration";
+import { RegisterForm } from "components/Register";
 
 const step1ValidationSchema = Yup.object().shape({
   phone: Yup.string().required(),
@@ -33,12 +33,12 @@ const RegisterBox = () => {
     onCompleted
   });
 
-  // const [register] = useMutation(REGISTER_USER, {
-  //   onCompleted
-  // });
+  const [sendCode] = useMutation(SEND_VERTIFICATION_CODE, {
+    onCompleted
+  });
 
-  const onStep1Submit = () => {
-    console.log(1121);
+  const onStep1Submit = values => {
+    console.log(values);
   };
 
   // Yup.object().shape({

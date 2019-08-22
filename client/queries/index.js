@@ -1,4 +1,7 @@
-import { LOGIN_USER } from "queries/loginQuery";
-import { REGISTER_USER } from "queries/registerQuery";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  SEND_VERTIFICATION_CODE
+} from "queries/authQuery";
 
-export { LOGIN_USER, REGISTER_USER };
+export { LOGIN_USER, REGISTER_USER, SEND_VERTIFICATION_CODE };
