@@ -7,11 +7,14 @@ import * as Yup from "yup";
 import { REGISTER_USER } from "queries";
 import { TextField } from "components/forms";
 import Captcha from "components/Captcha";
-import { RegisterForm } from "components/forms/registration";
+import { RegisterForm } from "components/Registration";
 
 const step1ValidationSchema = Yup.object().shape({
   phone: Yup.string().required(),
   recaptcha: Yup.string().required()
+});
+const step2ValidationSchema = Yup.object().shape({
+  confirmation_code: Yup.string().required()
 });
 
 const RegisterBox = () => {
@@ -29,6 +32,10 @@ const RegisterBox = () => {
   const [register] = useMutation(REGISTER_USER, {
     onCompleted
   });
+
+  // const [register] = useMutation(REGISTER_USER, {
+  //   onCompleted
+  // });
 
   const onStep1Submit = () => {
     console.log(1121);
@@ -50,7 +57,12 @@ const RegisterBox = () => {
         validationSchema={step1ValidationSchema}
         onStepSubmit={onStep1Submit}
       >
-        <TextField className="mt-4" label="Phone number" name="phone" />
+        <TextField
+          className="mt-4"
+          label="Phone number"
+          name="phone"
+          placeholder="+417"
+        />
 
         <div className="flex justify-center my-4">
           <Field name="recaptcha" as={Captcha} />
@@ -62,8 +74,13 @@ const RegisterBox = () => {
         </div>
       </RegisterForm.Step>
 
-      <RegisterForm.Step>
-        <TextField className="mt-4" label="Code verify" name="verify" />
+      <RegisterForm.Step validationSchema={step2ValidationSchema}>
+        <TextField
+          className="mt-4"
+          label="Confirmation code"
+          name="confirmation_code"
+          placeholder="Enter code"
+        />
       </RegisterForm.Step>
     </RegisterForm>
   );

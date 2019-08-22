@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 import classNames from "classnames";
 
-function TextField({ className, label, name, type }) {
+function TextField({ className, label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
@@ -17,7 +17,7 @@ function TextField({ className, label, name, type }) {
 
       <Field name={name}>
         {({ field }) => (
-          <input type={type} id={name} className="form-control" {...field} />
+          <input {...rest} id={name} className="form-control" {...field} />
         )}
       </Field>
     </div>
