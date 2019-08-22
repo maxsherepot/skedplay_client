@@ -6,8 +6,8 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import Logo from "components/Logo";
 import ArrowBack from "components/ArrowBack";
 import { RegisterBox } from "components/Register";
-import Modal from "components/Modal";
-import AnimationBackground from "components/ui/AnimationBackground/AnimationBackground";
+import Modal from "components/Ui/Modal";
+import AnimationBackground from "components/Ui/AnimationBackground";
 
 function Register() {
   return (
