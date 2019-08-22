@@ -2,11 +2,17 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import cookie from "cookie";
 import redirect from "lib/redirect";
 import { Field } from "formik";
+import * as Yup from "yup";
 
 import { REGISTER_USER } from "queries";
 import { TextField } from "components/forms";
 import Captcha from "components/Captcha";
 import { RegisterForm } from "components/forms/registration";
+
+const step1ValidationSchema = Yup.object().shape({
+  phone: Yup.string().required(),
+  recaptcha: Yup.string().required()
+});
 
 const RegisterBox = () => {
   const client = useApolloClient();
@@ -24,9 +30,26 @@ const RegisterBox = () => {
     onCompleted
   });
 
+  const onStep1Submit = () => {
+    console.log(1121);
+  };
+
+  // Yup.object().shape({
+  //   account_type: Yup.string().required(),
+  //   first_name: Yup.string().required(),
+  //   email: Yup.string().required(),
+  //   gender: Yup.number().required(),
+  //   birthday: Yup.string().required(),
+  //   password: Yup.string().required(),
+  //   password_confirmation: Yup.string().required()
+  // });
+
   return (
     <RegisterForm onSubmit={register}>
-      <RegisterForm.Step>
+      <RegisterForm.Step
+        validationSchema={step1ValidationSchema}
+        onStepSubmit={onStep1Submit}
+      >
         <TextField className="mt-4" label="Phone number" name="phone" />
 
         <div className="flex justify-center my-4">

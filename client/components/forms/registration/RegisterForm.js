@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
-import * as Yup from "yup";
 import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
-
-// Old version submit function
 
 function RegisterForm({ onSubmit, children }) {
   const [step, setStep] = useState(0);
@@ -22,9 +19,21 @@ function RegisterForm({ onSubmit, children }) {
     setStep(Math.min(step + 1, children.length - 1));
   };
 
+  const validate = values => {
+    if (activeStep.props.validationSchema) {
+      try {
+        validateYupSchema(values, activeStep.props.validationSchema, true);
+      } catch (err) {
+        return yupToFormErrors(err);
+      }
+    }
+
+    return {};
+  };
+
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
-    if (activeStep.props.onPageSubmit) {
-      await activeStep.props.onPageSubmit();
+    if (activeStep.props.onStepSubmit) {
+      await activeStep.props.onStepSubmit();
     }
     if (isLastStep) {
       try {
@@ -36,7 +45,6 @@ function RegisterForm({ onSubmit, children }) {
       } catch (e) {
         setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
       }
-
       return;
     }
 
@@ -57,28 +65,18 @@ function RegisterForm({ onSubmit, children }) {
         password_confirmation: "",
         recaptcha: ""
       }}
-      validationSchema={Yup.object().shape({
-        account_type: Yup.string().required(),
-        first_name: Yup.string().required(),
-        phone: Yup.string().required(),
-        email: Yup.string().required(),
-        gender: Yup.number().required(),
-        birthday: Yup.string().required(),
-        password: Yup.string().required(),
-        password_confirmation: Yup.string().required(),
-        recaptcha: Yup.string().required()
-      })}
+      validate={validate}
       onSubmit={handleSubmits}
     >
       {({ handleSubmit, isSubmitting }) => (
-        <Form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="block text-lg text-center mt-4 font-medium">
             Step {step + 1} / 3
           </div>
 
           {activeStep}
 
-          <button className="btn text-xl" type="submit" disabled={isSubmitting}>
+          <button type="submit" className="btn text-xl" disabled={isSubmitting}>
             Next step
           </button>
           <Link href="/login">
@@ -86,7 +84,7 @@ function RegisterForm({ onSubmit, children }) {
               Already have an account
             </a>
           </Link>
-        </Form>
+        </form>
       )}
     </Formik>
   );

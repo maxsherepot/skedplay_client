@@ -36,7 +36,7 @@ const LoginForm = ({ onSubmit }) => {
         setSubmitting(false);
       }}
     >
-      {({ handleSubmit, isSubmitting, setFieldValue, touched, errors }) => (
+      {({ handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <TextField className="mt-4" label="Phone number" name="username" />
 
