@@ -6,11 +6,43 @@ import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
 
+// Old version submit function
+
 function RegisterForm({ onSubmit, children }) {
   const [step, setStep] = useState(0);
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
+
+  const previous = () => {
+    setStep(Math.max(step - 1, 0));
+  };
+
+  const next = () => {
+    setStep(Math.min(step + 1, children.length - 1));
+  };
+
+  const handleSubmits = async (values, { setSubmitting, setErrors }) => {
+    if (activeStep.props.onPageSubmit) {
+      await activeStep.props.onPageSubmit();
+    }
+    if (isLastStep) {
+      try {
+        await onSubmit({
+          variables: {
+            ...values
+          }
+        });
+      } catch (e) {
+        setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
+      }
+
+      return;
+    }
+
+    setSubmitting(false);
+    next();
+  };
 
   return (
     <Formik
@@ -36,18 +68,7 @@ function RegisterForm({ onSubmit, children }) {
         password_confirmation: Yup.string().required(),
         recaptcha: Yup.string().required()
       })}
-      onSubmit={async (values, { setSubmitting, setErrors }) => {
-        try {
-          await onSubmit({
-            variables: {
-              ...values
-            }
-          });
-        } catch (e) {
-          setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
-        }
-        setSubmitting(false);
-      }}
+      onSubmit={handleSubmits}
     >
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>

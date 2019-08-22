@@ -38,6 +38,10 @@ const RegisterBox = () => {
           personal data processing policy
         </div>
       </RegisterForm.Step>
+
+      <RegisterForm.Step>
+        <TextField className="mt-4" label="Code verify" name="verify" />
+      </RegisterForm.Step>
     </RegisterForm>
   );
 };
