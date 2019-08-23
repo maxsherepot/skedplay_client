@@ -32,6 +32,8 @@ class CreateEmployeesTable extends Migration
             $table->string('description')->nullable();
             $table->text('text')->nullable();
 
+            $table->boolean('isVip')->default(false);
+
             $table->string('address')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();

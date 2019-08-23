@@ -24,6 +24,8 @@ class Employee extends Model implements HasMedia, HasLocation
     const TYPE_BOY = 2;
     const TYPE_COUPLE = 3;
 
+    const IS_NEW_DAYS = 3;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -33,8 +35,25 @@ class Employee extends Model implements HasMedia, HasLocation
         'type',
         'race_type_id',
         'description',
-        'text'
+        'text',
+        'isVip'
     ];
+
+    /**
+     * @return string
+     */
+    public function getNameAttribute()
+    {
+        return implode(' ', [$this->first_name, $this->last_name]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsNewAttribute()
+    {
+        return now()->subDays(self::IS_NEW_DAYS) < $this->created_at;
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

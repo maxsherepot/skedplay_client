@@ -14,6 +14,7 @@ use Modules\Users\Services\Imager\Varieties\EventImager;
 
 class EmployeeTableSeeder extends Seeder
 {
+
     use CommonableSeeder;
 
     /**
@@ -26,7 +27,7 @@ class EmployeeTableSeeder extends Seeder
     public function __construct()
     {
         $this->events_imager = (new ImagerWorker(new EventImager()))->imager();
-        $this->faker = \Faker\Factory::create();
+        $this->faker         = \Faker\Factory::create();
     }
 
     /**
@@ -62,7 +63,8 @@ class EmployeeTableSeeder extends Seeder
             'type'        => random_int(1, 3),
             'address'     => $this->faker->address,
             'lat'         => $this->faker->latitude,
-            'lng'         => $this->faker->longitude
+            'lng'         => $this->faker->longitude,
+            'isVip'       => $this->faker->boolean
         ]);
 
         $employee->race_type()->associate(EmployeeRaceType::inRandomOrder()->first());
@@ -83,7 +85,7 @@ class EmployeeTableSeeder extends Seeder
             ->map(function () use ($employee) {
                 $pathToFile = $this->events_imager->random()->getImagePath();
 
-                $employee->addMedia(storage_path('app/' . $pathToFile))
+                $employee->addMedia(storage_path('app/'.$pathToFile))
                     ->preservingOriginal()
                     ->toMediaCollection(Employee::PHOTO_COLLECTION, 'media');
             });
