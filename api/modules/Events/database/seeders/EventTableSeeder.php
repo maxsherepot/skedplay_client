@@ -8,15 +8,20 @@ use Modules\Events\Entities\Event;
 use Modules\Events\Entities\EventType;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
+use Modules\Users\Services\Imager\ImagerWorker;
+use Modules\Users\Services\Imager\Varieties\EventImager;
 
 class EventTableSeeder extends Seeder
 {
+    private $events_imager;
 
     protected $faker;
 
     public function __construct()
     {
+        $this->events_imager = (new ImagerWorker(new EventImager()))->imager();
         $this->faker = \Faker\Factory::create();
+
     }
 
     /**
@@ -58,5 +63,19 @@ class EventTableSeeder extends Seeder
         $event->owner()->associate($owner);
 
         $event->save();
+
+        $this->addAttachments($event);
+    }
+
+    public function addAttachments(Event $event)
+    {
+        collect(range(0, 3))
+            ->map(function () use ($event) {
+                $pathToFile = $this->events_imager->random()->getImagePath();
+
+                $event->addMedia(storage_path('app/'.$pathToFile))
+                    ->preservingOriginal()
+                    ->toMediaCollection(Event::MAIN_PHOTO_COLLECTION, 'media');
+            });
     }
 }

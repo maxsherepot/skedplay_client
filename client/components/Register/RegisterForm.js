@@ -33,7 +33,7 @@ function RegisterForm({ onSubmit, children }) {
 
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
     if (activeStep.props.onStepSubmit) {
-      await activeStep.props.onStepSubmit();
+      await activeStep.props.onStepSubmit(values);
     }
     if (isLastStep) {
       try {
@@ -59,11 +59,10 @@ function RegisterForm({ onSubmit, children }) {
         first_name: "",
         phone: "",
         email: "",
-        gender: 1,
-        birthday: "",
         password: "",
         password_confirmation: "",
-        recaptcha: ""
+        recaptcha: "",
+        code: ""
       }}
       validate={validate}
       onSubmit={handleSubmits}

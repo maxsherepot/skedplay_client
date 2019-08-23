@@ -74,7 +74,7 @@ class ClubTableSeeder extends Seeder
 
                 $club->addMedia(storage_path('app/'.$pathToFile))
                     ->preservingOriginal()
-                    ->toMediaCollection('photos', 'media');
+                    ->toMediaCollection(Club::PHOTO_COLLECTION, 'media');
             });
     }
 }

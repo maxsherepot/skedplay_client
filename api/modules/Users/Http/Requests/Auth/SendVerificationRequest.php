@@ -13,7 +13,7 @@ class SendVerificationRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {        
         return [
             'phone'        => 'bail|required|string|max:255|phone:AUTO,US',
             'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],

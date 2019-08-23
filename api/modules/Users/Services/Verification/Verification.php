@@ -59,7 +59,7 @@ class Verification implements VerificationInterface
             $this->response = $this->success(self::VERIFICATION_SEND_SUCCESS);
 
         } catch (\Exception $e) {
-            $this->response = $this->fail(self::VERIFICATION_CHECK_FAILED);
+            $this->response = $this->fail(self::VERIFICATION_SEND_FAILED);
 
             Log::error('Verification code sending was failed: ' . $e->getMessage());
         }
@@ -78,7 +78,6 @@ class Verification implements VerificationInterface
 
         try {
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
-            static::validatePhoneNumber($phoneNumber);
 
             $code = $this->codeProcessor->generateCode(
                 static::trimPhoneNumber($phoneNumber)
@@ -112,7 +111,6 @@ class Verification implements VerificationInterface
             }
 
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
-            static::validatePhoneNumber($phoneNumber);
 
             $success = $this->codeProcessor->validateCode(
                 $code,
@@ -147,7 +145,6 @@ class Verification implements VerificationInterface
     {
         try {
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
-            static::validatePhoneNumber($phoneNumber);
 
             $success = $this->codeProcessor->validateStatus(
                 static::trimPhoneNumber($phoneNumber)
@@ -201,22 +198,5 @@ class Verification implements VerificationInterface
     private static function trimPhoneNumber(string $phoneNumber): string
     {
         return trim(ltrim($phoneNumber, '+'));
-    }
-
-    /**
-     * Validate phone number
-     * @param string $phoneNumber
-     * @throws ValidationException
-     */
-    protected static function validatePhoneNumber(string $phoneNumber)
-    {
-        // Todo: Add patterns.
-        $patterns = [
-            "\+?1[2-9][0-9]{2}[2-9][0-9]{2}[0-9]{4}", // US
-            "\+?[2-9]\d{9,}", // International
-        ];
-        if (!@preg_match("/^(" . implode('|', $patterns) . ")\$/", $phoneNumber)) {
-            throw new ValidationException('Incorrect phone number was provided');
-        }
     }
 }
