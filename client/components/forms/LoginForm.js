@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
 import Captcha from "components/Captcha";
-import { TextField, Checkbox } from "components/ui";
+import { TextField, Checkbox } from "components/Ui";
 
 const LoginForm = ({ onSubmit }) => {
   return (

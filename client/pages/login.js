@@ -3,11 +3,10 @@ import React, { Fragment } from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
+import { Modal, AnimationBackground } from "components/Ui"
 import Logo from "components/Logo";
 import ArrowBack from "components/ArrowBack";
-import Modal from "components/Ui/Modal";
 import LoginBox from "components/LoginBox";
-import AnimationBackground from "components/Ui/AnimationBackground";
 
 function Login() {
   return (
