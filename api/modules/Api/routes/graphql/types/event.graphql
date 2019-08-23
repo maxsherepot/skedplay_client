@@ -4,6 +4,7 @@ type Event {
     description: String!
     type: EventType! @belongsTo
     club: Club! @belongsTo
+    photos: [Media] @hasMany
 }
 
 input EventInput {

@@ -14,6 +14,7 @@ type Club {
     prices: [Price] @belongsToMany
     services: [Service] @belongsToMany
     events: [Event] @belongsToMany
+    photos: [Media] @hasMany
 }
 
 input ClubInput {

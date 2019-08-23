@@ -11,6 +11,7 @@ type Employee {
     events: [Event] @belongsToMany
     prices: [Price] @belongsToMany
     services: [Service] @belongsToMany
+    photos: [Media] @hasMany
 }
 
 type EmployeeRaceType {

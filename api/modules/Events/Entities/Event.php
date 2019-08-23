@@ -4,11 +4,13 @@ namespace Modules\Events\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Clubs\Entities\Club;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class Event extends Model implements HasMedia
 {
@@ -22,11 +24,6 @@ class Event extends Model implements HasMedia
         'event_type_id',
         'club_id',
     ];
-
-    public function registerMediaCollections()
-    {
-        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION);
-    }
 
     /**
      * @return MorphTo
@@ -50,5 +47,30 @@ class Event extends Model implements HasMedia
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION);
+    }
+
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->height(310)
+            ->performOnCollections(self::MAIN_PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::MAIN_PHOTO_COLLECTION);
     }
 }

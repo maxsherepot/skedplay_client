@@ -4,6 +4,8 @@ namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
 use Modules\Common\Services\Location\HasLocation;
@@ -53,11 +55,20 @@ class Employee extends Model implements HasMedia, HasLocation
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
-    public function events()
+    public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'owner');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::PHOTO_COLLECTION);
     }
 
     public function registerMediaCollections()
@@ -66,18 +77,14 @@ class Employee extends Model implements HasMedia, HasLocation
         $this->addMediaCollection(self::VIDEO_COLLECTION);
     }
 
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null)
     {
-//        $this->addMediaConversion('small')
-//            ->width(160)
-//            ->height(220);
-//
-//        $this->addMediaConversion('medium')
-//            ->width(330)
-//            ->height(460);
-//
-//        $this->addMediaConversion('large')
-//            ->width(535)
-//            ->height(785);
+        $this->addMediaConversion('thumb')
+            ->height(470)
+            ->performOnCollections(self::PHOTO_COLLECTION);
     }
 }

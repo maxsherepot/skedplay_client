@@ -4,6 +4,7 @@ namespace Modules\Clubs\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -86,12 +87,17 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function registerMediaConversions(Media $media = null)
     {
-//        $this->addMediaConversion('medium')
-//            ->width(420)
-//            ->height(275);
-//
-//        $this->addMediaConversion('large')
-//            ->width(535)
-//            ->height(785);
+        $this->addMediaConversion('thumb')
+            ->height(470)
+            ->performOnCollections(self::PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::PHOTO_COLLECTION);
     }
 }
