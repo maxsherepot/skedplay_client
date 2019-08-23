@@ -12,7 +12,7 @@ if (typeof window === "undefined") {
 
 function create(initialState, { getToken, fetchOptions }) {
   const httpLink = createHttpLink({
-    uri: process.env.GRAPHQL_URL,
+    uri: typeof window === "undefined" ?  process.env.GRAPHQL_URL : process.env.GRAPHQL_BROWSER_URL,
     credentials: "same-origin",
     fetchOptions
   });

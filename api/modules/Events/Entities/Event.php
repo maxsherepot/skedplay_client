@@ -11,6 +11,7 @@ use Modules\Clubs\Entities\Club;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Str;
 
 class Event extends Model implements HasMedia
 {
@@ -24,6 +25,14 @@ class Event extends Model implements HasMedia
         'event_type_id',
         'club_id',
     ];
+
+    /**
+     * @return string
+     */
+    public function getShortTitleAttribute()
+    {
+        return Str::limit($this->title, 10, '...');
+    }
 
     /**
      * @return MorphTo
