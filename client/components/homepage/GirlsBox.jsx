@@ -28,7 +28,7 @@ function GirlsBox() {
     if (error) return <div>{error.message}</div>;
 
     return (
-        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-between sm:flex-no-wrap">
+        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-between sm:flex-wrap">
             {employees && employees.data.map(girl => (
                 <div
                     className="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
