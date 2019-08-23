@@ -1,5 +1,3 @@
-import "./../FormControl/FormControl.scss";
-
 import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";

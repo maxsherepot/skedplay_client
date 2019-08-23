@@ -1,4 +1,3 @@
-import "../FormControl/FormControl.scss";
 import "./Checkbox.scss";
 
 import React from "react";
