@@ -3,6 +3,4 @@
 !seeder
 !seeder/clubs
 !seeder/employees
-!seeder/clubs/*
-!seeder/employees/*
 !.gitignore
