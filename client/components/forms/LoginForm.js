@@ -32,9 +32,11 @@ const LoginForm = ({ onSubmit }) => {
             }
           });
         } catch (e) {
+          // Исправить, полная дичь.
           if (
             e &&
             e.graphQLErrors &&
+            e.graphQLErrors[0] &&
             e.graphQLErrors[0].extensions.category === "authentication"
           ) {
             setAuthError(true);
@@ -53,9 +55,11 @@ const LoginForm = ({ onSubmit }) => {
 
           <TextField label="Password" type="password" name="password" />
 
-          <FormGroup className="error text-center">
-            {authError && <span>The user credentials were incorrect.</span>}
-          </FormGroup>
+          {authError && (
+            <FormGroup className="error text-center">
+              <span>The user credentials were incorrect.</span>
+            </FormGroup>
+          )}
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
