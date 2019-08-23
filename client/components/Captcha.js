@@ -33,7 +33,7 @@ function Captcha({ key, name }) {
 }
 
 Captcha.defaultProps = {
-  key: "6LdhMbIUAAAAAJwdU2c6JCp1w4t9yhtzc6aJt0nT"
+  key: process.env.RECAPTCHA_SITE_KEY
 };
 
 Captcha.propTypes = {
