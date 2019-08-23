@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
 import Captcha from "components/Captcha";
-import { TextField } from "components/ui";
+import { TextField, Checkbox } from "components/ui";
 
 const LoginForm = ({ onSubmit }) => {
   return (
@@ -44,7 +44,7 @@ const LoginForm = ({ onSubmit }) => {
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
-              {/* <CheckboxField label="Remember me" name="remember_me" /> */}
+              <Checkbox label="Remember me" name="remember_me" />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">
