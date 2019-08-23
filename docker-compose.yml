@@ -67,7 +67,7 @@ services:
         hard: 65536
 
   app:
-    image: flameplace_app:alpine
+    image: skidplay_app:alpine
     build: .docker/
     container_name: "skidplay_app"
     volumes:
@@ -77,7 +77,7 @@ services:
       - redis
 
   php:
-    image: flameplace_app:alpine
+    image: skidplay_app:alpine
     container_name: "skidplay_php"
     volumes:
       - ./api:/app
