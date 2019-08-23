@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
 use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
+use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Faq;
 use Modules\Main\Entities\FaqItem;
 use Modules\Main\Entities\Page;
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
             'employee'          => Employee::class,
             'user'              => User::class,
             'club'              => Club::class,
+            'event'             => Event::class,
             Page::MORPH_TYPE    => 'Modules\Main\Entities\Page',
             Faq::MORPH_TYPE     => 'Modules\Main\Entities\Faq',
             FaqItem::MORPH_TYPE => 'Modules\Main\Entities\FaqItem',

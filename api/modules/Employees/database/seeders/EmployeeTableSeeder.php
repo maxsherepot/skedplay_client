@@ -9,15 +9,23 @@ use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeRaceType;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
+use Modules\Users\Services\Imager\ImagerWorker;
+use Modules\Users\Services\Imager\Varieties\EventImager;
 
 class EmployeeTableSeeder extends Seeder
 {
     use CommonableSeeder;
 
+    /**
+     * @var \Modules\Users\Services\Imager\RootImager
+     */
+    private $events_imager;
+
     protected $faker;
 
     public function __construct()
     {
+        $this->events_imager = (new ImagerWorker(new EventImager()))->imager();
         $this->faker = \Faker\Factory::create();
     }
 
@@ -27,12 +35,12 @@ class EmployeeTableSeeder extends Seeder
     public function run()
     {
         foreach (User::whereRoleIs(Role::EMPLOYEE_OWNER)->get() as $user) {
-            $this->createGirl($user);
+            $this->createEmployee($user);
         }
 
         foreach (Club::all() as $club) {
             for ($i = 0; $i <= random_int(1, 4); $i++) {
-                $this->createGirl($club);
+                $this->createEmployee($club);
             }
         }
     }
@@ -42,9 +50,9 @@ class EmployeeTableSeeder extends Seeder
      * @return Employee
      * @throws \Exception
      */
-    public function createGirl($owner)
+    public function createEmployee($owner)
     {
-        $girl = new Employee([
+        $employee = new Employee([
             'first_name'  => $this->faker->firstName,
             'last_name'   => $this->faker->lastName,
             'gender'      => $this->faker->randomElement(User::REGISTER_GENDERS),
@@ -57,13 +65,27 @@ class EmployeeTableSeeder extends Seeder
             'lng'         => $this->faker->longitude
         ]);
 
-        $girl->race_type()->associate(EmployeeRaceType::inRandomOrder()->first());
-        $girl->owner()->associate($owner);
-        $girl->save();
+        $employee->race_type()->associate(EmployeeRaceType::inRandomOrder()->first());
+        $employee->owner()->associate($owner);
+        $employee->save();
 
-        $this->attachPrices($girl);
-        $this->attachServices($girl);
+        $this->attachPrices($employee);
+        $this->attachServices($employee);
 
-        return $girl;
+        $this->addAttachments($employee);
+
+        return $employee;
+    }
+
+    public function addAttachments(Employee $employee)
+    {
+        collect(range(0, 3))
+            ->map(function () use ($employee) {
+                $pathToFile = $this->events_imager->random()->getImagePath();
+
+                $employee->addMedia(storage_path('app/' . $pathToFile))
+                    ->preservingOriginal()
+                    ->toMediaCollection(Employee::PHOTO_COLLECTION, 'media');
+            });
     }
 }
