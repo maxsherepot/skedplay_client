@@ -21,6 +21,14 @@ input EventUpdateInput {
     club_id: Int
 }
 
+input EventFilters {
+    event_type_id: Int!
+}
+
+extend type Query {
+    events(filters: EventFilters): [Event!]! @paginate
+}
+
 extend type Mutation @middleware(checks: ["auth:api"]) {
     updateEvent(event: ID!, input: EventUpdateInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EventController@update")
