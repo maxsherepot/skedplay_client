@@ -9,4 +9,14 @@ const transformGraphQLValidationErrors = userErrors =>
     .map("validation")
     .value();
 
-export { transformGraphQLValidationErrors };
+const isAuthError = errors =>
+  _.chain(errors)
+    .map("extensions")
+    .map("category")
+    .value();
+
+// e &&
+//   e.graphQLErrors &&
+//   e.graphQLErrors[0].extensions.category === "authentication";
+
+export { transformGraphQLValidationErrors, isAuthError };

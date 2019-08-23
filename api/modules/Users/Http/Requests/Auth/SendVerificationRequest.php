@@ -15,7 +15,7 @@ class SendVerificationRequest extends FormRequest
     public function rules()
     {        
         return [
-            'phone'        => 'bail|required|string|max:255|phone:AUTO,US',
+            // 'phone'        => 'bail|required|string|max:255|phone:AUTO,US',
             'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],
         ];
     }

@@ -5,14 +5,14 @@ export const LOGIN_USER = gql`
     $username: String!
     $password: String!
     $recaptcha: String!
-    $remember_me: Boolean
-  ) {
+  ) # $remember_me: Boolean
+  {
     login(
       input: {
         username: $username
         password: $password
         recaptcha: $recaptcha
-        remember_me: $remember_me
+        # remember_me: $remember_me
       }
     ) {
       access_token

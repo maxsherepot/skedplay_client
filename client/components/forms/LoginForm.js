@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
-import { transformGraphQLValidationErrors } from "utils";
+import { transformGraphQLValidationErrors, isAuthError } from "utils";
 import Captcha from "components/Captcha";
 import { TextField, Checkbox, Button, FormGroup } from "components/Ui";
 
@@ -33,12 +33,8 @@ const LoginForm = ({ onSubmit }) => {
           });
         } catch (e) {
           // Исправить, полная дичь.
-          if (
-            e &&
-            e.graphQLErrors &&
-            e.graphQLErrors[0] &&
-            e.graphQLErrors[0].extensions.category === "authentication"
-          ) {
+          console.log(isAuthError(e));
+          if (isAuthError(e)) {
             setAuthError(true);
           } else {
             setErrors(

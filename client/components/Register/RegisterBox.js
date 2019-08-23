@@ -31,6 +31,12 @@ const step3ValidationSchema = Yup.object().shape({
   password_confirmation: Yup.string().required()
 });
 
+const TimeLeft = expires_at => {
+  console.log(expires_at);
+
+  return <p>Time left: 1:52</p>;
+};
+
 const RegisterBox = () => {
   const client = useApolloClient();
 
@@ -45,6 +51,7 @@ const RegisterBox = () => {
 
   const [phone, setPhone] = useState(null);
   const [status, setStatus] = useState(null);
+  const [expires, setExpires] = useState(0);
 
   const [sendCode] = useMutation(SEND_VERTIFICATION_CODE);
   const [checkCode] = useMutation(CHECK_VERTIFICATION_CODE);
@@ -54,13 +61,20 @@ const RegisterBox = () => {
 
   const onStep1Submit = async ({ phone, recaptcha }) => {
     try {
-      setPhone(phone);
-      await sendCode({
+      const {
+        data: {
+          sendVerificationCode: { expires_at }
+        }
+      } = await sendCode({
         variables: {
           phone,
           recaptcha
         }
       });
+
+      setPhone(phone);
+      setExpires(expires_at);
+
       return true;
     } catch (e) {
       console.log(e);
