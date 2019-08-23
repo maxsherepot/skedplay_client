@@ -40,7 +40,7 @@ class EmployeeTableSeeder extends Seeder
         }
 
         foreach (Club::all() as $club) {
-            for ($i = 0; $i <= random_int(1, 4); $i++) {
+            for ($i = 0; $i <= random_int(10,15); $i++) {
                 $this->createEmployee($club);
             }
         }
