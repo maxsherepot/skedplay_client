@@ -38,8 +38,8 @@ services:
       - ./.docker/caddy/caddyssl:/etc/caddycerts
       - ./api:/app
     depends_on:
-      - app
       - node
+      - app
 
   node:
     build: .docker/node

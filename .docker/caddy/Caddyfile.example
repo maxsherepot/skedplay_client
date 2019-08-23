@@ -11,3 +11,13 @@ http://demo.local:8080 {
         to {path} {path}/ /index.php?{query}
     }
 }
+
+http://front:8080 {
+    tls off
+    root /app/public
+    gzip
+    fastcgi / app:9000 php
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}

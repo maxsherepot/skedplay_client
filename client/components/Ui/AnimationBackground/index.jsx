@@ -1,5 +1,3 @@
-import React from "react";
-import './AnimationBackground.scss'
 
 function AnimationBackground() {
   return (

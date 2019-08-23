@@ -10,7 +10,6 @@
 <body>
   <div id="app"></div>
 
-<script src="{{ mix('app.js', 'js/apps/main') }}"></script>
 </body>
 
 </html>
