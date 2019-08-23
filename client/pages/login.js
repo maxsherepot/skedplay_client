@@ -4,7 +4,7 @@ import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Modal, AnimationBackground } from "components/Ui"
-import Logo from "components/Logo";
+import Logo from "components/Ui/Logo";
 import ArrowBack from "components/ArrowBack";
 import LoginBox from "components/LoginBox";
 

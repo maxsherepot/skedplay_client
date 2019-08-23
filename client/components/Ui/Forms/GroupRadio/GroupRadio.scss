@@ -1,7 +1,7 @@
 .group-radio {
   @apply flex bg-white rounded-full;
   padding: 5px;
-  input[type='radio'] {
+  input[type="radio"] {
     display: none;
 
     & + label {
@@ -12,7 +12,6 @@
       &:hover {
         @apply text-red;
       }
-
     }
     &:checked + label {
       @apply bg-red text-white;

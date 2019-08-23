@@ -2,7 +2,8 @@ import React from "react";
 import cookie from "cookie";
 import {useApolloClient} from "@apollo/react-hooks";
 
-import {Header} from 'UI';
+import { Header } from 'UI';
+import GirlsBox from "components/homepage/GirlsBox";
 
 import redirect from "lib/redirect";
 // import checkLoggedIn from "lib/checkLoggedIn";
@@ -22,17 +23,14 @@ const Index = ({loggedInUser}) => {
 
     return (
         <div>
-            <div className="animation-gradient absolute top-0 left-0 w-full h-screen">
-                <img className="hidden md:block animation-background__angle mb-0" src="/static/img/angle.svg"/>
-                <img className="hidden lg:block absolute top-0 right-0" src="/static/img/snake.svg"/>
-            </div>
             <Header/>
-            <main className="relative h-screen z-10 mt-12 xl:mt-22-5">
-                <div className="container mx-auto">
+            <main className="relative z-10 mt-12 xl:mt-22-5">
+                <div className="container">
                     <div className="flex text-black items-end leading-none text-black md:text-white">
                         <div className="text-4xl font-extrabold tracking-tighter">Girls
                         </div>
                     </div>
+                    <GirlsBox />
                 </div>
             </main>
         </div>

@@ -1,0 +1,14 @@
+.girls {
+  &__item {
+    @apply block relative overflow-hidden bg-cover bg-center mb-5 ;
+    border-radius: 10px;
+    height: 467px;
+    .badge {
+      width: 57px;
+      text-align: center;
+      padding: 0;
+      line-height: 26px;
+      height: 26px;
+    }
+  }
+}

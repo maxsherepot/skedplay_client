@@ -11,8 +11,9 @@ if (typeof window === "undefined") {
 }
 
 function create(initialState, { getToken, fetchOptions }) {
+  console.log(process.env.GRAPHQL_URL);
   const httpLink = createHttpLink({
-    uri: "http://127.0.0.1:8000/graphql",
+    uri: 'http://demo.local:8080/graphql',
     credentials: "same-origin",
     fetchOptions
   });

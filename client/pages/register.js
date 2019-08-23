@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import Logo from "components/Logo";
+import Logo from "components/Ui/Logo";
 import ArrowBack from "components/ArrowBack";
 import { RegisterBox } from "components/Register";
 import Modal from "components/Ui/Modal";

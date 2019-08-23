@@ -1,5 +1,6 @@
 const path = require("path");
 const withSass = require('@zeit/next-sass');
+require('dotenv').config();
 
 module.exports = withSass({
     cssLoaderOptions: {
