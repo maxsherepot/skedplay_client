@@ -1,6 +1,10 @@
+require('dotenv').config();
+
 const path = require("path");
 const withSass = require('@zeit/next-sass');
-require('dotenv').config();
+
+const Dotenv = require('dotenv-webpack')
+
 
 module.exports = withSass({
     cssLoaderOptions: {
@@ -14,6 +18,19 @@ module.exports = withSass({
         config.resolve.alias["utils"] = path.join(__dirname, "utils");
         config.resolve.alias["static"] = path.join(__dirname, "static");
         config.resolve.alias["styles"] = path.join(__dirname, "styles");
+
+        config.plugins = config.plugins || [];
+
+        config.plugins = [
+            ...config.plugins,
+
+            // Read the .env file
+            new Dotenv({
+                path: path.join(__dirname, '.env'),
+                systemvars: true
+            })
+        ];
+
         return config;
     }
 });
