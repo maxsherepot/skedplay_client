@@ -67,3 +67,12 @@ export const SEND_VERTIFICATION_CODE = gql`
     }
   }
 `;
+
+export const CHECK_VERTIFICATION_CODE = gql`
+  mutation checkVerificationCode($phone: String!, $code: String!) {
+    checkVerificationCode(input: { phone: $phone, code: $code }) {
+      status
+      message
+    }
+  }
+`;

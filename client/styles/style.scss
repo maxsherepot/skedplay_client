@@ -12,3 +12,11 @@ body {
 .container {
   padding: 0 20px;
 }
+
+.form-control {
+  @apply block bg-white rounded-full border min-w-full border-light-grey text-lg leading-none transition px-5 h-13 pt-3;
+  padding-bottom: 0.9rem;
+  &:focus {
+    @apply outline-none border-black;
+  }
+}
