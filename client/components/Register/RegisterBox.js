@@ -10,7 +10,7 @@ import {
   SEND_VERTIFICATION_CODE,
   CHECK_VERTIFICATION_CODE
 } from "queries";
-import { TextField } from "components/ui";
+import { TextField, FormGroup } from "components/Ui";
 import Captcha from "components/Captcha";
 import { RegisterForm } from "components/Register";
 
@@ -44,6 +44,7 @@ const RegisterBox = () => {
   };
 
   const [phone, setPhone] = useState(null);
+  const [status, setStatus] = useState(null);
 
   const [sendCode] = useMutation(SEND_VERTIFICATION_CODE);
   const [checkCode] = useMutation(CHECK_VERTIFICATION_CODE);
@@ -71,7 +72,7 @@ const RegisterBox = () => {
     try {
       const {
         data: {
-          checkVerificationCode: { status }
+          checkVerificationCode: { status, message }
         }
       } = await checkCode({
         variables: {
@@ -81,13 +82,12 @@ const RegisterBox = () => {
       });
 
       if (!status) {
-        throw true;
+        throw message;
       }
 
       return true;
     } catch (e) {
-      console.log(e);
-      // Dispaly user error.
+      setStatus(e);
       return false;
     }
   };
@@ -131,6 +131,12 @@ const RegisterBox = () => {
           name="code"
           placeholder="Enter code"
         />
+
+        {status && (
+          <FormGroup className="error text-center">
+            <span>{status}</span>
+          </FormGroup>
+        )}
       </RegisterForm.Step>
 
       <RegisterForm.Step validationSchema={step3ValidationSchema}>

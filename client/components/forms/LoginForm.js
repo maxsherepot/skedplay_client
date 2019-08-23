@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
-import transformGraphQLValidationErrors from "utils";
+import { transformGraphQLValidationErrors } from "utils";
 import Captcha from "components/Captcha";
-import { TextField, Checkbox, Button } from "components/Ui";
+import { TextField, Checkbox, Button, FormGroup } from "components/Ui";
 
 const LoginForm = ({ onSubmit }) => {
+  const [authError, setAuthError] = useState(false);
+
   return (
     <Formik
       initialValues={{
@@ -20,8 +22,7 @@ const LoginForm = ({ onSubmit }) => {
       validationSchema={Yup.object().shape({
         username: Yup.string().required(), // Todo: add phone number validation
         password: Yup.string().required(),
-        recaptcha: Yup.string().required(),
-        remember_me: Yup.bool()
+        recaptcha: Yup.string().required()
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
@@ -31,7 +32,17 @@ const LoginForm = ({ onSubmit }) => {
             }
           });
         } catch (e) {
-          setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
+          if (
+            e &&
+            e.graphQLErrors &&
+            e.graphQLErrors[0].extensions.category === "authentication"
+          ) {
+            setAuthError(true);
+          } else {
+            setErrors(
+              transformGraphQLValidationErrors(e && e.graphQLErrors)[0]
+            );
+          }
         }
         setSubmitting(false);
       }}
@@ -41,6 +52,10 @@ const LoginForm = ({ onSubmit }) => {
           <TextField className="mt-4" label="Phone number" name="username" />
 
           <TextField label="Password" type="password" name="password" />
+
+          <FormGroup className="error text-center">
+            {authError && <span>The user credentials were incorrect.</span>}
+          </FormGroup>
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">

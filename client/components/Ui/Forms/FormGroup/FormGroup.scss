@@ -5,7 +5,8 @@
     margin-bottom: 0.3rem;
   }
   &.error {
-    label {
+    label,
+    span {
       @apply text-red;
     }
     .form-control {

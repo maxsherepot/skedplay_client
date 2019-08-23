@@ -22,7 +22,7 @@ class RegistrationRequest extends FormRequest
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'nullable|string|max:255',
             //'phone'        => 'bail|required|string|max:255|unique:users,phone|phone:AUTO,US',
-            'email'        => 'bail|required|email|max:255', // |unique:users,email
+            'email'        => 'bail|required|email|max:255|unique:users,email',
             'password'     => 'required|string|min:6|confirmed',
         ];
 

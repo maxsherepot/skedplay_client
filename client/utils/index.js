@@ -9,4 +9,4 @@ const transformGraphQLValidationErrors = userErrors =>
     .map("validation")
     .value();
 
-export default transformGraphQLValidationErrors;
+export { transformGraphQLValidationErrors };

@@ -3,7 +3,7 @@ import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
-import transformGraphQLValidationErrors from "utils";
+import { transformGraphQLValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
   const [step, setStep] = useState(0);
