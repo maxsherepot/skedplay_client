@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import transformGraphQLValidationErrors from "utils";
 import Captcha from "components/Captcha";
-import { TextField, Checkbox } from "components/Ui";
+import { TextField, Checkbox, Button } from "components/Ui";
 
 const LoginForm = ({ onSubmit }) => {
   return (
@@ -59,9 +59,9 @@ const LoginForm = ({ onSubmit }) => {
             <Field name="recaptcha" as={Captcha} />
           </div>
 
-          <button type="submit" className="btn text-xl" disabled={isSubmitting}>
+          <Button className="text-xl" type="submit" disabled={isSubmitting}>
             Login
-          </button>
+          </Button>
 
           <Link href="/register">
             <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
