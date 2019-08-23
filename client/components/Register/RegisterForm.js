@@ -32,9 +32,12 @@ function RegisterForm({ onSubmit, children }) {
   };
 
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
+    let result = true;
+
     if (activeStep.props.onStepSubmit) {
-      await activeStep.props.onStepSubmit(values);
+      result = await activeStep.props.onStepSubmit(values);
     }
+
     if (isLastStep) {
       try {
         await onSubmit({
@@ -49,7 +52,10 @@ function RegisterForm({ onSubmit, children }) {
     }
 
     setSubmitting(false);
-    next();
+
+    if (result) {
+      next();
+    }
   };
 
   return (
@@ -76,7 +82,7 @@ function RegisterForm({ onSubmit, children }) {
           {activeStep}
 
           <button type="submit" className="btn text-xl" disabled={isSubmitting}>
-            Next step
+            {isLastStep ? "Sign Up" : "Next step"}
           </button>
           <Link href="/login">
             <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">

@@ -30,8 +30,6 @@ export const REGISTER_USER = gql`
     $first_name: String!
     $phone: String!
     $email: String!
-    $gender: Int!
-    $birthday: Date
     $password: String!
     $password_confirmation: String!
     $recaptcha: String!
@@ -42,8 +40,6 @@ export const REGISTER_USER = gql`
         first_name: $first_name
         phone: $phone
         email: $email
-        gender: $gender
-        birthday: $birthday
         password: $password
         password_confirmation: $password_confirmation
         recaptcha: $recaptcha

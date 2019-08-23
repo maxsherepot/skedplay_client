@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Routing\Controller;
 use Modules\Employees\Repositories\EmployeeRepository;
-use Modules\Main\Services\Cashier\Plan;
+use Modules\Billing\Entities\Plan;
 use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;

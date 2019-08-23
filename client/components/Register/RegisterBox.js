@@ -60,8 +60,10 @@ const RegisterBox = () => {
           recaptcha
         }
       });
+      return true;
     } catch (e) {
       console.log(e);
+      return false;
     }
   };
 
@@ -79,11 +81,14 @@ const RegisterBox = () => {
       });
 
       if (!status) {
-        throw false;
+        throw true;
       }
+
+      return true;
     } catch (e) {
       console.log(e);
       // Dispaly user error.
+      return false;
     }
   };
 
@@ -137,9 +142,23 @@ const RegisterBox = () => {
         />
 
         <TextField
-          label="Your address"
-          name="address"
-          placeholder="Enter your address"
+          label="Your email"
+          name="email"
+          placeholder="Enter your email"
+        />
+
+        <TextField
+          label="Your password"
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+        />
+
+        <TextField
+          label="Your password confirmation"
+          type="password"
+          name="password_confirmation"
+          placeholder="Enter your password confirmation"
         />
       </RegisterForm.Step>
     </RegisterForm>

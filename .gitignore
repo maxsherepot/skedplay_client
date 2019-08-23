@@ -5,3 +5,4 @@
 .docker/caddy/Caddyfile
 .docker/mysql/.env
 .docker/centrifugo/config.json
+.DS_Store

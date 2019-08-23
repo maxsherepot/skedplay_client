@@ -125,7 +125,8 @@ class Verification implements VerificationInterface
                 $this->codeProcessor->deleteCode($code);
             }
 
-            $this->response = $this->success($success ? self::VERIFICATION_CHECK_SUCCESS : self::VERIFICATION_CHECK_FAILED);
+            $this->response = $success ? $this->success(self::VERIFICATION_CHECK_SUCCESS)
+                : $this->fail(self::VERIFICATION_CHECK_FAILED);
 
         } catch (\Exception $e) {
             $this->response = $this->fail(self::VERIFICATION_CHECK_FAILED);
