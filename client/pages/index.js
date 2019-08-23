@@ -4,6 +4,7 @@ import {useApolloClient} from "@apollo/react-hooks";
 
 import { Header } from 'UI';
 import GirlsBox from "components/homepage/GirlsBox";
+import EventsBox from "components/homepage/EventsBox";
 
 import redirect from "lib/redirect";
 // import checkLoggedIn from "lib/checkLoggedIn";
@@ -23,7 +24,9 @@ const Index = ({loggedInUser}) => {
 
     return (
         <div>
-            <Header/>
+            <Header
+                events={<EventsBox />}
+            />
             <main className="relative z-10 mt-12 xl:mt-22-5">
                 <div className="container">
                     <div className="flex text-black items-end leading-none text-black md:text-white">

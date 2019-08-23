@@ -21,7 +21,6 @@ body {
   }
 }
 
-@import "../components/Ui/GirlCard/GirlCard";
 @import "../components/Ui/AnimationBackground/AnimationBackground";
 @import "../components/Ui/Button/Button";
 @import "../components/Ui/Header/Header";
@@ -29,3 +28,6 @@ body {
 @import "../components/Ui/Forms/Checkbox/Checkbox";
 @import "../components/Ui/Forms/FormGroup/FormGroup";
 @import "../components/Ui/Forms/GroupRadio/GroupRadio";
+
+@import "../components/Ui/GirlCard/GirlCard";
+@import "../components/Ui/EventsGallery/EventsGallery";

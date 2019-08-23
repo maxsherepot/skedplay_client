@@ -1,6 +1,7 @@
 type Event {
     id: ID!
     title: String!
+    short_title: String!
     description: String!
     type: EventType! @belongsTo
     club: Club! @belongsTo

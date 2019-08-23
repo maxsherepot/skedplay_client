@@ -1,0 +1,61 @@
+.events-slide {
+  img {
+    height: 196px;
+    @screen sm {
+      height: 308px;
+    }
+  }
+}
+
+.gallery-accordion {
+  @apply flex;
+  &__item {
+    @apply transition flex-1 overflow-hidden;
+    img {
+      @apply transition;
+      height: 308px;
+    }
+    &__badge {
+      max-width: 0;
+      overflow: hidden;
+      color: transparent;
+      @apply px-2 transition left-auto right-0 mr-6;
+    }
+    &__address {
+      max-width: 0;
+      overflow: hidden;
+      @apply transition whitespace-no-wrap;
+    }
+    &__name {
+      @apply text-white text-lg leading-none tracking-tighter font-extrabold;
+      position: absolute;
+      right: -207px;
+      bottom: 75%;
+      width: 251px;
+      height: 40px;
+      transform: rotate(-90deg) translate(-100%);
+      transition: bottom .2s ease, left .2s ease, right .2s ease;
+      transform-origin: top left;
+    }
+    &.open {
+      flex-basis: 36%;
+      .gallery-accordion__item {
+        &__badge {
+          @apply max-w-full px-4 text-black left-0 right-auto mr-0;
+        }
+        &__address {
+          @apply max-w-full;
+        }
+        &__name {
+          @apply text-4xl p-5;
+          transform: rotate(0);
+          width: 100%;
+          height: auto;
+          right: auto;
+          left: 0;
+          bottom: 30px;
+        }
+      }
+    }
+  }
+}
