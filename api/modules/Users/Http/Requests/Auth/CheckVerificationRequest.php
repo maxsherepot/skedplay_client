@@ -15,7 +15,7 @@ class CheckVerificationRequest extends FormRequest
     {
         return [
             'code'  => 'required|string|max:6',
-            'phone' => 'bail|required|string|max:255|phone:AUTO,US',
+            //'phone' => 'bail|required|string|max:255|phone:AUTO,US',
         ];
     }
 
