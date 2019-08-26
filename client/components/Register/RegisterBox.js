@@ -10,7 +10,7 @@ import {
   SEND_VERTIFICATION_CODE,
   CHECK_VERTIFICATION_CODE
 } from "queries";
-import { TextField, FormGroup } from "components/Ui";
+import { TextField, FormGroup, ButtonsField } from "components/Ui";
 import Captcha from "components/Captcha";
 import { RegisterForm } from "components/Register";
 
@@ -154,8 +154,27 @@ const RegisterBox = () => {
       </RegisterForm.Step>
 
       <RegisterForm.Step validationSchema={step3ValidationSchema}>
-        <TextField
+        <ButtonsField
           className="mt-4"
+          label="What account type you need?"
+          name="account_type"
+          options={[
+            {
+              name: "I provide sex services",
+              value: "employee"
+            },
+            {
+              name: "I own a club",
+              value: "club_owner"
+            },
+            {
+              name: "I'm looking for sex",
+              value: "client"
+            }
+          ]}
+        />
+
+        <TextField
           label="Your name"
           name="first_name"
           placeholder="Enter your name"

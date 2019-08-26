@@ -74,7 +74,11 @@ const LoginForm = ({ onSubmit }) => {
             <Field name="recaptcha" as={Captcha} />
           </div>
 
-          <Button className="text-xl" type="submit" disabled={isSubmitting}>
+          <Button
+            className="text-xl min-w-full"
+            type="submit"
+            disabled={isSubmitting}
+          >
             Login
           </Button>
 

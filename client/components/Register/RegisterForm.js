@@ -3,6 +3,7 @@ import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
+import { Button } from "components/Ui";
 import { transformGraphQLValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
@@ -81,9 +82,14 @@ function RegisterForm({ onSubmit, children }) {
 
           {activeStep}
 
-          <button type="submit" className="btn text-xl" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            className="text-xl min-w-full"
+            disabled={isSubmitting}
+          >
             {isLastStep ? "Sign Up" : "Next step"}
-          </button>
+          </Button>
+
           <Link href="/login">
             <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
               Already have an account

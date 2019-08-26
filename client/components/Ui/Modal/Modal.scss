@@ -1,7 +1,7 @@
 .modal {
   @apply flex justify-center items-center;
   &__dialog {
-    @apply w-full px-1;
+    @apply min-w-full px-1;
   }
 
   &__logo {
@@ -14,7 +14,7 @@
   @screen sm {
     @apply h-screen;
     &__dialog {
-      width: 410px;
+      min-width: 410px;
     }
     &__logo {
       margin-bottom: 62px;

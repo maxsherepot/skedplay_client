@@ -1,12 +1,13 @@
 .btn {
-  @apply bg-transparent text-white transition min-w-full rounded-full font-bold h-15 relative overflow-hidden;
+  @apply transition rounded-full font-bold h-15 relative overflow-hidden;
   z-index: 1;
   &::before {
     content: "";
     z-index: -2;
     transition: opacity -1s cubic-bezier(0.23, 1, 0.32, 1);
-    @apply block bg-red rounded-full border-2 border-red bottom-0 left-0 absolute right-0 top-0;
+    @apply block bg-red rounded-full border-red bottom-0 left-0 absolute right-0 top-0;
   }
+
   &::after {
     content: "";
     z-index: -1;
@@ -17,6 +18,7 @@
       background-color 0.2s cubic-bezier(0.23, 1, 0.32, 1);
     @apply block bg-pink rounded-full border-2 border-pink bottom-0 left-0 absolute right-0 top-0 opacity-0;
   }
+
   &:hover {
     &::before {
       transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0.15s;
@@ -27,20 +29,39 @@
       @apply opacity-100;
     }
   }
+
   &:active {
     &::after {
       @apply bg-dark-red border-dark-red;
     }
   }
+
   &:focus {
     @apply outline-none;
   }
+
   &-sm {
     @apply h-12;
   }
+
   &-xs {
     @apply h-10;
   }
+
+  &-primary {
+    @apply bg-transparent text-white;
+    &::before {
+      @apply bg-red border-2 border-red;
+    }
+  }
+
+  &-secondary {
+    @apply text-black;
+    &::before {
+      @apply border border-black;
+    }
+  }
+
   &-outline {
     @apply text-black;
     &::before {
