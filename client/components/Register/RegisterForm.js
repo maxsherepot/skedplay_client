@@ -7,6 +7,8 @@ import { Button } from "components/Ui";
 import { transformGraphQLValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
+  // Get global register step & init
+
   const [step, setStep] = useState(0);
 
   const activeStep = React.Children.toArray(children)[step];
@@ -66,6 +68,7 @@ function RegisterForm({ onSubmit, children }) {
         first_name: "",
         phone: "",
         email: "",
+        gender: "",
         password: "",
         password_confirmation: "",
         recaptcha: "",

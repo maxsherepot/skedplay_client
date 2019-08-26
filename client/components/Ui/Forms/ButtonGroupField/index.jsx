@@ -3,32 +3,32 @@ import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 import { FormGroup, Button } from "components/Ui";
 
-function ButtonsField({ className, label, name, options }) {
+function ButtonGroupField({ className, label, name, items }) {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
-  if (!options) return null;
+  if (!items) return null;
 
   return (
     <FormGroup className={className} error={error ? true : false}>
       <label htmlFor={name}>{error ? error : label}</label>
 
-      <div className="flex justify-between -mx-2">
+      <div className="flex -mx-2">
         <Field name={name}>
           {({ field }) =>
-            options.map(option => {
-              const isActive = field.value === option.value;
+            items.map(item => {
+              const isActive = field.value === item.value;
 
               return (
                 <Button
-                  key={option.value}
+                  key={item.value}
                   className="mx-1 w-48"
                   level={isActive ? "primary" : "secondary"}
                   size="sm"
                   outline={!isActive}
-                  onClick={() => setFieldValue(name, option.value)}
+                  onClick={() => setFieldValue(name, item.value)}
                 >
-                  {option.name}
+                  {item.name}
                 </Button>
               );
             })
@@ -39,11 +39,11 @@ function ButtonsField({ className, label, name, options }) {
   );
 }
 
-ButtonsField.propTypes = {
+ButtonGroupField.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired
 };
 
-export default ButtonsField;
+export default ButtonGroupField;

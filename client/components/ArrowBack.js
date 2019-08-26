@@ -1,8 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
+// import { useQuery } from "@apollo/react-hooks";
+
+// import { GET_CURRENT_REGISTER_STEP } from "queries";
 
 const ArrowBack = ({ href, title }) => {
+  // Math.max(step - 1, 0)
+  // const { data } = useQuery(GET_CURRENT_REGISTER_STEP);
+
   return (
     <Link href={href}>
       <a className="animation-arrow-left text-sm">

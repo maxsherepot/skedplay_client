@@ -5,9 +5,14 @@ import {
   CHECK_VERTIFICATION_CODE
 } from "queries/authQuery";
 
+import { GET_CURRENT_REGISTER_STEP } from "queries/localQuery";
+
 export {
+  // Auth queries
   LOGIN_USER,
   REGISTER_USER,
   SEND_VERTIFICATION_CODE,
-  CHECK_VERTIFICATION_CODE
+  CHECK_VERTIFICATION_CODE,
+  // Local queries
+  GET_CURRENT_REGISTER_STEP
 };

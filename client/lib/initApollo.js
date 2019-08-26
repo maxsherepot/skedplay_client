@@ -12,7 +12,10 @@ if (typeof window === "undefined") {
 
 function create(initialState, { getToken, fetchOptions }) {
   const httpLink = createHttpLink({
-    uri: typeof window === "undefined" ?  process.env.GRAPHQL_URL : process.env.GRAPHQL_BROWSER_URL,
+    uri:
+      typeof window === "undefined"
+        ? process.env.GRAPHQL_URL
+        : process.env.GRAPHQL_BROWSER_URL,
     credentials: "same-origin",
     fetchOptions
   });
@@ -34,6 +37,7 @@ function create(initialState, { getToken, fetchOptions }) {
     ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
     link: authLink.concat(httpLink),
     cache: new InMemoryCache().restore(initialState || {})
+    // resolvers: {}
   });
 }
 

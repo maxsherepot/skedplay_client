@@ -34,7 +34,9 @@ export default App => {
         ctx: { req, res }
       } = ctx;
       const apollo = initApollo(
-        {},
+        {
+          currentRegisterStep: 12
+        },
         {
           getToken: () => parseCookies(req).token
         }
