@@ -4,7 +4,7 @@ import { EventsGallery } from "UI";
 
 const GET_EVENTS = gql`
   {
-    events(count: 5) {
+    events(first: 5) {
       data {
         id
         title
@@ -36,7 +36,6 @@ function EventsBox() {
   if (error) return <div>{error.message}</div>;
 
   if (events) return <EventsGallery events={events.data} />;
-
 }
 
 export default EventsBox;

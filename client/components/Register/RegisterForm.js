@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { GET_CURRENT_REGISTER_STEP } from "queries";
 import { Button } from "components/Ui";
-import { transformGraphQLValidationErrors } from "utils";
+import { transformValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
   const {
@@ -56,7 +56,7 @@ function RegisterForm({ onSubmit, children }) {
           }
         });
       } catch (e) {
-        setErrors(transformGraphQLValidationErrors(e && e.graphQLErrors)[0]);
+        setErrors(transformValidationErrors(e));
       }
       return;
     }

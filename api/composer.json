@@ -21,7 +21,7 @@
         "league/omnipay": "^3",
         "mll-lab/laravel-graphql-playground": "^1.1",
         "nexmo/client": "^1.8",
-        "nuwave/lighthouse": "^4.0-beta.1",
+        "nuwave/lighthouse": "^4.1",
         "nwidart/laravel-modules": "^5.0",
         "omnipay/paypal": "^3.0",
         "omnipay/stripe": "^3.0",

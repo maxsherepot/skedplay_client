@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
-import { transformGraphQLValidationErrors, isAuthError } from "utils";
+import { transformValidationErrors, isAuthError } from "utils";
 import Captcha from "components/Captcha";
 import { TextField, Checkbox, Button, FormGroup } from "components/Ui";
 
 const LoginForm = ({ onSubmit }) => {
-  const [authError, setAuthError] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <Formik
@@ -32,14 +32,10 @@ const LoginForm = ({ onSubmit }) => {
             }
           });
         } catch (e) {
-          // Исправить, полная дичь.
-          console.log(isAuthError(e));
           if (isAuthError(e)) {
-            setAuthError(true);
+            setError(true);
           } else {
-            setErrors(
-              transformGraphQLValidationErrors(e && e.graphQLErrors)[0]
-            );
+            setErrors(transformValidationErrors(e));
           }
         }
         setSubmitting(false);
@@ -47,11 +43,11 @@ const LoginForm = ({ onSubmit }) => {
     >
       {({ handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <TextField className="mt-4" label="Phone number" name="username" />
+          <TextField className="mt-4" label="Phone number" name="username" placeholder="Your phone number" />
 
           <TextField label="Password" type="password" name="password" />
 
-          {authError && (
+          {error && (
             <FormGroup className="error text-center">
               <span>The user credentials were incorrect.</span>
             </FormGroup>

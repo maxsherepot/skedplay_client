@@ -1,5 +1,5 @@
 http://demo.local {
-    proxy / node:3000
+    proxy / nextjs:3000
 }
 
 http://demo.local:8080 {
