@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
+import { useQuery } from "@apollo/react-hooks";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
+import { GET_CURRENT_REGISTER_STEP } from "queries";
 import { Button } from "components/Ui";
 import { transformGraphQLValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
-  // Get global register step & init
-
-  const [step, setStep] = useState(0);
+  const {
+    data: { currentRegisterStep: step },
+    client
+  } = useQuery(GET_CURRENT_REGISTER_STEP);
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
-  const previous = () => {
-    setStep(Math.max(step - 1, 0));
+  const setStep = currentRegisterStep => {
+    client.writeData({
+      data: {
+        currentRegisterStep
+      }
+    });
   };
 
   const next = () => {

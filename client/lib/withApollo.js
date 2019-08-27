@@ -21,7 +21,9 @@ export default App => {
     // Since apolloState is required but it is missed before this method returns the new props,
     // so it is needed to provide defaults
     static defaultProps = {
-      apolloState: {}
+      apolloState: {
+        filter: false
+      }
     };
 
     static propTypes = {
@@ -34,9 +36,7 @@ export default App => {
         ctx: { req, res }
       } = ctx;
       const apollo = initApollo(
-        {
-          currentRegisterStep: 12
-        },
+        {},
         {
           getToken: () => parseCookies(req).token
         }

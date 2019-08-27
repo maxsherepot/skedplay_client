@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 
-import { TextField } from "components/Ui";
+import { TextField, FormGroup } from "components/Ui";
 
 const CheckCodeStep = ({ phone, status }) => {
   return (
