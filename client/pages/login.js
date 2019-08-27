@@ -3,10 +3,8 @@ import React, { Fragment } from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { Modal, AnimationBackground } from "components/Ui"
-import Logo from "components/Ui/Logo";
-import ArrowBack from "components/ArrowBack";
-import LoginBox from "components/LoginBox";
+import { Modal, AnimationBackground, ArrowBack, Logo, LangSelector } from "UI";
+import { LoginBox } from "components/login";
 
 function Login() {
   return (
@@ -16,7 +14,7 @@ function Login() {
         logo={<Logo />}
         title="Login"
         left={<ArrowBack href="/" title="Back" />}
-        right={<div className="block">EN</div> /** Move to language selector */}
+        right={<LangSelector />}
       >
         <LoginBox />
       </Modal>

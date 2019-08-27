@@ -1,18 +1,18 @@
 import React from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import { useQuery } from "@apollo/react-hooks";
 
 import { GET_CURRENT_REGISTER_STEP } from "queries";
 
-const ArrowBack = ({ href, title }) => {
+const ArrowBack = ({ href, title, color }) => {
   const {
     data: { currentRegisterStep: step },
     client
   } = useQuery(GET_CURRENT_REGISTER_STEP);
 
   const handleBack = () => {
-    console.log("handleBack with step: ", step);
     if (step === 0) {
       return Router.push(href);
     }
@@ -26,11 +26,14 @@ const ArrowBack = ({ href, title }) => {
 
   return (
     <a
-      className="animation-arrow-left text-sm cursor-pointer"
+      className={classNames(
+        "animation-arrow-left text-sm cursor-pointer",
+        `text-${color}`
+      )}
       onClick={handleBack}
     >
       <svg
-        className="stroke-red inline-block"
+        className={`stroke-${color === 'white' ? color: 'red'} inline-block`}
         width="13"
         height="16"
         viewBox="0 0 13 16"
@@ -46,7 +49,13 @@ const ArrowBack = ({ href, title }) => {
 
 ArrowBack.propTypes = {
   href: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string,
+  color: PropTypes.oneOf(["white", "black"])
+};
+
+ArrowBack.defaultProps = {
+  title: "Back",
+  color: "black"
 };
 
 export default ArrowBack;

@@ -1,0 +1,69 @@
+import React from "react";
+import Link from "next/link";
+
+import {
+  AnimationBackground,
+  Logo,
+  ArrowBack,
+  LangSelector,
+  GroupRadio
+} from "UI";
+
+import PlansBox from "components/plans/PlansBox";
+
+const Plans = () => {
+  const periods = [
+    {
+      name: "3 months",
+      value: 3
+    },
+    {
+      name: "6 months",
+      value: 6
+    },
+    {
+      name: "1 year",
+      value: 12
+    }
+  ];
+
+  return (
+    <>
+      <AnimationBackground full />
+      <div className="container mx-auto">
+        <div className="flex items-center flex-col">
+          <div className="w-full px-3 md:w-header-plans md:px-0 mt-6 sm:mt-12">
+            <div className="relative flex justify-between items-center">
+              <ArrowBack href="/register" color="white" />
+              <div className="absolute top-0 left-0 h-full flex justify-center items-center w-full">
+                <Link href="/">
+                  <a className="block text-center w-2/4 sm:w-full">
+                    <Logo />
+                  </a>
+                </Link>
+              </div>
+              <LangSelector className="text-white" />
+            </div>
+            <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+              Choose your tariff plan
+            </div>
+
+            <div className="flex justify-center mt-5">
+              <GroupRadio
+                name="plan"
+                items={periods}
+                defaultValue="3"
+                handleChange={value => console.log(value)}
+              ></GroupRadio>
+            </div>
+          </div>
+          <div className="container mt-8 mb-20">
+            <PlansBox />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Plans;

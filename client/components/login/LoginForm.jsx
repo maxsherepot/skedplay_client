@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
+import { TextField, Checkbox, Button, FormGroup } from "UI";
 import { transformValidationErrors, isAuthError } from "utils";
 import Captcha from "components/Captcha";
-import { TextField, Checkbox, Button, FormGroup } from "components/Ui";
 
 const LoginForm = ({ onSubmit }) => {
   const [error, setError] = useState(false);
@@ -43,9 +43,19 @@ const LoginForm = ({ onSubmit }) => {
     >
       {({ handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <TextField className="mt-4" label="Phone number" name="username" placeholder="Your phone number" />
+          <TextField
+            className="mt-4"
+            label="Phone number"
+            name="username"
+            placeholder="Your phone number"
+          />
 
-          <TextField label="Password" type="password" name="password" />
+          <TextField
+            label="Password"
+            type="password"
+            name="password"
+            placeholder="Your password"
+          />
 
           {error && (
             <FormGroup className="error text-center">

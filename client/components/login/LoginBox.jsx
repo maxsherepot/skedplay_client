@@ -4,7 +4,7 @@ import cookie from "cookie";
 
 import redirect from "lib/redirect";
 import { LOGIN_USER } from "queries";
-import { LoginForm } from "components/forms";
+import { LoginForm } from "components/login";
 
 const LoginBox = () => {
   const client = useApolloClient();

@@ -13,7 +13,7 @@ import {
   SendCodeStep,
   CheckCodeStep,
   RegisterStep
-} from "components/Register";
+} from "components/register";
 
 const RegisterBox = () => {
   const client = useApolloClient();
