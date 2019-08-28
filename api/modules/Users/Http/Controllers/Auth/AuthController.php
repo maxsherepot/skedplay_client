@@ -78,16 +78,11 @@ class AuthController extends BaseAuthResolver
     public function forgotPassword(ForgotPasswordRequest $request): array
     {
         try {
-            $user = $this->users->getByPhone($request->get('phone'));
-
-            if (is_null($user)) {
-                $this->verification->fail($this->verification::VERIFICATION_SEND_FAILED);
-                throw new \Exception("User with such a phone is not found");
-            }
+            $user = $this->users->getByPhone($phone = $request->get('phone'));
 
             $code = $this->verification
                 ->setUser($user)
-                ->getCode($user->phone);
+                ->getCode($phone);
 
             $this->verification->sendCode(
                 'Your verification code: ' . $code

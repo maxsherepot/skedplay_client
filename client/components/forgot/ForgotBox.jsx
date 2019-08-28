@@ -1,35 +1,29 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
+import Router from "next/router";
 
-import {
-  REGISTER_USER,
-  SEND_VERTIFICATION_CODE,
-  CHECK_VERTIFICATION_CODE
-} from "queries";
-import {
-  RegisterForm,
-  SendCodeStep,
-  CheckCodeStep,
-  RegisterStep
-} from "components/register";
+import { FORGOT_PASSWORD, RESET_PASSWORD } from "queries";
 
 import { ForgotForm } from "components/forgot";
+import {
+  SendCodeStep,
+  CheckCodeStep,
+  PasswordRecoveryStep
+} from "components/steps";
 
 const ForgotBox = () => {
   const [phone, setPhone] = useState(null);
-  const [status, setStatus] = useState(null);
 
-  const [sendCode] = useMutation(SEND_VERTIFICATION_CODE);
-  const [checkCode] = useMutation(CHECK_VERTIFICATION_CODE);
-  const [register] = useMutation(REGISTER_USER);
+  const [forgotPassword] = useMutation(FORGOT_PASSWORD);
+  const [resetPassword] = useMutation(RESET_PASSWORD);
 
-  const onSubmitSendCode = async ({ phone, recaptcha }) => {
+  const onSubmitForgotPassword = async ({ phone, recaptcha }) => {
     try {
       const {
         data: {
-          sendVerificationCode: { expires_at }
+          forgotPassword: { status, message }
         }
-      } = await sendCode({
+      } = await forgotPassword({
         variables: {
           phone,
           recaptcha
@@ -37,43 +31,65 @@ const ForgotBox = () => {
       });
 
       setPhone(phone);
-      // setExpires(expires_at);
 
-      return true;
+      return {
+        status,
+        message
+      };
     } catch (e) {
-      return false;
+      return {
+        status: false,
+        message: "Server error"
+      };
     }
   };
 
-  const onSubmitCkeckCode = async ({ phone, code }) => {
+  const onSubmitCkeckCode = async () => {
+    return {
+      status: true
+    };
+  };
+
+  const onSubmitReset = async ({
+    phone,
+    code,
+    password,
+    password_confirmation
+  }) => {
     try {
       const {
         data: {
-          checkVerificationCode: { status, message }
+          resetPassword: { status, message }
         }
-      } = await checkCode({
+      } = await resetPassword({
         variables: {
           phone,
-          code
+          code,
+          password,
+          password_confirmation
         }
       });
-
-      if (!status) {
-        throw message;
-      }
-
-      return true;
+      return {
+        status,
+        message
+      };
     } catch (e) {
-      setStatus(e);
-      return false;
+      return {
+        status: false,
+        message: "Server error"
+      };
     }
   };
 
+  const handleSuccess = () => {
+    return Router.push("/login");
+  };
+
   return (
-    <ForgotForm onSubmit={register}>
+    <ForgotForm onSubmit={handleSuccess}>
       <ForgotForm.Step
         validationSchema={SendCodeStep.validationSchema}
-        onStepSubmit={onSubmitSendCode}
+        onStepSubmit={onSubmitForgotPassword}
       >
         <SendCodeStep />
       </ForgotForm.Step>
@@ -82,11 +98,30 @@ const ForgotBox = () => {
         validationSchema={CheckCodeStep.validationSchema}
         onStepSubmit={onSubmitCkeckCode}
       >
-        <CheckCodeStep phone={phone} status={status} />
+        <CheckCodeStep phone={phone} />
       </ForgotForm.Step>
 
-      <ForgotForm.Step validationSchema={RegisterStep.validationSchema}>
-        <RegisterStep />
+      <ForgotForm.Step
+        validationSchema={PasswordRecoveryStep.validationSchema}
+        onStepSubmit={onSubmitReset}
+      >
+        <PasswordRecoveryStep />
+      </ForgotForm.Step>
+
+      <ForgotForm.Step>
+        <h1 className="text-2xl text-center mt-4">
+          Password recovered successfully!
+        </h1>
+        <div className="text-center my-4">
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+          <p>
+            Illo nihil debitis, nostrum accusamus enim dolorum voluptas in quae.
+          </p>
+          <p>
+            Corporis inventore a, porro provident quidem quod laudantium
+            pariatur ipsam assumenda velit!
+          </p>
+        </div>
       </ForgotForm.Step>
     </ForgotForm>
   );

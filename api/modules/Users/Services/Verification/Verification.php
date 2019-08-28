@@ -49,6 +49,10 @@ class Verification implements VerificationInterface
     public function sendCode($message)
     {
         try {
+            if (is_null($this->user)) {
+                throw new \Exception("User with such a phone is not found");
+            }
+
             if ($this->user instanceof User) {
                 $this->user->notify(new ResetPasswordNotification(
                     $message,
@@ -90,11 +94,8 @@ class Verification implements VerificationInterface
 
         } catch (\Exception $e) {
             $this->response = $this->fail(self::GENERATE_CODE_FAILED);
-
             Log::error('Verification code generate was failed: ' . $e->getMessage());
         }
-
-        return '1111';
 
         return $code ?? '';
     }
@@ -107,8 +108,6 @@ class Verification implements VerificationInterface
      */
     public function checkCode(string $code, string $phoneNumber, callable $callback = null): void
     {
-
-
         try {
             if (!is_numeric($code)) {
                 throw new ValidationException('Incorrect code was provided');
@@ -116,12 +115,10 @@ class Verification implements VerificationInterface
 
             $phoneNumber = static::normalizePhoneNumber($phoneNumber);
 
-            $success = true;
-
-//            $success = $this->codeProcessor->validateCode(
-//                $code,
-//                static::trimPhoneNumber($phoneNumber)
-//            );
+            $success = $this->codeProcessor->validateCode(
+                $code,
+                static::trimPhoneNumber($phoneNumber)
+            );
 
             if ($success && is_callable($callback)) {
                 $callback();

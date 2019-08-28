@@ -8,12 +8,9 @@ import {
   SEND_VERTIFICATION_CODE,
   CHECK_VERTIFICATION_CODE
 } from "queries";
-import {
-  RegisterForm,
-  SendCodeStep,
-  CheckCodeStep,
-  RegisterStep
-} from "components/register";
+
+import { RegisterForm } from "components/register";
+import { SendCodeStep, CheckCodeStep, RegisterStep } from "components/steps";
 
 const RegisterBox = () => {
   const client = useApolloClient();
@@ -28,8 +25,6 @@ const RegisterBox = () => {
   };
 
   const [phone, setPhone] = useState(null);
-  const [status, setStatus] = useState(null);
-  // const [expires, setExpires] = useState(0);
 
   const [sendCode] = useMutation(SEND_VERTIFICATION_CODE);
   const [checkCode] = useMutation(CHECK_VERTIFICATION_CODE);
@@ -41,7 +36,7 @@ const RegisterBox = () => {
     try {
       const {
         data: {
-          sendVerificationCode: { expires_at }
+          sendVerificationCode: { status, message }
         }
       } = await sendCode({
         variables: {
@@ -51,11 +46,16 @@ const RegisterBox = () => {
       });
 
       setPhone(phone);
-      // setExpires(expires_at);
 
-      return true;
+      return {
+        status,
+        message
+      };
     } catch (e) {
-      return false;
+      return {
+        status: false,
+        message: "Server error"
+      };
     }
   };
 
@@ -72,14 +72,15 @@ const RegisterBox = () => {
         }
       });
 
-      if (!status) {
-        throw message;
-      }
-
-      return true;
+      return {
+        status,
+        message
+      };
     } catch (e) {
-      setStatus(e);
-      return false;
+      return {
+        status: false,
+        message: "Server error"
+      };
     }
   };
 
@@ -96,7 +97,7 @@ const RegisterBox = () => {
         validationSchema={CheckCodeStep.validationSchema}
         onStepSubmit={onSubmitCkeckCode}
       >
-        <CheckCodeStep phone={phone} status={status} />
+        <CheckCodeStep phone={phone} />
       </RegisterForm.Step>
 
       <RegisterForm.Step validationSchema={RegisterStep.validationSchema}>

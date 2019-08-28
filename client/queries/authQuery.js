@@ -71,3 +71,34 @@ export const CHECK_VERTIFICATION_CODE = gql`
     }
   }
 `;
+
+export const FORGOT_PASSWORD = gql`
+  mutation forgotPassword($phone: String!, $recaptcha: String!) {
+    forgotPassword(input: { phone: $phone, recaptcha: $recaptcha }) {
+      expires_at
+      status
+      message
+    }
+  }
+`;
+
+export const RESET_PASSWORD = gql`
+  mutation resetPassword(
+    $code: String!
+    $phone: String!
+    $password: String!
+    $password_confirmation: String!
+  ) {
+    resetPassword(
+      input: {
+        code: $code
+        phone: $phone
+        password: $password
+        password_confirmation: $password_confirmation
+      }
+    ) {
+      status
+      message
+    }
+  }
+`;

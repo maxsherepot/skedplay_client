@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 
 import { useSteps } from "hooks";
-import { Button } from "components/Ui";
+import { Button, FormGroup } from "UI";
 import { transformValidationErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
   const { step, setStep } = useSteps("register");
 
+  const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
@@ -29,11 +30,22 @@ function RegisterForm({ onSubmit, children }) {
     return {};
   };
 
-  const handleSubmits = async (values, { setSubmitting, setErrors }) => {
-    let result = true;
+  const handleSubmits = async (
+    values,
+    { setSubmitting, setErrors, setStatus }
+  ) => {
+    setStatus(null);
 
     if (activeStep.props.onStepSubmit) {
-      result = await activeStep.props.onStepSubmit(values);
+      const { status, message } = await activeStep.props.onStepSubmit(values);
+
+      setSubmitting(false);
+
+      if (status) {
+        next();
+      } else if (!status && message) {
+        setStatus(message);
+      }
     }
 
     if (isLastStep) {
@@ -43,16 +55,11 @@ function RegisterForm({ onSubmit, children }) {
             ...values
           }
         });
+        setStep(0);
       } catch (e) {
         setErrors(transformValidationErrors(e));
       }
       return;
-    }
-
-    setSubmitting(false);
-
-    if (result) {
-      next();
     }
   };
 
@@ -72,13 +79,26 @@ function RegisterForm({ onSubmit, children }) {
       validate={validate}
       onSubmit={handleSubmits}
     >
-      {({ handleSubmit, isSubmitting }) => (
+      {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="block text-lg text-center mt-4 font-medium">
-            Step {step + 1} / 3
+            Step {step + 1} / {stepLength}
           </div>
 
           {activeStep}
+
+          {status && (
+            <FormGroup className="error text-center">
+              <span>{status}</span>
+            </FormGroup>
+          )}
+
+          {step === 0 && (
+            <div className="block text-xs text-center leading-normal mb-8 px-6">
+              By clicking the “sing up” button, I agree to the terms of service
+              and personal data processing policy
+            </div>
+          )}
 
           <Button
             type="submit"

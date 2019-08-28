@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 
-import { TextField, FormGroup } from "components/Ui";
+import { TextField, FormGroup } from "UI";
 
-const CheckCodeStep = ({ phone, status }) => {
+const CheckCodeStep = ({ phone }) => {
   return (
     <>
       <div className="block text-xs text-center leading-normal my-4 px-6">
@@ -21,19 +21,12 @@ const CheckCodeStep = ({ phone, status }) => {
         name="code"
         placeholder="Enter code"
       />
-
-      {status && (
-        <FormGroup className="error text-center">
-          <span>{status}</span>
-        </FormGroup>
-      )}
     </>
   );
 };
 
 CheckCodeStep.propTypes = {
-  phone: PropTypes.string,
-  status: PropTypes.string
+  phone: PropTypes.string
 };
 
 CheckCodeStep.validationSchema = Yup.object().shape({

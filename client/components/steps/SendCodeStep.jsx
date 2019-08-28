@@ -9,19 +9,14 @@ function SendCodeStep() {
   return (
     <>
       <TextField
-        className="mt-4"
+        className="my-4"
         label="Phone number"
         name="phone"
         placeholder="+417"
       />
 
-      <div className="flex justify-center my-4">
+      <div className="flex justify-center">
         <Field name="recaptcha" as={Captcha} />
-      </div>
-
-      <div className="block text-xs text-center leading-normal mb-8 px-6">
-        By clicking the “sing up” button, I agree to the terms of service and
-        personal data processing policy
       </div>
     </>
   );

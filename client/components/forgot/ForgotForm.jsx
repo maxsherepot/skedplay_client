@@ -1,14 +1,14 @@
 import React from "react";
-import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
+import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 
 import { useSteps } from "hooks";
-import { Button } from "components/Ui";
-import { transformValidationErrors } from "utils";
+import { Button, FormGroup } from "UI";
 
 function ForgotForm({ onSubmit, children }) {
   const { step, setStep } = useSteps("forgot");
 
+  const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
@@ -28,41 +28,34 @@ function ForgotForm({ onSubmit, children }) {
     return {};
   };
 
-  const handleSubmits = async (values, { setSubmitting, setErrors }) => {
-    let result = true;
+  const handleSubmits = async (values, { setSubmitting, setStatus }) => {
+    setStatus(null);
 
     if (activeStep.props.onStepSubmit) {
-      result = await activeStep.props.onStepSubmit(values);
+      const { status, message } = await activeStep.props.onStepSubmit(values);
+
+      setSubmitting(false);
+
+      if (status) {
+        next();
+      } else if (!status && message) {
+        setStatus(message);
+      }
     }
 
     if (isLastStep) {
       try {
-        await onSubmit({
-          variables: {
-            ...values
-          }
-        });
-      } catch (e) {
-        setErrors(transformValidationErrors(e));
-      }
+        await onSubmit();
+        setStep(0);
+      } catch (e) {}
       return;
-    }
-
-    setSubmitting(false);
-
-    if (result) {
-      next();
     }
   };
 
   return (
     <Formik
       initialValues={{
-        account_type: "client",
-        first_name: "",
         phone: "",
-        email: "",
-        gender: "",
         password: "",
         password_confirmation: "",
         recaptcha: "",
@@ -71,20 +64,31 @@ function ForgotForm({ onSubmit, children }) {
       validate={validate}
       onSubmit={handleSubmits}
     >
-      {({ handleSubmit, isSubmitting }) => (
+      {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="block text-lg text-center mt-4 font-medium">
-            Step {step + 1} / 3
+            Step {step + 1} / {stepLength}
           </div>
 
           {activeStep}
+
+          {status && (
+            <FormGroup className="error text-center">
+              <span>{status}</span>
+            </FormGroup>
+          )}
 
           <Button
             type="submit"
             className="text-xl min-w-full"
             disabled={isSubmitting}
           >
-            {isLastStep ? "Sign Up" : "Next step"}
+            {{
+              0: "Send verification code",
+              1: "Check verification code",
+              2: "Confirm",
+              3: "Go to Login page"
+            }[step] || "Next step"}
           </Button>
         </form>
       )}
