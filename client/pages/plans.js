@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import {
@@ -15,17 +15,19 @@ const Plans = () => {
   const periods = [
     {
       name: "3 months",
-      value: 3
+      value: "3"
     },
     {
       name: "6 months",
-      value: 6
+      value: "6"
     },
     {
       name: "1 year",
-      value: 12
+      value: "12"
     }
   ];
+
+  const [period, setPeriod] = useState(periods[0].value);
 
   return (
     <>
@@ -52,8 +54,8 @@ const Plans = () => {
               <GroupRadio
                 name="plan"
                 items={periods}
-                defaultValue="3"
-                handleChange={value => console.log(value)}
+                defaultValue={period}
+                handleChange={e => setPeriod(e.target.value)}
               ></GroupRadio>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -14,6 +14,7 @@ function GroupRadio({ className, name, items, handleChange, defaultValue }) {
           <Fragment key={indexName}>
             <input
               type="radio"
+              id={indexName}
               name={indexName}
               value={item.value}
               checked={defaultValue == item.value}
