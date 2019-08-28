@@ -22,7 +22,7 @@ class AuthTest extends TestCase
     public function testLogin()
     {
         $data = collect([
-            'username'  => 'client@site.com',
+            'username'  => $this->getPhone(),
             'password'  => 'password',
             'recaptcha' => 'afdhgedrh',
         ]);
@@ -48,7 +48,7 @@ class AuthTest extends TestCase
     public function testLogout()
     {
         $data = collect([
-            'username'  => 'client@site.com',
+            'username'  => $this->getPhone(),
             'password'  => 'password',
             'recaptcha' => 'afdhgedrh',
         ]);
@@ -109,7 +109,7 @@ class AuthTest extends TestCase
     public function testRefreshToken()
     {
         $data = collect([
-            'username'  => 'client@site.com',
+            'username'  => $this->getPhone(),
             'password'  => 'password',
             'recaptcha' => 'afdhgedrh',
         ]);

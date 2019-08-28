@@ -21,7 +21,7 @@ class EmployeeTest extends TestCase
     {
         $this->graphQL('
         {
-            employees(filters: {services: [1]}, count: 1) {
+            employees(filters: {services: [1]}, first: 1) {
                 data {
                     first_name
                 }

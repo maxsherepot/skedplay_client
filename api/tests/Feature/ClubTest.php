@@ -274,7 +274,7 @@ class ClubTest extends TestCase
     {
         return $this->graphQL('
         {
-            clubs(count: 15, filters: { services: [1], club_type_id: 1 }) {
+            clubs(first: 15, filters: { services: [1], club_type_id: 1 }) {
                 data {
                     id
                     name

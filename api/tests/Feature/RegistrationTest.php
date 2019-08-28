@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Modules\Users\Entities\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,7 +25,7 @@ class RegistrationTest extends TestCase
      */
     public function testSendCode()
     {
-        $this->sendCode($this->getPhone())->assertJson([
+        $this->sendCode($this->getPhone(), Str::random(15))->assertJson([
             'data' => [
                 'sendVerificationCode' => [
                     'status' => true
@@ -35,6 +36,8 @@ class RegistrationTest extends TestCase
 
     public function testConfirmCode()
     {
+        $this->sendCode($this->getPhone(), Str::random(15));
+
         $this->confirmCode($this->getPhone(), '0000')->assertJson([
             'data' => [
                 'checkVerificationCode' => [
@@ -55,6 +58,7 @@ class RegistrationTest extends TestCase
             'gender'       => User::GENDER_FEMALE,
             'account_type' => User::ACCOUNT_EMPLOYEE,
             'plan_id'      => 1,
+            'recaptcha'    => Str::random(15),
         ]);
 
         $this->registration($data)->assertJsonStructure([
@@ -82,12 +86,11 @@ class RegistrationTest extends TestCase
             'phone'                 => $this->faker->phoneNumber,
             'password'              => 'password',
             'password_confirmation' => 'password',
-            'recaptcha'             => 'afafggheghr',
         ]);
 
         $phone = $data->get('phone');
 
-        $this->sendCode($phone);
+        $this->sendCode($phone, $data->get('recaptcha'));
         $this->confirmCode($phone, '0000');
 
         return $this->postGraphQL([
@@ -145,22 +148,25 @@ class RegistrationTest extends TestCase
 
     /**
      * @param $phone
+     * @param $recaptcha
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    protected function sendCode($phone)
+    protected function sendCode($phone, $recaptcha)
     {
         return $this->postGraphQL([
             'query'     => '
-                mutation ($phone: String!) {
+                mutation ($phone: String!, $recaptcha: String!) {
                     sendVerificationCode(input: {
-                        phone: $phone
+                        phone: $phone,
+                        recaptcha: $recaptcha
                     }) {
                         status
                     }
                 }
             ',
             'variables' => [
-                'phone' => $phone
+                'phone'     => $phone,
+                'recaptcha' => $recaptcha,
             ],
         ]);
     }

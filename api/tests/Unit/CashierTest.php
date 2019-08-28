@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Modules\Main\Services\Cashier\Plan;
-use Modules\Main\Services\Cashier\Subscription;
+use Modules\Billing\Entities\Plan;
+use Modules\Billing\Entities\Subscription;
 use Modules\Users\Entities\User;
 use Tests\TestCase;
 
