@@ -13,7 +13,7 @@ function Login() {
       <Modal
         logo={<Logo />}
         title="Login"
-        left={<ArrowBack href="/" title="Back" />}
+        left={<ArrowBack href="/" />}
         right={<LangSelector />}
       >
         <LoginBox />

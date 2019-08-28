@@ -1,14 +1,13 @@
 import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
-import Link from "next/link";
 
 import { useSteps } from "hooks";
 import { Button } from "components/Ui";
 import { transformValidationErrors } from "utils";
 
-function RegisterForm({ onSubmit, children }) {
-  const { step, setStep } = useSteps("register");
+function ForgotForm({ onSubmit, children }) {
+  const { step, setStep } = useSteps("forgot");
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
@@ -87,22 +86,16 @@ function RegisterForm({ onSubmit, children }) {
           >
             {isLastStep ? "Sign Up" : "Next step"}
           </Button>
-
-          <Link href="/login">
-            <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
-              Already have an account
-            </a>
-          </Link>
         </form>
       )}
     </Formik>
   );
 }
 
-RegisterForm.Step = ({ children }) => children;
+ForgotForm.Step = ({ children }) => children;
 
-RegisterForm.propTypes = {
+ForgotForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export default RegisterForm;
+export default ForgotForm;

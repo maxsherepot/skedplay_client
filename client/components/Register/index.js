@@ -1,5 +1,6 @@
-export * from "components/Register/Steps";
-import RegisterForm from "components/Register/RegisterForm";
-import RegisterBox from "components/Register/RegisterBox";
+export * from "components/register/Steps";
+
+import RegisterForm from "components/register/RegisterForm";
+import RegisterBox from "components/register/RegisterBox";
 
 export { RegisterForm, RegisterBox };

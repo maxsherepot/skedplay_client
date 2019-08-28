@@ -45,7 +45,11 @@ function create(initialState, { getToken, fetchOptions }) {
 
   cache.writeData({
     data: {
-      currentRegisterStep: 0
+      steps: {
+        register: 0,
+        forgot: 0,
+        __typename: "Steps"
+      }
     }
   });
 
