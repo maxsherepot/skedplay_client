@@ -49,7 +49,7 @@ class RegisterController extends Controller
 
         $user->newSubscription(
             'main',
-            $request->get('plan_id', Plan::where('name', 'free')->first()->id)
+            $request->get('plan_id', Plan::where('name', 'start')->first()->id)
         )->create();
 
         $data->put('user_id', $user->id);
