@@ -68,24 +68,32 @@ const InfoSVG = () => (
   </svg>
 );
 
-function PlanCard({ plan }) {
+const PERMISSION_INFINITY = -1;
+const PERMISSION_FALSE = null;
+const PERMISSION_TRUE = 0;
+
+function PlanCard({ plan: { id, name, price, permissions }, onSubscribe }) {
   return (
     <div className="plans__item">
-      <div className="font-extrabold text-center text-2xl">{plan.name}</div>
+      <div className="font-extrabold text-center capitalize text-2xl">
+        {name}
+      </div>
       <div className="bg-xs-grey text-center text-lg font-medium leading-none mt-2 py-4">
-        {plan.price}
+        {{
+          0: "Free"
+        }[price] || `$ ${price}`}
       </div>
       <div className="plans__body mt-6">
-        {plan.permissions &&
-          plan.permissions.map(({ name, value }, index) => (
+        {permissions &&
+          permissions.map(({ display_name, pivot: { value } }, index) => (
             <div
               className="flex justify-between leading-snug mt-5 items-center"
               key={index}
             >
               <div className="flex-auto text-sm flex-shrink pr-3">
                 <div className="flex">
-                  {name}
-                  {name === "Credit card payment" && (
+                  {display_name}
+                  {display_name === "Credit card payment" && (
                     <span className="ml-4">
                       <InfoSVG />
                     </span>
@@ -94,16 +102,20 @@ function PlanCard({ plan }) {
               </div>
               <div className="flex">
                 {{
-                  0: <InfinitySVG />,
-                  true: <DawSVG />,
-                  false: <CrossSVG />
+                  [PERMISSION_INFINITY]: <InfinitySVG />,
+                  [PERMISSION_TRUE]: <DawSVG />,
+                  [PERMISSION_FALSE]: <CrossSVG />
                 }[value] || (
                   <div className="w-6 text-center text-sm">{value}</div>
                 )}
               </div>
             </div>
           ))}
-        <Button className="text-sm mt-5 min-w-full" size="xs">
+        <Button
+          className="text-sm mt-5 min-w-full"
+          size="xs"
+          onClick={() => onSubscribe(id)}
+        >
           Subscribe
         </Button>
       </div>
@@ -115,8 +127,16 @@ PlanCard.propTypes = {
   plan: PropTypes.shape({
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
-    permissions: PropTypes.array
-  })
+    permissions: PropTypes.arrayOf(
+      PropTypes.shape({
+        display_name: PropTypes.string.isRequired,
+        pivot: PropTypes.shape({
+          value: PropTypes.string
+        })
+      })
+    )
+  }),
+  onSubscribe: PropTypes.func.isRequired
 };
 
 export default PlanCard;

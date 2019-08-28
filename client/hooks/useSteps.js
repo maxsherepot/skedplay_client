@@ -5,10 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_CURRENT_REGISTER_STEP } from "queries";
 
 function useSteps(name) {
-  const {
-    data: { steps },
-    client
-  } = useQuery(GET_CURRENT_REGISTER_STEP);
+  const { data, client } = useQuery(GET_CURRENT_REGISTER_STEP);
 
   const setStep = step => {
     client.writeData({
@@ -22,7 +19,7 @@ function useSteps(name) {
   };
 
   return {
-    step: steps[name] || 0,
+    step: (name && data && data.steps && data.steps[name]) || 0,
     setStep
   };
 }

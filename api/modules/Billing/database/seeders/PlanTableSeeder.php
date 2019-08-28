@@ -21,7 +21,7 @@ class PlanTableSeeder extends Seeder
         $this->command->info('Plan seeder started');
 
         $plans = [
-            'free'     => 0,
+            'start'     => 0,
             'personal' => 170,
             'premium'  => 350,
         ];

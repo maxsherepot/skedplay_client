@@ -2,6 +2,7 @@ type Plan {
     id: ID!
     name: String!
     price: String!
+    permissions: [Permission] @belongsToMany
 }
 
 type SubscribePayload {

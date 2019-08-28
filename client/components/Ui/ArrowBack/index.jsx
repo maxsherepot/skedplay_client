@@ -47,7 +47,7 @@ ArrowBack.propTypes = {
 };
 
 ArrowBack.defaultProps = {
-  stepName: "register",
+  stepName: null,
   title: "Back",
   color: "black"
 };

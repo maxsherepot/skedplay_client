@@ -1,221 +1,69 @@
+import PropTypes from "prop-types";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+
 import { PlanCard } from "UI";
+import redirect from "lib/redirect";
+import { SUBSCRIBE_ON_PLAN } from "queries";
 
-// const GET_GIRLS = gql`
-//   {
-//     employees(first: 15) {
-//       data {
-//         id
-//         name
-//         age
-//         address
-//         isVip
-//         isNew
-//         photos {
-//           id
-//           thumb_url
-//         }
-//       }
-//     }
-//   }
-// `;
-
-const plans = [
+const GET_PLANS = gql`
   {
-    id: 1,
-    name: "Start",
-    price: "Free",
-    permissions: [
-      {
-        name: "Free consultation",
-        value: true
-      },
-      {
-        name: "Credit card payment",
-        value: true
-      },
-      {
-        name: "Home Payment (per Rechhung)",
-        value: true
-      },
-      {
-        name: "club in the account",
-        value: 1
-      },
-      {
-        name: "Events",
-        value: false
-      },
-      {
-        name: "Girls profiles",
-        value: 10
-      },
-      {
-        name: "Number of photos per girl profile",
-        value: 10
-      },
-      {
-        name: "Video on the profile (max. 200 mb)",
-        value: 1
-      },
-      {
-        name: "VIP profiles of girls",
-        value: 5
-      },
-      {
-        name: "Club Profile Video",
-        value: 1
-      },
-      {
-        name: "SEO",
-        value: true
-      },
-      {
-        name: "Multilingual",
-        value: true
-      },
-      {
-        name: "Personal card",
-        value: true
+    plans {
+      id
+      name
+      price
+      permissions {
+        name
+        display_name
+        pivot {
+          value
+        }
       }
-    ]
-  },
-  {
-    id: 2,
-    name: "Personal",
-    price: "$170",
-    permissions: [
-      {
-        name: "Free consultation",
-        value: true
-      },
-      {
-        name: "Credit card payment",
-        value: true
-      },
-      {
-        name: "Home Payment (per Rechhung)",
-        value: true
-      },
-      {
-        name: "club in the account",
-        value: 3
-      },
-      {
-        name: "Events",
-        value: true
-      },
-      {
-        name: "Girls profiles",
-        value: 0
-      },
-      {
-        name: "Number of photos per girl profile",
-        value: 0
-      },
-      {
-        name: "Video on the profile (max. 200 mb)",
-        value: 1
-      },
-      {
-        name: "VIP profiles of girls",
-        value: 10
-      },
-      {
-        name: "Club Profile Video",
-        value: 1
-      },
-      {
-        name: "SEO",
-        value: true
-      },
-      {
-        name: "Multilingual",
-        value: true
-      },
-      {
-        name: "Personal card",
-        value: true
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: "Premium",
-    price: "$350",
-    permissions: [
-      {
-        name: "Free consultation",
-        value: true
-      },
-      {
-        name: "Credit card payment",
-        value: true
-      },
-      {
-        name: "Home Payment (per Rechhung)",
-        value: true
-      },
-      {
-        name: "club in the account",
-        value: 5
-      },
-      {
-        name: "Events",
-        value: true
-      },
-      {
-        name: "Girls profiles",
-        value: 0
-      },
-      {
-        name: "Number of photos per girl profile",
-        value: 0
-      },
-      {
-        name: "Video on the profile (max. 200 mb)",
-        value: 1
-      },
-      {
-        name: "VIP profiles of girls",
-        value: 10
-      },
-      {
-        name: "Club Profile Video",
-        value: 1
-      },
-      {
-        name: "SEO",
-        value: true
-      },
-      {
-        name: "Multilingual",
-        value: true
-      },
-      {
-        name: "Personal card",
-        value: true
-      }
-    ]
+    }
   }
-];
+`;
 
-function PlansBox() {
-  //   const {
-  //     loading,
-  //     error,
-  //     data: { employees }
-  //   } = useQuery(GET_GIRLS);
+function PlansBox({ user }) {
+  const onCompleted = ({ subscribeOnPlan: { invoice_id } }) => {
+    // redirect to invoice pages
 
-  //   if (loading) return <div>Loading...</div>;
-  //   if (error) return <div>{error.message}</div>;
+    return redirect({}, `/invoices/${invoice_id}`);
+  };
 
+  const [subscribe] = useMutation(SUBSCRIBE_ON_PLAN, {
+    onCompleted
+  });
+  const {
+    loading,
+    error,
+    data: { plans }
+  } = useQuery(GET_PLANS);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
+  const onSubscribe = planId => {
+    subscribe({
+      variables: {
+        plan: planId,
+        user: user.id
+      }
+    });
+  };
   return (
     <div className="plans">
-      {plans && plans.map(plan => <PlanCard plan={plan} key={plan.id} />)}
+      {plans &&
+        plans.map(plan => (
+          <PlanCard plan={plan} key={plan.id} onSubscribe={onSubscribe} />
+        ))}
     </div>
   );
 }
+
+PlansBox.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  })
+};
 
 export default PlansBox;

@@ -20,7 +20,7 @@ const RegisterBox = () => {
       maxAge: 30 * 24 * 60 * 60 // 30 days
     });
     client.cache.reset().then(() => {
-      redirect({}, "/");
+      redirect({}, "/plans");
     });
   };
 

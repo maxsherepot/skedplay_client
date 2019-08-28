@@ -19,7 +19,7 @@ class CreatePermissionPlanTable extends Migration
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('plan_id');
 
-            $table->string('value');
+            $table->string('value')->nullable();
         });
     }
 

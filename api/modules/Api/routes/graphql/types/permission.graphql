@@ -1,0 +1,14 @@
+type Permission {
+    id: ID!
+    name: String!
+    display_name: String!
+    pivot: PermissionPivot
+}
+
+type PermissionPivot {
+    value: String
+}
+
+extend type Query {
+    permission: [Permission!]! @all
+}

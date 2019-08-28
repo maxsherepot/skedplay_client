@@ -5,7 +5,7 @@ namespace Modules\Users\Database\Seeders;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Billing\Entities\Plan;
+use Modules\Users\Entities\PermissionPlan;
 
 class PlanPermissionTableSeeder extends Seeder
 {
@@ -21,42 +21,64 @@ class PlanPermissionTableSeeder extends Seeder
         $start = now();
         $this->command->info('Plan Permission seeder started');
 
-        $plans = Plan::all();
-
         $permissions = [
-            'max-club'         => [
+            'free-consultation' => [
+                'title' => 'Free consultation',
+            ],
+            'credit-card-pay'   => [
+                'title' => 'Credit card payment',
+            ],
+            'home-pay'          => [
+                'title' => 'Home Payment (per Rechhung)',
+            ],
+            'max-club'          => [
                 'title' => 'Numbers of clubs in the account',
             ],
-            'can-events'       => [
+            'can-events'        => [
                 'title' => 'Events'
             ],
-            'max-girl-profile' => [
+            'max-girl-profile'  => [
                 'title' => 'Girls profiles'
             ],
-            'max-girl-photo'   => [
+            'max-girl-photo'    => [
                 'title' => 'Numbers of photos per girl profile'
             ],
-            'max-girl-video'   => [
+            'max-girl-video'    => [
                 'title' => 'Video on the profile (max. 200mb)'
             ],
-            'max-vip-profile'  => [
+            'max-vip-profile'   => [
                 'title' => 'Vip profiles of girls'
             ],
-            'max-club-video'   => [
+            'max-club-video'    => [
                 'title' => 'Club Profile video'
+            ],
+            'seo'               => [
+                'title' => 'SEO'
+            ],
+            'multilingual'      => [
+                'title' => 'Multilingual'
+            ],
+            'personal-card'     => [
+                'title' => 'Personal card'
             ],
         ];
 
         $permission_ids = [];
 
         $permission_values = [
-            'max-club'         => [1, 3, 5],
-            'can-events'       => [0, 1, 1],
-            'max-girl-profile' => [10, 0, 0],
-            'max-girl-photo'   => [10, 0, 0],
-            'max-girl-video'   => [1, 1, 1],
-            'max-vip-profile'  => [5, 10, 10],
-            'max-club-video'   => [1, 1, 1],
+            'free-consultation' => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'credit-card-pay'   => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'home-pay'          => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'max-club'          => [1, 3, 5],
+            'can-events'        => [PermissionPlan::FALSE, 1, 1],
+            'max-girl-profile'  => [10, PermissionPlan::INFINITY, PermissionPlan::INFINITY],
+            'max-girl-photo'    => [10, PermissionPlan::INFINITY, PermissionPlan::INFINITY],
+            'max-girl-video'    => [1, 1, 1],
+            'max-vip-profile'   => [5, 10, 10],
+            'max-club-video'    => [1, 1, 1],
+            'seo'               => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'multilingual'      => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'personal-card'     => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
         ];
 
         foreach ($permissions as $key => $permission) {

@@ -3,7 +3,9 @@
 namespace Modules\Billing\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Common\Entities\Traits\NameSlugable;
+use Modules\Users\Entities\Permission;
 
 class Plan extends Model
 {
@@ -29,4 +31,13 @@ class Plan extends Model
     protected $dates = [
         'created_at', 'updated_at',
     ];
+
+    /**
+     * @return BelongsToMany
+     */
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class)
+            ->withPivot('value');
+    }
 }

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import redirect from "lib/redirect";
+import checkLoggedIn from "lib/checkLoggedIn";
 
 import {
   AnimationBackground,
@@ -11,7 +13,7 @@ import {
 
 import PlansBox from "components/plans/PlansBox";
 
-const Plans = () => {
+const Plans = ({ loggedInUser }) => {
   const periods = [
     {
       name: "3 months",
@@ -60,12 +62,21 @@ const Plans = () => {
             </div>
           </div>
           <div className="container mt-8 mb-20">
-            <PlansBox />
+            <PlansBox user={loggedInUser.me} />
           </div>
         </div>
       </div>
     </>
   );
+};
+
+Plans.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser.me) {
+    redirect(context, "/login");
+  }
+
+  return { loggedInUser };
 };
 
 export default Plans;
