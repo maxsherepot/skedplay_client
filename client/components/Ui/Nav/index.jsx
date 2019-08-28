@@ -7,9 +7,11 @@ function Nav() {
       <div className="container mx-auto h-full">
         <div className="flex justify-between h-full items-center">
           <div className="flex h-full items-center">
-            <a className="logo -mt-1" href="/">
-              <Logo />
-            </a>
+            <Link href="/">
+              <a className="logo -mt-1">
+                <Logo />
+              </a>
+            </Link>
             <ul className="menu">
               <li className="menu__item menu__item_dropdown">
                 <ul>
@@ -99,10 +101,7 @@ function Nav() {
               7
             </a>
             <Link href="/login">
-              <a
-                className="menu-icons__item menu-icons__item_last hidden sm:block"
-                href="/login"
-              >
+              <a className="menu-icons__item menu-icons__item_last hidden sm:block">
                 <svg
                   className="inline-block stroke-red mr-1"
                   width="14"
@@ -119,7 +118,7 @@ function Nav() {
             <button
               className="menu-icons__item menu-icons__item_last md:hidden pr-0"
               id="menu-hamburger"
-              onClick="toggleMobileMenu()"
+              // onClick="toggleMobileMenu()"
             >
               <svg
                 className="strokeWhite mt-1"

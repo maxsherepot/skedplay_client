@@ -81,7 +81,7 @@ function Header({ events }) {
                   >
                     <path
                       d="M0 8H12M12 8L5.14286 15M12 8L5.14286 1"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     ></path>
                   </svg>
                 </a>
