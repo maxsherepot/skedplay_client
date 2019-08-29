@@ -50,10 +50,11 @@ header {
 
 .menu {
   @apply hidden ml-10 mt-1;
+
   &__item {
     @apply flex justify-center mr-2;
     a {
-      @apply text-white capitalize font-medium text-lg transition pl-5 pr-5;
+      @apply capitalize font-medium text-lg transition pl-5 pr-5;
       &:hover {
         @apply text-red;
       }
@@ -61,7 +62,7 @@ header {
     &_dropdown {
       @apply relative cursor-pointer;
       span {
-        @apply text-white capitalize font-medium text-lg pr-3 whitespace-no-wrap;
+        @apply capitalize font-medium text-lg pr-3 whitespace-no-wrap;
       }
       ul {
         @apply absolute top-0 rounded-lg border-black border bg-white z-10 overflow-hidden transition;

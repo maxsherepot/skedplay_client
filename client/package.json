@@ -23,10 +23,13 @@
     "https-proxy-agent": "^2.2.2",
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.15",
+    "lodash.throttle": "^4.1.1",
     "next": "9.0.4",
     "node-sass": "^4.12.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
+    "rxjs": "^6.5.2",
+    "rxjs-hooks": "^0.5.1",
     "react-recaptcha": "^2.3.10",
     "yup": "^0.27.0"
   },

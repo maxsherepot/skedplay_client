@@ -1,15 +1,39 @@
+import React from "react";
+import classNames from "classnames";
 import Link from "next/link";
+
 import { Logo } from "UI";
+import { usePrevious, useWindowScrollPosition } from "hooks";
+
+const HIDDEN_BREACKPOINT = 200;
 
 function Nav() {
+  let position = useWindowScrollPosition({
+    throttle: 200
+  });
+
+  const prevPositionY = usePrevious(position.y || 0);
+
+  const isBackground =
+    position.y < prevPositionY && position.y > HIDDEN_BREACKPOINT;
+
   return (
-    <nav className="fixed border-b border-black-opacity-10 top-0 left-0 w-full z-20">
+    <nav
+      className={classNames(
+        "fixed border-b border-black-opacity-10 left-0 w-full z-20",
+        {
+          "nav-up":
+            position.y > prevPositionY && position.y >= HIDDEN_BREACKPOINT,
+          "bg-white": isBackground
+        }
+      )}
+    >
       <div className="container mx-auto h-full">
         <div className="flex justify-between h-full items-center">
           <div className="flex h-full items-center">
             <Link href="/">
               <a className="logo -mt-1">
-                <Logo />
+                <Logo color={isBackground ? "black" : "white"} />
               </a>
             </Link>
             <ul className="menu">
@@ -25,7 +49,7 @@ function Nav() {
                     <a href="/couple.html">couple</a>
                   </li>
                 </ul>
-                <span>
+                <span className={`text-${isBackground ? "black" : "white"}`}>
                   Girls
                   <svg
                     className="inline-block strokeWhite ml-1"
@@ -45,10 +69,20 @@ function Nav() {
                 </span>
               </li>
               <li className="menu__item">
-                <a href="/clubs.html">clubs</a>
+                <a
+                  className={`text-${isBackground ? "black" : "white"}`}
+                  href="/clubs.html"
+                >
+                  clubs
+                </a>
               </li>
               <li className="menu__item">
-                <a href="/events.html">events</a>
+                <a
+                  className={`text-${isBackground ? "black" : "white"}`}
+                  href="/events.html"
+                >
+                  events
+                </a>
               </li>
             </ul>
           </div>
