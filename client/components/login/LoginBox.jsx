@@ -9,11 +9,16 @@ import { LoginForm } from "components/login";
 const LoginBox = () => {
   const client = useApolloClient();
 
-  const onCompleted = ({ login: { access_token } }) => {
+  const onCompleted = ({ login: { access_token, user } }) => {
     document.cookie = cookie.serialize("token", access_token, {
       maxAge: 30 * 24 * 60 * 60 // 30 days
     });
     client.cache.reset().then(() => {
+      client.writeData({
+        data: {
+          me: user
+        }
+      });
       redirect({}, "/");
     });
   };

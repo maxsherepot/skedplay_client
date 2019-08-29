@@ -16,9 +16,9 @@ const Button = ({ className, size, level, outline, ...rest }) => (
 );
 
 Button.propTypes = {
-  level: PropTypes.oneOf(["primary", "secondary", "outline"]),
+  level: PropTypes.oneOf(["primary", "secondary", "black"]),
   outline: PropTypes.bool,
-  size: PropTypes.oneOf(["sm", "xs"]),
+  size: PropTypes.oneOf(["sm", "xs", "xxs"]),
   className: PropTypes.string
 };
 

@@ -25,7 +25,7 @@ function Register() {
 Register.getInitialProps = async ctx => {
   const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 
-  if (loggedInUser.me) {
+  if (loggedInUser) {
     redirect(ctx, "/");
   }
 

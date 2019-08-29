@@ -6,13 +6,7 @@ import { AnimationBackground } from "UI";
 
 const Invoice = ({ loggedInUser }) => {
   const router = useRouter();
-  const { id } = router.query;  
-
-  let t = "true";
-  let f = "false";
-  let n = "1";
-
-  console.log(t == f);
+  const { id } = router.query;
 
   return (
     <>
@@ -26,7 +20,7 @@ const Invoice = ({ loggedInUser }) => {
 
 Invoice.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser.me) {
+  if (!loggedInUser) {
     redirect(context, "/login");
   }
 

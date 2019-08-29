@@ -14,8 +14,8 @@ export default apolloClient =>
         }
       `
     })
-    .then(({ data }) => {
-      return { loggedInUser: data };
+    .then(({ data: { me } }) => {
+      return { loggedInUser: me };
     })
     .catch(() => {
       // Fail gracefully

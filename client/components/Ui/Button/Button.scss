@@ -48,6 +48,17 @@
     @apply h-10;
   }
 
+  &-xxs {
+    @apply h-6;
+  }
+
+  &-black {
+    @apply bg-transparent text-white text-xs font-normal px-4;
+    &::before {
+      @apply bg-black border-2 border-black;
+    }
+  }
+
   &-primary {
     @apply bg-transparent text-white;
     &::before {

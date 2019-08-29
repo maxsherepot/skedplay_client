@@ -62,7 +62,7 @@ const Plans = ({ loggedInUser }) => {
             </div>
           </div>
           <div className="container mt-8 mb-20">
-            <PlansBox user={loggedInUser.me} />
+            <PlansBox user={loggedInUser} />
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ const Plans = ({ loggedInUser }) => {
 
 Plans.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser.me) {
+  if (!loggedInUser) {
     redirect(context, "/login");
   }
 

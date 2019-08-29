@@ -7,10 +7,20 @@ header {
     height: $mob_nan_height;
     .logo {
       width: 118px;
+      svg {
+        @apply text-white;
+        fill: currentColor;
+      }
     }
 
     &__theme_white {
       @apply bg-white;
+      .logo {
+        svg {
+          @apply text-black;
+        }
+      }
+
       .menu {
         &__item {
           a {
