@@ -3,15 +3,34 @@ $mob_nan_height: 70px;
 
 header {
   padding-top: $mob_nan_height + 1px;
-  nav {
+  .nav {
     height: $mob_nan_height;
     .logo {
       width: 118px;
     }
+
+    &__theme_white {
+      @apply bg-white;
+      .menu {
+        &__item {
+          a {
+            @apply text-black;
+          }
+          &_dropdown {
+            span {
+              @apply text-black;
+            }
+          }
+        }
+      }
+      .menu-icons__item {
+        @apply text-black;
+      }
+    }
   }
 
   @screen lg {
-    nav {
+    .nav {
       .logo {
         width: 135px;
       }
@@ -20,7 +39,7 @@ header {
 
   @screen xl {
     padding-top: $nav_height + 1px;
-    nav {
+    .nav {
       height: $nav_height;
       .logo {
         width: 177px;
@@ -54,7 +73,7 @@ header {
   &__item {
     @apply flex justify-center mr-2;
     a {
-      @apply capitalize font-medium text-lg transition pl-5 pr-5;
+      @apply text-white capitalize font-medium text-lg transition pl-5 pr-5;
       &:hover {
         @apply text-red;
       }
@@ -62,7 +81,7 @@ header {
     &_dropdown {
       @apply relative cursor-pointer;
       span {
-        @apply capitalize font-medium text-lg pr-3 whitespace-no-wrap;
+        @apply text-white capitalize font-medium text-lg pr-3 whitespace-no-wrap;
       }
       ul {
         @apply absolute top-0 rounded-lg border-black border bg-white z-10 overflow-hidden transition;
