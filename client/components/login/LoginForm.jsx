@@ -5,11 +5,11 @@ import * as Yup from "yup";
 import Link from "next/link";
 
 import { TextField, Checkbox, Button, FormGroup } from "UI";
-import { transformValidationErrors, isAuthError } from "utils";
+import { getErrors } from "utils";
 import Captcha from "components/Captcha";
 
 const LoginForm = ({ onSubmit }) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   return (
     <Formik
@@ -32,10 +32,10 @@ const LoginForm = ({ onSubmit }) => {
             }
           });
         } catch (e) {
-          if (isAuthError(e)) {
-            setError(true);
+          if (getErrors(e) instanceof Object) {
+            setErrors(getErrors(e));
           } else {
-            setErrors(transformValidationErrors(e));
+            setError(getErrors(e));
           }
         }
         setSubmitting(false);
@@ -59,7 +59,7 @@ const LoginForm = ({ onSubmit }) => {
 
           {error && (
             <FormGroup className="error text-center">
-              <span>The user credentials were incorrect.</span>
+              <span>{error}</span>
             </FormGroup>
           )}
 

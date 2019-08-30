@@ -3,18 +3,28 @@ import _ from "lodash";
 /** https://github.com/jaredpalmer/formik/issues/33#issuecomment-519081116 */
 /** https://github.com/dostu/react-apollo-realworld-example-app/blob/master/src/apolloHelpers.js */
 
-const transformValidationErrors = userErrors => {
-  return {};
+const transformValidationErrors = errors => {
+  return errors;
 };
 
-const isAuthError = errors =>
-  _.chain(errors)
-    .map("extensions")
-    .map("category")
-    .value();
+const getErrors = e => {
+  if (e && e.graphQLErrors.length) {
+    const [error] = e.graphQLErrors;
 
-// e &&
-//   e.graphQLErrors &&
-//   e.graphQLErrors[0].extensions.category === "authentication";
+    switch (error.extensions.category) {
+      case "validation":
+        return transformValidationErrors(
+          error.extensions[error.extensions.category]
+        );
+      case "authentication":
+        return error.message;
 
-export { transformValidationErrors, isAuthError };
+      default:
+        break;
+    }
+  }
+
+  return null;
+};
+
+export { transformValidationErrors, getErrors };

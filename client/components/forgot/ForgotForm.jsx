@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 
+import { getErrors } from "utils";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 
@@ -28,7 +29,10 @@ function ForgotForm({ onSubmit, children }) {
     return {};
   };
 
-  const handleSubmits = async (values, { setSubmitting, setStatus }) => {
+  const handleSubmits = async (
+    values,
+    { setSubmitting, setStatus, setErrors }
+  ) => {
     setStatus(null);
 
     if (activeStep.props.onStepSubmit) {
@@ -47,7 +51,11 @@ function ForgotForm({ onSubmit, children }) {
       try {
         await onSubmit();
         setStep(0);
-      } catch (e) {}
+      } catch (e) {
+        if (getErrors(e) instanceof Object) {
+          setErrors(getErrors(e));
+        }
+      }
       return;
     }
   };

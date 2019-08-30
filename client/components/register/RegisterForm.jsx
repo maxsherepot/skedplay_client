@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
-import { transformValidationErrors } from "utils";
+import { getErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
   const { step, setStep } = useSteps("register");
@@ -57,7 +57,9 @@ function RegisterForm({ onSubmit, children }) {
         });
         setStep(0);
       } catch (e) {
-        setErrors(transformValidationErrors(e));
+        if (getErrors(e) instanceof Object) {
+          setErrors(getErrors(e));
+        }
       }
       return;
     }
