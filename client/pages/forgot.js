@@ -3,7 +3,7 @@ import React from "react";
 import { AnimationBackground, Modal, Logo, ArrowBack, LangSelector } from "UI";
 import { ForgotBox } from "components/forgot";
 
-function Register() {
+function Forgot() {
   return (
     <>
       <AnimationBackground />
@@ -19,4 +19,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Forgot;
