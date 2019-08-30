@@ -143,6 +143,7 @@ return [
     |
     */
     'error_handlers'             => [
+        \Modules\Api\GraphQL\Exceptions\CustomErrorHandler::class,
         \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
     ],
     /*
