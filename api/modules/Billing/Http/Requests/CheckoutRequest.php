@@ -2,10 +2,10 @@
 
 namespace Modules\Billing\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Billing\Entities\Invoice;
 
-class CheckoutRequest extends FormRequest
+class CheckoutRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

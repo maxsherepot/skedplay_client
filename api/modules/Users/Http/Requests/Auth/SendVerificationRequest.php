@@ -2,10 +2,10 @@
 
 namespace Modules\Users\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Users\Rules\CaptchaRule;
 
-class SendVerificationRequest extends FormRequest
+class SendVerificationRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

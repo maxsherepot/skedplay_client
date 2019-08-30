@@ -2,10 +2,10 @@
 
 namespace Modules\Users\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Users\Rules\CaptchaRule;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +16,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'username'      => 'required',
-            'password'      => 'required',
+            'password'      => 'required|max:2',
             'recaptcha'     => ['bail', 'required', 'string', new CaptchaRule],
             'remember_me'   => 'nullable|boolean',
         ];

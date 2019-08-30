@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class FileDeleteRequest extends FormRequest
+class FileDeleteRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -2,9 +2,9 @@
 
 namespace Modules\Users\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Modules\Api\Extensions\GraphQLFormRequest;
 
-class CheckVerificationRequest extends FormRequest
+class CheckVerificationRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

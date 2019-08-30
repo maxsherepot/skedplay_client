@@ -2,12 +2,12 @@
 
 namespace Modules\Api\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 
-class FileUploadRequest extends FormRequest
+class FileUploadRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Http\Requests\Employee;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class EmployeeUpdateRequest extends FormRequest
+class EmployeeUpdateRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

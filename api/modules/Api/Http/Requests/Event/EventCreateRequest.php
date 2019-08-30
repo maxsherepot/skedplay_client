@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Http\Requests\Event;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class EventCreateRequest extends FormRequest
+class EventCreateRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

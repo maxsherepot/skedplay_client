@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Http\Requests\Common;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class SyncPricesRequest extends FormRequest
+class SyncPricesRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

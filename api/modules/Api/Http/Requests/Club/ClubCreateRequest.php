@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Http\Requests\Club;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class ClubCreateRequest extends FormRequest
+class ClubCreateRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

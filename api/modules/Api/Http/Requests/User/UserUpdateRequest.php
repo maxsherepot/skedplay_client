@@ -2,11 +2,10 @@
 
 namespace Modules\Api\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use \Modules\Api\Extensions\GraphQLFormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Employees\Entities\Employee;
 
-class UserUpdateRequest extends FormRequest
+class UserUpdateRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
