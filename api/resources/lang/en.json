@@ -1,4 +1,4 @@
 {
-  "verification.send.failed": "Verification code send failed",
+  "verification.send.failed": "User with such a phone is not found",
   "verification.check.failed": "Incorrect code"
 }

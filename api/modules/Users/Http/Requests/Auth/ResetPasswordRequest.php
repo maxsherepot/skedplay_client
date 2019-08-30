@@ -15,7 +15,7 @@ class ResetPasswordRequest extends GraphQLFormRequest
     {
         return [
             'code'     => 'required',
-            'phone'    => 'bail|required|string|max:255|phone:AUTO,US',
+            'phone'    => 'bail|required|string|phone:AUTO,CH',
             'password' => 'required|confirmed|min:6',
         ];
     }

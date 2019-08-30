@@ -21,7 +21,7 @@ class RegistrationRequest extends GraphQLFormRequest
             'account_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'nullable|string|max:255',
-            //'phone'        => 'bail|required|string|max:255|unique:users,phone|phone:AUTO,US',
+            'phone'        => 'bail|required|string|unique:users,phone|phone:AUTO,CH',
             'email'        => 'bail|required|email|max:255|unique:users,email',
             'password'     => 'required|string|min:6|confirmed',
         ];
@@ -37,8 +37,8 @@ class RegistrationRequest extends GraphQLFormRequest
                 $root = array_merge($root, [
                     // 'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
                     // 'birthday' => 'required|date',
-                    'lat'      => 'nullable|string',
-                    'lng'      => 'nullable|string',
+                    'lat' => 'nullable|string',
+                    'lng' => 'nullable|string',
                 ]);
                 break;
         }
