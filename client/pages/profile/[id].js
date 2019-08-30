@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Header, Avatar, Button, PageCard } from "UI";

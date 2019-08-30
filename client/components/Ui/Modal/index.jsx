@@ -12,7 +12,7 @@ function Modal({ logo, title, left, right, children }) {
         <div className="modal__content">
           <div className="modal__content__header relative z-1">
             {left}
-            <div className="text-4xl font-extrabold tracking-tightest absolute top-0 left-0 w-full h-full flex justify-center items-center -z-1 uppercase">
+            <div className="text-4xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">
               {title}
             </div>
             {right}

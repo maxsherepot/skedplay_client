@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import Router from "next/router";
 
 import { FORGOT_PASSWORD, RESET_PASSWORD } from "queries";
-
+import { getErrors } from "utils";
 import { ForgotForm } from "components/forgot";
 import {
   SendCodeStep,
@@ -37,9 +37,12 @@ const ForgotBox = () => {
         message
       };
     } catch (e) {
+      const errors = getErrors(e);
+
       return {
         status: false,
-        message: "Server error"
+        message: "Server error",
+        errors
       };
     }
   };
@@ -74,9 +77,12 @@ const ForgotBox = () => {
         message
       };
     } catch (e) {
+      const errors = getErrors(e);
+
       return {
         status: false,
-        message: "Server error"
+        message: "Server error",
+        errors
       };
     }
   };

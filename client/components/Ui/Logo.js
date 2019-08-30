@@ -3,6 +3,8 @@ import React from "react";
 const Logo = () => {
   return (
     <svg
+      style={{ fill: "currentColor" }}
+      className="text-white mx-auto"
       width="177"
       height="43"
       viewBox="0 0 177 43"

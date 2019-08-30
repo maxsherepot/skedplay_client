@@ -37,14 +37,20 @@ function RegisterForm({ onSubmit, children }) {
     setStatus(null);
 
     if (activeStep.props.onStepSubmit) {
-      const { status, message } = await activeStep.props.onStepSubmit(values);
+      const { status, message, errors } = await activeStep.props.onStepSubmit(
+        values
+      );
 
       setSubmitting(false);
 
-      if (status) {
-        next();
+      if (errors instanceof Object) {
+        setErrors(errors);
       } else if (!status && message) {
         setStatus(message);
+      }
+
+      if (status) {
+        next();
       }
     }
 

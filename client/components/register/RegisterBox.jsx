@@ -8,7 +8,7 @@ import {
   SEND_VERTIFICATION_CODE,
   CHECK_VERTIFICATION_CODE
 } from "queries";
-
+import { getErrors } from "utils";
 import { RegisterForm } from "components/register";
 import { SendCodeStep, CheckCodeStep, RegisterStep } from "components/steps";
 
@@ -52,9 +52,12 @@ const RegisterBox = () => {
         message
       };
     } catch (e) {
+      const errors = getErrors(e);
+
       return {
         status: false,
-        message: "Server error"
+        message: "Server error",
+        errors
       };
     }
   };
@@ -77,9 +80,12 @@ const RegisterBox = () => {
         message
       };
     } catch (e) {
+      const errors = getErrors(e);
+
       return {
         status: false,
-        message: "Server error"
+        message: "Server error",
+        errors
       };
     }
   };
