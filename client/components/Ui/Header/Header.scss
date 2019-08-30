@@ -6,10 +6,10 @@ header {
   .nav {
     height: $mob_nan_height;
     .logo {
-      width: 118px;
       svg {
         @apply text-white;
         fill: currentColor;
+        width: 118px;
       }
     }
 
@@ -36,13 +36,22 @@ header {
       .menu-icons__item {
         @apply text-black;
       }
+
+      #menu-hamburger {
+        svg {
+          @apply text-black;
+          stroke: currentColor;
+        }
+      }
     }
   }
 
   @screen lg {
     .nav {
       .logo {
-        width: 135px;
+        svg {
+          width: 135px;
+        }
       }
     }
   }
@@ -52,7 +61,9 @@ header {
     .nav {
       height: $nav_height;
       .logo {
-        width: 177px;
+        svg {
+          width: 177px;
+        }
       }
     }
   }

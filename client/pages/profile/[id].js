@@ -70,9 +70,9 @@ const Invoice = ({ loggedInUser }) => {
         </div>
       </div>
       <PageCard>
-        <div className="flex">
-          <div className="flex justify-end w-2/5 border-divider border-r">
-            <div className="flex flex-col w-1/2 py-16 px-2">
+        <div className="flex justify-between">
+          <div className="flex flex-1 justify-end w-auto border-divider border-r">
+            <div className="flex flex-col py-16 pr-44">
               <div>
                 <span className="text-xl font-medium">My Ad/Cards</span>
                 <ul className="text-lg text-red font-medium leading-loose ml-8 mt-2">
@@ -110,13 +110,13 @@ const Invoice = ({ loggedInUser }) => {
               </div>
             </div>
           </div>
-          {/* <div className="w-3/5 px-2">
-            <div className="flex flex-wrap items-center h-full w-2/3 -mx-2">
+          <div className="w-3/5 px-3">
+            <div className="flex flex-wrap -mx-3 px-8 py-16">
               {cards &&
                 cards.map(({ title, icon, buttonText }, index) => (
-                  <div className="px-2 w-full">
+                  <div className="px-3 w-1/2 mb-5">
                     <div
-                      className="w-1/2 p-10 border-light-grey border rounded"
+                      className="p-10 border-light-grey border rounded"
                       key={index}
                     >
                       <div className="flex flex-col justify-center h-full">
@@ -136,7 +136,7 @@ const Invoice = ({ loggedInUser }) => {
                   </div>
                 ))}
             </div>
-          </div> */}
+          </div>
         </div>
       </PageCard>
     </>

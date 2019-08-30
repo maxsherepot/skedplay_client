@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 
-import { Logo } from "UI";
+import { Logo, Button } from "UI";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 
 const UserIconSvg = () => (
@@ -21,6 +21,7 @@ const UserIconSvg = () => (
 const NAV_HEIGHT = 90;
 
 function Nav({ user, className }) {
+  const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
     throttle: 200
   });
@@ -161,10 +162,10 @@ function Nav({ user, className }) {
             <button
               className="menu-icons__item menu-icons__item_last md:hidden pr-0"
               id="menu-hamburger"
-              // onClick="toggleMobileMenu()"
+              onClick={() => toggleNav(!nav)}
             >
               <svg
-                className="strokeWhite mt-1"
+                className="stroke-white mt-1"
                 width="20"
                 height="14"
                 viewBox="0 0 20 14"
@@ -173,14 +174,13 @@ function Nav({ user, className }) {
               >
                 <path
                   d="M1 7H19M1 1H19M1 13H19"
-                  stroke="white"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
               <svg
-                className="strokeWhite mt-1"
+                className="stroke-white mt-1"
                 width="18"
                 height="18"
                 viewBox="0 0 22 22"
@@ -198,7 +198,12 @@ function Nav({ user, className }) {
           </div>
         </div>
       </div>
-      <div className="mobile-menu" id="mobile-menu">
+      <div
+        className={classNames("mobile-menu", {
+          open: nav
+        })}
+        id="mobile-menu"
+      >
         <div className="container">
           <ul>
             <li>
@@ -217,7 +222,7 @@ function Nav({ user, className }) {
               <a href="/events.html">events</a>
             </li>
           </ul>
-          <button className="btn text-2xl mt-1">Add new ad</button>
+          <Button className="w-full text-2xl mt-1">Add new ad</Button>
           <a
             className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8 "
             href="#"
