@@ -31,7 +31,7 @@ trait Statusable
     {
         return [
             'status'  => $status,
-            'message' => $message
+            'message' => __($message)
         ];
     }
 }

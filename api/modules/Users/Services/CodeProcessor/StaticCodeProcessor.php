@@ -31,10 +31,12 @@ class StaticCodeProcessor implements CodeProcessorInterface
      */
     public function generateCode(string $phoneNumber): string
     {
-        $code = '0000';
+        $testCodes = ['0000', '1111'];
 
-        $this->putInCache($code, $phoneNumber);
+        foreach ($testCodes as $code) {
+            $this->putInCache($code, $phoneNumber);
+        }
 
-        return $code;
+        return $testCodes[0];
     }
 }

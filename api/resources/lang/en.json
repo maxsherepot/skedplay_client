@@ -1,0 +1,4 @@
+{
+  "verification.send.failed": "Verification code send failed",
+  "verification.check.failed": "Incorrect code"
+}
