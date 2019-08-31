@@ -79,6 +79,7 @@ module.exports = {
         "10": "2.5rem",
         "13": "3.125rem",
         "15": "3.75rem",
+        "65": "16.37rem",
         "badge-xl": "1.625rem"
       },
       fontSize: {
