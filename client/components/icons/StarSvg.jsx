@@ -12,9 +12,9 @@ export default function StarSvg({ fill }) {
       <path
         d="M22 1L28.489 14.4942L43 16.6714L32.5 27.1693L34.978 42L22 34.9942L9.022 42L11.5 27.1693L1 16.6714L15.511 14.4942L22 1Z"
         stroke="#CCCCCC"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

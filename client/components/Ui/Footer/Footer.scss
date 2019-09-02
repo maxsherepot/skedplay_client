@@ -1,0 +1,15 @@
+.footer-icons {
+  @apply flex flex-col items-center;
+
+  svg {
+    @apply mb-4;
+  }
+
+  @screen md {
+    @apply flex-row;
+
+    svg {
+      @apply mb-0 ml-3;
+    }
+  }
+}

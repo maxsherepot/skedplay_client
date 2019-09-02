@@ -7,11 +7,15 @@ const baseClassName = "btn";
 const Button = ({ className, size, level, outline, ...rest }) => (
   <button
     {...rest}
-    className={classNames(baseClassName, className, {
-      [`btn-${size}`]: size,
-      [`btn-${level}`]: level,
-      ["btn-outline"]: outline
-    })}
+    className={classNames(
+      baseClassName,
+      {
+        [`btn-${size}`]: size,
+        [`btn-${level}`]: level,
+        ["btn-outline"]: outline
+      },
+      className
+    )}
   />
 );
 

@@ -40,25 +40,25 @@ const Invoice = ({ loggedInUser }) => {
     <>
       <Header user={loggedInUser} className="nav__theme_white" />
       <div className="container my-6">
-        <div className="w-7/12 mx-auto">
+        <div className="lg:w-7/12 mx-auto">
           <div className="flex items-center">
             <Avatar src="/static/img/Avatar.png"></Avatar>
             <div className="ml-4">
               <span className="text-2xl font-medium">Gladys Hawkins</span>
-              <div className="mt-4">
+              <div className="mt-4 h-24">
                 <Button level="black" size="xxs">
                   Private account
                 </Button>
-                <span className="ml-2">+4179251522</span>
+                <span className="lg:ml-2">+4179251522</span>
               </div>
             </div>
           </div>
         </div>
       </div>
       <PageCard>
-        <div className="flex justify-between">
-          <div className="flex flex-1 justify-end w-auto border-divider border-r">
-            <div className="flex flex-col py-16 pr-44">
+        <div className="flex flex-col lg:flex-row justify-between">
+          <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
+            <div className="flex flex-col py-16 lg:pr-44">
               <div>
                 <span className="text-xl font-medium">My Ad/Cards</span>
                 <ul className="text-lg text-red font-medium leading-loose ml-8 mt-2">
@@ -96,12 +96,15 @@ const Invoice = ({ loggedInUser }) => {
               </div>
             </div>
           </div>
-          <div className="w-3/5 px-8 py-16">
+          <div className="lg:w-3/5 px-8 py-16">
             <div className="flex flex-wrap -mx-3">
               {cards &&
                 cards.map(({ title, icon, buttonText }, index) => (
-                  <div className="px-3 w-1/3 mb-5" key={index}>
-                    <div className="p-10 border-light-grey border rounded">
+                  <div
+                    className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5"
+                    key={index}
+                  >
+                    <div className="p-5 hd:p-10 border-light-grey border rounded">
                       <div className="flex flex-col justify-center h-full">
                         <div className="flex justify-between">
                           <span className="text-2xl font-bold mb-6">
@@ -126,8 +129,11 @@ const Invoice = ({ loggedInUser }) => {
             <div className="flex flex-wrap -mx-3">
               {counters &&
                 counters.map(({ title, icon, buttonText }, index) => (
-                  <div className="px-3 w-1/3 mb-5" key={index}>
-                    <div className="p-10 border-light-grey border rounded">
+                  <div
+                    className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5"
+                    key={index}
+                  >
+                    <div className="p-5 hd:p-10 border-light-grey border rounded">
                       <div className="flex flex-col justify-center h-full">
                         <div className="flex justify-between">
                           <span className="text-2xl font-bold mb-6">

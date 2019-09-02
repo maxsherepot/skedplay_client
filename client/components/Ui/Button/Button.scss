@@ -74,7 +74,6 @@
   }
 
   &-outline {
-    @apply text-black;
     &::before {
       @apply bg-transparent;
     }
