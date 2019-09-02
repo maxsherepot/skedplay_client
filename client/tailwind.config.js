@@ -5,6 +5,7 @@ const colors = {
   "black-opacity-10": "rgba(0, 0, 0, .1)",
   red: "#FF3366",
   pink: "#FF3395",
+  "pink-100": "#fff5f8",
   "dark-red": "#B12145",
   danger: "#e3342f",
   "dark-grey": "#443E3E",
@@ -100,6 +101,7 @@ module.exports = {
     }
   },
   variants: {
+    cursor: ["responsive", "hover", "focus"],
     backgroundColor: ["responsive", "hover", "focus", "active"],
     padding: ["responsive", "hover", "focus", "active", "even"],
     margin: ["responsive", "hover", "focus", "active", "last"]

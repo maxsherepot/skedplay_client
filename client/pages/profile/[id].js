@@ -39,18 +39,16 @@ const Invoice = ({ loggedInUser }) => {
   return (
     <>
       <Header user={loggedInUser} className="nav__theme_white" />
-      <div className="container my-6">
-        <div className="lg:w-7/12 mx-auto">
-          <div className="flex items-center">
-            <Avatar src="/static/img/Avatar.png"></Avatar>
-            <div className="ml-4">
-              <span className="text-2xl font-medium">Gladys Hawkins</span>
-              <div className="mt-4 h-24">
-                <Button level="black" size="xxs">
-                  Private account
-                </Button>
-                <span className="lg:ml-2">+4179251522</span>
-              </div>
+      <div className="container">
+        <div className="flex items-center lg:w-7/12 mx-auto py-8">
+          <Avatar src="/static/img/Avatar.png"></Avatar>
+          <div className="ml-4">
+            <span className="text-2xl font-medium">Gladys Hawkins</span>
+            <div className="mt-4">
+              <Button level="black" size="xxs">
+                Private account
+              </Button>
+              <span className="sm:ml-2">+4179251522</span>
             </div>
           </div>
         </div>
@@ -58,45 +56,65 @@ const Invoice = ({ loggedInUser }) => {
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
           <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
-            <div className="flex flex-col py-16 lg:pr-44">
+            <div className="flex flex-col py-10 lg:pr-32">
               <div>
-                <span className="text-xl font-medium">My Ad/Cards</span>
-                <ul className="text-lg text-red font-medium leading-loose ml-8 mt-2">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  My Ad/Cards
+                </span>
+                <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
                   <li>Add new AD+</li>
-                  <li>Active AD</li>
+                  <li>
+                    Active AD
+                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                      12
+                    </span>
+                  </li>
                   <li>Archive</li>
                 </ul>
               </div>
 
-              <div className="mt-4">
-                <span className="text-xl font-medium">My Events</span>
-                <ul className="text-lg text-red font-medium leading-loose ml-8 mt-2">
+              <div className="mt-5">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  My Events
+                </span>
+                <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
                   <li>Add new Event</li>
-                  <li>Active Events</li>
+                  <li>
+                    Active Events
+                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                      4
+                    </span>
+                  </li>
                   <li>Archive</li>
                 </ul>
               </div>
 
-              <div className="mt-4">
-                <span className="text-xl font-medium">Bills and usage</span>
+              <div className="mt-5">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  Bills and usage
+                </span>
               </div>
 
-              <div className="mt-4">
-                <span className="text-xl font-medium">Messages / Chats</span>
+              <div className="mt-5">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  Messages / Chats
+                </span>
               </div>
 
-              <div className="mt-4">
-                <span className="text-xl font-medium hover:bg-red">
+              <div className="mt-5">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
                   Reviews
                 </span>
               </div>
 
-              <div className="mt-4">
-                <span className="text-xl font-medium">Settings</span>
+              <div className="mt-5">
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  Settings
+                </span>
               </div>
             </div>
           </div>
-          <div className="lg:w-3/5 px-8 py-16">
+          <div className="lg:w-3/5 lg:ml-10 px-8 py-12">
             <div className="flex flex-wrap -mx-3">
               {cards &&
                 cards.map(({ title, icon, buttonText }, index) => (
@@ -104,7 +122,7 @@ const Invoice = ({ loggedInUser }) => {
                     className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5"
                     key={index}
                   >
-                    <div className="p-5 hd:p-10 border-light-grey border rounded">
+                    <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                       <div className="flex flex-col justify-center h-full">
                         <div className="flex justify-between">
                           <span className="text-2xl font-bold mb-6">
@@ -133,7 +151,7 @@ const Invoice = ({ loggedInUser }) => {
                     className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5"
                     key={index}
                   >
-                    <div className="p-5 hd:p-10 border-light-grey border rounded">
+                    <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                       <div className="flex flex-col justify-center h-full">
                         <div className="flex justify-between">
                           <span className="text-2xl font-bold mb-6">

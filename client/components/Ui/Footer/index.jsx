@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Button } from "UI";
 import {
   MasterCardSvg,
@@ -9,9 +8,9 @@ import {
   SmsSvg
 } from "icons";
 
-function Footer({ className }) {
+function Footer() {
   return (
-    <div className="flex flex-col bg-black mt-24">
+    <div className="footer flex flex-col bg-black mt-24">
       <div className="container flex flex-col lg:flex-row w-full text-white my-6">
         <div className="flex flex-col lg:flex-row lg:w-1/2">
           <Button size="xs" className="my-4 lg:mr-4 lg:w-40" outline>
@@ -30,7 +29,7 @@ function Footer({ className }) {
           </ul>
         </div>
       </div>
-      <div className="border-grey border-b"></div>
+      <div className="border-dark-grey border-b"></div>
       <div className="container my-6">
         <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-center text-center">
           <div className="text-grey text-sm">
@@ -52,9 +51,5 @@ function Footer({ className }) {
     </div>
   );
 }
-
-Footer.propTypes = {
-  className: PropTypes.string
-};
 
 export default Footer;
