@@ -38,7 +38,7 @@ function Nav({ user, className }) {
   return (
     <nav
       className={classNames(
-        "nav fixed border-b border-black-opacity-10 top-0 left-0 w-full z-20",
+        "nav fixed border-b border-black-opacity-10 top-0 left-0 w-full z-50",
         {
           "nav-up": isHidden,
           nav__theme_white: isInverse

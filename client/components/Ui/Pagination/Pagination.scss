@@ -3,7 +3,11 @@
 
   & > li > a,
   & > li > span {
-    @apply inline-flex text-black mx-2 items-center justify-center h-8 w-8 rounded-full;
+    @apply inline-flex text-black mx-1 items-center justify-center h-8 w-8 rounded-full;
+
+    @screen sm {
+      @apply mx-2;
+    }
   }
 
   & > li > a:hover,

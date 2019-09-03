@@ -11,7 +11,7 @@ function Filter({ name }) {
       }}
     >
       <div className="container">
-        <div className="text-3xl text-white font-black">{name}</div>
+        <div className="text-xl lg:text-3xl text-white font-black">{name}</div>
         <Formik
           initialValues={{
             location: ""
@@ -22,36 +22,41 @@ function Filter({ name }) {
           }}
         >
           {({ handleSubmit, isSubmitting }) => (
-            <form className="flex items-end" onSubmit={handleSubmit}>
-              <TextField
-                className="w-80"
-                label="Location"
-                name="location"
-                placeholder=""
-              />
+            <form
+              className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
+              onSubmit={handleSubmit}
+            >
+              <div className="flex flex-wrap justify-between w-full lg:w-4/5">
+                <TextField
+                  className="w-full lg:w-80"
+                  label="Location"
+                  name="location"
+                  placeholder=""
+                />
 
-              <TextField
-                className="w-80 mx-5"
-                label="Event type"
-                name="location"
-                placeholder=""
-              />
+                <TextField
+                  className="w-full lg:w-80"
+                  label="Event type"
+                  name="location"
+                  placeholder=""
+                />
 
-              <TextField
-                className="w-80"
-                label="Club type"
-                name="location"
-                placeholder=""
-              />
+                <TextField
+                  className="w-full lg:w-80"
+                  label="Club type"
+                  name="location"
+                  placeholder=""
+                />
 
-              <TextField
-                className="w-80 mx-5"
-                label="Date"
-                name="location"
-                placeholder=""
-              />
+                <TextField
+                  className="w-full lg:w-80"
+                  label="Date"
+                  name="location"
+                  placeholder=""
+                />
+              </div>
 
-              <FormGroup className="w-40">
+              <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6">
                 <Button
                   className="w-full"
                   size="sm"

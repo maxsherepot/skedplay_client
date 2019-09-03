@@ -5,6 +5,8 @@ export { default as VideoSvg } from "./VideoSvg";
 export { default as MapSvg } from "./MapSvg";
 export { default as ArrowPrevSvg } from "./ArrowPrevSvg";
 export { default as ArrowNextSvg } from "./ArrowNextSvg";
+export { default as FavoriteSvg } from "./FavoriteSvg";
+export { default as CloseSvg } from "./CloseSvg";
 
 /**
  * Payments icons
