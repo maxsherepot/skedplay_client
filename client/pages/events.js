@@ -108,7 +108,7 @@ function Events({ loggedInUser }) {
             <span className="ml-3">12 km from me</span>
           </div>
           {/* Green */}
-          <Button className="px-4" size="xxs" weight="normal">
+          <Button className="px-4" size="xxs" level="success" weight="normal">
             Available
           </Button>
         </div>

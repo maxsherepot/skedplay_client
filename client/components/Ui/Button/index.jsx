@@ -22,7 +22,7 @@ const Button = ({ className, weight, size, level, outline, ...rest }) => (
 
 Button.propTypes = {
   level: PropTypes.oneOf(["normal", "bold", "black"]),
-  level: PropTypes.oneOf(["primary", "secondary", "black"]),
+  level: PropTypes.oneOf(["primary", "secondary", "black", "success"]),
   outline: PropTypes.bool,
   size: PropTypes.oneOf(["sm", "xs", "xxs"]),
   className: PropTypes.string
