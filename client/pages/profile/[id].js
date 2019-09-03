@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { Header, Footer, Avatar, Button, PageCard } from "UI";
+import { MainLayout } from "layouts";
+import { Avatar, Button, PageCard } from "UI";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 
 const cards = [
@@ -37,8 +38,7 @@ const Invoice = ({ loggedInUser }) => {
   const { id } = router.query;
 
   return (
-    <>
-      <Header user={loggedInUser} className="nav__theme_white" />
+    <MainLayout user={loggedInUser}>
       <div className="container">
         <div className="flex items-center lg:w-7/12 mx-auto py-8">
           <Avatar src="/static/img/Avatar.png"></Avatar>
@@ -176,8 +176,7 @@ const Invoice = ({ loggedInUser }) => {
           </div>
         </div>
       </PageCard>
-      <Footer />
-    </>
+    </MainLayout>
   );
 };
 

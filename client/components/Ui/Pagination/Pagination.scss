@@ -1,0 +1,33 @@
+.pagination {
+  @apply inline-flex;
+
+  & > li > a,
+  & > li > span {
+    @apply inline-flex text-black mx-2 items-center justify-center h-8 w-8 rounded-full;
+  }
+
+  & > li > a:hover,
+  & > li > span:hover,
+  & > li > a:focus,
+  & > li > span:focus {
+    @apply z-10 text-white bg-pink border-pink;
+  }
+
+  & > .active > a,
+  & > .active > span,
+  & > .active > a:hover,
+  & > .active > span:hover,
+  & > .active > a:focus,
+  & > .active > span:focus {
+    @apply z-20 text-white bg-red border-red cursor-default;
+  }
+
+  & > .disabled > span,
+  & > .disabled > span:hover,
+  & > .disabled > span:focus,
+  & > .disabled > a,
+  & > .disabled > a:hover,
+  & > .disabled > a:focus {
+    @apply text-grey bg-white border-grey cursor-not-allowed;
+  }
+}

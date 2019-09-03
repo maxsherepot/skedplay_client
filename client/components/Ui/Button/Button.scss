@@ -1,5 +1,5 @@
 .btn {
-  @apply transition rounded-full font-bold h-15 relative overflow-hidden;
+  @apply transition rounded-full h-15 relative overflow-hidden;
   z-index: 1;
   &::before {
     content: "";

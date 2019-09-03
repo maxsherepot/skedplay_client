@@ -72,6 +72,8 @@ module.exports = {
         "102": "25.625rem",
         "header-plans": "37.125rem",
         "70": "17.5rem",
+        "76": "19rem",
+        "80": "20rem",
         "1218": "1218px"
       },
       height: {

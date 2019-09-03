@@ -90,7 +90,9 @@ function Nav({ user, className }) {
                 <a href="/clubs.html">clubs</a>
               </li>
               <li className="menu__item">
-                <a href="/events.html">events</a>
+                <Link href="/events">
+                  <a>events</a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -219,7 +221,9 @@ function Nav({ user, className }) {
               <a href="/clubs.html">clubs</a>
             </li>
             <li>
-              <a href="/events.html">events</a>
+              <Link href="/events">
+                <a>events</a>
+              </Link>
             </li>
           </ul>
           <Button className="w-full text-2xl mt-1">Add new ad</Button>

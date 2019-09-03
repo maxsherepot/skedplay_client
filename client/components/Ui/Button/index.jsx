@@ -4,12 +4,13 @@ import classNames from "classnames";
 
 const baseClassName = "btn";
 
-const Button = ({ className, size, level, outline, ...rest }) => (
+const Button = ({ className, weight, size, level, outline, ...rest }) => (
   <button
     {...rest}
     className={classNames(
       baseClassName,
       {
+        [`font-${weight}`]: weight,
         [`btn-${size}`]: size,
         [`btn-${level}`]: level,
         ["btn-outline"]: outline
@@ -20,6 +21,7 @@ const Button = ({ className, size, level, outline, ...rest }) => (
 );
 
 Button.propTypes = {
+  level: PropTypes.oneOf(["normal", "bold", "black"]),
   level: PropTypes.oneOf(["primary", "secondary", "black"]),
   outline: PropTypes.bool,
   size: PropTypes.oneOf(["sm", "xs", "xxs"]),
@@ -27,6 +29,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  weight: "bold",
   level: "primary",
   outline: false
 };

@@ -19,6 +19,7 @@ module.exports = withSass({
     config.resolve.alias["styles"] = path.join(__dirname, "styles");
     config.resolve.alias["hooks"] = path.join(__dirname, "hooks");
     config.resolve.alias["icons"] = path.join(__dirname, "components/icons");
+    config.resolve.alias["layouts"] = path.join(__dirname, "layouts");
 
     config.plugins = config.plugins || [];
 
