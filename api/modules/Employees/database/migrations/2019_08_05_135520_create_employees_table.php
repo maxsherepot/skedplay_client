@@ -21,7 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('slug')->nullable();
 
-            $table->integer('age');
+            $table->integer('age')->nullable();
             $table->tinyInteger('gender')->nullable();
 
             $table->unsignedInteger('race_type_id')->nullable();

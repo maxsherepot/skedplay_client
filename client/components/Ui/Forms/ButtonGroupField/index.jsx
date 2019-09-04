@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
-import { FormGroup, Button } from "components/Ui";
+import { FormGroup, Button } from "UI";
 
 function ButtonGroupField({ className, label, name, items }) {
   const { touched, errors, setFieldValue } = useFormikContext();
@@ -21,12 +21,13 @@ function ButtonGroupField({ className, label, name, items }) {
 
               return (
                 <Button
+                  type="button"
                   key={item.value}
                   className="mx-1 w-48"
                   level={isActive ? "primary" : "secondary"}
                   size="sm"
                   outline={!isActive}
-                  onClick={() => setFieldValue(name, item.value)}
+                  onClick={() => setFieldValue(name, item.value, false)}
                 >
                   {item.name}
                 </Button>

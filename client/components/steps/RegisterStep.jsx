@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { TextField, ButtonGroupField } from "components/Ui";
+import { TextField, ButtonGroupField } from "UI";
 
 const RegisterStep = () => {
   return (
