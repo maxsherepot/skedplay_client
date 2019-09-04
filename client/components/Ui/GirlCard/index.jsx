@@ -5,12 +5,12 @@ import { Badge, Slider } from "UI";
 
 function GirlCard({ girl }) {
   const [sliderCardId, setSliderCardId] = useState(null);
-  const [photo] = girl.photos;
+  const [photo] = girl && girl.photos;
 
   return (
     <div
       className="girls__item border border-red"
-      style={{ backgroundImage: `url(${photo.thumb_url})` }}
+      style={{ backgroundImage: `url(${photo && photo.thumb_url})` }}
       onMouseEnter={() => setSliderCardId(girl.id)}
       onMouseLeave={() => setSliderCardId(null)}
     >

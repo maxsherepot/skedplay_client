@@ -1,70 +1,69 @@
 type Employee {
-    id: ID!
-    first_name: String!
-    last_name: String!
-    name: String!
-    address: String!
-    isVip: Boolean
-    isNew: Boolean
-    gender: Int
-    age: Int
-    type: Int
-    created_at: DateTime!
-    updated_at: DateTime!
-    race_type: [EmployeeRaceType] @belongsTo
-    events: [Event] @belongsToMany
-    prices: [Price] @belongsToMany
-    services: [Service] @belongsToMany
-    photos: [Media] @hasMany
+  id: ID!
+  first_name: String!
+  last_name: String!
+  name: String!
+  address: String
+  isVip: Boolean
+  isNew: Boolean
+  gender: Int
+  age: Int
+  type: Int
+  created_at: DateTime!
+  updated_at: DateTime!
+  race_type: [EmployeeRaceType] @belongsTo
+  events: [Event] @belongsToMany
+  prices: [Price] @belongsToMany
+  services: [Service] @belongsToMany
+  photos: [Media] @hasMany
 }
 
 type EmployeeRaceType {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
 input EmployeeInput {
-    first_name: String
-    last_name: String
-    gender: Int
-    age: Int
-    type: Int
-    race_type_id: Int
-    description: String
-    address: String
-    text: String
-    lat: String
-    lng: String
+  first_name: String
+  last_name: String
+  gender: Int
+  age: Int
+  type: Int
+  race_type_id: Int
+  description: String
+  address: String
+  text: String
+  lat: String
+  lng: String
 }
 
 input EmployeeFilters {
-    services: [Int] @whereHas(key: "service_id", method: "whereIn")
-    age: AgeRange @whereBetween
-    race_type: String @whereBetween
+  services: [Int] @whereHas(key: "service_id", method: "whereIn")
+  age: AgeRange @whereBetween
+  race_type: String @whereBetween
 }
 
 extend type Query {
-    employees(filters: EmployeeFilters @spread): [Employee!]! @paginate
-    employee(id: ID @eq): Employee @find
+  employees(filters: EmployeeFilters @spread): [Employee!]! @paginate
+  employee(id: ID @eq): Employee @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    updateEmployee(employee: ID!, input: EmployeeInput @spread): StatusPayload
+  updateEmployee(employee: ID!, input: EmployeeInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@update")
 
-    createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
+  createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
 
-    uploadEmployeeFile(employee: ID!, collection: String!, file: Upload!): StatusPayload
+  uploadEmployeeFile(employee: ID!, collection: String!, file: Upload!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadFile")
 
-    deleteEmployeeFile(employee: ID!, file_id: Int!): StatusPayload
+  deleteEmployeeFile(employee: ID!, file_id: Int!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@deleteFile")
 
-    syncEmployeeServices(employee: ID!, services: [ServiceInput!]): Employee
+  syncEmployeeServices(employee: ID!, services: [ServiceInput!]): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncServices")
 
-    syncEmployeePrices(employee: ID!, prices: [PriceInput!]): Employee
+  syncEmployeePrices(employee: ID!, prices: [PriceInput!]): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncPrices")
 }
-
