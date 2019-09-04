@@ -5,11 +5,11 @@ export const ALL_EMPLOYEES = gql`
     employees(first: $first, page: $page) {
       data {
         id
-        first_name
-        last_name
         name
         age
         address
+        isVip
+        isNew
         photos {
           url
           thumb_url

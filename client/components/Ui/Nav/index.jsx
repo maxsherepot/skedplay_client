@@ -46,7 +46,7 @@ function Nav({ user, className }) {
         className
       )}
     >
-      <div className="container mx-auto h-full">
+      <div className="fluid-container mx-auto h-full">
         <div className="flex justify-between h-full items-center">
           <div className="flex h-full items-center">
             <Link href="/">

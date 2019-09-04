@@ -32,25 +32,29 @@ function GirlCard({ girl }) {
                 <Badge className="bg-red">VIP</Badge>
               </div>
             )}
-            <div className="flex">
-              <div className="rounded-full bg-xs-grey text-sm px-2-5 leading-relaxed py-1">
+            <div className="flex flex-wrap-reverse">
+              <div className="rounded-full bg-xs-grey text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
                 +38 050 145 78 89
               </div>
-              <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7 ml-2">
+              <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
                 <MessageSvg />
               </button>
             </div>
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-wrap items-end justify-end flex-row">
             <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
               <CocktailSvg />
             </button>
-            <button className="flex justify-center content-center rounded-full l bg-red w-7 h-7 ml-3">
+            <button className="flex justify-center content-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
               <span className="text-white font-bold text-2xs">100%</span>
             </button>
           </div>
         </div>
-        {sliderCardId === girl.id && <Slider photos={girl.photos}></Slider>}
+        {sliderCardId === girl.id && (
+          <div className="hidden lg:block">
+            <Slider photos={girl.photos}></Slider>
+          </div>
+        )}
         <div className="bg-white w-full p-3 leading-loose">
           <div className="text-sm font-medium leading-tight">
             {girl.name}, {girl.age}

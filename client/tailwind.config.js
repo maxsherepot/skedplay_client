@@ -27,9 +27,19 @@ module.exports = {
     screens: {
       sm: "480px",
       md: "768px",
-      lg: "1000px",
+      lg: "1001px",
       xl: "1320px",
       hd: "1780px"
+    },
+    fluidContainer: {
+      default: {
+        responsiveMaxWidth: {
+          md: "959px",
+          lg: "1320px",
+          hd: "1740px"
+        },
+        padding: "20px"
+      }
     },
     fontFamily: {
       body: ["TTNorms", "sans-serif"],
@@ -106,7 +116,8 @@ module.exports = {
     cursor: ["responsive", "hover", "focus"],
     backgroundColor: ["responsive", "hover", "focus", "active"],
     padding: ["responsive", "hover", "focus", "active", "even"],
-    margin: ["responsive", "hover", "focus", "active", "last"]
+    margin: ["responsive", "hover", "focus", "active", "last"],
+    fluidContainer: ["responsive"]
   },
   plugins: [
     require("tailwindcss-transition")({
@@ -116,6 +127,9 @@ module.exports = {
         "normal-in-out-quad": "all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)",
         "slow-in-out-quad": "all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)"
       }
+    }),
+    require("tailwindcss-fluid-container")({
+      componentPrefix: "fluid-"
     })
   ]
 };
