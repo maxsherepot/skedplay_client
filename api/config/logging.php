@@ -89,6 +89,10 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'sentry' => [
+            'driver' => 'sentry',
+        ],
     ],
 
 ];

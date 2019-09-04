@@ -28,6 +28,7 @@
         "predis/predis": "^1.1",
         "propaganistas/laravel-phone": "^4.2",
         "santigarcor/laratrust": "^5.2",
+        "sentry/sentry-laravel": "1.2.0",
         "spatie/laravel-medialibrary": "^7.0.0",
         "stevebauman/location": "^3.0",
         "sudiptpa/paypal-ipn": "^2.0",
