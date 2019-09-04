@@ -10,8 +10,15 @@ export { default as ArrowBack } from "./ArrowBack";
 export { default as Logo } from "./Logo";
 export { default as Avatar } from "./Avatar";
 export { default as Button } from "./Button";
+export { default as LangSelector } from "./LangSelector";
+
+export { default as Sort } from "./Sort";
+export { default as Badge } from "./Badge";
+export { default as Pagination } from "./Pagination";
+
+export { default as Slider } from "./PhotoSlider/Slider";
+
+/** Cards */
 export { default as PlanCard } from "./PlanCard";
 export { default as PageCard } from "./PageCard";
 export { default as GirlCard } from "./GirlCard";
-export { default as LangSelector } from "./LangSelector";
-export { default as Pagination } from "./Pagination";

@@ -1,8 +1,10 @@
 import React from "react";
 import cookie from "cookie";
+import Link from "next/link";
 import { useApolloClient } from "@apollo/react-hooks";
 
-import { Header } from "UI";
+import { Header, Footer } from "UI";
+import { ArrowNextSvg } from "icons";
 import GirlsBox from "components/homepage/GirlsBox";
 import EventsBox from "components/homepage/EventsBox";
 
@@ -84,25 +86,13 @@ const Index = ({ loggedInUser }) => {
             <div className="text-4xl font-extrabold tracking-tighter">
               Fresh events
             </div>
-            <a
-              className="block text-sm whitespace-no-wrap transition hover:text-red ml-4"
-              href="/events"
-            >
-              All events
-              <svg
-                className="inline-block stroke-red ml-1"
-                width="13"
-                height="16"
-                viewBox="0 0 13 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 8H12M12 8L5.14286 15M12 8L5.14286 1"
-                  strokeLinejoin="round"
-                ></path>
-              </svg>
-            </a>
+            <Link href="/events">
+              <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
+                <ArrowNextSvg>
+                  <span className="mr-1">All events</span>
+                </ArrowNextSvg>
+              </a>
+            </Link>
           </div>
           <div className="mt-7">
             <EventsBox />
@@ -125,10 +115,18 @@ const Index = ({ loggedInUser }) => {
             <div className="text-4xl font-extrabold tracking-tighter">
               Girls
             </div>
+            <Link href="/girls">
+              <a className="block text-sm whitespace-no-wrap transition ml-4">
+                <ArrowNextSvg stroke="#fff">
+                  <span className="mr-1">All girls</span>
+                </ArrowNextSvg>
+              </a>
+            </Link>
           </div>
           <GirlsBox />
         </div>
       </main>
+      <Footer></Footer>
     </div>
   );
 };
@@ -137,7 +135,7 @@ Index.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
   if (!loggedInUser) {
     // redirect(context, "/login");
-    return  {};
+    return {};
   }
   return { loggedInUser };
 };

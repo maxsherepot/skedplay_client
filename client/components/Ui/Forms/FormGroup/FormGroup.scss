@@ -1,7 +1,7 @@
 .form-group {
   @apply mb-4;
   label {
-    @apply block text-grey text-sm pl-5;
+    @apply block text-sm pl-5;
     margin-bottom: 0.3rem;
   }
   &.error {

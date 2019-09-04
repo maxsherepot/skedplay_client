@@ -5,7 +5,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 import { usePagination } from "hooks";
 import { MainLayout } from "layouts";
-import { Button, Filter, Pagination } from "UI";
+import { Button, Filter, Pagination, Sort } from "UI";
 import { ALL_EVENTS } from "queries/eventQuery";
 import GoogleMap from "components/GoogleMap";
 
@@ -27,13 +27,12 @@ function Events({ loggedInUser }) {
   return (
     <MainLayout user={loggedInUser}>
       <Filter name="Events"></Filter>
-      <div className="container flex justify-between my-6">
-        <span>
-          {events && events.paginatorInfo ? events.paginatorInfo.total : 0}{" "}
-          event found
-        </span>
-        <span>First: the neareast</span>
-      </div>
+      <Sort>
+        <div>
+          {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
+          <span className="ml-1">event found</span>
+        </div>
+      </Sort>
 
       <div className="container">
         {events && events.data && !loading ? (

@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 import { FormGroup } from "components/Ui";
 
-function TextField({ className, label, name, ...rest }) {
+function TextField({ className, labelClassName, label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
   return (
     <FormGroup className={className} error={error ? true : false}>
-      <label htmlFor={name}>{error ? error : label}</label>
+      <label className={labelClassName} htmlFor={name}>
+        {error ? error : label}
+      </label>
 
       <Field name={name}>
         {({ field }) => (
@@ -22,13 +24,15 @@ function TextField({ className, label, name, ...rest }) {
 
 TextField.propTypes = {
   className: PropTypes.string,
+  labelClassName: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(["text", "password"])
 };
 
 TextField.defaultProps = {
-  type: "text"
+  type: "text",
+  labelClassName: "text-grey"
 };
 
 export default TextField;

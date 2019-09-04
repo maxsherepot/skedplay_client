@@ -4,10 +4,7 @@ import cx from "classnames";
 export default function FavoriteSvg({ active }) {
   return (
     <svg
-      className={cx(
-        "mt-1",
-        active ? "stroke-red fill-red" : "stroke-grey fill-white"
-      )}
+      className={cx(active ? "stroke-red fill-red" : "stroke-grey fill-white")}
       width="22"
       height="19"
       viewBox="0 0 22 19"

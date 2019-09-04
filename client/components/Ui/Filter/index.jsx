@@ -29,6 +29,7 @@ function Filter({ name }) {
               <div className="flex flex-wrap justify-between w-full lg:w-4/5">
                 <TextField
                   className="w-full lg:w-80"
+                  labelClassName="text-white"
                   label="Location"
                   name="location"
                   placeholder=""
@@ -36,6 +37,7 @@ function Filter({ name }) {
 
                 <TextField
                   className="w-full lg:w-80"
+                  labelClassName="text-white"
                   label="Event type"
                   name="location"
                   placeholder=""
@@ -43,6 +45,7 @@ function Filter({ name }) {
 
                 <TextField
                   className="w-full lg:w-80"
+                  labelClassName="text-white"
                   label="Club type"
                   name="location"
                   placeholder=""
@@ -50,6 +53,7 @@ function Filter({ name }) {
 
                 <TextField
                   className="w-full lg:w-80"
+                  labelClassName="text-white"
                   label="Date"
                   name="location"
                   placeholder=""

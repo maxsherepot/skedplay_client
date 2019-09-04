@@ -1,0 +1,43 @@
+.left-arrow {
+  @apply inline-block absolute left-0 z-50 mx-4 cursor-pointer;
+}
+.right-arrow {
+  @apply inline-block absolute right-0 z-50 mx-4 cursor-pointer;
+}
+
+.slider {
+  @apply bg-white;
+  transition: top 0.2s ease-in-out;
+}
+
+.slide {
+  @apply mx-auto rounded;
+}
+
+.react-multi-carousel-list {
+  @apply flex items-center overflow-hidden relative;
+}
+.react-multi-carousel-track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, transition;
+}
+
+.react-multi-carousel-item {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .react-multi-carousel-item {
+    flex-shrink: 0 !important;
+  }
+  .react-multi-carousel-track {
+    overflow: visible !important;
+  }
+}

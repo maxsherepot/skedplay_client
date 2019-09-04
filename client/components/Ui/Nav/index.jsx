@@ -58,7 +58,9 @@ function Nav({ user, className }) {
               <li className="menu__item menu__item_dropdown">
                 <ul>
                   <li>
-                    <a href="/girls.html">girls</a>
+                    <Link href="/girls">
+                      <a>girls</a>
+                    </Link>
                   </li>
                   <li>
                     <a href="/boys.html">boys</a>
