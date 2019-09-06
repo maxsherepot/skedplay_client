@@ -20,9 +20,9 @@ export const GET_FILTERS_STATE = gql`
       }
       events {
         location
-        services
-        gender
-        race_type
+        event_type
+        perimeter
+        date
       }
     }
   }

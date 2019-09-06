@@ -45,6 +45,7 @@ type ClubPayload implements Status {
 }
 
 extend type Query {
+    club_types: [ClubType!]! @all
     clubs(filters: ClubFilters @spread): [Club!]! @paginate
     club(id: ID @eq): Club @find
 }

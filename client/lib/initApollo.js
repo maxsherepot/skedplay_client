@@ -60,9 +60,9 @@ function create(initialState, { getToken, fetchOptions }) {
         },
         events: {
           location: "",
-          services: "",
-          gender: "",
-          race_type: "",
+          event_type: "",
+          perimeter: 10,
+          date: "",
           __typename: "EventFilters"
         },
         __typename: "Filters"

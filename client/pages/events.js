@@ -4,13 +4,13 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import { Filter } from "UI";
 import { MainLayout } from "layouts";
 import EventsBox from "components/EventsBox";
-import { GET_FILTERS_STATE, ALL_SERVICES } from "queries";
+import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
 
 function Events({ loggedInUser }) {
   const {
     loading,
-    data: { services, employee_race_types }
-  } = useQuery(ALL_SERVICES);
+    data: { club_types }
+  } = useQuery(EVENTS_FILTER_OPTIONS);
 
   const {
     data: {
@@ -61,37 +61,43 @@ function Events({ loggedInUser }) {
     },
     {
       component: "select",
-      name: "services",
-      label: "Services",
-      placeholder: "Select services",
-      options: services.map(s => {
+      name: "event_type",
+      label: "Event type",
+      placeholder: "Select event type",
+      options: club_types.map(s => {
         return { label: s.name, value: s.id };
       })
     },
     {
       component: "select",
-      name: "gender",
-      label: "Gender",
-      placeholder: "Select gender",
+      name: "perimeter",
+      label: "Perimeter",
+      placeholder: "Select perimeter",
       options: [
         {
-          label: "Female",
+          label: "2 km",
           value: 2
         },
         {
-          label: "Male",
-          value: 1
+          label: "5 km",
+          value: 5
+        },
+        {
+          label: "10 km",
+          value: 10
+        },
+        {
+          label: "20 km",
+          value: 20
         }
       ]
     },
     {
       component: "select",
-      name: "race_type",
-      label: "Type",
-      placeholder: "Select type",
-      options: employee_race_types.map(s => {
-        return { label: s.name, value: s.id };
-      })
+      name: "date",
+      label: "Date",
+      placeholder: "Select date",
+      options: []
     }
   ];
 

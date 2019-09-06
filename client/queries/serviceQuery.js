@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const ALL_SERVICES = gql`
+export const GIRLS_FILTER_OPTIONS = gql`
   query options {
     services {
       id
@@ -8,6 +8,15 @@ export const ALL_SERVICES = gql`
     }
 
     employee_race_types {
+      id
+      name
+    }
+  }
+`;
+
+export const EVENTS_FILTER_OPTIONS = gql`
+  query options {
+    club_types {
       id
       name
     }

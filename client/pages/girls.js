@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Filter } from "UI";
-import { GET_FILTERS_STATE, ALL_SERVICES } from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
 import { MainLayout } from "layouts";
 import EmployeesBox from "components/EmployeesBox";
 
@@ -10,7 +10,7 @@ function Employees({ loggedInUser }) {
   const {
     loading,
     data: { services, employee_race_types }
-  } = useQuery(ALL_SERVICES);
+  } = useQuery(GIRLS_FILTER_OPTIONS);
 
   const {
     data: {
