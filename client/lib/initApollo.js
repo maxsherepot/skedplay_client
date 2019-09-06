@@ -49,6 +49,23 @@ function create(initialState, { getToken, fetchOptions }) {
         register: 0,
         forgot: 0,
         __typename: "Steps"
+      },
+      filters: {
+        girls: {
+          location: "",
+          services: "",
+          gender: "",
+          race_type: "",
+          __typename: "GirlFilters"
+        },
+        events: {
+          location: "",
+          services: "",
+          gender: "",
+          race_type: "",
+          __typename: "EventFilters"
+        },
+        __typename: "Filters"
       }
     }
   });

@@ -1,11 +1,21 @@
+import PropTypes from "prop-types";
 import { useQuery } from "@apollo/react-hooks";
 
 import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort } from "UI";
 
-function EmployeesBox() {
+function EmployeesBox({ inititalState }) {
   const [page, setPage] = usePagination();
+
+  let filters = [];
+
+  Object.keys(inititalState).map(key => {
+    if (inititalState[key] !== "") {
+      filters[key] = inititalState[key];
+    }
+    return undefined;
+  });
 
   const {
     loading,
@@ -14,7 +24,10 @@ function EmployeesBox() {
   } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
-      page
+      page,
+      filters: {
+        ...filters
+      }
     }
   });
 
@@ -54,5 +67,9 @@ function EmployeesBox() {
     </>
   );
 }
+
+EmployeesBox.propTypes = {
+  inititalState: PropTypes.object.isRequired
+};
 
 export default EmployeesBox;

@@ -1,86 +1,110 @@
 import PropTypes from "prop-types";
 import { Formik } from "formik";
-import { Button, TextField, FormGroup } from "UI";
+import {
+  Button,
+  TextField,
+  SelectField,
+  MultiSelectField,
+  FormGroup,
+  SelectedBar
+} from "UI";
+import { useApolloClient } from "@apollo/react-hooks";
 
-function Filter({ name }) {
+function Filter({ name, fields, inititalState }) {
+  const client = useApolloClient();
+
   return (
-    <div
-      className="flex flex-col py-12"
-      style={{
-        background: "linear-gradient(75deg, #F5758F, #D899CB, #4C3261, #3B3045)"
-      }}
-    >
-      <div className="container">
-        <div className="text-xl lg:text-3xl text-white font-black">{name}</div>
-        <Formik
-          initialValues={{
-            location: ""
-          }}
-          onSubmit={async (values, { setSubmitting }) => {
-            console.log(values);
-            setSubmitting(false);
-          }}
-        >
-          {({ handleSubmit, isSubmitting }) => (
-            <form
-              className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
-              onSubmit={handleSubmit}
-            >
-              <div className="flex flex-wrap justify-between w-full lg:w-4/5">
-                <TextField
-                  className="w-full lg:w-80"
-                  labelClassName="text-white"
-                  label="Location"
-                  name="location"
-                  placeholder=""
-                />
+    <>
+      <div
+        className="flex flex-col py-12"
+        style={{
+          background:
+            "linear-gradient(75deg, #F5758F, #D899CB, #4C3261, #3B3045)"
+        }}
+      >
+        <div className="fluid-container w-full">
+          <div className="text-xl lg:text-3xl text-white font-black capitalize">
+            {name}
+          </div>
+          <Formik
+            enableReinitialize
+            initialValues={inititalState}
+            onSubmit={async (values, { setSubmitting }) => {
+              setSubmitting(false);
 
-                <TextField
-                  className="w-full lg:w-80"
-                  labelClassName="text-white"
-                  label="Event type"
-                  name="location"
-                  placeholder=""
-                />
+              client.writeData({
+                data: {
+                  filters: {
+                    [name]: {
+                      ...values,
+                      __typename: "GirlFilters"
+                    },
+                    __typename: "Filters"
+                  }
+                }
+              });
+            }}
+          >
+            {({ handleSubmit, isSubmitting }) => (
+              <form
+                className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
+                onSubmit={handleSubmit}
+              >
+                <div className="flex flex-wrap justify-between w-full lg:w-4/5">
+                  {fields &&
+                    fields.map(({ component, ...rest }, index) => {
+                      switch (component) {
+                        case "select":
+                          return (
+                            <SelectField
+                              key={index}
+                              className="w-full lg:w-80"
+                              labelClassName="text-white"
+                              {...rest}
+                            ></SelectField>
+                          );
 
-                <TextField
-                  className="w-full lg:w-80"
-                  labelClassName="text-white"
-                  label="Club type"
-                  name="location"
-                  placeholder=""
-                />
+                        case "multi-select":
+                          return (
+                            <MultiSelectField
+                              key={index}
+                              className="w-full lg:w-80"
+                              labelClassName="text-white"
+                              {...rest}
+                            ></MultiSelectField>
+                          );
 
-                <TextField
-                  className="w-full lg:w-80"
-                  labelClassName="text-white"
-                  label="Date"
-                  name="location"
-                  placeholder=""
-                />
-              </div>
+                        default:
+                          break;
+                      }
+                    })}
+                </div>
 
-              <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6">
-                <Button
-                  className="w-full"
-                  size="sm"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Find
-                </Button>
-              </FormGroup>
-            </form>
-          )}
-        </Formik>
+                <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6">
+                  <Button
+                    className="w-full"
+                    size="sm"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    Find
+                  </Button>
+                </FormGroup>
+              </form>
+            )}
+          </Formik>
+        </div>
       </div>
-    </div>
-    // linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)
+
+      <SelectedBar name={name} fields={fields} inititalState={inititalState} />
+    </>
   );
 }
 
 Filter.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  fields: PropTypes.array.isRequired,
+  inititalState: PropTypes.object.isRequired
 };
 
 export default Filter;

@@ -1,0 +1,59 @@
+.dropdown-el {
+  @apply relative block bg-white rounded-full border min-w-full border-light-grey text-lg leading-none h-13 overflow-hidden;
+  input {
+    @apply w-px h-px inline-block absolute;
+    opacity: 0.01;
+  }
+  label {
+    @apply relative mb-0;
+    line-height: 3rem;
+
+    &:not(#placeholder) {
+      @apply cursor-pointer;
+    }
+
+    &:nth-child(2) {
+      @apply mt-12;
+    }
+  }
+  input:checked + label {
+    @apply block absolute w-full top-0;
+
+    &:nth-child(2) {
+      @apply relative mt-0;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 1rem;
+    top: 1.25rem;
+    background-image: url("/static/img/arrow-down.svg");
+    background-size: 15px 8px;
+    height: 8px;
+    width: 15px;
+    cursor: pointer;
+  }
+  &.expanded {
+    @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50;
+    margin-top: 1.7rem;
+    label {
+      @apply rounded-lg mb-0;
+
+      &:hover {
+        &:not(#placeholder) {
+          @apply text-red;
+        }
+      }
+    }
+
+    input:checked + label {
+      @apply text-red;
+    }
+
+    &::after {
+      @apply hidden;
+    }
+  }
+}

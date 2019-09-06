@@ -113,6 +113,7 @@ module.exports = {
     }
   },
   variants: {
+    stroke: ["responsive", "hover", "focus"],
     cursor: ["responsive", "hover", "focus"],
     backgroundColor: ["responsive", "hover", "focus", "active"],
     padding: ["responsive", "hover", "focus", "active", "even"],

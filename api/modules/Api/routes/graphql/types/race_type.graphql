@@ -1,18 +1,8 @@
-type Service {
+type EmployeeRaceType {
     id: ID!
     name: String!
-    pivot: ServicePivot
-}
-
-type ServicePivot {
-    price: String
-}
-
-input ServiceInput {
-    id: String
-    price: String
 }
 
 extend type Query {
-    services: [Service!]! @all
+    employee_race_types: [EmployeeRaceType!]! @all
 }

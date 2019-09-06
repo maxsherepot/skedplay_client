@@ -12,5 +12,4 @@ class Service extends Model
     use SoftDeletes, NameSlugable;
 
     public $timestamps = false;
-
 }

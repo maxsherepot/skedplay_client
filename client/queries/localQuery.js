@@ -8,3 +8,22 @@ export const GET_CURRENT_REGISTER_STEP = gql`
     }
   }
 `;
+
+export const GET_FILTERS_STATE = gql`
+  query {
+    filters @client {
+      girls {
+        location
+        services
+        gender
+        race_type
+      }
+      events {
+        location
+        services
+        gender
+        race_type
+      }
+    }
+  }
+`;

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
-import { FormGroup } from "components/Ui";
+
+import { FormGroup } from "UI";
 
 function TextField({ className, labelClassName, label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
