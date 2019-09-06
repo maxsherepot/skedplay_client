@@ -60,7 +60,7 @@ function Employees({ loggedInUser }) {
       ]
     },
     {
-      component: "select",
+      component: "multi-select",
       name: "services",
       label: "Services",
       placeholder: "Select services",

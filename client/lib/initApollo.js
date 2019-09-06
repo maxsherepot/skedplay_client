@@ -53,7 +53,7 @@ function create(initialState, { getToken, fetchOptions }) {
       filters: {
         girls: {
           location: "",
-          services: "",
+          services: [],
           gender: "",
           race_type: "",
           __typename: "GirlFilters"

@@ -52,7 +52,7 @@ function SelectField({
         {({ field: { value, ...rest } }) => (
           <span
             ref={node}
-            className={cx("dropdown-el", {
+            className={cx("select", {
               expanded
             })}
             onClick={() => setExpanded(true)}

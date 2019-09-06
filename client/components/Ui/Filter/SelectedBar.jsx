@@ -7,18 +7,21 @@ function SelectedBar({ name, fields, inititalState }) {
   const selected = {};
   const client = useApolloClient();
 
-  const getLabel = (key, value) => {
-    const index = fields.map(f => f.name).indexOf(key);
-    const field = fields[index];
-
+  const getLabelFromOptions = (field, value) => {
     if (field && field.options) {
       const i = field.options.map(o => o.value).indexOf(value);
       if (field.options[i]) {
         return field.options[i].label;
       }
     }
-
     return null;
+  };
+
+  const getLabel = (key, value) => {
+    const index = fields.map(f => f.name).indexOf(key);
+    const field = fields[index];
+
+    return getLabelFromOptions(field, value);
   };
 
   inititalState &&
@@ -26,6 +29,8 @@ function SelectedBar({ name, fields, inititalState }) {
       const label = getLabel(key, inititalState[key]);
       label && (selected[key] = label);
     });
+
+  console.log(selected);
 
   const clearValue = key => {
     client.writeData({
@@ -57,6 +62,8 @@ function SelectedBar({ name, fields, inititalState }) {
       }
     });
   };
+
+  console.log(selected);
 
   if (Object.entries(selected).length === 0) {
     return null;

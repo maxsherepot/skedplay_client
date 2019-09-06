@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
-function Checkbox({ label, name }) {
+function Checkbox({ label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
@@ -15,6 +15,7 @@ function Checkbox({ label, name }) {
             id={name}
             className="form-control"
             {...field}
+            {...rest}
           />
           <label htmlFor={name}>
             <span /> {error ? error : label}

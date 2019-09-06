@@ -1,94 +1,75 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { FieldArray, useFormikContext } from "formik";
+import { useFormikContext, FieldArray } from "formik";
+import { FormGroup, Dropdown } from "UI";
 
-import { FormGroup, Checkbox } from "UI";
-
-function MultiSelectField({
+const MultiSelectField = ({
   className,
   labelClassName,
   label,
   name,
   placeholder,
   options
-}) {
-  const node = useRef();
-  const [expanded, setExpanded] = useState(false);
-  const { touched, errors, values } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
-
-  const handleClickOutside = e => {
-    if (node.current.contains(e.target)) {
-      // inside click
-      return;
-    }
-    // outside click
-    setExpanded(false);
-  };
-
-  useEffect(() => {
-    if (expanded) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [expanded]);
+}) => {
+  const { values } = useFormikContext();
 
   return (
-    <FormGroup
-      className={cx(className, "relative")}
-      error={error ? true : false}
-    >
+    <FormGroup className={cx(className, "relative")}>
       <label className={labelClassName} htmlFor={name}>
-        {error ? error : label}
+        {label}
       </label>
 
-      <FieldArray name={name}>
-        {arrayHelpers => (
-          <span
-            ref={node}
-            className={cx("multiselect", {
-              expanded
-            })}
-            onClick={() => setExpanded(true)}
-          >
-            {/* {field && field.value.length === 0 && (
-              <label id="placeholder" className="text-grey">
-                {placeholder}
-              </label>
-            )} */}
-            {options &&
-              options.map((option, index) => (
-                <>
-                  <input
-                    id={name}
-                    name={name}
-                    type="checkbox"
-                    className="form-control"
-                    value={option.id}
-                    checked={values[name].includes(option.id)}
-                    onChange={e => {
-                      if (e.target.checked) arrayHelpers.push(option.id);
-                      else {
-                        const idx = values[name].indexOf(option.id);
-                        arrayHelpers.remove(idx);
-                      }
-                    }}
-                  />
-                  <label htmlFor={name}>{option.label}</label>
-                </>
-              ))}
-          </span>
-        )}
-      </FieldArray>
+      <Dropdown
+        trigger={
+          <div className="flex items-center h-full pl-4 text-sm text-grey">
+            {values[name].length
+              ? `Selected ${values[name].length} items`
+              : placeholder}
+          </div>
+        }
+      >
+        <FieldArray
+          name={name}
+          render={arrayHelpers => (
+            <div>
+              {options.map(category => {
+                const isChecked = values[name].includes(category.value);
+
+                return (
+                  <div key={category.value}>
+                    <label
+                      className={cx(
+                        "cursor-pointer leading-loose hover:text-red",
+                        isChecked ? "text-red" : "text-black"
+                      )}
+                    >
+                      <input
+                        name={name}
+                        type="checkbox"
+                        value={category.value}
+                        checked={isChecked}
+                        onChange={e => {
+                          if (e.target.checked)
+                            arrayHelpers.push(category.value);
+                          else {
+                            const idx = values[name].indexOf(category.value);
+                            arrayHelpers.remove(idx);
+                          }
+                        }}
+                      />
+                      <span className="capitalize">{category.label}</span>
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        />
+      </Dropdown>
     </FormGroup>
   );
-}
+};
 
 MultiSelectField.propTypes = {
   className: PropTypes.string,
