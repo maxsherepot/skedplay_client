@@ -22,7 +22,12 @@ const MultiSelectField = ({
 
       <Dropdown
         trigger={
-          <div className="flex items-center h-full pl-4 text-sm text-grey">
+          <div
+            className={cx(
+              "flex items-center h-full pl-4 text-sm",
+              values[name].length ? "text-black" : "text-grey"
+            )}
+          >
             {values[name].length
               ? `Selected ${values[name].length} items`
               : placeholder}
@@ -58,7 +63,9 @@ const MultiSelectField = ({
                           }
                         }}
                       />
-                      <span className="capitalize">{category.label}</span>
+                      <span className="capitalize select-none">
+                        {category.label}
+                      </span>
                     </label>
                   </div>
                 );

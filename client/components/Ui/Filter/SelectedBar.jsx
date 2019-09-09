@@ -103,34 +103,36 @@ function SelectedBar({ name, fields, inititalState }) {
 
   return (
     <div className="border-b border-divider">
-      <div className="fluid-container py-5 flex items-center">
+      <div className="fluid-container pt-5 pb-1 flex items-start">
         <div className="mr-4">Selected:</div>
-        {selected.map((s, i) => (
-          <div
-            className={cx(
-              "flex items-center justify-between px-4 py-1 border border-divider rounded-full cursor-pointer",
-              {
-                "mx-4": i % 2 === 0
-              }
-            )}
-            key={i}
-            onClick={() => clearValue(s)}
-          >
-            <span className="text-sm mr-4">{s.label}</span>
+        <div className="flex flex-wrap">
+          {selected.map((s, i) => (
+            <div
+              className={cx(
+                "flex items-center justify-between px-4 py-1 border border-divider rounded-full cursor-pointer mb-4",
+                {
+                  "mx-4": i % 2 === 0
+                }
+              )}
+              key={i}
+              onClick={() => clearValue(s)}
+            >
+              <span className="text-sm mr-4">{s.label}</span>
 
-            <CloseSvg
-              className="stroke-light-grey hover:stroke-red"
-              width={10}
-              height={10}
-            ></CloseSvg>
-          </div>
-        ))}
-        <span
-          className="text-red cursor-pointer ml-4"
-          onClick={() => clearAllValue()}
-        >
-          Clear all
-        </span>
+              <CloseSvg
+                className="stroke-light-grey hover:stroke-red"
+                width={10}
+                height={10}
+              ></CloseSvg>
+            </div>
+          ))}
+          <span
+            className="text-red cursor-pointer ml-4"
+            onClick={() => clearAllValue()}
+          >
+            Clear all
+          </span>
+        </div>
       </div>
     </div>
   );

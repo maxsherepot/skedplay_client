@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { Field, useFormikContext } from "formik";
 
-import { FormGroup } from "UI";
+import { FormGroup, Dropdown } from "UI";
 
 function SelectField({
   className,
@@ -13,31 +13,14 @@ function SelectField({
   placeholder,
   options
 }) {
-  const node = useRef();
-  const [expanded, setExpanded] = useState(false);
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
-  const handleClickOutside = e => {
-    if (node.current.contains(e.target)) {
-      // inside click
-      return;
-    }
-    // outside click
-    setExpanded(false);
+  const getLabel = value => {
+    const index = options.map(o => o.value).indexOf(value);
+
+    return options[index].label;
   };
-
-  useEffect(() => {
-    if (expanded) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [expanded]);
 
   return (
     <FormGroup
@@ -50,18 +33,18 @@ function SelectField({
 
       <Field name={name}>
         {({ field: { value, ...rest } }) => (
-          <span
-            ref={node}
-            className={cx("select", {
-              expanded
-            })}
-            onClick={() => setExpanded(true)}
+          <Dropdown
+            trigger={
+              <div
+                className={cx(
+                  "flex items-center h-full pl-4 text-sm",
+                  value === "" ? "text-grey" : "text-black"
+                )}
+              >
+                {value === "" ? placeholder : getLabel(value)}
+              </div>
+            }
           >
-            {value === "" && (
-              <label id="placeholder" className="text-grey">
-                {placeholder}
-              </label>
-            )}
             {options &&
               options.map((option, index) => (
                 <Fragment key={index}>
@@ -74,6 +57,10 @@ function SelectField({
                     {...rest}
                   />
                   <label
+                    className={cx(
+                      "cursor-pointer leading-loose hover:text-red select-none",
+                      value === option.value ? "text-red" : "text-black"
+                    )}
                     htmlFor={`${name}-${option.value}`}
                     onClick={() => setFieldValue(name, option.value, false)}
                   >
@@ -81,7 +68,21 @@ function SelectField({
                   </label>
                 </Fragment>
               ))}
-          </span>
+          </Dropdown>
+          //  <span
+          //    ref={node}
+          //    className={cx("select", {
+          //      expanded
+          //    })}
+          //  onClick={() => setExpanded(true)}
+          //  >
+          // {value === "" && (
+          //     <label id="placeholder" className="text-grey">
+          //       {placeholder}
+          //     </label>
+          //   )}
+
+          //  </span>
         )}
       </Field>
     </FormGroup>

@@ -19,6 +19,15 @@
   &__content {
     &.open {
       @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50 w-full py-4 px-4;
+
+      input[type="radio"] {
+        @apply w-px h-px inline-block absolute;
+        opacity: 0.01;
+      }
+
+      label {
+        padding-left: 0;
+      }
     }
   }
 }
