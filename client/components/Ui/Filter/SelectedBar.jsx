@@ -4,7 +4,7 @@ import { CloseSvg } from "icons";
 import { useApolloClient } from "@apollo/react-hooks";
 
 function SelectedBar({ name, fields, inititalState }) {
-  const selected = {};
+  const selected = [];
   const client = useApolloClient();
 
   const getLabelFromOptions = (field, value) => {
@@ -26,18 +26,46 @@ function SelectedBar({ name, fields, inititalState }) {
 
   inititalState &&
     Object.keys(inititalState).map(key => {
-      const label = getLabel(key, inititalState[key]);
-      label && (selected[key] = label);
+      const state = inititalState[key];
+
+      if (Array.isArray(state)) {
+        state.map(value => {
+          const label = getLabel(key, value);
+
+          if (label) {
+            selected.push({
+              isArray: true,
+              key,
+              value,
+              label
+            });
+          }
+        });
+      }
+      const label = getLabel(key, state);
+
+      if (label) {
+        selected.push({
+          isArray: false,
+          key,
+          label
+        });
+      }
     });
 
-  console.log(selected);
+  const clearValue = ({ key, isArray, value }) => {
+    const state = inititalState[key];
 
-  const clearValue = key => {
+    if (isArray) {
+      const index = state.indexOf(value);
+      delete state[index];
+    }
+
     client.writeData({
       data: {
         filters: {
           [name]: {
-            [key]: "",
+            [key]: isArray ? state.filter(s => s) : "",
             __typename: "GirlFilters"
           },
           __typename: "Filters"
@@ -48,7 +76,13 @@ function SelectedBar({ name, fields, inititalState }) {
 
   const clearAllValue = () => {
     let keys = [];
-    Object.keys(selected).map(key => (keys[key] = ""));
+    selected.map(({ key, isArray }) => {
+      if (isArray) {
+        keys[key] = [];
+      }
+
+      keys[key] = "";
+    });
 
     client.writeData({
       data: {
@@ -63,8 +97,6 @@ function SelectedBar({ name, fields, inititalState }) {
     });
   };
 
-  console.log(selected);
-
   if (Object.entries(selected).length === 0) {
     return null;
   }
@@ -73,7 +105,7 @@ function SelectedBar({ name, fields, inititalState }) {
     <div className="border-b border-divider">
       <div className="fluid-container py-5 flex items-center">
         <div className="mr-4">Selected:</div>
-        {Object.keys(selected).map((key, i) => (
+        {selected.map((s, i) => (
           <div
             className={cx(
               "flex items-center justify-between px-4 py-1 border border-divider rounded-full cursor-pointer",
@@ -82,9 +114,9 @@ function SelectedBar({ name, fields, inititalState }) {
               }
             )}
             key={i}
-            onClick={() => clearValue(key)}
+            onClick={() => clearValue(s)}
           >
-            <span className="text-sm mr-4">{selected[key]}</span>
+            <span className="text-sm mr-4">{s.label}</span>
 
             <CloseSvg
               className="stroke-light-grey hover:stroke-red"
