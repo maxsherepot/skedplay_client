@@ -46,11 +46,11 @@ function EmployeesBox({ inititalState }) {
       </Sort>
 
       <div className="fluid-container">
-        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-2">
+        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
           {employees &&
             employees.data.map(girl => (
               <div
-                className="sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
+                className="sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-3"
                 key={girl.id}
               >
                 <GirlCard girl={girl} />

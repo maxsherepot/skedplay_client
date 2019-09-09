@@ -16,7 +16,7 @@ function EventCard({ id, title, club, photos }) {
 
   return (
     <div
-      className="relative overflow-hidden w-full md:w-1/2 lg:w-1/3 hd:w-1/4 mb-4 px-2 rounded-t-lg"
+      className="relative overflow-hidden w-full md:w-1/2 lg:w-1/3 hd:w-1/4 mb-6 px-3 rounded-t-lg"
       key={id}
     >
       <div

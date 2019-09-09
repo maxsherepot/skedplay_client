@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import cx from "classnames";
 import { CloseSvg } from "icons";
 import { useApolloClient } from "@apollo/react-hooks";
 
@@ -103,17 +102,14 @@ function SelectedBar({ name, fields, inititalState }) {
 
   return (
     <div className="border-b border-divider">
-      <div className="fluid-container pt-5 pb-1 flex items-start">
-        <div className="mr-4">Selected:</div>
-        <div className="flex flex-wrap">
+      <div className="fluid-container p-5 flex items-center">
+        <div className="hidden sm:block mr-2">Selected:</div>
+        <div className="flex flex-wrap items-center -mb-4">
           {selected.map((s, i) => (
             <div
-              className={cx(
-                "flex items-center justify-between px-4 py-1 border border-divider rounded-full cursor-pointer mb-4",
-                {
-                  "mx-4": i % 2 === 0
-                }
-              )}
+              className={
+                "flex items-center justify-between px-4 py-1 border border-divider rounded-full cursor-pointer mx-2 mb-4"
+              }
               key={i}
               onClick={() => clearValue(s)}
             >
@@ -127,7 +123,7 @@ function SelectedBar({ name, fields, inititalState }) {
             </div>
           ))}
           <span
-            className="text-red cursor-pointer ml-4"
+            className="text-red cursor-pointer ml-4 mb-4"
             onClick={() => clearAllValue()}
           >
             Clear all

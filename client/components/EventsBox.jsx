@@ -42,10 +42,10 @@ function EventsBox({ inititalState }) {
         </div>
       </Sort>
 
-      <div className="container">
+      <div className="fluid-container">
         {events && events.data && !loading ? (
           <>
-            <div className="flex flex-wrap -mx-2">
+            <div className="flex flex-wrap -mx-3">
               {events.data &&
                 events.data.map(event => (
                   <EventCard key={event.id} {...event}></EventCard>
@@ -57,7 +57,7 @@ function EventsBox({ inititalState }) {
         )}
       </div>
 
-      <div className="container">
+      <div className="fluid-container">
         <div className="text-2xl font-black">Meine Adresse</div>
         {/* add page-card? */}
         <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">
