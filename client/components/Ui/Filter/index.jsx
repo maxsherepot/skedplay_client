@@ -50,7 +50,7 @@ function Filter({ name, fields, inititalState }) {
                 className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
                 onSubmit={handleSubmit}
               >
-                <div className="flex flex-wrap justify-between w-full lg:w-4/5 -mx-4">
+                <div className="flex flex-wrap items-end w-full lg:w-4/5 -mx-4">
                   {fields &&
                     fields.map(({ component, ...rest }, index) => {
                       switch (component) {
@@ -88,18 +88,17 @@ function Filter({ name, fields, inititalState }) {
                           break;
                       }
                     })}
+                  <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6 px-2">
+                    <Button
+                      className="w-full"
+                      size="sm"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      Find
+                    </Button>
+                  </FormGroup>
                 </div>
-
-                <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6">
-                  <Button
-                    className="w-full"
-                    size="sm"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    Find
-                  </Button>
-                </FormGroup>
               </form>
             )}
           </Formik>

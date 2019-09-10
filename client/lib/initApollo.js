@@ -72,6 +72,12 @@ function create(initialState, { getToken, fetchOptions }) {
           race_type: "",
           __typename: "CoupleFilters"
         },
+        clubs: {
+          location: "",
+          event_type: "",
+          perimeter: 10,
+          __typename: "ClubFilters"
+        },
         events: {
           location: "",
           event_type: "",

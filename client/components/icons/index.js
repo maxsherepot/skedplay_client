@@ -3,6 +3,7 @@ export { default as StarSvg } from "./StarSvg";
 export { default as PhotoSvg } from "./PhotoSvg";
 export { default as VideoSvg } from "./VideoSvg";
 export { default as MapSvg } from "./MapSvg";
+export { default as WebsiteSvg } from "./WebsiteSvg";
 
 export { default as FavoriteSvg } from "./FavoriteSvg";
 export { default as MessageSvg } from "./MessageSvg";

@@ -30,6 +30,11 @@ export const GET_FILTERS_STATE = gql`
         gender
         race_type
       }
+      clubs {
+        location
+        event_type
+        perimeter
+      }
       events {
         location
         event_type

@@ -63,12 +63,12 @@ function Nav({ user, className }) {
                     </Link>
                   </li>
                   <li>
-                  <Link href="/boys">
+                    <Link href="/boys">
                       <a>boys</a>
                     </Link>
                   </li>
                   <li>
-                  <Link href="/couple">
+                    <Link href="/couple">
                       <a>couple</a>
                     </Link>
                   </li>
@@ -93,7 +93,9 @@ function Nav({ user, className }) {
                 </span>
               </li>
               <li className="menu__item">
-                <a href="/clubs.html">clubs</a>
+                <Link href="/clubs">
+                  <a>clubs</a>
+                </Link>
               </li>
               <li className="menu__item">
                 <Link href="/events">

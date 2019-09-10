@@ -30,3 +30,4 @@ export { default as PlanCard } from "./PlanCard";
 export { default as PageCard } from "./PageCard";
 export { default as GirlCard } from "./GirlCard";
 export { default as EventCard } from "./EventCard";
+export { default as ClubCard } from "./ClubCard";

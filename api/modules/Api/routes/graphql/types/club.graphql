@@ -4,7 +4,7 @@ type Club {
     type: ClubType @hasOne
     email: String
     website: String
-    phones: [String]
+    phones: String
     description: String
     address: String
     lat: String
