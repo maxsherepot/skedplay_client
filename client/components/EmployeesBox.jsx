@@ -8,13 +8,16 @@ import { GirlCard, Pagination, Sort } from "UI";
 function EmployeesBox({ inititalState }) {
   const [page, setPage] = usePagination();
 
-  let filters = [];
+  const filters = [];
 
   Object.keys(inititalState).map(key => {
-    if (inititalState[key] !== "") {
-      filters[key] = inititalState[key];
+    if (inititalState[key] === "") return;
+
+    if (inititalState[key] === null) {
+      return (filters[key] = "");
     }
-    return undefined;
+
+    filters[key] = inititalState[key];
   });
 
   const {

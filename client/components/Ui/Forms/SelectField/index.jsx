@@ -19,7 +19,7 @@ function SelectField({
   const getLabel = value => {
     const index = options.map(o => o.value).indexOf(value);
 
-    return options[index].label;
+    return options[index] ? options[index].label : "";
   };
 
   return (
@@ -38,10 +38,10 @@ function SelectField({
               <div
                 className={cx(
                   "flex items-center h-full pl-4 text-sm",
-                  value === "" ? "text-grey" : "text-black"
+                  value === "" || value === null ? "text-grey" : "text-black"
                 )}
               >
-                {value === "" ? placeholder : getLabel(value)}
+                {value === "" || value === null ? placeholder : getLabel(value)}
               </div>
             }
           >
@@ -69,20 +69,6 @@ function SelectField({
                 </Fragment>
               ))}
           </Dropdown>
-          //  <span
-          //    ref={node}
-          //    className={cx("select", {
-          //      expanded
-          //    })}
-          //  onClick={() => setExpanded(true)}
-          //  >
-          // {value === "" && (
-          //     <label id="placeholder" className="text-grey">
-          //       {placeholder}
-          //     </label>
-          //   )}
-
-          //  </span>
         )}
       </Field>
     </FormGroup>

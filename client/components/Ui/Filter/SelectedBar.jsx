@@ -60,11 +60,21 @@ function SelectedBar({ name, fields, inititalState }) {
       delete state[index];
     }
 
+    let newState = null;
+
+    if (isArray) {
+      newState = state.filter(s => s);
+
+      if (newState && newState.length === 0) {
+        newState = null;
+      }
+    }
+
     client.writeData({
       data: {
         filters: {
           [name]: {
-            [key]: isArray ? state.filter(s => s) : "",
+            [key]: newState,
             __typename: "GirlFilters"
           },
           __typename: "Filters"

@@ -33,7 +33,8 @@ input EmployeeInput {
 }
 
 input EmployeeFilters {
-  location: String @whereHas(key: "location_id", method: "whereIn")
+#  location: String @whereHas(key: "location_id", method: "whereIn")
+  location: String @where
   gender: String @where
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   age: AgeRange @whereBetween

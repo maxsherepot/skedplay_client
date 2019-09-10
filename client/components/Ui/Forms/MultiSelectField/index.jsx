@@ -25,10 +25,10 @@ const MultiSelectField = ({
           <div
             className={cx(
               "flex items-center h-full pl-4 text-sm",
-              values[name].length ? "text-black" : "text-grey"
+              values[name] && values[name].length ? "text-black" : "text-grey"
             )}
           >
-            {values[name].length
+            {values[name] && values[name].length
               ? `Selected ${values[name].length} items`
               : placeholder}
           </div>
@@ -39,7 +39,8 @@ const MultiSelectField = ({
           render={arrayHelpers => (
             <div>
               {options.map(category => {
-                const isChecked = values[name].includes(category.value);
+                const isChecked =
+                  values[name] && values[name].includes(category.value);
 
                 return (
                   <div key={category.value}>
