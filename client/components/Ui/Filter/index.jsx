@@ -5,6 +5,7 @@ import {
   SelectField,
   MultiSelectField,
   FormGroup,
+  RangeSlider,
   SelectedBar
 } from "UI";
 import { useApolloClient } from "@apollo/react-hooks";
@@ -49,7 +50,7 @@ function Filter({ name, fields, inititalState }) {
                 className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
                 onSubmit={handleSubmit}
               >
-                <div className="flex flex-wrap justify-between w-full lg:w-4/5">
+                <div className="flex flex-wrap justify-between w-full lg:w-4/5 -mx-4">
                   {fields &&
                     fields.map(({ component, ...rest }, index) => {
                       switch (component) {
@@ -57,7 +58,7 @@ function Filter({ name, fields, inititalState }) {
                           return (
                             <SelectField
                               key={index}
-                              className="w-full lg:w-80"
+                              className="w-full lg:w-1/5 px-2"
                               labelClassName="text-white"
                               {...rest}
                             ></SelectField>
@@ -67,11 +68,21 @@ function Filter({ name, fields, inititalState }) {
                           return (
                             <MultiSelectField
                               key={index}
-                              className="w-full lg:w-80"
+                              className="w-full lg:w-1/5 px-2"
                               labelClassName="text-white"
                               {...rest}
                             ></MultiSelectField>
                           );
+
+                        // case "range":
+                        //   return (
+                        //     <RangeSlider
+                        //       key={index}
+                        //       className="w-full lg:w-1/5 px-2"
+                        //       labelClassName="text-white"
+                        //       {...rest}
+                        //     ></RangeSlider>
+                        //   );
 
                         default:
                           break;

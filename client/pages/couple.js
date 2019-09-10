@@ -6,9 +6,9 @@ import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
 import { MainLayout } from "layouts";
 import EmployeesBox from "components/EmployeesBox";
 
-const ENTITY_NAME = "girls";
+const ENTITY_NAME = "couple";
 
-const GirlsSearch = ({ loggedInUser }) => {
+const CoupleSearch = ({ loggedInUser }) => {
   const {
     loading,
     data: { services, employee_race_types }
@@ -112,7 +112,7 @@ const GirlsSearch = ({ loggedInUser }) => {
   );
 };
 
-GirlsSearch.getInitialProps = async context => {
+CoupleSearch.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
   if (!loggedInUser) {
     return {};
@@ -120,4 +120,4 @@ GirlsSearch.getInitialProps = async context => {
   return { loggedInUser };
 };
 
-export default GirlsSearch;
+export default CoupleSearch;

@@ -58,6 +58,20 @@ function create(initialState, { getToken, fetchOptions }) {
           race_type: "",
           __typename: "GirlFilters"
         },
+        boys: {
+          location: "",
+          services: [],
+          gender: "",
+          race_type: "",
+          __typename: "BoyFilters"
+        },
+        couple: {
+          location: "",
+          services: [],
+          gender: "",
+          race_type: "",
+          __typename: "CoupleFilters"
+        },
         events: {
           location: "",
           event_type: "",

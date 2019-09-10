@@ -63,10 +63,14 @@ function Nav({ user, className }) {
                     </Link>
                   </li>
                   <li>
-                    <a href="/boys.html">boys</a>
+                  <Link href="/boys">
+                      <a>boys</a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/couple.html">couple</a>
+                  <Link href="/couple">
+                      <a>couple</a>
+                    </Link>
                   </li>
                 </ul>
                 <span>

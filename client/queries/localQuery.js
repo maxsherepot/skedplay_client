@@ -18,6 +18,18 @@ export const GET_FILTERS_STATE = gql`
         gender
         race_type
       }
+      boys {
+        location
+        services
+        gender
+        race_type
+      }
+      couple {
+        location
+        services
+        gender
+        race_type
+      }
       events {
         location
         event_type
