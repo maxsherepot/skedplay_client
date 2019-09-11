@@ -10,6 +10,7 @@ export { default as Filter } from "./Filter";
 export { default as SelectedBar } from "./Filter/SelectedBar";
 
 export { default as Nav } from "./Nav";
+export { default as SecondaryNav } from "./SecondaryNav";
 export { default as EventsGallery } from "./EventsGallery";
 export { default as AnimationBackground } from "./AnimationBackground";
 export { default as ArrowBack } from "./ArrowBack";
@@ -24,6 +25,7 @@ export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";
 
 export { default as Slider } from "./PhotoSlider/Slider";
+export { default as Gallery } from "./PhotoSlider/Gallery";
 
 /** Cards */
 export { default as PlanCard } from "./PlanCard";
@@ -31,3 +33,4 @@ export { default as PageCard } from "./PageCard";
 export { default as GirlCard } from "./GirlCard";
 export { default as EventCard } from "./EventCard";
 export { default as ClubCard } from "./ClubCard";
+export { default as AddressCard } from "./AddressCard";

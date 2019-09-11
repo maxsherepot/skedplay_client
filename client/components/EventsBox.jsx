@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { usePagination } from "hooks";
 import { ALL_EVENTS } from "queries/eventQuery";
 import { MapSvg } from "icons";
-import { EventCard, Pagination, Sort, Button } from "UI";
+import { EventCard, Pagination, Sort, Button, AddressCard } from "UI";
 
 function EventsBox({ inititalState }) {
   const [page, setPage] = usePagination();
@@ -13,10 +13,13 @@ function EventsBox({ inititalState }) {
   let filters = [];
 
   Object.keys(inititalState).map(key => {
-    if (inititalState[key] !== "") {
-      filters[key] = inititalState[key];
+    if (inititalState[key] === "") return;
+
+    if (inititalState[key] === null) {
+      return (filters[key] = "");
     }
-    return undefined;
+
+    filters[key] = inititalState[key];
   });
 
   const {
@@ -48,7 +51,11 @@ function EventsBox({ inititalState }) {
             <div className="flex flex-wrap -mx-3">
               {events.data &&
                 events.data.map(event => (
-                  <EventCard key={event.id} {...event}></EventCard>
+                  <EventCard
+                    className="w-full md:w-1/2 lg:w-1/3 hd:w-1/4"
+                    key={event.id}
+                    {...event}
+                  ></EventCard>
                 ))}
             </div>
           </>
@@ -58,18 +65,7 @@ function EventsBox({ inititalState }) {
       </div>
 
       <div className="fluid-container">
-        <div className="text-2xl font-black">Meine Adresse</div>
-        {/* add page-card? */}
-        <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">
-          <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
-          <div className="flex my-4">
-            <MapSvg></MapSvg>
-            <span className="ml-3">12 km from me</span>
-          </div>
-          <Button className="px-4" size="xxs" level="success" weight="normal">
-            Available
-          </Button>
-        </div>
+        <AddressCard className="w-full sm:w-2/3 lg:w-2/5 hd:w-1/5" />
       </div>
 
       <Pagination

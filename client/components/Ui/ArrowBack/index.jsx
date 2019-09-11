@@ -1,11 +1,11 @@
 import React from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import cx from "classnames";
 
 import { useSteps } from "hooks";
 
-const ArrowBack = ({ href, stepName, title, color }) => {
+const ArrowBack = ({ className, href, stepName, title, color }) => {
   const { step, setStep } = useSteps(stepName);
 
   const handleBack = () => {
@@ -18,9 +18,10 @@ const ArrowBack = ({ href, stepName, title, color }) => {
 
   return (
     <a
-      className={classNames(
+      className={cx(
         "animation-arrow-left text-sm cursor-pointer",
-        `text-${color}`
+        `text-${color}`,
+        className
       )}
       onClick={handleBack}
     >
@@ -34,13 +35,14 @@ const ArrowBack = ({ href, stepName, title, color }) => {
       >
         <path d="M13 8H1M1 8L7.85714 15M1 8L7.85714 1" strokeLinejoin="round" />
       </svg>{" "}
-      {title}
+      <span className="hidden sm:inline-block">{title}</span>
     </a>
   );
 };
 
 ArrowBack.propTypes = {
   href: PropTypes.string.isRequired,
+  className: PropTypes.string,
   stepName: PropTypes.string,
   title: PropTypes.string,
   color: PropTypes.oneOf(["white", "black"])

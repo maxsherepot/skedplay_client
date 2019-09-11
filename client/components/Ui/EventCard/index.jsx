@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 
 import { Button } from "UI";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function EventCard({ id, title, club, photos }) {
+function EventCard({ className, id, title, club, photos }) {
   const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -16,7 +17,10 @@ function EventCard({ id, title, club, photos }) {
 
   return (
     <div
-      className="relative overflow-hidden w-full md:w-1/2 lg:w-1/3 hd:w-1/4 mb-6 px-3 rounded-t-lg"
+      className={cx(
+        "relative overflow-hidden mb-6 px-3 rounded-t-lg",
+        className
+      )}
       key={id}
     >
       <div
@@ -33,7 +37,7 @@ function EventCard({ id, title, club, photos }) {
             className="absolute z-30 top-0 right-0 p-3-5"
             onClick={() => setEventMapId(null)}
           >
-            <button className="flex justify-center content-center rounded-full bg-white w-10 h-10">
+            <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
               <CloseSvg></CloseSvg>
             </button>
           </div>
@@ -42,7 +46,7 @@ function EventCard({ id, title, club, photos }) {
             className="absolute z-20 top-0 right-0 p-3-5"
             onClick={() => setFavoriteId(isFavorite ? null : id)}
           >
-            <button className="flex justify-center content-center rounded-full bg-white w-10 h-10">
+            <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
               <FavoriteSvg active={isFavorite}></FavoriteSvg>
             </button>
           </div>
@@ -101,6 +105,7 @@ function EventCard({ id, title, club, photos }) {
 }
 
 EventCard.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   club: PropTypes.object,

@@ -28,3 +28,20 @@ export const ALL_EMPLOYEES = gql`
     }
   }
 `;
+
+export const GET_EMPLOYEE = gql`
+  query getEmployee($id: ID!) {
+    employee(id: $id) {
+      id
+      name
+      age
+      address
+      isVip
+      isNew
+      photos {
+        url
+        thumb_url
+      }
+    }
+  }
+`;

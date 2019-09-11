@@ -47,7 +47,7 @@ function Filter({ name, fields, inititalState }) {
           >
             {({ handleSubmit, isSubmitting }) => (
               <form
-                className="flex flex-col flex-wrap justify-between lg:flex-row items-end"
+                className="flex flex-col flex-wrap items-center justify-between lg:flex-row"
                 onSubmit={handleSubmit}
               >
                 <div className="flex flex-wrap items-end w-full lg:w-4/5 -mx-4">

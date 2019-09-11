@@ -5,7 +5,7 @@ import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort } from "UI";
 
-function EmployeesBox({ inititalState }) {
+function EmployeesBox({ inititalState = {} }) {
   const [page, setPage] = usePagination();
 
   const filters = [];
