@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 import GoogleMapReact from "google-map-react";
 
 function GoogleMap({ className, key, center, zoom }) {
@@ -196,7 +197,10 @@ function GoogleMap({ className, key, center, zoom }) {
     styles: [...styles]
   };
   return (
-    <div className={className} style={{ height: "106%", width: "100%" }}>
+    <div
+      className={cx("google-map", className)}
+      style={{ height: "100%", width: "100%" }}
+    >
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={center}

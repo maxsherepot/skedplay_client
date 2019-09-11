@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import Link from "next/link";
 
 import { Button } from "UI";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function EventCard({ className, id, title, club, photos }) {
+function EventCard({ className, href, id, title, club, photos }) {
   const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -71,7 +72,10 @@ function EventCard({ className, id, title, club, photos }) {
               </Button>
             </div>
           )}
-          <div>Ultra Party</div> {/* {title} */}
+          <Link href={`${href}/[id]`} as={`${href}/${id}`}>
+            <a className="hover:text-red">Ultra Party</a>
+          </Link>
+          {/* {title} */}
         </div>
       </div>
       <div className="bg-white p-5">
@@ -104,8 +108,13 @@ function EventCard({ className, id, title, club, photos }) {
   );
 }
 
+EventCard.defaultProps = {
+  href: "/events"
+};
+
 EventCard.propTypes = {
   className: PropTypes.string,
+  href: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   club: PropTypes.object,

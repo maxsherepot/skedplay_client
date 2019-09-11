@@ -26,3 +26,19 @@ export const ALL_EVENTS = gql`
     }
   }
 `;
+
+export const GET_EVENT = gql`
+  query getEvent($id: ID!) {
+    event(id: $id) {
+      id
+      title
+      description
+      club {
+        address
+      }
+      photos {
+        url
+      }
+    }
+  }
+`;

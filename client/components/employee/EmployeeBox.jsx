@@ -2,41 +2,17 @@ import React, { useState } from "react";
 import cx from "classnames";
 import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
-import { usePagination } from "hooks";
-import { useRouter } from "next/router";
+import { GET_EMPLOYEE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { ALL_EVENTS, GET_EMPLOYEE } from "queries";
+import { Gallery, SecondaryNav, Button, AddressCard } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
-import {
-  Gallery,
-  SecondaryNav,
-  Button,
-  EventCard,
-  Pagination,
-  AddressCard
-} from "UI";
 
-const Employee = ({ loggedInUser }) => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [page, setPage] = usePagination();
-
+const EmployeeBox = ({ children, id, user }) => {
   const { data } = useQuery(GET_EMPLOYEE, {
     variables: {
       id
     }
   });
-
-  const {
-    data: { events },
-    loading
-  } = useQuery(ALL_EVENTS, {
-    variables: {
-      first: 8,
-      page
-    }
-  });
-
   const [showNumber, setToggleNumber] = useState(false);
 
   const left = (
@@ -79,7 +55,7 @@ const Employee = ({ loggedInUser }) => {
   );
 
   return (
-    <MainLayout user={loggedInUser}>
+    <MainLayout user={user}>
       <SecondaryNav left={left} right={rightButton}>
         <ul className="flex -mx-4 text-white">
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
@@ -111,32 +87,7 @@ const Employee = ({ loggedInUser }) => {
 
             <AddressCard />
           </div>
-          <div className="w-full lg:w-3/4 px-3">
-            <div className="text-2xl font-extrabold my-5">Meine Events</div>
-
-            {events && events.data && !loading ? (
-              <>
-                <div className="flex flex-wrap -mx-3">
-                  {events.data &&
-                    events.data.map(event => (
-                      <EventCard
-                        className="w-full md:w-1/2 lg:w-1/3"
-                        key={event.id}
-                        {...event}
-                      ></EventCard>
-                    ))}
-                </div>
-
-                <Pagination
-                  page={page}
-                  setPage={setPage}
-                  {...events.paginatorInfo}
-                ></Pagination>
-              </>
-            ) : (
-              <div>Loading...</div>
-            )}
-          </div>
+          <div className="w-full lg:w-3/4 px-3">{children}</div>
         </div>
         <GirlsViewedBox />
       </div>
@@ -144,13 +95,4 @@ const Employee = ({ loggedInUser }) => {
   );
 };
 
-// Employee.getInitialProps = async context => {
-//   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-//   if (!loggedInUser) {
-//     return {};
-//   }
-
-//   return { loggedInUser };
-// };
-
-export default Employee;
+export default EmployeeBox;

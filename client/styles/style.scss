@@ -10,6 +10,28 @@ body {
   min-width: 320px;
 }
 
+.google-map {
+  & div > div {
+    border-radius: 0.5rem;
+  }
+
+  a[href^="http://maps.google.com/maps"] {
+    display: none !important;
+  }
+  a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+  }
+
+  .gmnoprint a,
+  .gmnoprint span,
+  .gm-style-cc {
+    display: none;
+  }
+  .gmnoprint div {
+    background: none !important;
+  }
+}
+
 .container {
   padding: 0 20px;
 }

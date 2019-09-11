@@ -7,7 +7,7 @@ function AddressCard({ className }) {
   return (
     <>
       <div className="text-2xl font-black my-5">Meine Adresse</div>
-      <div className={cx("bg-white p-4", className)}>
+      <div className={cx("bg-white rounded-lg p-4", className)}>
         <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
         <div className="flex my-4">
           <MapSvg></MapSvg>

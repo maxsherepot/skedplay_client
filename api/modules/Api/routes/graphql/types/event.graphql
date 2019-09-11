@@ -28,6 +28,7 @@ input EventFilters {
 
 extend type Query {
     events(filters: EventFilters): [Event!]! @paginate
+    event(id: ID @eq): Event @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

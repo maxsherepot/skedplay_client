@@ -17,7 +17,7 @@ const GirlsViewedBox = () => {
 
   return (
     <>
-      <div className="flex items-end">
+      <div className="flex items-end my-5">
         <div className="text-3xl font-extrabold tracking-tighter leading-none">
           Zuvor angesehen
         </div>
@@ -29,7 +29,7 @@ const GirlsViewedBox = () => {
           </a>
         </Link>
       </div>
-      <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
+      <div className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
         {data.employees &&
           data.employees.data.map(employee => (
             <div
