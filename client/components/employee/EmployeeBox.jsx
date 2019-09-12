@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cx from "classnames";
+import Link from "next/link";
 import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
 import { GET_EMPLOYEE } from "queries";
@@ -7,7 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Gallery, SecondaryNav, Button, AddressCard } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 
-const EmployeeBox = ({ children, id, user }) => {
+const EmployeeBox = ({ id, user, gallery, left, right }) => {
   const { data, loading } = useQuery(GET_EMPLOYEE, {
     variables: {
       id
@@ -19,7 +20,7 @@ const EmployeeBox = ({ children, id, user }) => {
     return "Loading...";
   }
 
-  const left = (
+  const leftInfo = (
     <>
       {data.employee && (
         <span className="text-3xl font-black hd:text-white">
@@ -37,7 +38,7 @@ const EmployeeBox = ({ children, id, user }) => {
     </>
   );
 
-  const rightButton = (
+  const rightInfo = (
     <div className="flex items-center justify-center bg-red text-white px-8 py-3 rounded-full cursor-pointer">
       <PhoneSvg></PhoneSvg>
       <span
@@ -60,13 +61,17 @@ const EmployeeBox = ({ children, id, user }) => {
 
   return (
     <MainLayout user={user}>
-      <SecondaryNav left={left} right={rightButton}>
+      <SecondaryNav left={leftInfo} right={rightInfo}>
         <ul className="flex -mx-4 text-white">
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
-            Information
+            <Link href={`/employees/${id}/information`}>
+              <a>Information</a>
+            </Link>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
-            Events
+            <Link href={`/employees/${id}/events`}>
+              <a>Events</a>
+            </Link>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
             Reviews
@@ -87,11 +92,11 @@ const EmployeeBox = ({ children, id, user }) => {
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-1/4 px-3">
             <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
-            {data.employee && <Gallery photos={data.employee.photos}></Gallery>}
-
-            <AddressCard />
+            {gallery(data.employee.photos)}
+            {left}
+            {/* <AddressCard /> */}
           </div>
-          <div className="w-full lg:w-3/4 px-3">{children}</div>
+          <div className="w-full lg:w-3/4 px-3">{right}</div>
         </div>
         <GirlsViewedBox />
       </div>

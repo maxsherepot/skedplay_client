@@ -7,7 +7,7 @@ import { Button } from "UI";
 import { CloseSvg } from "icons";
 import EmployeeBox from "components/employee/EmployeeBox";
 
-const Event = ({ loggedInUser }) => {
+const EventShow = ({ loggedInUser }) => {
   const router = useRouter();
   const { id, event: eventId } = router.query;
 
@@ -60,8 +60,8 @@ const Event = ({ loggedInUser }) => {
   );
 };
 
-Event.getInitialProps = async context => {
+EventShow.getInitialProps = async context => {
   return {};
 };
 
-export default Event;
+export default EventShow;

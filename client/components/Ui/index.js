@@ -24,8 +24,9 @@ export { default as Sort } from "./Sort";
 export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";
 
-export { default as Slider } from "./PhotoSlider/Slider";
-export { default as Gallery } from "./PhotoSlider/Gallery";
+export { default as Slider } from "./Photo/Slider";
+export { default as Gallery } from "./Photo/Gallery";
+export { default as GalleryWithThumbnail } from "./Photo/GalleryWithThumbnail";
 
 /** Cards */
 export { default as PlanCard } from "./PlanCard";

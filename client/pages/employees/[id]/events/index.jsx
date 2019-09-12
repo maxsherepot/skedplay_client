@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import { ALL_EVENTS } from "queries";
 import EmployeeBox from "components/employee/EmployeeBox";
-import { EventCard, Pagination } from "UI";
+import { EventCard, Gallery, Pagination, AddressCard } from "UI";
 
-const Employee = ({ loggedInUser }) => {
+const Events = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
   const [page, setPage] = usePagination();
@@ -17,8 +17,14 @@ const Employee = ({ loggedInUser }) => {
     }
   });
 
-  return (
-    <EmployeeBox id={id} user={loggedInUser}>
+  const renderGallery = photos => {
+    return <Gallery photos={photos}></Gallery>;
+  };
+
+  const leftColumn = <AddressCard />;
+
+  const rightColumn = (
+    <>
       <div className="text-2xl font-extrabold my-5">Meine Events</div>
 
       {events && events.data && !loading ? (
@@ -44,17 +50,18 @@ const Employee = ({ loggedInUser }) => {
       ) : (
         <div>Loading...</div>
       )}
-    </EmployeeBox>
+    </>
+  );
+
+  return (
+    <EmployeeBox
+      id={id}
+      user={loggedInUser}
+      gallery={renderGallery}
+      left={leftColumn}
+      right={rightColumn}
+    />
   );
 };
 
-// Employee.getInitialProps = async context => {
-//   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-//   if (!loggedInUser) {
-//     return {};
-//   }
-
-//   return { loggedInUser };
-// };
-
-export default Employee;
+export default Events;

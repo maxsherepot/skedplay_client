@@ -1,0 +1,13 @@
+.react-multi-carousel-dot-list {
+  @apply absolute left-0 top-0;
+}
+
+.custom-dot {
+  border: none;
+  margin: 10px;
+  outline: none;
+}
+.custom-dot--active {
+  transform: scale(1.3);
+  outline: auto;
+}
