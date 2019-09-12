@@ -5,10 +5,10 @@ import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
 import { GET_EMPLOYEE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { Gallery, SecondaryNav, Button, AddressCard } from "UI";
+import { SecondaryNav, Button } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 
-const EmployeeBox = ({ id, user, gallery, left, right }) => {
+const EmployeeBox = ({ id, user, gallery, sidebar, content }) => {
   const { data, loading } = useQuery(GET_EMPLOYEE, {
     variables: {
       id
@@ -93,10 +93,9 @@ const EmployeeBox = ({ id, user, gallery, left, right }) => {
           <div className="w-full lg:w-1/4 px-3">
             <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
             {gallery(data.employee.photos)}
-            {left}
-            {/* <AddressCard /> */}
+            {sidebar}
           </div>
-          <div className="w-full lg:w-3/4 px-3">{right}</div>
+          <div className="w-full lg:w-3/4 px-3">{content}</div>
         </div>
         <GirlsViewedBox />
       </div>

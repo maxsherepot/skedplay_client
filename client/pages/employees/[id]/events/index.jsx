@@ -21,9 +21,9 @@ const Events = ({ loggedInUser }) => {
     return <Gallery photos={photos}></Gallery>;
   };
 
-  const leftColumn = <AddressCard />;
+  const sidebarColumn = <AddressCard />;
 
-  const rightColumn = (
+  const contentColumn = (
     <>
       <div className="text-2xl font-extrabold my-5">Meine Events</div>
 
@@ -58,8 +58,8 @@ const Events = ({ loggedInUser }) => {
       id={id}
       user={loggedInUser}
       gallery={renderGallery}
-      left={leftColumn}
-      right={rightColumn}
+      sidebar={sidebarColumn}
+      content={contentColumn}
     />
   );
 };
