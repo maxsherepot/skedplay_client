@@ -9,14 +9,11 @@ import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
 const ENTITY_NAME = "clubs";
 
 function Clubs({ loggedInUser }) {
-  const {
-    loading,
-    data: { club_types }
-  } = useQuery(EVENTS_FILTER_OPTIONS);
+  const { loading, data: { club_types } = {} } = useQuery(
+    EVENTS_FILTER_OPTIONS
+  );
 
-  const {
-    data: { filters }
-  } = useQuery(GET_FILTERS_STATE);
+  const { data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
     return "Loading...";

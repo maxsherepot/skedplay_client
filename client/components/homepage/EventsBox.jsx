@@ -26,11 +26,7 @@ const GET_EVENTS = gql`
 `;
 
 function EventsBox() {
-  const {
-    loading,
-    error,
-    data: { events }
-  } = useQuery(GET_EVENTS);
+  const { loading, error, data: { events } = {} } = useQuery(GET_EVENTS);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

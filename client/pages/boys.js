@@ -9,14 +9,11 @@ import EmployeesBox from "components/EmployeesBox";
 const ENTITY_NAME = "boys";
 
 const BoysSearch = ({ loggedInUser }) => {
-  const {
-    loading,
-    data: { services, employee_race_types }
-  } = useQuery(GIRLS_FILTER_OPTIONS);
+  const { loading, data: { services, employee_race_types } = {} } = useQuery(
+    GIRLS_FILTER_OPTIONS
+  );
 
-  const {
-    data: { filters }
-  } = useQuery(GET_FILTERS_STATE);
+  const { data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
     return "Loading...";

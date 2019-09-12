@@ -11,10 +11,7 @@ const Event = ({ loggedInUser }) => {
   const router = useRouter();
   const { id, event: eventId } = router.query;
 
-  const {
-    data: { event },
-    loading
-  } = useQuery(GET_EVENT, {
+  const { data: { event } = {}, loading } = useQuery(GET_EVENT, {
     variables: {
       id: eventId
     }

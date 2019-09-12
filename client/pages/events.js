@@ -7,15 +7,12 @@ import EventsBox from "components/EventsBox";
 import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
 
 function Events({ loggedInUser }) {
-  const {
-    loading,
-    data: { club_types }
-  } = useQuery(EVENTS_FILTER_OPTIONS);
+  const { loading, data: { club_types } = {} } = useQuery(
+    EVENTS_FILTER_OPTIONS
+  );
 
   const {
-    data: {
-      filters: { events }
-    }
+    data: { filters: { events } = {} }
   } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {

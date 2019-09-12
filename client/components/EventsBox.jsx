@@ -22,11 +22,7 @@ function EventsBox({ inititalState }) {
     filters[key] = inititalState[key];
   });
 
-  const {
-    data: { events },
-    loading,
-    error
-  } = useQuery(ALL_EVENTS, {
+  const { data: { events } = {}, loading, error } = useQuery(ALL_EVENTS, {
     variables: {
       first: 8,
       page

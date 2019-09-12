@@ -8,12 +8,16 @@ import { Gallery, SecondaryNav, Button, AddressCard } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 
 const EmployeeBox = ({ children, id, user }) => {
-  const { data } = useQuery(GET_EMPLOYEE, {
+  const { data, loading } = useQuery(GET_EMPLOYEE, {
     variables: {
       id
     }
   });
   const [showNumber, setToggleNumber] = useState(false);
+
+  if (loading) {
+    return "Loading...";
+  }
 
   const left = (
     <>

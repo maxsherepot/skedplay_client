@@ -21,11 +21,7 @@ function ClubsBox({ inititalState }) {
     filters[key] = inititalState[key];
   });
 
-  const {
-    data: { clubs },
-    loading,
-    error
-  } = useQuery(ALL_CLUBS, {
+  const { data: { clubs } = {}, loading, error } = useQuery(ALL_CLUBS, {
     variables: {
       first: 8,
       page,

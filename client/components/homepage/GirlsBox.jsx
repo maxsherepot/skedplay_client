@@ -22,11 +22,7 @@ const GET_GIRLS = gql`
 `;
 
 function GirlsBox() {
-  const {
-    loading,
-    error,
-    data: { employees }
-  } = useQuery(GET_GIRLS);
+  const { loading, error, data: { employees } = {} } = useQuery(GET_GIRLS);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

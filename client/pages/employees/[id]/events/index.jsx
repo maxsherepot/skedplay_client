@@ -10,10 +10,7 @@ const Employee = ({ loggedInUser }) => {
   const { id } = router.query;
   const [page, setPage] = usePagination();
 
-  const {
-    data: { events },
-    loading
-  } = useQuery(ALL_EVENTS, {
+  const { data: { events } = {}, loading } = useQuery(ALL_EVENTS, {
     variables: {
       first: 8,
       page

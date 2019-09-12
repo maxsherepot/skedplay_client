@@ -20,11 +20,7 @@ function EmployeesBox({ inititalState = {} }) {
     filters[key] = inititalState[key];
   });
 
-  const {
-    loading,
-    error,
-    data: { employees }
-  } = useQuery(ALL_EMPLOYEES, {
+  const { loading, error, data: { employees } = {} } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
       page,
