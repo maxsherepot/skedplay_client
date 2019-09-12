@@ -62,7 +62,10 @@ function GirlCard({ girl, labels, slider, height }) {
           </div>
         )}
         <div className="bg-white w-full p-3 leading-loose">
-          <Link href="/employees/[id]" as={`/employees/${girl.id}`}>
+          <Link
+            href="/employees/[id]/events"
+            as={`/employees/${girl.id}/events`}
+          >
             <a className="text-sm font-medium leading-tight hover:text-red">
               {girl.name}, {girl.age}
             </a>
