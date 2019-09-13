@@ -11,7 +11,7 @@ const EmployeeBox = ({ employee, user, children }) => {
   const leftInfo = (
     <>
       {employee && (
-        <span className="text-3xl font-black hd:text-white">
+        <span className="text-3xl font-extrabold hd:text-white">
           {employee.name} {employee.age}
         </span>
       )}

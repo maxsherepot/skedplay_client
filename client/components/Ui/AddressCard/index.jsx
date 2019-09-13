@@ -6,7 +6,7 @@ import { MapSvg } from "icons";
 const AddressCard = ({ className, isAvailable }) => {
   return (
     <>
-      <div className="text-2xl font-black my-5">Meine Adresse</div>
+      <div className="text-2xl font-extrabold my-5">Meine Adresse</div>
       <div className={cx("bg-white rounded-lg p-4", className)}>
         <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
         <div className="flex items-center my-2">
