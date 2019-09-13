@@ -4,6 +4,7 @@ type Employee {
   last_name: String!
   name: String!
   address: String
+  description: String
   isVip: Boolean
   isNew: Boolean
   gender: Int

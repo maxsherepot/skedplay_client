@@ -1,7 +1,7 @@
 import { usePagination } from "hooks";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
-import { ALL_EVENTS } from "queries";
+import { ALL_EVENTS, GET_EMPLOYEE } from "queries";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EventCard, Gallery, Pagination, AddressCard } from "UI";
 
@@ -10,24 +10,41 @@ const Events = ({ loggedInUser }) => {
   const { id } = router.query;
   const [page, setPage] = usePagination();
 
-  const { data: { events } = {}, loading } = useQuery(ALL_EVENTS, {
-    variables: {
-      first: 8,
-      page
+  const { data: { employee } = {}, loading: employeeLoading } = useQuery(
+    GET_EMPLOYEE,
+    {
+      variables: {
+        id
+      }
     }
-  });
+  );
 
-  const renderGallery = photos => {
-    return <Gallery photos={photos}></Gallery>;
-  };
+  const { data: { events } = {}, loading: eventsLoading } = useQuery(
+    ALL_EVENTS,
+    {
+      variables: {
+        first: 8,
+        page
+      }
+    }
+  );
 
-  const sidebarColumn = <AddressCard />;
+  if (employeeLoading || eventsLoading) {
+    return "Loading...";
+  }
+
+  const sidebarColumn = (
+    <>
+      <Gallery photos={employee.photos}></Gallery>
+      <AddressCard />
+    </>
+  );
 
   const contentColumn = (
     <>
       <div className="text-2xl font-extrabold my-5">Meine Events</div>
 
-      {events && events.data && !loading ? (
+      {events && events.data ? (
         <>
           <div className="flex flex-wrap -mx-3">
             {events.data &&
@@ -55,9 +72,8 @@ const Events = ({ loggedInUser }) => {
 
   return (
     <EmployeeBox
-      id={id}
+      employee={employee}
       user={loggedInUser}
-      gallery={renderGallery}
       sidebar={sidebarColumn}
       content={contentColumn}
     />

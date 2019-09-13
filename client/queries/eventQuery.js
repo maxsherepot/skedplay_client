@@ -8,6 +8,13 @@ export const ALL_EVENTS = gql`
         title
         club {
           address
+          services {
+            id
+            name
+            pivot {
+              price
+            }
+          }
         }
         photos {
           url
@@ -35,6 +42,13 @@ export const GET_EVENT = gql`
       description
       club {
         address
+        services {
+          id
+          name
+          pivot {
+            price
+          }
+        }
       }
       photos {
         url

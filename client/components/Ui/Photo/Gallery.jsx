@@ -7,7 +7,7 @@ import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function Gallery({ photos }) {
+function Gallery({ photos, height = "597px" }) {
   const node = useRef();
   const [favorite, setFavorite] = useState(false);
   const [index, setIndex] = useState(1);
@@ -48,7 +48,7 @@ function Gallery({ photos }) {
             className="rounded-lg"
             image={image}
             width="auto"
-            height="597px"
+            height={height}
           />
         ))}
       </Carousel>

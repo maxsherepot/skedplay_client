@@ -5,10 +5,12 @@ export { default as VideoSvg } from "./VideoSvg";
 export { default as MapSvg } from "./MapSvg";
 export { default as PhoneSvg } from "./PhoneSvg";
 export { default as WebsiteSvg } from "./WebsiteSvg";
+export { default as RatingSvg } from "./RatingSVG";
 
 export { default as FavoriteSvg } from "./FavoriteSvg";
 export { default as MessageSvg } from "./MessageSvg";
 export { default as CocktailSvg } from "./CocktailSvg";
+export { default as CalendarSvg } from "./CalendarSvg";
 
 /**
  * Control elements
@@ -17,6 +19,7 @@ export { default as ArrowPrevSvg } from "./ArrowPrevSvg";
 export { default as ArrowNextSvg } from "./ArrowNextSvg";
 
 export { default as CloseSvg } from "./CloseSvg";
+export { default as PlusSvg } from "./PlusSvg";
 
 /**
  * Payments icons

@@ -6,7 +6,7 @@ const SecondaryNav = ({ left, children, right }) => {
   return (
     <>
       <div
-        className="py-4"
+        className="py-5"
         style={{
           background:
             "linear-gradient(90deg, #9854a3, #5f3466,#241327, #010101)"

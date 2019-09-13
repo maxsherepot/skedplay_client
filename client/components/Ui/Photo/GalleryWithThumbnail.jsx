@@ -33,28 +33,28 @@ function Gallery({ photos }) {
     }
   };
 
-  const thumbnails = photos.map((photo, i) => <img key={i} src={photo.url} />);
+  // const thumbnails = photos.map((photo, i) => <img key={i} src={photo.url} />);
 
-  const CustomDot = ({
-    index,
-    onClick,
-    active,
-    carouselState: { currentSlide }
-  }) => {
-    return (
-      <button
-        onClick={e => {
-          onClick();
-          e.preventDefault();
-        }}
-        className={cx("custom-dot", {
-          "custom-dot--active": active
-        })}
-      >
-        {React.Children.toArray(thumbnails)[index]}
-      </button>
-    );
-  };
+  // const CustomDot = ({
+  //   index,
+  //   onClick,
+  //   active,
+  //   carouselState: { currentSlide }
+  // }) => {
+  //   return (
+  //     <button
+  //       onClick={e => {
+  //         onClick();
+  //         e.preventDefault();
+  //       }}
+  //       className={cx("custom-dot", {
+  //         "custom-dot--active": active
+  //       })}
+  //     >
+  //       {React.Children.toArray(thumbnails)[index]}
+  //     </button>
+  //   );
+  // };
 
   return (
     <div className="relative">
@@ -62,7 +62,7 @@ function Gallery({ photos }) {
         ref={node}
         ssr
         showDots
-        customDot={<CustomDot />}
+        // customDot={<CustomDot />}
         responsive={responsive}
         beforeChange={nextSlide => {
           setIndex(nextSlide + 1);

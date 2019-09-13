@@ -36,6 +36,7 @@ export const GET_EMPLOYEE = gql`
       name
       age
       address
+      description
       isVip
       isNew
       photos {

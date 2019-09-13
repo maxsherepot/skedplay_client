@@ -1,9 +1,9 @@
-export default function CocktailSvg() {
+export default function CocktailSvg({ width = 13, height = 14 }) {
   return (
     <svg
       className="fill-red"
-      width="13"
-      height="14"
+      width={width}
+      height={height}
       viewBox="0 0 13 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

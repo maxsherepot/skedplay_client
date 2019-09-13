@@ -6,6 +6,8 @@
   border: none;
   margin: 10px;
   outline: none;
+
+  @apply w-5 h-5;
 }
 .custom-dot--active {
   transform: scale(1.3);

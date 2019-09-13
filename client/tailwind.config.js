@@ -79,6 +79,7 @@ module.exports = {
       width: {
         "7": "1.875rem",
         "9": "2.125rem",
+        "15": "3.75rem",
         "102": "25.625rem",
         "header-plans": "37.125rem",
         "70": "17.5rem",
