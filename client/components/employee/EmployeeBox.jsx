@@ -5,7 +5,7 @@ import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 
-const EmployeeBox = ({ employee, user, sidebar, content, children }) => {
+const EmployeeBox = ({ employee, user, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
 
   const leftInfo = (
@@ -85,13 +85,6 @@ const EmployeeBox = ({ employee, user, sidebar, content, children }) => {
       </SecondaryNav>
 
       <div className="fluid-container">
-        <div className="flex flex-wrap -mx-3">
-          <div className="w-full lg:w-2/5 px-3">
-            <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
-            {sidebar}
-          </div>
-          <div className="w-full lg:w-3/5 px-3">{content}</div>
-        </div>
         {children}
         <GirlsViewedBox />
       </div>

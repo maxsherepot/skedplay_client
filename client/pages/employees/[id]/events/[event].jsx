@@ -40,8 +40,8 @@ const EventShow = ({ loggedInUser }) => {
   );
 
   const contentColumn = (
-    <div className="flex -mx-3">
-      <div className="w-2/3 px-3">
+    <div className="flex flex-col lg:flex-row -mx-3">
+      <div className="w-full lg:w-2/3 px-3">
         <div className="text-2xl font-extrabold my-5">Event with me</div>
         <img
           className="rounded-t-lg w-full object-cover h-80"
@@ -52,14 +52,14 @@ const EventShow = ({ loggedInUser }) => {
           {event.description}
         </div>
       </div>
-      <div className="w-1/3 px-3">
+      <div className="w-full lg:w-1/3 px-3">
         <div className="text-2xl font-extrabold my-5">Event Adresse</div>
 
         <div className="relative w-full h-80 overflow-hidden">
-          <GoogleMap className="absolute top-0 left-0 z-20"></GoogleMap>
+          <GoogleMap className="absolute top-0 left-0 z-20"/>
           <div className="absolute z-30 top-0 right-0 p-3-5">
             <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
-              <CloseSvg></CloseSvg>
+              <CloseSvg/>
             </button>
           </div>
 
@@ -77,9 +77,15 @@ const EventShow = ({ loggedInUser }) => {
     <EmployeeBox
       employee={employee}
       user={loggedInUser}
-      sidebar={sidebarColumn}
-      content={contentColumn}
-    />
+    >
+      <div className="flex flex-wrap -mx-3">
+        <div className="w-full lg:w-2/5 px-3">
+          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          {sidebarColumn}
+        </div>
+        <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
+      </div>
+    </EmployeeBox>
   );
 };
 

@@ -44,79 +44,106 @@ const Information = ({ loggedInUser }) => {
     return "Loading...";
   }
 
-  const sidebarColumn = <Gallery photos={employee.photos} height="760px" />;
   const [event] = events.data;
+
+  const sidebarColumn = <Gallery photos={employee.photos} height="760px" />;
+
+  const AddressAndEvent = () => (
+    <>
+      <AddressCard isAvailable={false} />
+
+      <div className="flex items-end my-5">
+        <div className="text-3xl font-extrabold tracking-tighter leading-none">
+          Nachste event
+        </div>
+        <Link
+          href={`/employees/[id]/events`}
+          as={`/employees/${employee.id}/events`}
+        >
+          <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
+            <ArrowNextSvg>
+              <span className="mr-1">All my events</span>
+            </ArrowNextSvg>
+          </a>
+        </Link>
+      </div>
+
+      <div className="-mx-3">
+        <EventCard href={`/employees/${id}/events`} {...event}/>
+      </div>
+    </>
+  )
 
   const contentColumn = (
     <>
       <div className="flex -mx-3">
-        <div className="w-2/3 px-3">
+        <div className="w-full lg:w-2/3 px-3">
           <div className="text-2xl font-extrabold my-5">Beschreibung</div>
           <div className="bg-white rounded-t-lg p-8">
             {employee.description}
             {employee.description}
             {employee.description}
           </div>
-          <div className="border-b border-divider"></div>
+          <div className="border-b border-divider"/>
           <div className="flex bg-white rounded-b-lg p-8">
             <div className="w-3/5">
               <section className="mb-3">
                 <div className="text-grey">Gender</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Female</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Gender Type</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">TS</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Type of woman</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Asian</div>
               </section>
 
               <section className="mt-6 mb-3">
                 <div className="text-grey">Growth</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">165 cm</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Weight</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">54 kg</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Breast size</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Medium (3B)</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Body type</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Fitness</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Hair</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Black</div>
               </section>
 
               <section className="my-3">
                 <div className="text-grey">Eye color</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">Blue</div>
               </section>
 
               <section className="mt-6 mb-3">
                 <div className="text-grey">Languages</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-32">
                   <div className="flex items-center justify-between mb-2">
                     Russia
@@ -153,28 +180,8 @@ const Information = ({ loggedInUser }) => {
             </div>
           </div>
         </div>
-        <div className="w-1/3 px-3">
-          <AddressCard isAvailable={false} />
-
-          <div className="flex items-end my-5">
-            <div className="text-3xl font-extrabold tracking-tighter leading-none">
-              Nachste event
-            </div>
-            <Link
-              href={`/employees/[id]/events`}
-              as={`/employees/${employee.id}/events`}
-            >
-              <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
-                <ArrowNextSvg>
-                  <span className="mr-1">All my events</span>
-                </ArrowNextSvg>
-              </a>
-            </Link>
-          </div>
-
-          <div className="-mx-3">
-            <EventCard href={`/employees/${id}/events`} {...event}></EventCard>
-          </div>
+        <div className="w-1/3 px-3 hidden lg:block">
+          <AddressAndEvent/>
         </div>
       </div>
     </>
@@ -184,9 +191,15 @@ const Information = ({ loggedInUser }) => {
     <EmployeeBox
       employee={employee}
       user={loggedInUser}
-      sidebar={sidebarColumn}
-      content={contentColumn}
     >
+      <div className="flex flex-wrap -mx-3">
+        <div className="w-full lg:w-2/5 px-3">
+          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          {sidebarColumn}
+        </div>
+        <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
+      </div>
+
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">
@@ -196,37 +209,37 @@ const Information = ({ loggedInUser }) => {
             <div className="w-1/3">
               <section className="mb-3">
                 <div className="text-grey">15 min</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$100</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">30 min</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$150</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">45 min</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$250</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">1 hour</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$300</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">2 hours</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$300</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">3 hours</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$600</div>
               </section>
               <section className="mb-3">
                 <div className="text-grey">Night</div>
-                <div className="line"></div>
+                <div className="line"/>
                 <div className="w-12">$1500</div>
               </section>
             </div>
@@ -271,15 +284,15 @@ const Information = ({ loggedInUser }) => {
               <CalendarSvg />
             </span>
           </div>
-          <div className="bg-white rounded-lg p-8">
+          <div className="bg-white text-sm hd:text-base rounded-lg p-8">
             <section className="mb-3">
               <div>
                 <span className="mr-4">17.08</span>
                 <span>Sonntag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5">19:00 — 05:00</div>
-              <div className="w-2/5"></div>
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
+              <div className="w-1/5 hd:w-2/5"/>
             </section>
 
             <section className="mb-3">
@@ -287,9 +300,9 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">18.08</span>
                 <span>Montag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5">19:00 — 05:00</div>
-              <div className="w-2/5"></div>
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
+              <div className="w-1/5 hd:w-2/5"/>
             </section>
 
             <section className="mb-3">
@@ -297,20 +310,20 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">19.08</span>
                 <span>Dienstag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5 flex text-red font-bold whitespace-no-wrap">
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5 flex text-red font-bold whitespace-no-wrap">
                 <span className="mr-3">Soprano Club</span>
                 <ArrowNextSvg />
               </div>
-              <div className="w-2/5 text-right">
+              <div className="w-1/5 hd:w-2/5 text-right">
                 <div className="flex items-center justify-end">
-                  <PhoneSvg className="inline-block stroke-black w-6 h-3" />
+                  <PhoneSvg className="stroke-black hidden hd:inline-block w-6 h-3"/>
                   <span
-                    className={cx("mr-2 overflow-hidden", {
-                      "w-10": !isShowPhone
+                    className={cx("overflow-hidden whitespace-no-wrap", {
+                      "hidden": !isShowPhone
                     })}
                   >
-                    +48715254152
+                    <span>+48715254152</span>
                   </span>
                   {!isShowPhone && (
                     <span
@@ -329,9 +342,9 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">20.08</span>
                 <span>Mittwich</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5">19:00 — 05:00</div>
-              <div className="w-2/5"></div>
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
+              <div className="w-1/5 hd:w-2/5"/>
             </section>
 
             <section className="mb-3">
@@ -339,9 +352,9 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">21.08</span>
                 <span>Donnerstag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5 text-light-grey">Day off</div>
-              <div className="w-2/5"></div>
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5 text-light-grey">Day off</div>
+              <div className="w-1/5 hd:w-2/5"/>
             </section>
 
             <section className="mb-3">
@@ -349,12 +362,12 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">22.08</span>
                 <span>Freitag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5 flex text-red font-bold whitespace-no-wrap">
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5 flex text-red font-bold whitespace-no-wrap">
                 <span className="mr-3">Butterfly ladies</span>
                 <ArrowNextSvg />
               </div>
-              <div className="w-2/5 text-right">
+              <div className="w-1/5 hd:w-2/5 text-right">
                 <div className="flex items-center justify-end">
                   <PhoneSvg className="inline-block stroke-black w-6 h-3" />
                   <span
@@ -381,9 +394,9 @@ const Information = ({ loggedInUser }) => {
                 <span className="mr-4">23.08</span>
                 <span>Samstag</span>
               </div>
-              <div className="line"></div>
-              <div className="w-1/5">19:00 — 05:00</div>
-              <div className="w-2/5"></div>
+              <div className="line"/>
+              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
+              <div className="w-1/5 hd:w-2/5"/>
             </section>
           </div>
         </div>
