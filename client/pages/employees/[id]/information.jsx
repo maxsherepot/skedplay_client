@@ -79,13 +79,13 @@ const Information = ({ loggedInUser }) => {
       <div className="flex -mx-3">
         <div className="w-full lg:w-2/3 px-3">
           <div className="text-2xl font-extrabold my-5">Beschreibung</div>
-          <div className="bg-white rounded-t-lg p-8">
+          <div className="bg-white rounded-t-lg p-4 hd:p-8">
             {employee.description}
             {employee.description}
             {employee.description}
           </div>
           <div className="border-b border-divider" />
-          <div className="flex bg-white rounded-b-lg p-8">
+          <div className="flex bg-white rounded-b-lg p-4 hd:p-8">
             <div className="w-3/5">
               <section className="mb-3">
                 <div className="text-grey">Gender</div>
@@ -201,11 +201,11 @@ const Information = ({ loggedInUser }) => {
       </div>
 
       <div className="flex flex-wrap -mx-3">
-        <div className="w-full lg:w-2/5 px-3">
+        <div className="w-full hd:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">
             Services and Pricing
           </div>
-          <div className="flex bg-white text-sm hd:text-base rounded-lg p-8">
+          <div className="flex bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
             <div className="w-1/3">
               <section className="mb-3">
                 <div className="text-grey">15 min</div>
@@ -243,7 +243,7 @@ const Information = ({ loggedInUser }) => {
                 <div className="w-12">$1500</div>
               </section>
             </div>
-            <div className="w-2/3 px-6 py-1">
+            <div className="w-2/3 px-2 hd:px-6 py-1">
               <div className="flex flex-wrap -mx-2">
                 {event.club.services.map(service => (
                   <div key={service.id} className="px-2">
@@ -274,25 +274,26 @@ const Information = ({ loggedInUser }) => {
             </div>
           </div>
         </div>
-        <div className="w-full lg:w-2/5 px-3">
+        <div className="w-full hd:w-2/5 px-3">
           <div className="flex items-center">
             <div className="text-2xl font-extrabold my-5">
               My schedule in Villa Lustpoint
             </div>
-            <span className="flex items-center ml-5">
+            <span className="flex items-center ml-9">
               <span className="text-xs mr-2">View for a month</span>
               <CalendarSvg />
             </span>
           </div>
-          <div className="bg-white text-sm hd:text-base rounded-lg p-8">
+          <div className="bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
             <section className="mb-3">
               <div>
                 <span className="inline-block w-10 mr-4">17.08</span>
                 <span>Sonntag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
-              <div className="w-1/5 hd:w-2/5" />
+              <div className="flex w-7/12">
+                <div>19:00 — 05:00</div>
+              </div>
             </section>
 
             <section className="mb-3">
@@ -301,8 +302,9 @@ const Information = ({ loggedInUser }) => {
                 <span>Montag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
-              <div className="w-1/5 hd:w-2/5" />
+              <div className="flex w-7/12">
+                <div>19:00 — 05:00</div>
+              </div>
             </section>
 
             <section className="mb-3">
@@ -311,28 +313,30 @@ const Information = ({ loggedInUser }) => {
                 <span>Dienstag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5 flex text-red font-bold whitespace-no-wrap">
-                <span className="mr-3">Soprano Club</span>
-                <ArrowNextSvg />
-              </div>
-              <div className="w-1/5 hd:w-2/5 text-right">
-                <div className="flex items-center justify-end">
-                  <PhoneSvg className="stroke-black hidden hd:inline-block w-6 h-3" />
-                  <span
-                    className={cx("mr-2", {
-                      "hidden hd:block hd:w-10 hd:overflow-hidden": !isShowPhone
-                    })}
-                  >
-                    +48715254152
-                  </span>
-                  {!isShowPhone && (
+              <div className="flex flex-col sm:flex-row w-3/5">
+                <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
+                  <span className="mr-3">Soprano Club</span>
+                  <ArrowNextSvg />
+                </div>
+                <div className="w-1/2">
+                  <div className="flex items-center justify-center lg:justify-end">
+                    <PhoneSvg className="stroke-black hidden hd:inline-block w-6 h-3" />
                     <span
-                      className="text-red font-bold cursor-pointer"
-                      onClick={() => toggleShowPhone(!isShowPhone)}
+                      className={cx("mr-2", {
+                        "hidden hd:block hd:w-10 hd:overflow-hidden": !isShowPhone
+                      })}
                     >
-                      View phone
+                      +48715254152
                     </span>
-                  )}
+                    {!isShowPhone && (
+                      <span
+                        className="text-red font-bold cursor-pointer"
+                        onClick={() => toggleShowPhone(!isShowPhone)}
+                      >
+                        View phone
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>
@@ -343,8 +347,9 @@ const Information = ({ loggedInUser }) => {
                 <span>Mittwich</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
-              <div className="w-1/5 hd:w-2/5" />
+              <div className="flex w-7/12">
+                <div>19:00 — 05:00</div>
+              </div>
             </section>
 
             <section className="mb-3">
@@ -353,8 +358,9 @@ const Information = ({ loggedInUser }) => {
                 <span>Donnerstag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5 text-light-grey">Day off</div>
-              <div className="w-1/5 hd:w-2/5" />
+              <div className="flex w-7/12 text-light-grey">
+                <div>Day off</div>
+              </div>
             </section>
 
             <section className="mb-3">
@@ -363,28 +369,30 @@ const Information = ({ loggedInUser }) => {
                 <span>Freitag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5 flex text-red font-bold whitespace-no-wrap">
-                <span className="mr-3">Butterfly ladies</span>
-                <ArrowNextSvg />
-              </div>
-              <div className="w-1/5 hd:w-2/5 text-right">
-                <div className="flex items-center justify-end">
-                  <PhoneSvg className="stroke-black hidden hd:inline-block w-6 h-3" />
-                  <span
-                    className={cx("mr-2", {
-                      "hidden hd:block hd:w-10 hd:overflow-hidden": !isShowPhone
-                    })}
-                  >
-                    +48715254152
-                  </span>
-                  {!isShowPhone && (
+              <div className="flex flex-col sm:flex-row w-3/5">
+                <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
+                  <span className="mr-3">Butterfly ladies</span>
+                  <ArrowNextSvg />
+                </div>
+                <div className="w-1/2">
+                  <div className="flex items-center justify-center lg:justify-end">
+                    <PhoneSvg className="stroke-black w-6 h-3" />
                     <span
-                      className="text-red font-bold cursor-pointer"
-                      onClick={() => toggleShowPhone(!isShowPhone)}
+                      className={cx("mr-2", {
+                        "w-10 overflow-hidden": !isShowPhone
+                      })}
                     >
-                      View phone
+                      +48715254152
                     </span>
-                  )}
+                    {!isShowPhone && (
+                      <span
+                        className="text-red font-bold cursor-pointer"
+                        onClick={() => toggleShowPhone(!isShowPhone)}
+                      >
+                        View phone
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>
@@ -395,8 +403,9 @@ const Information = ({ loggedInUser }) => {
                 <span>Samstag</span>
               </div>
               <div className="line" />
-              <div className="w-2/5 hd:w-1/5">19:00 — 05:00</div>
-              <div className="w-1/5 hd:w-2/5" />
+              <div className="flex w-7/12">
+                <div>19:00 — 05:00</div>
+              </div>
             </section>
           </div>
         </div>

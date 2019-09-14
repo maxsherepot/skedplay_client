@@ -55,21 +55,25 @@ function EventCard({ className, href, id, title, club, photos }) {
 
         <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white z-30">
           {!isMap && (
-            <div>
-              <Button
-                className="text-xs px-2 lg:px-4"
-                weight="normal"
-                size="xxs"
-              >
-                TODAY
-              </Button>
-              <Button
-                className="text-xs px-2 lg:px-4 ml-3"
-                weight="normal"
-                size="xxs"
-              >
-                PARTIES AND SHOWS
-              </Button>
+            <div className="flex flex-wrap -mx-3">
+              <div className="px-3">
+                <Button
+                  className="text-xs px-2 lg:px-4"
+                  weight="normal"
+                  size="xxs"
+                >
+                  TODAY
+                </Button>
+              </div>
+              <div className="px-3">
+                <Button
+                  className="text-xs px-2 lg:px-4"
+                  weight="normal"
+                  size="xxs"
+                >
+                  PARTIES AND SHOWS
+                </Button>
+              </div>
             </div>
           )}
           <Link href={`${href}/[id]`} as={`${href}/${id}`}>
@@ -84,11 +88,11 @@ function EventCard({ className, href, id, title, club, photos }) {
           Karlheinz Stockhausen, {id}
         </div>
         <div
-          className="flex justify-between text-xs cursor-pointer"
+          className="flex flex-wrap justify-between text-xs cursor-pointer"
           onClick={() => setEventMapId(id)}
         >
-          <div>{club.address}</div>
-          <div className="flex">
+          <div className="py-1">{club.address}</div>
+          <div className="flex p-1">
             <MapSvg></MapSvg>
             <span className="ml-1 whitespace-no-wrap">150 km</span>
           </div>
