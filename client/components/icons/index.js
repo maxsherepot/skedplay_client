@@ -5,7 +5,7 @@ export { default as VideoSvg } from "./VideoSvg";
 export { default as MapSvg } from "./MapSvg";
 export { default as PhoneSvg } from "./PhoneSvg";
 export { default as WebsiteSvg } from "./WebsiteSvg";
-export { default as RatingSvg } from "./RatingSVG";
+export { default as RatingSvg } from "./RatingSvg";
 
 export { default as FavoriteSvg } from "./FavoriteSvg";
 export { default as MessageSvg } from "./MessageSvg";
