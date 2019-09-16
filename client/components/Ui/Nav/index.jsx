@@ -28,12 +28,20 @@ function Nav({ user, className }) {
 
   const prevY = usePrevious(currentY || 0);
 
-  // console.log(`current: ${currentY} | prev: ${prevY}`);
-
   const isYMoreNavHeight = currentY >= NAV_HEIGHT;
 
   const isHidden = currentY >= prevY && isYMoreNavHeight;
   const isInverse = currentY < prevY && isYMoreNavHeight;
+
+  const handleToggleNav = () => {
+    if (!nav) {
+      document.querySelector("body").classList.add("fixed");
+    } else {
+      document.querySelector("body").classList.remove("fixed");
+    }
+
+    toggleNav(!nav);
+  };
 
   return (
     <nav
@@ -104,7 +112,7 @@ function Nav({ user, className }) {
               </li>
             </ul>
           </div>
-          <div className="menu-icons flex justify-between">
+          <div className="menu-icons flex items-center justify-between">
             <a className="menu-icons__item hidden md:block" href="#">
               EN
               <svg
@@ -122,6 +130,13 @@ function Nav({ user, className }) {
                 />
               </svg>
             </a>
+            <Link href="/girls/add">
+              <a className="menu-icons__item hidden sm:block">
+                <button className="bg-red text-white px-5 py-2 rounded-full">
+                  Add new ad
+                </button>
+              </a>
+            </Link>
             <a className="menu-icons__item" href="#">
               <svg
                 className="inline-block stroke-red mr-1"
@@ -172,7 +187,7 @@ function Nav({ user, className }) {
             <button
               className="menu-icons__item menu-icons__item_last md:hidden pr-0"
               id="menu-hamburger"
-              onClick={() => toggleNav(!nav)}
+              onClick={handleToggleNav}
             >
               <svg
                 className="stroke-white mt-1"
@@ -217,16 +232,24 @@ function Nav({ user, className }) {
         <div className="container">
           <ul>
             <li>
-              <a href="/girls.html">girls</a>
+              <Link href="/girls">
+                <a>girls</a>
+              </Link>
             </li>
             <li>
-              <a href="/boys.html">boys</a>
+              <Link href="/boys">
+                <a>boys</a>
+              </Link>
             </li>
             <li>
-              <a href="/couple.html">couple</a>
+              <Link href="/couple">
+                <a>couple</a>
+              </Link>
             </li>
             <li>
-              <a href="/clubs.html">clubs</a>
+              <Link href="/clubs">
+                <a>clubs</a>
+              </Link>
             </li>
             <li>
               <Link href="/events">
@@ -234,13 +257,24 @@ function Nav({ user, className }) {
               </Link>
             </li>
           </ul>
-          <Button className="w-full text-2xl mt-1">Add new ad</Button>
-          <a
-            className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8 "
-            href="#"
-          >
-            My account
-          </a>
+          <Link href="/girls/add">
+            <a>
+              <Button className="w-full text-2xl mt-1">Add new ad</Button>
+            </a>
+          </Link>
+          {user ? (
+            <Link href="/profile/[id]" as={`/profile/${user.id}`}>
+              <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+                My account
+              </a>
+            </Link>
+          ) : (
+            <Link href="/login">
+              <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+                Login
+              </a>
+            </Link>
+          )}
           <div className="locales">
             <a className="active" href="#ru">
               ru

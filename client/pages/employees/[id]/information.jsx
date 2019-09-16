@@ -288,31 +288,31 @@ const Information = ({ loggedInUser }) => {
           <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">17.08</span>
+                <span className="inline-block w-10 sm:mr-4">17.08</span>
                 <span className="hidden sm:block">Sonntag</span>
                 <span className="block sm:hidden">{"Sonntag".slice(0, 2)}</span>
               </div>
               <div className="line" />
-              <div className="flex w-2/5 sm:sw-7/12">
+              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
                 <div>19:00 — 05:00</div>
               </div>
             </section>
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">18.08</span>
+                <span className="inline-block w-10 sm:mr-4">18.08</span>
                 <span className="hidden sm:block">Montag</span>
                 <span className="block sm:hidden">{"Montag".slice(0, 2)}</span>
               </div>
               <div className="line" />
-              <div className="flex w-2/5 sm:w-7/12">
+              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
                 <div>19:00 — 05:00</div>
               </div>
             </section>
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">19.08</span>
+                <span className="inline-block w-10 sm:mr-4">19.08</span>
                 <span className="hidden sm:block">Dienstag</span>
                 <span className="block sm:hidden">
                   {"Dienstag".slice(0, 2)}
@@ -336,7 +336,7 @@ const Information = ({ loggedInUser }) => {
                     </span>
                     {!isShowPhone && (
                       <span
-                        className="text-red font-bold cursor-pointer"
+                        className="text-red font-bold cursor-pointer whitespace-no-wrap"
                         onClick={() => toggleShowPhone(!isShowPhone)}
                       >
                         View phone
@@ -349,35 +349,35 @@ const Information = ({ loggedInUser }) => {
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">20.08</span>
+                <span className="inline-block w-10 sm:mr-4">20.08</span>
                 <span className="hidden sm:block">Mittwich</span>
                 <span className="block sm:hidden">
                   {"Mittwich".slice(0, 2)}
                 </span>
               </div>
               <div className="line" />
-              <div className="flex w-2/5 sm:w-7/12">
+              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
                 <div>19:00 — 05:00</div>
               </div>
             </section>
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">21.08</span>
+                <span className="inline-block w-10 sm:mr-4">21.08</span>
                 <span className="hidden sm:block">Donnerstag</span>
                 <span className="block sm:hidden">
                   {"Donnerstag".slice(0, 2)}
                 </span>
               </div>
               <div className="line" />
-              <div className="flex w-2/5 sm:w-7/12 text-light-grey">
+              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
                 <div>Day off</div>
               </div>
             </section>
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">22.08</span>
+                <span className="inline-block w-10 sm:mr-4">22.08</span>
                 <span className="hidden sm:block">Freitag</span>
                 <span className="block sm:hidden">{"Freitag".slice(0, 2)}</span>
               </div>
@@ -399,7 +399,7 @@ const Information = ({ loggedInUser }) => {
                     </span>
                     {!isShowPhone && (
                       <span
-                        className="text-red font-bold cursor-pointer"
+                        className="text-red font-bold cursor-pointer whitespace-no-wrap"
                         onClick={() => toggleShowPhone(!isShowPhone)}
                       >
                         View phone
@@ -412,12 +412,12 @@ const Information = ({ loggedInUser }) => {
 
             <section className="mb-3">
               <div className="flex">
-                <span className="inline-block w-10 mr-2 sm:mr-4">23.08</span>
+                <span className="inline-block w-10 sm:mr-4">23.08</span>
                 <span className="hidden sm:block">Samstag</span>
                 <span className="block sm:hidden">{"Samstag".slice(0, 2)}</span>
               </div>
               <div className="line" />
-              <div className="flex w-2/5 sm:w-7/12">
+              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
                 <div>19:00 — 05:00</div>
               </div>
             </section>

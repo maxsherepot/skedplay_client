@@ -5,6 +5,7 @@ export const GET_CURRENT_REGISTER_STEP = gql`
     steps {
       register @client
       forgot @client
+      newAdd @client
     }
   }
 `;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
@@ -11,7 +12,8 @@ const cards = [
   {
     title: "1 Card / Ad",
     icon: "user",
-    buttonText: "Add new"
+    buttonText: "Add new",
+    link: "/girls/add"
   },
   {
     title: "2 Events",
@@ -33,13 +35,13 @@ const counters = [
   }
 ];
 
-const Invoice = ({ loggedInUser }) => {
+const Profile = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
 
   return (
     <MainLayout user={loggedInUser}>
-      <div className="container">
+      <div className="fluid-container">
         <div className="flex items-center lg:w-7/12 mx-auto py-8">
           <Avatar src="/static/img/Avatar.png"></Avatar>
           <div className="ml-4">
@@ -117,7 +119,7 @@ const Invoice = ({ loggedInUser }) => {
           <div className="lg:w-3/5 lg:ml-10 px-8 py-12">
             <div className="flex flex-wrap -mx-3">
               {cards &&
-                cards.map(({ title, icon, buttonText }, index) => (
+                cards.map(({ title, icon, buttonText, link }, index) => (
                   <div
                     className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5"
                     key={index}
@@ -134,7 +136,15 @@ const Invoice = ({ loggedInUser }) => {
                             <StarSvg></StarSvg>
                           )}
                         </div>
-                        {buttonText && (
+                        {link ? (
+                          <Link href={link}>
+                            <a>
+                              <Button className="w-2/3" size="sm">
+                                {buttonText}
+                              </Button>
+                            </a>
+                          </Link>
+                        ) : (
                           <Button className="w-2/3" size="sm">
                             {buttonText}
                           </Button>
@@ -180,7 +190,7 @@ const Invoice = ({ loggedInUser }) => {
   );
 };
 
-Invoice.getInitialProps = async context => {
+Profile.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
   if (!loggedInUser) {
     redirect(context, "/login");
@@ -189,4 +199,4 @@ Invoice.getInitialProps = async context => {
   return { loggedInUser };
 };
 
-export default Invoice;
+export default Profile;

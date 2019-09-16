@@ -20,6 +20,8 @@ export { default as ArrowNextSvg } from "./ArrowNextSvg";
 
 export { default as CloseSvg } from "./CloseSvg";
 export { default as PlusSvg } from "./PlusSvg";
+export { default as TrashSvg } from "./TrashSvg";
+export { default as AddSvg } from "./AddSvg";
 
 /**
  * Payments icons

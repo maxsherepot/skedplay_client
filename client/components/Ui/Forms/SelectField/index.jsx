@@ -83,4 +83,8 @@ SelectField.propTypes = {
   name: PropTypes.string.isRequired
 };
 
+SelectField.defaultProps = {
+  labelClassName: "text-grey"
+};
+
 export default SelectField;

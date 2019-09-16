@@ -1,19 +1,10 @@
 import React from "react";
-import cx from "classnames";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
 import { FormGroup } from "UI";
 
-function TextField({
-  className,
-  labelClassName,
-  inputClassName,
-  label,
-  name,
-  width,
-  ...rest
-}) {
+function TextField({ className, labelClassName, label, name, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
@@ -25,11 +16,12 @@ function TextField({
 
       <Field name={name}>
         {({ field }) => (
-          <input
+          <textarea
             {...rest}
             id={name}
-            className={cx("form-control", inputClassName)}
+            className="form-control"
             {...field}
+            style={{ height: "auto", borderRadius: "1rem" }}
           />
         )}
       </Field>
@@ -40,15 +32,11 @@ function TextField({
 TextField.propTypes = {
   className: PropTypes.string,
   labelClassName: PropTypes.string,
-  inputClassName: PropTypes.string,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  width: PropTypes.string,
-  type: PropTypes.oneOf(["text", "password"])
+  name: PropTypes.string.isRequired
 };
 
 TextField.defaultProps = {
-  type: "text",
   labelClassName: "text-grey"
 };
 
