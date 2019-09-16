@@ -29,3 +29,37 @@ export const ALL_CLUBS = gql`
     }
   }
 `;
+
+export const GET_CLUB = gql`
+  query getClub($id: ID!) {
+    club(id: $id) {
+      id
+      name
+      address
+      phones
+      type {
+        id
+        name
+      }
+      description
+      photos {
+        url
+        thumb_url
+      }
+      services {
+        id
+        name
+        pivot {
+          price
+        }
+      }
+      prices {
+        id
+        name
+        pivot {
+          price
+        }
+      }
+    }
+  }
+`;

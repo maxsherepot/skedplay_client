@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import Link from "next/link";
 
 import { Button } from "UI";
 import GoogleMap from "components/GoogleMap";
@@ -51,8 +52,10 @@ function ClubCard({ id, name, address, phones, photos }) {
           </div>
         )}
 
-        <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white z-30">
-          <div>{name}</div>
+        <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
+          <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
+            <a>{name}</a>
+          </Link>
         </div>
       </div>
       <div className="bg-white p-5">
