@@ -71,10 +71,7 @@ const Events = ({ loggedInUser }) => {
   );
 
   return (
-    <EmployeeBox
-      employee={employee}
-      user={loggedInUser}
-    >
+    <EmployeeBox employee={employee} user={loggedInUser}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>

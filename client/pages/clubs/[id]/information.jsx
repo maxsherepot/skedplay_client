@@ -4,9 +4,9 @@ import Link from "next/link";
 import cx from "classnames";
 import { ArrowNextSvg, CalendarSvg, PhoneSvg, PlusSvg } from "icons";
 import { Gallery, AddressCard, EventCard } from "UI";
-import { GET_CLUB, ALL_EVENTS } from "queries";
+import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import ClubBox from "components/club/ClubBox";
+import { ClubBox, ClubGirlsBox } from "components/club";
 
 const Information = ({ loggedInUser }) => {
   const router = useRouter();
@@ -14,27 +14,17 @@ const Information = ({ loggedInUser }) => {
 
   const [isShowPhone, toggleShowPhone] = useState(false);
 
-  const { data: { club } = {}, loading: clubLoading } = useQuery(GET_CLUB, {
+  const { data: { club } = {}, loading } = useQuery(GET_CLUB, {
     variables: {
       id
     }
   });
 
-  const { data: { events } = {}, loading: eventsLoading } = useQuery(
-    ALL_EVENTS,
-    {
-      variables: {
-        first: 1,
-        page: 1
-      }
-    }
-  );
-
-  if (clubLoading || eventsLoading) {
+  if (loading) {
     return "Loading...";
   }
 
-  const [event] = events.data;
+  const [event] = club.events;
 
   // Gallery height class, 760px = ? rem // sm, lg
   const sidebarColumn = <Gallery photos={club.photos} height="760px" />;
@@ -72,6 +62,7 @@ const Information = ({ loggedInUser }) => {
             {club.description}
             {club.description}
           </div>
+          <ClubGirlsBox employees={club.employees} />
         </div>
         <div className="w-1/3 px-3 hidden lg:block">
           <AddressAndEvent />

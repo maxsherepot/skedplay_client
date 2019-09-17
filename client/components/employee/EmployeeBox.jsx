@@ -51,7 +51,7 @@ const EmployeeBox = ({ employee, user, children }) => {
     <MainLayout user={user}>
       <SecondaryNav left={leftInfo} right={rightInfo}>
         <ul className="flex -mx-4 text-white">
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
+          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
               href={`/employees/[id]/information`}
@@ -60,7 +60,7 @@ const EmployeeBox = ({ employee, user, children }) => {
               <a>Information</a>
             </ActiveLink>
           </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
+          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
               href={`/employees/[id]/events`}
@@ -69,13 +69,13 @@ const EmployeeBox = ({ employee, user, children }) => {
               <a>Events</a>
             </ActiveLink>
           </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
+          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             Reviews
             <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
               172
             </span>
           </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 lg:px-5 hd:px-10">
+          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             Chat
             <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
               +4

@@ -60,6 +60,32 @@ export const GET_CLUB = gql`
           price
         }
       }
+      events {
+        id
+        title
+        club {
+          address
+        }
+        type {
+          id
+          name
+        }
+        photos {
+          url
+        }
+      }
+      employees {
+        id
+        name
+        age
+        address
+        isVip
+        isNew
+        photos {
+          url
+          thumb_url
+        }
+      }
     }
   }
 `;

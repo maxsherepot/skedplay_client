@@ -4,8 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 
 import { usePagination } from "hooks";
 import { ALL_EVENTS } from "queries/eventQuery";
-import { MapSvg } from "icons";
-import { EventCard, Pagination, Sort, Button, AddressCard } from "UI";
+import { EventCard, Pagination, Sort, AddressCard } from "UI";
 
 function EventsBox({ inititalState }) {
   const [page, setPage] = usePagination();

@@ -16,6 +16,10 @@ export const ALL_EVENTS = gql`
             }
           }
         }
+        type {
+          id
+          name
+        }
         photos {
           url
         }
@@ -49,6 +53,10 @@ export const GET_EVENT = gql`
             price
           }
         }
+      }
+      type {
+        id
+        name
       }
       photos {
         url

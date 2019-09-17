@@ -4,10 +4,11 @@ import cx from "classnames";
 import Link from "next/link";
 
 import { Button } from "UI";
+import EventLabel from "./EventLabel";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function EventCard({ className, href, id, title, club, photos }) {
+function EventCard({ className, id, title, club, type, photos }) {
   const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -66,20 +67,12 @@ function EventCard({ className, href, id, title, club, photos }) {
                 </Button>
               </div>
               <div className="px-3">
-                <Button
-                  className="text-xs px-2 lg:px-4"
-                  weight="normal"
-                  size="xxs"
-                >
-                  PARTIES AND SHOWS
-                </Button>
+                <EventLabel type={type}></EventLabel>
               </div>
             </div>
           )}
-          <Link href={`${href}/[id]`} as={`${href}/${id}`}>
-            <a className="hover:text-red">Ultra Party</a>
-          </Link>
           {/* {title} */}
+          <div>Ultra Party</div>
         </div>
       </div>
       <div className="bg-white p-5">
@@ -112,13 +105,8 @@ function EventCard({ className, href, id, title, club, photos }) {
   );
 }
 
-EventCard.defaultProps = {
-  href: "/events"
-};
-
 EventCard.propTypes = {
   className: PropTypes.string,
-  href: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   club: PropTypes.object,

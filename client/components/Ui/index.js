@@ -37,3 +37,6 @@ export { default as GirlCard } from "./GirlCard";
 export { default as EventCard } from "./EventCard";
 export { default as ClubCard } from "./ClubCard";
 export { default as AddressCard } from "./AddressCard";
+
+/** Labels */
+export { default as EventLabel } from "./EventCard/EventLabel";

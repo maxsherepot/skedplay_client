@@ -52,7 +52,7 @@ function EmployeesBox({ inititalState = {} }) {
                 className="sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-3"
                 key={girl.id}
               >
-                <GirlCard girl={girl} />
+                <GirlCard girl={girl} href="/employee" />
               </div>
             ))}
         </div>

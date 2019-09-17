@@ -39,6 +39,15 @@ export const GET_EMPLOYEE = gql`
       description
       isVip
       isNew
+      events {
+        id
+        title
+        short_title
+        type {
+          id
+          name
+        }
+      }
       photos {
         url
         thumb_url
