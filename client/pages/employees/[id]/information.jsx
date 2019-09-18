@@ -170,10 +170,10 @@ const Information = ({ loggedInUser }) => {
             </div>
             <div className="w-full sm:w-2/5">
               <div className="flex sm:flex-col items-end">
-                <div className="flex items-center justify-center bg-dark-green text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
+                <div className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
                   VIP
                 </div>
-                <div className="flex items-center justify-center bg-red text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
+                <div className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
                   100%
                 </div>
                 <div className="flex items-center justify-center bg-white border-2 border-divider w-15 h-15 rounded-full">

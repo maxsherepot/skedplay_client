@@ -4,9 +4,43 @@ import Link from "next/link";
 import { Badge, Slider } from "UI";
 import { FavoriteSvg, MessageSvg, CocktailSvg } from "icons";
 
-function GirlCard({ girl, labels, slider, height }) {
+function GirlCard({ girl, labels, slider, available, height }) {
   const [sliderCardId, setSliderCardId] = useState(null);
   const [photo] = girl && girl.photos;
+
+  const availableButtons = () => {
+    const type = Math.floor(Math.random() * Math.floor(4));
+
+    switch (type) {
+      case 0:
+        return (
+          <div className="bg-black text-white text-xs rounded-full uppercase px-4">
+            coming soon
+          </div>
+        );
+      case 1:
+        return (
+          <div className="bg-dark-green text-white text-xs rounded-full uppercase px-4">
+            available
+          </div>
+        );
+      case 2:
+        return (
+          <div className="bg-grey text-white text-xs rounded-full uppercase px-4">
+            attended us
+          </div>
+        );
+      case 3:
+        return (
+          <div className="bg-divider text-white text-xs rounded-full uppercase px-4">
+            not available
+          </div>
+        );
+
+      default:
+        break;
+    }
+  };
 
   return (
     <div
@@ -15,8 +49,8 @@ function GirlCard({ girl, labels, slider, height }) {
         backgroundImage: `url(${photo && photo.thumb_url})`,
         height
       }}
-      onMouseEnter={() => setSliderCardId(girl.id)}
-      onMouseLeave={() => setSliderCardId(null)}
+      onMouseEnter={() => (available ? null : setSliderCardId(girl.id))}
+      onMouseLeave={() => (available ? null : setSliderCardId(null))}
     >
       <div className="absolute z-20 top-0 right-0 p-3-5">
         <FavoriteSvg />
@@ -68,10 +102,14 @@ function GirlCard({ girl, labels, slider, height }) {
               {girl.name}, {girl.age}
             </a>
           </Link>
-          <div className="text-sm text-grey">
-            <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-            150 km from me
-          </div>
+          {available ? (
+            <div className="flex">{availableButtons()}</div>
+          ) : (
+            <div className="text-sm text-grey">
+              <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
+              150 km from me
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -80,6 +118,7 @@ function GirlCard({ girl, labels, slider, height }) {
 
 GirlCard.defaultProps = {
   height: "467px",
+  available: false,
   labels: true,
   slider: true
 };

@@ -10,16 +10,17 @@ const ClubGirlsBox = ({ employees }) => {
 
   const rows = [];
 
-  for (var i = 0; i < 3; i++) {
+  for (var i = 0; i < 4; i++) {
     const employee = employees[i];
 
     rows.push(
-      <div className="sm:w-1/2 lg:w-1/3 px-3" key={employee.id}>
+      <div className="sm:w-1/2 lg:w-1/4 px-3" key={employee.id}>
         <GirlCard
           girl={employee}
           labels={false}
           slider={false}
-          height="310px"
+          available
+          height="472px"
         />
       </div>
     );
@@ -28,7 +29,7 @@ const ClubGirlsBox = ({ employees }) => {
   return (
     <>
       <div className="flex items-end my-5">
-        <div className="text-3xl font-extrabold tracking-tighter leading-none">
+        <div className="text-2xl font-extrabold tracking-tighter leading-none">
           Our girls
         </div>
         <Link href="/clubs/[id]/girls" as={`/clubs/${id}/girls`}>

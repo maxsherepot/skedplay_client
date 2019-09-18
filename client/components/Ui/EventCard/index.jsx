@@ -8,7 +8,7 @@ import EventLabel from "./EventLabel";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function EventCard({ className, id, title, club, type, photos, href }) {
+function EventCard({ className, id, title, club, type, photos, href, height }) {
   const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -30,7 +30,7 @@ function EventCard({ className, id, title, club, type, photos, href }) {
         style={{
           backgroundImage: `url(${thumb.url})`,
           backgroundSize: "cover",
-          height: 335
+          height
         }}
       >
         {/* Extract to component */}
@@ -108,6 +108,10 @@ function EventCard({ className, id, title, club, type, photos, href }) {
     </div>
   );
 }
+
+EventCard.defaultProps = {
+  height: 335
+};
 
 EventCard.propTypes = {
   className: PropTypes.string,

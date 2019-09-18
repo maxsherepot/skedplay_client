@@ -18,8 +18,7 @@ const Information = ({ loggedInUser }) => {
     return "Loading...";
   }
 
-  // Gallery height class, 760px = ? rem // sm, lg
-  const sidebarColumn = <Gallery photos={club.photos} height="760px" />;
+  const sidebarColumn = <Gallery photos={club.photos} height="597px" />;
 
   const contentColumn = (
     <>
@@ -48,11 +47,11 @@ const Information = ({ loggedInUser }) => {
   return (
     <ClubBox club={club} user={loggedInUser}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full lg:w-2/5 px-3">
+        <div className="w-full lg:w-3/12 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
           {sidebarColumn}
         </div>
-        <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
+        <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
       </div>
     </ClubBox>
   );

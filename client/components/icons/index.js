@@ -7,6 +7,8 @@ export { default as PhoneSvg } from "./PhoneSvg";
 export { default as WebsiteSvg } from "./WebsiteSvg";
 export { default as RatingSvg } from "./RatingSvg";
 
+export { default as FakeSvg } from "./FakeSvg";
+export { default as HeartSvg } from "./HeartSvg";
 export { default as FavoriteSvg } from "./FavoriteSvg";
 export { default as MessageSvg } from "./MessageSvg";
 export { default as CocktailSvg } from "./CocktailSvg";

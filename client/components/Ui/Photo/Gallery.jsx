@@ -59,7 +59,7 @@ function Gallery({ photos, large, height = "597px" }) {
         className="absolute z-20 top-0 right-0 p-3-5"
         onClick={() => setFavorite(!favorite)}
       >
-        <FavoriteSvg active={favorite} large></FavoriteSvg>
+        <FavoriteSvg active={favorite} large={large}></FavoriteSvg>
       </div>
 
       <div className="absolute inset-0 flex items-center">
