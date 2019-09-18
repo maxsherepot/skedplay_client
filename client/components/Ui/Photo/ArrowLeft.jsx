@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 const ArrowLeft = ({ onClick, width = 22, height = 62, className }) => {
   return (
@@ -26,6 +26,9 @@ ArrowLeft.defaultProps = {
 };
 
 ArrowLeft.propTypes = {
+  onClick: PropTypes.func,
+  width: PropTypes.string,
+  height: PropTypes.string,
   className: PropTypes.string
 };
 

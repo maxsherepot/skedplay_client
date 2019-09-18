@@ -19,9 +19,7 @@ function GirlCard({ girl, labels, slider, height }) {
       onMouseLeave={() => setSliderCardId(null)}
     >
       <div className="absolute z-20 top-0 right-0 p-3-5">
-        <button className="flex justify-center content-center rounded-full bg-white w-10 h-10">
-          <FavoriteSvg />
-        </button>
+        <FavoriteSvg />
       </div>
       <div className="absolute z-10 top-0 left-0 w-full h-full flex flex-col justify-end">
         {labels && (

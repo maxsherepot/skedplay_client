@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 import Carousel from "react-multi-carousel";
 
 import { FavoriteSvg } from "icons";
@@ -7,7 +8,7 @@ import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function Gallery({ photos, height = "597px" }) {
+function Gallery({ photos, large, height = "597px" }) {
   const node = useRef();
   const [favorite, setFavorite] = useState(false);
   const [index, setIndex] = useState(1);
@@ -58,26 +59,38 @@ function Gallery({ photos, height = "597px" }) {
         className="absolute z-20 top-0 right-0 p-3-5"
         onClick={() => setFavorite(!favorite)}
       >
-        <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
-          <FavoriteSvg active={favorite}></FavoriteSvg>
-        </button>
+        <FavoriteSvg active={favorite} large></FavoriteSvg>
       </div>
 
       <div className="absolute inset-0 flex items-center">
         <div
-          className="flex items-center justify-center cursor-pointer w-20 h-16 mr-3 z-50"
+          className={cx(
+            "flex items-center justify-center cursor-pointer h-16 mr-3 z-50",
+            large ? "w-20" : "w-16"
+          )}
           onClick={() => node.current.previous()}
         >
-          <ArrowLeft className="stroke-white" />
+          <ArrowLeft
+            className="stroke-white"
+            width={large ? "20" : "10"}
+            height={large ? "60" : "30"}
+          />
         </div>
       </div>
 
       <div className="absolute inset-0 flex items-center justify-end">
         <div
-          className="flex items-center justify-center cursor-pointer w-20 h-16 z-50"
+          className={cx(
+            "flex items-center justify-center cursor-pointer h-16 z-50",
+            large ? "w-20" : "w-16"
+          )}
           onClick={() => node.current.next()}
         >
-          <ArrowRight className="stroke-white" />
+          <ArrowRight
+            className="stroke-white"
+            width={large ? "20" : "10"}
+            height={large ? "60" : "30"}
+          />
         </div>
       </div>
 
@@ -89,6 +102,10 @@ function Gallery({ photos, height = "597px" }) {
     </div>
   );
 }
+
+Gallery.defaultProps = {
+  large: false
+};
 
 Gallery.propTypes = {
   photos: PropTypes.array

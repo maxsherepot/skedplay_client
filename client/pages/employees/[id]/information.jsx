@@ -47,7 +47,9 @@ const Information = ({ loggedInUser }) => {
   const [event] = events.data;
 
   // Gallery height class, 760px = ? rem // sm, lg
-  const sidebarColumn = <Gallery photos={employee.photos} height="760px" />;
+  const sidebarColumn = (
+    <Gallery photos={employee.photos} height="760px" large />
+  );
 
   const AddressAndEvent = () => (
     <>

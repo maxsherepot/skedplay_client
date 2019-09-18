@@ -48,9 +48,7 @@ function EventCard({ className, id, title, club, type, photos, href }) {
             className="absolute z-20 top-0 right-0 p-3-5"
             onClick={() => setFavoriteId(isFavorite ? null : id)}
           >
-            <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
-              <FavoriteSvg active={isFavorite}></FavoriteSvg>
-            </button>
+            <FavoriteSvg active={isFavorite}></FavoriteSvg>
           </div>
         )}
 
