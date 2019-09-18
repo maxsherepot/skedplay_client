@@ -2,13 +2,16 @@ import React from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import cx from "classnames";
-
+import { ArrowPrevSvg } from "icons";
 import { useSteps } from "hooks";
 
-const ArrowBack = ({ className, href, stepName, title, color }) => {
+const ArrowBack = ({ className, href, stepName, title, color, back }) => {
   const { step, setStep } = useSteps(stepName);
 
   const handleBack = () => {
+    if (back) {
+      return Router.back();
+    }
     if (step === 0) {
       return Router.push(href);
     }
@@ -25,17 +28,9 @@ const ArrowBack = ({ className, href, stepName, title, color }) => {
       )}
       onClick={handleBack}
     >
-      <svg
-        className={`stroke-${color === "white" ? color : "red"} inline-block`}
-        width="13"
-        height="16"
-        viewBox="0 0 13 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M13 8H1M1 8L7.85714 15M1 8L7.85714 1" strokeLinejoin="round" />
-      </svg>{" "}
-      <span className="hidden sm:inline-block">{title}</span>
+      <ArrowPrevSvg className={`stroke-${color === "white" ? color : "red"}`}>
+        <span className="hidden sm:inline-block ml-2">{title}</span>
+      </ArrowPrevSvg>
     </a>
   );
 };
@@ -45,11 +40,14 @@ ArrowBack.propTypes = {
   className: PropTypes.string,
   stepName: PropTypes.string,
   title: PropTypes.string,
+  back: PropTypes.bool,
   color: PropTypes.oneOf(["white", "black"])
 };
 
 ArrowBack.defaultProps = {
+  href: "",
   stepName: null,
+  back: false,
   title: "Back",
   color: "black"
 };

@@ -63,23 +63,28 @@ function Gallery({ photos, height = "597px" }) {
         </button>
       </div>
 
-      <div className="absolute bottom-0 left-0 flex m-5">
+      <div className="absolute inset-0 flex items-center">
         <div
-          className="flex items-center justify-center bg-red rounded-full cursor-pointer w-12 h-12 mr-3"
+          className="flex items-center justify-center cursor-pointer w-20 h-16 mr-3 z-50"
           onClick={() => node.current.previous()}
         >
-          <ArrowLeft width="12" height="25" stroke="#fff" />
-        </div>
-        <div
-          className="flex items-center justify-center bg-red rounded-full cursor-pointer w-12 h-12"
-          onClick={() => node.current.next()}
-        >
-          <ArrowRight width="12" height="25" stroke="#fff" />
+          <ArrowLeft className="stroke-white" />
         </div>
       </div>
 
-      <div className="absolute bottom-0 right-0 text-xl text-white mx-5 my-8 select-none">
-        {index} / {images.length}
+      <div className="absolute inset-0 flex items-center justify-end">
+        <div
+          className="flex items-center justify-center cursor-pointer w-20 h-16 z-50"
+          onClick={() => node.current.next()}
+        >
+          <ArrowRight className="stroke-white" />
+        </div>
+      </div>
+
+      <div className="absolute inset-0 flex items-end justify-center">
+        <div className="text-xl text-white mx-5 my-8 select-none">
+          {index} / {images.length}
+        </div>
       </div>
     </div>
   );

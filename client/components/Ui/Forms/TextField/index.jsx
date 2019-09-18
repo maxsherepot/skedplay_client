@@ -12,13 +12,17 @@ function TextField({
   label,
   name,
   width,
+  after,
   ...rest
 }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
   return (
-    <FormGroup className={className} error={error ? true : false}>
+    <FormGroup
+      className={cx(className, "relative")}
+      error={error ? true : false}
+    >
       <label className={labelClassName} htmlFor={name}>
         {error ? error : label}
       </label>
@@ -33,6 +37,8 @@ function TextField({
           />
         )}
       </Field>
+
+      <div className="absolute right-0 bottom-0 pb-3-5  mr-8">{after}</div>
     </FormGroup>
   );
 }
@@ -44,6 +50,7 @@ TextField.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   width: PropTypes.string,
+  after: PropTypes.node,
   type: PropTypes.oneOf(["text", "password"])
 };
 

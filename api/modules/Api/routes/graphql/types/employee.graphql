@@ -10,6 +10,7 @@ type Employee {
   gender: Int
   age: Int
   type: Int
+  race_type_id: Int
   created_at: DateTime!
   updated_at: DateTime!
   race_type: [EmployeeRaceType] @belongsTo

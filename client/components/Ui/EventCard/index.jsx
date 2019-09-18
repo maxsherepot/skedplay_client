@@ -8,7 +8,7 @@ import EventLabel from "./EventLabel";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function EventCard({ className, id, title, club, type, photos }) {
+function EventCard({ className, id, title, club, type, photos, href }) {
   const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -72,7 +72,13 @@ function EventCard({ className, id, title, club, type, photos }) {
             </div>
           )}
           {/* {title} */}
-          <div>Ultra Party</div>
+          {href ? (
+            <Link href={`${href}/[id]`} as={`${href}/${id}`}>
+              <a className="hover:text-red">Ultra Party</a>
+            </Link>
+          ) : (
+            <div>Ultra Party</div>
+          )}
         </div>
       </div>
       <div className="bg-white p-5">

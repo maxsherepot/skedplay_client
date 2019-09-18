@@ -15,11 +15,7 @@ const SecondaryNav = ({ left, children, right }) => {
         <div className="fluid-container">
           <div className="flex items-center justify-around sm:justify-between">
             <div className="flex items-center -mx-4">
-              <ArrowBack
-                className="px-2"
-                color="white"
-                href="/girls"
-              ></ArrowBack>
+              <ArrowBack className="px-4" color="white" back></ArrowBack>
               <div className="hidden hd:flex items-center px-2">{left}</div>
             </div>
 

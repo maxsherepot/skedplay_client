@@ -33,9 +33,13 @@ export const GET_EMPLOYEE = gql`
   query getEmployee($id: ID!) {
     employee(id: $id) {
       id
+      first_name
+      last_name
       name
       age
       address
+      type
+      race_type_id
       description
       isVip
       isNew
@@ -46,6 +50,20 @@ export const GET_EMPLOYEE = gql`
         type {
           id
           name
+        }
+      }
+      services {
+        id
+        name
+        pivot {
+          price
+        }
+      }
+      prices {
+        id
+        name
+        pivot {
+          price
         }
       }
       photos {

@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
+import cx from "classnames";
 
-export default function ArrowPrevSvg({ children, disabled }) {
+export default function ArrowPrevSvg({ className, children, disabled }) {
   return (
     <div className="animation-arrow-left">
       <svg
-        className="inline-block"
+        className={cx("inline-block", className, {
+          "stroke-light-grey": disabled
+        })}
         width="13"
         height="16"
         viewBox="0 0 13 16"
@@ -13,7 +16,6 @@ export default function ArrowPrevSvg({ children, disabled }) {
       >
         <path
           d="M13 8.00024H1M1 8.00024L7.85714 15.0002M1 8.00024L7.85714 1.00024"
-          stroke={disabled ? "#CCCCCC" : "#FF3366"}
           strokeLinejoin="round"
         />
       </svg>
@@ -24,10 +26,12 @@ export default function ArrowPrevSvg({ children, disabled }) {
 }
 
 ArrowPrevSvg.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node,
   disabled: PropTypes.bool
 };
 
 ArrowPrevSvg.defaultProps = {
+  className: "stroke-red",
   disabled: false
 };

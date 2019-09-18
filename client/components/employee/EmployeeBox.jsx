@@ -5,7 +5,7 @@ import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 
-const EmployeeBox = ({ employee, user, children }) => {
+const EmployeeBox = ({ employee, user, viewed, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
 
   const leftInfo = (
@@ -86,10 +86,14 @@ const EmployeeBox = ({ employee, user, children }) => {
 
       <div className="fluid-container">
         {children}
-        <GirlsViewedBox />
+        {viewed && <GirlsViewedBox />}
       </div>
     </MainLayout>
   );
+};
+
+EmployeeBox.defaultProps = {
+  viewed: true
 };
 
 export default EmployeeBox;
