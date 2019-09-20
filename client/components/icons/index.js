@@ -1,4 +1,5 @@
 export { default as UserSvg } from "./UserSvg";
+export { default as ProfileSvg } from "./ProfileSvg";
 export { default as StarSvg } from "./StarSvg";
 export { default as PhotoSvg } from "./PhotoSvg";
 export { default as VideoSvg } from "./VideoSvg";
@@ -19,6 +20,8 @@ export { default as CalendarSvg } from "./CalendarSvg";
  */
 export { default as ArrowPrevSvg } from "./ArrowPrevSvg";
 export { default as ArrowNextSvg } from "./ArrowNextSvg";
+export { default as ChevronDownSvg } from "./ChevronDownSvg";
+export { default as ChevronRightSvg } from "./ChevronRightSvg";
 
 export { default as CloseSvg } from "./CloseSvg";
 export { default as PlusSvg } from "./PlusSvg";

@@ -11,7 +11,7 @@ function Slide({ className, image, height = 60, width = 40 }) {
     backgroundRepeat: "no-repeat"
   };
 
-  return <div className={cx("slide", className)} style={styles}></div>;
+  return <div className={cx("slide rounded", className)} style={styles}></div>;
 }
 
 Slide.propTypes = {

@@ -1,6 +1,7 @@
 import { usePagination } from "hooks";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
+import checkLoggedIn from "lib/checkLoggedIn";
 import { ALL_EVENTS, GET_EMPLOYEE } from "queries";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EventCard, Gallery, Pagination, AddressCard } from "UI";
@@ -81,6 +82,14 @@ const Events = ({ loggedInUser }) => {
       </div>
     </EmployeeBox>
   );
+};
+
+Events.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser) {
+    return {};
+  }
+  return { loggedInUser };
 };
 
 export default Events;

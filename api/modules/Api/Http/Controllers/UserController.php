@@ -34,6 +34,6 @@ class UserController extends Controller
 
         $this->users->update($user, collect($request->all()));
 
-        return $this->success();
+        return $this->success("user.update.success");
     }
 }

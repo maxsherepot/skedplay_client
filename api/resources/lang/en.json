@@ -1,4 +1,5 @@
 {
   "verification.send.failed": "User with such a phone is not found",
-  "verification.check.failed": "Incorrect code"
+  "verification.check.failed": "Incorrect code",
+  "user.update.success": "Account information updated successfully"
 }

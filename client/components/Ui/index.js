@@ -22,6 +22,7 @@ export { default as Button } from "./Button";
 export { default as LangSelector } from "./LangSelector";
 
 export { default as Dropdown } from "./Dropdown";
+export { default as MenuDropdown } from "./MenuDropdown";
 export { default as Sort } from "./Sort";
 export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";

@@ -55,6 +55,12 @@ class User extends AuthUser implements EmployeeOwnerInterface
         'password',
     ];
 
+    protected $appends = [
+        'is_client',
+        'is_club_owner',
+        'is_employee',
+    ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -65,7 +71,7 @@ class User extends AuthUser implements EmployeeOwnerInterface
     /**
      * Find the user instance for the given username.
      *
-     * @param  string  $username
+     * @param string $username
      * @return \Modules\Users\Entities\User
      */
     public function findForPassport($username)
@@ -81,6 +87,30 @@ class User extends AuthUser implements EmployeeOwnerInterface
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::make($value);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsClientAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_CLIENT);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsClubOwnerAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_CLUB_OWNER);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsEmployeeAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_EMPLOYEE);
     }
 
     /**

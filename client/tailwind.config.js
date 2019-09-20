@@ -82,11 +82,12 @@ module.exports = {
         "15": "3.75rem",
         "26": "6.5rem",
         "102": "25.625rem",
-        "header-plans": "37.125rem",
         "70": "17.5rem",
         "76": "19rem",
         "80": "20rem",
-        "1218": "1218px"
+        "1218": "1218px",
+        "header-plans": "37.125rem",
+        "user-dropdown": "29.5rem"
       },
       height: {
         "2": "0.5rem",

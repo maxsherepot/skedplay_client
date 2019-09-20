@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
-function Checkbox({ label, name, ...rest }) {
+function Checkbox({ label, name, bottom, ...rest }) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
@@ -16,9 +16,17 @@ function Checkbox({ label, name, ...rest }) {
             className="form-control"
             {...field}
             {...rest}
+            checked={field.value === true}
           />
-          <label htmlFor={name}>
-            <span /> {error ? error : label}
+          <label
+            htmlFor={name}
+            style={bottom ? { alignItems: "flex-start" } : null}
+          >
+            <span />
+            <div className="flex flex-col">
+              <div>{error ? error : label}</div>
+              {bottom && <div className="text-light-grey italic">{bottom}</div>}
+            </div>
           </label>
         </>
       )}

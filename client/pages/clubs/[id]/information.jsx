@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import cx from "classnames";
+import checkLoggedIn from "lib/checkLoggedIn";
 import {
   ArrowNextSvg,
   CalendarSvg,
-  PhoneSvg,
   PlusSvg,
   FakeSvg,
   HeartSvg,
@@ -339,6 +339,14 @@ const Information = ({ loggedInUser }) => {
       {contentColumn}
     </ClubBox>
   );
+};
+
+Information.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser) {
+    return {};
+  }
+  return { loggedInUser };
 };
 
 export default Information;

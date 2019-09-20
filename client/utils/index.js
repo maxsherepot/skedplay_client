@@ -27,4 +27,24 @@ const getErrors = e => {
   return null;
 };
 
-export { transformValidationErrors, getErrors };
+function setCookie(name, value, options = {}) {
+  options = {
+    path: "/",
+    ...options
+  };
+
+  let updatedCookie =
+    encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+}
+
+export { transformValidationErrors, getErrors, setCookie };

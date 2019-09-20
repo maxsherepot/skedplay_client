@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_EMPLOYEE, GET_EVENT } from "queries";
 import { CloseSvg } from "icons";
 import { Button, Gallery, AddressCard, EventLabel } from "UI";
+import checkLoggedIn from "lib/checkLoggedIn";
 import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
 
@@ -105,6 +106,14 @@ const EventShow = ({ loggedInUser }) => {
       </div>
     </EmployeeBox>
   );
+};
+
+EventShow.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser) {
+    return {};
+  }
+  return { loggedInUser };
 };
 
 export default EventShow;

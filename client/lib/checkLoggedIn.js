@@ -10,6 +10,24 @@ export default apolloClient =>
             name
             phone
             email
+            is_client
+            is_club_owner
+            is_employee
+            clubs {
+              id
+              name
+              phones
+              employees {
+                id
+              }
+              events {
+                id
+              }
+              type {
+                id
+                name
+              }
+            }
           }
         }
       `

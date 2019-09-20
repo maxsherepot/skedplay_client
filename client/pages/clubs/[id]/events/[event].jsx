@@ -6,6 +6,7 @@ import { GET_CLUB, GET_EVENT } from "queries";
 import { Button, Gallery, EventLabel } from "UI";
 import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
+import checkLoggedIn from "lib/checkLoggedIn";
 
 const EventShow = ({ loggedInUser }) => {
   const router = useRouter();
@@ -91,6 +92,14 @@ const EventShow = ({ loggedInUser }) => {
       </div>
     </ClubBox>
   );
+};
+
+EventShow.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser) {
+    return {};
+  }
+  return { loggedInUser };
 };
 
 export default EventShow;

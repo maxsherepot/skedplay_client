@@ -6,6 +6,10 @@ type User {
     gender: Int
     birthday: String
     age: Int
+    is_client: Boolean
+    is_club_owner: Boolean
+    is_employee: Boolean
+    clubs: [Club] @hasMany
     employee: Employee @hasOne
 }
 

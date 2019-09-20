@@ -3,6 +3,7 @@ import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { GirlCard } from "UI";
 import { ClubBox } from "components/club";
+import checkLoggedIn from "lib/checkLoggedIn";
 
 const Girls = ({ loggedInUser }) => {
   const router = useRouter();
@@ -33,6 +34,14 @@ const Girls = ({ loggedInUser }) => {
       </div>
     </ClubBox>
   );
+};
+
+Girls.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+  if (!loggedInUser) {
+    return {};
+  }
+  return { loggedInUser };
 };
 
 export default Girls;
