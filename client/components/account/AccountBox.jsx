@@ -8,7 +8,7 @@ import { AddSvg, ChevronDownSvg, ChevronRightSvg } from "icons";
 const ProfileHeader = ({ user }) => (
   <div className="fluid-container">
     <div className="flex items-center lg:w-7/12 mx-auto py-8">
-      <Avatar src="/static/img/Avatar.png"></Avatar>
+      <Avatar src="/static/img/Avatar.png" />
       <div className="ml-4">
         <span className="text-2xl font-medium">{user.name}</span>
         <div className="flex mt-4">

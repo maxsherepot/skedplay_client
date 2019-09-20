@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "UI";
+import { Avatar, Button } from "UI";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 
 const counters = [
@@ -21,6 +21,40 @@ const counters = [
   }
 ];
 
+const GirlRow = ({ soon, active }) => (
+  <div className="flex items-center my-2">
+    <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
+
+    <div className="flex-col">
+      <div className="font-medium">Nina Queen</div>
+      {!active ? (
+        <div className="flex items-center text-grey">
+          {!soon && (
+            <span class="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
+          )}
+          <div className="flex items-center">
+            05.06-07.06
+            {soon && (
+              <div class="bg-black text-white text-xs rounded-full px-3 py-1 ml-2">
+                Coming soon
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <div class="bg-light-grey text-white text-xs rounded-full px-3 py-1">
+            Not active
+          </div>
+          <div class="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full px-3 py-1 ml-3">
+            Active now
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 const ClubOwnerCards = ({ user }) => {
   // Temp access to first club
   const [club] = user.clubs;
@@ -38,16 +72,36 @@ const ClubOwnerCards = ({ user }) => {
         <div className="mr-4">{phone}</div>
         <div>Admin: D.Busch</div>
       </div>
-      <div className="flex w-2/3 border border-divider rounded-lg p-5">
-        {/* Position absolute user icon */}
+      <div className="relative flex flex-col w-2/3 border border-divider rounded-lg p-5">
+        <div className="absolute inset-0 flex justify-end m-10">
+          <UserSvg />
+        </div>
+
         <span className="text-2xl font-extrabold">5 sex workers</span>
         <div className="flex">
-          <div className="flex flex-col">
-            <span className="text-xl">My Cards/AD</span>
+          <div className="flex flex-col w-1/2">
+            <span className="text-xl font-medium">My Cards / AD</span>
+
+            <GirlRow />
+            <GirlRow />
+            <GirlRow />
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl">Another</span>
+          <div className="flex flex-col w-1/2">
+            <span className="text-xl font-medium">Another</span>
+
+            <GirlRow soon />
+            <GirlRow active />
           </div>
+        </div>
+
+        <div className="flex mt-3">
+          <Button className="px-12 mr-4" size="sm">
+            Add new
+          </Button>
+
+          <Button className="px-12" size="sm" outline style={{ color: "#000" }}>
+            Edit
+          </Button>
         </div>
       </div>
 

@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 
-export default function UserSvg({ fill }) {
+export default function UserSvg({ fill, className }) {
   return (
     <svg
+      className={className}
       width="36"
       height="40"
       viewBox="0 0 36 40"
