@@ -67,6 +67,7 @@ module.exports = {
         "7": "1.75rem",
         "9": "2.25rem",
         "22": "5.5rem",
+        "25": "6.5rem",
         "44": "11rem"
       },
       zIndex: {

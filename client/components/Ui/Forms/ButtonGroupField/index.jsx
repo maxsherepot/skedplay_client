@@ -1,7 +1,8 @@
 import React from "react";
+import cx from "classnames";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
-import { FormGroup, Button } from "UI";
+import { FormGroup } from "UI";
 
 function ButtonGroupField({ className, label, name, items }) {
   const { touched, errors, setFieldValue } = useFormikContext();
@@ -11,26 +12,27 @@ function ButtonGroupField({ className, label, name, items }) {
 
   return (
     <FormGroup className={className} error={error ? true : false}>
-      <label htmlFor={name}>{error ? error : label}</label>
+      <label className="text-grey" htmlFor={name}>
+        {error ? error : label}
+      </label>
 
-      <div className="flex -mx-2">
+      <div className="button-group">
         <Field name={name}>
           {({ field }) =>
             items.map(item => {
               const isActive = field.value === item.value;
 
               return (
-                <Button
+                <button
                   type="button"
                   key={item.value}
-                  className="mx-1 w-48"
-                  level={isActive ? "primary" : "secondary"}
-                  size="sm"
-                  outline={!isActive}
+                  className={cx("button", {
+                    active: isActive
+                  })}
                   onClick={() => setFieldValue(name, item.value, false)}
                 >
                   {item.name}
-                </Button>
+                </button>
               );
             })
           }

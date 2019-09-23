@@ -108,19 +108,21 @@ function RegisterForm({ onSubmit, children }) {
             </div>
           )}
 
-          <Button
-            type="submit"
-            className="text-xl min-w-full"
-            disabled={isSubmitting}
-          >
-            {isLastStep ? "Sign Up" : "Next step"}
-          </Button>
+          <div className="flex flex-col md:flex-row justify-between mt-4">
+            <Button
+              type="submit"
+              className="text-xl px-8 sm:px-25 mb-3"
+              disabled={isSubmitting}
+            >
+              {isLastStep ? "Sign Up" : "Next step"}
+            </Button>
 
-          <Link href="/login">
-            <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
-              Already have an account
-            </a>
-          </Link>
+            <Link href="/login">
+              <a className="flex flex-1 items-center justify-center text-red transition hover:text-pink text-lg">
+                Already have an account
+              </a>
+            </Link>
+          </div>
         </form>
       )}
     </Formik>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-function Dropdown({ trigger, children }) {
+function Dropdown({ trigger, triggerClassName, children }) {
   const node = useRef();
   const [open, setOpen] = useState(false);
 

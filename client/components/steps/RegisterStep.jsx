@@ -8,7 +8,7 @@ const RegisterStep = () => {
     <>
       <ButtonGroupField
         className="mt-4"
-        label="What account type you need?"
+        label="What account type you need"
         name="account_type"
         items={[
           {
@@ -26,47 +26,63 @@ const RegisterStep = () => {
         ]}
       />
 
-      <ButtonGroupField
-        className="mt-4"
-        label="Gender"
-        name="gender"
-        items={[
-          {
-            name: "Male",
-            value: 2
-          },
-          {
-            name: "Female",
-            value: 1
-          }
-        ]}
-      />
+      <div className="md:flex md:justify-between md:-mx-3">
+        <ButtonGroupField
+          className="md:w-5/12 md:px-3"
+          label="Gender"
+          name="gender"
+          items={[
+            {
+              name: "Male",
+              value: 2
+            },
+            {
+              name: "Female",
+              value: 1
+            }
+          ]}
+        />
 
-      <TextField
-        label="Your name"
-        name="first_name"
-        placeholder="Enter your name"
-      />
+        <TextField
+          className="md:w-7/12 md:px-3"
+          label="Date of birth"
+          name="birthday"
+        />
+      </div>
 
-      <TextField
-        label="Your email"
-        name="email"
-        placeholder="Enter your email"
-      />
+      <div className="sm:flex sm:justify-between sm:-mx-3">
+        <TextField
+          className="sm:flex-1 sm:px-3"
+          label="First name (required)"
+          name="first_name"
+        />
 
-      <TextField
-        label="Your password"
-        type="password"
-        name="password"
-        placeholder="Enter your password"
-      />
+        <TextField
+          className="sm:flex-1 sm:px-3"
+          label="Last name"
+          name="last_name"
+        />
+      </div>
 
-      <TextField
-        label="Your password confirmation"
-        type="password"
-        name="password_confirmation"
-        placeholder="Enter your password confirmation"
-      />
+      <TextField label="Mail" name="email" placeholder="Enter your email" />
+
+      <div className="sm:flex sm:justify-between sm:-mx-3">
+        <TextField
+          className="sm:flex-1 sm:px-3"
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="Enter password"
+        />
+
+        <TextField
+          className="sm:flex-1 sm:px-3"
+          label="Confirm password"
+          type="password"
+          name="password_confirmation"
+          placeholder="Enter password confirmation"
+        />
+      </div>
     </>
   );
 };

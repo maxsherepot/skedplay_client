@@ -32,7 +32,11 @@
 
     &__body {
       @apply relative z-10;
-      padding: 0 30px 30px;
+      padding: 0 20px 20px;
+
+      @screen sm {
+        padding: 0 30px 30px;
+      }
     }
   }
 }
