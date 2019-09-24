@@ -4,7 +4,7 @@ import cx from "classnames";
 import Link from "next/link";
 
 import { Button } from "UI";
-import Favorite from "components/Favorite";
+import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
 
@@ -42,7 +42,7 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
           </div>
         ) : (
           <div className="absolute z-20 top-0 right-0 p-3-5">
-            <Favorite
+            <FavoriteButton
               variables={{ model_id: id, model_type: "club" }}
               favorited={favorited}
             />

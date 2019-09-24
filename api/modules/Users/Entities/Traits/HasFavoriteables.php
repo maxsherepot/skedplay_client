@@ -2,30 +2,24 @@
 
 namespace Modules\Users\Entities\Traits;
 
-use Modules\Users\Entities\Permission;
-use Modules\Users\Entities\PermissionPlan;
+use Modules\Clubs\Entities\Club;
+use Modules\Employees\Entities\Employee;
+use Modules\Events\Entities\Event;
 
-trait HasFavoritables
+trait HasFavoriteables
 {
-    /**
-     * Check if user has a permission plan by its name.
-     *
-     * @param string|array $permission Permission string or array of permissions.
-     * @param $restriction
-     * @return bool
-     */
-    public function hasPermissionPlan($permission, $restriction = 3)
+    public function favoriteEmployees()
     {
-        return true;
-//        return $this->hasPermission($permission) && $this->getRestrictionFromPermission($permission, $restriction);
+        return $this->morphedByMany(Employee::class, 'favoriteable');
     }
 
-    public function getRestrictionFromPermission($permission, $restriction)
+    public function favoriteClubs()
     {
-        $id = optional(Permission::where('name', $permission)->first())->id;
-        $value = optional(PermissionPlan::find('id', $id)->first())->value;
-
-        return $value <= $restriction;
+        return $this->morphedByMany(Club::class, 'favoriteable');
     }
 
+    public function favoriteEvents()
+    {
+        return $this->morphedByMany(Event::class, 'favoriteable');
+    }
 }

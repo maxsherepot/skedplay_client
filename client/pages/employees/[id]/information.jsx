@@ -14,7 +14,7 @@ import {
 import { Gallery, AddressCard, EventCard } from "UI";
 import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import Favorite from "components/Favorite";
+import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 
 const Information = ({ loggedInUser }) => {
@@ -53,7 +53,7 @@ const Information = ({ loggedInUser }) => {
     <Gallery
       photos={employee.photos}
       favorite={
-        <Favorite
+        <FavoriteButton
           variables={{ model_id: employee.id, model_type: "employee" }}
           favorited={employee.favorited}
           large={true}

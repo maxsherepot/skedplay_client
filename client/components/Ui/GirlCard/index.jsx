@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Badge, Slider } from "UI";
-import Favorite from "components/Favorite";
+import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
 
 function GirlCard({ girl, labels, slider, available, height }) {
@@ -54,7 +54,7 @@ function GirlCard({ girl, labels, slider, available, height }) {
       onMouseLeave={() => (available ? null : setSliderCardId(null))}
     >
       <div className="absolute z-20 top-0 right-0 p-3-5">
-        <Favorite
+        <FavoriteButton
           variables={{ model_id: girl.id, model_type: "employee" }}
           favorited={girl.favorited}
         />

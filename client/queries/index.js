@@ -6,3 +6,4 @@ export * from "queries/eventQuery";
 export * from "queries/clubQuery";
 export * from "queries/serviceQuery";
 export * from "queries/favoriteQuery";
+export * from "queries/userQuery";

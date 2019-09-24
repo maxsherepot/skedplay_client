@@ -31,6 +31,15 @@ type UserPayload implements Status {
 
 extend type Query @middleware(checks: ["auth:api"]) {
     user(id: ID @eq): User @find
+
+    favoriteEmployees(id: ID!): [Employee]
+    @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteEmployees")
+
+    favoriteClubs(id: ID!): [Club]
+    @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteClubs")
+
+    favoriteEvents(id: ID!): [Event]
+    @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteEvents")
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

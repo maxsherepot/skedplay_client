@@ -11,11 +11,12 @@ use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
+use Modules\Users\Entities\Traits\HasFavoriteables;
 use Modules\Users\Entities\Traits\HasPermissionPlan;
 
 class User extends AuthUser implements EmployeeOwnerInterface
 {
-    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable;
+    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;
