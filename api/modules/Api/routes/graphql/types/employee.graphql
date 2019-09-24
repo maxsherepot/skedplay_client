@@ -7,6 +7,7 @@ type Employee {
   description: String
   isVip: Boolean
   isNew: Boolean
+  favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   gender: Int
   age: Int
   type: Int

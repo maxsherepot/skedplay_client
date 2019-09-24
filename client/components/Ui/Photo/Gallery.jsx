@@ -3,14 +3,12 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import Carousel from "react-multi-carousel";
 
-import { FavoriteSvg } from "icons";
 import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function Gallery({ photos, large, height = "597px" }) {
+function Gallery({ photos, favorite, large, height = "597px" }) {
   const node = useRef();
-  const [favorite, setFavorite] = useState(false);
   const [index, setIndex] = useState(1);
   const images = photos.map(photo => photo.url);
 
@@ -54,13 +52,7 @@ function Gallery({ photos, large, height = "597px" }) {
         ))}
       </Carousel>
 
-      {/* Extract favorite logic in separate component */}
-      <div
-        className="absolute z-20 top-0 right-0 p-3-5"
-        onClick={() => setFavorite(!favorite)}
-      >
-        <FavoriteSvg active={favorite} large={large}></FavoriteSvg>
-      </div>
+      <div className="absolute z-20 top-0 right-0 p-3-5">{favorite}</div>
 
       <div className="absolute inset-0 flex items-center">
         <div

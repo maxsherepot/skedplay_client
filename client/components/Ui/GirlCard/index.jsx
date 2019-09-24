@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Badge, Slider } from "UI";
-import { FavoriteSvg, MessageSvg, CocktailSvg } from "icons";
+import Favorite from "components/Favorite";
+import { MessageSvg, CocktailSvg } from "icons";
 
 function GirlCard({ girl, labels, slider, available, height }) {
   const [sliderCardId, setSliderCardId] = useState(null);
@@ -53,7 +54,10 @@ function GirlCard({ girl, labels, slider, available, height }) {
       onMouseLeave={() => (available ? null : setSliderCardId(null))}
     >
       <div className="absolute z-20 top-0 right-0 p-3-5">
-        <FavoriteSvg />
+        <Favorite
+          variables={{ model_id: girl.id, model_type: "employee" }}
+          favorited={girl.favorited}
+        />
       </div>
       <div className="absolute z-10 top-0 left-0 w-full h-full flex flex-col justify-end">
         {labels && (

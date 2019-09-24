@@ -5,17 +5,26 @@ import Link from "next/link";
 
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
+import Favorite from "components/Favorite";
 import GoogleMap from "components/GoogleMap";
-import { MapSvg, FavoriteSvg, CloseSvg } from "icons";
+import { MapSvg, CloseSvg } from "icons";
 
-function EventCard({ className, id, title, club, type, photos, href, height }) {
-  const [favoriteId, setFavoriteId] = useState(null);
+function EventCard({
+  className,
+  id,
+  title,
+  club,
+  favorited,
+  type,
+  photos,
+  href,
+  height
+}) {
   const [eventMapId, setEventMapId] = useState(null);
 
   const [thumb] = photos;
 
   const isMap = eventMapId === id;
-  const isFavorite = favoriteId === id;
 
   return (
     <div
@@ -44,11 +53,11 @@ function EventCard({ className, id, title, club, type, photos, href, height }) {
             </button>
           </div>
         ) : (
-          <div
-            className="absolute z-20 top-0 right-0 p-3-5"
-            onClick={() => setFavoriteId(isFavorite ? null : id)}
-          >
-            <FavoriteSvg active={isFavorite}></FavoriteSvg>
+          <div className="absolute z-20 top-0 right-0 p-3-5">
+            <Favorite
+              variables={{ model_id: id, model_type: "event" }}
+              favorited={favorited}
+            />
           </div>
         )}
 

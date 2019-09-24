@@ -2,118 +2,52 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Modules\Api\Http\Controllers\Traits\Statusable;
-use Modules\Api\Http\Requests\Event\EventUpdateRequest;
-use Modules\Api\Http\Requests\FileDeleteRequest;
-use Modules\Api\Http\Requests\FileUploadRequest;
+use Modules\Clubs\Entities\Club;
+use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
-use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
 
-class EventController extends Controller
+class FavoriteController extends Controller
 {
-    use Statusable;
-
-    /**
-     * @var EventRepository
-     */
-    protected $events;
-
-    public function __construct(EventRepository $repository)
+    public function favorite($id, $type)
     {
-        $this->events = $repository;
+        $model = $this->getEntity($id, $type);
+
+        if ($model) {
+            $model->favorite();
+        }
+
     }
 
-    /**
-     * @param EventUpdateRequest $request
-     * @param Event $event
-     * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function update(EventUpdateRequest $request, Event $event)
+    public function unfavorite($id, $type)
     {
-        $this->authorize('update', $event);
+        $model = $this->getEntity($id, $type);
 
-        $response = $this->events->update($event, collect($request->all()));
-
-        return $response ? $this->success() : $this->fail();
-    }
-
-    /**
-     * @param Event $event
-     * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @throws \Exception
-     */
-    public function delete(Event $event)
-    {
-        $this->authorize('delete', $event);
-
-        $response = $this->events->delete($event);
-
-        return $response ? $this->success() : $this->fail();
-    }
-
-    /**
-     * @param FileUploadRequest $request
-     * @param Event $event
-     * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function uploadFile(FileUploadRequest $request, Event $event)
-    {
-        $this->authorize('update', $event);
-
-        try {
-            $this->events->saveFile(
-                $event,
-                $request->file('file'),
-                $request->get('collection')
-            );
-
-            return $this->success(
-                $this->events::UPLOAD_FILE_SUCCESS
-            );
-        } catch (\Exception $exception) {
-            return $this->fail(
-                $this->events::UPLOAD_FILE_FAILED
-            );
+        if ($model) {
+            $model->unfavorite();
         }
     }
 
-    /**
-     * @param FileDeleteRequest $request
-     * @param Event $event
-     * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function deleteFile(FileDeleteRequest $request, Event $event)
+    private function getEntity($model_id, $model_type)
     {
-        $this->authorize('update', $event);
+        // Bad code, need refactor.
 
-        try {
-            $this->events->deleteFile(
-                $event,
-                $request->get('file_id')
-            );
+        $model = null;
 
-            return $this->success(
-                $this->events::DELETE_FILE_SUCCESS
-            );
-        } catch (\Exception $exception) {
-            return $this->fail(
-                $this->events::DELETE_FILE_FAILED
-            );
+        switch ($model_type) {
+            case "employee":
+                $model = (new Employee())->find($model_id);
+                break;
+            case "club":
+                $model = (new Club())->find($model_id);
+                break;
+            case "event":
+                $model = (new Event())->find($model_id);
+                break;
+            default:
+                break;
         }
-    }
 
-    public function favoriteEvent(Event $event)
-    {
-        $event->favorite();
-    }
-
-    public function unfavoriteEvent(Event $event)
-    {
-        $event->unfavorite();
+        return $model;
     }
 }

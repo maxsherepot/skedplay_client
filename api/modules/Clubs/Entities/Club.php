@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
 use Modules\Common\Services\Location\HasLocation;
@@ -22,7 +23,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
-    use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable;
+    use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable;
 
     const LOGO_COLLECTION = 'club-logo';
     const PHOTO_COLLECTION = 'club-photo';

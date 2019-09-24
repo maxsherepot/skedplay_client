@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
 use Modules\Common\Services\Location\HasLocation;
@@ -17,7 +18,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class Employee extends Model implements HasMedia, HasLocation
 {
-    use Locationable, HasMediaTrait, Priceable, Serviceable;
+    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
 
     const PHOTO_COLLECTION = 'employee-photo';
     const VIDEO_COLLECTION = 'employee-video';

@@ -4,19 +4,18 @@ import cx from "classnames";
 import Link from "next/link";
 
 import { Button } from "UI";
+import Favorite from "components/Favorite";
 import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function ClubCard({ id, name, address, phones, photos }) {
+function ClubCard({ id, name, address, favorited, phones, photos }) {
   const [showNumber, setToggleNumber] = useState(false);
-  const [favoriteId, setFavoriteId] = useState(null);
   const [eventMapId, setEventMapId] = useState(null);
 
   const [thumb] = photos;
   const [phone] = JSON.parse(phones);
 
   const isMap = eventMapId === id;
-  const isFavorite = favoriteId === id;
 
   return (
     <div
@@ -42,11 +41,11 @@ function ClubCard({ id, name, address, phones, photos }) {
             </button>
           </div>
         ) : (
-          <div
-            className="absolute z-20 top-0 right-0 p-3-5"
-            onClick={() => setFavoriteId(isFavorite ? null : id)}
-          >
-            <FavoriteSvg active={isFavorite}></FavoriteSvg>
+          <div className="absolute z-20 top-0 right-0 p-3-5">
+            <Favorite
+              variables={{ model_id: id, model_type: "club" }}
+              favorited={favorited}
+            />
           </div>
         )}
 

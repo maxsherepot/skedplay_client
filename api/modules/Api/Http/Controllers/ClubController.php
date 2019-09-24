@@ -169,4 +169,14 @@ class ClubController extends Controller
 
         return $this->prices->sync($club, collect($request->all()));
     }
+
+    public function favorite(Club $club)
+    {
+        $club->favorite();
+    }
+
+    public function unfavorite(Club $club)
+    {
+        $club->unfavorite();
+    }
 }

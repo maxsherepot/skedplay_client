@@ -10,5 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/{any}', [App\Http\Controllers\AppController::class, 'render'])->where('any', '.*');

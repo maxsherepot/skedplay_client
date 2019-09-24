@@ -157,4 +157,14 @@ class EmployeeController extends Controller
             );
         }
     }
+
+    public function favorite(Employee $employee)
+    {
+        $employee->favorite();
+    }
+
+    public function unfavorite(Employee $employee)
+    {
+        $employee->unfavorite();
+    }
 }

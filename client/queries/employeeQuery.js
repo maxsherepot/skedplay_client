@@ -10,6 +10,9 @@ export const ALL_EMPLOYEES = gql`
         address
         isVip
         isNew
+        favorited {
+          id
+        }
         photos {
           url
           thumb_url
@@ -43,10 +46,16 @@ export const GET_EMPLOYEE = gql`
       description
       isVip
       isNew
+      favorited {
+        id
+      }
       events {
         id
         title
         short_title
+        favorited {
+          id
+        }
         type {
           id
           name

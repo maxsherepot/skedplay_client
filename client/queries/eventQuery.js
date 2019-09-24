@@ -6,6 +6,9 @@ export const ALL_EVENTS = gql`
       data {
         id
         title
+        favorited {
+          id
+        }
         club {
           address
           services {
@@ -44,6 +47,9 @@ export const GET_EVENT = gql`
       id
       title
       description
+      favorited {
+        id
+      }
       club {
         address
         services {

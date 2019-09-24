@@ -3,13 +3,17 @@
 namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Common\Entities\Traits\NameSlugable;
 
-class Service extends Model
+class Favorite extends Model
 {
+    protected $table = 'favoriteables';
 
-    use SoftDeletes, NameSlugable;
+    public $timestamps = true;
 
-    public $timestamps = false;
+    protected $fillable = ['favoriteable_id', 'favoriteable_type', 'user_id'];
+
+    public function favoriteable()
+    {
+        return $this->morphTo();
+    }
 }

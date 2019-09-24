@@ -1,18 +1,11 @@
-type Service {
+type Favorite {
     id: ID!
-    name: String!
-    pivot: ServicePivot
 }
 
-type ServicePivot {
-    price: String
-}
+extend type Mutation @middleware(checks: ["auth:api"]) {
+    favorite(model_id: ID!, model_type: String!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\FavoriteController@favorite")
 
-input ServiceInput {
-    id: String
-    price: String
-}
-
-extend type Query {
-    services: [Service!]! @all
+    unfavorite(model_id: ID!, model_type: String!): String
+    @router(action: "Modules\\Api\\Http\\Controllers\\FavoriteController@unfavorite")
 }

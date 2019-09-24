@@ -3,6 +3,7 @@ type Event {
     title: String!
     short_title: String!
     description: String!
+    favorited: Favorite @morphOne @with(relation: "favoriteRelation")
     type: EventType! @belongsTo
     club: Club! @belongsTo
     photos: [Media] @hasMany

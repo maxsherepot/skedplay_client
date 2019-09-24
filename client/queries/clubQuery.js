@@ -8,6 +8,9 @@ export const ALL_CLUBS = gql`
         name
         address
         phones
+        favorited {
+          id
+        }
         type {
           id
           name
@@ -37,6 +40,9 @@ export const GET_CLUB = gql`
       name
       address
       phones
+      favorited {
+        id
+      }
       type {
         id
         name
@@ -63,6 +69,9 @@ export const GET_CLUB = gql`
       events {
         id
         title
+        favorited {
+          id
+        }
         club {
           address
         }
@@ -81,6 +90,9 @@ export const GET_CLUB = gql`
         address
         isVip
         isNew
+        favorited {
+          id
+        }
         photos {
           url
           thumb_url

@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import cx from "classnames";
-import { PhoneSvg } from "icons";
+import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink } from "UI";
 

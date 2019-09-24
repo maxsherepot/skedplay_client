@@ -82,12 +82,14 @@ const Information = ({ loggedInUser }) => {
     </>
   );
 
-  const ClubLogo = () => (
+  const ClubLogo = ({ favorited }) => (
     <div className="flex items-center justify-center relative h-full w-full">
       <img src="/static/img/club-logo.png" alt="" />
-      <div className="flex absolute inset-0 items-start justify-end m-3">
-        <HeartSvg className="stroke-red fill-red"></HeartSvg>
-      </div>
+      {favorited && (
+        <div className="flex absolute inset-0 items-start justify-end m-3">
+          <HeartSvg className="stroke-red fill-red"></HeartSvg>
+        </div>
+      )}
       <div className="flex flex-col absolute inset-0 items-center justify-end mb-4">
         <div className="flex mb-2">
           <RatingSvg className="mx-1" />
@@ -108,7 +110,7 @@ const Information = ({ loggedInUser }) => {
 
           <div className="flex flex-wrap bg-white rounded-t-lg">
             <div className="w-2/12 flex items-center justify-center border-r border-divider">
-              <ClubLogo />
+              <ClubLogo favorited={club.favorited} />
             </div>
             <div className="flex flex-col justify-between w-10/12 p-4 hd:p-8 h-64">
               {club.description}
