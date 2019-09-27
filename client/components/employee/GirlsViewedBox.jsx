@@ -95,6 +95,7 @@ const GirlsViewedBox = () => {
           girl={employee}
           labels={false}
           slider={false}
+          preview
         />
       );
     }

@@ -86,7 +86,7 @@ function GirlCard({
   const [photo] = girl.photos;
 
   return (
-    <div className={cx(className, "girls__item border border-red")}>
+    <div className={cx(className, "girls__item bg-white border border-red")}>
       <div className="absolute z-20 top-0 right-0 p-3-5">
         <FavoriteButton
           variables={{ model_id: girl.id, model_type: "employee" }}
@@ -107,7 +107,7 @@ function GirlCard({
         />
       )}
 
-      <div className="bg-white p-3 z-10">
+      <div className="p-3 z-10">
         <Link
           href="/employees/[id]/information"
           as={`/employees/${girl.id}/information`}
