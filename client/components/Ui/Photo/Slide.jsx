@@ -4,18 +4,22 @@ import cx from "classnames";
 
 function Slide({ className, image, height = 60, width = 40 }) {
   const styles = {
-    backgroundImage: `url(${image})`,
     width,
-    height,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat"
+    height
   };
 
-  return <div className={cx("slide rounded", className)} style={styles}></div>;
+  return (
+    <div className={cx("slide", className)}>
+      <img className="object-cover rounded" src={image} alt="" style={styles} />
+    </div>
+  );
 }
 
 Slide.propTypes = {
-  photos: PropTypes.array
+  className: PropTypes.string,
+  image: PropTypes.string,
+  height: PropTypes.string,
+  width: PropTypes.string
 };
 
 export default Slide;

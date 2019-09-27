@@ -1,45 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import Carousel from "react-multi-carousel";
 
+import Slider from "react-slick";
 import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function Gallery({ photos, favorite, large, height = "597px" }) {
+function Gallery({ className, photos, favorite, large, height = "597px" }) {
   const node = useRef();
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
+
   const images = photos.map(photo => photo.url);
 
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 1
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
   return (
-    <div className="relative">
-      <Carousel
+    <div className={cx("relative", className)}>
+      <Slider
+        className="relative block"
         ref={node}
-        ssr
-        responsive={responsive}
-        beforeChange={nextSlide => {
-          setIndex(nextSlide + 1);
-        }}
+        arrows={false}
+        infinite={false}
+        beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
       >
         {images.map((image, i) => (
           <Slide
@@ -50,7 +31,7 @@ function Gallery({ photos, favorite, large, height = "597px" }) {
             height={height}
           />
         ))}
-      </Carousel>
+      </Slider>
 
       <div className="absolute z-20 top-0 right-0 p-3-5">{favorite}</div>
 
@@ -60,7 +41,7 @@ function Gallery({ photos, favorite, large, height = "597px" }) {
             "flex items-center justify-center cursor-pointer h-16 mr-3 z-50",
             large ? "w-20" : "w-16"
           )}
-          onClick={() => node.current.previous()}
+          onClick={() => node.current.slickPrev()}
         >
           <ArrowLeft
             className="stroke-white"
@@ -76,7 +57,7 @@ function Gallery({ photos, favorite, large, height = "597px" }) {
             "flex items-center justify-center cursor-pointer h-16 z-50",
             large ? "w-20" : "w-16"
           )}
-          onClick={() => node.current.next()}
+          onClick={() => node.current.slickNext()}
         >
           <ArrowRight
             className="stroke-white"
@@ -86,9 +67,9 @@ function Gallery({ photos, favorite, large, height = "597px" }) {
         </div>
       </div>
 
-      <div className="absolute inset-0 flex items-end justify-center">
+      <div className="flex justify-center absolute bottom-0 left-0 w-full">
         <div className="text-xl text-white mx-5 my-8 select-none">
-          {index} / {images.length}
+          {index + 1} / {images.length}
         </div>
       </div>
     </div>
@@ -100,6 +81,7 @@ Gallery.defaultProps = {
 };
 
 Gallery.propTypes = {
+  large: PropTypes.bool,
   photos: PropTypes.array
 };
 

@@ -27,7 +27,9 @@ export { default as Sort } from "./Sort";
 export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";
 
-export { default as Slider } from "./Photo/Slider";
+export { default as HorizontalScroll } from "./HorizontalScroll";
+
+export { default as Slick } from "./Photo/Slick";
 export { default as Gallery } from "./Photo/Gallery";
 export { default as GalleryWithThumbnail } from "./Photo/GalleryWithThumbnail";
 

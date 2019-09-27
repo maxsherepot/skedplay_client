@@ -30,12 +30,12 @@ const GirlRow = ({ soon, active }) => (
       {!active ? (
         <div className="flex items-center text-grey">
           {!soon && (
-            <span class="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
+            <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
           )}
           <div className="flex items-center">
             05.06-07.06
             {soon && (
-              <div class="bg-black text-white text-xs rounded-full px-3 py-1 ml-2">
+              <div className="bg-black text-white text-xs rounded-full px-3 py-1 ml-2">
                 Coming soon
               </div>
             )}
@@ -43,10 +43,10 @@ const GirlRow = ({ soon, active }) => (
         </div>
       ) : (
         <div className="flex items-center">
-          <div class="bg-light-grey text-white text-xs rounded-full px-3 py-1">
+          <div className="bg-light-grey text-white text-xs rounded-full px-3 py-1">
             Not active
           </div>
-          <div class="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full px-3 py-1 ml-3">
+          <div className="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full px-3 py-1 ml-3">
             Active now
           </div>
         </div>

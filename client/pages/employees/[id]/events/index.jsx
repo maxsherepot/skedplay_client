@@ -36,7 +36,7 @@ const Events = ({ loggedInUser }) => {
 
   const sidebarColumn = (
     <>
-      <Gallery photos={employee.photos}></Gallery>
+      <Gallery photos={employee.photos} />
       <AddressCard />
     </>
   );

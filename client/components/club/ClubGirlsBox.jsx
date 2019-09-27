@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { ArrowNextSvg } from "icons";
-import { GirlCard } from "UI";
+import { GirlCard, HorizontalScroll } from "UI";
 
 const ClubGirlsBox = ({ employees }) => {
   const router = useRouter();
@@ -15,13 +15,7 @@ const ClubGirlsBox = ({ employees }) => {
 
     rows.push(
       <div className="sm:w-1/2 lg:w-1/4 px-3" key={employee.id}>
-        <GirlCard
-          girl={employee}
-          labels={false}
-          slider={false}
-          available
-          height="472px"
-        />
+        <GirlCard girl={employee} labels={false} slider={false} available />
       </div>
     );
   }

@@ -142,7 +142,7 @@ function Nav({ user, className }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-                23
+                {user.favorites_count || 0}
               </a>
             </Link>
             <a className="menu-icons__item" href="#">

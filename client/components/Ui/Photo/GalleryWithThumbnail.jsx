@@ -1,118 +1,127 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import Carousel from "react-multi-carousel";
 
-import { FavoriteSvg } from "icons";
+import Slider from "react-slick";
 import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function Gallery({ photos }) {
-  const node = useRef();
-  const [favorite, setFavorite] = useState(false);
-  const [index, setIndex] = useState(1);
+function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
+  const [index, setIndex] = useState(0);
+
+  const [mainNav, setMainNav] = useState(null);
+  const [secondNav, setSecondNav] = useState(null);
+
+  const [slider1, setSlider1] = useState(null);
+  const [slider2, setSlider2] = useState(null);
+
   const images = photos.map(photo => photo.url);
 
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 1
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
-  // const thumbnails = photos.map((photo, i) => <img key={i} src={photo.url} />);
-
-  // const CustomDot = ({
-  //   index,
-  //   onClick,
-  //   active,
-  //   carouselState: { currentSlide }
-  // }) => {
-  //   return (
-  //     <button
-  //       onClick={e => {
-  //         onClick();
-  //         e.preventDefault();
-  //       }}
-  //       className={cx("custom-dot", {
-  //         "custom-dot--active": active
-  //       })}
-  //     >
-  //       {React.Children.toArray(thumbnails)[index]}
-  //     </button>
-  //   );
-  // };
+  useEffect(() => {
+    setMainNav(slider1);
+    setSecondNav(slider2);
+  });
 
   return (
-    <div className="relative">
-      <Carousel
-        ref={node}
-        ssr
-        showDots
-        // customDot={<CustomDot />}
-        responsive={responsive}
-        beforeChange={nextSlide => {
-          setIndex(nextSlide + 1);
-        }}
-      >
-        {images.map((image, i) => (
-          <Slide
-            key={i}
-            className="rounded-lg"
-            image={image}
-            width="auto"
-            height="597px"
-          />
-        ))}
-      </Carousel>
-
-      {/* Extract favorite logic in separate component */}
-      <div
-        className="absolute z-20 top-0 right-0 p-3-5"
-        onClick={() => setFavorite(!favorite)}
-      >
-        <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
-          <FavoriteSvg active={favorite}></FavoriteSvg>
-        </button>
+    <div className="flex -mx-2">
+      <div className="px-2">
+        <Slider
+          className="gallery w-33"
+          asNavFor={mainNav}
+          ref={slider => setSlider2(slider)}
+          slidesToShow={5}
+          infinite={false}
+          swipeToSlide
+          focusOnSelect
+          arrows={false}
+          vertical
+          verticalSwiping
+        >
+          {images.map((image, i) => (
+            <img
+              key={i}
+              className={cx(
+                "thumb-slide object-cover rounded-lg h-36 outline-none cursor-pointer",
+                i % 2 !== 0 ? "my-2" : null
+              )}
+              src={image}
+              alt=""
+            />
+          ))}
+        </Slider>
       </div>
-
-      {/* <div className="absolute bottom-0 left-0 flex m-5">
-        <div
-          className="flex items-center justify-center bg-red rounded-full cursor-pointer w-12 h-12 mr-3"
-          onClick={() => node.current.previous()}
+      <div className="relative overflow-hidden flex-1 px-2">
+        <Slider
+          className="relative block"
+          asNavFor={secondNav}
+          arrows={false}
+          ref={slider => setSlider1(slider)}
+          infinite={false}
+          beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
         >
-          <ArrowLeft width="12" height="25" stroke="#fff" />
-        </div>
-        <div
-          className="flex items-center justify-center bg-red rounded-full cursor-pointer w-12 h-12"
-          onClick={() => node.current.next()}
-        >
-          <ArrowRight width="12" height="25" stroke="#fff" />
-        </div>
-      </div> */}
+          {images.map((image, i) => (
+            <Slide
+              key={i}
+              className="rounded-lg"
+              image={image}
+              width="auto"
+              height={height}
+            />
+          ))}
+        </Slider>
 
-      <div className="absolute bottom-0 right-0 text-xl text-white mx-5 my-8 select-none">
-        {index} / {images.length}
+        <div className="absolute z-20 top-0 right-0 p-3-5">{favorite}</div>
+
+        <div className="absolute inset-0 flex items-center">
+          <div
+            className={cx(
+              "flex items-center justify-center cursor-pointer h-16 mr-3 z-50",
+              large ? "w-20" : "w-16"
+            )}
+            onClick={() => slider1.current.slickPrev()}
+          >
+            <ArrowLeft
+              className="stroke-white"
+              width={large ? "20" : "10"}
+              height={large ? "60" : "30"}
+            />
+          </div>
+        </div>
+
+        <div className="absolute inset-0 flex items-center justify-end">
+          <div
+            className={cx(
+              "flex items-center justify-center cursor-pointer h-16 z-50",
+              large ? "w-20" : "w-16"
+            )}
+            onClick={() => slider1.current.slickNext()}
+          >
+            <ArrowRight
+              className="stroke-white"
+              width={large ? "20" : "10"}
+              height={large ? "60" : "30"}
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-center absolute bottom-0 left-0 w-full">
+          <div className="text-xl text-white mx-5 my-8 select-none">
+            {index + 1} / {images.length}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-Gallery.propTypes = {
+GalleryWithThumbnail.defaultProps = {
+  large: false
+};
+
+GalleryWithThumbnail.propTypes = {
+  large: PropTypes.bool,
   photos: PropTypes.array
 };
 
-export default Gallery;
+export default GalleryWithThumbnail;

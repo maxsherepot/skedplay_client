@@ -82,6 +82,9 @@ module.exports = {
         "9": "2.125rem",
         "15": "3.75rem",
         "26": "6.5rem",
+        "32": "8rem",
+        "33": "8.125rem",
+        "38": "9.75rem",
         "102": "25.625rem",
         "70": "17.5rem",
         "76": "19rem",
@@ -96,10 +99,19 @@ module.exports = {
         "10": "2.5rem",
         "13": "3.125rem",
         "15": "3.75rem",
+        "36": "9rem",
         "65": "16.37rem",
         "72": "18rem",
         "80": "20rem",
-        "badge-xl": "1.625rem"
+        "badge-xl": "1.625rem",
+        "photo-hd": "29.5rem", // 472
+        "photo-lg": "27.185rem", // 435
+        "photo-md": "20.3125rem", // 325
+        "photo-sm": "18.625rem", // 298
+        photo: "24.8125rem", // 397
+        "e-photo-md": "14.8125rem", // 237
+        "e-photo-lg": "15.625rem", // 250
+        "e-photo-hd": "13.875rem" // 222
       },
       fontSize: {
         "2xs": "0.5rem",

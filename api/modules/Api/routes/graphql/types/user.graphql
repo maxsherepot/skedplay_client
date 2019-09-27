@@ -9,6 +9,7 @@ type User {
     is_client: Boolean
     is_club_owner: Boolean
     is_employee: Boolean
+    favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
     employee: Employee @hasOne
 }

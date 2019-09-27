@@ -13,6 +13,7 @@ export default apolloClient =>
             is_client
             is_club_owner
             is_employee
+            favorites_count
             clubs {
               id
               name

@@ -9,7 +9,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
 
   const leftInfo = (
-    <>
+    <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
       {employee && (
         <span className="text-3xl font-extrabold hd:text-white">
           {employee.name} {employee.age}
@@ -23,7 +23,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
       >
         Available
       </Button>
-    </>
+    </div>
   );
 
   const rightInfo = (

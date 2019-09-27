@@ -1,0 +1,15 @@
+.horizontal-scroll {
+  position: relative;
+  overflow: hidden;
+}
+
+.horizontal-scroll__in {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 20px;
+  margin-bottom: -20px;
+}
+
+.horizontal-scroll__in::-webkit-scrollbar {
+  display: none;
+}

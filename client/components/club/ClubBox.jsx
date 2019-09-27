@@ -6,7 +6,7 @@ const ClubBox = ({ club, user, children }) => {
   const leftInfo = (
     <>
       {club && (
-        <div className="flex items-center">
+        <div className="flex items-center sm:flex-start mt-5 hd:mt-0">
           <div className="text-3xl font-extrabold hd:text-white">
             {club.name}
           </div>

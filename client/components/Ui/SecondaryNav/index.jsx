@@ -26,10 +26,8 @@ const SecondaryNav = ({ left, children, right }) => {
         </div>
       </div>
       <div className="fluid-container hd:hidden">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
-            {left}
-          </div>
+        <div className="flex flex-col md:flex-row items-center">
+          {left}
 
           <div className="w-full md:w-auto lg:hidden">{right}</div>
         </div>

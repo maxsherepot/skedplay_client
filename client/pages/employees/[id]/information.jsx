@@ -11,7 +11,7 @@ import {
   PhoneSvg,
   PlusSvg
 } from "icons";
-import { Gallery, AddressCard, EventCard } from "UI";
+import { GalleryWithThumbnail, AddressCard, EventCard } from "UI";
 import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -48,9 +48,8 @@ const Information = ({ loggedInUser }) => {
 
   const [event] = events.data;
 
-  // Gallery height class, 760px = ? rem // sm, lg
   const sidebarColumn = (
-    <Gallery
+    <GalleryWithThumbnail
       photos={employee.photos}
       favorite={
         <FavoriteButton
