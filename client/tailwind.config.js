@@ -111,7 +111,7 @@ module.exports = {
         photo: "24.8125rem", // 397
         "e-photo-md": "14.8125rem", // 237
         "e-photo-lg": "15.625rem", // 250
-        "e-photo-hd": "13.875rem" // 222
+        "e-photo-hd": "13.875rem", // 222
         // Gallery
         "gallery-hd": "47.5rem", // 760
         "gallery-lg": "43.75rem", // 700
