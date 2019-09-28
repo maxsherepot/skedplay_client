@@ -26,7 +26,8 @@ const SecondaryNav = ({ left, children, right }) => {
         </div>
       </div>
       <div className="fluid-container hd:hidden">
-        <div className="flex flex-col md:flex-row items-center">
+        {/* Add justify-between */}
+        <div className="flex flex-col md:flex-row items-center justify-between">
           {left}
 
           <div className="w-full md:w-auto lg:hidden">{right}</div>

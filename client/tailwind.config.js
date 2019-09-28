@@ -112,6 +112,12 @@ module.exports = {
         "e-photo-md": "14.8125rem", // 237
         "e-photo-lg": "15.625rem", // 250
         "e-photo-hd": "13.875rem" // 222
+        // Gallery
+        "gallery-hd": "47.5rem", // 760
+        "gallery-lg": "43.75rem", // 700
+        "gallery-md": "42.625rem", // 682
+        "gallery-sm": "39.125rem", // 626
+        "gallery": "28.4375rem", // 455
       },
       fontSize: {
         "2xs": "0.5rem",

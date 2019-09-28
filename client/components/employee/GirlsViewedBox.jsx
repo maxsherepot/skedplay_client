@@ -89,14 +89,15 @@ const GirlsViewedBox = () => {
       const employee = entities[i];
 
       rows.push(
-        <GirlCard
-          key={employee.id}
-          className={rowClass}
-          girl={employee}
-          labels={false}
-          slider={false}
-          preview
-        />
+        <div key={employee.id} className="px-3">
+          <GirlCard
+            className={rowClass}
+            girl={employee}
+            labels={false}
+            slider={false}
+            preview
+          />
+        </div>
       );
     }
 
@@ -119,7 +120,7 @@ const GirlsViewedBox = () => {
       </div>
 
       <Slider
-        className="-mx-2 hd:-mx-3 lg:hidden"
+        className="-mx-2 lg:hidden"
         arrows={false}
         responsive={responsive}
         beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
@@ -135,11 +136,11 @@ const GirlsViewedBox = () => {
           ))}
       </Slider>
 
-      <div className="girls hd:hidden lg:flex flex-col sm:flex-row sm:justify-start -mx-3">
-        {renderRows(data.employees.data, 5, "sm:w-1/2 md:w-1/5 lg:flex-1 px-3")}
+      <div className="girls hidden lg:flex hd:hidden -mx-3">
+        {renderRows(data.employees.data, 5, "lg:flex-1")}
       </div>
 
-      <div className="girls hidden hd:flex justify-between">
+      <div className="girls hidden hd:flex justify-between -mx-3">
         {renderRows(data.employees.data, 8, "w-38")}
       </div>
     </>

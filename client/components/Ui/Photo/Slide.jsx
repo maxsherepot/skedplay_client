@@ -10,7 +10,7 @@ function Slide({ className, image, height = 60, width = 40 }) {
 
   return (
     <div className={cx("slide", className)}>
-      <img className="object-cover rounded" src={image} alt="" style={styles} />
+      <img className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-lg hd:h-gallery-hd" src={image} alt="" style={styles} />
     </div>
   );
 }

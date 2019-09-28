@@ -92,7 +92,7 @@ const Information = ({ loggedInUser }) => {
   const contentColumn = (
     <>
       <div className="flex -mx-3">
-        <div className="w-full lg:w-2/3 px-3">
+        <div className="w-full hd:w-2/3 px-3">
           <div className="text-2xl font-extrabold my-5">Beschreibung</div>
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
             {employee.description}
@@ -195,7 +195,7 @@ const Information = ({ loggedInUser }) => {
             </div>
           </div>
         </div>
-        <div className="w-1/3 px-3 hidden lg:block">
+        <div className="w-1/3 px-3 hidden hd:block">
           <AddressAndEvent />
         </div>
       </div>
@@ -205,14 +205,14 @@ const Information = ({ loggedInUser }) => {
   return (
     <EmployeeBox employee={employee} user={loggedInUser}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full sm:w-2/3 lg:w-2/5 px-3">
+        <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
           {sidebarColumn}
         </div>
-        <div className="w-full sm:w-1/3 px-3 block lg:hidden">
+        <div className="w-full sm:w-1/3 px-3 block hd:hidden">
           <AddressAndEvent />
         </div>
-        <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
+        <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
       </div>
 
       <div className="flex flex-wrap -mx-3">
