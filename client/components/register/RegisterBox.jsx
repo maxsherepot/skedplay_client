@@ -19,9 +19,8 @@ const RegisterBox = () => {
     document.cookie = cookie.serialize("token", data.register.access_token, {
       maxAge: 30 * 24 * 60 * 60 // 30 days
     });
-    client.cache.reset().then(() => {
-      redirect({}, "/plans");
-    });
+
+    client.clearStore().then(() => redirect({}, "/plans"));
   };
 
   const [phone, setPhone] = useState(null);

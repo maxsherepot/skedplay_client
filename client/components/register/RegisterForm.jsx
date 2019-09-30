@@ -50,7 +50,7 @@ function RegisterForm({ onSubmit, children }) {
       }
 
       if (status) {
-        next();
+        await next();
       }
     }
 

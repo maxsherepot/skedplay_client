@@ -1,25 +1,37 @@
 /**
  * For using useSteps, add your step name in apollo cache & local query.
  */
+import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_CURRENT_REGISTER_STEP } from "queries";
+
+export const STEPS = gql`
+  query {
+    steps {
+      register @client
+      forgot @client
+      newAd @client
+      __typename
+    }
+  }
+`;
 
 function useSteps(name) {
-  const { data, client } = useQuery(GET_CURRENT_REGISTER_STEP);
+  const { data: { steps } = {}, client } = useQuery(STEPS);
 
   const setStep = step => {
-    client.writeData({
-      data: {
-        steps: {
-          [name]: step,
-          __typename: "Steps"
+    if (step) {
+      client.writeData({
+        data: {
+          steps: {
+            ...steps,
+            [name]: step
+          }
         }
-      }
-    });
+      });
+    }
   };
-
   return {
-    step: (name && data && data.steps && data.steps[name]) || 0,
+    step: (name && steps && steps[name]) || 0,
     setStep
   };
 }

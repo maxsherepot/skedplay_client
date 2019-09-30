@@ -33,11 +33,7 @@ function PlansBox({ user }) {
   const [subscribe] = useMutation(SUBSCRIBE_ON_PLAN, {
     onCompleted
   });
-  const {
-    loading,
-    error,
-    data: { plans }
-  } = useQuery(GET_PLANS);
+  const { loading, error, data: { plans } = {} } = useQuery(GET_PLANS);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -50,6 +46,7 @@ function PlansBox({ user }) {
       }
     });
   };
+
   return (
     <div className="plans">
       {plans &&

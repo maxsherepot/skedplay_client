@@ -43,53 +43,55 @@ function create(initialState, { getToken, fetchOptions }) {
     resolvers: {}
   });
 
-  cache.writeData({
-    data: {
-      steps: {
-        register: 0,
-        forgot: 0,
-        newAd: 0,
-        __typename: "Steps"
+  const data = {
+    steps: {
+      register: 0,
+      forgot: 0,
+      newAd: 0,
+      __typename: "Steps"
+    },
+    filters: {
+      girls: {
+        location: "",
+        services: [],
+        gender: "",
+        race_type: "",
+        __typename: "GirlFilters"
       },
-      filters: {
-        girls: {
-          location: "",
-          services: [],
-          gender: "",
-          race_type: "",
-          __typename: "GirlFilters"
-        },
-        boys: {
-          location: "",
-          services: [],
-          gender: "",
-          race_type: "",
-          __typename: "BoyFilters"
-        },
-        couple: {
-          location: "",
-          services: [],
-          gender: "",
-          race_type: "",
-          __typename: "CoupleFilters"
-        },
-        clubs: {
-          location: "",
-          event_type: "",
-          perimeter: 10,
-          __typename: "ClubFilters"
-        },
-        events: {
-          location: "",
-          event_type: "",
-          perimeter: 10,
-          date: "",
-          __typename: "EventFilters"
-        },
-        __typename: "Filters"
-      }
+      boys: {
+        location: "",
+        services: [],
+        gender: "",
+        race_type: "",
+        __typename: "BoyFilters"
+      },
+      couple: {
+        location: "",
+        services: [],
+        gender: "",
+        race_type: "",
+        __typename: "CoupleFilters"
+      },
+      clubs: {
+        location: "",
+        event_type: "",
+        perimeter: 10,
+        __typename: "ClubFilters"
+      },
+      events: {
+        location: "",
+        event_type: "",
+        perimeter: 10,
+        date: "",
+        __typename: "EventFilters"
+      },
+      __typename: "Filters"
     }
-  });
+  };
+
+  cache.writeData({ data });
+
+  client.onClearStore(() => cache.writeData({ data }));
 
   return client;
 }

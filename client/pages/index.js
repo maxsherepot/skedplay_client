@@ -14,16 +14,6 @@ import checkLoggedIn from "lib/checkLoggedIn";
 const Index = ({ loggedInUser }) => {
   const apolloClient = useApolloClient();
 
-  const signout = () => {
-    document.cookie = cookie.serialize("token", "", {
-      maxAge: -1 // Expire the cookie immediately
-    });
-
-    apolloClient.cache.reset().then(() => {
-      redirect({}, "/login");
-    });
-  };
-
   const Animation = () => (
     <div className="animation-gradient absolute top-0 left-0 w-full h-screen">
       <img

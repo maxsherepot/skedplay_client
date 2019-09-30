@@ -17,9 +17,7 @@ const UserDropdown = ({ user }) => {
       "max-age": -1
     });
 
-    client.cache.reset().then(() => {
-      redirect({}, "/");
-    });
+    client.clearStore().then(() => redirect({}, "/"));
   };
 
   return (
