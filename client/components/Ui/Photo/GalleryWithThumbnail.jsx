@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 
 import Slider from "react-slick";
-import Slide from "./Slide";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
+function GalleryWithThumbnail({ photos, favorite, large }) {
   const [index, setIndex] = useState(0);
 
   const [mainNav, setMainNav] = useState(null);
@@ -31,6 +30,7 @@ function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
           asNavFor={mainNav}
           ref={slider => setSlider2(slider)}
           slidesToShow={5}
+          speed={50}
           infinite={false}
           swipeToSlide
           focusOnSelect
@@ -61,12 +61,11 @@ function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
           beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
         >
           {images.map((image, i) => (
-            <Slide
+            <img
               key={i}
-              className="rounded-lg"
-              image={image}
-              width="auto"
-              height={height}
+              className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-lg hd:h-gallery-hd"
+              src={image}
+              alt=""
             />
           ))}
         </Slider>
@@ -79,7 +78,7 @@ function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
               "flex items-center justify-center cursor-pointer h-16 mr-3 z-50",
               large ? "w-20" : "w-16"
             )}
-            onClick={() => slider1.current.slickPrev()}
+            onClick={() => slider1.slickPrev()}
           >
             <ArrowLeft
               className="stroke-white"
@@ -95,7 +94,7 @@ function GalleryWithThumbnail({ photos, favorite, large, height = "597px" }) {
               "flex items-center justify-center cursor-pointer h-16 z-50",
               large ? "w-20" : "w-16"
             )}
-            onClick={() => slider1.current.slickNext()}
+            onClick={() => slider1.slickNext()}
           >
             <ArrowRight
               className="stroke-white"

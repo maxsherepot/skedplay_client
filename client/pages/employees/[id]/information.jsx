@@ -59,7 +59,6 @@ const Information = ({ loggedInUser }) => {
         />
       }
       large
-      height="760px"
     />
   );
 
