@@ -1,13 +1,10 @@
-// import {
-//   REGISTER_USER,
-//   SEND_VERTIFICATION_CODE,
-//   CHECK_VERTIFICATION_CODE
-// } from "queries";
+import { CREATE_CLUB } from "queries";
 import NewClubForm from "./NewClubForm";
+import { useMutation } from "@apollo/react-hooks";
 
 const NewClubBox = () => {
-  //   const [register] = useMutation(REGISTER_USER);
-  return <NewClubForm onSubmit={() => console.log("final step")} />;
+  const [createClub] = useMutation(CREATE_CLUB);
+  return <NewClubForm onSubmit={createClub} />;
 };
 
 export default NewClubBox;

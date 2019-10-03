@@ -118,3 +118,72 @@ export const GET_CLUB_SCHEDULE = gql`
     }
   }
 `;
+
+export const CREATE_CLUB = gql`
+  mutation createClub($input: ClubInput!) {
+    createClub(input: $input) {
+      id
+      name
+      address
+      phones
+      favorited {
+        id
+      }
+      type {
+        id
+        name
+      }
+      description
+      photos {
+        url
+        thumb_url
+      }
+      services {
+        id
+        name
+        pivot {
+          price
+        }
+      }
+      prices {
+        id
+        name
+        pivot {
+          price
+        }
+      }
+      events {
+        id
+        title
+        favorited {
+          id
+        }
+        club {
+          address
+        }
+        type {
+          id
+          name
+        }
+        photos {
+          url
+        }
+      }
+      employees {
+        id
+        name
+        age
+        address
+        isVip
+        isNew
+        favorited {
+          id
+        }
+        photos {
+          url
+          thumb_url
+        }
+      }
+    }
+  }
+`;

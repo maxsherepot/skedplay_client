@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { ArrowNextSvg } from "icons";
-import { GirlCard, HorizontalScroll } from "UI";
+import { GirlCard } from "UI";
 
 const ClubGirlsBox = ({ employees }) => {
   const router = useRouter();

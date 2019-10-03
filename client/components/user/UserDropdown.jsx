@@ -98,7 +98,11 @@ const UserDropdown = ({ user }) => {
             )}
             {user.is_club_owner && (
               <div className="flex items-center mb-2">
-                <AddSvg /> <span className="ml-2">Add new Club</span>
+                <Link href="/clubs/add">
+                  <a className="flex items-center cursor-pointer">
+                    <AddSvg /> <span className="ml-2">Add new Club</span>
+                  </a>
+                </Link>
               </div>
             )}
             {(user.is_employee || user.is_club_owner) && (

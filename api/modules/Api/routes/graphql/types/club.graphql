@@ -1,75 +1,85 @@
 type Club {
-    id: ID!
-    name: String!
-    type: ClubType @hasOne
-    email: String
-    website: String
-    phones: String
-    description: String
-    address: String
-    favorited: Favorite @morphOne @with(relation: "favoriteRelation")
-    lat: String
-    lng: String
-    owner: User @belongsTo
-    employees: [Employee] @belongsToMany
-    prices: [Price] @belongsToMany
-    services: [Service] @belongsToMany
-    events: [Event] @belongsToMany
-    photos: [Media] @hasMany
+  id: ID!
+  name: String!
+  type: ClubType @hasOne
+  email: String
+  website: String
+  phones: String
+  description: String
+  address: String
+  index: String
+  city: String
+  favorited: Favorite @morphOne @with(relation: "favoriteRelation")
+  lat: String
+  lng: String
+  owner: User @belongsTo
+  employees: [Employee] @belongsToMany
+  prices: [Price] @belongsToMany
+  services: [Service] @belongsToMany
+  events: [Event] @belongsToMany
+  photos: [Media] @hasMany
 }
 
 input ClubInput {
-    name: String!
-    club_type_id: Int!
-    email: String!
-    website: String
-    phones: [String]
-    description: String!
-    address: String
-    lat: String
-    lng: String
+  name: String!
+  club_type_id: Int!
+  email: String!
+  website: String
+  phone: String
+  description: String!
+  address: String!
+  index: String
+  city: String
+  moderator_first_name: String
+  moderator_last_name: String
+  moderator_email: String
+  moderator_phone: String
+  lat: String
+  lng: String
+  # File
+  logotype: Upload!
 }
 
 type ClubType {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
 input ClubFilters {
-    services: [Int] @whereHas(key: "service_id", method: "whereIn")
-    club_type_id: Int @where
+  services: [Int] @whereHas(key: "service_id", method: "whereIn")
+  club_type_id: Int @where
 }
 
 type ClubPayload implements Status {
-    status: Boolean!
-    message: String
+  status: Boolean!
+  message: String
 }
 
 extend type Query {
-    club_types: [ClubType!]! @all
-    clubs(filters: ClubFilters @spread): [Club!]! @paginate
-    club(id: ID @eq): Club @find
+  club_types: [ClubType!]! @all
+  clubs(filters: ClubFilters @spread): [Club!]! @paginate
+  club(id: ID @eq): Club @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createClub(input: ClubInput @spread): Club
+  createClub(input: ClubInput @spread): Club
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@create")
 
-    updateClub(club: ID!, input: ClubInput @spread): ClubPayload
+  updateClub(club: ID!, input: ClubInput @spread): ClubPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@update")
 
-    uploadClubFile(club: ID!, collection: String!, file: Upload!): StatusPayload
+  uploadClubFile(club: ID!, collection: String!, file: Upload!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadFile")
 
-    deleteClubFile(club: ID!, file_id: Int!): StatusPayload
+  deleteClubFile(club: ID!, file_id: Int!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@deleteFile")
 
-    createClubEvent(club: ID!, input: EventInput @spread): Event
+  createClubEvent(club: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@createEvent")
 
-    syncClubServices(club: ID!, services: [ServiceInput!]): Club
+  syncClubServices(club: ID!, services: [ServiceInput!]): Club
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncServices")
 
-    syncClubPrices(club: ID!, prices: [PriceInput!]): Club
+  syncClubPrices(club: ID!, prices: [PriceInput!]): Club
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncPrices")
 }

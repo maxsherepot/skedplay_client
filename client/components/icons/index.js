@@ -27,6 +27,7 @@ export { default as CloseSvg } from "./CloseSvg";
 export { default as PlusSvg } from "./PlusSvg";
 export { default as TrashSvg } from "./TrashSvg";
 export { default as AddSvg } from "./AddSvg";
+export { default as AddPhotoSvg } from "./AddPhotoSvg";
 
 /**
  * Payments icons

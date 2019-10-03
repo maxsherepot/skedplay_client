@@ -8,3 +8,4 @@ export { default as ButtonGroupField } from "./ButtonGroupField";
 export { default as GroupRadio } from "./GroupRadio";
 export { default as GroupCheckbox } from "./GroupCheckbox";
 export { default as RangeSlider } from "./RangeSlider";
+export { default as FileField } from "./FileField";

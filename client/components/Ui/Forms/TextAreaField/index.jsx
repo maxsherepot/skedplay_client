@@ -4,7 +4,14 @@ import { Field, useFormikContext } from "formik";
 
 import { FormGroup } from "UI";
 
-function TextField({ className, labelClassName, label, name, ...rest }) {
+function TextField({
+  className,
+  labelClassName,
+  label,
+  name,
+  textLength,
+  ...rest
+}) {
   const { touched, errors } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
@@ -16,13 +23,18 @@ function TextField({ className, labelClassName, label, name, ...rest }) {
 
       <Field name={name}>
         {({ field }) => (
-          <textarea
-            {...rest}
-            id={name}
-            className="form-control"
-            {...field}
-            style={{ height: "auto", borderRadius: "1rem" }}
-          />
+          <>
+            <span className="absolute right-0 top-0 pr-5 text-sm text-grey">
+              {(field.value && field.value.length) || 0} / {textLength}
+            </span>
+            <textarea
+              {...rest}
+              id={name}
+              className="form-control"
+              {...field}
+              style={{ height: "auto", borderRadius: "1rem" }}
+            />
+          </>
         )}
       </Field>
     </FormGroup>
@@ -37,7 +49,9 @@ TextField.propTypes = {
 };
 
 TextField.defaultProps = {
-  labelClassName: "text-grey"
+  className: "relative",
+  labelClassName: "text-grey",
+  textLength: 255
 };
 
 export default TextField;
