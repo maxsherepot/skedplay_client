@@ -1,7 +1,7 @@
 type Employee {
   id: ID!
   first_name: String!
-  last_name: String!
+  last_name: String
   name: String!
   address: String
   description: String
@@ -19,6 +19,7 @@ type Employee {
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
   photos: [Media] @hasMany
+  reviews: [Review] @hasMany
 }
 
 input EmployeeInput {

@@ -101,3 +101,20 @@ export const GET_CLUB = gql`
     }
   }
 `;
+
+export const GET_CLUB_SCHEDULE = gql`
+  query club_schedule($club_id: ID!) {
+    schedule_period {
+      day
+      date
+    }
+    club_schedule(club_id: $club_id) {
+      id
+      day
+      day_name
+      start
+      end
+      available
+    }
+  }
+`;

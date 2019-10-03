@@ -5,7 +5,6 @@ namespace Modules\Common\Entities\Traits;
 use Modules\Common\Entities\Service;
 
 trait Serviceable {
-
     /**
      * @return mixed
      */

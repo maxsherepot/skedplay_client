@@ -9,6 +9,8 @@ use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
+use Modules\Api\Http\Requests\Review\ReviewCreateRequest;
+use Modules\Api\Http\Requests\Schedule\EmployeeScheduleCreateRequest;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
 use Modules\Common\Repositories\PriceRepository;
@@ -166,5 +168,22 @@ class EmployeeController extends Controller
     public function unfavorite(Employee $employee)
     {
         $employee->unfavorite();
+    }
+
+    /**
+     * @param EmployeeScheduleCreateRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function schedule(EmployeeScheduleCreateRequest $request)
+    {
+//        $this->authorize('create-schedule', Club::class);
+
+        return $this->employees->storeSchedule(collect($request->all()));
+    }
+
+    public function createReview(ReviewCreateRequest $request, Employee $employee)
+    {
+        return $this->employees->storeReview($employee, collect($request->all()));
     }
 }

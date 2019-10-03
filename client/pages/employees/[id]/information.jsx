@@ -1,27 +1,20 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import cx from "classnames";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {
-  ArrowNextSvg,
-  RatingSvg,
-  CocktailSvg,
-  CalendarSvg,
-  PhoneSvg,
-  PlusSvg
-} from "icons";
-import { GalleryWithThumbnail, AddressCard, EventCard } from "UI";
+import { ArrowNextSvg, RatingSvg, CocktailSvg, PlusSvg } from "icons";
+import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard } from "UI";
 import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
+import { EmployeeSchedule } from "components/schedule";
 
 const Information = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
-
-  const [isShowPhone, toggleShowPhone] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [isModalOpen, toggleModalOpen] = useState(false);
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
@@ -46,20 +39,40 @@ const Information = ({ loggedInUser }) => {
     return "Loading...";
   }
 
+  const handleLightboxClick = index => {
+    setLightboxIndex(index);
+    toggleModalOpen(true);
+  };
+
+  const onClose = () => {
+    setLightboxIndex(null);
+    toggleModalOpen(false);
+  };
+
   const [event] = events.data;
 
   const sidebarColumn = (
-    <GalleryWithThumbnail
-      photos={employee.photos}
-      favorite={
-        <FavoriteButton
-          variables={{ model_id: employee.id, model_type: "employee" }}
-          favorited={employee.favorited}
-          large={true}
-        />
-      }
-      large
-    />
+    <>
+      <Lightbox
+        open={isModalOpen}
+        index={lightboxIndex}
+        onClose={onClose}
+        images={employee.photos}
+      />
+
+      <GalleryWithThumbnail
+        photos={employee.photos}
+        handleClick={handleLightboxClick}
+        favorite={
+          <FavoriteButton
+            variables={{ model_id: employee.id, model_type: "employee" }}
+            favorited={employee.favorited}
+            large={true}
+          />
+        }
+        large
+      />
+    </>
   );
 
   const AddressAndEvent = () => (
@@ -289,157 +302,10 @@ const Information = ({ loggedInUser }) => {
           </div>
         </div>
         <div className="w-full hd:w-2/5 px-3">
-          <div className="flex items-center">
-            <div className="text-2xl font-extrabold my-5">
-              My schedule in Villa Lustpoint
-            </div>
-            <span className="hidden sm:flex items-center ml-9">
-              <span className="text-xs mr-2">View for a month</span>
-              <CalendarSvg />
-            </span>
-          </div>
-          <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">17.08</span>
-                <span className="hidden sm:block">Sonntag</span>
-                <span className="block sm:hidden">{"Sonntag".slice(0, 2)}</span>
-              </div>
-              <div className="line" />
-              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                <div>19:00 — 05:00</div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">18.08</span>
-                <span className="hidden sm:block">Montag</span>
-                <span className="block sm:hidden">{"Montag".slice(0, 2)}</span>
-              </div>
-              <div className="line" />
-              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                <div>19:00 — 05:00</div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">19.08</span>
-                <span className="hidden sm:block">Dienstag</span>
-                <span className="block sm:hidden">
-                  {"Dienstag".slice(0, 2)}
-                </span>
-              </div>
-              <div className="line" />
-              <div className="flex flex-col sm:flex-row w-3/6 sm:w-2/5 sm:w-7/12">
-                <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
-                  <span className="mr-3">Soprano Club</span>
-                  <ArrowNextSvg />
-                </div>
-                <div className="w-full sm:w-1/2">
-                  <div className="flex items-center justify-start lg:justify-end">
-                    <PhoneSvg className="stroke-black w-6 h-3" />
-                    <span
-                      className={cx("mr-2", {
-                        "w-10 overflow-hidden": !isShowPhone
-                      })}
-                    >
-                      +48715254152
-                    </span>
-                    {!isShowPhone && (
-                      <span
-                        className="text-red font-bold cursor-pointer whitespace-no-wrap"
-                        onClick={() => toggleShowPhone(!isShowPhone)}
-                      >
-                        View phone
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">20.08</span>
-                <span className="hidden sm:block">Mittwich</span>
-                <span className="block sm:hidden">
-                  {"Mittwich".slice(0, 2)}
-                </span>
-              </div>
-              <div className="line" />
-              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                <div>19:00 — 05:00</div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">21.08</span>
-                <span className="hidden sm:block">Donnerstag</span>
-                <span className="block sm:hidden">
-                  {"Donnerstag".slice(0, 2)}
-                </span>
-              </div>
-              <div className="line" />
-              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
-                <div>Day off</div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">22.08</span>
-                <span className="hidden sm:block">Freitag</span>
-                <span className="block sm:hidden">{"Freitag".slice(0, 2)}</span>
-              </div>
-              <div className="line" />
-              <div className="flex flex-col sm:flex-row w-3/6 sm:w-2/5 sm:w-7/12">
-                <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
-                  <span className="mr-3">Butterfly ladies</span>
-                  <ArrowNextSvg />
-                </div>
-                <div className="w-full sm:w-1/2">
-                  <div className="flex items-center justify-start lg:justify-end">
-                    <PhoneSvg className="stroke-black w-6 h-3" />
-                    <span
-                      className={cx("mr-2", {
-                        "w-10 overflow-hidden": !isShowPhone
-                      })}
-                    >
-                      +48715254152
-                    </span>
-                    {!isShowPhone && (
-                      <span
-                        className="text-red font-bold cursor-pointer whitespace-no-wrap"
-                        onClick={() => toggleShowPhone(!isShowPhone)}
-                      >
-                        View phone
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="mb-3">
-              <div className="flex">
-                <span className="inline-block w-10 sm:mr-4">23.08</span>
-                <span className="hidden sm:block">Samstag</span>
-                <span className="block sm:hidden">{"Samstag".slice(0, 2)}</span>
-              </div>
-              <div className="line" />
-              <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                <div>19:00 — 05:00</div>
-              </div>
-            </section>
-
-            <span className="flex sm:hidden items-center mt-6">
-              <span className="text-sm mr-2">View for a month</span>
-              <CalendarSvg />
-            </span>
-          </div>
+          <EmployeeSchedule
+            title={`My schedule in ${employee.club ? employee.club.name : ""}`}
+            employee={employee}
+          />
         </div>
       </div>
     </EmployeeBox>

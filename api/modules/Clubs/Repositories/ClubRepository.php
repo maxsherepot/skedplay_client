@@ -5,6 +5,7 @@ namespace Modules\Users\Repositories;
 use Illuminate\Support\Collection;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Contracts\HasMediable;
+use Modules\Common\Entities\ClubScheduleWork;
 use Modules\Common\Traits\Mediable;
 use Modules\Users\Entities\User;
 
@@ -30,5 +31,14 @@ class ClubRepository implements HasMediable
     public function update(Club $club, Collection $collection): bool
     {
         return $club->update($collection->toArray());
+    }
+
+    /**
+     * @param Collection $collection
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function storeSchedule(Collection $collection): \Illuminate\Database\Eloquent\Model
+    {
+        return ClubScheduleWork::create($collection->toArray());
     }
 }

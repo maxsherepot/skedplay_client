@@ -10,6 +10,7 @@ use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
+use Modules\Api\Http\Requests\Schedule\ClubScheduleCreateRequest;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
@@ -178,5 +179,17 @@ class ClubController extends Controller
     public function unfavorite(Club $club)
     {
         $club->unfavorite();
+    }
+
+    /**
+     * @param ClubScheduleCreateRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function schedule(ClubScheduleCreateRequest $request)
+    {
+//        $this->authorize('create-schedule', Club::class);
+
+        return $this->clubs->storeSchedule(collect($request->all()));
     }
 }

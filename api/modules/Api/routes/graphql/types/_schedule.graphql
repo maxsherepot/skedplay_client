@@ -1,0 +1,75 @@
+interface Schedule {
+  id: ID!
+  day: Int!
+  day_name: String!
+  start: String
+  end: String
+  available: Boolean
+  order: Int!
+}
+
+type ClubSchedule implements Schedule {
+  id: ID!
+  day: Int!
+  day_name: String!
+  start: String
+  end: String
+  available: Boolean
+  order: Int!
+  club: Club! @belongsTo
+}
+
+type EmployeeSchedule implements Schedule {
+  id: ID!
+  day: Int!
+  day_name: String!
+  start: String
+  end: String
+  available: Boolean
+  order: Int!
+  employee: Employee! @belongsTo
+  club: Club @belongsTo
+}
+
+type SchedulePeriod {
+  day: String!
+  date: String!
+}
+
+input ClubScheduleInput {
+  day: Int!
+  start: String
+  end: String
+  available: Boolean
+  order: Int!
+  club_id: Int!
+}
+
+input EmployeeScheduleInput {
+  day: Int!
+  start: String
+  end: String
+  available: Boolean
+  order: Int!
+  employee_id: Int!
+  club_id: Int
+}
+
+extend type Query {
+  schedule_period: [SchedulePeriod!]!
+    @field(resolver: "Modules\\Api\\GraphQL\\Queries\\ScheduleQuery")
+
+  club_schedule(club_id: ID! @where): [ClubSchedule!]!
+    @all(model: "Modules\\Common\\Entities\\ClubScheduleWork", scopes: ["order"])
+
+  employee_schedule(employee_id: ID! @where): [EmployeeSchedule!]!
+    @all(model: "Modules\\Common\\Entities\\EmployeeScheduleWork", scopes: ["order"])
+}
+
+type Mutation @middleware(checks: ["auth:api"]) {
+  createClubSchedule(input: ClubScheduleInput @spread): ClubSchedule
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@schedule")
+
+  createEmployeeSchedule(input: EmployeeScheduleInput @spread): EmployeeSchedule
+  @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")
+}

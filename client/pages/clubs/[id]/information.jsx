@@ -5,7 +5,6 @@ import cx from "classnames";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {
   ArrowNextSvg,
-  CalendarSvg,
   PlusSvg,
   FakeSvg,
   HeartSvg,
@@ -17,6 +16,7 @@ import { Gallery, EventCard } from "UI";
 import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { ClubBox, ClubGirlsBox } from "components/club";
+import { ClubSchedule } from "components/schedule";
 
 const Information = ({ loggedInUser }) => {
   const router = useRouter();
@@ -102,82 +102,6 @@ const Information = ({ loggedInUser }) => {
         </div>
       )}
     </div>
-  );
-
-  const Schedule = ({ club }) => (
-    <>
-      <div className="flex items-center mt-5 md:mt-0">
-        <div className="text-2xl font-extrabold mb-5">
-          Schedule in {club.name}
-        </div>
-      </div>
-      <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
-        <section className="mb-3">
-          <div className="flex">
-            <span className="inline-block w-10 sm:mr-4">17.08</span>
-            <span className="hidden sm:block">Sonntag</span>
-            <span className="block sm:hidden">{"Sonntag".slice(0, 2)}</span>
-          </div>
-          <div className="line" />
-          <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12">
-            <div>19:00 — 05:00</div>
-          </div>
-        </section>
-
-        <section className="mb-3">
-          <div className="flex">
-            <span className="inline-block w-10 sm:mr-4">18.08</span>
-            <span className="hidden sm:block">Montag</span>
-            <span className="block sm:hidden">{"Montag".slice(0, 2)}</span>
-          </div>
-          <div className="line" />
-          <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12">
-            <div>19:00 — 05:00</div>
-          </div>
-        </section>
-
-        <section className="mb-3">
-          <div className="flex">
-            <span className="inline-block w-10 sm:mr-4">20.08</span>
-            <span className="hidden sm:block">Mittwich</span>
-            <span className="block sm:hidden">{"Mittwich".slice(0, 2)}</span>
-          </div>
-          <div className="line" />
-          <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12">
-            <div>19:00 — 05:00</div>
-          </div>
-        </section>
-
-        <section className="mb-3">
-          <div className="flex">
-            <span className="inline-block w-10 sm:mr-4">21.08</span>
-            <span className="hidden sm:block">Donnerstag</span>
-            <span className="block sm:hidden">{"Donnerstag".slice(0, 2)}</span>
-          </div>
-          <div className="line" />
-          <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
-            <div>Day off</div>
-          </div>
-        </section>
-
-        <section className="mb-3">
-          <div className="flex">
-            <span className="inline-block w-10 sm:mr-4">23.08</span>
-            <span className="hidden sm:block">Samstag</span>
-            <span className="block sm:hidden">{"Samstag".slice(0, 2)}</span>
-          </div>
-          <div className="line" />
-          <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12">
-            <div>19:00 — 05:00</div>
-          </div>
-        </section>
-
-        <span className="flex sm:hidden items-center mt-6">
-          <span className="text-sm mr-2">View for a month</span>
-          <CalendarSvg />
-        </span>
-      </div>
-    </>
   );
 
   const contentColumn = (
@@ -336,14 +260,17 @@ const Information = ({ loggedInUser }) => {
                   </div>
                 </div>
                 <div className="w-full md:w-5/12 px-3 hd:hidden">
-                  <Schedule club={club} />
+                  <ClubSchedule
+                    title={`Schedule in ${club.name}`}
+                    club={club}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="w-full hd:w-3/12 px-3 hidden hd:block">
-          <Schedule club={club} />
+          <ClubSchedule title={`Schedule in ${club.name}`} club={club} />
         </div>
       </div>
     </>

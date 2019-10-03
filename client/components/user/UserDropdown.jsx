@@ -65,9 +65,11 @@ const UserDropdown = ({ user }) => {
         <div className="flex flex-wrap justify-between px-7 py-4">
           <div className="w-1/2">
             {(user.is_employee || user.is_club_owner) && (
-              <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                View my account
-              </div>
+              <Link href="/account/[id]" as={`/account/${user.id}`}>
+                <a className="block text-red font-medium hover:text-pink cursor-pointer mb-2">
+                  View my account
+                </a>
+              </Link>
             )}
             {(user.is_employee || user.is_club_owner) && (
               <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">

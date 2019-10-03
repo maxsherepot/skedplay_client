@@ -1,0 +1,35 @@
+union Reviewable = Club | Employee
+
+type ReviewReply {
+  id: ID!
+  body: String!
+  user: User @belongsTo
+  created_at: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\DateType@createdAt")
+}
+
+type Review {
+  id: ID!
+  title: String!
+  body: String!
+  created_at: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\DateType@createdAt")
+  user: User @belongsTo
+  reviewable: Reviewable! @morphTo
+  replies: [ReviewReply] @hasMany
+}
+
+input ReviewInput {
+  email: String
+  title: String!
+  body: String!
+  recaptcha: String!
+  hide: Boolean
+}
+
+extend type Query {
+  reviews(reviewable_id: ID!): [Review!]! @paginate # scopes: ["latest"]
+}
+
+extend type Mutation @middleware(checks: ["auth:api"]) {
+ createReview(employee: ID!, input: ReviewInput @spread): Review
+   @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createReview")
+}

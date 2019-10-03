@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 
-function GalleryWithThumbnail({ photos, favorite, large }) {
+function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
   const [index, setIndex] = useState(0);
 
   const [mainNav, setMainNav] = useState(null);
@@ -53,7 +53,7 @@ function GalleryWithThumbnail({ photos, favorite, large }) {
       </div>
       <div className="relative overflow-hidden flex-1 px-2">
         <Slider
-          className="relative block"
+          className="relative block z-10"
           asNavFor={secondNav}
           arrows={false}
           ref={slider => setSlider1(slider)}
@@ -63,6 +63,7 @@ function GalleryWithThumbnail({ photos, favorite, large }) {
           {images.map((image, i) => (
             <img
               key={i}
+              onClick={() => handleClick(i)}
               className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-lg hd:h-gallery-hd"
               src={image}
               alt=""
@@ -104,7 +105,7 @@ function GalleryWithThumbnail({ photos, favorite, large }) {
           </div>
         </div>
 
-        <div className="flex justify-center absolute bottom-0 left-0 w-full">
+        <div className="flex justify-center absolute bottom-0 left-0 w-full z-10">
           <div className="text-xl text-white mx-5 my-8 select-none">
             {index + 1} / {images.length}
           </div>

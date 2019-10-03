@@ -18,5 +18,6 @@ class CommonDatabaseSeeder extends Seeder
 
         $this->call(PriceTypeTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
+        $this->call(ReviewTableSeeder::class);
     }
 }

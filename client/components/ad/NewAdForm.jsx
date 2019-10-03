@@ -73,7 +73,8 @@ function NewAdForm({ onSubmit, children }) {
   return (
     <Formik
       initialValues={{
-        account_type: "client"
+        account_type: "client",
+        service_for: []
       }}
       validate={validate}
       onSubmit={handleSubmits}

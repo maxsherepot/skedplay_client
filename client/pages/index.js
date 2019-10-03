@@ -12,8 +12,6 @@ import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 const Index = ({ loggedInUser }) => {
-  const apolloClient = useApolloClient();
-
   const Animation = () => (
     <div className="animation-gradient absolute top-0 left-0 w-full h-screen">
       <img
@@ -123,9 +121,10 @@ const Index = ({ loggedInUser }) => {
 
 Index.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+
   if (!loggedInUser) {
-    // redirect(context, "/login");
-    return {};
+    // return redirect(context, "/login");
+    return [];
   }
   return { loggedInUser };
 };

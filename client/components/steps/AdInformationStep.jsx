@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { LangSelector } from "components/ad";
-import { TextField, SelectField, TextAreaField } from "UI";
+import { TextField, SelectField, TextAreaField, GroupCheckbox } from "UI";
 
 const AdInformationStep = () => {
   const characteristics = [
@@ -58,18 +58,38 @@ const AdInformationStep = () => {
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           <TextField
-            className="w-full sm:w-1/2 w-1/3 px-2"
+            className="w-full sm:w-1/3 px-2"
             inputClassName="w-1/3"
             label="Name"
             name="name"
           />
 
           <TextField
-            className="w-full sm:w-1/2 w-1/3 px-2"
+            className="w-full sm:w-1/3 px-2"
             inputClassName="w-1/3"
             label="Birthday"
             name="birthday"
             placeholder="21 jule 1989"
+          />
+
+          <GroupCheckbox
+            className="w-full sm:w-1/3 px-2"
+            label="Service for"
+            name="service_for"
+            items={[
+              {
+                name: "Man",
+                value: "man"
+              },
+              {
+                name: "Woman",
+                value: "woman"
+              },
+              {
+                name: "Couple",
+                value: "couple"
+              }
+            ]}
           />
         </div>
 

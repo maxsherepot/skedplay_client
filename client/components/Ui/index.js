@@ -28,9 +28,11 @@ export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";
 
 export { default as HorizontalScroll } from "./HorizontalScroll";
+export { default as MasonryLayout } from "./MasonryLayout";
 
 export { default as Slick } from "./Photo/Slick";
 export { default as Gallery } from "./Photo/Gallery";
+export { default as Lightbox } from "./Photo/Lightbox";
 export { default as GalleryWithThumbnail } from "./Photo/GalleryWithThumbnail";
 
 /** Cards */
