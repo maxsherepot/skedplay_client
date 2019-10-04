@@ -55,6 +55,13 @@
     }
   }
 
+  &-grey {
+    @apply bg-transparent text-white text-xs font-normal px-4;
+    &::before {
+      @apply bg-xs-grey border-xs-grey;
+    }
+  }
+
   &-success {
     @apply text-white text-xs font-normal px-4;
     &::before {

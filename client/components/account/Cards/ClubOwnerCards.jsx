@@ -3,24 +3,6 @@ import Link from "next/link";
 import { Avatar, Button } from "UI";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 
-const counters = [
-  {
-    title: "2 Events",
-    icon: "star",
-    buttonText: "Add new"
-  },
-  {
-    title: "233 photos",
-    icon: "photo",
-    buttonText: null
-  },
-  {
-    title: "2 videos",
-    icon: "video",
-    buttonText: null
-  }
-];
-
 const GirlRow = ({ soon, active }) => (
   <div className="flex items-center my-2">
     <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
@@ -35,7 +17,7 @@ const GirlRow = ({ soon, active }) => (
           <div className="flex items-center">
             05.06-07.06
             {soon && (
-              <div className="bg-black text-white text-xs rounded-full px-3 py-1 ml-2">
+              <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
                 Coming soon
               </div>
             )}
@@ -43,10 +25,10 @@ const GirlRow = ({ soon, active }) => (
         </div>
       ) : (
         <div className="flex items-center">
-          <div className="bg-light-grey text-white text-xs rounded-full px-3 py-1">
+          <div className="bg-light-grey text-white text-xs rounded-full whitespace-no-wrap px-3 py-1">
             Not active
           </div>
-          <div className="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full px-3 py-1 ml-3">
+          <div className="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full whitespace-no-wrap px-3 py-1 ml-3">
             Active now
           </div>
         </div>
@@ -57,13 +39,15 @@ const GirlRow = ({ soon, active }) => (
 
 const ClubOwnerCards = ({ user, collapse }) => {
   let phone = null
-  // Temp access to first club
+
   const club = user.clubs[collapse];
 
   if (club.phones) {
     const [number] = JSON.parse(club.phones);
     phone = number
   }
+
+  const { admin } = club
 
   return (
     <>
@@ -75,9 +59,9 @@ const ClubOwnerCards = ({ user, collapse }) => {
       </div>
       <div className="flex items-center my-3">
         {phone && (<div className="mr-4">{phone}</div>)}
-        <div>Admin: D.Busch</div>
+        {admin && (<div>Admin: {admin.name}</div>)}
       </div>
-      <div className="relative flex flex-col w-2/3 border border-divider rounded-lg p-5">
+      <div className="relative flex flex-col hd:w-2/3 border border-divider rounded-lg p-5">
         <div className="absolute inset-0 flex justify-end m-10">
           <UserSvg />
         </div>
@@ -100,9 +84,13 @@ const ClubOwnerCards = ({ user, collapse }) => {
         </div>
 
         <div className="flex mt-3">
-          <Button className="px-12 mr-4" size="sm">
-            Add new
-          </Button>
+          <Link href="/girls/add">
+            <a>
+              <Button className="px-12 mr-4" size="sm">
+                Add new
+              </Button>
+            </a>
+          </Link>  
 
           <Button className="px-12" size="sm" outline style={{ color: "#000" }}>
             Edit
@@ -116,7 +104,7 @@ const ClubOwnerCards = ({ user, collapse }) => {
             <div className="flex flex-col justify-between h-full">
               <div className="flex justify-between">
                 <span className="text-2xl font-extrabold mb-6">1 Event</span>
-                <PhotoSvg />
+                <StarSvg />
               </div>
               <Button className="w-2/3" size="sm">
                 Add new
@@ -129,7 +117,7 @@ const ClubOwnerCards = ({ user, collapse }) => {
             <div className="flex flex-col justify-center">
               <div className="flex justify-between">
                 <span className="text-2xl font-extrabold mb-6">233 photos</span>
-                <PhotoSvg></PhotoSvg>
+                <PhotoSvg />
               </div>
             </div>
           </div>
@@ -137,7 +125,7 @@ const ClubOwnerCards = ({ user, collapse }) => {
             <div className="flex flex-col justify-center">
               <div className="flex justify-between">
                 <span className="text-2xl font-extrabold mb-6">7 videos</span>
-                <PhotoSvg></PhotoSvg>
+                <VideoSvg />
               </div>
             </div>
           </div>

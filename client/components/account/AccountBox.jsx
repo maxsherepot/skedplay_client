@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { MainLayout } from "layouts";
 import { Avatar, Button, PageCard } from "UI";
@@ -37,10 +37,12 @@ const ClubMenu = ({ clubs, collapse, setCollapse }) => {
                 {(employees && employees.length) || 0}
               </span>
             </div>
-            <div className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
-              <AddSvg />
-              <span className="ml-2"> Add new card</span>
-            </div>
+            <Link href="/girls/add">
+              <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
+                <AddSvg />
+                <span className="ml-2"> Add new card</span>
+              </a>
+            </Link>
             <div className="text-red p-1 cursor-pointer">
               Archive Sex workers
             </div>

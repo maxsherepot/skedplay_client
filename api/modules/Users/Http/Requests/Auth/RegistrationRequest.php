@@ -16,7 +16,7 @@ class RegistrationRequest extends GraphQLFormRequest
     public function rules()
     {
         $root = [
-            'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],
+//            'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],
             // 'plan_id'      => 'bail|nullable|numeric|exists:plans,id',
             'account_type' => 'required|string|max:255|in:' . implode(',', User::REGISTER_TYPES),
             'first_name'   => 'required|string|max:255',

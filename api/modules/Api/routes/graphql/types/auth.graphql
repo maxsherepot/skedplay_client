@@ -35,7 +35,7 @@ input RegisterInput {
   lng: String
   password: String!
   password_confirmation: String!
-  recaptcha: String!
+  recaptcha: String
 }
 
 type RegisterPayload {
@@ -60,7 +60,7 @@ type RefrestTokenPayload {
 
 input SendVerificationInput {
   phone: String!
-  recaptcha: String!
+  recaptcha: String
 }
 
 input CheckVerificationInput {
@@ -93,7 +93,7 @@ extend type Mutation {
   refreshToken(input: RefreshTokenInput! @spread): RefrestTokenPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\AuthController@refreshToken")
 
-  sendVerificationCode(input: SendVerificationInput! @spread): StatusWithExpiriesPayload!
+  sendVerificationCode(input: SendVerificationInput @spread): StatusWithExpiriesPayload!
     @router(action: "Modules\\Users\\Http\\Controllers\\Auth\\VerificationController@send")
 
   checkVerificationCode(input: CheckVerificationInput! @spread): StatusPayload!

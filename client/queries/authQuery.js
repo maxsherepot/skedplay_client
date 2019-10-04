@@ -31,7 +31,7 @@ export const REGISTER_USER = gql`
     $email: String!
     $password: String!
     $password_confirmation: String!
-    $recaptcha: String!
+    $recaptcha: String
   ) {
     register(
       input: {
@@ -54,7 +54,7 @@ export const REGISTER_USER = gql`
 `;
 
 export const SEND_VERTIFICATION_CODE = gql`
-  mutation sendVerificationCode($phone: String!, $recaptcha: String!) {
+  mutation sendVerificationCode($phone: String!, $recaptcha: String) {
     sendVerificationCode(input: { phone: $phone, recaptcha: $recaptcha }) {
       expires_at
       status

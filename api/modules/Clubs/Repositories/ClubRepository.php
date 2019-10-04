@@ -35,6 +35,7 @@ class ClubRepository implements HasMediable
 
         $moderator = $this->createModerator($collection);
         $club->admin()->associate($moderator);
+        $club->save();
 
         $club->addMedia($collection->get('logotype'))
             ->toMediaCollection(Club::LOGO_COLLECTION);

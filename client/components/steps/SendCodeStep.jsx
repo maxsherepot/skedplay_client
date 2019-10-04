@@ -15,16 +15,16 @@ function SendCodeStep() {
         placeholder="+417"
       />
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <Field name="recaptcha" as={Captcha} />
-      </div>
+      </div> */}
     </>
   );
 }
 
 SendCodeStep.validationSchema = Yup.object().shape({
   phone: Yup.string().required(),
-  recaptcha: Yup.string().required()
+  // recaptcha: Yup.string().required()
 });
 
 export default SendCodeStep;

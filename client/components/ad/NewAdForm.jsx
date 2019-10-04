@@ -93,14 +93,22 @@ function NewAdForm({ onSubmit, children }) {
             </div>
           </div>
           <div className="border-b border-divider"></div>
-          {/* afaf */}
-          {/* <Button
-            type="submit"
-            className="text-xl min-w-full"
-            disabled={isSubmitting}
-          >
-            {isLastStep ? "Save ad" : "Next"}
-          </Button> */}
+          
+         <div className="p-8 hd:0">
+            <Button
+              className="text-xl px-16"
+              disabled={isSubmitting}
+            >
+              Back
+            </Button>
+            <Button
+              type="submit"
+              className="text-xl px-16"
+              disabled={isSubmitting}
+            >
+              {isLastStep ? "Save ad" : "Next"}
+            </Button>
+         </div>
         </form>
       )}
     </Formik>
