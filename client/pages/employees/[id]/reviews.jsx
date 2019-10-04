@@ -44,7 +44,9 @@ const Information = ({ loggedInUser }) => {
     return (
       <div className="bg-xs-grey rounded-lg p-3 mt-4">
         <div className="flex items-center">
-          <div className="text-lg text-red font-medium">{reply.user.name}</div>
+          <div className="text-lg text-red font-medium">
+            {reply.user.first_name} {reply.user.last_name}
+          </div>
           <div className="text-sm text-grey ml-2">{reply.created_at}</div>
         </div>
         <div className="text-lg">{reply.body}</div>
@@ -84,7 +86,7 @@ const Information = ({ loggedInUser }) => {
                       />
                       <div>
                         <div className="text-lg font-medium">
-                          {review.user.name}
+                          {review.user && review.user.name}
                         </div>
                         <div className="text-sm text-grey">
                           {review.created_at}
