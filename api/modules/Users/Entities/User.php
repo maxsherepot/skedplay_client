@@ -8,6 +8,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Modules\Billing\Traits\Billable;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\Review;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;

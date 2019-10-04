@@ -84,7 +84,7 @@ const UserDropdown = ({ user }) => {
             <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
               Messages / Chats
             </div>
-            {(user.is_employee || user.is_club_owner) && (
+            {user.is_employee &&  user.employee && user.employee.reviews.length && (
               <div className="text-red font-medium hover:text-pink cursor-pointer">
                 Reviews
               </div>

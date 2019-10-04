@@ -18,6 +18,9 @@ export default apolloClient =>
               id
               name
               phones
+              admin {
+                name
+              }
               employees {
                 id
               }
@@ -27,6 +30,12 @@ export default apolloClient =>
               type {
                 id
                 name
+              }
+            }
+            employee {
+              id
+              reviews {
+                id
               }
             }
           }

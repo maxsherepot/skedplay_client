@@ -25,10 +25,6 @@ class CreateReviewRepliesTable extends Migration
                 ->onDelete('SET null');
 
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('SET null');
 
             $table->timestamps();
         });

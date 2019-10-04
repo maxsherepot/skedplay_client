@@ -134,9 +134,16 @@ export const CREATE_CLUB = gql`
         name
       }
       description
+      logo {
+        url
+        thumb_url
+      }
       photos {
         url
         thumb_url
+      }
+      owner {
+        id
       }
       services {
         id

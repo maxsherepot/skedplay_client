@@ -13,11 +13,13 @@ type Club {
   lat: String
   lng: String
   owner: User @belongsTo
+  admin: User @belongsTo
   employees: [Employee] @belongsToMany
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
   events: [Event] @belongsToMany
   photos: [Media] @hasMany
+  logo: Media @hasOne
 }
 
 input ClubInput {
@@ -30,14 +32,18 @@ input ClubInput {
   address: String!
   index: String
   city: String
-  moderator_first_name: String
-  moderator_last_name: String
-  moderator_email: String
-  moderator_phone: String
+  moderator: ClubModeratorInput
   lat: String
   lng: String
   # File
   logotype: Upload!
+}
+
+input ClubModeratorInput {
+  first_name: String
+  last_name: String
+  email: String
+  phone: String
 }
 
 type ClubType {

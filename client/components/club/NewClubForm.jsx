@@ -14,7 +14,7 @@ import {
 } from "UI";
 import { getErrors } from "utils";
 
-function NewAdForm({ onSubmit }) {
+function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
 
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
@@ -44,13 +44,15 @@ function NewAdForm({ onSubmit }) {
         city: "",
         address: "",
         phone: "",
-        mail: "",
+        email: "",
         website: "",
         logotype: null,
-        moderator_first_name: "",
-        moderator_last_name: "",
-        moderator_email: "",
-        moderator_phone: ""
+        moderator: {
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+        }
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(),
@@ -64,18 +66,18 @@ function NewAdForm({ onSubmit }) {
           .email()
           .required(),
         website: Yup.string(),
-        moderator_first_name: Yup.string().required(),
-        moderator_last_name: Yup.string().required(),
-        moderator_email: Yup.string()
-          .email()
-          .required(),
-        moderator_phone: Yup.string().required()
+        moderator: Yup.object().shape( {
+          first_name: Yup.string().required(),
+          last_name: Yup.string().required(),
+          email: Yup.string().email().required(),
+          phone: Yup.string().required(),
+        })
       })}
       onSubmit={handleSubmits}
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col items-start mx-auto hd:w-7/12 py-10">
+          <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
             {error && (
               <FormGroup className="error text-center">
                 <span>{error}</span>
@@ -98,8 +100,8 @@ function NewAdForm({ onSubmit }) {
                 label="Type"
                 name="club_type_id"
                 options={[
-                  { label: "Sauna club", value: 0 },
-                  { label: "Night club", value: 1 }
+                  { label: "Sauna club", value: 1 },
+                  { label: "Night club", value: 2 }
                 ]}
                 placeholder=""
               />
@@ -186,7 +188,7 @@ function NewAdForm({ onSubmit }) {
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Name"
-                name="moderator_first_name"
+                name="moderator.first_name"
                 placeholder=""
               />
 
@@ -194,7 +196,7 @@ function NewAdForm({ onSubmit }) {
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Last name"
-                name="moderator_last_name"
+                name="moderator.last_name"
                 placeholder=""
               />
 
@@ -202,7 +204,7 @@ function NewAdForm({ onSubmit }) {
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Mail"
-                name="moderator_email"
+                name="moderator.email"
                 placeholder=""
               />
             </div>
@@ -212,7 +214,7 @@ function NewAdForm({ onSubmit }) {
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Club administration phone number"
-                name="moderator_phone"
+                name="moderator.phone"
                 placeholder="+4179"
               />
 
@@ -227,7 +229,7 @@ function NewAdForm({ onSubmit }) {
 
           <div className="border-b border-divider"></div>
 
-          <div className="flex flex-col items-start mx-auto hd:w-7/12 py-10">
+          <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
             <Button
               type="submit"
               className="text-xl px-12"
@@ -247,10 +249,8 @@ function NewAdForm({ onSubmit }) {
   );
 }
 
-NewAdForm.Step = ({ children }) => children;
-
-NewAdForm.propTypes = {
+NewClubForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export default NewAdForm;
+export default NewClubForm;

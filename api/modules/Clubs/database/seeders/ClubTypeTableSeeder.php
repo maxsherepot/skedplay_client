@@ -14,7 +14,7 @@ class ClubTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (['club/studio'] as $name) {
+        foreach (['club', 'studio'] as $name) {
             ClubType::create(compact('name'));
         }
     }

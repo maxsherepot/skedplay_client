@@ -20,9 +20,7 @@ const ProfileHeader = ({ user }) => (
   </div>
 );
 
-const ClubMenu = ({ clubs }) => {
-  const [collapse, setCollapse] = useState(0);
-
+const ClubMenu = ({ clubs, collapse, setCollapse }) => {
   return clubs.map(({ id, name, employees, events }, i) => {
     const isCollapsed = collapse === i;
     return (
@@ -61,7 +59,7 @@ const ClubMenu = ({ clubs }) => {
   });
 };
 
-const Sidebar = ({ user: { is_club_owner, is_employee, clubs } }) => (
+const Sidebar = ({ user: { is_club_owner, is_employee, clubs, employee }, collapse, setCollapse }) => (
   <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
     <div className="flex flex-col py-10 lg:pr-32">
       {is_employee && (
@@ -106,9 +104,9 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs } }) => (
             You have {clubs.length} clubs
           </div>
 
-          <ClubMenu clubs={clubs} />
+          <ClubMenu clubs={clubs} collapse={collapse} setCollapse={setCollapse} />
 
-          <Link href="/account/new-club">
+          <Link href="/clubs/add">
             <a className="ml-5 mt-5">
               <Button className="px-8" size="sm">
                 Add new club
@@ -134,11 +132,13 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs } }) => (
         </span>
       </div>
 
-      <div className="mt-4">
+      {employee && employee.reviews && employee.reviews.length && (
+        <div className="mt-4">
         <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
           Reviews
         </span>
       </div>
+      )}
 
       <div className="mt-4">
         <Link href="/account/settings">
@@ -151,13 +151,13 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs } }) => (
   </div>
 );
 
-const AccountBox = ({ user, children }) => {
+const AccountBox = ({ user, collapse, setCollapse, children }) => {
   return (
     <MainLayout user={user}>
       <ProfileHeader user={user} />
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
-          <Sidebar user={user} />
+          <Sidebar collapse={collapse} setCollapse={setCollapse} user={user} />
           <div className="lg:w-3/5 lg:ml-10 px-8 py-12">{children}</div>
         </div>
       </PageCard>

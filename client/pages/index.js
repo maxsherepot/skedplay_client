@@ -1,14 +1,11 @@
 import React from "react";
-import cookie from "cookie";
 import Link from "next/link";
-import { useApolloClient } from "@apollo/react-hooks";
 
 import { Header, Footer } from "UI";
 import { ArrowNextSvg } from "icons";
 import GirlsBox from "components/homepage/GirlsBox";
 import EventsBox from "components/homepage/EventsBox";
 
-import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 const Index = ({ loggedInUser }) => {

@@ -41,6 +41,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'index',
         'city',
         'user_id',
+        'moderator_id',
     ];
 
     protected $casts = [
@@ -70,6 +71,15 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'moderator_id');
+    }
+
 
     /**
      * @return MorphMany
@@ -104,5 +114,14 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
             ->where('collection_name', self::PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function logo(): HasOne
+    {
+        return $this->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::LOGO_COLLECTION);
     }
 }

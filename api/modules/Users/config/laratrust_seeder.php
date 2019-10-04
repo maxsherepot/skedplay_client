@@ -10,7 +10,7 @@ return [
         ],
         'moderator'  => [
             'users'     => 'c,r,u,d',
-            'clubs'     => 'r,u',
+            'clubs'     => 'c,r,u,d',
             'employees' => 'r,u',
             'events'    => 'r,u',
 

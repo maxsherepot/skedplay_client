@@ -15,7 +15,6 @@ function FileField({ className, labelClassName, label, name }) {
     if (validity.valid) {
       const [file] = files;
       setFilePreview(URL.createObjectURL(file));
-
       setFieldValue(name, file);
     }
   };

@@ -55,10 +55,15 @@ const GirlRow = ({ soon, active }) => (
   </div>
 );
 
-const ClubOwnerCards = ({ user }) => {
+const ClubOwnerCards = ({ user, collapse }) => {
+  let phone = null
   // Temp access to first club
-  const [club] = user.clubs;
-  const [phone] = JSON.parse(club.phones);
+  const club = user.clubs[collapse];
+
+  if (club.phones) {
+    const [number] = JSON.parse(club.phones);
+    phone = number
+  }
 
   return (
     <>
@@ -69,7 +74,7 @@ const ClubOwnerCards = ({ user }) => {
         </div>
       </div>
       <div className="flex items-center my-3">
-        <div className="mr-4">{phone}</div>
+        {phone && (<div className="mr-4">{phone}</div>)}
         <div>Admin: D.Busch</div>
       </div>
       <div className="relative flex flex-col w-2/3 border border-divider rounded-lg p-5">
@@ -111,7 +116,7 @@ const ClubOwnerCards = ({ user }) => {
             <div className="flex flex-col justify-between h-full">
               <div className="flex justify-between">
                 <span className="text-2xl font-extrabold mb-6">1 Event</span>
-                <PhotoSvg></PhotoSvg>
+                <PhotoSvg />
               </div>
               <Button className="w-2/3" size="sm">
                 Add new

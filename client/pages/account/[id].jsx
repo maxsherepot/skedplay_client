@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 import { AccountBox } from "components/account";
 import { PrivateCards, ClubOwnerCards } from "components/account";
 
-const cardRow = user => {
+const cardRow = (user, collapse) => {
   if (user.is_employee) {
-    return <PrivateCards user={user} />;
+    return <PrivateCards collapse={collapse} user={user} />;
   }
 
   if (user.is_club_owner) {
-    return <ClubOwnerCards user={user} />;
+    return <ClubOwnerCards collapse={collapse} user={user} />;
   }
 };
 
 const AccountShow = ({ loggedInUser }) => {
-  return <AccountBox user={loggedInUser}>{cardRow(loggedInUser)}</AccountBox>;
+  const [collapse, setCollapse] = useState(0);
+
+  return <AccountBox user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>{cardRow(loggedInUser, collapse)}</AccountBox>;
 };
 
 AccountShow.getInitialProps = async context => {

@@ -9,11 +9,16 @@ import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
 
 function ClubCard({ id, name, address, favorited, phones, photos }) {
+  let phone = null
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
 
   const [thumb] = photos;
-  const [phone] = JSON.parse(phones);
+  
+  if (phone) {
+    const [number] = JSON.parse(phones);
+    phone = number
+  }
 
   const isMap = eventMapId === id;
 
@@ -64,7 +69,7 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
             <p className="text-grey">30 km from me</p>
 
             <div className="flex">
-              <div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
+              {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
                 <span
                   className={cx("block whitespace-no-wrap overflow-hidden", {
                     "w-8": !showNumber
@@ -80,7 +85,7 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
                     Show number
                   </span>
                 )}
-              </div>
+              </div>)}
             </div>
           </div>
           <div className="flex flex-col justify-end">

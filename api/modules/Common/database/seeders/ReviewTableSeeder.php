@@ -5,6 +5,8 @@ namespace Modules\Common\Database\Seeders;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Modules\Common\Entities\Review;
+use Modules\Users\Entities\User;
+
 
 class ReviewTableSeeder extends Seeder
 {
@@ -34,8 +36,8 @@ class ReviewTableSeeder extends Seeder
                 'title'           => $this->faker->title,
                 'body'            => $this->faker->text(300),
                 'reviewable_type' => 'employee',
-                'reviewable_id'   => random_int(1, 15),
-                'user_id'         => random_int(1, 15),
+                'reviewable_id'   => random_int(1, 3),
+                'user_id'         => factory(User::class)->create()->id,
             ]);
 
             $this->createReplies($review);

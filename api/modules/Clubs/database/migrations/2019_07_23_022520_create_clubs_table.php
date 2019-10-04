@@ -17,6 +17,7 @@ class CreateClubsTable extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('moderator_id')->nullable();
 
             $table->string('name');
             $table->string('slug')->nullable();
@@ -38,6 +39,10 @@ class CreateClubsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('moderator_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
 
