@@ -37,7 +37,6 @@ class BossCommand extends Command
      */
     public function handle()
     {
-
         $this->info('call migrate:fresh');
         $this->call('migrate:fresh');
 

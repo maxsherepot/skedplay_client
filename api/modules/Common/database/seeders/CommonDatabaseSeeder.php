@@ -4,6 +4,7 @@ namespace Modules\Common\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CommonDatabaseSeeder extends Seeder
 {
@@ -16,8 +17,14 @@ class CommonDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $this->call(PriceTypeTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
         $this->call(ReviewTableSeeder::class);
+        $this->call(ClubScheduleTableSeeder::class);
+        $this->call(EmployeeScheduleTableSeeder::class);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

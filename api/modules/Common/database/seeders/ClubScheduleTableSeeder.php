@@ -5,7 +5,7 @@ namespace Modules\Common\Database\Seeders;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Common\Entities\EmployeeScheduleWork;
+use Modules\Common\Entities\ClubScheduleWork;
 
 class ClubScheduleTableSeeder extends Seeder
 {
@@ -33,7 +33,7 @@ class ClubScheduleTableSeeder extends Seeder
         ];
 
         foreach ($week as $key => $day) {
-            (new EmployeeScheduleWork())->create([
+            (new ClubScheduleWork())->create([
                 'day'       => $day,
                 'start'     => "10:00",
                 'end'       => "19:00",
