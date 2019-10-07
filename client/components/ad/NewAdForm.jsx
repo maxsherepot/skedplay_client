@@ -13,6 +13,11 @@ function NewAdForm({ onSubmit, children }) {
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
+  const prev = () => {
+    let currentStep = step <= 0 ? 0: step - 1
+    setStep(currentStep);
+  };
+
   const next = () => {
     setStep(Math.min(step + 1, children.length - 1));
   };
@@ -73,8 +78,7 @@ function NewAdForm({ onSubmit, children }) {
   return (
     <Formik
       initialValues={{
-        account_type: "client",
-        service_for: []
+        prices: {},
       }}
       validate={validate}
       onSubmit={handleSubmits}
@@ -82,7 +86,7 @@ function NewAdForm({ onSubmit, children }) {
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-start mx-auto hd:w-7/12 my-5">
-            <div className="p-8 hd:p-0">
+            <div className="w-full p-8 hd:p-0">
               {activeStep}
 
               {status && (
@@ -96,7 +100,10 @@ function NewAdForm({ onSubmit, children }) {
           
          <div className="p-8 hd:0">
             <Button
-              className="text-xl px-16"
+              level={step <= 0 ? "grey": "primary"}
+              className="text-xl px-16 mr-4"
+              onClick={() => prev()}
+              type="button"
               disabled={isSubmitting}
             >
               Back

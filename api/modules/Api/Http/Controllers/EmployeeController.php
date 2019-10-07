@@ -5,6 +5,7 @@ namespace Modules\Api\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Common\SyncPricesRequest;
 use Modules\Api\Http\Requests\Common\SyncServicesRequest;
+use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
@@ -51,6 +52,21 @@ class EmployeeController extends Controller
         $this->events = $events;
         $this->services = $services;
         $this->prices = $prices;
+    }
+
+    /**
+     * @param EmployeeUpdateRequest $request
+     * @param Employee $employee
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function create(EmployeeCreateRequest $request)
+    {
+//      $this->authorize('create');
+
+      $this->employees->create(collect($request->all()));
+
+      return $this->success();
     }
 
     /**

@@ -13,6 +13,15 @@ class EmployeePolicy
 
     /**
      * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
+    {
+      return $user->hasPermission(Permission::CREATE_EMPLOYEES);
+    }
+
+    /**
+     * @param User $user
      * @param Employee $employee
      * @return bool
      */

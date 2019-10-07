@@ -22,7 +22,22 @@ type Employee {
   reviews: [Review] @hasMany
 }
 
-input EmployeeInput {
+input PriceInput {
+  id: ID!
+}
+
+input EmployeeCreateInput {
+  name: String
+  birthday: String
+  service_for: String
+  gender: String
+  type: String
+  nationality: String
+  description: String
+  prices: [PriceInput]
+}
+
+input EmployeeUpdateInput {
   first_name: String
   last_name: String
   gender: Int
@@ -52,7 +67,10 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-  updateEmployee(employee: ID!, input: EmployeeInput @spread): StatusPayload
+  createEmployee(input: EmployeeCreateInput @spread): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@create")
+
+  updateEmployee(employee: ID!, input: EmployeeUpdateInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@update")
 
   createEmployeeEvent(employee: ID!, input: EventInput @spread): Event

@@ -38,7 +38,7 @@ function TextField({
         )}
       </Field>
 
-      <div className="absolute right-0 bottom-0 pb-3-5  mr-8">{after}</div>
+      <div className="absolute right-0 bottom-0 pb-3-5  mr-6">{after}</div>
     </FormGroup>
   );
 }

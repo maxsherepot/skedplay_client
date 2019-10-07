@@ -1,38 +1,38 @@
-import { useState } from "react";
-import { useMutation, useApolloClient } from "@apollo/react-hooks";
-import redirect from "lib/redirect";
-import cookie from "cookie";
+import { useMutation } from "@apollo/react-hooks";
 
-// import {
-//   REGISTER_USER,
-//   SEND_VERTIFICATION_CODE,
-//   CHECK_VERTIFICATION_CODE
-// } from "queries";
+import { CREATE_EMPLOYEE_AD } from "queries";
 import { getErrors } from "utils";
 import { NewAdForm } from "components/ad";
-import { AdInformationStep } from "components/steps";
+import { AdInformationStep, AdServicesAndPricesStep } from "components/steps";
 
 const NewAdBox = () => {
-  //   const [sendCode] = useMutation(SEND_VERTIFICATION_CODE);
-  //   const [checkCode] = useMutation(CHECK_VERTIFICATION_CODE);
-  //   const [register] = useMutation(REGISTER_USER);
+    const [createEmployee] = useMutation(CREATE_EMPLOYEE_AD);
 
-  const onSubmitInformation = async values => {
+  const onSubmitInfo = async values => {
     try {
-      console.log(111);
+      console.log(values)
+      const {
+        data: {
+          createEmployee: { status, message }
+        }
+      } = await createEmployee({
+        variables: {
+          input: values
+        }
+      })
 
-      //   return {
-      //     status,
-      //     message
-      //   };
+        return {
+          status,
+          message
+        };
     } catch (e) {
       const errors = getErrors(e);
 
-      //   return {
-      //     status: false,
-      //     message: "Server error",
-      //     errors
-      //   };
+        return {
+          status: false,
+          message: "Server error",
+          errors
+        };
     }
   };
 
@@ -40,9 +40,16 @@ const NewAdBox = () => {
     <NewAdForm onSubmit={() => console.log("final step")}>
       <NewAdForm.Step
         validationSchema={AdInformationStep.validationSchema}
-        onStepSubmit={onSubmitInformation}
+        onStepSubmit={onSubmitInfo}
       >
         <AdInformationStep />
+      </NewAdForm.Step>
+      
+      <NewAdForm.Step
+        validationSchema={AdServicesAndPricesStep.validationSchema}
+        onStepSubmit={onSubmitInfo}
+      >
+        <AdServicesAndPricesStep />
       </NewAdForm.Step>
     </NewAdForm>
   );

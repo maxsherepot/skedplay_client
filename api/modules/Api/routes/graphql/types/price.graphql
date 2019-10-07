@@ -4,6 +4,12 @@ type Price {
     pivot: PricePivot!
 }
 
+type PriceType {
+  id: ID!
+  name: String!
+  display_name: String!
+}
+
 type PricePivot {
     price: String
 }
@@ -11,4 +17,8 @@ type PricePivot {
 input PriceInput {
     id: String
     price: String
+}
+
+extend type Query {
+  price_types: [PriceType!]! @all
 }

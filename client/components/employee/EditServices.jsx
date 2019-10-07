@@ -63,7 +63,7 @@ const EditServices = ({ initialValues: { prices, services }, children }) => {
                     name={`prices.${price.id}`}
                     value={price.pivot.price}
                     after={<span>$</span>}
-                  ></TextField>
+                  />
                 ))}
             </div>
 

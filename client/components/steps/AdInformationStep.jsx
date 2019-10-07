@@ -50,7 +50,7 @@ const AdInformationStep = () => {
       ]
     }
   ];
-
+ 
   return (
     <>
       <div className="text-4xl font-extrabold mb-5">Information</div>
@@ -95,22 +95,22 @@ const AdInformationStep = () => {
 
         <div className="flex flex-wrap -mx-4">
           <TextField
-            className="w-full sm:w-1/2 w-1/3 px-2"
+            className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-1/3"
             label="Gender"
             name="gender"
-            placeholder="+417"
+            placeholder=""
           />
 
           <TextField
-            className="w-full sm:w-1/2 w-1/3 px-2"
+            className="w-full sm:w-1/2  lg:w-1/3 px-2"
             inputClassName="w-1/3"
             label="Gender type"
             name="gender_type"
           />
 
           <TextField
-            className="w-full sm:w-1/2 w-1/3 px-2"
+            className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-1/3"
             label="Nationality"
             name="nationality"
@@ -206,8 +206,8 @@ const AdInformationStep = () => {
 };
 
 AdInformationStep.validationSchema = Yup.object().shape({
-  phone: Yup.string().required(),
-  recaptcha: Yup.string().required()
+  // phone: Yup.string().required(),
+  // recaptcha: Yup.string().required()
 });
 
 export default AdInformationStep;

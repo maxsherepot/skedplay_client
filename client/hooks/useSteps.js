@@ -19,7 +19,7 @@ function useSteps(name) {
   const { data: { steps } = {}, client } = useQuery(STEPS);
 
   const setStep = step => {
-    if (step) {
+    if (step !== undefined && step !== null) {
       client.writeData({
         data: {
           steps: {

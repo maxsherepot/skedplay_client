@@ -56,8 +56,11 @@
   }
 
   &-grey {
-    @apply bg-transparent text-white text-xs font-normal px-4;
+    @apply bg-transparent text-light-grey font-normal;
     &::before {
+      @apply bg-xs-grey border-xs-grey;
+    }
+    &::after {
       @apply bg-xs-grey border-xs-grey;
     }
   }
