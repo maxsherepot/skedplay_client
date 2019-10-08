@@ -4,6 +4,7 @@ namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Common\Entities\Review;
@@ -39,9 +40,24 @@ class Employee extends Model implements HasMedia, HasLocation
         'type',
         'race_type_id',
         'description',
+        'languages',
         'text',
         'isVip'
     ];
+
+    public function getLanguagesAttribute($value)
+    {
+        if (empty($value)) {
+            return [];
+        }
+
+        return json_decode($value, TRUE);
+    }
+
+    public function setLanguagesAttribute($value)
+    {
+        $this->attributes['languages'] = json_encode($value);
+    }
 
     /**
      * @return string
@@ -98,6 +114,14 @@ class Employee extends Model implements HasMedia, HasLocation
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
             ->where('collection_name', self::PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function parameters(): BelongsToMany
+    {
+        return $this->belongsToMany(Parameter::class, 'employee_parameters')->withPivot('value');
     }
 
     public function registerMediaCollections()

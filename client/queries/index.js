@@ -10,3 +10,4 @@ export * from "queries/userQuery";
 export * from "queries/reviewQuery";
 export * from "queries/priceQuery";
 export * from "queries/createEmployeeQuery";
+export * from "queries/parameterQuery";

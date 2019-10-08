@@ -1,0 +1,15 @@
+type Parameter {
+    id: ID!
+    name: String!
+    display_name: String!
+    options: [ParameterOption!]!
+}
+
+type ParameterOption {
+    label: String!
+    value: String!
+}
+
+extend type Query {
+    parameters: [Parameter!]! @all
+}

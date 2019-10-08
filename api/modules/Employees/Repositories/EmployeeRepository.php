@@ -9,30 +9,42 @@ use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
+use Modules\Employees\Entities\Parameter;
 
 class EmployeeRepository implements HasMediable
 {
     use Mediable;
 
-  /**
-   * @param Collection $data
-   * @return mixed
-   */
-  public function create(Collection $data)
-  {
-      $name = explode(' ', $data->get('name'));
+    /**
+     * @param Collection $data
+     * @return mixed
+     */
+    public function create(Collection $data)
+    {
+        $name = explode(' ', $data->get('name'));
 
-      if (isset($name[0])) {
-        $data->put('first_name', $name[0]);
-      }
-      if (isset($name[1])) {
-        $data->put('last_name', $name[1]);
-      }
+        if (isset($name[0])) {
+            $data->put('first_name', $name[0]);
+        }
+        if (isset($name[1])) {
+            $data->put('last_name', $name[1]);
+        }
 
-      $employee = $this->store(auth('api')->user(), $data);
+        /** @var Employee $employee */
+        $employee = $this->store(auth('api')->user(), $data);
+        $mapped = [];
+        $parameters = $data->get('parameters');
 
-      Log::info('test', $employee->toArray());
-  }
+        foreach ($parameters as $key => $value) {
+            $mapped[$key] = [
+                'value' => $value
+            ];
+        }
+
+        $employee->parameters()->sync($mapped);
+
+        return $employee->toArray();
+    }
 
     /**
      * @param EmployeeOwnerInterface $owner

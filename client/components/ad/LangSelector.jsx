@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { SelectField } from "UI";
+import { Field, FieldArray, useFormikContext } from "formik";
 import { RatingSvg, TrashSvg, AddSvg } from "icons";
 
 const LangSelector = () => {
@@ -12,6 +13,8 @@ const LangSelector = () => {
       ratings: 3
     }
   ]);
+
+  const { values } = useFormikContext();
 
   const languages = [
     {
@@ -59,30 +62,58 @@ const LangSelector = () => {
     setlangs([...langs]);
   };
 
+  console.log(langs);
+
   return (
     <div className="flex flex-wrap items-center -mx-4">
-      <label className="text-grey ml-2">Language</label>
+      {/* <label className="text-grey ml-2">Language</label> */}
+      <FieldArray
+        name="language"
+        render={arrayHelpers => (
+          <div className="w-full sm:w-1/3 px-2">
+            {values.language && values.language.length > 0 ? (
+              values.language.map((friend, index) => (
+                <div className="flex flex-wrap items-center w-full" key={index}>
+                  <SelectField
+                    className="w-full sm:w-1/3 px-2"
+                    label=""
+                    placeholder=""
+                    name={`language.${index}`}
+                    options={languages}
+                  />
+                  {/* <button
+                    type="button"
+                    onClick={() => arrayHelpers.remove(index)}
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => arrayHelpers.insert(index, "")}
+                  >
+                    +
+                  </button> */}
+                </div>
+              ))
+            ) : (
+              <button type="button" onClick={() => arrayHelpers.push("")}>
+                {/* show this when user has removed all language from the list */}
+                Add a friend
+              </button>
+            )}
+            <div>
+              <button type="submit">Submit</button>
+            </div>
+          </div>
+        )}
+      />
 
-      {langs.map((lang, index) => (
-        <div className="flex flex-wrap items-center w-full" key={index}>
-          <SelectField
-            className="w-full sm:w-1/3 px-2"
-            label=""
-            placeholder=""
-            name="language"
-            options={languages}
-          ></SelectField>
-          <RatingField ratings={lang.ratings} />
-          <FieldControl index={index} />
-        </div>
-      ))}
-
-      <div
+      {/* <div
         className="w-full flex items-center sm:w-1/3 px-2 cursor-pointer"
         onClick={() => setlangs([...langs, { ratings: 0 }])}
       >
         <AddSvg /> <div className="ml-2">Add language</div>
-      </div>
+      </div> */}
     </div>
   );
 };

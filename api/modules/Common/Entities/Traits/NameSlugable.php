@@ -6,11 +6,19 @@ use Illuminate\Support\Str;
 
 trait NameSlugable
 {
-
+    private $separator = '_';
 
     public function initializeNameSlugable()
     {
         $this->fillable[] = 'name';
+    }
+
+    /**
+     * @param $separator
+     */
+    public function setSeparator($separator)
+    {
+        $this->separator = $separator;
     }
 
     /**
@@ -21,6 +29,6 @@ trait NameSlugable
      */
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = Str::slug($value);
+        $this->attributes['name'] = Str::slug($value, $this->separator);
     }
 }

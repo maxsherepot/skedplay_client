@@ -5,6 +5,9 @@ export const CREATE_EMPLOYEE_AD = gql`
     createEmployee(input: $input) {
       status
       message
+      employee {
+        id
+      }
     }
   }
 `;

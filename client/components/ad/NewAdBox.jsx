@@ -6,33 +6,37 @@ import { NewAdForm } from "components/ad";
 import { AdInformationStep, AdServicesAndPricesStep } from "components/steps";
 
 const NewAdBox = () => {
-    const [createEmployee] = useMutation(CREATE_EMPLOYEE_AD);
+  const [createEmployee] = useMutation(CREATE_EMPLOYEE_AD);
 
   const onSubmitInfo = async values => {
     try {
-      console.log(values)
+      console.log(values);
       const {
         data: {
           createEmployee: { status, message }
         }
       } = await createEmployee({
         variables: {
-          input: values
+          input: {
+            ...values,
+            prices: JSON.stringify(values.prices),
+            parameters: JSON.stringify(values.parameters)
+          }
         }
-      })
+      });
 
-        return {
-          status,
-          message
-        };
+      return {
+        status,
+        message
+      };
     } catch (e) {
       const errors = getErrors(e);
 
-        return {
-          status: false,
-          message: "Server error",
-          errors
-        };
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
     }
   };
 
@@ -44,7 +48,7 @@ const NewAdBox = () => {
       >
         <AdInformationStep />
       </NewAdForm.Step>
-      
+
       <NewAdForm.Step
         validationSchema={AdServicesAndPricesStep.validationSchema}
         onStepSubmit={onSubmitInfo}

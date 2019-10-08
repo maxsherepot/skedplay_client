@@ -1,56 +1,15 @@
 import React from "react";
 import * as Yup from "yup";
-import { LangSelector } from "components/ad";
+import { GET_EMPLOYEE_PARAMETERS } from "queries";
+import { useQuery } from "@apollo/react-hooks";
+// import { LangSelector } from "components/ad";
 import { TextField, SelectField, TextAreaField, GroupCheckbox } from "UI";
 
 const AdInformationStep = () => {
-  const characteristics = [
-    {
-      label: "Hair",
-      name: "hair",
-      options: [
-        {
-          label: "Black",
-          value: "black"
-        },
-        {
-          label: "White",
-          value: "white"
-        }
-      ]
-    },
-    {
-      label: "Eye color",
-      name: "eye_color",
-      options: []
-    },
-    {
-      label: "Growth",
-      name: "growth",
-      options: []
-    },
-    {
-      label: "Weight",
-      name: "weight",
-      options: []
-    },
-    {
-      label: "Breast size",
-      name: "breast_size",
-      options: []
-    },
-    {
-      label: "Body",
-      name: "body",
-      options: [
-        {
-          label: "Fitness",
-          value: "fitness"
-        }
-      ]
-    }
-  ];
- 
+  const { data: { parameters } = {}, loading } = useQuery(
+    GET_EMPLOYEE_PARAMETERS
+  );
+
   return (
     <>
       <div className="text-4xl font-extrabold mb-5">Information</div>
@@ -72,7 +31,7 @@ const AdInformationStep = () => {
             placeholder="21 jule 1989"
           />
 
-          <GroupCheckbox
+          {/* <GroupCheckbox
             className="w-full sm:w-1/3 px-2"
             label="Service for"
             name="service_for"
@@ -90,37 +49,61 @@ const AdInformationStep = () => {
                 value: "couple"
               }
             ]}
-          />
+          /> */}
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          <TextField
+          <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
-            inputClassName="w-1/3"
+            inputClassName="w-full md:w-1/3"
             label="Gender"
             name="gender"
+            options={[
+              {
+                label: "Male",
+                value: 1
+              },
+              {
+                label: "Female",
+                value: 2
+              }
+            ]}
             placeholder=""
           />
 
-          <TextField
-            className="w-full sm:w-1/2  lg:w-1/3 px-2"
-            inputClassName="w-1/3"
+          <SelectField
+            className="w-full sm:w-1/2 lg:w-1/3 px-2"
+            inputClassName="w-full md:w-1/3"
             label="Gender type"
-            name="gender_type"
+            name="race_type_id"
+            options={[
+              {
+                label: "TS",
+                value: 1
+              }
+            ]}
+            placeholder=""
           />
 
-          <TextField
+          <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
-            inputClassName="w-1/3"
+            inputClassName="w-full md:w-1/3"
             label="Nationality"
             name="nationality"
+            options={[
+              {
+                label: "Russian",
+                value: 1
+              }
+            ]}
+            placeholder=""
           />
 
           <TextAreaField
             className="w-full px-2"
             rows="5"
             label="About your self"
-            name="descriptions"
+            name="description"
           />
         </div>
       </div>
@@ -164,14 +147,14 @@ const AdInformationStep = () => {
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label="Mail"
-            name="mail"
+            name="email"
           />
 
           <TextField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label="Webpage"
-            name="webpage"
+            name="website"
           />
         </div>
       </div>
@@ -185,29 +168,41 @@ const AdInformationStep = () => {
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
-          {characteristics &&
-            characteristics.map(({ label, name, options }, i) => (
+          {parameters &&
+            parameters.map(({ id, display_name, options }) => (
               <SelectField
-                key={i}
+                key={id}
                 className="w-full sm:w-1/3 md:w-1/6 px-2"
                 inputClassName="w-full md:w-1/3"
-                label={label}
-                name={name}
+                label={display_name}
+                name={`parameters.${id}`}
                 value=""
                 options={options}
                 placeholder=""
               />
             ))}
         </div>
-        <LangSelector />
+        {/* Todo: */}
+        {/* <LangSelector /> */}
       </div>
     </>
   );
 };
 
 AdInformationStep.validationSchema = Yup.object().shape({
-  // phone: Yup.string().required(),
-  // recaptcha: Yup.string().required()
+  name: Yup.string().required(),
+  birthday: Yup.string().required(),
+  gender: Yup.string().required(),
+  race_type_id: Yup.string().required(),
+  nationality: Yup.string().required(),
+  description: Yup.string().required(),
+  index: Yup.string().required(),
+  city: Yup.string().required(),
+  address: Yup.string().required(),
+  phone: Yup.string().required(),
+  email: Yup.string().required(),
+  website: Yup.string().required()
+  // languages: Yup.string().required()
 });
 
 export default AdInformationStep;

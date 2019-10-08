@@ -22,19 +22,29 @@ type Employee {
   reviews: [Review] @hasMany
 }
 
-input PriceInput {
-  id: ID!
+type EmployeeCreatePayload implements Status {
+  status: Boolean!
+  message: String
+  employee: Employee
 }
 
 input EmployeeCreateInput {
   name: String
   birthday: String
-  service_for: String
+#  service_for: String // Todo: Add serice for
+#  languages: String // Todo: Add languages
   gender: String
-  type: String
+  race_type_id: String
   nationality: String
   description: String
-  prices: [PriceInput]
+  index: String
+  city: String
+  address: String
+  phone: String
+  email: String
+  website: String
+  prices: JSON
+  parameters: JSON
 }
 
 input EmployeeUpdateInput {
@@ -67,7 +77,7 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-  createEmployee(input: EmployeeCreateInput @spread): StatusPayload
+  createEmployee(input: EmployeeCreateInput @spread): EmployeeCreatePayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@create")
 
   updateEmployee(employee: ID!, input: EmployeeUpdateInput @spread): StatusPayload

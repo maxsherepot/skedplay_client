@@ -14,7 +14,7 @@ function NewAdForm({ onSubmit, children }) {
   const isLastStep = step === React.Children.count(children) - 1;
 
   const prev = () => {
-    let currentStep = step <= 0 ? 0: step - 1
+    let currentStep = step <= 0 ? 0 : step - 1;
     setStep(currentStep);
   };
 
@@ -78,7 +78,20 @@ function NewAdForm({ onSubmit, children }) {
   return (
     <Formik
       initialValues={{
+        name: "",
+        birthday: "",
+        gender: "",
+        race_type_id: "",
+        nationality: "",
+        description: "",
+        index: "",
+        city: "",
+        address: "",
+        phone: "",
+        email: "",
+        website: "",
         prices: {},
+        parameters: {}
       }}
       validate={validate}
       onSubmit={handleSubmits}
@@ -97,25 +110,27 @@ function NewAdForm({ onSubmit, children }) {
             </div>
           </div>
           <div className="border-b border-divider"></div>
-          
-         <div className="p-8 hd:0">
-            <Button
-              level={step <= 0 ? "grey": "primary"}
-              className="text-xl px-16 mr-4"
-              onClick={() => prev()}
-              type="button"
-              disabled={isSubmitting}
-            >
-              Back
-            </Button>
-            <Button
-              type="submit"
-              className="text-xl px-16"
-              disabled={isSubmitting}
-            >
-              {isLastStep ? "Save ad" : "Next"}
-            </Button>
-         </div>
+
+          <div className="flex flex-col items-start mx-auto hd:w-7/12">
+            <div className="w-full p-8 hd:px-0">
+              <Button
+                level={step <= 0 ? "grey" : "primary"}
+                className="text-xl px-16 mr-4"
+                onClick={() => prev()}
+                type="button"
+                disabled={isSubmitting}
+              >
+                Back
+              </Button>
+              <Button
+                type="submit"
+                className="text-xl px-16"
+                disabled={isSubmitting}
+              >
+                {isLastStep ? "Save ad" : "Next"}
+              </Button>
+            </div>
+          </div>
         </form>
       )}
     </Formik>
