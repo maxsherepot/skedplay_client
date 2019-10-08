@@ -3,9 +3,15 @@ import gql from "graphql-tag";
 export const CREATE_EMPLOYEE_AD = gql`
   mutation createEmployee($input: EmployeeCreateInput!) {
     createEmployee(input: $input) {
-      employee {
-        id
-      }
+      id
+    }
+  }
+`;
+
+export const SYNC_EMPLOYEE_PRICES = gql`
+  mutation syncEmployeePrices($employee: ID!, $prices: JSON) {
+    syncEmployeePrices(employee: $employee, prices: $prices) {
+      id
     }
   }
 `;

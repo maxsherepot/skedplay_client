@@ -3,7 +3,6 @@
 namespace Modules\Employees\Repositories;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Traits\Mediable;

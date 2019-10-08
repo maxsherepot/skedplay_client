@@ -22,10 +22,6 @@ type Employee {
   reviews: [Review] @hasMany
 }
 
-type EmployeeCreatePayload {
-  employee: Employee
-}
-
 input EmployeeCreateInput {
   name: String
   birthday: String
@@ -75,7 +71,7 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-  createEmployee(input: EmployeeCreateInput @spread): EmployeeCreatePayload
+  createEmployee(input: EmployeeCreateInput @spread): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@create")
 
   updateEmployee(employee: ID!, input: EmployeeUpdateInput @spread): StatusPayload
@@ -93,6 +89,6 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   syncEmployeeServices(employee: ID!, services: [ServiceInput!]): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncServices")
 
-  syncEmployeePrices(employee: ID!, prices: [PriceInput!]): Employee
+  syncEmployeePrices(employee: ID!, prices: JSON): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncPrices")
 }
