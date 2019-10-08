@@ -22,9 +22,7 @@ type Employee {
   reviews: [Review] @hasMany
 }
 
-type EmployeeCreatePayload implements Status {
-  status: Boolean!
-  message: String
+type EmployeeCreatePayload {
   employee: Employee
 }
 

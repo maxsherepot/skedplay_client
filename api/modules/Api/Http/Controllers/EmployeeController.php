@@ -63,9 +63,7 @@ class EmployeeController extends Controller
     public function create(EmployeeCreateRequest $request)
     {
 //      $this->authorize('create');
-        $employee = $this->employees->create(collect($request->all()));
-
-        return array_merge($this->success(), $employee);
+        return $this->employees->create(collect($request->all()));
     }
 
     /**

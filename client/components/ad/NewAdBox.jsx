@@ -10,10 +10,9 @@ const NewAdBox = () => {
 
   const onSubmitInfo = async values => {
     try {
-      console.log(values);
       const {
         data: {
-          createEmployee: { status, message }
+          createEmployee: { employee }
         }
       } = await createEmployee({
         variables: {
@@ -25,9 +24,11 @@ const NewAdBox = () => {
         }
       });
 
+      console.log(employee)
+
       return {
-        status,
-        message
+        status: !!employee,
+        message: ""
       };
     } catch (e) {
       const errors = getErrors(e);

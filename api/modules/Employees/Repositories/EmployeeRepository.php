@@ -9,7 +9,6 @@ use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
-use Modules\Employees\Entities\Parameter;
 
 class EmployeeRepository implements HasMediable
 {
