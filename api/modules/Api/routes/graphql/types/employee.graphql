@@ -86,9 +86,9 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   deleteEmployeeFile(employee: ID!, file_id: Int!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@deleteFile")
 
-  syncEmployeeServices(employee: ID!, services: [ServiceInput!]): Employee
+  syncEmployeeServices(employee: ID!, services: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncServices")
 
-  syncEmployeePrices(employee: ID!, prices: JSON): Employee
+  syncEmployeePrices(employee: ID!, prices: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncPrices")
 }

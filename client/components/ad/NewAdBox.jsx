@@ -48,7 +48,7 @@ const NewAdBox = () => {
     try {
       const {
         data: {
-          createEmployee: { status, message }
+          syncEmployeePrices: { status, message }
         }
       } = await syncEmployeePrices({
         variables: {
@@ -56,6 +56,8 @@ const NewAdBox = () => {
           prices: JSON.stringify(values.prices)
         }
       });
+
+      console.log(status, message)
 
       return {
         status,

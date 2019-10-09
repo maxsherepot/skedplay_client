@@ -107,17 +107,19 @@ class EmployeeController extends Controller
         return $this->services->sync($employee, collect($request->all()));
     }
 
-    /**
-     * @param Employee $employee
-     * @param SyncPricesRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
+  /**
+   * @param Employee $employee
+   * @param SyncPricesRequest $request
+   * @return array
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   */
     public function syncPrices(Employee $employee, SyncPricesRequest $request)
     {
         $this->authorize('create', PriceType::class);
 
-        return $this->prices->sync($employee, collect($request->all()));
+        $this->prices->sync($employee, collect($request->all()));
+
+        return $this->success();
     }
 
     /**

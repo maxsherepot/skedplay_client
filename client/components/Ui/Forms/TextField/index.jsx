@@ -12,6 +12,7 @@ function TextField({
   label,
   name,
   width,
+  before,
   after,
   ...rest
 }) {
@@ -27,13 +28,19 @@ function TextField({
         {error ? error : label}
       </label>
 
+      <div className="absolute left-0 bottom-0 pb-3-5  ml-6">{before}</div>
+
       <Field name={name}>
         {({ field }) => (
           <input
             {...rest}
             id={name}
-            className={cx("form-control", inputClassName)}
+            className={cx("form-control", inputClassName, {
+              "pl-10": before
+            })}
             {...field}
+            value={field.value || ""}
+            style={before ? { paddingLeft: "2.5rem" } : null}
           />
         )}
       </Field>

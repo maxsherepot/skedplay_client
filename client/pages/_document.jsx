@@ -16,7 +16,7 @@ class MyDocument extends Document {
           <NextScript />
           <Script>
             {() => {
-              (function(d, t) {
+              (function (d, t) {
                 var bh = d.createElement(t),
                   s = d.getElementsByTagName(t)[0];
                 bh.type = "text/javascript";

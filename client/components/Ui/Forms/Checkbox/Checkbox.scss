@@ -1,18 +1,22 @@
 input[type="checkbox"] {
-  // display: none;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
   position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+  white-space: nowrap;
+  width: 1px;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+div {
   @apply relative flex items-center text-black cursor-pointer text-sm;
   transition: color 250ms cubic-bezier(0.4, 0, 0.23, 1);
 }
 
-input[type="checkbox"] + label > span {
+input[type="checkbox"]+div>span {
   @apply flex justify-center items-center bg-transparent border-2 border-red rounded cursor-pointer;
   width: 26px;
   height: 26px;
@@ -20,23 +24,23 @@ input[type="checkbox"] + label > span {
   margin-right: 9px;
 }
 
-input[type="checkbox"] + label:hover,
-input[type="checkbox"]:focus + label {
+input[type="checkbox"]+div:hover,
+input[type="checkbox"]:focus+label {
   color: #555;
 }
 
-input[type="checkbox"] + label:hover > span,
-input[type="checkbox"]:focus + label > span {
+input[type="checkbox"]+div:hover>span,
+input[type="checkbox"]:focus+div>span {
   background: rgba(255, 255, 255, 0.1);
 }
 
-input[type="checkbox"]:checked + label > span {
+input[type="checkbox"]:checked+div>span {
   border: 13px solid;
   @apply border-red;
   animation: shrink-bounce 200ms cubic-bezier(0.4, 0, 0.23, 1);
 }
 
-input[type="checkbox"]:checked + label > span:before {
+input[type="checkbox"]:checked+div>span:before {
   content: "";
   position: absolute;
   top: 12px;
@@ -53,9 +57,11 @@ input[type="checkbox"]:checked + label > span:before {
   0% {
     transform: scale(1);
   }
+
   33% {
     transform: scale(0.85);
   }
+
   100% {
     transform: scale(1);
   }
@@ -68,11 +74,13 @@ input[type="checkbox"]:checked + label > span:before {
     @apply border-white;
     transform: translate3d(0, 0, 0) rotate(45deg);
   }
+
   33% {
     width: 5px;
     height: 0;
     transform: translate3d(0, 0, 0) rotate(45deg);
   }
+
   100% {
     width: 5px;
     height: 12px;

@@ -91,6 +91,7 @@ function NewAdForm({ onSubmit, children }) {
         email: "",
         website: "",
         prices: {},
+        services: {},
         parameters: {}
       }}
       validate={validate}
