@@ -22,9 +22,7 @@ class ServiceRepository
         );
 
         $services = $services->mapWithKeys(function ($value, $key) {
-            Log::info($value);
-            Log::info($key);
-            return [$key => ['price' => $value]];
+            return [$key => ['price' => $value->price]];
         });
 
         /** @var Club|Employee $model */

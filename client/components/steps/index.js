@@ -5,3 +5,4 @@ export { default as PasswordRecoveryStep } from "./PasswordRecoveryStep";
 
 export { default as AdInformationStep } from "./AdInformationStep";
 export { default as AdServicesAndPricesStep } from "./AdServicesAndPricesStep";
+export { default as AdMediaStep } from "./AdMediaStep";

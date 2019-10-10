@@ -48,6 +48,20 @@
     }
   }
 
+  &-primary-black {
+    @apply bg-transparent text-black;
+
+    &:active {
+      &::after {
+        @apply bg-dark-red border-dark-red;
+      }
+    }
+
+    &::before {
+      @apply bg-red border-2 border-red;
+    }
+  }
+
   &-black {
     @apply bg-transparent text-white text-xs font-normal px-4;
     &::before {

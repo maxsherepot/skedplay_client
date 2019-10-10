@@ -4,7 +4,7 @@ import { TextField, CheckboxField } from "UI";
 import { GET_PRICE_TYPES, GET_SERVICES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 
-const AdServicesAndPricesStep = () => {
+const AdScheduleStep = () => {
   const { data: { price_types } = {}, loading: priceLoading } = useQuery(
     GET_PRICE_TYPES
   );
@@ -65,9 +65,9 @@ const AdServicesAndPricesStep = () => {
   );
 };
 
-AdServicesAndPricesStep.validationSchema = Yup.object().shape({
+AdScheduleStep.validationSchema = Yup.object().shape({
   // phone: Yup.string().required(),
   // recaptcha: Yup.string().required()
 });
 
-export default AdServicesAndPricesStep;
+export default AdScheduleStep;

@@ -66,6 +66,7 @@ module.exports = {
         "3-5": "0.95rem",
         "7": "1.75rem",
         "9": "2.25rem",
+        "21": "5.25rem",
         "22": "5.5rem",
         "25": "6.5rem",
         "44": "11rem"
@@ -117,7 +118,7 @@ module.exports = {
         "gallery-lg": "43.75rem", // 700
         "gallery-md": "42.625rem", // 682
         "gallery-sm": "39.125rem", // 626
-        "gallery": "28.4375rem", // 455
+        gallery: "28.4375rem" // 455
       },
       fontSize: {
         "2xs": "0.5rem",

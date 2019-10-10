@@ -97,22 +97,24 @@ class EmployeeController extends Controller
     /**
      * @param Employee $employee
      * @param SyncServicesRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function syncServices(Employee $employee, SyncServicesRequest $request)
     {
         $this->authorize('create', Service::class);
 
-        return $this->services->sync($employee, collect($request->all()));
+        $this->services->sync($employee, collect($request->all()));
+
+        return $this->success();
     }
 
-  /**
-   * @param Employee $employee
-   * @param SyncPricesRequest $request
-   * @return array
-   * @throws \Illuminate\Auth\Access\AuthorizationException
-   */
+    /**
+     * @param Employee $employee
+     * @param SyncPricesRequest $request
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function syncPrices(Employee $employee, SyncPricesRequest $request)
     {
         $this->authorize('create', PriceType::class);
@@ -128,14 +130,14 @@ class EmployeeController extends Controller
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadFile(FileUploadRequest $request, Employee $employee)
+    public function uploadFiles(FileUploadRequest $request, Employee $employee)
     {
         $this->authorize('update', $employee);
 
         try {
-            $this->employees->saveFile(
+            $this->employees->saveAttachments(
                 $employee,
-                $request->file('file'),
+                $request->allFiles(),
                 $request->get('collection')
             );
 

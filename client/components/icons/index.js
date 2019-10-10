@@ -25,7 +25,9 @@ export { default as ChevronRightSvg } from "./ChevronRightSvg";
 
 export { default as CloseSvg } from "./CloseSvg";
 export { default as PlusSvg } from "./PlusSvg";
+export { default as BlackPlusSvg } from "./BlackPlusSvg";
 export { default as TrashSvg } from "./TrashSvg";
+export { default as WhiteTrashSvg } from "./WhiteTrashSvg";
 export { default as AddSvg } from "./AddSvg";
 export { default as AddPhotoSvg } from "./AddPhotoSvg";
 

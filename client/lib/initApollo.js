@@ -55,7 +55,7 @@ function create(initialState, { getToken, fetchOptions }) {
     steps: {
       register: 0,
       forgot: 0,
-      newAd: 1,
+      newAd: 0,
       __typename: "Steps"
     },
     filters: {

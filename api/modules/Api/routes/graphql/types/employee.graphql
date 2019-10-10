@@ -38,7 +38,10 @@ input EmployeeCreateInput {
   email: String
   website: String
   prices: JSON
+  services: JSON
   parameters: JSON
+  photos: [Upload]
+  videos: [Upload]
 }
 
 input EmployeeUpdateInput {
@@ -80,8 +83,8 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
 
-  uploadEmployeeFile(employee: ID!, collection: String!, file: Upload!): StatusPayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadFile")
+  uploadEmployeeFiles(employee: ID!, collection: String!, files: [Upload!]): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadFiles")
 
   deleteEmployeeFile(employee: ID!, file_id: Int!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@deleteFile")

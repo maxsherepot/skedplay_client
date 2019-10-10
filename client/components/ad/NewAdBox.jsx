@@ -1,15 +1,26 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-import { CREATE_EMPLOYEE_AD, SYNC_EMPLOYEE_PRICES } from "queries";
+import {
+  CREATE_EMPLOYEE_AD,
+  SYNC_EMPLOYEE_PRICES,
+  SYNC_EMPLOYEE_SERVICES,
+  UPLOAD_EMPLOYEE_FILES
+} from "queries";
 import { getErrors } from "utils";
 import { NewAdForm } from "components/ad";
-import { AdInformationStep, AdServicesAndPricesStep } from "components/steps";
+import {
+  AdInformationStep,
+  AdServicesAndPricesStep,
+  AdMediaStep
+} from "components/steps";
 
 const NewAdBox = () => {
   const [employeeId, setEmployeeId] = useState(null);
   const [createEmployee] = useMutation(CREATE_EMPLOYEE_AD);
   const [syncEmployeePrices] = useMutation(SYNC_EMPLOYEE_PRICES);
+  const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
+  const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
 
   const onSubmitInfo = async values => {
     try {
@@ -22,6 +33,7 @@ const NewAdBox = () => {
           input: {
             ...values,
             prices: JSON.stringify(values.prices),
+            services: JSON.stringify(values.services),
             parameters: JSON.stringify(values.parameters)
           }
         }
@@ -44,11 +56,11 @@ const NewAdBox = () => {
     }
   };
 
-  const onSubmitPrices = async values => {
+  const onSubmitPricesAndServices = async values => {
     try {
       const {
         data: {
-          syncEmployeePrices: { status, message }
+          syncEmployeePrices: { status: priceStatus, message: priceMessage }
         }
       } = await syncEmployeePrices({
         variables: {
@@ -57,11 +69,64 @@ const NewAdBox = () => {
         }
       });
 
-      console.log(status, message)
+      const {
+        data: {
+          syncEmployeeServices: {
+            status: serviceStatus,
+            message: serviceMessage
+          }
+        }
+      } = await syncEmployeeServices({
+        variables: {
+          employee: employeeId,
+          services: JSON.stringify(values.services)
+        }
+      });
 
       return {
-        status,
-        message
+        status: serviceStatus && priceStatus,
+        message: `${priceMessage}, ${serviceMessage}`
+      };
+    } catch (e) {
+      const errors = getErrors(e);
+
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
+    }
+  };
+
+  const onSubmitMedia = async values => {
+    try {
+      const {
+        data: {
+          uploadEmployeeFiles: { status: statusPhoto, message: messagePhoto }
+        }
+      } = await uploadEmployeeFiles({
+        variables: {
+          employee: employeeId,
+          collection: "employee-photo",
+          files: values.photos
+        }
+      });
+
+      const {
+        data: {
+          uploadEmployeeFiles: { status: statusVideo, message: messageVideo }
+        }
+      } = await uploadEmployeeFiles({
+        variables: {
+          employee: employeeId,
+          collection: "employee-video",
+          files: values.videos
+        }
+      });
+
+      return {
+        status: statusPhoto && statusVideo,
+        message: messagePhoto || messageVideo
       };
     } catch (e) {
       const errors = getErrors(e);
@@ -85,9 +150,16 @@ const NewAdBox = () => {
 
       <NewAdForm.Step
         validationSchema={AdServicesAndPricesStep.validationSchema}
-        onStepSubmit={onSubmitPrices}
+        onStepSubmit={onSubmitPricesAndServices}
       >
         <AdServicesAndPricesStep />
+      </NewAdForm.Step>
+
+      <NewAdForm.Step
+        validationSchema={AdMediaStep.validationSchema}
+        onStepSubmit={onSubmitMedia}
+      >
+        <AdMediaStep />
       </NewAdForm.Step>
     </NewAdForm>
   );

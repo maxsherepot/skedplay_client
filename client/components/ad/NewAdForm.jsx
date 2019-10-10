@@ -59,13 +59,14 @@ function NewAdForm({ onSubmit, children }) {
     }
 
     if (isLastStep) {
+      console.log("LAST_STEP");
       try {
         // await onSubmit({
         //   variables: {
         //     ...values
         //   }
         // });
-        setStep(0);
+        // setStep(0);
       } catch (e) {
         if (getErrors(e) instanceof Object) {
           setErrors(getErrors(e));
@@ -92,7 +93,9 @@ function NewAdForm({ onSubmit, children }) {
         website: "",
         prices: {},
         services: {},
-        parameters: {}
+        parameters: {},
+        photos: [],
+        videos: []
       }}
       validate={validate}
       onSubmit={handleSubmits}

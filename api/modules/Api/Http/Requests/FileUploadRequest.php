@@ -16,11 +16,13 @@ class FileUploadRequest extends GraphQLFormRequest
      */
     public function rules()
     {
+        $rules = collect();
+
         $photoRules = [
-            'file' => 'required|file|mimes:jpeg,jpg,png|max:4000',
+            'file' => 'required|file|mimes:jpeg,jpg,png|max:10000',
         ];
         $videoRules = [
-            'file' => 'required|file|mimes:avi,mpeg,quicktime,mp4',
+            'file' => 'required|file|mimes:avi,mpeg,quicktime,mp4|max:100000',
         ];
 
         switch ($this->request->get('collection')) {
@@ -28,16 +30,21 @@ class FileUploadRequest extends GraphQLFormRequest
             case Club::PHOTO_COLLECTION:
             case Employee::PHOTO_COLLECTION:
             case Event::MAIN_PHOTO_COLLECTION:
-                return $photoRules;
+                $rules->push($photoRules);
+                break;
             case Club::VIDEO_COLLECTION:
             case Employee::VIDEO_COLLECTION:
-                return $videoRules;
+                $rules->push($videoRules);
+                break;
             default:
-                return [
+                $rules->push([
                     'collection' => 'required'
-                ];
+                ]);
                 break;
         }
+
+        return $rules->toArray();
+
     }
 
     /**
