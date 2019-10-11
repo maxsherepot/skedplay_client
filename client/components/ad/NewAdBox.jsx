@@ -5,14 +5,16 @@ import {
   CREATE_EMPLOYEE_AD,
   SYNC_EMPLOYEE_PRICES,
   SYNC_EMPLOYEE_SERVICES,
-  UPLOAD_EMPLOYEE_FILES
+  UPLOAD_EMPLOYEE_FILES,
+  CREATE_EMPLOYEE_SCHEDULE,
 } from "queries";
 import { getErrors } from "utils";
 import { NewAdForm } from "components/ad";
 import {
   AdInformationStep,
   AdServicesAndPricesStep,
-  AdMediaStep
+  AdMediaStep,
+  AdScheduleStep,
 } from "components/steps";
 
 const NewAdBox = () => {
@@ -21,6 +23,7 @@ const NewAdBox = () => {
   const [syncEmployeePrices] = useMutation(SYNC_EMPLOYEE_PRICES);
   const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
   const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
+  const [createEmployeeSchedule] = useMutation(CREATE_EMPLOYEE_SCHEDULE);
 
   const onSubmitInfo = async values => {
     try {
@@ -32,6 +35,7 @@ const NewAdBox = () => {
         variables: {
           input: {
             ...values,
+            schedule: JSON.stringify(values.schedule),
             prices: JSON.stringify(values.prices),
             services: JSON.stringify(values.services),
             parameters: JSON.stringify(values.parameters)
@@ -139,6 +143,45 @@ const NewAdBox = () => {
     }
   };
 
+  const onSubmitSchedule = async values => {
+    try {
+      let payload = values.schedule.map(({ day, start, end, available, order, club_id, }) => {
+        return {
+          day,
+          start: start === 0 ? null : start,
+          end: start === 0 ? null : end,
+          available: start !== 0,
+          order,
+          employee_id: employeeId,
+          club_id: club_id
+        }
+
+      })
+      const {
+        data: {
+          createEmployeeSchedule: { status, message }
+        }
+      } = await createEmployeeSchedule({
+        variables: {
+          input: payload,
+        }
+      });
+
+      return {
+        status,
+        message
+      };
+    } catch (e) {
+      const errors = getErrors(e);
+
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
+    }
+  };
+
   return (
     <NewAdForm onSubmit={() => console.log("final step")}>
       <NewAdForm.Step
@@ -160,6 +203,13 @@ const NewAdBox = () => {
         onStepSubmit={onSubmitMedia}
       >
         <AdMediaStep />
+      </NewAdForm.Step>
+
+      <NewAdForm.Step
+        validationSchema={AdScheduleStep.validationSchema}
+        onStepSubmit={onSubmitSchedule}
+      >
+        <AdScheduleStep />
       </NewAdForm.Step>
     </NewAdForm>
   );

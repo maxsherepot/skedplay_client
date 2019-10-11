@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Common\SyncPricesRequest;
 use Modules\Api\Http\Requests\Common\SyncServicesRequest;
@@ -187,16 +188,29 @@ class EmployeeController extends Controller
         $employee->unfavorite();
     }
 
-    /**
-     * @param EmployeeScheduleCreateRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
+  /**
+   * @param EmployeeScheduleCreateRequest $request
+   * @return array
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   */
     public function schedule(EmployeeScheduleCreateRequest $request)
     {
 //        $this->authorize('create-schedule', Club::class);
 
-        return $this->employees->storeSchedule(collect($request->all()));
+
+        $schedules = $request->all()['input'];
+
+        try {
+          foreach($schedules as $schedule) {
+            $this->employees->storeSchedule(collect($schedule));
+          }
+
+          return $this->success();
+
+        } catch (\Exception $exception) {
+          Log::info($exception->getMessage());
+          return $this->fail();
+        }
     }
 
     public function createReview(ReviewCreateRequest $request, Employee $employee)

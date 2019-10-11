@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const ALL_EMPLOYEES = gql`
+export const ALL_EMPLOYEES = gql `
   query allEmployees($first: Int!, $page: Int!, $filters: EmployeeFilters) {
     employees(first: $first, page: $page, filters: $filters) {
       data {
@@ -32,7 +32,7 @@ export const ALL_EMPLOYEES = gql`
   }
 `;
 
-export const GET_EMPLOYEE = gql`
+export const GET_EMPLOYEE = gql `
   query getEmployee($id: ID!) {
     employee(id: $id) {
       id
@@ -71,6 +71,7 @@ export const GET_EMPLOYEE = gql`
       prices {
         id
         name
+        display_name
         pivot {
           price
         }
@@ -86,7 +87,7 @@ export const GET_EMPLOYEE = gql`
   }
 `;
 
-export const UPDATE_USER = gql`
+export const UPDATE_USER = gql `
   mutation updateUser($user: ID!, $input: UserInput!) {
     updateUser(user: $user, input: $input) {
       status
@@ -95,7 +96,7 @@ export const UPDATE_USER = gql`
   }
 `;
 
-export const GET_EMPLOYEE_SCHEDULE = gql`
+export const GET_EMPLOYEE_SCHEDULE = gql `
   query employee_schedule($employee_id: ID!) {
     schedule_period {
       day
@@ -117,7 +118,7 @@ export const GET_EMPLOYEE_SCHEDULE = gql`
   }
 `;
 
-export const ALL_REVIEWS = gql`
+export const ALL_REVIEWS = gql `
   query reviews($first: Int!, $page: Int, $reviewable_id: ID!) {
     reviews(first: $first, page: $page, reviewable_id: $reviewable_id) {
       data {

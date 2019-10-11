@@ -1,67 +1,126 @@
 import React from "react";
 import * as Yup from "yup";
-import { TextField, CheckboxField } from "UI";
-import { GET_PRICE_TYPES, GET_SERVICES } from "queries";
-import { useQuery } from "@apollo/react-hooks";
+import { useFormikContext } from "formik";
+import { SelectGroupField, SelectField, ToggleField } from "UI";
 
 const AdScheduleStep = () => {
-  const { data: { price_types } = {}, loading: priceLoading } = useQuery(
-    GET_PRICE_TYPES
-  );
-  const { data: { services } = {}, loading: serviceLoading } = useQuery(
-    GET_SERVICES
-  );
+  const { values } = useFormikContext();
 
-  if (priceLoading || serviceLoading) {
-    return "Loading..";
+  let hours = [];
+  let minutes = [
+    "00",
+    "30",
+  ];
+  let timeOptions = [];
+
+  for (var i = 0; i < 24; i++) {
+    let h;
+    if (i < 10) {
+      h = `0${i}`
+    } else {
+      h = (i)
+    }
+
+    hours.push(h)
   }
 
+  hours.forEach(hour => {
+    minutes.forEach((minute) => {
+      timeOptions.push(
+        {
+          label: `${hour}:${minute}`,
+          value: `${hour}:${minute}`,
+        }
+      )
+    })
+  });
+
+  const weeks = [
+    {
+      day: 0,
+      name: "Sunday"
+    },
+    {
+      day: 1,
+      name: "Monday"
+    },
+    {
+      day: 2,
+      name: "Tuesday"
+    },
+    {
+      day: 3,
+      name: "Wednesday"
+    },
+    {
+      day: 4,
+      name: "Thursday"
+    },
+    {
+      day: 5,
+      name: "Friday"
+    },
+    {
+      day: 6,
+      name: "Saturday"
+    }
+  ]
+
+  const isStartDisabled = (day) => {
+    let d = values.schedule[day]
+
+    if (d) {
+      return d && d.start === 0
+    }
+
+    return false
+  }
+
+  let startOptions = timeOptions
+  startOptions.unshift({
+    label: "Day off",
+    value: 0,
+  })
+
+
   return (
-    <>
-      <div className="text-4xl font-extrabold mb-5">Price</div>
-
-      <div className="px-2">
-        <div className="flex flex-wrap -mx-4">
-          {price_types.map(({ id, display_name }) => (
-            <TextField
-              key={id}
-              className="flex-1 hd:w-1/12 px-2"
-              inputClassName="w-1/12"
-              label={display_name}
-              name={`prices.${id}`}
-              after={<span>$</span>}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="text-4xl font-extrabold my-5">Services</div>
-
-      <div className="px-16">
-        <div className="flex flex-wrap -mx-32">
-          {services.map(({ id, name }) => (
-            <div
-              className="flex items-center justify-between w-1/2 px-16 mb-2"
-              key={id}
-            >
-              <CheckboxField label={name} name={`services.${id}.active`} />
-
-              <div className="-mb-4">
-                <TextField
-                  className="w-32"
-                  inputClassName="w-32"
-                  key={id}
-                  label=""
-                  name={`services.${id}.price`}
-                  after={<span>$</span>}
-                  before={<span>+</span>}
-                />
-              </div>
+    <div className="px-2">
+      <div className="flex flex-col -mx-4">
+        {weeks.map(week => (
+          <div className="flex items-center" key={week.day}>
+            <div className="w-1/5 px-2">{week.name}</div>
+            <div className="w-1/6 px-2">
+              <ToggleField name="scheduled" label="Alone" value={true} />
             </div>
-          ))}
-        </div>
+            <div className="w-2/5 px-2">
+              <SelectGroupField
+                label="Time"
+                name="time"
+              >
+                <SelectField
+                  className="w-full sm:w-1/2 lg:w-1/3"
+                  inputClassName="w-full md:w-1/3"
+                  label=""
+                  name={`schedule.${week.day}.start`}
+                  options={startOptions}
+                  placeholder=""
+                />
+                <SelectField
+                  className="w-full sm:w-1/2 lg:w-1/3"
+                  inputClassName="w-full md:w-1/3"
+                  label=""
+                  value={isStartDisabled(week.day) ? null : ""}
+                  name={`schedule.${week.day}.end`}
+                  disabled={isStartDisabled(week.day)}
+                  options={timeOptions}
+                  placeholder=""
+                />
+              </SelectGroupField>
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

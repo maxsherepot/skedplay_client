@@ -1,8 +1,17 @@
-import { ApolloClient, InMemoryCache } from "apollo-boost";
-import { createUploadLink } from "apollo-upload-client";
-import { setContext } from "apollo-link-context";
+import {
+  ApolloClient,
+  InMemoryCache
+} from "apollo-boost";
+import {
+  createUploadLink
+} from "apollo-upload-client";
+import {
+  setContext
+} from "apollo-link-context";
 import fetch from "isomorphic-unfetch";
-import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
+import {
+  IntrospectionFragmentMatcher
+} from "apollo-cache-inmemory";
 import introspectionQueryResultData from "./fragmentTypes.json";
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -16,17 +25,20 @@ if (typeof window === "undefined") {
   global.fetch = fetch;
 }
 
-function create(initialState, { getToken, fetchOptions }) {
+function create(initialState, {
+  getToken,
+  fetchOptions
+}) {
   const uploadLink = createUploadLink({
-    uri:
-      typeof window === "undefined"
-        ? process.env.GRAPHQL_URL
-        : process.env.GRAPHQL_BROWSER_URL,
+    uri: typeof window === "undefined" ?
+      process.env.GRAPHQL_URL : process.env.GRAPHQL_BROWSER_URL,
     credentials: "same-origin",
     fetchOptions
   });
 
-  const authLink = setContext((_, { headers }) => {
+  const authLink = setContext((_, {
+    headers
+  }) => {
     const token = getToken();
     return {
       headers: {
@@ -39,7 +51,9 @@ function create(initialState, { getToken, fetchOptions }) {
   // Check out https://github.com/zeit/next.js/pull/4611 if you want to use the AWSAppSyncClient
   const isBrowser = typeof window !== "undefined";
 
-  const cache = new InMemoryCache({ fragmentMatcher }).restore(
+  const cache = new InMemoryCache({
+    fragmentMatcher
+  }).restore(
     initialState || {}
   );
 
@@ -97,9 +111,13 @@ function create(initialState, { getToken, fetchOptions }) {
     }
   };
 
-  cache.writeData({ data });
+  cache.writeData({
+    data
+  });
 
-  client.onClearStore(() => cache.writeData({ data }));
+  client.onClearStore(() => cache.writeData({
+    data
+  }));
 
   return client;
 }
@@ -113,7 +131,7 @@ export default function initApollo(initialState, options) {
     // 'https-proxy-agent' is required here because it's a sever-side only module
     if (process.env.https_proxy) {
       fetchOptions = {
-        agent: new (require("https-proxy-agent"))(process.env.https_proxy)
+        agent: new(require("https-proxy-agent"))(process.env.https_proxy)
       };
     }
     return create(initialState, {

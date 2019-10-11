@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-function Dropdown({ trigger, triggerClassName, children }) {
+function Dropdown({ trigger, triggerClassName, disabled, children }) {
   const node = useRef();
   const [open, setOpen] = useState(false);
 
@@ -29,10 +29,12 @@ function Dropdown({ trigger, triggerClassName, children }) {
 
   return (
     <div ref={node} className="dropdown">
-      <div className={cx("dropdown__trigger")} onClick={() => setOpen(true)}>
+      <div className={cx("dropdown__trigger", {
+        "dropdown__trigger--disabled": disabled
+      })} onClick={() => setOpen(true)}>
         {trigger}
       </div>
-      <div className={cx("dropdown__content", { open, hidden: !open })}>
+      <div className={cx("dropdown__content", { open, hidden: disabled || !open })}>
         {children}
       </div>
     </div>

@@ -51,7 +51,7 @@ function MultiVideoField({
       </label>
 
       <div className="px-2 mb-8">
-        <div className="flex items-center -mx-4">
+        <div className="flex flex-wrap items-center -mx-4">
           {previews.map((preview, i) => (
             <div
               className="rounded-lg px-3"
@@ -59,8 +59,8 @@ function MultiVideoField({
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className="relative w-full">
-                <div className="w-80">
+              <div className="relative w-full mb-6">
+                <div className="w-full md:w-80">
                   <video className="rounded-lg">
                     <source src={preview} type="video/mp4" />
                   </video>

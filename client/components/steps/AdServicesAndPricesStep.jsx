@@ -25,7 +25,7 @@ const AdServicesAndPricesStep = () => {
           {price_types.map(({ id, display_name }) => (
             <TextField
               key={id}
-              className="flex-1 hd:w-1/12 px-2"
+              className="w-full md:flex-1 hd:w-1/12 px-2"
               inputClassName="w-1/12"
               label={display_name}
               name={`prices.${id}`}
@@ -41,14 +41,14 @@ const AdServicesAndPricesStep = () => {
         <div className="flex flex-wrap -mx-32">
           {services.map(({ id, name }) => (
             <div
-              className="flex items-center justify-between w-1/2 px-16 mb-2"
+              className="flex flex-col sm:flex-row md:items-center justify-between w-full md:w-1/2 px-16 mb-6 sm:mb-2"
               key={id}
             >
               <CheckboxField label={name} name={`services.${id}.active`} />
 
               <div className="-mb-4">
                 <TextField
-                  className="w-32"
+                  className="w-32 mt-4 sm:mt-0"
                   inputClassName="w-32"
                   key={id}
                   label=""

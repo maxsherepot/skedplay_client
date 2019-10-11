@@ -11,7 +11,8 @@ function SelectField({
   label,
   name,
   placeholder,
-  options
+  options,
+  disabled
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
@@ -34,15 +35,18 @@ function SelectField({
       <Field name={name}>
         {({ field: { value, ...rest } }) => (
           <Dropdown
+            disabled={disabled}
             trigger={
-              <div
-                className={cx(
-                  "flex items-center h-full pl-4 text-sm",
-                  value === "" || value === null ? "text-grey" : "text-black"
-                )}
-              >
-                {value === "" || value === null ? placeholder : getLabel(value)}
-              </div>
+              !disabled && (
+                <div
+                  className={cx(
+                    "flex items-center h-full pl-4 text-sm",
+                    value === "" || value === null ? "text-grey" : "text-black"
+                  )}
+                >
+                  {value === "" || value === null ? placeholder : getLabel(value)}
+                </div>
+              )
             }
           >
             {options &&
@@ -71,7 +75,7 @@ function SelectField({
           </Dropdown>
         )}
       </Field>
-    </FormGroup>
+    </FormGroup >
   );
 }
 

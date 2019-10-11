@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const CREATE_EMPLOYEE_AD = gql`
+export const CREATE_EMPLOYEE_AD = gql `
   mutation createEmployee($input: EmployeeCreateInput!) {
     createEmployee(input: $input) {
       id
@@ -8,7 +8,7 @@ export const CREATE_EMPLOYEE_AD = gql`
   }
 `;
 
-export const SYNC_EMPLOYEE_PRICES = gql`
+export const SYNC_EMPLOYEE_PRICES = gql `
   mutation syncEmployeePrices($employee: ID!, $prices: JSON) {
     syncEmployeePrices(employee: $employee, prices: $prices) {
       status
@@ -17,7 +17,7 @@ export const SYNC_EMPLOYEE_PRICES = gql`
   }
 `;
 
-export const SYNC_EMPLOYEE_SERVICES = gql`
+export const SYNC_EMPLOYEE_SERVICES = gql `
   mutation syncEmployeeServices($employee: ID!, $services: JSON) {
     syncEmployeeServices(employee: $employee, services: $services) {
       status
@@ -26,7 +26,7 @@ export const SYNC_EMPLOYEE_SERVICES = gql`
   }
 `;
 
-export const UPLOAD_EMPLOYEE_FILES = gql`
+export const UPLOAD_EMPLOYEE_FILES = gql `
   mutation uploadEmployeeFiles(
     $employee: ID!
     $collection: String!
@@ -36,6 +36,19 @@ export const UPLOAD_EMPLOYEE_FILES = gql`
       employee: $employee
       collection: $collection
       files: $files
+    ) {
+      status
+      message
+    }
+  }
+`;
+
+export const CREATE_EMPLOYEE_SCHEDULE = gql `
+  mutation createEmployeeSchedule(
+    $input: [EmployeeScheduleInput]
+  ) {
+    createEmployeeSchedule(
+      input: $input
     ) {
       status
       message

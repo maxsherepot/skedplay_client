@@ -53,10 +53,10 @@ function MultiPhotoField({
 
       <>
         <div className="px-2 mb-8">
-          <div className="flex items-center -mx-4">
+          <div className="flex flex-wrap items-center -mx-4">
             {previews.map((preview, i) => (
               <div
-                className="relative w-38 rounded-lg px-2"
+                className="relative w-full md:w-38 rounded-lg px-2 mb-6 md:mb-0"
                 key={i}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}

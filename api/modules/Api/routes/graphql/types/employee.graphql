@@ -37,6 +37,7 @@ input EmployeeCreateInput {
   phone: String
   email: String
   website: String
+  schedule: JSON
   prices: JSON
   services: JSON
   parameters: JSON

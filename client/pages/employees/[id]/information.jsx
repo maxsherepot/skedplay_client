@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { ArrowNextSvg, RatingSvg, CocktailSvg, PlusSvg } from "icons";
+import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard } from "UI";
 import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EmployeeSchedule } from "components/schedule";
+import PriceAndService from "components/price/PriceAndService";
 
 const Information = ({ loggedInUser }) => {
   const router = useRouter();
@@ -107,8 +108,6 @@ const Information = ({ loggedInUser }) => {
         <div className="w-full hd:w-2/3 px-3">
           <div className="text-2xl font-extrabold my-5">Beschreibung</div>
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
-            {employee.description}
-            {employee.description}
             {employee.description}
           </div>
           <div className="border-b border-divider" />
@@ -229,77 +228,7 @@ const Information = ({ loggedInUser }) => {
 
       <div className="flex flex-wrap -mx-3">
         <div className="w-full hd:w-2/5 px-3">
-          <div className="text-2xl font-extrabold my-5">
-            Services and Pricing
-          </div>
-          <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
-            <div className="w-full sm:w-1/3 px-2 sm:px-0">
-              <section className="mb-3">
-                <div className="text-grey">15 min</div>
-                <div className="line" />
-                <div className="w-12">$100</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">30 min</div>
-                <div className="line" />
-                <div className="w-12">$150</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">45 min</div>
-                <div className="line" />
-                <div className="w-12">$250</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">1 hour</div>
-                <div className="line" />
-                <div className="w-12">$300</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">2 hours</div>
-                <div className="line" />
-                <div className="w-12">$300</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">3 hours</div>
-                <div className="line" />
-                <div className="w-12">$600</div>
-              </section>
-              <section className="mb-3">
-                <div className="text-grey">Night</div>
-                <div className="line" />
-                <div className="w-12">$1500</div>
-              </section>
-            </div>
-            <div className="w-full sm:w-2/3 sm:px-2 hd:px-6 py-1">
-              <div className="flex flex-wrap -mx-2">
-                {event.club.services.map(service => (
-                  <div key={service.id} className="px-2">
-                    <div className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                      {service.name}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="px-2 my-2">Extra service</div>
-              <div className="flex flex-wrap -mx-2">
-                <div className="px-2">
-                  <div className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                    Anal <span className="text-red ml-1">+$100</span>
-                  </div>
-                </div>
-                <div className="px-2">
-                  <div className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                    Erotic massage <span className="text-red ml-1">+$100</span>
-                  </div>
-                </div>
-                <div className="px-2">
-                  <div className="bg-white border border-divider rounded-full px-2 py-2 text-xs mb-4">
-                    <PlusSvg />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PriceAndService title="Services and Pricing" prices={employee.prices} services={employee.services} />
         </div>
         <div className="w-full hd:w-2/5 px-3">
           <EmployeeSchedule

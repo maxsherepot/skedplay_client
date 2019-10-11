@@ -44,7 +44,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
       <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
         {schedule &&
           schedule.map((s, i) => (
-            <section className="mb-3">
+            <section className="mb-3" key={i}>
               <div className="flex">
                 <span className="inline-block w-10 sm:mr-4">
                   {getPeriodDate(s.day)}
@@ -83,18 +83,18 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                   </div>
                 </div>
               ) : (
-                <>
-                  {s.available ? (
-                    <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                      <div>19:00 — 05:00</div>
-                    </div>
-                  ) : (
-                    <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
-                      <div>Day off</div>
-                    </div>
-                  )}
-                </>
-              )}
+                  <>
+                    {s.available ? (
+                      <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
+                        <div>{s.start} — {s.end}</div>
+                      </div>
+                    ) : (
+                        <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
+                          <div>Day off</div>
+                        </div>
+                      )}
+                  </>
+                )}
             </section>
           ))}
 

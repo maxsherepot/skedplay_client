@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { SelectField } from "UI";
-import { Field, FieldArray, useFormikContext } from "formik";
-import { RatingSvg, TrashSvg, AddSvg } from "icons";
+import { FieldArray, useFormikContext } from "formik";
+import { RatingSvg, TrashSvg } from "icons";
 
 const LangSelector = () => {
   const [langs, setlangs] = useState([
@@ -96,11 +96,11 @@ const LangSelector = () => {
                 </div>
               ))
             ) : (
-              <button type="button" onClick={() => arrayHelpers.push("")}>
-                {/* show this when user has removed all language from the list */}
-                Add a friend
+                <button type="button" onClick={() => arrayHelpers.push("")}>
+                  {/* show this when user has removed all language from the list */}
+                  Add a friend
               </button>
-            )}
+              )}
             <div>
               <button type="submit">Submit</button>
             </div>

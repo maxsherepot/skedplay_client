@@ -16,18 +16,18 @@ class EmployeeScheduleCreateRequest extends GraphQLFormRequest
     public function rules()
     {
         return [
-            'day'         => [
+            'input.*.day'         => [
                 'required',
                 Rule::unique('employee_schedule_work')->where(function (Builder $query) {
                     return $query->where('day', $this->request->get('day'))
                         ->where('employee_id', $this->request->get('employee_id'));
                 })
             ],
-            'start'       => 'nullable|string',
-            'end'         => 'nullable|string',
-            'available'   => 'bool',
-            'employee_id' => 'bail|required|integer',
-            'club_id'     => 'bail|required|integer',
+            'input.*.start'       => 'nullable|string',
+            'input.*.end'         => 'nullable|string',
+            'input.*.available'   => 'bool',
+            'input.*.employee_id' => 'bail|required',
+            'input.*.club_id'     => 'nullable',
         ];
     }
 

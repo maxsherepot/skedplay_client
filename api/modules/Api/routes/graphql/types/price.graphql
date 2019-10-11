@@ -1,6 +1,7 @@
 type Price {
     id: ID!
     name: String!
+    display_name: String!
     pivot: PricePivot!
 }
 

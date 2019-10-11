@@ -70,6 +70,6 @@ type Mutation @middleware(checks: ["auth:api"]) {
   createClubSchedule(input: ClubScheduleInput @spread): ClubSchedule
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@schedule")
 
-  createEmployeeSchedule(input: EmployeeScheduleInput @spread): EmployeeSchedule
+  createEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
   @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")
 }

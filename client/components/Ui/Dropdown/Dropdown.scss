@@ -16,9 +16,18 @@
       cursor: pointer;
     }
   }
+
+  &__trigger--disabled {
+    &::after {
+      content: "";
+      background-image: url("/static/img/arrow-down-grey.svg");
+    }
+  }
+
   &__content {
     &.open {
       @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50 w-full py-4 px-4;
+      @apply overflow-y-scroll h-64;
 
       input[type="radio"] {
         @apply w-px h-px inline-block absolute;
@@ -26,7 +35,9 @@
       }
 
       label {
+        @apply py-1;
         padding-left: 0;
+        margin: 0;
       }
     }
   }

@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 
+import redirect from "lib/redirect";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
@@ -61,6 +62,7 @@ function NewAdForm({ onSubmit, children }) {
     if (isLastStep) {
       console.log("LAST_STEP");
       try {
+        redirect(context, "/girls");
         // await onSubmit({
         //   variables: {
         //     ...values
@@ -94,6 +96,72 @@ function NewAdForm({ onSubmit, children }) {
         prices: {},
         services: {},
         parameters: {},
+        schedule: [
+          {
+            day: 0,
+            start: null,
+            end: null,
+            available: true,
+            order: 6,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 1,
+            start: null,
+            end: null,
+            available: true,
+            order: 0,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 2,
+            start: null,
+            end: null,
+            available: true,
+            order: 1,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 3,
+            start: null,
+            end: null,
+            available: true,
+            order: 2,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 4,
+            start: null,
+            end: null,
+            available: true,
+            order: 3,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 5,
+            start: null,
+            end: null,
+            available: true,
+            order: 4,
+            employee_id: null,
+            club_id: null
+          },
+          {
+            day: 6,
+            start: null,
+            end: null,
+            available: true,
+            order: 5,
+            employee_id: null,
+            club_id: null
+          }
+
+        ],
         photos: [],
         videos: []
       }}
@@ -119,7 +187,7 @@ function NewAdForm({ onSubmit, children }) {
             <div className="w-full p-8 hd:px-0">
               <Button
                 level={step <= 0 ? "grey" : "primary"}
-                className="text-xl px-16 mr-4"
+                className="text-xl px-16 mb-4 md:mb-0 sm:mr-4"
                 onClick={() => prev()}
                 type="button"
                 disabled={isSubmitting}

@@ -1,0 +1,27 @@
+.button-group {
+  @apply flex -mx-2;
+
+  .form-group {
+    &:not(:last-child) {
+      .dropdown>.dropdown__trigger {
+        @apply rounded-r-none;
+
+        &::before,
+        &::after {
+          @apply rounded-r-none;
+        }
+      }
+    }
+
+    &:not(:first-child) {
+      .dropdown>.dropdown__trigger {
+        @apply rounded-l-none -ml-px;
+
+        &::before,
+        &::after {
+          @apply rounded-l-none -ml-px;
+        }
+      }
+    }
+  }
+}
