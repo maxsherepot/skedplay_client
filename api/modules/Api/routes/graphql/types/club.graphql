@@ -19,6 +19,8 @@ type Club {
   services: [Service] @belongsToMany
   events: [Event] @belongsToMany
   photos: [Media] @hasMany
+  videos: [Media] @hasMany
+  schedule: [ClubSchedule] @hasMany
   logo: Media @hasOne
 }
 
@@ -28,6 +30,7 @@ input ClubInput {
   email: String!
   website: String
   phone: String
+  phones: String
   description: String!
   address: String!
   index: String
@@ -36,7 +39,12 @@ input ClubInput {
   lat: String
   lng: String
   # File
-  logotype: Upload!
+  logotype: Upload
+  prices: JSON
+  services: JSON
+  schedule: JSON
+  photos: [Upload]
+  videos: [Upload]
 }
 
 input ClubModeratorInput {
@@ -56,11 +64,6 @@ input ClubFilters {
   club_type_id: Int @where
 }
 
-type ClubPayload implements Status {
-  status: Boolean!
-  message: String
-}
-
 extend type Query {
   club_types: [ClubType!]! @all
   clubs(filters: ClubFilters @spread): [Club!]! @paginate
@@ -71,21 +74,21 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   createClub(input: ClubInput @spread): Club
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@create")
 
-  updateClub(club: ID!, input: ClubInput @spread): ClubPayload
+  updateClub(club: ID!, input: ClubInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@update")
 
-  uploadClubFile(club: ID!, collection: String!, file: Upload!): StatusPayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadFile")
+  uploadClubFiles(club: ID!, collection: String!, files: [Upload]!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadFiles")
 
   deleteClubFile(club: ID!, file_id: Int!): StatusPayload
-    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@deleteFile")
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@deleteFiles")
 
   createClubEvent(club: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@createEvent")
 
-  syncClubServices(club: ID!, services: [ServiceInput!]): Club
+  syncClubServices(club: ID!, services: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncServices")
 
-  syncClubPrices(club: ID!, prices: [PriceInput!]): Club
+  syncClubPrices(club: ID!, prices: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncPrices")
 }

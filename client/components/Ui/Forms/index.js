@@ -67,3 +67,7 @@ export {
     default as ToggleField
 }
 from "./ToggleField";
+export {
+    default as ArrayField
+}
+    from "./ArrayField";

@@ -1,22 +1,15 @@
 import cx from "classnames";
 import { useSteps } from "hooks";
 
-const StepBox = () => {
-  const { step, setStep } = useSteps("newAd");
+const StepBox = ({ links, stepName }) => {
+  const { step, setStep } = useSteps(stepName);
 
-  const stepLinks = [
-    "Card / Ad Information",
-    "Services and price",
-    "Photos and videos",
-    "Schedule and activation",
-    "Book and pay"
-  ];
-
+  // Todo: Add check step.
   const active = step || 0;
 
   return (
     <div className="flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
-      {stepLinks.map((name, i) => (
+      {links.map((name, i) => (
         <div
           className="flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3"
           key={i}
@@ -42,7 +35,5 @@ const StepBox = () => {
     </div>
   );
 };
-
-StepBox.propTypes = {};
 
 export default StepBox;

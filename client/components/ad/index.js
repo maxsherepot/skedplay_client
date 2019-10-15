@@ -1,6 +1,9 @@
-import NewAdForm from "components/ad/NewAdForm";
-import NewAdBox from "components/ad/NewAdBox";
-import StepBox from "components/ad/StepBox";
-import LangSelector from "components/ad/LangSelector";
+import NewAdForm from "./NewAdForm";
+import NewAdBox from "./NewAdBox";
+import LangSelector from "./LangSelector";
 
-export { NewAdForm, NewAdBox, StepBox, LangSelector };
+export {
+    NewAdForm,
+    NewAdBox,
+    LangSelector
+};

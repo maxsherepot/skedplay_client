@@ -42,6 +42,7 @@ input ClubScheduleInput {
   end: String
   available: Boolean
   order: Int!
+  employee_id: Int
   club_id: Int!
 }
 
@@ -67,8 +68,11 @@ extend type Query {
 }
 
 type Mutation @middleware(checks: ["auth:api"]) {
-  createClubSchedule(input: ClubScheduleInput @spread): ClubSchedule
+  createClubSchedule(input: [ClubScheduleInput]): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@schedule")
+
+  updateClubSchedule(input: [ClubScheduleInput]): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@updateSchedule")
 
   createEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
   @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")

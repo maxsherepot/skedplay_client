@@ -6,7 +6,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Validation\Rule;
 use \Modules\Api\Extensions\GraphQLFormRequest;
 
-class ClubScheduleCreateRequest extends GraphQLFormRequest
+class ClubScheduleUpdateRequest extends GraphQLFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

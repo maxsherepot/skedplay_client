@@ -1,16 +1,14 @@
 import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
-
-import redirect from "lib/redirect";
+import Router from "next/router";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 
-function NewAdForm({ onSubmit, children }) {
-  const { step, setStep } = useSteps("newAd");
+function EditClubForm({ onSubmit, initialValues, user, children }) {
+  const { step, setStep } = useSteps("editClub");
 
-  const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
@@ -55,20 +53,14 @@ function NewAdForm({ onSubmit, children }) {
       }
 
       if (status) {
-        next();
+       next();
       }
     }
 
     if (isLastStep) {
-      console.log("LAST_STEP");
       try {
-        redirect(context, "/girls");
-        // await onSubmit({
-        //   variables: {
-        //     ...values
-        //   }
-        // });
-        // setStep(0);
+        setStep(0);
+        Router.back();
       } catch (e) {
         if (getErrors(e) instanceof Object) {
           setErrors(getErrors(e));
@@ -80,90 +72,7 @@ function NewAdForm({ onSubmit, children }) {
 
   return (
     <Formik
-      initialValues={{
-        name: "",
-        birthday: "",
-        gender: "",
-        race_type_id: "",
-        nationality: "",
-        description: "",
-        index: "",
-        city: "",
-        address: "",
-        phone: "",
-        email: "",
-        website: "",
-        prices: {},
-        services: {},
-        parameters: {},
-        schedule: [
-          {
-            day: 0,
-            start: null,
-            end: null,
-            available: true,
-            order: 6,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 1,
-            start: null,
-            end: null,
-            available: true,
-            order: 0,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 2,
-            start: null,
-            end: null,
-            available: true,
-            order: 1,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 3,
-            start: null,
-            end: null,
-            available: true,
-            order: 2,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 4,
-            start: null,
-            end: null,
-            available: true,
-            order: 3,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 5,
-            start: null,
-            end: null,
-            available: true,
-            order: 4,
-            employee_id: null,
-            club_id: null
-          },
-          {
-            day: 6,
-            start: null,
-            end: null,
-            available: true,
-            order: 5,
-            employee_id: null,
-            club_id: null
-          }
-        ],
-        photos: [],
-        videos: []
-      }}
+      initialValues={initialValues}
       validate={validate}
       onSubmit={handleSubmits}
     >
@@ -180,7 +89,7 @@ function NewAdForm({ onSubmit, children }) {
               )}
             </div>
           </div>
-          <div className="border-b border-divider"></div>
+          <div className="border-b border-divider" />
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12">
             <div className="w-full p-8 hd:px-0">
@@ -198,7 +107,7 @@ function NewAdForm({ onSubmit, children }) {
                 className="text-xl px-16"
                 disabled={isSubmitting}
               >
-                {isLastStep ? "Save ad" : "Next"}
+                {isLastStep ? "Save" : "Next"}
               </Button>
             </div>
           </div>
@@ -208,10 +117,11 @@ function NewAdForm({ onSubmit, children }) {
   );
 }
 
-NewAdForm.Step = ({ children }) => children;
+EditClubForm.Step = ({ children }) => children;
 
-NewAdForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+EditClubForm.propTypes = {
+  initialValues: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-export default NewAdForm;
+export default EditClubForm;

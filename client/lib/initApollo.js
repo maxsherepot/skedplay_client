@@ -70,6 +70,7 @@ function create(initialState, {
       register: 0,
       forgot: 0,
       newAd: 0,
+      editClub: 0,
       __typename: "Steps"
     },
     filters: {

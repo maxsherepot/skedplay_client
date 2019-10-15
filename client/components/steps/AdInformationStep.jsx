@@ -2,11 +2,10 @@ import React from "react";
 import * as Yup from "yup";
 import { GET_EMPLOYEE_PARAMETERS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-// import { LangSelector } from "components/ad";
-import { TextField, SelectField, TextAreaField, GroupCheckbox } from "UI";
+import { TextField, SelectField, TextAreaField } from "UI";
 
 const AdInformationStep = () => {
-  const { data: { parameters } = {}, loading } = useQuery(
+  const { data: { parameters } = {} } = useQuery(
     GET_EMPLOYEE_PARAMETERS
   );
 

@@ -10,6 +10,7 @@ export const STEPS = gql`
       register @client
       forgot @client
       newAd @client
+      editClub @client
       __typename
     }
   }

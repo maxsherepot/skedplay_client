@@ -1,0 +1,10 @@
+type Media {
+    id: ID!
+    name: String!
+    url: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getUrl")
+    thumb_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getThumbUrl")
+}
+
+extend type Mutation {
+    deleteMedia(id: ID!): String
+}

@@ -196,8 +196,6 @@ class EmployeeController extends Controller
     public function schedule(EmployeeScheduleCreateRequest $request)
     {
 //        $this->authorize('create-schedule', Club::class);
-
-
         $schedules = $request->all()['input'];
 
         try {
@@ -208,7 +206,6 @@ class EmployeeController extends Controller
           return $this->success();
 
         } catch (\Exception $exception) {
-          Log::info($exception->getMessage());
           return $this->fail();
         }
     }

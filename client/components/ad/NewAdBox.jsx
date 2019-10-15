@@ -156,7 +156,7 @@ const NewAdBox = () => {
           club_id: club_id
         }
 
-      })
+      });
       const {
         data: {
           createEmployeeSchedule: { status, message }

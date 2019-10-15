@@ -15,6 +15,9 @@ export const ALL_CLUBS = gql`
           id
           name
         }
+        logo {
+          url
+        }
         photos {
           url
         }
@@ -38,7 +41,11 @@ export const GET_CLUB = gql`
     club(id: $id) {
       id
       name
+      index
+      city
       address
+      email
+      website
       phones
       favorited {
         id
@@ -48,7 +55,16 @@ export const GET_CLUB = gql`
         name
       }
       description
+      logo {
+        url
+      }
       photos {
+        id
+        url
+        thumb_url
+      }
+      videos {
+        id
         url
         thumb_url
       }
@@ -82,6 +98,15 @@ export const GET_CLUB = gql`
         photos {
           url
         }
+      }
+      schedule {
+          id
+          day
+          day_name
+          start
+          end
+          order
+          available
       }
       employees {
         id
@@ -191,6 +216,76 @@ export const CREATE_CLUB = gql`
           thumb_url
         }
       }
+    }
+  }
+`;
+
+export const UPDATE_CLUB = gql`
+  mutation updateClub($club: ID!, $input: ClubInput!) {
+    updateClub(club: $club, input: $input) {
+        message
+        status
+    }
+  }
+`;
+
+export const SYNC_CLUB_PRICES = gql `
+  mutation syncClubPrices($club: ID!, $prices: JSON) {
+    syncClubPrices(club: $club, prices: $prices) {
+      status
+      message
+    }
+  }
+`;
+
+export const SYNC_CLUB_SERVICES = gql `
+  mutation syncClubServices($club: ID!, $services: JSON) {
+    syncClubServices(club: $club, services: $services) {
+      status
+      message
+    }
+  }
+`;
+
+export const UPLOAD_CLUB_FILES = gql `
+  mutation uploadClubFiles(
+    $club: ID!
+    $collection: String!
+    $files: [Upload]!
+  ) {
+  uploadClubFiles(
+      club: $club
+      collection: $collection
+      files: $files
+    ) {
+      status
+      message
+    }
+  }
+`;
+
+export const CREATE_CLUB_SCHEDULE = gql `
+  mutation createClubSchedule(
+    $input: [ClubScheduleInput]
+  ) {
+    createClubSchedule(
+      input: $input
+    ) {
+      status
+      message
+    }
+  }
+`;
+
+export const UPDATE_CLUB_SCHEDULE = gql `
+  mutation updateClubSchedule(
+    $input: [ClubScheduleInput]
+  ) {
+    updateClubSchedule(
+      input: $input
+    ) {
+      status
+      message
     }
   }
 `;

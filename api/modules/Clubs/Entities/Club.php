@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
+use Modules\Common\Entities\ClubScheduleWork;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
@@ -26,7 +28,9 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable;
 
     const LOGO_COLLECTION = 'club-logo';
+
     const PHOTO_COLLECTION = 'club-photo';
+
     const VIDEO_COLLECTION = 'club-video';
 
     protected $fillable = [
@@ -45,7 +49,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     ];
 
     protected $casts = [
-        'phones' => 'array'
+        'phones' => 'array',
     ];
 
     /**
@@ -54,6 +58,14 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     public function employees(): MorphMany
     {
         return $this->morphMany(Employee::class, 'owner');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schedule(): HasMany
+    {
+        return $this->hasMany(ClubScheduleWork::class)->orderBy('day');
     }
 
     /**
@@ -80,7 +92,6 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         return $this->belongsTo(User::class, 'moderator_id');
     }
 
-
     /**
      * @return MorphMany
      */
@@ -91,7 +102,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::LOGO_COLLECTION);
+        $this->addMediaCollection(self::LOGO_COLLECTION)->singleFile();
         $this->addMediaCollection(self::PHOTO_COLLECTION);
         $this->addMediaCollection(self::VIDEO_COLLECTION);
     }
@@ -102,9 +113,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('thumb')
-            ->height(470)
-            ->performOnCollections(self::PHOTO_COLLECTION);
+        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_COLLECTION);
     }
 
     /**
@@ -112,8 +121,15 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function photos(): HasMany
     {
-        return $this->hasMany(Media::class, 'model_id', 'id')
-            ->where('collection_name', self::PHOTO_COLLECTION);
+        return $this->hasMany(Media::class, 'model_id', 'id')->where('collection_name', self::PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')->where('collection_name', self::VIDEO_COLLECTION);
     }
 
     /**
@@ -121,7 +137,6 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function logo(): HasOne
     {
-        return $this->hasOne(Media::class, 'model_id', 'id')
-            ->where('collection_name', self::LOGO_COLLECTION);
+        return $this->hasOne(Media::class, 'model_id', 'id')->where('collection_name', self::LOGO_COLLECTION);
     }
 }

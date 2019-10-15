@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
@@ -11,6 +12,7 @@ use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Api\Http\Requests\Schedule\ClubScheduleCreateRequest;
+use Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
@@ -53,11 +55,14 @@ class ClubController extends Controller
         $this->prices = $prices;
     }
 
-    /**
-     * @param ClubCreateRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
+  /**
+   * @param ClubCreateRequest $request
+   * @return \Illuminate\Database\Eloquent\Model
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+   * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+   * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+   */
     public function create(ClubCreateRequest $request)
     {
         $this->authorize('create', Club::class);
@@ -70,6 +75,9 @@ class ClubController extends Controller
      * @param Club $club
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function update(ClubUpdateRequest $request, Club $club)
     {
@@ -86,14 +94,14 @@ class ClubController extends Controller
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadFile(FileUploadRequest $request, Club $club)
+    public function uploadFiles(FileUploadRequest $request, Club $club)
     {
         $this->authorize('update', $club);
 
         try {
-            $this->clubs->saveFile(
+            $this->clubs->saveAttachments(
                 $club,
-                $request->file('file'),
+                $request->allFiles(),
                 $request->get('collection')
             );
 
@@ -148,27 +156,32 @@ class ClubController extends Controller
     /**
      * @param Club $club
      * @param SyncServicesRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function syncServices(Club $club, SyncServicesRequest $request)
     {
         $this->authorize('create', Service::class);
 
-        return $this->services->sync($club, collect($request->all()));
+        $this->services->sync($club, collect($request->all()));
+
+        return $this->success();
     }
 
     /**
      * @param Club $club
      * @param SyncPricesRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function syncPrices(Club $club, SyncPricesRequest $request)
     {
         $this->authorize('create', PriceType::class);
 
-        return $this->prices->sync($club, collect($request->all()));
+        $this->prices->sync($club, collect($request->all()));
+
+        return $this->success();
+
     }
 
     public function favorite(Club $club)
@@ -183,13 +196,47 @@ class ClubController extends Controller
 
     /**
      * @param ClubScheduleCreateRequest $request
-     * @return \Illuminate\Database\Eloquent\Model
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return array
      */
     public function schedule(ClubScheduleCreateRequest $request)
     {
 //        $this->authorize('create-schedule', Club::class);
 
-        return $this->clubs->storeSchedule(collect($request->all()));
+        $schedules = $request->all()['input'];
+
+        try {
+            foreach($schedules as $schedule) {
+                $this->clubs->storeSchedule(collect($schedule));
+            }
+
+            return $this->success();
+
+        } catch (\Exception $exception) {
+            return $this->fail();
+        }
+    }
+
+    /**
+     * @param \Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest $request
+     * @return array
+     */
+    public function updateSchedule(ClubScheduleUpdateRequest $request)
+    {
+//        $this->authorize('create-schedule', Club::class);
+
+        $schedules = $request->all()['input'];
+
+        try {
+            foreach($schedules as $schedule) {
+                $this->clubs->updateSchedule(collect($schedule));
+            }
+
+            return $this->success();
+
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+
+            return $this->fail();
+        }
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { Field, useFormikContext } from "formik";
@@ -6,10 +6,16 @@ import { CloseSvg, AddPhotoSvg } from "icons";
 
 import { FormGroup } from "UI";
 
-function FileField({ className, labelClassName, label, name }) {
+function FileField({ className, labelClassName, preview, label, name, ...inputProps }) {
   const [filePreview, setFilePreview] = useState(null);
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
+
+  useEffect(() => {
+    if (preview) {
+      setFilePreview(preview)
+    }
+  }, [preview, setFilePreview]);
 
   const handleChange = async ({ target: { validity, files } }) => {
     if (validity.valid) {
@@ -22,7 +28,7 @@ function FileField({ className, labelClassName, label, name }) {
   return (
     <FormGroup
       className={cx(className, "relative")}
-      error={error ? true : false}
+      error={!!error}
     >
       <label className={labelClassName} htmlFor={name}>
         {error ? error : label}
@@ -50,7 +56,7 @@ function FileField({ className, labelClassName, label, name }) {
               <input
                 className="absolute inset-0 opacity-0 w-full"
                 type="file"
-                required
+                {...inputProps}
                 onChange={handleChange}
               />
             </div>

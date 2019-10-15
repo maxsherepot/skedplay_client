@@ -3,13 +3,22 @@ import { useRouter } from "next/router";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { StepBox, NewAdBox } from "components/ad";
+import StepBox from "components/StepBox";
+import { NewAdBox } from "components/ad";
 import { MainLayout } from "layouts";
 import { CloseSvg } from "icons";
 import { PageCard } from "UI";
 
 const Invoice = ({ loggedInUser }) => {
   const router = useRouter();
+
+  const links = [
+    "Card / Ad Information",
+    "Services and price",
+    "Photos and videos",
+    "Schedule and activation",
+    "Book and pay"
+  ]
 
   return (
     <MainLayout user={loggedInUser}>
@@ -27,9 +36,9 @@ const Invoice = ({ loggedInUser }) => {
       </div>
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
-          <StepBox></StepBox>
+          <StepBox links={links} stepName="newAd" />
         </div>
-        <div className="border-b border-divider"></div>
+        <div className="border-b border-divider" />
         <NewAdBox />
       </PageCard>
     </MainLayout>

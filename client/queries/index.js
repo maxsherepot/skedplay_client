@@ -11,3 +11,4 @@ export * from "queries/reviewQuery";
 export * from "queries/priceQuery";
 export * from "queries/createEmployeeQuery";
 export * from "queries/parameterQuery";
+export * from "queries/mediaQuery";

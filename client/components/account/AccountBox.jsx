@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import cx from "classnames";
 import { MainLayout } from "layouts";
 import { Avatar, Button, PageCard } from "UI";
 import { AccountLabel } from "components/account";
@@ -20,7 +21,7 @@ const ProfileHeader = ({ user }) => (
   </div>
 );
 
-const ClubMenu = ({ clubs, collapse, setCollapse }) => {
+const ClubMenu = ({ id: userId, clubs, collapse, setCollapse }) => {
   return clubs.map(({ id, name, employees, events }, i) => {
     const isCollapsed = collapse === i;
     return (
@@ -52,7 +53,11 @@ const ClubMenu = ({ clubs, collapse, setCollapse }) => {
                 {(events && events.length) || 0}
               </span>
             </div>
-            <div className="text-red p-1 cursor-pointer">Admin / Edit</div>
+            <Link href="/account/:id/club/:cid/edit" as={`/account/${userId}/club/${id}/edit`}>
+              <a>
+                <div className="text-red p-1 cursor-pointer">Admin / Edit</div>
+              </a>
+            </Link>
             <div className="text-red p-1 cursor-pointer">Webpage</div>
           </div>
         )}
@@ -61,7 +66,7 @@ const ClubMenu = ({ clubs, collapse, setCollapse }) => {
   });
 };
 
-const Sidebar = ({ user: { is_club_owner, is_employee, clubs, employee }, collapse, setCollapse }) => (
+const Sidebar = ({ user: { id, is_club_owner, is_employee, clubs, employee }, collapse, setCollapse }) => (
   <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
     <div className="flex flex-col py-10 lg:pr-32">
       {is_employee && (
@@ -106,7 +111,7 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs, employee }, collap
             You have {clubs.length} clubs
           </div>
 
-          <ClubMenu clubs={clubs} collapse={collapse} setCollapse={setCollapse} />
+          <ClubMenu id={id} clubs={clubs} collapse={collapse} setCollapse={setCollapse} />
 
           <Link href="/clubs/add">
             <a className="ml-5 mt-5">
@@ -134,12 +139,12 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs, employee }, collap
         </span>
       </div>
 
-      {employee && employee.reviews && employee.reviews.length && (
+      {employee && employee.reviews && employee.reviews.length !== 0 && (
         <div className="mt-4">
-        <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-          Reviews
-        </span>
-      </div>
+          <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+            Reviews
+          </span>
+        </div>
       )}
 
       <div className="mt-4">
@@ -153,14 +158,14 @@ const Sidebar = ({ user: { is_club_owner, is_employee, clubs, employee }, collap
   </div>
 );
 
-const AccountBox = ({ user, collapse, setCollapse, children }) => {
+const AccountBox = ({ contentClass, user, collapse, setCollapse, children }) => {
   return (
     <MainLayout user={user}>
       <ProfileHeader user={user} />
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
           <Sidebar collapse={collapse} setCollapse={setCollapse} user={user} />
-          <div className="lg:w-3/5 lg:ml-10 px-8 py-12">{children}</div>
+          <div className={cx(contentClass ? contentClass : "lg:w-3/5 lg:ml-10 px-8 py-12")}>{children}</div>
         </div>
       </PageCard>
     </MainLayout>
