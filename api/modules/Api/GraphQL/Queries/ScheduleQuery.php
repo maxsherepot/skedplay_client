@@ -16,8 +16,10 @@ class ScheduleQuery
         $dates = [];
         foreach ($period as $key => $date) {
             $dates[] = [
-                'day'  => $date->dayOfWeek,
-                'date' => $date->format('d.m')
+                'day' => $date->dayOfWeek,
+                'display_name' => __("schedule.day.".$date->dayOfWeek),
+                'today' => $date->isToday(),
+                'date' => $date->format('d.m'),
             ];
         }
 

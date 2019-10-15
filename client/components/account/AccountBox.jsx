@@ -28,16 +28,20 @@ const ClubMenu = ({ id: userId, clubs, collapse, setCollapse }) => {
       <div key={id} onClick={() => setCollapse(i)}>
         <span className="flex items-center text-xl font-medium px-5 py-2 hover:cursor-pointer">
           {isCollapsed ? <ChevronDownSvg /> : <ChevronRightSvg />}
-          <span className="ml-4">{name}</span>
+          <span className="truncate ml-4">{name}</span>
         </span>
         {isCollapsed && (
           <div className="ml-12 font-medium">
-            <div className="text-red p-1 cursor-pointer">
-              Sex workers cards
-              <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                {(employees && employees.length) || 0}
-              </span>
-            </div>
+            {/* Add ActiveLink with special class! */}
+
+            <Link href="/account/:id/club/:cid/workers" as={`/account/${userId}/club/${id}/workers`}>
+              <a  className="text-red p-1 cursor-pointer">
+                Sex workers cards
+                <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                  {(employees && employees.length) || 0}
+                </span>
+              </a>
+            </Link>
             <Link href="/girls/add">
               <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
                 <AddSvg />

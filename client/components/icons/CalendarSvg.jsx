@@ -1,6 +1,9 @@
-export default function CalendarSvg() {
+import cx from "classnames"
+
+export default function CalendarSvg({ className }) {
   return (
     <svg
+      className={cx(className, "stroke-current")}
       width="14"
       height="15"
       viewBox="0 0 14 15"

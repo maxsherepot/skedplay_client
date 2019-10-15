@@ -33,6 +33,8 @@ type EmployeeSchedule implements Schedule {
 
 type SchedulePeriod {
   day: String!
+  display_name: String
+  today: Boolean!
   date: String!
 }
 

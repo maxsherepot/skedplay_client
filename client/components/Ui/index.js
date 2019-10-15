@@ -45,3 +45,7 @@ export { default as AddressCard } from "./AddressCard";
 
 /** Labels */
 export { default as EventLabel } from "./EventCard/EventLabel";
+
+/** Tabs */
+export { default as Tab } from "./Tabs/Tab";
+export { default as Panel } from "./Tabs/Panel";
