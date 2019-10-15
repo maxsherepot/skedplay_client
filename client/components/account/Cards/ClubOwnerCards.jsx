@@ -38,16 +38,18 @@ const GirlRow = ({ soon, active }) => (
 );
 
 const ClubOwnerCards = ({ user, collapse }) => {
-  let phone = null
+  let phone = null;
 
   const club = user.clubs[collapse];
 
-  if (club.phones) {
+  if (!club) return null;
+
+  if (club && club.phones) {
     const [number] = JSON.parse(club.phones);
     phone = number
   }
 
-  const { admin } = club
+  const { admin } = club;
 
   return (
     <>
