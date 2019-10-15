@@ -20,11 +20,13 @@ const EmployeeCard = () => {
 };
 
 const AvailableToday = ({ employees }) => {
-    console.log(employees)
+    console.log(employees);
     return (
         <div className="px-2">
             <div className="flex flex-wrap -mx-2">
-                {employees.map((employee) =>)}
+                {employees.map((employee) => {
+                    <EmployeeCard employee={employee} />
+                })}
             </div>
         </div>
     )
