@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\Review;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;

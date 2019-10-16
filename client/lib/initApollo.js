@@ -71,6 +71,7 @@ function create(initialState, {
       forgot: 0,
       newAd: 0,
       editClub: 0,
+      editClubEmployee: 0,
       __typename: "Steps"
     },
     filters: {

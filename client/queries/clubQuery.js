@@ -122,6 +122,12 @@ export const GET_CLUB = gql`
           url
           thumb_url
         }
+        owner {
+          ... on Club {
+            id
+            name
+          }
+        }
       }
     }
   }

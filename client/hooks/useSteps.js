@@ -11,6 +11,7 @@ export const STEPS = gql`
       forgot @client
       newAd @client
       editClub @client
+      editClubEmployee @client
       __typename
     }
   }
