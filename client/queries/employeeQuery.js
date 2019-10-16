@@ -49,6 +49,16 @@ export const GET_EMPLOYEE = gql `
       favorited {
         id
       }
+      owner {
+       ... on User {
+          id
+          name
+        }
+      ... on Club {
+          id
+          name
+        }
+      }
       events {
         id
         title

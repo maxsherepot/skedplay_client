@@ -9,6 +9,7 @@ import {
   CREATE_EMPLOYEE_SCHEDULE,
 } from "queries";
 import { getErrors } from "utils";
+import { createEmployeeRules } from "rules";
 import { NewAdForm } from "components/ad";
 import {
   AdInformationStep,
@@ -185,7 +186,7 @@ const NewAdBox = () => {
   return (
     <NewAdForm onSubmit={() => console.log("final step")}>
       <NewAdForm.Step
-        validationSchema={AdInformationStep.validationSchema}
+        validationSchema={createEmployeeRules}
         onStepSubmit={onSubmitInfo}
       >
         <AdInformationStep />

@@ -5,23 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { AccountBox } from "components/account";
+import SelectClub from "components/account/SelectClub";
 import { Button, Tab, Panel } from "UI";
 import { Tabs } from "@bumaga/tabs";
-import { CalendarSvg, ChevronDownSvg } from "icons";
+import { CalendarSvg } from "icons";
 import { SCHEDULE_WEEK_PERIOD } from "queries";
 import {
     GET_CLUB,
 } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-
-const SelectClub = ({ owner }) => {
-    return (
-        <div className="flex items-center bg-xs-grey rounded p-2">
-            <div className="w-26 text-xs truncate">{owner.name}</div>
-            <ChevronDownSvg />
-        </div>
-    )
-};
 
 const EmployeeCard = ({ employee }) => {
     const [photo] = employee.photos;
@@ -70,7 +62,7 @@ const AvailableToday = ({ employees }) => {
         <>
             <div className="text-4xl font-extrabold mb-2">Available today</div>
             <div className="flex flex-wrap -mx-2">
-                {employees.map((employee) => <EmployeeCard employee={employee} />)}
+                {employees.map((employee) => <EmployeeCard key={employee.id} employee={employee} />)}
             </div>
         </>
     )

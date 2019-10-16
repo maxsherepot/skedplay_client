@@ -1,28 +1,76 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import redirect from "lib/redirect";
-import cx from "classnames";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { AccountBox } from "components/account";
-import { Button, Tab, Panel } from "UI";
-import { Tabs } from "@bumaga/tabs";
-import { CalendarSvg, ChevronDownSvg } from "icons";
-import { SCHEDULE_WEEK_PERIOD } from "queries";
+import {AccountBox} from "components/account";
+import SelectClub from "components/account/SelectClub";
+import {Button} from "UI";
+
 import {
-    GET_CLUB,
+    GET_EMPLOYEE,
 } from "queries";
-import { useQuery } from "@apollo/react-hooks";
+import {useQuery} from "@apollo/react-hooks";
 import StepBox from "components/StepBox";
 
+const Header = ({employee}) => {
+    const [photo] = employee.photos;
 
-const AccountWorkers = ({ loggedInUser }) => {
-    const { query: { eid } } = useRouter();
-    // const { data: { club } = {}, loading} = useQuery(GET_CLUB, {
-    //     variables: {
-    //         id: cid
-    //     }
-    // });
+    return (
+        <div className="flex items-center justify-between border border-divider p-3 mx-8 mt-6 rounded-lg">
+            <div className="relative w-30 h-30 mr-4">
+                <img className="w-30 h-30 rounded-full object-cover" src={photo && photo.thumb_url}
+                     alt={employee.name}/>
+                {employee.isVip && (
+                    <div className="absolute bottom-0 left-0 w-full">
+                        <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">VIP</div>
+                    </div>
+                )}
+            </div>
+
+           <div className="flex flex-1 px-2">
+               <div className="flex w-full items-end -mx-2">
+                   <div className="flex flex-col flex-1 px-2">
+                       <div className="text-4xl font-extrabold whitespace-no-wrap">{employee.name}</div>
+                       <div className="flex items-center text-grey my-2">
+                           <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full"/>
+                           <div className="flex items-center">05.06-07.06</div>
+                       </div>
+
+                       <div className="flex items-center">
+                           <SelectClub className="w-40" owner={employee.owner}/>
+
+                           <div className="mx-4">1234 views</div>
+
+                           <div className="text-grey">5 day left</div>
+                       </div>
+                   </div>
+
+                   <div className="flex justify-center flex-col h-full px-2">
+                       <Button className="px-3 mb-3" level="primary" outline size="xxs">
+                           <span className="text-black">Cancel VIP</span>
+                       </Button>
+                       <Button className="px-3 mb-3" level="primary" outline size="xxs">
+                           <span className="text-black">Deactivate</span>
+                       </Button>
+                       <Button className="px-3" level="primary" outline size="xxs">
+                           <span className="text-black">Delete</span>
+                       </Button>
+                   </div>
+               </div>
+           </div>
+        </div>
+    )
+};
+
+const AccountWorkers = ({loggedInUser}) => {
+    const {query: {eid}} = useRouter();
     const [collapse, setCollapse] = useState(0);
+    const {data: {employee} = {}, loading} = useQuery(GET_EMPLOYEE, {
+        variables: {
+            id: eid
+        }
+    });
+
     const links = [
         'Information',
         'Services and Prices',
@@ -30,25 +78,24 @@ const AccountWorkers = ({ loggedInUser }) => {
         'Schedule and activation',
     ];
 
-    console.log(eid)
+    if (loading) return null;
 
-    // if (loading) return null;
-
-    return <AccountBox user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>
+    return <AccountBox contentClass="lg:w-3/5" user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>
+        <Header employee={employee}/>
         <div className="flex flex-col lg:flex-row justify-between">
-            <StepBox links={links} stepName="editClubEmployee" />
+            <StepBox links={links} stepName="editClubEmployee"/>
         </div>
-        <div className="border-b border-divider" />
+        <div className="border-b border-divider"/>
     </AccountBox>;
 };
 
 AccountWorkers.getInitialProps = async context => {
-    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+    const {loggedInUser} = await checkLoggedIn(context.apolloClient);
     if (!loggedInUser) {
         redirect(context, "/login");
     }
 
-    return { loggedInUser };
+    return {loggedInUser};
 };
 
 export default AccountWorkers;

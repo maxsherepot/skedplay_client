@@ -1,5 +1,4 @@
 import React from "react";
-import * as Yup from "yup";
 import { GET_EMPLOYEE_PARAMETERS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { TextField, SelectField, TextAreaField } from "UI";
@@ -187,21 +186,5 @@ const AdInformationStep = () => {
     </>
   );
 };
-
-AdInformationStep.validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  birthday: Yup.string().required(),
-  gender: Yup.string().required(),
-  race_type_id: Yup.string().required(),
-  nationality: Yup.string().required(),
-  description: Yup.string().required(),
-  index: Yup.string().required(),
-  city: Yup.string().required(),
-  address: Yup.string().required(),
-  phone: Yup.string().required(),
-  email: Yup.string().required(),
-  website: Yup.string().required()
-  // languages: Yup.string().required()
-});
 
 export default AdInformationStep;

@@ -276,7 +276,7 @@ const EditClubBox = ({club, user}) => {
     };
 
     return (
-        <EditClubForm onSubmit={() => console.log("final step")} initialValues={initialValues} user={user}>
+        <EditClubForm initialValues={initialValues} user={user}>
             <EditClubForm.Step
                 validationSchema={InformationStep.validationSchema}
                 onStepSubmit={onSubmitInfo}

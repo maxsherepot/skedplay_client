@@ -15,6 +15,7 @@ module.exports = withSass({
     config.resolve.alias["lib"] = path.join(__dirname, "lib");
     config.resolve.alias["queries"] = path.join(__dirname, "queries");
     config.resolve.alias["utils"] = path.join(__dirname, "utils");
+    config.resolve.alias["rules"] = path.join(__dirname, "rules");
     config.resolve.alias["static"] = path.join(__dirname, "static");
     config.resolve.alias["styles"] = path.join(__dirname, "styles");
     config.resolve.alias["hooks"] = path.join(__dirname, "hooks");

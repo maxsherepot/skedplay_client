@@ -6,8 +6,8 @@ import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 
-function EditClubForm({ initialValues, children }) {
-  const { step, setStep } = useSteps("editClub");
+function EditEmployeeForm({ initialValues, children }) {
+  const { step, setStep } = useSteps("editEmployee");
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
@@ -118,10 +118,10 @@ function EditClubForm({ initialValues, children }) {
   );
 }
 
-EditClubForm.Step = ({ children }) => children;
+EditEmployeeForm.Step = ({ children }) => children;
 
-EditClubForm.propTypes = {
+EditEmployeeForm.propTypes = {
   initialValues: PropTypes.object.isRequired,
 };
 
-export default EditClubForm;
+export default EditEmployeeForm;

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { GET_EMPLOYEE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
-import EditEmployee from "components/employee/EditEmployee";
+import EditEmployeeBox from "components/employee/EditEmployee";
 
 const Edit = ({ loggedInUser }) => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const Edit = ({ loggedInUser }) => {
         <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
           Personal Information
         </div>
-        <EditEmployee initialValues={employee} />
+        <EditEmployeeBox initialValues={employee} />
       </div>
     </EmployeeBox>
   );
