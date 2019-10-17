@@ -7,7 +7,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { NewReviewForm } from "components/review";
 
-const Information = ({ loggedInUser }) => {
+const Reviews = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
   const [page, setPage] = usePagination();
@@ -129,7 +129,7 @@ const Information = ({ loggedInUser }) => {
   );
 };
 
-Information.getInitialProps = async context => {
+Reviews.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
   if (!loggedInUser) {
     return {};
@@ -137,4 +137,4 @@ Information.getInitialProps = async context => {
   return { loggedInUser };
 };
 
-export default Information;
+export default Reviews;

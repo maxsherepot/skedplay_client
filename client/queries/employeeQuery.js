@@ -87,6 +87,7 @@ export const GET_EMPLOYEE = gql `
         display_name
         pivot {
           value
+          display_value
         }
       }
       services {

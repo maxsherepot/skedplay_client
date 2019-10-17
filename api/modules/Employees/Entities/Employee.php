@@ -140,7 +140,9 @@ class Employee extends Model implements HasMedia, HasLocation
      */
     public function parameters(): BelongsToMany
     {
-        return $this->belongsToMany(Parameter::class, 'employee_parameters')->withPivot('value');
+        return $this->belongsToMany(Parameter::class, 'employee_parameters')
+            ->using(EmployeeParameter::class)
+            ->withPivot('value');
     }
 
     public function registerMediaCollections()

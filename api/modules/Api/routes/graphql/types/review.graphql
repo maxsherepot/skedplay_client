@@ -13,7 +13,7 @@ type Review {
   body: String!
   created_at: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\DateType@createdAt")
   user: User @belongsTo
-  reviewable: Reviewable! @morphTo
+  reviewable: Reviewable @morphTo
   replies: [ReviewReply] @hasMany
 }
 

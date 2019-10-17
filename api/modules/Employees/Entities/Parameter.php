@@ -87,5 +87,4 @@ class Parameter extends Model
         'display_name' => 'string',
         'options'      => 'array',
     ];
-
 }

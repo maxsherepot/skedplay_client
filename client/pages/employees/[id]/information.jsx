@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -102,6 +102,8 @@ const Information = ({ loggedInUser }) => {
     </>
   );
 
+  console.log(employee)
+
   const contentColumn = (
     <>
       <div className="flex -mx-3">
@@ -125,47 +127,49 @@ const Information = ({ loggedInUser }) => {
                 <div className="w-32">TS</div>
               </section>
 
-              <section className="my-3">
+              <section className="mt-3 mb-6">
                 <div className="text-grey">Type of woman</div>
                 <div className="line" />
                 <div className="w-32">Asian</div>
               </section>
 
-              <section className="mt-6 mb-3">
-                <div className="text-grey">Growth</div>
-                <div className="line" />
-                <div className="w-32">165 cm</div>
-              </section>
+              {employee.parameters.map(p => (
+                  <section className="my-3" key={p.id}>
+                    <div className="text-grey">{p.display_name}</div>
+                    <div className="line" />
+                    <div className="w-32">{p.pivot.value}</div>
+                  </section>
+              ))}
 
-              <section className="my-3">
-                <div className="text-grey">Weight</div>
-                <div className="line" />
-                <div className="w-32">54 kg</div>
-              </section>
+              {/*<section className="my-3">*/}
+              {/*  <div className="text-grey">Weight</div>*/}
+              {/*  <div className="line" />*/}
+              {/*  <div className="w-32">54 kg</div>*/}
+              {/*</section>*/}
 
-              <section className="my-3">
-                <div className="text-grey">Breast size</div>
-                <div className="line" />
-                <div className="w-32">Medium (3B)</div>
-              </section>
+              {/*<section className="my-3">*/}
+              {/*  <div className="text-grey">Breast size</div>*/}
+              {/*  <div className="line" />*/}
+              {/*  <div className="w-32">Medium (3B)</div>*/}
+              {/*</section>*/}
 
-              <section className="my-3">
-                <div className="text-grey">Body type</div>
-                <div className="line" />
-                <div className="w-32">Fitness</div>
-              </section>
+              {/*<section className="my-3">*/}
+              {/*  <div className="text-grey">Body type</div>*/}
+              {/*  <div className="line" />*/}
+              {/*  <div className="w-32">Fitness</div>*/}
+              {/*</section>*/}
 
-              <section className="my-3">
-                <div className="text-grey">Hair</div>
-                <div className="line" />
-                <div className="w-32">Black</div>
-              </section>
+              {/*<section className="my-3">*/}
+              {/*  <div className="text-grey">Hair</div>*/}
+              {/*  <div className="line" />*/}
+              {/*  <div className="w-32">Black</div>*/}
+              {/*</section>*/}
 
-              <section className="my-3">
-                <div className="text-grey">Eye color</div>
-                <div className="line" />
-                <div className="w-32">Blue</div>
-              </section>
+              {/*<section className="my-3">*/}
+              {/*  <div className="text-grey">Eye color</div>*/}
+              {/*  <div className="line" />*/}
+              {/*  <div className="w-32">Blue</div>*/}
+              {/*</section>*/}
 
               <section className="mt-6 mb-3">
                 <div className="text-grey">Languages</div>
@@ -193,9 +197,11 @@ const Information = ({ loggedInUser }) => {
             </div>
             <div className="w-full sm:w-2/5">
               <div className="flex sm:flex-col items-end">
-                <div className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
-                  VIP
-                </div>
+                {employee.isVip && (
+                    <div className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
+                      VIP
+                    </div>
+                )}
                 <div className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
                   100%
                 </div>

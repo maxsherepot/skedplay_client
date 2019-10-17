@@ -13,6 +13,7 @@ type ParameterOption {
 
 type ParameterPivot {
     value: String!
+    display_value: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\ParameterType@display_value")
 }
 
 extend type Query {
