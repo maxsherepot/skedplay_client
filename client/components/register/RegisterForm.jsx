@@ -8,7 +8,7 @@ import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 
 function RegisterForm({ onSubmit, children }) {
-  const { step, setStep } = useSteps("register");
+  const { step, setStep } = useSteps();
 
   const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];

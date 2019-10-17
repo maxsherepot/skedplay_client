@@ -1,16 +1,16 @@
 import * as Yup from "yup";
 
-export const createEmployeeRules = Yup.object().shape({
+export const employeeRules = Yup.object().shape({
     name: Yup.string().required(),
-    birthday: Yup.string().required(),
+    birthday: Yup.string(),
     gender: Yup.string().required(),
     race_type_id: Yup.string().required(),
-    nationality: Yup.string().required(),
+    type: Yup.string(),
     description: Yup.string().required(),
-    index: Yup.string().required(),
-    city: Yup.string().required(),
-    address: Yup.string().required(),
-    phone: Yup.string().required(),
-    email: Yup.string().required(),
-    website: Yup.string().required()
+    index: Yup.string(),
+    city: Yup.string(),
+    address: Yup.string(),
+    phone: Yup.string(),
+    email: Yup.string(),
+    website: Yup.string()
 });

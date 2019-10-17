@@ -1,140 +1,80 @@
 import React from "react";
-import * as Yup from "yup";
 import {useMutation} from "@apollo/react-hooks";
 import {
-  UPDATE_CLUB,
-  SYNC_CLUB_PRICES,
-  SYNC_CLUB_SERVICES,
-  UPLOAD_CLUB_FILES,
-  UPDATE_CLUB_SCHEDULE,
+  UPDATE_EMPLOYEE,
+  SYNC_EMPLOYEE_PRICES,
+  SYNC_EMPLOYEE_SERVICES,
+  UPLOAD_EMPLOYEE_FILES,
+  UPDATE_EMPLOYEE_SCHEDULE,
 } from "queries";
-import {getErrors} from "utils";
+
+import {getErrors, defaultSchedule} from "utils";
+import {employeeRules} from "rules";
 import {EditEmployeeForm} from "components/employee";
 import {
-  InformationStep,
-  // ServicesAndPricesStep,
-  // MediaStep,
-  // ScheduleStep,
-} from "./steps";
+  AdInformationStep,
+  AdServicesAndPricesStep,
+  AdMediaStep,
+  AdScheduleStep,
+} from 'components/steps';
 
-const EditEmployeeBox = ({club, user}) => {
-  const [updateClub] = useMutation(UPDATE_CLUB);
-  // const [syncClubPrices] = useMutation(SYNC_CLUB_PRICES);
-  // const [syncClubServices] = useMutation(SYNC_CLUB_SERVICES);
-  // const [uploadClubFiles] = useMutation(UPLOAD_CLUB_FILES);
-  // const [updateClubSchedule] = useMutation(UPDATE_CLUB_SCHEDULE);
+const EditEmployeeBox = ({ employee }) => {
+  const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
+  const [syncEmployeePrices] = useMutation(SYNC_EMPLOYEE_PRICES);
+  const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
+  const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
+  const [updateEmployeeSchedule] = useMutation(UPDATE_EMPLOYEE_SCHEDULE);
 
+  let parameters = {};
   let services = {};
   let prices = {};
-  let schedule = [
-    {
-      day: 0,
-      start: null,
-      end: null,
-      available: true,
-      order: 6,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 1,
-      start: null,
-      end: null,
-      available: true,
-      order: 0,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 2,
-      start: null,
-      end: null,
-      available: true,
-      order: 1,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 3,
-      start: null,
-      end: null,
-      available: true,
-      order: 2,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 4,
-      start: null,
-      end: null,
-      available: true,
-      order: 3,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 5,
-      start: null,
-      end: null,
-      available: true,
-      order: 4,
-      employee_id: null,
-      club_id: null
-    },
-    {
-      day: 6,
-      start: null,
-      end: null,
-      available: true,
-      order: 5,
-      employee_id: null,
-      club_id: null
-    }
-  ];
+  employee.parameters.forEach(s => parameters[s.id] = s.pivot.value);
 
-  club.services.forEach(s => {
+  employee.services.forEach(s => {
     services[s.id] = {
       active: true,
       price: s.pivot.price,
     }
   });
 
-  club.prices.forEach(p => {
-    prices[p.id] = p.pivot.price
-  });
+  employee.prices.forEach(p => prices[p.id] = p.pivot.price);
 
   const initialValues = {
-    name: club.name,
-    club_type_id: +club.type.id,
-    description: club.description,
-    index: club.index,
-    city: club.city,
-    address: club.address,
-    phones: JSON.parse(club.phones),
-    email: club.email,
-    website: club.website,
+    name: employee.name,
+    birthday: employee.birthday,
+    gender: employee.gender,
+    race_type_id: employee.race_type_id,
+    type: employee.type,
+    description: employee.description,
+    index: employee.index,
+    city: employee.city,
+    address: employee.address,
+    phone: employee.phone,
+    email: employee.email,
+    website: employee.website,
     prices,
     services,
+    parameters,
+    schedule: defaultSchedule(employee.schedule),
     photos: [],
-    videos: [],
-    schedule: club.schedule || schedule
+    videos: []
   };
 
   const onSubmitInfo = async values => {
     try {
       const {
         data: {
-          updateClub: {status, message}
+          updateEmployee: {status, message}
         }
-      } = await updateClub({
+      } = await updateEmployee({
         variables: {
-          club: club.id,
+          employee: employee.id,
           input: {
             ...values,
-            phones: JSON.stringify(values.phones),
+            schedule: JSON.stringify(values.schedule),
             prices: JSON.stringify(values.prices),
             services: JSON.stringify(values.services),
-            schedule: JSON.stringify(values.schedule),
+            parameters: JSON.stringify(values.parameters)
           }
         }
       });
@@ -158,25 +98,25 @@ const EditEmployeeBox = ({club, user}) => {
     try {
       const {
         data: {
-          syncClubPrices: {status: priceStatus, message: priceMessage}
+          syncEmployeePrices: { status: priceStatus, message: priceMessage }
         }
-      } = await syncClubPrices({
+      } = await syncEmployeePrices({
         variables: {
-          club: club.id,
+          employee: employee.id,
           prices: JSON.stringify(values.prices)
         }
       });
 
       const {
         data: {
-          syncClubServices: {
+          syncEmployeeServices: {
             status: serviceStatus,
             message: serviceMessage
           }
         }
-      } = await syncClubServices({
+      } = await syncEmployeeServices({
         variables: {
-          club: club.id,
+          employee: employee.id,
           services: JSON.stringify(values.services)
         }
       });
@@ -200,24 +140,24 @@ const EditEmployeeBox = ({club, user}) => {
     try {
       const {
         data: {
-          uploadClubFiles: {status: statusPhoto, message: messagePhoto}
+          uploadEmployeeFiles: { status: statusPhoto, message: messagePhoto }
         }
-      } = await uploadClubFiles({
+      } = await uploadEmployeeFiles({
         variables: {
-          club: club.id,
-          collection: "club-photo",
+          employee: employee.id,
+          collection: "employee-photo",
           files: values.photos
         }
       });
 
       const {
         data: {
-          uploadClubFiles: {status: statusVideo, message: messageVideo}
+          uploadEmployeeFiles: { status: statusVideo, message: messageVideo }
         }
-      } = await uploadClubFiles({
+      } = await uploadEmployeeFiles({
         variables: {
-          club: club.id,
-          collection: "club-video",
+          employee: employee.id,
+          collection: "employee-video",
           files: values.videos
         }
       });
@@ -239,23 +179,24 @@ const EditEmployeeBox = ({club, user}) => {
 
   const onSubmitSchedule = async values => {
     try {
-      let payload = values.schedule.map(({day, start, end, order }) => {
+      let payload = values.schedule.map(({ day, start, end, order, club_id, }) => {
         return {
           day,
           start: start === 0 ? null : start,
           end: start === 0 ? null : end,
           available: start !== 0,
           order,
-          employee_id: null,
-          club_id: club.id
+          employee_id: employee.id,
+          club_id: club_id
         }
 
       });
+
       const {
         data: {
-          updateClubSchedule: {status, message}
+          updateEmployeeSchedule: { status, message }
         }
-      } = await updateClubSchedule({
+      } = await updateEmployeeSchedule({
         variables: {
           input: payload,
         }
@@ -277,35 +218,25 @@ const EditEmployeeBox = ({club, user}) => {
   };
 
   return (
-      <EditEmployeeForm initialValues={initialValues} user={user}>
+      <EditEmployeeForm initialValues={initialValues}>
         <EditEmployeeForm.Step
-            validationSchema={InformationStep.validationSchema}
+            validationSchema={employeeRules}
             onStepSubmit={onSubmitInfo}
         >
-          <InformationStep club={club}/>
+          <AdInformationStep />
         </EditEmployeeForm.Step>
 
-        {/*<EditEmployeeForm.Step*/}
-        {/*    validationSchema={ServicesAndPricesStep.validationSchema}*/}
-        {/*    onStepSubmit={onSubmitPricesAndServices}*/}
-        {/*>*/}
-        {/*  <ServicesAndPricesStep/>*/}
-        {/*</EditEmployeeForm.Step>*/}
+        <EditEmployeeForm.Step onStepSubmit={onSubmitPricesAndServices}>
+          <AdServicesAndPricesStep/>
+        </EditEmployeeForm.Step>
 
+        <EditEmployeeForm.Step onStepSubmit={onSubmitMedia}>
+          <AdMediaStep photos={employee.photos} videos={employee.videos} />
+        </EditEmployeeForm.Step>
 
-        {/*<EditEmployeeForm.Step*/}
-        {/*    validationSchema={MediaStep.validationSchema}*/}
-        {/*    onStepSubmit={onSubmitMedia}*/}
-        {/*>*/}
-        {/*  <MediaStep club={club}/>*/}
-        {/*</EditEmployeeForm.Step>*/}
-
-        {/*<EditEmployeeForm.Step*/}
-        {/*    validationSchema={ScheduleStep.validationSchema}*/}
-        {/*    onStepSubmit={onSubmitSchedule}*/}
-        {/*>*/}
-        {/*  <ScheduleStep/>*/}
-        {/*</EditEmployeeForm.Step>*/}
+        <EditEmployeeForm.Step onStepSubmit={onSubmitSchedule}>
+          <AdScheduleStep />
+        </EditEmployeeForm.Step>
       </EditEmployeeForm>
   );
 };

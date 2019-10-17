@@ -5,8 +5,8 @@ import cx from "classnames";
 import { ArrowPrevSvg } from "icons";
 import { useSteps } from "hooks";
 
-const ArrowBack = ({ className, href, stepName, title, color, back }) => {
-  const { step, setStep } = useSteps(stepName);
+const ArrowBack = ({ className, href, title, color, back }) => {
+  const { step, setStep } = useSteps();
 
   const handleBack = () => {
     if (back) {
@@ -38,7 +38,6 @@ const ArrowBack = ({ className, href, stepName, title, color, back }) => {
 ArrowBack.propTypes = {
   href: PropTypes.string.isRequired,
   className: PropTypes.string,
-  stepName: PropTypes.string,
   title: PropTypes.string,
   back: PropTypes.bool,
   color: PropTypes.oneOf(["white", "black"])
@@ -46,7 +45,6 @@ ArrowBack.propTypes = {
 
 ArrowBack.defaultProps = {
   href: "",
-  stepName: null,
   back: false,
   title: "Back",
   color: "black"

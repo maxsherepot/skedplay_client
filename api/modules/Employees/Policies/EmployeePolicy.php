@@ -30,4 +30,13 @@ class EmployeePolicy
         return ($user->employees_club_owners->contains($employee->id) || $user->owns($employee, 'owner_id'))
             && $user->hasPermission(Permission::UPDATE_EMPLOYEES);
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function delete(User $user): bool
+    {
+        return $user->hasPermission(Permission::DELETE_EMPLOYEES);
+    }
 }

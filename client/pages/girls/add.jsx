@@ -36,7 +36,7 @@ const Invoice = ({ loggedInUser }) => {
       </div>
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
-          <StepBox links={links} stepName="newAd" />
+          <StepBox links={links} />
         </div>
         <div className="border-b border-divider" />
         <NewAdBox />

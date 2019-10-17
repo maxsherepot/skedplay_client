@@ -19,7 +19,7 @@ class EmployeeUpdateRequest extends GraphQLFormRequest
             'age'          => 'integer',
             'gender'       => 'nullable|integer',
             'type'         => 'integer',
-            'race_type_id' => 'bail|nullable|integer|exists:employee_race_types:id',
+            'race_type_id' => 'bail|nullable|integer|exists:employee_race_types,id',
             'description'  => 'nullable|string',
             'text'         => 'nullable|string',
             'address'      => 'nullable|string|max:255',

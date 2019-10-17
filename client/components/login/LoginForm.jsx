@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
-import { TextField, Checkbox, Button, FormGroup } from "UI";
+import { TextField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import Captcha from "components/Captcha";
 
@@ -17,7 +17,7 @@ const LoginForm = ({ onSubmit }) => {
         username: "",
         password: "",
         recaptcha: "",
-        remember_me: ""
+        remember_me: false
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required(), // Todo: add phone number validation
@@ -65,7 +65,7 @@ const LoginForm = ({ onSubmit }) => {
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
-              <Checkbox label="Remember me" name="remember_me" />
+              <CheckboxField label="Remember me" name="remember_me"  />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">

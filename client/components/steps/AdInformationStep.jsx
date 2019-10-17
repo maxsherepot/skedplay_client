@@ -73,7 +73,7 @@ const AdInformationStep = () => {
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label="Gender type"
-            name="race_type_id"
+            name="type"
             options={[
               {
                 label: "TS",
@@ -87,12 +87,20 @@ const AdInformationStep = () => {
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label="Nationality"
-            name="nationality"
+            name="race_type_id"
             options={[
-              {
-                label: "Russian",
-                value: 1
-              }
+                {
+                    label: "European",
+                    value: 1
+                },
+                {
+                    label: "Asian",
+                    value: 2
+                },
+                {
+                    label: "African",
+                    value: 3
+                },
             ]}
             placeholder=""
           />

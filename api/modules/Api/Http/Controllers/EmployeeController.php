@@ -13,6 +13,7 @@ use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Api\Http\Requests\Review\ReviewCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleCreateRequest;
+use Modules\Api\Http\Requests\Schedule\EmployeeScheduleUpdateRequest;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
 use Modules\Common\Repositories\PriceRepository;
@@ -78,6 +79,20 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         $this->employees->update($employee, collect($request->all()));
+
+        return $this->success();
+    }
+
+    /**
+     * @param Employee $employee
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function delete(Employee $employee)
+    {
+        $this->authorize('delete', $employee);
+
+        $this->employees->delete($employee);
 
         return $this->success();
     }
@@ -207,6 +222,28 @@ class EmployeeController extends Controller
 
         } catch (\Exception $exception) {
           return $this->fail();
+        }
+    }
+
+    /**
+     * @param \Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest $request
+     * @return array
+     */
+    public function updateSchedule(EmployeeScheduleUpdateRequest $request)
+    {
+//        $this->authorize('create-schedule', Employee::class);
+
+        $schedules = $request->all()['input'];
+
+        try {
+            foreach($schedules as $schedule) {
+                $this->employees->updateSchedule(collect($schedule));
+            }
+
+            return $this->success();
+
+        } catch (\Exception $exception) {
+            return $this->fail();
         }
     }
 

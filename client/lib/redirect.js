@@ -1,10 +1,12 @@
-import Router from "next/router";
+import { useRouter } from 'next/router'
 
 export default (context, target) => {
-  if (context.res) {
+  const router = useRouter()
+
+  if (context && context.res) {
     context.res.writeHead(303, { Location: target });
     context.res.end();
   } else {
-    Router.replace(target);
+    router.replace(target);
   }
 };

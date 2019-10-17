@@ -6,34 +6,24 @@ import { useQuery } from "@apollo/react-hooks";
 
 export const STEPS = gql`
   query {
-    steps {
-      register @client
-      forgot @client
-      newAd @client
-      editClub @client
-      editClubEmployee @client
-      __typename
-    }
+    step @client
   }
 `;
 
-function useSteps(name) {
-  const { data: { steps } = {}, client } = useQuery(STEPS);
+function useSteps() {
+  const { data: { step } = {}, client } = useQuery(STEPS);
 
   const setStep = step => {
     if (step !== undefined && step !== null) {
       client.writeData({
         data: {
-          steps: {
-            ...steps,
-            [name]: step
-          }
+          step
         }
       });
     }
   };
   return {
-    step: (name && steps && steps[name]) || 0,
+    step: step || 0,
     setStep
   };
 }

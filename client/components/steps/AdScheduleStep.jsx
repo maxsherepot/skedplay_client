@@ -1,5 +1,4 @@
 import React from "react";
-import * as Yup from "yup";
 import { useFormikContext } from "formik";
 import { SelectGroupField, SelectField, ToggleField } from "UI";
 
@@ -13,7 +12,7 @@ const AdScheduleStep = () => {
   ];
   let timeOptions = [];
 
-  for (var i = 0; i < 24; i++) {
+  for (let i = 0; i < 24; i++) {
     let h;
     if (i < 10) {
       h = `0${i}`
@@ -64,23 +63,25 @@ const AdScheduleStep = () => {
       day: 6,
       name: "Saturday"
     }
-  ]
+  ];
 
   const isStartDisabled = (day) => {
-    let d = values.schedule[day]
+    let d = values.schedule[day];
+
+    if (d && !d.available) return true;
 
     if (d) {
       return d && d.start === 0
     }
 
     return false
-  }
+  };
 
-  let startOptions = timeOptions
+  let startOptions = timeOptions;
   startOptions.unshift({
     label: "Day off",
     value: 0,
-  })
+  });
 
 
   return (
@@ -89,10 +90,10 @@ const AdScheduleStep = () => {
         {weeks.map(week => (
           <div className="flex items-center" key={week.day}>
             <div className="w-1/5 px-2">{week.name}</div>
-            <div className="w-1/6 px-2">
+            <div className="w-1/6 hd:w-2/6 px-2">
               <ToggleField name="scheduled" label="Alone" value={true} />
             </div>
-            <div className="w-2/5 px-2">
+            <div className="w-2/5 hd:w-3/5 px-2">
               <SelectGroupField
                 label="Time"
                 name="time"
@@ -123,10 +124,5 @@ const AdScheduleStep = () => {
     </div>
   );
 };
-
-AdScheduleStep.validationSchema = Yup.object().shape({
-  // phone: Yup.string().required(),
-  // recaptcha: Yup.string().required()
-});
 
 export default AdScheduleStep;

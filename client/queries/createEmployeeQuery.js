@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const CREATE_EMPLOYEE_AD = gql `
-  mutation createEmployee($input: EmployeeCreateInput!) {
+  mutation createEmployee($input: EmployeeInput!) {
     createEmployee(input: $input) {
       id
     }
@@ -48,6 +48,19 @@ export const CREATE_EMPLOYEE_SCHEDULE = gql `
     $input: [EmployeeScheduleInput]
   ) {
     createEmployeeSchedule(
+      input: $input
+    ) {
+      status
+      message
+    }
+  }
+`;
+
+export const UPDATE_EMPLOYEE_SCHEDULE = gql `
+  mutation updateEmployeeSchedule(
+    $input: [EmployeeScheduleInput]
+  ) {
+    updateEmployeeSchedule(
       input: $input
     ) {
       status

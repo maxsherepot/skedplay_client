@@ -30,16 +30,18 @@ class EmployeeRepository implements HasMediable
 
         /** @var Employee $employee */
         $employee = $this->store(auth('api')->user(), $data);
-        $mapped = [];
-        $parameters = $data->get('parameters');
 
-        foreach ($parameters as $key => $value) {
-            $mapped[$key] = [
-                'value' => $value
-            ];
+        if ($parameters = $data->get('parameters')) {
+            $mapped = [];
+
+            foreach ($parameters as $key => $value) {
+                $mapped[$key] = [
+                    'value' => $value
+                ];
+            }
+
+            $employee->parameters()->sync($mapped);
         }
-
-        $employee->parameters()->sync($mapped);
 
         return $employee->toArray();
     }
@@ -68,7 +70,29 @@ class EmployeeRepository implements HasMediable
     {
         $employee->update($collection->toArray());
 
+        if ($parameters = $collection->get('parameters')) {
+            $mapped = [];
+
+            foreach ($parameters as $key => $value) {
+                $mapped[$key] = [
+                    'value' => $value
+                ];
+            }
+
+            $employee->parameters()->sync($mapped);
+        }
+
         return $employee;
+    }
+
+    /**
+     * @param Employee $employee
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete(Employee $employee)
+    {
+        return $employee->delete();
     }
 
     /**
@@ -78,6 +102,26 @@ class EmployeeRepository implements HasMediable
     public function storeSchedule(Collection $collection): \Illuminate\Database\Eloquent\Model
     {
         return EmployeeScheduleWork::create($collection->toArray());
+    }
+
+    /**
+     * @param Collection $collection
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function updateSchedule(Collection $collection): \Illuminate\Database\Eloquent\Model
+    {
+        $schedule = $collection->toArray();
+
+        return EmployeeScheduleWork::updateOrCreate([
+            'day'         => $schedule['day'],
+            'employee_id' => $schedule['employee_id'],
+        ], [
+            'start'     => $schedule['start'],
+            'end'       => $schedule['end'],
+            'available' => $schedule['available'],
+            'order'     => $schedule['order'],
+            'club_id'   => $schedule['club_id'],
+        ]);
     }
 
     /**

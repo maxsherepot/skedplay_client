@@ -1,6 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-
 import {
   CREATE_EMPLOYEE_AD,
   SYNC_EMPLOYEE_PRICES,
@@ -9,7 +8,7 @@ import {
   CREATE_EMPLOYEE_SCHEDULE,
 } from "queries";
 import { getErrors } from "utils";
-import { createEmployeeRules } from "rules";
+import { employeeRules } from "rules";
 import { NewAdForm } from "components/ad";
 import {
   AdInformationStep,
@@ -184,32 +183,23 @@ const NewAdBox = () => {
   };
 
   return (
-    <NewAdForm onSubmit={() => console.log("final step")}>
+    <NewAdForm>
       <NewAdForm.Step
-        validationSchema={createEmployeeRules}
+        validationSchema={employeeRules}
         onStepSubmit={onSubmitInfo}
       >
         <AdInformationStep />
       </NewAdForm.Step>
 
-      <NewAdForm.Step
-        validationSchema={AdServicesAndPricesStep.validationSchema}
-        onStepSubmit={onSubmitPricesAndServices}
-      >
+      <NewAdForm.Step onStepSubmit={onSubmitPricesAndServices}>
         <AdServicesAndPricesStep />
       </NewAdForm.Step>
 
-      <NewAdForm.Step
-        validationSchema={AdMediaStep.validationSchema}
-        onStepSubmit={onSubmitMedia}
-      >
+      <NewAdForm.Step onStepSubmit={onSubmitMedia}>
         <AdMediaStep />
       </NewAdForm.Step>
 
-      <NewAdForm.Step
-        validationSchema={AdScheduleStep.validationSchema}
-        onStepSubmit={onSubmitSchedule}
-      >
+      <NewAdForm.Step onStepSubmit={onSubmitSchedule}>
         <AdScheduleStep />
       </NewAdForm.Step>
     </NewAdForm>

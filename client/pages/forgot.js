@@ -10,7 +10,7 @@ function Forgot() {
       <Modal
         logo={<Logo />}
         title="Password recovery"
-        left={<ArrowBack href="/" stepName="forgot" />}
+        left={<ArrowBack href="/" />}
         right={<LangSelector />}
       >
         <ForgotBox />

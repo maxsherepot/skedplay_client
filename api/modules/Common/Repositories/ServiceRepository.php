@@ -22,7 +22,7 @@ class ServiceRepository
         );
 
         $services = $services->mapWithKeys(function ($value, $key) {
-            return [$key => ['price' => $value->price]];
+            return [$key => ['price' => isset($value->price) ? $value->price : 0]];
         });
 
         /** @var Club|Employee $model */

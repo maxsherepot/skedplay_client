@@ -234,8 +234,6 @@ class ClubController extends Controller
             return $this->success();
 
         } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-
             return $this->fail();
         }
     }

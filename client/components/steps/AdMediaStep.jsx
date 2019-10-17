@@ -1,9 +1,8 @@
 import React from "react";
-import * as Yup from "yup";
 import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField } from "UI";
 
-const AdMediaStep = () => {
+const AdMediaStep = ({ photos, videos }) => {
   return (
     <>
       <div className="flex flex-col md:flex-row md:items-end mb-5">
@@ -14,7 +13,7 @@ const AdMediaStep = () => {
       </div>
 
       <div className="flex flex-wrap">
-        <MultiPhotoField name="photos" label="">
+        <MultiPhotoField name="photos" label="" initialValues={photos}>
           <Button
             className="px-3"
             level="primary-black"
@@ -42,6 +41,7 @@ const AdMediaStep = () => {
           name="videos"
           label=""
           accept="video/mp4,video/x-m4v,video/*"
+          initialValues={videos}
         >
           <div className="border border-light-grey border-dashed rounded-lg px-24 md:px-32 py-10 md:py-21">
             <div className="flex flex-col items-center">
@@ -53,10 +53,5 @@ const AdMediaStep = () => {
     </>
   );
 };
-
-AdMediaStep.validationSchema = Yup.object().shape({
-  // phone: Yup.string().required(),
-  // recaptcha: Yup.string().required()
-});
 
 export default AdMediaStep;

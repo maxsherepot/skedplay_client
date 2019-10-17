@@ -49,3 +49,7 @@ export { default as EventLabel } from "./EventCard/EventLabel";
 /** Tabs */
 export { default as Tab } from "./Tabs/Tab";
 export { default as Panel } from "./Tabs/Panel";
+
+/** Modals | Popup */
+export { default as Popup } from "./Popup";
+export { default as DeletePopup } from "./Popup/DeletePopup";

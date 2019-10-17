@@ -1,11 +1,12 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const baseClassName = "btn";
 
-const Button = ({ className, weight, size, level, outline, ...rest }) => (
+const Button = forwardRef(({ className, weight, size, level, outline, ...rest }, ref) => (
   <button
+    ref={ref}
     {...rest}
     className={classNames(
       baseClassName,
@@ -18,7 +19,7 @@ const Button = ({ className, weight, size, level, outline, ...rest }) => (
       className
     )}
   />
-);
+));
 
 Button.propTypes = {
   weight: PropTypes.oneOf(["normal", "bold", "black"]),

@@ -77,5 +77,8 @@ type Mutation @middleware(checks: ["auth:api"]) {
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@updateSchedule")
 
   createEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
-  @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")
+
+  updateEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@updateSchedule")
 }

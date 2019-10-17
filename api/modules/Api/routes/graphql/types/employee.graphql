@@ -18,21 +18,24 @@ type Employee {
   updated_at: DateTime!
   owner: Owner @belongsTo
   race_type: [EmployeeRaceType] @belongsTo
+  parameters: [Parameter] @belongsToMany
+  schedule: [EmployeeSchedule] @hasMany
   events: [Event] @belongsToMany
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
   photos: [Media] @hasMany
+  videos: [Media] @hasMany
   reviews: [Review] @hasMany
 }
 
-input EmployeeCreateInput {
-  name: String
-  birthday: String
 #  service_for: String // Todo: Add serice for
 #  languages: String // Todo: Add languages
+input EmployeeInput {
+  name: String
+  birthday: String
   gender: String
   race_type_id: String
-  nationality: String
+  type: String
   description: String
   index: String
   city: String
@@ -46,20 +49,6 @@ input EmployeeCreateInput {
   parameters: JSON
   photos: [Upload]
   videos: [Upload]
-}
-
-input EmployeeUpdateInput {
-  first_name: String
-  last_name: String
-  gender: Int
-  age: Int
-  type: Int
-  race_type_id: Int
-  description: String
-  address: String
-  text: String
-  lat: String
-  lng: String
 }
 
 input EmployeeFilters {
@@ -78,11 +67,14 @@ extend type Query {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-  createEmployee(input: EmployeeCreateInput @spread): Employee
+  createEmployee(input: EmployeeInput @spread): Employee
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@create")
 
-  updateEmployee(employee: ID!, input: EmployeeUpdateInput @spread): StatusPayload
+  updateEmployee(employee: ID!, input: EmployeeInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@update")
+
+  deleteEmployee(employee: ID!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@delete")
 
   createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")

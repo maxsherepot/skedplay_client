@@ -56,6 +56,4 @@ const MediaStep = ({ club }) => {
   );
 };
 
-MediaStep.validationSchema = Yup.object().shape({});
-
 export default MediaStep;

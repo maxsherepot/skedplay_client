@@ -7,7 +7,7 @@ import {
     UPLOAD_CLUB_FILES,
     UPDATE_CLUB_SCHEDULE,
 } from "queries";
-import {getErrors} from "utils";
+import {getErrors, defaultSchedule} from "utils";
 import {EditClubForm} from "components/club";
 import {
     InformationStep,
@@ -25,71 +25,6 @@ const EditClubBox = ({club, user}) => {
 
     let services = {};
     let prices = {};
-    let schedule = [
-        {
-            day: 0,
-            start: null,
-            end: null,
-            available: true,
-            order: 6,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 1,
-            start: null,
-            end: null,
-            available: true,
-            order: 0,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 2,
-            start: null,
-            end: null,
-            available: true,
-            order: 1,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 3,
-            start: null,
-            end: null,
-            available: true,
-            order: 2,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 4,
-            start: null,
-            end: null,
-            available: true,
-            order: 3,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 5,
-            start: null,
-            end: null,
-            available: true,
-            order: 4,
-            employee_id: null,
-            club_id: null
-        },
-        {
-            day: 6,
-            start: null,
-            end: null,
-            available: true,
-            order: 5,
-            employee_id: null,
-            club_id: null
-        }
-    ];
 
     club.services.forEach(s => {
         services[s.id] = {
@@ -98,9 +33,7 @@ const EditClubBox = ({club, user}) => {
         }
     });
 
-    club.prices.forEach(p => {
-        prices[p.id] = p.pivot.price
-    });
+    club.prices.forEach(p => prices[p.id] = p.pivot.price);
 
     const initialValues = {
         name: club.name,
@@ -116,7 +49,7 @@ const EditClubBox = ({club, user}) => {
         services,
         photos: [],
         videos: [],
-        schedule: club.schedule || schedule
+        schedule: defaultSchedule(club.schedule)
     };
 
     const onSubmitInfo = async values => {
@@ -284,24 +217,15 @@ const EditClubBox = ({club, user}) => {
                 <InformationStep club={club}/>
             </EditClubForm.Step>
 
-            <EditClubForm.Step
-                validationSchema={ServicesAndPricesStep.validationSchema}
-                onStepSubmit={onSubmitPricesAndServices}
-            >
+            <EditClubForm.Step onStepSubmit={onSubmitPricesAndServices}>
                 <ServicesAndPricesStep/>
             </EditClubForm.Step>
 
-            <EditClubForm.Step
-                validationSchema={MediaStep.validationSchema}
-                onStepSubmit={onSubmitMedia}
-            >
+            <EditClubForm.Step onStepSubmit={onSubmitMedia}>
                 <MediaStep club={club}/>
             </EditClubForm.Step>
 
-            <EditClubForm.Step
-                validationSchema={ScheduleStep.validationSchema}
-                onStepSubmit={onSubmitSchedule}
-            >
+            <EditClubForm.Step onStepSubmit={onSubmitSchedule}>
                 <ScheduleStep/>
             </EditClubForm.Step>
         </EditClubForm>

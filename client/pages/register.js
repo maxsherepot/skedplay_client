@@ -13,7 +13,7 @@ function Register() {
       <Modal
         logo={<Logo />}
         title="Sing up"
-        left={<ArrowBack href="/" stepName="register" />}
+        left={<ArrowBack href="/" />}
         right={<LangSelector />}
       >
         <RegisterBox />

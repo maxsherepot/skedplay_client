@@ -7,7 +7,7 @@ import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 
 function ForgotForm({ onSubmit, children }) {
-  const { step, setStep } = useSteps("forgot");
+  const { step, setStep } = useSteps();
 
   const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];

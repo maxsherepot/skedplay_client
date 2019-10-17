@@ -40,6 +40,7 @@ export const GET_EMPLOYEE = gql `
       last_name
       name
       age
+      gender
       address
       type
       race_type_id
@@ -71,6 +72,23 @@ export const GET_EMPLOYEE = gql `
           name
         }
       }
+      schedule {
+          id
+          day
+          day_name
+          start
+          end
+          order
+          available
+      }
+      parameters {
+        id
+        name
+        display_name
+        pivot {
+          value
+        }
+      }
       services {
         id
         name
@@ -90,6 +108,12 @@ export const GET_EMPLOYEE = gql `
         id
       }
       photos {
+        id
+        url
+        thumb_url
+      }
+      videos {
+        id
         url
         thumb_url
       }
@@ -100,6 +124,24 @@ export const GET_EMPLOYEE = gql `
 export const UPDATE_USER = gql `
   mutation updateUser($user: ID!, $input: UserInput!) {
     updateUser(user: $user, input: $input) {
+      status
+      message
+    }
+  }
+`;
+
+export const DELETE_EMPLOYEE = gql `
+  mutation deleteEmployee($employee: ID!) {
+    deleteEmployee(employee: $employee) {
+      status
+      message
+    }
+  }
+`;
+
+export const UPDATE_EMPLOYEE = gql `
+  mutation updateEmployee($employee: ID!, $input: EmployeeInput!) {
+    updateEmployee(employee: $employee, input: $input) {
       status
       message
     }

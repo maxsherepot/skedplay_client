@@ -3,10 +3,15 @@ type Parameter {
     name: String!
     display_name: String!
     options: [ParameterOption!]!
+    pivot: ParameterPivot
 }
 
 type ParameterOption {
     label: String!
+    value: String!
+}
+
+type ParameterPivot {
     value: String!
 }
 

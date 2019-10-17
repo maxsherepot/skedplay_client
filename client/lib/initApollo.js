@@ -66,14 +66,7 @@ function create(initialState, {
   });
 
   const data = {
-    steps: {
-      register: 0,
-      forgot: 0,
-      newAd: 0,
-      editClub: 0,
-      editClubEmployee: 0,
-      __typename: "Steps"
-    },
+    step: 0,
     filters: {
       girls: {
         location: "",

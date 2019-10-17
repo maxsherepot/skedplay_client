@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Entities\Review;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
@@ -77,6 +78,14 @@ class Employee extends Model implements HasMedia, HasLocation
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schedule(): HasMany
+    {
+        return $this->hasMany(EmployeeScheduleWork::class)->orderBy('day');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function race_type(): BelongsTo
@@ -115,6 +124,15 @@ class Employee extends Model implements HasMedia, HasLocation
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
             ->where('collection_name', self::PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::VIDEO_COLLECTION);
     }
 
     /**

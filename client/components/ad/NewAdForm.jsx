@@ -1,16 +1,13 @@
 import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
-import PropTypes from "prop-types";
-
 import redirect from "lib/redirect";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 
-function NewAdForm({ onSubmit, children }) {
-  const { step, setStep } = useSteps("newAd");
+function NewAdForm({ children }) {
+  const { step, setStep } = useSteps();
 
-  const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
@@ -60,21 +57,14 @@ function NewAdForm({ onSubmit, children }) {
     }
 
     if (isLastStep) {
-      console.log("LAST_STEP");
       try {
-        redirect(context, "/girls");
-        // await onSubmit({
-        //   variables: {
-        //     ...values
-        //   }
-        // });
-        // setStep(0);
+        setStep(0);
+        redirect({}, "/girls");
       } catch (e) {
         if (getErrors(e) instanceof Object) {
           setErrors(getErrors(e));
         }
       }
-      return;
     }
   };
 
@@ -180,7 +170,8 @@ function NewAdForm({ onSubmit, children }) {
               )}
             </div>
           </div>
-          <div className="border-b border-divider"></div>
+
+          <div className="border-b border-divider" />
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12">
             <div className="w-full p-8 hd:px-0">
@@ -209,9 +200,5 @@ function NewAdForm({ onSubmit, children }) {
 }
 
 NewAdForm.Step = ({ children }) => children;
-
-NewAdForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
 
 export default NewAdForm;

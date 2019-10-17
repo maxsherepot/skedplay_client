@@ -31,7 +31,7 @@ const DisplayPreviews = ({ photos, indexes, setPreviews }) => {
         <div className="flex flex-wrap items-center -mx-4">
           {photos.map((photo, i) => (
               <div
-                  className="relative w-full md:w-38 rounded-lg px-2 mb-6 md:mb-0"
+                  className="relative w-full md:w-38 rounded-lg px-2 mb-6"
                   key={i}
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
