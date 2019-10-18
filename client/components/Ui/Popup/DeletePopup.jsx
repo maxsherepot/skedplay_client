@@ -12,7 +12,7 @@ const contentStyle = {
 
 const DeleteButton = React.forwardRef(({...props}, ref) => (
     <Button className="px-3" level="primary" outline size="xxs" ref={ref} {...props}>
-        <span className="text-black">Delete</span>
+        <span className="text-black hover:text-white">Delete</span>
     </Button>
 ));
 

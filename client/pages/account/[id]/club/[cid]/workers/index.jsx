@@ -104,11 +104,9 @@ const AccountWorkers = ({ loggedInUser }) => {
             id: cid
         }
     });
-    const [collapse, setCollapse] = useState(0);
-
     if (loading) return null;
 
-    return <AccountBox contentClass="lg:w-3/5" user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>
+    return <AccountBox contentClass="lg:w-3/5" user={loggedInUser}>
         <div className="flex items-center justify-between px-8 py-12">
             <h1 className="text-4-65xl font-extrabold">
                 Sex workers cards

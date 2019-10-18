@@ -137,39 +137,9 @@ const Information = ({ loggedInUser }) => {
                   <section className="my-3" key={p.id}>
                     <div className="text-grey">{p.display_name}</div>
                     <div className="line" />
-                    <div className="w-32">{p.pivot.value}</div>
+                    <div className="w-32">{p.pivot.display_value}</div>
                   </section>
               ))}
-
-              {/*<section className="my-3">*/}
-              {/*  <div className="text-grey">Weight</div>*/}
-              {/*  <div className="line" />*/}
-              {/*  <div className="w-32">54 kg</div>*/}
-              {/*</section>*/}
-
-              {/*<section className="my-3">*/}
-              {/*  <div className="text-grey">Breast size</div>*/}
-              {/*  <div className="line" />*/}
-              {/*  <div className="w-32">Medium (3B)</div>*/}
-              {/*</section>*/}
-
-              {/*<section className="my-3">*/}
-              {/*  <div className="text-grey">Body type</div>*/}
-              {/*  <div className="line" />*/}
-              {/*  <div className="w-32">Fitness</div>*/}
-              {/*</section>*/}
-
-              {/*<section className="my-3">*/}
-              {/*  <div className="text-grey">Hair</div>*/}
-              {/*  <div className="line" />*/}
-              {/*  <div className="w-32">Black</div>*/}
-              {/*</section>*/}
-
-              {/*<section className="my-3">*/}
-              {/*  <div className="text-grey">Eye color</div>*/}
-              {/*  <div className="line" />*/}
-              {/*  <div className="w-32">Blue</div>*/}
-              {/*</section>*/}
 
               <section className="mt-6 mb-3">
                 <div className="text-grey">Languages</div>

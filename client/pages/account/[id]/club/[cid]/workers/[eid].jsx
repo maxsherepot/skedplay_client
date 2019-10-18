@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import redirect from "lib/redirect";
 import Router, {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -86,7 +86,6 @@ const Header = ({employee}) => {
 
 const AccountWorkers = ({loggedInUser}) => {
     const {query: {eid}} = useRouter();
-    const [collapse, setCollapse] = useState(0);
     const {data: {employee} = {}, loading} = useQuery(GET_EMPLOYEE, {
         variables: {
             id: eid
@@ -102,7 +101,7 @@ const AccountWorkers = ({loggedInUser}) => {
 
     if (loading) return (<div>Loading..</div>);
 
-    return <AccountBox contentClass="lg:w-3/5" user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>
+    return <AccountBox contentClass="lg:w-3/5" user={loggedInUser}>
         {employee && (
             <>
                 <Header employee={employee}/>

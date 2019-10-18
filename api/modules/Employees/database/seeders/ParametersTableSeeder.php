@@ -4,6 +4,7 @@ namespace Modules\Employees\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Employees\Entities\Parameter;
+use Modules\Employees\Services\ParameterOption;
 
 class ParametersTableSeeder extends Seeder
 {
@@ -27,7 +28,7 @@ class ParametersTableSeeder extends Seeder
             Parameter::create([
                 'name'         => $key,
                 'display_name' => str_replace('_', ' ', ucfirst($key)),
-                'options'      => $options ? $this->getOptions($key, $options) : null,
+                'options'      => $options ? (new ParameterOption())->getOptions($key, $options) : null,
             ]);
         }
     }

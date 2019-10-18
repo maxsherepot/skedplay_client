@@ -89,11 +89,13 @@ export const GET_CLUB = gql`
           id
         }
         club {
+          id
           address
         }
         type {
           id
           name
+          display_name
         }
         photos {
           url

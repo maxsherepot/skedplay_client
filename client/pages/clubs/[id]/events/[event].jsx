@@ -30,7 +30,7 @@ const EventShow = ({ loggedInUser }) => {
 
   const [photo] = event && event.photos;
 
-  const sidebarColumn = <Gallery photos={club.photos}></Gallery>;
+  const sidebarColumn = <Gallery photos={club.photos} />;
 
   const contentColumn = (
     <div className="flex -mx-3">
@@ -66,7 +66,7 @@ const EventShow = ({ loggedInUser }) => {
                 </Button>
               </div>
               <div className="px-3">
-                <EventLabel type={event.type}></EventLabel>
+                <EventLabel type={event.type} />
               </div>
             </div>
             <div className="text-2xl font-extrabold truncate my-5">

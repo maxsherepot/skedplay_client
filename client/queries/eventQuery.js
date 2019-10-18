@@ -70,3 +70,12 @@ export const GET_EVENT = gql`
     }
   }
 `;
+
+export const DELETE_EVENT = gql `
+  mutation deleteEvent($event: ID!) {
+    deleteEvent(event: $event) {
+      status
+      message
+    }
+  }
+`;

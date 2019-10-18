@@ -42,9 +42,9 @@ const PrivateCards = () => {
                   <div className="flex justify-between">
                     <span className="text-2xl font-bold mb-6">{title}</span>
                     {icon === "user" ? (
-                      <UserSvg></UserSvg>
+                      <UserSvg />
                     ) : (
-                      <StarSvg></StarSvg>
+                      <StarSvg />
                     )}
                   </div>
                   {link ? (
@@ -74,9 +74,9 @@ const PrivateCards = () => {
                   <div className="flex justify-between">
                     <span className="text-2xl font-bold mb-6">{title}</span>
                     {icon === "photo" ? (
-                      <PhotoSvg></PhotoSvg>
+                      <PhotoSvg />
                     ) : (
-                      <VideoSvg></VideoSvg>
+                      <VideoSvg />
                     )}
                   </div>
                   {buttonText && (

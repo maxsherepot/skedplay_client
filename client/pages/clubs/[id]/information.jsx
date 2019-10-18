@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import cx from "classnames";
@@ -85,7 +85,7 @@ const Information = ({ loggedInUser }) => {
   const ClubLogo = ({ favorited }) => (
     <div className="flex items-center justify-center relative h-32 lg:h-full w-full">
       <img src="/static/img/club-logo.png" alt="" />
-      <div className="mx-8 lg:mx-0"></div>
+      <div className="mx-8 lg:mx-0" />
       <div className="flex flex-col relative lg:absolute inset-0 items-center justify-end lg:mb-4">
         <div className="flex mb-2">
           <RatingSvg className="mx-1" />
@@ -115,8 +115,6 @@ const Information = ({ loggedInUser }) => {
               <ClubLogo favorited={club.favorited} />
             </div>
             <div className="flex flex-col justify-between lg:w-10/12 p-4 hd:p-8 lg:h-64">
-              {club.description}
-              {club.description}
               {club.description}
 
               <div className="flex items-center text-light-grey">

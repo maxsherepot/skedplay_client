@@ -11,6 +11,6 @@ const contentStyle = {
 
 export default ({ trigger, title, children }) => (
     <Popup modal trigger={trigger} contentStyle={contentStyle}>
-        {close => <Content title={title} close={close}>{children}</Content>}
+        {(close) => <Content title={title} close={close}>{children}</Content>}
     </Popup>
 )

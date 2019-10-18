@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";

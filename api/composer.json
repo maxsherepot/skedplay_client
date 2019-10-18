@@ -22,7 +22,7 @@
         "mll-lab/graphql-php-scalars": "^2.1",
         "mll-lab/laravel-graphql-playground": "^1.1",
         "nexmo/client": "^1.8",
-        "nuwave/lighthouse": "^4.1",
+        "nuwave/lighthouse": "^4.5",
         "nwidart/laravel-modules": "^5.0",
         "omnipay/paypal": "^3.0",
         "omnipay/stripe": "^3.0",

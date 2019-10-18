@@ -49,9 +49,11 @@ class EventController extends Controller
     {
         $this->authorize('delete', $event);
 
+        $id = (string) $event->id;
+
         $response = $this->events->delete($event);
 
-        return $response ? $this->success() : $this->fail();
+        return $response ? $this->success($id) : $this->fail();
     }
 
     /**

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Link from "next/link";
-
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
@@ -49,7 +48,7 @@ function EventCard({
             onClick={() => setEventMapId(null)}
           >
             <button className="flex justify-center content-center rounded-full bg-white w-10 h-10 focus:outline-none">
-              <CloseSvg></CloseSvg>
+              <CloseSvg />
             </button>
           </div>
         ) : (
@@ -74,7 +73,7 @@ function EventCard({
                 </Button>
               </div>
               <div className="px-3">
-                <EventLabel type={type}></EventLabel>
+                <EventLabel type={type} />
               </div>
             </div>
           )}
@@ -90,7 +89,7 @@ function EventCard({
       </div>
       <div className="bg-white p-5">
         <div className="flex items-center text-sm mb-2">
-          <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full"></span>
+          <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
           Karlheinz Stockhausen, {id}
         </div>
         <div
@@ -99,14 +98,14 @@ function EventCard({
         >
           <div className="py-1">{club.address}</div>
           <div className="flex p-1">
-            <MapSvg></MapSvg>
+            <MapSvg />
             <span className="ml-1 whitespace-no-wrap">150 km</span>
           </div>
         </div>
       </div>
       {isMap && (
         <div>
-          <GoogleMap className="absolute top-0 left-0 z-20 px-2"></GoogleMap>
+          <GoogleMap className="absolute top-0 left-0 z-20 px-2" />
           <div className="absolute bottom-0 left-0 z-30 p-6">
             <Button className="px-6" size="sm">
               Get me to the club

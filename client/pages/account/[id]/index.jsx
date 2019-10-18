@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 
@@ -16,9 +16,9 @@ const cardRow = (user, collapse) => {
 };
 
 const AccountShow = ({ loggedInUser }) => {
-  const [collapse, setCollapse] = useState(0);
-
-  return <AccountBox user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>{cardRow(loggedInUser, collapse)}</AccountBox>;
+  return <AccountBox user={loggedInUser}>{
+    (collapse) => cardRow(loggedInUser, collapse)
+  }</AccountBox>;
 };
 
 AccountShow.getInitialProps = async context => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import cx from "classnames";
 import { MainLayout } from "layouts";
@@ -11,7 +11,7 @@ const ProfileHeader = ({ user }) => (
     <div className="flex items-center lg:w-7/12 mx-auto py-8">
       <Avatar src="/static/img/Avatar.png" />
       <div className="ml-4">
-        <span className="text-2xl font-medium">{user.name}</span>
+        <span className="text-2xl font-medium capitalize">{user.name}</span>
         <div className="flex mt-4">
           <AccountLabel {...user} />
           <span className="sm:ml-2">{user.phone}</span>
@@ -24,6 +24,8 @@ const ProfileHeader = ({ user }) => (
 const ClubMenu = ({ id: userId, clubs, collapse, setCollapse }) => {
   return clubs.map(({ id, name, employees, events }, i) => {
     const isCollapsed = collapse === i;
+
+    console.log(clubs)
     return (
       <div key={id} onClick={() => setCollapse(i)}>
         <span className="flex items-center text-xl font-medium px-5 py-2 hover:cursor-pointer">
@@ -52,10 +54,15 @@ const ClubMenu = ({ id: userId, clubs, collapse, setCollapse }) => {
               Archive Sex workers
             </div>
             <div className="text-red p-1 cursor-pointer">
-              Events
-              <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                {(events && events.length) || 0}
-              </span>
+              <Link href="/account/:id/club/:cid/events" as={`/account/${userId}/club/${id}/events`}>
+                <a>
+                  Events
+                  <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                    {(events && events.length) || 0}
+                  </span>
+                </a>
+              </Link>
+
             </div>
             <Link href="/account/:id/club/:cid/edit" as={`/account/${userId}/club/${id}/edit`}>
               <a>
@@ -79,7 +86,13 @@ const Sidebar = ({ user: { id, is_club_owner, is_employee, clubs, employee }, co
             My Ad/Cards
           </span>
           <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
-            <li>Add new AD+</li>
+            <li>
+              <Link href="/girls/add">
+                <a>
+                    Add new AD+
+                </a>
+              </Link>
+            </li>
             <li>
               Active AD
               <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
@@ -162,14 +175,20 @@ const Sidebar = ({ user: { id, is_club_owner, is_employee, clubs, employee }, co
   </div>
 );
 
-const AccountBox = ({ contentClass, user, collapse, setCollapse, children }) => {
+const AccountBox = ({ contentClass, user, children }) => {
+  const [collapse, setCollapse] = useState(0);
+
   return (
     <MainLayout user={user}>
       <ProfileHeader user={user} />
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
           <Sidebar collapse={collapse} setCollapse={setCollapse} user={user} />
-          <div className={cx(contentClass ? contentClass : "lg:w-3/5 lg:ml-10 px-8 py-12")}>{children}</div>
+          <div className={cx(contentClass ? contentClass : "lg:w-3/5 lg:ml-10 px-8 py-12")}>
+            {typeof children === 'function'
+                ? children(collapse)
+                : children}
+          </div>
         </div>
       </PageCard>
     </MainLayout>

@@ -26,6 +26,14 @@ export default apolloClient =>
               }
               events {
                 id
+                title
+#                type {
+#                  id
+#                  name
+#                }
+                photos {
+                  url
+                }
               }
               type {
                 id

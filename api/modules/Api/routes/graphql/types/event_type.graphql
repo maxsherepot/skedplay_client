@@ -1,5 +1,6 @@
 type EventType {
     id: ID!
     name: String!
+    display_name: String!
 }
 

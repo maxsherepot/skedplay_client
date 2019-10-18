@@ -38,7 +38,7 @@ const UserDropdown = ({ user }) => {
           <Avatar src="/static/img/Avatar-2.png" />
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">
-              <div className="text-2xl font-medium">{user.name}</div>
+              <div className="text-2xl font-medium capitalize">{user.name}</div>
               <div className="text-lg text-red ml-4">
                 <Link href="/account/[id]" as={`/account/${user.id}`}>
                   <a>View profile</a>

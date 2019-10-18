@@ -3,6 +3,7 @@
 namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Modules\Employees\Services\ParameterOption;
 
 class EmployeeParameter extends Pivot
 {
@@ -28,6 +29,6 @@ class EmployeeParameter extends Pivot
 
     public function getDisplayValueAttribute()
     {
-        return __("parameters.{$this->parameter->name}.{$this->attributes['value']}", ['parameter' => $this->attributes['value']]);
+        return (new ParameterOption())->getTranslation($this->parameter->name, $this->attributes['value']);
     }
 }

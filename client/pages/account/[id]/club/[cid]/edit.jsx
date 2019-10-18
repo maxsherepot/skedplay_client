@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import redirect from "lib/redirect";
 import { useRouter } from "next/router";
 import { AccountBox } from "components/account";
@@ -11,7 +11,6 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 
 const ClubEdit = ({ loggedInUser }) => {
-    const [collapse, setCollapse] = useState(0);
     const { query: { cid } } = useRouter();
     const { data: { club } = {}, loading} = useQuery(GET_CLUB, {
         variables: {
@@ -30,7 +29,7 @@ const ClubEdit = ({ loggedInUser }) => {
     }
 
     return (
-        <AccountBox contentClass="lg:w-3/5" user={loggedInUser} collapse={collapse} setCollapse={setCollapse}>
+        <AccountBox contentClass="lg:w-3/5" user={loggedInUser}>
             <div className="flex flex-col lg:flex-row justify-between">
                 <StepBox links={links} />
             </div>

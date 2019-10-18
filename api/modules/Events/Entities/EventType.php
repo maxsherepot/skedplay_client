@@ -11,4 +11,13 @@ class EventType extends Model
     use SoftDeletes, NameSlugable;
 
     public $timestamps = false;
+
+    protected $appends = [
+        'display_name'
+    ];
+
+    public function getDisplayNameAttribute()
+    {
+        return __("events_type.".$this->attributes['name']);
+    }
 }
