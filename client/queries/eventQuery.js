@@ -65,8 +65,19 @@ export const GET_EVENT = gql`
         name
       }
       photos {
+        id
         url
+        thumb_url
       }
+    }
+  }
+`;
+
+export const CREATE_CLUB_EVENT = gql `
+  mutation createClubEvent($club: ID!, $input: EventInput) {
+    createClubEvent(club: $club, input: $input) {
+      id
+      title
     }
   }
 `;

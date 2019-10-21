@@ -13,7 +13,7 @@ input EventInput {
     title: String!
     description: String!
     event_type_id: Int!
-    club_id: Int!
+    club_id: Int
 }
 
 input EventUpdateInput {

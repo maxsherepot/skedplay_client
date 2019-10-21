@@ -1,17 +1,20 @@
 import React from "react";
 import redirect from "lib/redirect";
-import {useRouter} from "next/router";
+import {CREATE_CLUB_EVENT} from "queries";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useMutation} from "@apollo/react-hooks";
 import {getLayout} from "components/account/AccountLayout";
-import EditEventBox from "components/account/club/EditEventBox";
+import CreateEventBox from "components/account/club/CreateEventBox";
 
-const AccountClubEventsCreate = ({user}) => {
-    const {query: {eid}} = useRouter();
-    console.log(eid)
+const AccountClubEventsCreate = () => {
+    const [createClubEvent] = useMutation(CREATE_CLUB_EVENT);
 
+    const onSubmit = async variables => {
+        await createClubEvent(variables);
+    };
 
     return (
-        <EditEventBox />
+        <CreateEventBox initialValues={{ title: "", description: "", event_type_id: "" }} onSubmit={onSubmit} />
     );
 };
 

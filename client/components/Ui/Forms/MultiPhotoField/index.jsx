@@ -7,7 +7,7 @@ import { WhiteTrashSvg } from "icons";
 import { DELETE_MEDIA } from "queries";
 import { useMutation } from "@apollo/react-hooks";
 
-const DisplayPreviews = ({ photos, indexes, setPreviews }) => {
+const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
 
   const [hovered, setHovered] = useState(null);
@@ -54,14 +54,16 @@ const DisplayPreviews = ({ photos, indexes, setPreviews }) => {
                   )}
                 </div>
 
-                <div className="absolute inset-0 flex items-end">
-                  <CheckboxField
-                      className="text-white"
-                      label="Main photo"
-                      name={indexes[i]}
-                      checked={index === i}
-                  />
-                </div>
+                {selectable && (
+                    <div className="absolute inset-0 flex items-end">
+                      <CheckboxField
+                          className="text-white"
+                          label="Main photo"
+                          name={indexes[i]}
+                          checked={index === i}
+                      />
+                    </div>
+                )}
               </div>
           ))}
         </div>
@@ -77,6 +79,7 @@ function MultiPhotoField({
   accept,
   required,
   initialValues,
+  selectable,
   children
 }) {
   const [previews, setPreviews] = useState(initialValues || []);
@@ -116,7 +119,7 @@ function MultiPhotoField({
       </label>
 
       <>
-        <DisplayPreviews photos={previews} setPreviews={setPreviews} indexes={indexes} />
+        <DisplayPreviews photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
 
         <label className="relative" style={{ paddingLeft: 0 }}>
           {children}
@@ -142,7 +145,8 @@ MultiPhotoField.propTypes = {
 };
 
 MultiPhotoField.defaultProps = {
-  accept: "image/*"
+  accept: "image/*",
+  selectable: true,
 };
 
 export default MultiPhotoField;

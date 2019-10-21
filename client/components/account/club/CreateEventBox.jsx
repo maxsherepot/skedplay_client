@@ -1,26 +1,30 @@
 import React from "react";
 import * as Yup from "yup";
-import { Formik } from "formik";
-import { Button, TextField } from "UI";
-import { getErrors } from "utils";
+import {Formik} from "formik";
+import {getErrors} from "utils";
+import {BlackPlusSvg} from "icons";
+import {useRouter} from "next/router";
+import {Button, TextField, SelectField, TextAreaField, MultiPhotoField} from "UI";
 
-const CreateEventBox = ({ initialValues, onSubmit }) => {
+const CreateEventBox = ({ initialValues, onSubmit}) => {
+    const { query: {cid}} = useRouter();
+
     const handleSubmits = async (
         values,
-        { setSubmitting, setErrors, setError, setStatus }
+        {setSubmitting, setErrors, setError, setStatus}
     ) => {
         try {
-            const { data: { updateUser } = {} } = await onSubmit({
+            const {data: {createClubEvent} = {}} = await onSubmit({
                 variables: {
-                    user: initialValues.id,
+                    club: cid,
                     input: values
                 }
             });
 
-            if (updateUser && updateUser.status) {
-                setStatus(updateUser.message);
+            if (createClubEvent && createClubEvent.status) {
+                setStatus(createClubEvent.message);
             } else {
-                setError(updateUser.message);
+                setError(createClubEvent.message);
             }
         } catch (e) {
             if (getErrors(e) instanceof Object) {
@@ -35,11 +39,13 @@ const CreateEventBox = ({ initialValues, onSubmit }) => {
         <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-                name: Yup.string().required(),
+                title: Yup.string().required(),
+                description: Yup.string().required(),
+                event_type_id : Yup.string().required(),
             })}
             onSubmit={handleSubmits}
         >
-            {({ handleSubmit, isSubmitting, status }) => (
+            {({handleSubmit, isSubmitting, status}) => (
                 <form onSubmit={handleSubmit}>
                     <div className="px-2">
                         {status && (
@@ -48,7 +54,46 @@ const CreateEventBox = ({ initialValues, onSubmit }) => {
                             </div>
                         )}
 
-                        <TextField className="w-1/3" label="User name" name="name" />
+                        <TextField label="Title" name="title"/>
+
+                        <SelectField
+                            label="Type"
+                            name="event_type_id"
+                            options={[
+                                {
+                                    label: "Special day",
+                                    value: 1
+                                },
+                                {
+                                    label: "Parties and shows",
+                                    value: 2
+                                },
+                                {
+                                    label: "Discount",
+                                    value: 3
+                                }
+                            ]}
+                            placeholder=""
+                        />
+
+                        <TextAreaField rows={6} label="Description" name="description"/>
+
+                        <div className="flex flex-wrap mb-4">
+                            <MultiPhotoField name="photos" label="" selectable={false}>
+                                <Button
+                                    className="px-3"
+                                    level="primary-black"
+                                    outline
+                                    size="sm"
+                                    type="button"
+                                >
+                                    <div className="flex items-center">
+                                        <BlackPlusSvg/>
+                                        <span className="ml-2">from device</span>
+                                    </div>
+                                </Button>
+                            </MultiPhotoField>
+                        </div>
 
                         <Button
                             type="submit"
@@ -56,7 +101,7 @@ const CreateEventBox = ({ initialValues, onSubmit }) => {
                             size="sm"
                             disabled={isSubmitting}
                         >
-                            Save changes
+                            Create
                         </Button>
                     </div>
                 </form>

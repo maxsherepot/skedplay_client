@@ -11,17 +11,17 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
         { setSubmitting, setErrors, setError, setStatus }
     ) => {
         try {
-            const { data: { updateUser } = {} } = await onSubmit({
+            const { data: { updateEvent } = {} } = await onSubmit({
                 variables: {
                     event: initialValues.id,
                     input: values
                 }
             });
 
-            if (updateUser && updateUser.status) {
-                setStatus(updateUser.message);
+            if (updateEvent && updateEvent.status) {
+                setStatus(updateEvent.message);
             } else {
-                setError(updateUser.message);
+                setError(updateEvent.message);
             }
         } catch (e) {
             if (getErrors(e) instanceof Object) {
@@ -36,7 +36,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
         <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-                name: Yup.string().required(),
+                title: Yup.string().required(),
             })}
             onSubmit={handleSubmits}
         >
@@ -53,7 +53,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
 
                         <SelectField
                             label="Type"
-                            name="type_id"
+                            name="event_type_id"
                             options={[
                                 {
                                     label: "Special day",
@@ -73,8 +73,8 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
 
                         <TextAreaField rows={6} label="Description" name="description" />
 
-                        <div className="flex flex-wrap">
-                            <MultiPhotoField name="photos" label="" initialValues={initialValues.photos}>
+                        <div className="flex flex-wrap mb-4">
+                            <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
                                 <Button
                                     className="px-3"
                                     level="primary-black"
