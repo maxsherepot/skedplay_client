@@ -3,8 +3,8 @@ import cx from "classnames";
 
 const EventLabel = ({ type: { name = "" } = {} }) => {
   const colorsMap = {
-    "special-day": "bg-yellow text-black",
-    "parties-and-shows": "bg-light-blue text-black",
+    "special_day": "bg-yellow text-black",
+    "parties_and_shows": "bg-light-blue text-black",
     discount: "bg-red"
   };
 

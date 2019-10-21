@@ -1,14 +1,13 @@
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-
 import { Filter } from "UI";
 import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
-import { MainLayout } from "layouts";
 import EmployeesBox from "components/EmployeesBox";
 
 const ENTITY_NAME = "couple";
 
-const CoupleSearch = ({ loggedInUser }) => {
+const CoupleSearch = ({ user }) => {
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
     GIRLS_FILTER_OPTIONS
   );
@@ -98,23 +97,23 @@ const CoupleSearch = ({ loggedInUser }) => {
   ];
 
   return (
-    <MainLayout user={loggedInUser}>
+    <>
       <Filter
         name={ENTITY_NAME}
         inititalState={filters[ENTITY_NAME]}
         fields={fields}
-      ></Filter>
-      <EmployeesBox inititalState={filters[ENTITY_NAME]}></EmployeesBox>
-    </MainLayout>
+      />
+      <EmployeesBox inititalState={filters[ENTITY_NAME]}/>
+    </>
   );
 };
 
-CoupleSearch.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+CoupleSearch.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default CoupleSearch;

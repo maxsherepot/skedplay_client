@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
 import EditServices from "components/employee/EditServices";
 
-const Services = ({ loggedInUser }) => {
+const EmployeeEditServices = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -31,4 +31,4 @@ const Services = ({ loggedInUser }) => {
   );
 };
 
-export default Services;
+export default EmployeeEditServices;

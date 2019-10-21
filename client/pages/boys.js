@@ -1,14 +1,12 @@
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-
 import { Filter } from "UI";
 import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
-import { MainLayout } from "layouts";
 import EmployeesBox from "components/EmployeesBox";
 
 const ENTITY_NAME = "boys";
 
-const BoysSearch = ({ loggedInUser }) => {
+const BoysSearch = ({ user }) => {
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
     GIRLS_FILTER_OPTIONS
   );
@@ -98,23 +96,23 @@ const BoysSearch = ({ loggedInUser }) => {
   ];
 
   return (
-    <MainLayout user={loggedInUser}>
+    <>
       <Filter
         name={ENTITY_NAME}
         inititalState={filters[ENTITY_NAME]}
         fields={fields}
-      ></Filter>
-      <EmployeesBox inititalState={filters[ENTITY_NAME]}></EmployeesBox>
-    </MainLayout>
+      />
+      <EmployeesBox inititalState={filters[ENTITY_NAME]} />
+    </>
   );
 };
 
-BoysSearch.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+BoysSearch.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default BoysSearch;

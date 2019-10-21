@@ -8,7 +8,7 @@ import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-const EventShow = ({ loggedInUser }) => {
+const ClubEventShow = ({ user }) => {
   const router = useRouter();
   const { id, event: eventId } = router.query;
 
@@ -82,7 +82,7 @@ const EventShow = ({ loggedInUser }) => {
   );
 
   return (
-    <ClubBox club={club} user={loggedInUser}>
+    <ClubBox club={club} user={user}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
@@ -94,12 +94,14 @@ const EventShow = ({ loggedInUser }) => {
   );
 };
 
-EventShow.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+ClubEventShow.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default EventShow;
+ClubEventShow.getLayout = page => page;
+
+export default ClubEventShow;

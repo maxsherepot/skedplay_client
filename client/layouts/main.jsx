@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { Header, Footer } from "UI";
 
@@ -16,5 +17,7 @@ MainLayout.propTypes = {
 MainLayout.defaultProps = {
   user: null
 };
+
+export const getLayout = (page, initialProps) => <MainLayout {...initialProps}>{page}</MainLayout>;
 
 export default MainLayout;

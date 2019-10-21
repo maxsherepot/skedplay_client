@@ -5,10 +5,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { EventCard } from "UI";
 import { FavoriteBox } from "components/favorite";
 
-const FavoriteEvents = ({ loggedInUser }) => {
+const FavoriteEvents = ({ user }) => {
   const { data: { favoriteEvents } = {}, loading } = useQuery(FAVORITE_EVENTS, {
     variables: {
-      id: loggedInUser.id
+      id: user.id
     }
   });
 
@@ -17,7 +17,7 @@ const FavoriteEvents = ({ loggedInUser }) => {
   }
 
   return (
-    <FavoriteBox user={loggedInUser}>
+    <FavoriteBox user={user}>
       <div className="text-2xl font-extrabold my-5">Favorite Events</div>
 
       <div className="flex flex-wrap -mx-3">
@@ -44,12 +44,12 @@ const FavoriteEvents = ({ loggedInUser }) => {
   );
 };
 
-FavoriteEvents.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+FavoriteEvents.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default FavoriteEvents;

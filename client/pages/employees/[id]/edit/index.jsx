@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { GET_EMPLOYEE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
-import EditEmployeeBox from "components/employee/EditEmployee";
+import {EditEmployeeBox} from "components/employee";
 
-const Edit = ({ loggedInUser }) => {
+const EmployeeEdit = ({ loggedInUser }) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -30,4 +30,4 @@ const Edit = ({ loggedInUser }) => {
   );
 };
 
-export default Edit;
+export default EmployeeEdit;

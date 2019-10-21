@@ -40,7 +40,7 @@ const UserDropdown = ({ user }) => {
             <div className="flex items-center">
               <div className="text-2xl font-medium capitalize">{user.name}</div>
               <div className="text-lg text-red ml-4">
-                <Link href="/account/[id]" as={`/account/${user.id}`}>
+                <Link href="/account">
                   <a>View profile</a>
                 </Link>
               </div>
@@ -60,12 +60,12 @@ const UserDropdown = ({ user }) => {
           </div>
         </div>
 
-        <div className="border-b border-divider"></div>
+        <div className="border-b border-divider" />
 
         <div className="flex flex-wrap justify-between px-7 py-4">
           <div className="w-1/2">
             {(user.is_employee || user.is_club_owner) && (
-              <Link href="/account/[id]" as={`/account/${user.id}`}>
+              <Link href="/account">
                 <a className="block text-red font-medium hover:text-pink cursor-pointer mb-2">
                   View my account
                 </a>
@@ -119,7 +119,7 @@ const UserDropdown = ({ user }) => {
           </div>
         </div>
 
-        <div className="border-b border-divider"></div>
+        <div className="border-b border-divider" />
 
         <div className="flex flex-wrap justify-between px-7 py-4">
           <Button

@@ -1,13 +1,13 @@
-import { useMutation } from "@apollo/react-hooks";
+import React from "react";
 import Link from "next/link";
-import redirect from "lib/redirect";
-import { MainLayout } from "layouts";
-import { UPDATE_USER } from "queries";
 import { ArrowBack } from "UI";
+import redirect from "lib/redirect";
+import { UPDATE_USER } from "queries";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { EditAccount } from "components/account";
+import { useMutation } from "@apollo/react-hooks";
 
-const Edit = ({ loggedInUser }) => {
+const AccountSettings = ({ user }) => {
   const [onSubmit] = useMutation(UPDATE_USER);
 
   const Breadcrumbs = () => (
@@ -15,7 +15,7 @@ const Edit = ({ loggedInUser }) => {
       <div className="flex items-center py-4">
         <ArrowBack back />
         <div className="ml-10">
-          <Link href="/account/[id]" as={`/account/${loggedInUser.id}`}>
+          <Link href="/account">
             <a className="text-red hover:text-pink">My account</a>
           </Link>
           <span className="px-2 text-grey">/</span>
@@ -26,7 +26,7 @@ const Edit = ({ loggedInUser }) => {
   );
 
   return (
-    <MainLayout user={loggedInUser}>
+    <>
       <Breadcrumbs />
       <div className="fluid-container">
         <div className="bg-white shadow rounded-lg p-8">
@@ -37,20 +37,19 @@ const Edit = ({ loggedInUser }) => {
             This information need only for site administrators, and account
             control.
           </p>
-
-          <EditAccount initialValues={loggedInUser} onSubmit={onSubmit} />
+          <EditAccount initialValues={user} onSubmit={onSubmit} />
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 };
 
-Edit.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
-    redirect(context, "/login");
+AccountSettings.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default Edit;
+export default AccountSettings;

@@ -5,12 +5,12 @@ import { useQuery } from "@apollo/react-hooks";
 import { GirlCard } from "UI";
 import { FavoriteBox } from "components/favorite";
 
-const FavoriteGirls = ({ loggedInUser }) => {
+const FavoriteGirls = ({ user }) => {
   const { data: { favoriteEmployees } = {}, loading } = useQuery(
     FAVORITE_EMPLOYEES,
     {
       variables: {
-        id: loggedInUser.id
+        id: user.id
       }
     }
   );
@@ -20,7 +20,7 @@ const FavoriteGirls = ({ loggedInUser }) => {
   }
 
   return (
-    <FavoriteBox user={loggedInUser}>
+    <FavoriteBox user={user}>
       <div className="text-2xl font-extrabold my-5">Favorite Girls</div>
 
       <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
@@ -48,12 +48,12 @@ const FavoriteGirls = ({ loggedInUser }) => {
   );
 };
 
-FavoriteGirls.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+FavoriteGirls.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default FavoriteGirls;

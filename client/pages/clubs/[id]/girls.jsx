@@ -6,7 +6,7 @@ import { GirlCard } from "UI";
 import { ClubBox } from "components/club";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-const Girls = ({ loggedInUser }) => {
+const ClubGirls = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -21,7 +21,7 @@ const Girls = ({ loggedInUser }) => {
   }
 
   return (
-    <ClubBox club={club} user={loggedInUser}>
+    <ClubBox club={club} user={user}>
       <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
         {club.employees &&
           club.employees.map(girl => (
@@ -37,12 +37,14 @@ const Girls = ({ loggedInUser }) => {
   );
 };
 
-Girls.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+ClubGirls.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default Girls;
+ClubGirls.getLayout = page => page;
+
+export default ClubGirls;

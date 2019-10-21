@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { TextField, TextAreaField, Checkbox, Button, FormGroup } from "UI";
+import { TextField, TextAreaField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import Captcha from "components/Captcha";
 
@@ -16,7 +16,7 @@ const NewReviewForm = ({ employee, onSubmit }) => {
         title: "",
         body: "",
         recaptcha: "",
-        hide: ""
+        hide: false
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -78,7 +78,7 @@ const NewReviewForm = ({ employee, onSubmit }) => {
           )}
 
           <div className="flex px-3 my-5">
-            <Checkbox label="Hide my name" name="hide" />
+            <CheckboxField label="Hide my name" name="hide" />
           </div>
 
           <div className="flex justify-center my-5">

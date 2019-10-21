@@ -6,7 +6,7 @@ import { ALL_EVENTS, GET_EMPLOYEE } from "queries";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EventCard, Gallery, Pagination, AddressCard } from "UI";
 
-const Events = ({ loggedInUser }) => {
+const EmployeeEvents = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
   const [page, setPage] = usePagination();
@@ -55,7 +55,7 @@ const Events = ({ loggedInUser }) => {
                   href={`/employees/${id}/events`}
                   key={event.id}
                   {...event}
-                ></EventCard>
+                />
               ))}
           </div>
 
@@ -63,7 +63,7 @@ const Events = ({ loggedInUser }) => {
             page={page}
             setPage={setPage}
             {...events.paginatorInfo}
-          ></Pagination>
+          />
         </>
       ) : (
         <div>Loading...</div>
@@ -72,7 +72,7 @@ const Events = ({ loggedInUser }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={loggedInUser}>
+    <EmployeeBox employee={employee} user={user}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-3/12 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
@@ -84,12 +84,14 @@ const Events = ({ loggedInUser }) => {
   );
 };
 
-Events.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+EmployeeEvents.getInitialProps = async ctx => {
+  const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
   if (!loggedInUser) {
     return {};
   }
   return { loggedInUser };
 };
 
-export default Events;
+EmployeeEvents.getLayout = (page) => page;
+
+export default EmployeeEvents;

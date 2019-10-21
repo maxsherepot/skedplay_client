@@ -1,7 +1,6 @@
 import React from "react";
 import redirect from "lib/redirect";
 import { useRouter } from "next/router";
-import { AccountBox } from "components/account";
 import checkLoggedIn from "lib/checkLoggedIn";
 import StepBox from "components/StepBox";
 import { EditClubBox } from "components/club";
@@ -9,8 +8,9 @@ import {
     GET_CLUB,
 } from "queries";
 import { useQuery } from "@apollo/react-hooks";
+import { getLayout } from "components/account/AccountLayout";
 
-const ClubEdit = ({ loggedInUser }) => {
+const AccountClubEdit = ({ user }) => {
     const { query: { cid } } = useRouter();
     const { data: { club } = {}, loading} = useQuery(GET_CLUB, {
         variables: {
@@ -29,23 +29,25 @@ const ClubEdit = ({ loggedInUser }) => {
     }
 
     return (
-        <AccountBox contentClass="lg:w-3/5" user={loggedInUser}>
+        <>
             <div className="flex flex-col lg:flex-row justify-between">
                 <StepBox links={links} />
             </div>
             <div className="border-b border-divider" />
-            <EditClubBox club={club} user={loggedInUser} />
-        </AccountBox>
+            <EditClubBox club={club} user={user} />
+        </>
     );
 };
 
-ClubEdit.getInitialProps = async context => {
-    const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-    if (!loggedInUser) {
-        redirect(context, "/login");
+AccountClubEdit.getLayout = getLayout;
+
+AccountClubEdit.getInitialProps = async ctx => {
+    const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+    if (!user) {
+        redirect(ctx, "/login");
     }
 
-    return { loggedInUser };
+    return { user };
 };
 
-export default ClubEdit;
+export default AccountClubEdit;

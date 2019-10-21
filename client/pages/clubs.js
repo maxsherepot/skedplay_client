@@ -1,6 +1,6 @@
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-
 import { Filter } from "UI";
 import { MainLayout } from "layouts";
 import ClubsBox from "components/ClubsBox";
@@ -16,7 +16,7 @@ function Clubs({ loggedInUser }) {
   const { data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
-    return "Loading...";
+    return <div>"Loading..."</div>;
   }
 
   const fields = [
@@ -97,18 +97,20 @@ function Clubs({ loggedInUser }) {
         name={ENTITY_NAME}
         inititalState={filters[ENTITY_NAME]}
         fields={fields}
-      ></Filter>
-      <ClubsBox inititalState={filters[ENTITY_NAME]}></ClubsBox>
+      />
+      <ClubsBox inititalState={filters[ENTITY_NAME]} />
     </MainLayout>
   );
 }
 
-Clubs.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+Clubs.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
+
+Clubs.getLayout = page => page;
 
 export default Clubs;

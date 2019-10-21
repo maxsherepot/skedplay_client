@@ -2,12 +2,14 @@ import React from "react";
 import redirect from "lib/redirect";
 import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {AccountBox} from "components/account";
+import {getLayout} from "components/account/AccountLayout";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_CLUB, DELETE_EVENT} from "queries";
 import {Button, DeletePopup} from "UI";
+import Link from "next/link";
 
 const EventCard = ({event}) => {
+    const {query: {cid}} = useRouter();
     const [deleteEvent] = useMutation(DELETE_EVENT, {
         update(
             cache,
@@ -68,9 +70,13 @@ const EventCard = ({event}) => {
 
                 <div className="flex flex-wrap justify-end -mx-2">
                     <div className="px-2">
-                        <Button className="px-2" level="secondary" outline size="xxs">
-                            Edit
-                        </Button>
+                        <Link href={`/account/club/${cid}/events/${event.id}`}>
+                            <a>
+                                <Button className="px-2" level="secondary" outline size="xxs">
+                                    Edit
+                                </Button>
+                            </a>
+                        </Link>
                     </div>
                     <div className="px-2">
                         <DeletePopup onEnter={handleDelete} title={`Delete ${event.title}?`}>
@@ -98,7 +104,7 @@ const EventList = ({events}) => {
     )
 };
 
-const AccountShow = ({loggedInUser}) => {
+const AccountClubEvents = ({user}) => {
     const {query: {cid}} = useRouter();
     const {data: {club} = {}, loading} = useQuery(GET_CLUB, {
         variables: {
@@ -110,20 +116,18 @@ const AccountShow = ({loggedInUser}) => {
         return <div>Loading...</div>
     }
 
-    return (
-        <AccountBox contentClass="lg:w-3/5 px-8 py-12" user={loggedInUser}>
-            <EventList events={club.events}/>
-        </AccountBox>
-    );
+    return (<EventList events={club.events}/>);
 };
 
-AccountShow.getInitialProps = async context => {
-    const {loggedInUser} = await checkLoggedIn(context.apolloClient);
-    if (!loggedInUser) {
-        redirect(context, "/login");
+AccountClubEvents.getInitialProps = async ctx => {
+    const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
+    if (!user) {
+        redirect(ctx, "/login");
     }
 
-    return {loggedInUser};
+    return {user};
 };
 
-export default AccountShow;
+AccountClubEvents.getLayout = getLayout;
+
+export default AccountClubEvents;

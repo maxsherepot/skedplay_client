@@ -10,8 +10,9 @@ import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
+import Index from "../../index";
 
-const Information = ({ loggedInUser }) => {
+const EmployeeInformation = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -102,8 +103,6 @@ const Information = ({ loggedInUser }) => {
     </>
   );
 
-  console.log(employee)
-
   const contentColumn = (
     <>
       <div className="flex -mx-3">
@@ -190,7 +189,7 @@ const Information = ({ loggedInUser }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={loggedInUser}>
+    <EmployeeBox employee={employee} user={user}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
         <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
@@ -217,12 +216,14 @@ const Information = ({ loggedInUser }) => {
   );
 };
 
-Information.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+EmployeeInformation.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default Information;
+EmployeeInformation.getLayout = (page) => page;
+
+export default EmployeeInformation;

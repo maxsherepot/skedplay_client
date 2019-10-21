@@ -13,7 +13,7 @@ import {
 
 import PlansBox from "components/plans/PlansBox";
 
-const Plans = ({ loggedInUser }) => {
+const Plans = ({ user }) => {
   const periods = [
     {
       name: "3 months",
@@ -58,11 +58,11 @@ const Plans = ({ loggedInUser }) => {
                 items={periods}
                 defaultValue={period}
                 handleChange={e => setPeriod(e.target.value)}
-              ></GroupRadio>
+              />
             </div>
           </div>
           <div className="container mt-8 mb-20">
-            <PlansBox user={loggedInUser} />
+            <PlansBox user={user} />
           </div>
         </div>
       </div>
@@ -70,13 +70,13 @@ const Plans = ({ loggedInUser }) => {
   );
 };
 
-Plans.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
-    redirect(context, "/login");
+Plans.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
   }
 
-  return { loggedInUser };
+  return { user };
 };
 
 export default Plans;

@@ -22,6 +22,9 @@ type Club {
   videos: [Media] @hasMany
   schedule: [ClubSchedule] @hasMany
   logo: Media @hasOne
+  events_count: Int! @count(relation: "events")
+  photos_count: Int! @count(relation: "photos")
+  videos_count: Int! @count(relation: "videos")
 }
 
 input ClubInput {

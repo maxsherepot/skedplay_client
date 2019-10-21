@@ -1,12 +1,12 @@
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Filter } from "UI";
-import { MainLayout } from "layouts";
 import EventsBox from "components/EventsBox";
 import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
 
-function Events({ loggedInUser }) {
+function Events({ user }) {
   const { loading, data: { club_types } = {} } = useQuery(
     EVENTS_FILTER_OPTIONS
   );
@@ -16,7 +16,7 @@ function Events({ loggedInUser }) {
   } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
-    return "Loading...";
+    return <div>"Loading..."</div>;
   }
 
   const fields = [
@@ -99,19 +99,19 @@ function Events({ loggedInUser }) {
   ];
 
   return (
-    <MainLayout user={loggedInUser}>
-      <Filter name="events" inititalState={events} fields={fields}></Filter>
-      <EventsBox inititalState={events}></EventsBox>
-    </MainLayout>
+    <>
+      <Filter name="events" inititalState={events} fields={fields} />
+      <EventsBox inititalState={events} />
+    </>
   );
 }
 
-Events.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+Events.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default Events;

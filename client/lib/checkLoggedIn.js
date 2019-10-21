@@ -23,6 +23,7 @@ export default apolloClient =>
               }
               employees {
                 id
+                name
               }
               events {
                 id
@@ -39,6 +40,9 @@ export default apolloClient =>
                 id
                 name
               }
+              events_count
+              photos_count
+              videos_count
             }
             employee {
               id

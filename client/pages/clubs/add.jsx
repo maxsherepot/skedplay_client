@@ -2,17 +2,15 @@ import React from "react";
 import { useRouter } from "next/router";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
-
 import { NewClubBox } from "components/club";
-import { MainLayout } from "layouts";
 import { CloseSvg } from "icons";
 import { PageCard } from "UI";
 
-const Invoice = ({ loggedInUser }) => {
+const ClubsAdd = ({ user }) => {
   const router = useRouter();
 
   return (
-    <MainLayout user={loggedInUser}>
+    <>
       <div className="fluid-container">
         <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto py-8">
           <div className="text-4-65xl font-extrabold">Adding a new Club</div>
@@ -28,17 +26,17 @@ const Invoice = ({ loggedInUser }) => {
       <PageCard>
         <NewClubBox />
       </PageCard>
-    </MainLayout>
+    </>
   );
 };
 
-Invoice.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
-    redirect(context, "/login");
+ClubsAdd.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
   }
 
-  return { loggedInUser };
+  return { user };
 };
 
-export default Invoice;
+export default ClubsAdd;

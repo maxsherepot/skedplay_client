@@ -7,7 +7,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { NewReviewForm } from "components/review";
 
-const Reviews = ({ loggedInUser }) => {
+const EmployeeReviews = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
   const [page, setPage] = usePagination();
@@ -115,7 +115,7 @@ const Reviews = ({ loggedInUser }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={loggedInUser}>
+    <EmployeeBox employee={employee} user={user}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
         <div className="w-full hd:w-3/12 px-3">
           <div className="text-2xl font-extrabold my-5">
@@ -129,12 +129,14 @@ const Reviews = ({ loggedInUser }) => {
   );
 };
 
-Reviews.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+EmployeeReviews.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default Reviews;
+EmployeeReviews.getLayout = page => page;
+
+export default EmployeeReviews;

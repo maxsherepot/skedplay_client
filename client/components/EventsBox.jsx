@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 import { useQuery } from "@apollo/react-hooks";
 
 import { usePagination } from "hooks";
@@ -50,7 +49,7 @@ function EventsBox({ inititalState }) {
                     className="w-full md:w-1/2 lg:w-1/3 hd:w-1/4"
                     key={event.id}
                     {...event}
-                  ></EventCard>
+                  />
                 ))}
             </div>
           </>
@@ -67,7 +66,7 @@ function EventsBox({ inititalState }) {
         page={page}
         setPage={setPage}
         {...events.paginatorInfo}
-      ></Pagination>
+      />
     </>
   );
 }

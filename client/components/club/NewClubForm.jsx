@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import {
   Button,
-  Checkbox,
+  CheckboxField,
   FormGroup,
   TextField,
   SelectField,
@@ -47,6 +47,7 @@ function NewClubForm({ onSubmit }) {
         email: "",
         website: "",
         logotype: null,
+        // access_phone_edit: false,
         moderator: {
           first_name: "",
           last_name: "",
@@ -219,7 +220,7 @@ function NewClubForm({ onSubmit }) {
               />
 
               <div className="px-3 w-2/3 flex items-center">
-                <Checkbox
+                <CheckboxField
                   label="Enable to edit Sex Workers profiles in my Club for this number"
                   name="access_phone_edit"
                 />
@@ -227,7 +228,7 @@ function NewClubForm({ onSubmit }) {
             </div>
           </div>
 
-          <div className="border-b border-divider"></div>
+          <div className="border-b border-divider" />
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
             <Button

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -8,7 +8,7 @@ import { RegisterBox } from "components/register";
 
 function Register() {
   return (
-    <Fragment>
+    <>
       <AnimationBackground />
       <Modal
         logo={<Logo />}
@@ -18,7 +18,7 @@ function Register() {
       >
         <RegisterBox />
       </Modal>
-    </Fragment>
+    </>
   );
 }
 

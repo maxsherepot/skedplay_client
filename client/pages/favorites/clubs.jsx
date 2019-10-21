@@ -5,10 +5,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { ClubCard } from "UI";
 import { FavoriteBox } from "components/favorite";
 
-const FavoriteClubs = ({ loggedInUser }) => {
+const FavoriteClubs = ({ user }) => {
   const { data: { favoriteClubs } = {}, loading } = useQuery(FAVORITE_CLUBS, {
     variables: {
-      id: loggedInUser.id
+      id: user.id
     }
   });
 
@@ -17,7 +17,7 @@ const FavoriteClubs = ({ loggedInUser }) => {
   }
 
   return (
-    <FavoriteBox user={loggedInUser}>
+    <FavoriteBox user={user}>
       <div className="text-2xl font-extrabold my-5">Favorite Clubs</div>
 
       <div className="flex flex-wrap -mx-3">
@@ -38,12 +38,12 @@ const FavoriteClubs = ({ loggedInUser }) => {
   );
 };
 
-FavoriteClubs.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+FavoriteClubs.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
 export default FavoriteClubs;

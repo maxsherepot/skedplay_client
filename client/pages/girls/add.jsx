@@ -5,11 +5,10 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import StepBox from "components/StepBox";
 import { NewAdBox } from "components/ad";
-import { MainLayout } from "layouts";
 import { CloseSvg } from "icons";
 import { PageCard } from "UI";
 
-const Invoice = ({ loggedInUser }) => {
+const Invoice = ({ user }) => {
   const router = useRouter();
 
   const links = [
@@ -18,10 +17,10 @@ const Invoice = ({ loggedInUser }) => {
     "Photos and videos",
     "Schedule and activation",
     "Book and pay"
-  ]
+  ];
 
   return (
-    <MainLayout user={loggedInUser}>
+    <>
       <div className="fluid-container">
         <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto py-8">
           <div className="text-4-65xl font-extrabold">New ad</div>
@@ -41,17 +40,17 @@ const Invoice = ({ loggedInUser }) => {
         <div className="border-b border-divider" />
         <NewAdBox />
       </PageCard>
-    </MainLayout>
+    </>
   );
 };
 
-Invoice.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
-    redirect(context, "/login");
+Invoice.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
   }
 
-  return { loggedInUser };
+  return { user };
 };
 
 export default Invoice;

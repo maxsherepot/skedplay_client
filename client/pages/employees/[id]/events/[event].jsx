@@ -8,7 +8,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
 
-const EventShow = ({ loggedInUser }) => {
+const EmployeeEventShow = ({ user }) => {
   const router = useRouter();
   const { id, event: eventId } = router.query;
 
@@ -62,7 +62,7 @@ const EventShow = ({ loggedInUser }) => {
                 </Button>
               </div>
               <div className="px-3">
-                <EventLabel type={event.type}></EventLabel>
+                <EventLabel type={event.type} />
               </div>
             </div>
             <a>Ultra Party</a>
@@ -96,7 +96,7 @@ const EventShow = ({ loggedInUser }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={loggedInUser}>
+    <EmployeeBox employee={employee} user={user}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-3/12 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
@@ -108,12 +108,14 @@ const EventShow = ({ loggedInUser }) => {
   );
 };
 
-EventShow.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
+EmployeeEventShow.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
     return {};
   }
-  return { loggedInUser };
+  return { user };
 };
 
-export default EventShow;
+EmployeeEventShow.getLayout = page => page;
+
+export default EmployeeEventShow;

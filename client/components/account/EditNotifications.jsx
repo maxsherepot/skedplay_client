@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Button, FormGroup, Checkbox } from "UI";
+import { Button, FormGroup, CheckboxField } from "UI";
 import { getErrors } from "utils";
 
 const EditNotifications = ({ initialValues, onSubmit }) => {
@@ -10,7 +10,7 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
     { setSubmitting, setErrors, setError, setStatus }
   ) => {
     try {
-      console.log(news, comments, push);
+      // console.log(news, comments, push);
       // const { data: { updateUser } = {} } = await onSubmit({
       //   variables: {
       //     user: initialValues.id,
@@ -54,7 +54,7 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
               </div>
             )}
             <div className="px-1 mb-4">
-              <Checkbox
+              <CheckboxField
                 label="Service News"
                 bottom="Subscribe news updates and changes in the service."
                 name="news"
@@ -62,7 +62,7 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
             </div>
 
             <div className="px-1 mb-4">
-              <Checkbox
+              <CheckboxField
                 label="Comment Notifications"
                 bottom="Notification of new comments in your profile."
                 name="comments"
@@ -70,7 +70,7 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
             </div>
 
             <div className="px-1 mb-4">
-              <Checkbox
+              <CheckboxField
                 label="Push notifications"
                 bottom="Notifications in the browser"
                 name="push"

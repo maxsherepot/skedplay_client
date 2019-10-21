@@ -1,13 +1,9 @@
 import React from "react";
-import { useRouter } from "next/router";
+import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
-
 import { AnimationBackground } from "UI";
 
-const Invoice = ({ loggedInUser }) => {
-  const router = useRouter();
-  const { id } = router.query;
-
+const InvoiceShow = ({ user }) => {
   return (
     <>
       <AnimationBackground full />
@@ -18,13 +14,13 @@ const Invoice = ({ loggedInUser }) => {
   );
 };
 
-Invoice.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
-  if (!loggedInUser) {
-    redirect(context, "/login");
+InvoiceShow.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
   }
 
-  return { loggedInUser };
+  return { user };
 };
 
-export default Invoice;
+export default InvoiceShow;
