@@ -32,4 +32,6 @@ Register.getInitialProps = async ctx => {
   return {};
 };
 
+Register.getLayout = page => page;
+
 export default Register;

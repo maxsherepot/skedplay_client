@@ -19,4 +19,6 @@ function Forgot() {
   );
 }
 
+Forgot.getLayout = page => page;
+
 export default Forgot;

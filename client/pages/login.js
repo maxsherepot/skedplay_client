@@ -32,4 +32,6 @@ Login.getInitialProps = async ctx => {
   return {};
 };
 
+Login.getLayout = page => page;
+
 export default Login;
