@@ -1,7 +1,8 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Button, TextField } from "UI";
+import { BlackPlusSvg } from "icons";
+import { Button, TextField, SelectField, TextAreaField, MultiPhotoField } from "UI";
 import { getErrors } from "utils";
 
 const EditEventBox = ({ initialValues, onSubmit }) => {
@@ -12,7 +13,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
         try {
             const { data: { updateUser } = {} } = await onSubmit({
                 variables: {
-                    user: initialValues.id,
+                    event: initialValues.id,
                     input: values
                 }
             });
@@ -48,7 +49,46 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                             </div>
                         )}
 
-                        <TextField className="w-1/3" label="User name" name="name" />
+                        <TextField label="Title" name="title" />
+
+                        <SelectField
+                            label="Type"
+                            name="type_id"
+                            options={[
+                                {
+                                    label: "Special day",
+                                    value: 1
+                                },
+                                {
+                                    label: "Parties and shows",
+                                    value: 2
+                                },
+                                {
+                                    label: "Discount",
+                                    value: 3
+                                }
+                            ]}
+                            placeholder=""
+                        />
+
+                        <TextAreaField rows={6} label="Description" name="description" />
+
+                        <div className="flex flex-wrap">
+                            <MultiPhotoField name="photos" label="" initialValues={initialValues.photos}>
+                                <Button
+                                    className="px-3"
+                                    level="primary-black"
+                                    outline
+                                    size="sm"
+                                    type="button"
+                                >
+                                    <div className="flex items-center">
+                                        <BlackPlusSvg />
+                                        <span className="ml-2">from device</span>
+                                    </div>
+                                </Button>
+                            </MultiPhotoField>
+                        </div>
 
                         <Button
                             type="submit"

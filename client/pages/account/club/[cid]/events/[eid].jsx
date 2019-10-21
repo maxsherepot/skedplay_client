@@ -4,25 +4,26 @@ import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_CLUB} from "queries";
+import {GET_EVENT} from "queries";
 import EditEventBox from "components/account/club/EditEventBox";
 
-const AccountClubEventsEdit = ({user}) => {
+const AccountClubEventsEdit = () => {
     const {query: {eid}} = useRouter();
-    // const {data: {club} = {}, loading} = useQuery(GET_CLUB, {
-    //     variables: {
-    //         id: cid
-    //     }
-    // });
 
-    console.log(eid)
+    const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
+        variables: {
+            id: eid
+        }
+    });
 
-    // if (loading) {
-    //     return <div>Loading...</div>
-    // }
+    console.log(event);
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
 
     return (
-        <EditEventBox />
+        <EditEventBox initialValues={{ ...event, type_id: +event.type.id }} />
     );
 };
 
