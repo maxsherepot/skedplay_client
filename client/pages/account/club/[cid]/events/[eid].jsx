@@ -3,27 +3,27 @@ import redirect from "lib/redirect";
 import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_EVENT} from "queries";
+import {useQuery, useMutation} from "@apollo/react-hooks";
+import {GET_EVENT, UPDATE_EVENT} from "queries";
 import EditEventBox from "components/account/club/EditEventBox";
 
 const AccountClubEventsEdit = () => {
     const {query: {eid}} = useRouter();
+    const [updateEvent] = useMutation(UPDATE_EVENT);
 
     const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
         variables: {
             id: eid
         }
     });
-
-    console.log(event);
+    const onSubmit = async variables => await updateEvent(variables);
 
     if (loading) {
         return <div>Loading...</div>
     }
 
     return (
-        <EditEventBox initialValues={{ ...event, type_id: +event.type.id }} />
+        <EditEventBox initialValues={{ ...event, event_type_id: +event.type.id }} onSubmit={onSubmit} />
     );
 };
 

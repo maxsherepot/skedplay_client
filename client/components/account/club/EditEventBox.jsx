@@ -14,7 +14,11 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
             const { data: { updateEvent } = {} } = await onSubmit({
                 variables: {
                     event: initialValues.id,
-                    input: values
+                    input: {
+                        title: values.title,
+                        description: values.description,
+                        event_type_id: values.event_type_id,
+                    }
                 }
             });
 

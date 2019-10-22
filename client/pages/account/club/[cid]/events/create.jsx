@@ -9,9 +9,7 @@ import CreateEventBox from "components/account/club/CreateEventBox";
 const AccountClubEventsCreate = () => {
     const [createClubEvent] = useMutation(CREATE_CLUB_EVENT);
 
-    const onSubmit = async variables => {
-        await createClubEvent(variables);
-    };
+    const onSubmit = async variables => await createClubEvent(variables);
 
     return (
         <CreateEventBox initialValues={{ title: "", description: "", event_type_id: "" }} onSubmit={onSubmit} />

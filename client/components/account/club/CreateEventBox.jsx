@@ -7,25 +7,25 @@ import {useRouter} from "next/router";
 import {Button, TextField, SelectField, TextAreaField, MultiPhotoField} from "UI";
 
 const CreateEventBox = ({ initialValues, onSubmit}) => {
+    const router = useRouter();
     const { query: {cid}} = useRouter();
 
     const handleSubmits = async (
         values,
-        {setSubmitting, setErrors, setError, setStatus}
+        {setSubmitting, setErrors}
     ) => {
         try {
-            const {data: {createClubEvent} = {}} = await onSubmit({
+            await onSubmit({
                 variables: {
                     club: cid,
-                    input: values
+                    input: {
+                        ...values,
+                        club_id: cid,
+                    }
                 }
             });
 
-            if (createClubEvent && createClubEvent.status) {
-                setStatus(createClubEvent.message);
-            } else {
-                setError(createClubEvent.message);
-            }
+            router.back();
         } catch (e) {
             if (getErrors(e) instanceof Object) {
                 setErrors(getErrors(e));

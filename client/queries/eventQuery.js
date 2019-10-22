@@ -82,6 +82,15 @@ export const CREATE_CLUB_EVENT = gql `
   }
 `;
 
+export const UPDATE_EVENT = gql `
+  mutation updateEvent($event: ID!, $input: EventUpdateInput) {
+    updateEvent(event: $event, input: $input) {
+      status
+      message
+    }
+  }
+`;
+
 export const DELETE_EVENT = gql `
   mutation deleteEvent($event: ID!) {
     deleteEvent(event: $event) {
