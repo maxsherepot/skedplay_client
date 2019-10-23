@@ -6,7 +6,7 @@ const transformValidationErrors = errors => {
 };
 
 const getErrors = e => {
-  if (e && e.graphQLErrors.length) {
+  if (e && e.graphQLErrors && e.graphQLErrors.length) {
     const [error] = e.graphQLErrors;
 
     switch (error.extensions.category) {

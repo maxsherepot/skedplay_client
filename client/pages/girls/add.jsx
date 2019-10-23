@@ -8,7 +8,7 @@ import { NewAdBox } from "components/ad";
 import { CloseSvg } from "icons";
 import { PageCard } from "UI";
 
-const Invoice = ({ user }) => {
+const GirlsAd = () => {
   const router = useRouter();
 
   const links = [
@@ -44,7 +44,7 @@ const Invoice = ({ user }) => {
   );
 };
 
-Invoice.getInitialProps = async ctx => {
+GirlsAd.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
   if (!user) {
     redirect(ctx, "/login");
@@ -53,4 +53,4 @@ Invoice.getInitialProps = async ctx => {
   return { user };
 };
 
-export default Invoice;
+export default GirlsAd;

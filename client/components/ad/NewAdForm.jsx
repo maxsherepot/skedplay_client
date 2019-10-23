@@ -75,7 +75,7 @@ function NewAdForm({ children }) {
         birthday: "",
         gender: "",
         race_type_id: "",
-        nationality: "",
+        type: "",
         description: "",
         index: "",
         city: "",

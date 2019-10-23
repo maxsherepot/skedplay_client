@@ -43,7 +43,7 @@ const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
                   />
 
                   {hovered === i && (
-                      <div className="absolute top-0 right-0 z-50 cursor-pointer">
+                      <div className="absolute top-0 right-0 z-40 cursor-pointer">
                         <div
                             className="flex items-center justify-center w-6 h-6 bg-red rounded-bl-lg rounded-tr-lg"
                             onClick={() => handleDelete(i, photo && photo.id)}

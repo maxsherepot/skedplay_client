@@ -14,6 +14,7 @@ input EventInput {
     description: String!
     event_type_id: Int!
     club_id: Int
+    photos: [Upload]
 }
 
 input EventUpdateInput {
@@ -21,6 +22,7 @@ input EventUpdateInput {
     description: String
     event_type_id: Int
     club_id: Int
+    photos: [Upload]
 }
 
 input EventFilters {

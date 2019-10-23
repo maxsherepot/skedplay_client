@@ -29,10 +29,13 @@ class EventController extends Controller
      * @param Event $event
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function update(EventUpdateRequest $request, Event $event)
     {
-        $this->authorize('update', $event);
+        $this->authorize('update', $event) ;
 
         $response = $this->events->update($event, collect($request->all()));
 

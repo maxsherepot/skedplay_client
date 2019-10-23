@@ -15,9 +15,13 @@ trait Mediable
 
     /**
      * Save club attachments
+     *
      * @param Model $model
      * @param $files
      * @param string $collection
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function saveAttachments(Model $model, $files, $collection = 'photos')
     {
@@ -31,6 +35,9 @@ trait Mediable
      * @param UploadedFile $file
      * @param $collection
      * @return void
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function saveFile(Model $model, UploadedFile $file, $collection)
     {

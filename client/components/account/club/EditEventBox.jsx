@@ -1,11 +1,14 @@
 import React from "react";
 import * as Yup from "yup";
+import {useRouter} from "next/router";
 import { Formik } from "formik";
 import { BlackPlusSvg } from "icons";
 import { Button, TextField, SelectField, TextAreaField, MultiPhotoField } from "UI";
 import { getErrors } from "utils";
 
 const EditEventBox = ({ initialValues, onSubmit }) => {
+    const router = useRouter();
+
     const handleSubmits = async (
         values,
         { setSubmitting, setErrors, setError, setStatus }
@@ -18,12 +21,13 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                         title: values.title,
                         description: values.description,
                         event_type_id: values.event_type_id,
+                        photos: values.photos,
                     }
                 }
             });
 
             if (updateEvent && updateEvent.status) {
-                setStatus(updateEvent.message);
+                router.back();
             } else {
                 setError(updateEvent.message);
             }

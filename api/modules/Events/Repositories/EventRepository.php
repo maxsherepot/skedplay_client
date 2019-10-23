@@ -4,6 +4,7 @@ namespace Modules\Main\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
@@ -29,10 +30,19 @@ class EventRepository implements HasMediable
      * @param Event $event
      * @param Collection $collection
      * @return bool
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function update(Event $event, Collection $collection): bool
     {
-        return $event->update($collection->toArray());
+        $response = $event->update($collection->toArray());
+
+        if ($photos = $collection->get('photos')) {
+            $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
+        }
+
+        return $response;
     }
 
     /**
