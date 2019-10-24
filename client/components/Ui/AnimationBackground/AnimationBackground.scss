@@ -12,6 +12,10 @@
     @apply absolute left-0 w-full z-10;
     bottom: -1px;
     max-width: calc(100% + 1px);
+
+    &_invert {
+      transform: scaleX(-1);
+    }
   }
   &__footer {
     height: 42.4%;

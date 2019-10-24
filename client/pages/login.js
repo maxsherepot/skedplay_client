@@ -8,7 +8,7 @@ import { LoginBox } from "components/login";
 
 function Login() {
   return (
-    <Fragment>
+    <>
       <AnimationBackground />
       <Modal
         logo={<Logo />}
@@ -18,7 +18,7 @@ function Login() {
       >
         <LoginBox />
       </Modal>
-    </Fragment>
+    </>
   );
 }
 

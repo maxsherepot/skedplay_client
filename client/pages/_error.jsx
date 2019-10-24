@@ -1,12 +1,23 @@
 import React from 'react'
+import {
+    AnimationBackground,
+} from "UI";
+import cx from "classnames";
 
 function Error({ statusCode }) {
     return (
-        <p>
-            {statusCode
-                ? `An error ${statusCode} occurred on server`
-                : 'An error occurred on client'}
-        </p>
+        <>
+            <AnimationBackground invert>
+                <div className="absolute inset-0 z-50">
+                    <img className="flex items-start justify-center w-full" src="/static/img/man.png" alt=""/>
+                </div>
+            </AnimationBackground>
+        </>
+        // <p>
+        //     {statusCode
+        //         ? `An error ${statusCode} occurred on server`
+        //         : 'An error occurred on client'}
+        // </p>
     )
 }
 

@@ -79,4 +79,6 @@ Plans.getInitialProps = async ctx => {
   return { user };
 };
 
+Plans.getLayout = page => page;
+
 export default Plans;
