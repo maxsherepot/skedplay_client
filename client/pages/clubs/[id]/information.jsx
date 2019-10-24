@@ -98,7 +98,7 @@ const ClubInformation = ({user}) => {
 
             {favorited && (
                 <div className="flex absolute inset-0 items-start justify-end m-3">
-                    <HeartSvg className="stroke-red fill-red" />
+                    <HeartSvg className="stroke-red fill-red"/>
                 </div>
             )}
         </div>
@@ -134,25 +134,29 @@ const ClubInformation = ({user}) => {
                 <div className="w-full sm:w-8/12 lg:w-9/12 px-3">
                     <ClubGirlsBox employees={club.employees}/>
                 </div>
-                <div className="w-full sm:w-4/12 lg:w-3/12 px-3 hidden sm:block">
-                    <div className="flex items-end my-5">
-                        <div className="text-2xl font-extrabold tracking-tighter leading-none">
-                            Next Event in {club.name}
-                        </div>
-                    </div>
+                    {event && (
+                        <>
+                            <div className="w-full sm:w-4/12 lg:w-3/12 px-3 hidden sm:block">
+                                <div className="flex items-end my-5">
+                                    <div className="text-2xl font-extrabold tracking-tighter leading-none">
+                                        Next Event in {club.name}
+                                    </div>
+                                </div>
 
-                    <div className="-mx-3">
-                        <EventCard href={`/clubs/${id}/events`} {...event} height={250}/>
-                    </div>
+                                <div className="-mx-3">
+                                    <EventCard href={`/clubs/${id}/events`} {...event} height={250}/>
+                                </div>
 
-                    <Link href={`/clubs/[id]/events`} as={`/clubs/${club.id}/events`}>
-                        <a className="block text-sm whitespace-no-wrap transition hover:text-red">
-                            <ArrowNextSvg>
-                                <span className="mr-2">All events</span>
-                            </ArrowNextSvg>
-                        </a>
-                    </Link>
-                </div>
+                                <Link href={`/clubs/[id]/events`} as={`/clubs/${club.id}/events`}>
+                                    <a className="block text-sm whitespace-no-wrap transition hover:text-red">
+                                        <ArrowNextSvg>
+                                            <span className="mr-2">All events</span>
+                                        </ArrowNextSvg>
+                                    </a>
+                                </Link>
+                            </div>
+                        </>
+                     )}
             </div>
 
             <div className="flex flex-wrap -mx-3">

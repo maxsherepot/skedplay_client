@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -10,14 +11,16 @@ const ClubGirlsBox = ({ employees }) => {
 
   const rows = [];
 
-  for (var i = 0; i < 4; i++) {
+  for (let i = 0; i < 4; i++) {
     const employee = employees[i];
 
-    rows.push(
-      <div className="sm:w-1/2 lg:w-1/4 px-3" key={employee.id}>
-        <GirlCard girl={employee} labels={false} slider={false} available />
-      </div>
-    );
+    if (employee) {
+      rows.push(
+          <div className="sm:w-1/2 lg:w-1/4 px-3" key={employee.id}>
+            <GirlCard girl={employee} labels={false} slider={false} available />
+          </div>
+      );
+    }
   }
 
   return (

@@ -19,7 +19,7 @@
   }
   &__footer {
     height: 42.4%;
-    @apply block w-full bg-xs-grey;
+    @apply relative block w-full bg-xs-grey;
   }
 }
 

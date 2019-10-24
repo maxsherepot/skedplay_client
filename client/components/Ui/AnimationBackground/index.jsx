@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-function AnimationBackground({full, invert, children}) {
+function AnimationBackground({full, invert, children, footer}) {
     return (
         <div className="animation-background">
             <div
@@ -19,8 +19,12 @@ function AnimationBackground({full, invert, children}) {
                     />
                 )}
             </div>
+
             {children}
-            {!full && <div className="animation-background__footer"/>}
+
+            {!full && (<div className="animation-background__footer">
+                {footer}
+            </div>)}
         </div>
     );
 }
