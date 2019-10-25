@@ -64,8 +64,6 @@ const AccountClubIndex = ({ user }) => {
         phone = number
     }
 
-    console.log(club)
-
     const { admin } = club;
 
     return (

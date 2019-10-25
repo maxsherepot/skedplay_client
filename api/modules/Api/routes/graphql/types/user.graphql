@@ -11,7 +11,11 @@ type User {
     is_employee: Boolean
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
-    employee: Employee @hasOne
+    employees: [Employee] @morphMany
+    # counters
+    employees_photos: Int
+    employees_videos: Int
+    employees_events: Int
 }
 
 input UserInput {

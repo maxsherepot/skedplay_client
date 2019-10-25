@@ -16,6 +16,11 @@ type Employee {
   race_type_id: Int
   created_at: DateTime!
   updated_at: DateTime!
+  #
+  events_count: Int! @count(relation: "events")
+  photos_count: Int! @count(relation: "photos")
+  videos_count: Int! @count(relation: "videos")
+  #
   owner: Owner @belongsTo
   race_type: [EmployeeRaceType] @belongsTo
   parameters: [Parameter] @belongsToMany

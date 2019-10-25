@@ -2,11 +2,11 @@ import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { getLayout } from 'components/account/AccountLayout'
-import { PrivateCards, ClubOwnerBox } from "components/account";
+import { PrivateBox, ClubOwnerBox } from "components/account";
 
 const cardRow = (user) => {
   if (user.is_employee) {
-    return <PrivateCards user={user} />;
+    return <PrivateBox user={user} />;
   }
 
   if (user.is_club_owner) {

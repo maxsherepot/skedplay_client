@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Entities;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -60,6 +61,9 @@ class User extends AuthUser implements EmployeeOwnerInterface
         'is_client',
         'is_club_owner',
         'is_employee',
+        'employees_photos',
+        'employees_videos',
+        'employees_events',
     ];
 
     /**
@@ -123,12 +127,43 @@ class User extends AuthUser implements EmployeeOwnerInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return MorphMany
      */
-    public function employee()
+    public function employees(): MorphMany
     {
-        return $this->morphOne(Employee::class, 'owner');
+        return $this->morphMany(Employee::class, 'owner');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmployeesPhotosAttribute()
+    {
+        return $this->employees->reduce(function ($count, $employee) {
+            return $count + $employee->photos->count();
+        }, 0);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmployeesVideosAttribute()
+    {
+        return $this->employees->reduce(function ($count, $employee) {
+            return $count + $employee->videos->count();
+        }, 0);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmployeesEventsAttribute()
+    {
+        return $this->employees->reduce(function ($count, $employee) {
+            return $count + $employee->events->count();
+        }, 0);
+    }
+
 
     public function employees_club_owners()
     {

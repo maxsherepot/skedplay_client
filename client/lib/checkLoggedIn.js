@@ -14,6 +14,9 @@ export default apolloClient =>
             is_club_owner
             is_employee
             favorites_count
+            employees_photos
+            employees_videos
+            employees_events
             clubs {
               id
               name
@@ -44,8 +47,11 @@ export default apolloClient =>
               photos_count
               videos_count
             }
-            employee {
+            employees {
               id
+              events_count
+              photos_count
+              videos_count
               reviews {
                 id
               }

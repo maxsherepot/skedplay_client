@@ -55,7 +55,7 @@ const ClubMenu = ({clubs}) => {
                         <Link href="/girls/add">
                             <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
                                 <AddSvg/>
-                                <span className="ml-2"> Add new card</span>
+                                <span className="ml-2">Add new card</span>
                             </a>
                         </Link>
                         <div className="text-red p-1 cursor-pointer">
@@ -84,7 +84,7 @@ const ClubMenu = ({clubs}) => {
     });
 };
 
-const Sidebar = ({user: {is_club_owner, is_employee, clubs, employee}}) => (
+const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees}}) => (
     <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
         <div className="flex flex-col py-10 lg:pr-32">
             {is_employee && (
@@ -102,10 +102,14 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employee}}) => (
                             </Link>
                         </li>
                         <li>
-                            Active AD
-                            <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                12
-              </span>
+                            <Link href="/account/ad">
+                                <a>
+                                    Active AD
+                                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                                        {employees.length}
+                                    </span>
+                                </a>
+                            </Link>
                         </li>
                         <li>Archive</li>
                     </ul>
@@ -114,16 +118,16 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employee}}) => (
 
             {is_employee && (
                 <div className="mt-5">
-          <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-            My Events
-          </span>
+                  <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                    My Events
+                  </span>
                     <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
                         <li>Add new Event</li>
                         <li>
                             Active Events
                             <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                4
-              </span>
+                                {employees_events}
+                            </span>
                         </li>
                         <li>Archive</li>
                     </ul>
@@ -153,24 +157,24 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employee}}) => (
             )}
 
             <div className="mt-4">
-        <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-          Bills and usage
-        </span>
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  Bills and usage
+                </span>
             </div>
 
             <div className="mt-4">
-        <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-          Messages / Chats
-        </span>
+                <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                  Messages / Chats
+                </span>
             </div>
 
-            {employee && employee.reviews && employee.reviews.length !== 0 && (
-                <div className="mt-4">
-                  <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                    Reviews
-                  </span>
-                </div>
-            )}
+            {/*{employee && employee.reviews && employee.reviews.length !== 0 && (*/}
+            {/*    <div className="mt-4">*/}
+            {/*      <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">*/}
+            {/*        Reviews*/}
+            {/*      </span>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
             <div className="mt-4">
                 <Link href="/account/settings">

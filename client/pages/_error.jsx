@@ -1,11 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import {
+    Logo,
     Button,
     AnimationBackground,
 } from "UI";
 
-function Error({ statusCode }) {
+function Error({statusCode}) {
     const Display404 = () => (
         <div className="relative flex flex-col items-start mx-auto hd:w-7/12">
             <span className="mb-3">Error #404</span>
@@ -41,17 +42,27 @@ function Error({ statusCode }) {
         <div className="fluid-container">
             {{
                 404: (
-                    <Display404 />
+                    <Display404/>
                 ),
-            }[statusCode] || <DisplayServerError />}
+            }[statusCode] || <DisplayServerError/>}
         </div>
     );
 
     return (
         <>
-            <AnimationBackground invert footer={<Footer />}>
-                <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2" src="/static/img/man.png" alt=""/>
-                <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/4" src="/static/img/woman.png" alt=""/>
+            <AnimationBackground invert footer={<Footer/>}>
+                <div className="absolute inset-0 fluid-container hd:w-7/12 mx-auto flex">
+                    <div className="">
+                        <Logo className="text-white my-20 z-50" />
+                    </div>
+                </div>
+
+                <div className="fluid-container">
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2"
+                         src="/static/img/man.png" alt=""/>
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/4"
+                         src="/static/img/woman.png" alt=""/>
+                </div>
             </AnimationBackground>
         </>
         // <p>
@@ -62,11 +73,12 @@ function Error({ statusCode }) {
     )
 }
 
-Error.getInitialProps = ({ res, err }) => {
+
+Error.getInitialProps = ({res, err}) => {
     const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-    return { statusCode }
+    return {statusCode}
 };
 
 Error.getLayout = page => page;
 
-export default Error
+export default Error;

@@ -2,7 +2,6 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Common\SyncPricesRequest;
 use Modules\Api\Http\Requests\Common\SyncServicesRequest;
