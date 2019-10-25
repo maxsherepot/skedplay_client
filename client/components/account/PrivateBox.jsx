@@ -5,7 +5,7 @@ import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 
 const cards = [
     {
-        title: "1 Card / Ad",
+        title: "Card / Ad",
         icon: "user",
         buttonText: "Add new",
         link: "/girls/add"
@@ -43,7 +43,7 @@ const PrivateBox = ({ user }) => {
                         <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                             <div className="flex flex-col justify-center h-full">
                                 <div className="flex justify-between">
-                                    <span className="text-2xl font-bold mb-6">{`${counter ? user[counter]: ""} ${title}`}</span>
+                                    <span className="text-2xl font-bold mb-6">{`${counter ? user[counter]: user.employees && user.employees.length || ""} ${title}`}</span>
                                     {icon === "user" ? (
                                         <UserSvg />
                                     ) : (

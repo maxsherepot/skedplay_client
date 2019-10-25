@@ -91,9 +91,12 @@ class EmployeeController extends Controller
     {
         $this->authorize('delete', $employee);
 
-        $this->employees->delete($employee);
+        $id = (string) $employee->id;
 
-        return $this->success();
+        $response = $this->employees->delete($employee);
+
+        // Передача id в контексте message, служит для фильтрации и обновления кеша на стороне Apollo.
+        return $response ? $this->success($id) : $this->fail();
     }
 
     /**

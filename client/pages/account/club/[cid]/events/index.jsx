@@ -84,9 +84,6 @@ const EventCard = ({event}) => {
                                 <p>Are you sure you want to delete this event?</p>
                             </div>
                         </DeletePopup>
-                        {/*<Button className="px-2" level="black" size="xxs">*/}
-                        {/*    Delete*/}
-                        {/*</Button>*/}
                     </div>
                 </div>
             </div>

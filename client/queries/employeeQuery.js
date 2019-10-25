@@ -41,6 +41,8 @@ export const GET_EMPLOYEE = gql `
       name
       age
       gender
+      index
+      city
       address
       type
       race_type_id

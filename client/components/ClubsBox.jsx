@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -48,7 +49,7 @@ function ClubsBox({ inititalState }) {
             <div className="flex flex-wrap -mx-3">
               {clubs.data &&
                 clubs.data.map(club => (
-                  <ClubCard key={club.id} {...club}></ClubCard>
+                  <ClubCard key={club.id} {...club} />
                 ))}
             </div>
           </>
@@ -63,7 +64,7 @@ function ClubsBox({ inititalState }) {
         <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">
           <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
           <div className="flex my-4">
-            <MapSvg></MapSvg>
+            <MapSvg />
             <span className="ml-3">12 km from me</span>
           </div>
           <Button className="px-4" size="xxs" level="success" weight="normal">
@@ -76,7 +77,7 @@ function ClubsBox({ inititalState }) {
         page={page}
         setPage={setPage}
         {...clubs.paginatorInfo}
-      ></Pagination>
+      />
     </>
   );
 }
