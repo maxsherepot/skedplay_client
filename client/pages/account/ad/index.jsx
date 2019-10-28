@@ -59,7 +59,7 @@ const EmployeeCard = ({employee}) => {
 
           <div className="flex flex-wrap justify-end -mx-2">
             <div className="px-2">
-              <Link href="/account/ad/:eid" as={`/account/ad/${employee.id}`}>
+              <Link href="/account/ad/[eid]" as={`/account/ad/${employee.id}`}>
                 <a>
                   <Button className="px-2" level="secondary" outline size="xxs">
                     Edit

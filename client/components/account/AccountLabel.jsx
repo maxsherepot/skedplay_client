@@ -1,3 +1,5 @@
+import React from "react";
+
 const AccountLabel = ({ is_client, is_club_owner, is_employee }) => {
   let account_name = "";
   if (is_client) {

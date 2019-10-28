@@ -10,20 +10,20 @@ const EditPassword = ({ initialValues, onSubmit }) => {
     { setSubmitting, setErrors, setError, setStatus }
   ) => {
     try {
-      // const { data: { updateUser } = {} } = await onSubmit({
-      //   variables: {
-      //     input: {
-      //       password,
-      //       new_password,
-      //       new_password_confirmation
-      //     }
-      //   }
-      // });
-      // if (updateUser && updateUser.status) {
-      //   setStatus(updateUser.message);
-      // } else {
-      //   setError(updateUser.message);
-      // }
+      const { data: { updateUser } = {} } = await onSubmit({
+        variables: {
+          input: {
+            password,
+            new_password,
+            new_password_confirmation
+          }
+        }
+      });
+      if (updateUser && updateUser.status) {
+        setStatus(updateUser.message);
+      } else {
+        setError(updateUser.message);
+      }
     } catch (e) {
       if (getErrors(e) instanceof Object) {
         setErrors(getErrors(e));

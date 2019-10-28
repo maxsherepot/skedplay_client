@@ -1,5 +1,4 @@
 import React from "react";
-import * as Yup from "yup";
 import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField } from "UI";
 
