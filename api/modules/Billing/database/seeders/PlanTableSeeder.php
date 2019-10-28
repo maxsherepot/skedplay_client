@@ -21,18 +21,28 @@ class PlanTableSeeder extends Seeder
         $this->command->info('Plan seeder started');
 
         $plans = [
-            'start'     => 0,
-            'personal' => 170,
-            'premium'  => 350,
+            'start' => [
+                'monthly' => true,
+                'price' => 0,
+            ],
+            'personal' => [
+                'monthly' => true,
+                'price' => 170,
+            ],
+            'premium' => [
+                'monthly' => true,
+                'price' => 350,
+            ],
         ];
 
-        foreach ($plans as $name => $price) {
+        foreach ($plans as $name => $plan) {
             Plan::create([
-                'name'  => $name,
-                'price' => (float)$price,
+                'name' => $name,
+                'price' => (float) $plan['price'],
+                'monthly' => $plan['monthly'],
             ]);
         }
 
-        $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
+        $this->command->info('Time completed: '.$start->diffForHumans(null, true));
     }
 }

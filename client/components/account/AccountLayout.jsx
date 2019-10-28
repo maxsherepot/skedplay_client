@@ -122,12 +122,22 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                     My Events
                   </span>
                     <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
-                        <li>Add new Event</li>
                         <li>
-                            Active Events
-                            <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                                {employees_events}
-                            </span>
+                            <Link href="/account/events/create">
+                                <a>
+                                    Add new Event
+                                </a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/account/events">
+                                <a>
+                                    Active Events
+                                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                                        {employees_events}
+                                    </span>
+                                </a>
+                            </Link>
                         </li>
                         <li>Archive</li>
                     </ul>

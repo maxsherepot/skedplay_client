@@ -1,7 +1,7 @@
 import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {useQuery, useMutation} from "@apollo/react-hooks";
+import {useMutation} from "@apollo/react-hooks";
 import {GET_ME, DELETE_EMPLOYEE} from "queries";
 import {Button, DeletePopup} from "UI";
 import Link from "next/link";
@@ -83,14 +83,21 @@ const EmployeeCard = ({employee}) => {
 const EmployeesList = ({employees}) => {
   return (
       <>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap -mx-3">
           {employees.map(e => <EmployeeCard key={e.id} employee={e}/>)}
         </div>
       </>
   )
 };
 
-const AccountAdIndex = ({ user }) => (<EmployeesList employees={user.employees} />);
+const AccountAdIndex = ({ user }) => (
+    <>
+      <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
+        My ads
+      </div>
+      <EmployeesList employees={user.employees} />
+    </>
+);
 
 AccountAdIndex.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);

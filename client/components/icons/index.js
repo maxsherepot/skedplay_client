@@ -38,5 +38,6 @@ export { default as MasterCardSvg } from "./MasterCardSvg";
 export { default as VisaSvg } from "./VisaSvg";
 export { default as PayPalSvg } from "./PayPalSvg";
 export { default as PostFinanceSvg } from "./PostFinanceSvg";
-export { default as InvoiceSvg } from "./InvoiceSvg";
+export { default as TwintSvg } from "./TwintSvg";
 export { default as SmsSvg } from "./SmsSvg";
+export { default as InvoiceSvg } from "./InvoiceSvg";

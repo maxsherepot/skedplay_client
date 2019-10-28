@@ -3,9 +3,11 @@ import redirect from "lib/redirect";
 import { EventForm } from "components/event";
 import { getLayout } from "components/account/AccountLayout";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useRouter} from "next/router";
 
-const AccountEventsCreate = ({ user }) => {
-
+const AccountAdEventsCreate = () => {
+    const router = useRouter();
+    const { query: {eid}} = useRouter();
     // Attach in employee
     // account/employee/3/events/create
 
@@ -14,7 +16,7 @@ const AccountEventsCreate = ({ user }) => {
         {setSubmitting, setErrors}
     ) => {
         try {
-            console.log(values)
+            console.log(eid, values)
             // await onSubmit({
             //     variables: {
             //         club: cid,
@@ -38,7 +40,7 @@ const AccountEventsCreate = ({ user }) => {
 
     return (
         <>
-            <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
+            <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
                 Create new event
             </div>
 
@@ -47,7 +49,7 @@ const AccountEventsCreate = ({ user }) => {
     );
 };
 
-AccountEventsCreate.getInitialProps = async ctx => {
+AccountAdEventsCreate.getInitialProps = async ctx => {
     const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
     if (!user) {
         redirect(ctx, "/login");
@@ -56,6 +58,6 @@ AccountEventsCreate.getInitialProps = async ctx => {
     return { user };
 };
 
-AccountEventsCreate.getLayout = getLayout;
+AccountAdEventsCreate.getLayout = getLayout;
 
-export default AccountEventsCreate;
+export default AccountAdEventsCreate;

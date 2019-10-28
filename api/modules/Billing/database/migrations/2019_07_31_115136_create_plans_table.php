@@ -17,6 +17,7 @@ class CreatePlansTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->float('price');
+            $table->boolean('monthly')->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
         });

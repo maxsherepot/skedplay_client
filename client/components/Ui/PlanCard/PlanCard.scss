@@ -18,19 +18,9 @@
   .plans {
     @apply flex-row;
     &__item {
-      width: 31.5%;
-      &:nth-child(odd) {
-        width: 30%;
-        @apply my-4 mx-6;
-        .plans__body {
-          @apply px-7;
-        }
-      }
-      &:nth-child(even) {
-        @apply py-9;
-        .plans__body {
-          @apply px-9;
-        }
+      width: 30%;
+      .plans__body {
+        @apply px-9;
       }
     }
   }

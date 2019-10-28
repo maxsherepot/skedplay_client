@@ -22,77 +22,76 @@ class PlanPermissionTableSeeder extends Seeder
         $this->command->info('Plan Permission seeder started');
 
         $permissions = [
+            'photo' => [
+                'title' => 'Photo in Profile',
+            ],
+            'active-ad' => [
+                'title' => 'Active AD',
+            ],
+            'cards' => [
+                'title' => 'Cards / AD in profile',
+            ],
+            'multilingual' => [
+                'title' => 'Multilingual',
+            ],
+            'chat' => [
+                'title' => 'Chat with your client',
+            ],
+            'video' => [
+                'title' => 'Video in profile',
+            ],
+            'vip' => [
+                'title' => 'VIP status',
+            ],
+            'statistic-review' => [
+                'title' => 'Statistic & Review',
+            ],
+            'personal-page' => [
+                'title' => 'Personal Web Page',
+            ],
+            'personal-domain' => [
+                'title' => 'Personal Domain',
+            ],
+            'seo' => [
+                'title' => 'SEO',
+            ],
+            'invoice' => [
+                'title' => 'Invoice Payment',
+            ],
             'free-consultation' => [
                 'title' => 'Free consultation',
-            ],
-            'credit-card-pay'   => [
-                'title' => 'Credit card payment',
-            ],
-            'home-pay'          => [
-                'title' => 'Home Payment (per Rechhung)',
-            ],
-            'max-club'          => [
-                'title' => 'Numbers of clubs in the account',
-            ],
-            'can-events'        => [
-                'title' => 'Events'
-            ],
-            'max-girl-profile'  => [
-                'title' => 'Girls profiles'
-            ],
-            'max-girl-photo'    => [
-                'title' => 'Numbers of photos per girl profile'
-            ],
-            'max-girl-video'    => [
-                'title' => 'Video on the profile (max. 200mb)'
-            ],
-            'max-vip-profile'   => [
-                'title' => 'Vip profiles of girls'
-            ],
-            'max-club-video'    => [
-                'title' => 'Club Profile video'
-            ],
-            'seo'               => [
-                'title' => 'SEO'
-            ],
-            'multilingual'      => [
-                'title' => 'Multilingual'
-            ],
-            'personal-card'     => [
-                'title' => 'Personal card'
             ],
         ];
 
         $permission_ids = [];
 
         $permission_values = [
-            'free-consultation' => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
-            'credit-card-pay'   => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
-            'home-pay'          => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
-            'max-club'          => [1, 3, 5],
-            'can-events'        => [PermissionPlan::FALSE, 1, 1],
-            'max-girl-profile'  => [10, PermissionPlan::INFINITY, PermissionPlan::INFINITY],
-            'max-girl-photo'    => [10, PermissionPlan::INFINITY, PermissionPlan::INFINITY],
-            'max-girl-video'    => [1, 1, 1],
-            'max-vip-profile'   => [5, 10, 10],
-            'max-club-video'    => [1, 1, 1],
-            'seo'               => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
-            'multilingual'      => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
-            'personal-card'     => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'photo' => [1, 30, PermissionPlan::INFINITY],
+            'active-ad' => [1, 5, 2],
+            'cards' => [5, 5, 10],
+            'multilingual' => [PermissionPlan::TRUE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'chat' => [PermissionPlan::FALSE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'video' => [PermissionPlan::FALSE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'vip' => [PermissionPlan::FALSE, PermissionPlan::TRUE, PermissionPlan::TRUE],
+            'statistic-review' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
+            'personal-page' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
+            'personal-domain' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
+            'seo' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
+            'invoice' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
+            'free-consultation' => [PermissionPlan::FALSE, PermissionPlan::FALSE, PermissionPlan::TRUE],
         ];
 
         foreach ($permissions as $key => $permission) {
-            $permission_ids[$key] =
-                \Modules\Users\Entities\Permission::create([
-                    'name'         => $key,
-                    'display_name' => ucfirst($permission['title']),
-                    'description'  => null,
-                ])->id;
+            $permission_ids[$key] = \Modules\Users\Entities\Permission::create([
+                'name' => $key,
+                'display_name' => ucfirst($permission['title']),
+                'description' => null,
+            ])->id;
         }
 
         $this->assignValues($permissions, $permission_ids, $permission_values);
 
-        $this->command->info('Time completed: ' . $start->diffForHumans(null, true));
+        $this->command->info('Time completed: '.$start->diffForHumans(null, true));
     }
 
     public function assignValues($permissions, $ids, $values)
@@ -100,9 +99,9 @@ class PlanPermissionTableSeeder extends Seeder
         foreach ($permissions as $key => $permission) {
             for ($i = 0; $i <= 2; $i++) {
                 DB::table('permission_plan')->insert([
-                    'plan_id'       => ($i + 1),
+                    'plan_id' => ($i + 1),
                     'permission_id' => $ids[$key],
-                    'value'         => $values[$key][$i],
+                    'value' => $values[$key][$i],
                 ]);
             }
         }
