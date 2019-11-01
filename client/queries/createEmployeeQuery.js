@@ -43,6 +43,21 @@ export const UPLOAD_EMPLOYEE_FILES = gql `
   }
 `;
 
+export const CREATE_EMPLOYEE_EVENT = gql `
+  mutation createEmployeeEvent(
+    $employee: ID!
+    $input: EventInput
+  ) {
+      createEmployeeEvent(
+      employee: $employee
+      input: $input
+    ) {
+      id
+      title
+    }
+  }
+`;
+
 export const CREATE_EMPLOYEE_SCHEDULE = gql `
   mutation createEmployeeSchedule(
     $input: [EmployeeScheduleInput]

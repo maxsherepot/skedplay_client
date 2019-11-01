@@ -17,7 +17,7 @@ class EventCreateRequest extends GraphQLFormRequest
             'title'         => 'required|string|max:255',
             'description'   => 'required|string',
             'event_type_id' => 'bail|required|numeric|exists:events,id',
-            'club_id'       => 'bail|numeric|exists:clubs,id',
+            'club_id'       => 'bail|nullable|numeric|exists:clubs,id',
         ];
     }
 

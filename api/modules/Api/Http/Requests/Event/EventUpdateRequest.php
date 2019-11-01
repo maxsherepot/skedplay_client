@@ -17,7 +17,7 @@ class EventUpdateRequest extends GraphQLFormRequest
             'title'         => 'string|max:255',
             'description'   => 'string',
             'event_type_id' => 'sometimes|numeric|exists:events,id',
-            'club_id'       => 'sometimes|numeric|exists:clubs,id',
+            'club_id'       => 'sometimes|nullable|numeric|exists:clubs,id',
         ];
     }
 

@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
 
             $table->morphs('owner');
 
-            $table->unsignedBigInteger('club_id');
+            $table->unsignedBigInteger('club_id')->nullable();
             $table->unsignedInteger('event_type_id');
 
             $table->string('title');

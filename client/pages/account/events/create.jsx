@@ -3,38 +3,38 @@ import redirect from "lib/redirect";
 import { EventForm } from "components/event";
 import { getLayout } from "components/account/AccountLayout";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useRouter} from "next/router";
+import {getErrors} from "utils";
+import {
+    CREATE_EMPLOYEE_EVENT,
+} from "queries";
+import {useMutation} from "@apollo/react-hooks";
 
 const AccountEventsCreate = ({ user }) => {
-
-    // Attach in employee
-    // account/employee/3/events/create
+    const router = useRouter();
+    const [createUserEvent] = useMutation(CREATE_EMPLOYEE_EVENT);
 
     const handleSubmits = async (
         values,
         {setSubmitting, setErrors}
     ) => {
         try {
-            console.log(values)
-            // await onSubmit({
-            //     variables: {
-            //         club: cid,
-            //         input: {
-            //             ...values,
-            //             club_id: cid,
-            //         }
-            //     }
-            // });
-            //
-            // router.back();
+            await createUserEvent({
+                variables: {
+                    employee: user.id,
+                    input: values,
+                }
+            });
+
+            router.back();
         } catch (e) {
-            // if (getErrors(e) instanceof Object) {
-            //     setErrors(getErrors(e));
-            // }
+            if (getErrors(e) instanceof Object) {
+                setErrors(getErrors(e));
+            }
         }
 
         setSubmitting(false);
     };
-
 
     return (
         <>
@@ -42,7 +42,7 @@ const AccountEventsCreate = ({ user }) => {
                 Create new event
             </div>
 
-            <EventForm initialValues={{ title: "" }} onSubmit={handleSubmits} />
+            <EventForm initialValues={{ title: "", event_type_id: "", description: "", club_id: null }} onSubmit={handleSubmits} />
         </>
     );
 };

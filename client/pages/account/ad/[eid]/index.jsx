@@ -48,7 +48,10 @@ AccountAdEdit.getInitialProps = async ctx => {
         redirect(ctx, "/login");
     }
 
-    return { user };
+    return {
+        user,
+        className: "lg:w-3/5 py-12"
+    };
 };
 
 export default AccountAdEdit;

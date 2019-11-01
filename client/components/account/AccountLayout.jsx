@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import cx from "classnames";
 import {useRouter} from "next/router";
 import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts'
@@ -197,14 +196,21 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
     </div>
 );
 
-const AccountLayout = ({contentClass, user, children}) => {
+const AccountLayout = ({contentClass, user, className, children}) => {
+    const getClass = () => {
+        if (className) return className;
+        if (contentClass) return contentClass;
+
+        return "lg:w-3/5 lg:ml-10 px-8 py-12";
+    };
+
     return (
         <>
             <ProfileHeader user={user}/>
             <PageCard>
                 <div className="flex flex-col lg:flex-row justify-between">
                     <Sidebar user={user}/>
-                    <div className={cx(contentClass ? contentClass : "lg:w-3/5 lg:ml-10 px-8 py-12")}>
+                    <div className={getClass()}>
                         {children}
                     </div>
                 </div>
@@ -214,6 +220,8 @@ const AccountLayout = ({contentClass, user, children}) => {
 };
 
 export const getLayout = (page, initialProps) => getMainLayout(
-    <AccountLayout {...initialProps}>{page}</AccountLayout>, initialProps);
+    <AccountLayout {...initialProps}>{page}</AccountLayout>,
+    initialProps
+);
 
 export default AccountLayout;

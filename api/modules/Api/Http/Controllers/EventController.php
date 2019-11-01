@@ -2,6 +2,9 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Event\EventUpdateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
@@ -35,11 +38,21 @@ class EventController extends Controller
      */
     public function update(EventUpdateRequest $request, Event $event)
     {
-        $this->authorize('update', $event) ;
+        $this->authorize('update', $event);
 
         $response = $this->events->update($event, collect($request->all()));
 
         return $response ? $this->success() : $this->fail();
+    }
+
+    public function getByOwner(Request $request)
+    {
+        $events = Event::query()
+            ->where('owner_id', $request->input('owner_id'))
+            ->where('owner_type', $request->input('owner_type'))
+            ->get();
+
+        return $events;
     }
 
     /**
@@ -52,7 +65,7 @@ class EventController extends Controller
     {
         $this->authorize('delete', $event);
 
-        $id = (string) $event->id;
+        $id = (string)$event->id;
 
         $response = $this->events->delete($event);
 
