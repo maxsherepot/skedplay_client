@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import cx from "classnames";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { VisaSvg, PayPalSvg, PostFinanceSvg, TwintSvg, SmsSvg, InvoiceSvg } from "icons"
 import {
   AnimationBackground,
   Logo,
@@ -13,38 +11,6 @@ import {
 } from "UI";
 import PlansBox from "components/plans/PlansBox";
 
-const PaymentMethod = () => {
-  const [payment, setPayment] = useState(0);
-
-  const methods = [
-    <VisaSvg />,
-    <PayPalSvg />,
-    <PostFinanceSvg />,
-    <TwintSvg />,
-    <SmsSvg />,
-    <InvoiceSvg />
-  ];
-
-  return (
-      <div className="flex flex-col">
-        <div className="text-white text-center mt-6 mb-3">Select Payment Method</div>
-
-        <div className="flex bg-white rounded-full">
-          <div className="flex items-center justify-between rounded-full bg-white cursor-pointer p-1">
-            {methods.map((method, i) => (
-                <div key={i} className={cx("mx-1 p-4 rounded-full opacity-25 hover:bg-light-grey hover:opacity-100", {
-                  "bg-light-grey opacity-100": payment === i
-                })}
-                onClick={() => setPayment(i)}
-                >
-                  {method}
-                </div>
-            ))}
-          </div>
-        </div>
-      </div>
-  )
-};
 const Plans = ({ user }) => {
   const periods = [
     {
@@ -91,10 +57,6 @@ const Plans = ({ user }) => {
                 defaultValue={period}
                 handleChange={e => setPeriod(e.target.value)}
               />
-            </div>
-
-            <div className="flex justify-center mt-5">
-              <PaymentMethod />
             </div>
           </div>
           <div className="container mt-8 mb-20">

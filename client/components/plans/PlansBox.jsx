@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-
+import Lightbox from 'react-datatrans-light-box'
 import { PlanCard } from "UI";
 import redirect from "lib/redirect";
 import { SUBSCRIBE_ON_PLAN } from "queries";
@@ -24,11 +24,24 @@ const GET_PLANS = gql`
   }
 `;
 
+let config = {
+  merchantId: '1100004624',
+  refno: 'YOUR_REFERENCE_NUMBER',
+  currency: 'CHF',
+  sign: '30916165706580013',
+  production: false,
+  paymentmethod: ['ECA', 'VIS', 'PFC', 'AMX', 'TWI'],
+  themeConfiguration: {
+    brandColor: '#FF3366'
+  }
+};
+
 function PlansBox({ user }) {
+  const [showLightbox, setShowLightbox] = useState(false);
+
   const onCompleted = ({ subscribeOnPlan: { invoice_id } }) => {
     // redirect to invoice pages
-
-    return redirect({}, `/invoices/${invoice_id}`);
+    // return redirect({}, `/invoices/${invoice_id}`);
   };
 
   const [subscribe] = useMutation(SUBSCRIBE_ON_PLAN, {
@@ -39,17 +52,38 @@ function PlansBox({ user }) {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  const onSubscribe = planId => {
-    subscribe({
-      variables: {
-        plan: planId,
-        user: user.id
-      }
-    });
+  const onSubscribe = (planId, price) => {
+    console.log(planId, price);
+
+    config = {
+      ...config,
+      amount: price,
+    };
+
+    setShowLightbox(true);
+    // subscribe({
+    //   variables: {
+    //     plan: planId,
+    //     user: user.id
+    //   }
+    // });
   };
 
+  const onCancelled = () => setShowLightbox(false);
+
   return (
-    <div className="plans">
+    <div className="relative plans">
+      {showLightbox
+          ? <Lightbox
+              {...config}
+              // onLoaded={this.onLoaded}
+              // onOpened={this.onOpened}
+              onCancelled={onCancelled}
+              // onError={this.onError}
+          />
+          : null
+      }
+
       {plans &&
         plans.map(plan => (
           <PlanCard plan={plan} key={plan.id} onSubscribe={onSubscribe} />

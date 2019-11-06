@@ -46,4 +46,6 @@ FavoriteClubs.getInitialProps = async ctx => {
   return { user };
 };
 
+FavoriteClubs.getLayout = page => page;
+
 export default FavoriteClubs;

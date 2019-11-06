@@ -142,7 +142,7 @@ function Nav({ user, className }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-                {user && user.favorites_count || 0}
+                {(user && user.favorites_count) || 0}
               </a>
             </Link>
             <a className="menu-icons__item" href="#">
@@ -160,7 +160,7 @@ function Nav({ user, className }) {
             </a>
 
             {user ? (
-              <UserDropdown user={user}></UserDropdown>
+              <UserDropdown user={user} />
             ) : (
               <Link href="/login">
                 <a className="menu-icons__item menu-icons__item_last hidden sm:block">

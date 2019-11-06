@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "UI";
-import cx  from "classnames";
+import cx from "classnames";
+
+const PERMISSION_INFINITY = -1;
+const PERMISSION_FALSE = null;
+const PERMISSION_TRUE = 0;
 
 const DawSVG = () => (
   <svg
@@ -70,39 +74,40 @@ const InfoSVG = () => (
   </svg>
 );
 
-const getBackgroundColor = (id) => {
-    let className = '';
+const getBackgroundColor = id => {
+  let className = "";
 
-    switch (+id) {
-        case 1:
-            className = 'bg-dark-green';
-            break;
-        case 2:
-            className = 'bg-red';
-            break;
-        case 3:
-            className = 'bg-grey';
-            break;
-    }
-    return className;
+  switch (+id) {
+    case 1:
+      className = "bg-dark-green";
+      break;
+    case 2:
+      className = "bg-red";
+      break;
+    case 3:
+      className = "bg-grey";
+      break;
+  }
+  return className;
 };
-
-const PERMISSION_INFINITY = -1;
-const PERMISSION_FALSE = null;
-const PERMISSION_TRUE = 0;
 
 function PlanCard({ plan: { id, name, price, permissions }, onSubscribe }) {
   return (
     <div className="plans__item">
       <div className="flex items-center justify-center font-extrabold text-center capitalize text-2xl">
         {name}
-          {id === "2" && (
-              <div className="bg-dark-green ml-3 py-1 px-3 rounded-full text-white text-xs font-normal uppercase">
-                  popular
-              </div>
-          )}
+        {id === "2" && (
+          <div className="bg-dark-green ml-3 py-1 px-3 rounded-full text-white text-xs font-normal uppercase">
+            popular
+          </div>
+        )}
       </div>
-      <div className={cx("text-center text-white text-lg font-medium leading-none mt-2 py-4", getBackgroundColor(id))}>
+      <div
+        className={cx(
+          "text-center text-white text-lg font-medium leading-none mt-2 py-4",
+          getBackgroundColor(id)
+        )}
+      >
         {{
           0: "Free"
         }[price] || `$ ${price}`}
@@ -136,14 +141,13 @@ function PlanCard({ plan: { id, name, price, permissions }, onSubscribe }) {
             </div>
           ))}
         <Button
+          id="paymentButton"
           className="text-sm mt-5 min-w-full"
           size="xs"
           outline
-          onClick={() => onSubscribe(id)}
+          onClick={() => onSubscribe(id, price)}
         >
-          <span className="text-black">
-              Choose
-          </span>
+          <span className="text-black">Choose</span>
         </Button>
       </div>
     </div>

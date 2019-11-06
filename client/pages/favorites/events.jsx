@@ -52,4 +52,6 @@ FavoriteEvents.getInitialProps = async ctx => {
   return { user };
 };
 
+FavoriteEvents.getLayout = page => page;
+
 export default FavoriteEvents;
