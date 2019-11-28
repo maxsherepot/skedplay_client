@@ -1,0 +1,61 @@
+type Message {
+    id: Int!
+    chat_id: Int!
+    created_at: String!
+    updated_at: String!
+    creator_id: Int!
+    text: String!
+    seen: String!
+}
+
+type Receiver {
+    id: Int!
+    name: String!
+}
+
+type ChatRoom {
+    id: Int!
+    receiver: Receiver!
+    messages: [Message!]!
+}
+
+type Chat{
+    receiver: Receiver!
+    last_message: Message!
+}
+
+type ProfileChat{
+    id: Int
+    receiver: Receiver!
+    messages: [Message]!
+}
+
+input MessageInput {
+    chat_id: Int
+    receiver_id: Int!
+    text: String!
+}
+
+extend type Query @middleware(checks: ["auth:api"]) {
+    chat(chatId: Int!): ChatRoom!
+    @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@show")
+
+    # chats : [Chat!]!
+    # @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@index")
+
+    # profileChat(receiver_id: Int!): ProfileChat
+    # @router(action:  "Modules\\Chat\\Http\\Controllers\\ChatController@profileChat")
+}
+
+# extend type Query @middleware(checks: ["auth:api"]) {
+#     chat(planId: Int!, periodId: Int!, userId: Int!): DatatransCredentials!
+#     @router(action: "Modules\\Billing\\Http\\Controllers\\BillingController@getCredentials")
+# }
+
+# extend type Mutation @middleware(checks: ["auth:api"]) {
+#     sendMessage(input: MessageInput!) : Message!
+#     @router(action : "Modules\\Chat\\Http\\Controllers\\MessageController@store")
+
+#     delete(chat_id: Int!) : StatusPayload
+#     @router(action: "Modules\\Chat\\Http\\Controllers\\MessageController@destroy")
+# }
