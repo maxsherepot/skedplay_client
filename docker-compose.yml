@@ -43,6 +43,7 @@ services:
 
   nextjs:
     container_name: "skidplay_nextjs"
+    build: ./client
     tty: true
     ports:
       - 3000:3000

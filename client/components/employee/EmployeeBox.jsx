@@ -83,7 +83,13 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
             </span>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            Chat
+            <ActiveLink
+              activeClassName="text-red"
+              href={`/employees/[id]/chat`}
+              as={`/employees/${employee.id}/chat`}
+            >
+              <a>Chat</a>
+            </ActiveLink>
             <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
               +4
             </span>

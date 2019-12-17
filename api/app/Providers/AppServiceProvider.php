@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
+use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
+            'message'          => Message::class,
             'employee'          => Employee::class,
             'user'              => User::class,
             'club'              => Club::class,

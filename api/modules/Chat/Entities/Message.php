@@ -3,14 +3,28 @@
 namespace Modules\Chat\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Chat\Contracts\RealtimeInterface;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
-class Message extends Model implements RealtimeInterface
+class Message extends Model implements RealtimeInterface, HasMedia
 {
+    use HasMediaTrait, SoftDeletes;
+
+    const PHOTOS_COLLECTION = 'photos';
+
     protected $fillable = [
         'chat_id',
-        'text'
+        'text',
+        'from_client',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(self::PHOTOS_COLLECTION);
+    }
 
     public function chat()
     {

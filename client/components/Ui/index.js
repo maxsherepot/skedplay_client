@@ -39,6 +39,8 @@ export { default as GalleryWithThumbnail } from "./Photo/GalleryWithThumbnail";
 export { default as PlanCard } from "./PlanCard";
 export { default as PageCard } from "./PageCard";
 export { default as GirlCard } from "./GirlCard";
+export { default as ChatList } from "./ChatList";
+export { default as ChatRoom } from "./Chat";
 export { default as EventCard } from "./EventCard";
 export { default as ClubCard } from "./ClubCard";
 export { default as AddressCard } from "./AddressCard";

@@ -3,9 +3,9 @@ type Message {
     chat_id: Int!
     created_at: String!
     updated_at: String!
-    creator_id: Int!
+    from_client: Int!
     text: String!
-    seen: String!
+    seen: Int!
 }
 
 type Receiver {
@@ -19,20 +19,21 @@ type ChatRoom {
     messages: [Message!]!
 }
 
-type Chat{
+type Chat {
+    id: Int!
     receiver: Receiver!
-    last_message: Message!
+    last_message_date: String!
+    unread_messages_count: Int!
 }
 
-type ProfileChat{
+type ProfileChat {
     id: Int
     receiver: Receiver!
     messages: [Message]!
 }
 
 input MessageInput {
-    chat_id: Int
-    receiver_id: Int!
+    chat_id: Int!
     text: String!
 }
 
@@ -40,8 +41,8 @@ extend type Query @middleware(checks: ["auth:api"]) {
     chat(chatId: Int!): ChatRoom!
     @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@show")
 
-    # chats : [Chat!]!
-    # @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@index")
+    chats: [Chat!]!
+    @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@index")
 
     # profileChat(receiver_id: Int!): ProfileChat
     # @router(action:  "Modules\\Chat\\Http\\Controllers\\ChatController@profileChat")
@@ -52,10 +53,10 @@ extend type Query @middleware(checks: ["auth:api"]) {
 #     @router(action: "Modules\\Billing\\Http\\Controllers\\BillingController@getCredentials")
 # }
 
-# extend type Mutation @middleware(checks: ["auth:api"]) {
-#     sendMessage(input: MessageInput!) : Message!
-#     @router(action : "Modules\\Chat\\Http\\Controllers\\MessageController@store")
+ extend type Mutation @middleware(checks: ["auth:api"]) {
+     sendMessage(input: MessageInput! @spread) : Message!
+     @router(action : "Modules\\Chat\\Http\\Controllers\\MessageController@store")
 
 #     delete(chat_id: Int!) : StatusPayload
 #     @router(action: "Modules\\Chat\\Http\\Controllers\\MessageController@destroy")
-# }
+ }

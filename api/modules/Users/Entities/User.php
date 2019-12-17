@@ -3,12 +3,14 @@
 namespace Modules\Users\Entities;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Modules\Billing\Traits\Billable;
 use Modules\Chat\Entities\Chat;
+use Modules\Chat\Entities\ChatMember;
 use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
@@ -17,7 +19,7 @@ use Modules\Users\Entities\Traits\HasFavoriteables;
 use Modules\Users\Entities\Traits\HasPermissionPlan;
 use Firebase\JWT\JWT;
 
-class User extends AuthUser implements EmployeeOwnerInterface
+class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
 {
     use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables;
 
@@ -138,6 +140,14 @@ class User extends AuthUser implements EmployeeOwnerInterface
     }
 
     /**
+     * @return MorphOne
+     */
+    public function employee(): MorphOne
+    {
+        return $this->MorphOne(Employee::class, 'user');
+    }
+
+    /**
      * @return mixed
      */
     public function getEmployeesPhotosAttribute()
@@ -193,11 +203,21 @@ class User extends AuthUser implements EmployeeOwnerInterface
         return JWT::encode(['sub' => $this->id], config('chat.centrifuge_secret'), 'HS256');
     }
 
-    public function chats()
+    public function getChatsQuery()
     {
-        return $this->hasMany(Chat::class)
-            ->where('receiver_id', $this->id)
-            ->orWhere('creator_id', $this->id)
-            ->orderBy('last_message_datetime', 'desc');
+        return Chat::query()
+            ->where('chats.receiver_id', $this->id)
+            ->orWhere('chats.creator_id', $this->id)
+            ->orderBy('updated_at', 'desc');
+    }
+
+    public function isClient(): bool
+    {
+        return true;
+    }
+
+    public function isEmployee(): bool
+    {
+        return false;
     }
 }

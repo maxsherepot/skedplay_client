@@ -5,11 +5,14 @@ namespace Modules\Chat\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\Message;
+use Modules\Chat\Http\Requests\SendMessageRequest;
 use Modules\Chat\Repositories\ChatRepository;
+use Modules\Users\Entities\User;
 
 class MessageController extends Controller
 {
@@ -27,34 +30,36 @@ class MessageController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(GraphQLFormRequest $request)
+    public function store(SendMessageRequest $request)
     {
-        $request->validated([
-            'chat_id' => 'nullable|required|integer',
-            'receiver_id' => 'required|integer',
-            'text' => 'required|string'
-        ]);
+        /** @var User $user */
+        $user = auth()->user();
 
         if (!$request->input('chat_id')) {
             $user_id = auth()->id();
-            if (!$chat = $this->repository->getChatQueryWithReceiverId($request->input('receiver_id'), $user_id)->first()) {
+            if (!$chat = $this->repository->getChatQueryByChatMember($user, (int) $request->input('receiver_id'))->first()) {
                 $chat = Chat::create([
-                    'creator_id' => auth()->id(),
+                    'creator_id' => $user_id,
                     'receiver_id' => $request->input('receiver_id')
                 ]);
             }
         } else {
-            $chat = auth()->user()->chats()->where('id', $request->input('chat_id'))->first();
+            $chat = $this->repository->getChatsQuery($user)->where('chats.id', $request->input('chat_id'))->first();
         }
+
+        DB::beginTransaction();
 
         $message = Message::create([
             'text' => $request->input('text'),
             'chat_id' => $chat->id,
-            'creator_id' => auth()->id()
+            'from_client' => $user->isClient() ? 1 : 0,
         ]);
 
         $chat->last_message_id = $message->id;
+        $chat->updated_at = now();
         $message->save();
+
+        DB::commit();
 
         return $message->toArray();
     }

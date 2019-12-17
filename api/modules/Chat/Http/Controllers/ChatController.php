@@ -5,6 +5,8 @@ namespace Modules\Chat\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Repositories\ChatRepository;
+use Modules\Employees\Entities\Employee;
+use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
 
@@ -21,22 +23,45 @@ class ChatController extends Controller
 
     public function index()
     {
-        $chats = auth()->user()->chats()->with(['receiver', 'creator', 'lastMessage'])->get()->map(function($chat) {
-            return $this->formatChat($chat);
-        });
+        $user = auth()->user();
+
+        $chats = $this->repository
+            ->getChatsQuery($user)
+            ->with(['employee', 'client'])
+            ->withCount([
+                'messages' => function($query) use ($user) {
+                    $query->whereSeen(0)->whereFromClient($user instanceof Employee ? 0 : 1);
+                }
+            ])
+            ->get()
+            ->unique('id')
+            ->values()
+            ->map(function($chat) {
+                return $this->formatChat($chat);
+            });
 
         return $chats;
     }
 
     public function show($chat_id)
     {
-        $chat = Chat::with(['creator', 'receiver', 'messages' => function($query) {
+        $chat = Chat::with(['employee', 'client', 'messages' => function($query) {
             return $query->limit(Chat::MESSAGES_LIMIT);
         }])->findOrFail($chat_id);
+
         $user = auth()->user();
-        if ($chat->receiver_id !== $user->id && $chat->id !== $user->id) {
+
+        $idField = $user->isClient() ? 'client_id' : 'employee_id';
+
+        if ($chat->$idField !== $user->id) {
             return $this->fail('chat not found');
         }
+
+        $user = auth()->user();
+
+        $chat->messages()
+            ->whereFromClient($user instanceof Employee ? 0 : 1)
+            ->update(['seen' => 1]);
 
         return $this->formatChatRoom($chat);
     }
@@ -61,9 +86,11 @@ class ChatController extends Controller
 
     public function delete($chat_id)
     {
-        $chat = auth()->user()->chats()->where('id', $chat_id);
+        $chat = Chat::findOrFail($chat_id);
+
         if ($chat) {
             $chat->delete();
+
             return $this->success('chat has been deleted');
         }
 
@@ -75,7 +102,9 @@ class ChatController extends Controller
         $receiver = $this->getChatReceiver($chat);
 
         return [
-            'last_message' => $chat->lastMessage->toArray(),
+            'id' => $chat->id,
+            'unread_messages_count' => $chat->messages_count,
+            'last_message_date' => $chat->last_message_date,
             'receiver' => [
                 'id' => $receiver->id,
                 'name' => $receiver->name,
@@ -88,7 +117,7 @@ class ChatController extends Controller
         $receiver = $this->getChatReceiver($chat);
 
         return [
-            'messages' => $chat->messages->toArray(),
+            'messages' => isset($chat->messages) ? $chat->messages->toArray() : [],
             'receiver' => [
                 'id' => $receiver->id,
                 'name' => $receiver->name,
@@ -99,12 +128,10 @@ class ChatController extends Controller
 
     private function getChatReceiver($chat)
     {
-        if ($chat->receiver_id === user()->id()) {
-            return $chat->creator;
-        } else if($chat->creator_id === user()->id()){
-            return $chat->receiver;
+        if (auth()->user()->is_employee) {
+            return $chat->client;
         }
 
-        return $this->fail('chat not found!');
+        return $chat->employee;
     }
 }

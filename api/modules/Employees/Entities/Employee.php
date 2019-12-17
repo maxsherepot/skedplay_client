@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Chat\Entities\ChatMember;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Entities\Review;
@@ -20,7 +21,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Employee extends Model implements HasMedia, HasLocation
+class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
     use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
 
@@ -160,5 +161,15 @@ class Employee extends Model implements HasMedia, HasLocation
         $this->addMediaConversion('thumb')
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
+    }
+
+    public function isClient(): bool
+    {
+        return false;
+    }
+
+    public function isEmployee(): bool
+    {
+        return true;
     }
 }

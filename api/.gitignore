@@ -33,4 +33,5 @@ Thumbs.db
 public/sitemaps/*.xml
 public/sitemap.xml
 public/js/apps/*
+public/storage
 _ide_helper_models.php
