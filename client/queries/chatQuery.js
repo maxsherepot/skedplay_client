@@ -36,6 +36,7 @@ export const SEND_MESSAGE = gql `
     mutation sendMessage($input: MessageInput!) {
         sendMessage(input: $input) {
             id
+            chat_id
         }
     }
 `;

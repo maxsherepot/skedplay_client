@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -8,12 +8,14 @@ import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
+import Centrifugo from "components/centrifuge";
 
-const ChatComponent = ({ user, type = 'client' }) => {
+const ClientChatComponent = ({ user, type = 'client' }) => {
   const router = useRouter();
   const { id } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(null);
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
@@ -24,7 +26,7 @@ const ChatComponent = ({ user, type = 'client' }) => {
     }
   );
 
-  let { data: { chats } = [], loading: chatsLoading } = useQuery(
+  let { data: { chats } = [], loading: chatsLoading, refetch: refetchChats } = useQuery(
     ALL_CHATS
   );
 
@@ -32,11 +34,9 @@ const ChatComponent = ({ user, type = 'client' }) => {
     return "Loading...";
   }
 
-  // let receiverTypeId = type === 'client' ? 'employee_id' : 'client_id';
-
   let chatByReceiver = chats.find(c => c.receiver.id === parseInt(id));
 
-  if (!chatByReceiver) {
+  if (!chatByReceiver && !chats.find(c => c.id === null)) {
     chats.unshift({
       id: null,
       receiver: employee,
@@ -45,21 +45,36 @@ const ChatComponent = ({ user, type = 'client' }) => {
     });
   }
 
-  let selectedChat = chats[0];
+  Centrifugo.init().then(centrifuge => {
+    let chatsChannel = type === 'client'
+      ? 'client_chats:' + user.id
+      : 'employee_chats:' + user.employee.id;
+
+    centrifuge.subscribe(chatsChannel, data => {
+      console.log(data);
+
+      if (data.data.action === 'refresh') {
+        console.log('refreshing chats');
+        refetchChats();
+      } else {
+        console.log('not need to refresh chats');
+      }
+    });
+  });
 
   const selectChat = function(chatId) {
-    console.log(chatId);
     chats = chats.map(chat => {
-      if (chat.id === chatId) {
-        chat.active = true;
-        selectedChat = chat;
-      } else {
-        chat.active = false;
+      if (chat.id === chatId && (!selectedChat || chatId !== selectedChat.id)) {
+        setSelectedChat(chat);
       }
 
       return chat;
     });
   }.bind(this);
+
+  if (!selectedChat) {
+    setSelectedChat(chats[0]);
+  }
 
   const handleLightboxClick = index => {
     setLightboxIndex(index);
@@ -95,16 +110,20 @@ const ChatComponent = ({ user, type = 'client' }) => {
     </>
   );
 
-  const chatRoomBlock = (
-    <>
-      <div className="w-full sm:w-3/5 hd:w-2/3 px-3">
-        <div className="text-2xl font-extrabold my-5">Chat with {selectedChat.receiver.name}</div>
-        <div>
-          <ChatRoom selectedChat={selectedChat}></ChatRoom>
+  let chatRoomBlock = "";
+
+  if (selectedChat) {
+    chatRoomBlock = (
+      <>
+        <div className="w-full sm:w-3/5 hd:w-2/3 px-3">
+          <div className="text-2xl font-extrabold my-5">Chat with {selectedChat.receiver.name}</div>
+          <div>
+            <ChatRoom type={type} selectedChat={selectedChat} refetchChats={refetchChats}></ChatRoom>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 
   const chatsBlock = (
     <>
@@ -131,7 +150,7 @@ const ChatComponent = ({ user, type = 'client' }) => {
   );
 };
 
-ChatComponent.getInitialProps = async ctx => {
+ClientChatComponent.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
   if (!user) {
     return {};
@@ -139,6 +158,6 @@ ChatComponent.getInitialProps = async ctx => {
   return { user };
 };
 
-ChatComponent.getLayout = (page) => page;
+ClientChatComponent.getLayout = (page) => page;
 
-export default ChatComponent;
+export default ClientChatComponent;

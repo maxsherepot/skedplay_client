@@ -19,10 +19,15 @@ class MessageController extends Controller
     use Statusable;
 
     private $repository;
+    /**
+     * @var \phpcent\Client
+     */
+    private $centrifugeClient;
 
-    public function __construct(ChatRepository $repository)
+    public function __construct(ChatRepository $repository, \phpcent\Client $centrifugeClient)
     {
         $this->repository = $repository;
+        $this->centrifugeClient = $centrifugeClient;
     }
 
     /**
@@ -36,11 +41,10 @@ class MessageController extends Controller
         $user = auth()->user();
 
         if (!$request->input('chat_id')) {
-            $user_id = auth()->id();
-            if (!$chat = $this->repository->getChatQueryByChatMember($user, (int) $request->input('receiver_id'))->first()) {
+            if (!$chat = $this->repository->getChatQueryByChatMember($user, (int) $request->input('employee_id'))->first()) {
                 $chat = Chat::create([
-                    'creator_id' => $user_id,
-                    'receiver_id' => $request->input('receiver_id')
+                    'employee_id' => $request->get('employee_id'),
+                    'client_id' => $user->id,
                 ]);
             }
         } else {
@@ -60,6 +64,26 @@ class MessageController extends Controller
         $message->save();
 
         DB::commit();
+
+        $chatChannel = 'chat:' . $chat->id;
+
+        $presence = $this->centrifugeClient->presence($chatChannel);
+
+        if (count($presence['result']['presence'] ?? []) < 2) {
+            $chatsType = !$user->isClient()
+                ? 'client_chats:' . $user->id
+                : 'employee_chats:' . (optional($user->employee)->id ?? $request->get('employee_id'));
+
+
+            $this->centrifugeClient->publish($chatsType, [
+                'action' => 'refresh',
+            ]);
+        }
+
+        $this->centrifugeClient->publish($chatChannel, [
+            'action' => 'refresh',
+            'message' => $message,
+        ]);
 
         return $message->toArray();
     }

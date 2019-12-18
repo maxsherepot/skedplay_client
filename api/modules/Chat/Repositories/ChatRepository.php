@@ -41,13 +41,17 @@ class ChatRepository
 
     public function getChatsQuery(ChatMember $chatMember): Builder
     {
+        $chatMemberId = $chatMember->isClient()
+            ? $chatMember->id
+            : $chatMember->employee->id;
+
         return Chat::query()
             ->select(['chats.*', 'messages.created_at as last_message_date'])
-            ->when($chatMember->isClient(), function($query) use ($chatMember) {
-                $query->whereClientId($chatMember->id);
+            ->when($chatMember->isClient(), function($query) use ($chatMemberId) {
+                $query->whereClientId($chatMemberId);
             })
-            ->when($chatMember->isEmployee(), function($query) use ($chatMember) {
-                $query->whereEmployeeId($chatMember->id);
+            ->when($chatMember->isEmployee(), function($query) use ($chatMemberId) {
+                $query->whereEmployeeId($chatMemberId);
             })
             ->leftJoin('messages', 'messages.chat_id', '=', 'chats.id')
             ->orderBy('updated_at', 'desc');

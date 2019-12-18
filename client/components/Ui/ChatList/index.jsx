@@ -9,6 +9,7 @@ import { MessageSvg, CocktailSvg } from "icons";
 import {useRouter} from "next/router";
 
 function ChatList({
+  user,
   chats,
   selectChat,
   type = 'client',
@@ -40,6 +41,12 @@ function ChatList({
       chat.date = diffInDays + ' day';
     } else {
       chat.date = lastMessageDate.local().format('HH:mm');
+    }
+
+    chat.active = false;
+
+    if (selectedChat && selectedChat.id === chat.id) {
+      chat.active = true;
     }
 
     return chat;

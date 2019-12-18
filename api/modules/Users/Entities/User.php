@@ -144,7 +144,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
      */
     public function employee(): MorphOne
     {
-        return $this->MorphOne(Employee::class, 'user');
+        return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
     }
 
     /**
@@ -213,11 +213,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
 
     public function isClient(): bool
     {
-        return true;
+        return !$this->hasRole('employee');
     }
 
     public function isEmployee(): bool
     {
-        return false;
+        return $this->hasRole('employee');
     }
 }

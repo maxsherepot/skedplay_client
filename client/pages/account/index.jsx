@@ -5,6 +5,7 @@ import { getLayout } from 'components/account/AccountLayout'
 import { PrivateBox, ClubOwnerBox } from "components/account";
 
 const cardRow = (user) => {
+  console.log('user', user);
   if (user.is_employee) {
     return <PrivateBox user={user} />;
   }
@@ -12,6 +13,8 @@ const cardRow = (user) => {
   if (user.is_club_owner) {
     return <ClubOwnerBox user={user} />;
   }
+
+  return "";
 };
 
 const AccountShow = ({ user }) => (cardRow(user));

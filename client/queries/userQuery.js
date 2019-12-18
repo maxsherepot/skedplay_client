@@ -50,6 +50,16 @@ export const GET_ME = gql`
                     id
                 }
             }
+            employee {
+                id
+                name
+                events_count
+                photos_count
+                videos_count
+                reviews {
+                    id
+                }
+            }
         }
     }
 `;

@@ -14,7 +14,7 @@ class SendMessageRequest extends GraphQLFormRequest
     public function rules()
     {
         return [
-            'chat_id' => ['required', 'exists:chats,id'],
+            'chat_id' => ['nullable'],
             'text' => ['nullable', 'max:1000'],
             'files' => ['array'],
             'files.*' => ['required', 'image', 'max:10240'],

@@ -33,7 +33,8 @@ type ProfileChat {
 }
 
 input MessageInput {
-    chat_id: Int!
+    chat_id: Int
+    employee_id: Int
     text: String!
 }
 

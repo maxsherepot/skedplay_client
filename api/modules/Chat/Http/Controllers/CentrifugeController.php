@@ -6,6 +6,7 @@ namespace Modules\Chat\Http\Controllers;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Nwidart\Modules\Routing\Controller;
+use LaraComponents\Centrifuge\Centrifuge;
 
 class CentrifugeController extends Controller
 {

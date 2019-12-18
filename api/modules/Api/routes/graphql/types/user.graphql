@@ -12,6 +12,7 @@ type User {
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
     employees: [Employee] @morphMany
+    employee: Employee
     # counters
     employees_photos: Int
     employees_videos: Int
