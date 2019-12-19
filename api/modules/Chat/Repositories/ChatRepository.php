@@ -46,7 +46,7 @@ class ChatRepository
             : $chatMember->employee->id;
 
         return Chat::query()
-            ->select(['chats.*', 'messages.created_at as last_message_date'])
+            ->select(['chats.*', 'messages.updated_at as last_message_date'])
             ->when($chatMember->isClient(), function($query) use ($chatMemberId) {
                 $query->whereClientId($chatMemberId);
             })

@@ -17,21 +17,6 @@ function ChatList({
 }) {
   let now = moment.utc();
 
-  if (selectedChat) {
-    // chats.find(c => c.id === selectedChat.id).active = true;
-    //
-    // let receiverTypeId = type === 'client' ? 'employee_id' : 'client_id';
-    //
-    // let topChatIndex = chats.findIndex(c => c[receiverTypeId] === receiverId);
-    //
-    // if (topChatIndex) {
-    //   let topChat = chats.splice(topChatIndex, 1);
-    //   chats.unshift(topChat);
-    // } else {
-    //   // TODO add chat
-    // }
-  }
-
   chats = chats.map((chat, i) => {
     chat.active = i === 0;
     let lastMessageDate = moment.utc(chat.last_message_date);
@@ -47,6 +32,7 @@ function ChatList({
 
     if (selectedChat && selectedChat.id === chat.id) {
       chat.active = true;
+      chat.unread_messages_count = 0;
     }
 
     return chat;

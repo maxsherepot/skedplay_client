@@ -12,6 +12,7 @@ use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\Message;
 use Modules\Chat\Http\Requests\SendMessageRequest;
 use Modules\Chat\Repositories\ChatRepository;
+use Modules\Chat\Services\ChatService;
 use Modules\Users\Entities\User;
 
 class MessageController extends Controller
@@ -23,11 +24,16 @@ class MessageController extends Controller
      * @var \phpcent\Client
      */
     private $centrifugeClient;
+    /**
+     * @var ChatService
+     */
+    private $chatService;
 
-    public function __construct(ChatRepository $repository, \phpcent\Client $centrifugeClient)
+    public function __construct(ChatRepository $repository, ChatService $chatService, \phpcent\Client $centrifugeClient)
     {
         $this->repository = $repository;
         $this->centrifugeClient = $centrifugeClient;
+        $this->chatService = $chatService;
     }
 
     /**
@@ -53,36 +59,41 @@ class MessageController extends Controller
 
         DB::beginTransaction();
 
+        /** @var Message $message */
         $message = Message::create([
             'text' => $request->input('text'),
             'chat_id' => $chat->id,
             'from_client' => $user->isClient() ? 1 : 0,
         ]);
 
+        foreach ($request->allFiles() as $attachment) {
+            $message->addMedia($attachment)->toMediaCollection(Message::ATTACHMENTS_COLLECTION);
+        }
+
         $chat->last_message_id = $message->id;
         $chat->updated_at = now();
-        $message->save();
+        $chat->save();
 
         DB::commit();
 
+        $chatsTypeChannelClient = 'client_chats:' . $user->id;
+        $chatsTypeChannelEmployee = 'employee_chats:' . (optional($user->employee)->id ?? $request->get('employee_id'));
+
+        $this->centrifugeClient->publish($chatsTypeChannelClient, [
+            'action' => 'refresh',
+        ]);
+        $this->centrifugeClient->publish($chatsTypeChannelEmployee, [
+            'action' => 'refresh',
+        ]);
+
         $chatChannel = 'chat:' . $chat->id;
 
-        $presence = $this->centrifugeClient->presence($chatChannel);
-
-        if (count($presence['result']['presence'] ?? []) < 2) {
-            $chatsType = !$user->isClient()
-                ? 'client_chats:' . $user->id
-                : 'employee_chats:' . (optional($user->employee)->id ?? $request->get('employee_id'));
-
-
-            $this->centrifugeClient->publish($chatsType, [
-                'action' => 'refresh',
-            ]);
-        }
+//        $message->__typename = 'Message';
 
         $this->centrifugeClient->publish($chatChannel, [
+//            'action' => 'add',
             'action' => 'refresh',
-            'message' => $message,
+//            'message' => $message,
         ]);
 
         return $message->toArray();

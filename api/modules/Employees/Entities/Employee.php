@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Chat\Entities\ChatMember;
+use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Entities\Review;
@@ -144,6 +145,18 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return $this->belongsToMany(Parameter::class, 'employee_parameters')
             ->using(EmployeeParameter::class)
             ->withPivot('value');
+    }
+
+    public function unreadMessagesCount(): int
+    {
+        return Message::query()
+            ->select(['messages.*'])
+            ->leftJoin('chats', 'chats.id', '=', 'messages.chat_id')
+            ->whereFromClient(0)
+            ->whereSeen(0)
+            ->where('chats.employee_id', $this->id)
+            ->where('chats.client_id', auth()->id())
+            ->count();
     }
 
     public function registerMediaCollections()

@@ -16,8 +16,8 @@ class SendMessageRequest extends GraphQLFormRequest
         return [
             'chat_id' => ['nullable'],
             'text' => ['nullable', 'max:1000'],
-            'files' => ['array'],
-            'files.*' => ['required', 'image', 'max:10240'],
+            'attachments' => ['array', 'max:10'],
+            'attachments.*' => ['required', 'image', 'max:10240'],
         ];
     }
 

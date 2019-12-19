@@ -13,7 +13,7 @@ class Message extends Model implements RealtimeInterface, HasMedia
 {
     use HasMediaTrait, SoftDeletes;
 
-    const PHOTOS_COLLECTION = 'photos';
+    const ATTACHMENTS_COLLECTION = 'attachments';
 
     protected $fillable = [
         'chat_id',
@@ -23,7 +23,7 @@ class Message extends Model implements RealtimeInterface, HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::PHOTOS_COLLECTION);
+        $this->addMediaCollection(self::ATTACHMENTS_COLLECTION);
     }
 
     public function chat()

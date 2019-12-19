@@ -6,6 +6,12 @@ type Message {
     from_client: Int!
     text: String!
     seen: Int!
+    attachments: [Attachment]
+}
+
+type Attachment {
+    id: Int!
+    url: String!
 }
 
 type Receiver {
@@ -36,6 +42,7 @@ input MessageInput {
     chat_id: Int
     employee_id: Int
     text: String!
+    attachments: [Upload]
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {

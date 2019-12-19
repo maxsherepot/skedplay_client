@@ -120,6 +120,7 @@ export const GET_EMPLOYEE = gql `
         url
         thumb_url
       }
+      unread_messages_count
     }
   }
 `;

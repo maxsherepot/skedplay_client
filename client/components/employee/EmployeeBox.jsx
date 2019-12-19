@@ -90,9 +90,11 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
             >
               <a>Chat</a>
             </ActiveLink>
-            <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
-              +4
-            </span>
+            {employee.unread_messages_count > 0 &&
+              <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
+                +{employee.unread_messages_count}
+              </span>
+            }
           </li>
         </ul>
       </SecondaryNav>

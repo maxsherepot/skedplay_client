@@ -33,6 +33,8 @@ type Employee {
   photos: [Media] @hasMany
   videos: [Media] @hasMany
   reviews: [Review] @hasMany
+  #
+  unread_messages_count: Int! @method(name: "unreadMessagesCount")
 }
 
 #  service_for: String // Todo: Add serice for

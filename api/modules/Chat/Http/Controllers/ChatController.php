@@ -5,6 +5,7 @@ namespace Modules\Chat\Http\Controllers;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Repositories\ChatRepository;
+use Modules\Chat\Services\ChatService;
 use Modules\Employees\Entities\Employee;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
@@ -15,10 +16,15 @@ class ChatController extends Controller
     use Statusable;
 
     private $repository;
+    /**
+     * @var ChatService
+     */
+    private $chatService;
 
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(ChatRepository $chatRepository, ChatService $chatService)
     {
         $this->repository = $chatRepository;
+        $this->chatService = $chatService;
     }
 
     public function index()
@@ -37,7 +43,7 @@ class ChatController extends Controller
             ->unique('id')
             ->values()
             ->map(function($chat) {
-                return $this->formatChat($chat);
+                return $this->chatService->formatChat($chat);
             });
 
         return $chats;
@@ -46,7 +52,7 @@ class ChatController extends Controller
     public function show($chat_id)
     {
         $chat = Chat::with(['employee', 'client', 'messages' => function($query) {
-            return $query->limit(Chat::MESSAGES_LIMIT);
+            return $query->with('media')->limit(Chat::MESSAGES_LIMIT);
         }])->findOrFail($chat_id);
 
         $user = auth()->user();
@@ -67,7 +73,7 @@ class ChatController extends Controller
             ->whereFromClient($user->isClient() ? 0 : 1)
             ->update(['seen' => 1]);
 
-        return $this->formatChatRoom($chat);
+        return $this->chatService->formatChatRoom($chat);
     }
 
     public function profileChat($receiver_id)
@@ -75,7 +81,7 @@ class ChatController extends Controller
         $user = auth()->user();
         $receiver = User::findOrFail($receiver_id);
         if ($chat = $this->repository->getChatByReceiverId($receiver_id, $user->id)) {
-            return $this->formatChatRoom($chat);
+            return $this->chatService->formatChatRoom($chat);
         }
 
         return [
@@ -99,43 +105,5 @@ class ChatController extends Controller
         }
 
         return $this->fail('chat not found');
-    }
-
-    private function formatChat($chat)
-    {
-        $receiver = $this->getChatReceiver($chat);
-
-        return [
-            'id' => $chat->id,
-            'unread_messages_count' => $chat->messages_count,
-            'last_message_date' => $chat->last_message_date,
-            'receiver' => [
-                'id' => $receiver->id,
-                'name' => $receiver->name,
-            ]
-        ];
-    }
-
-    private function formatChatRoom($chat)
-    {
-        $receiver = $this->getChatReceiver($chat);
-
-        return [
-            'messages' => isset($chat->messages) ? $chat->messages->toArray() : [],
-            'receiver' => [
-                'id' => $receiver->id,
-                'name' => $receiver->name,
-            ],
-            'id' => $chat->id,
-        ];
-    }
-
-    private function getChatReceiver($chat)
-    {
-        if (auth()->user()->is_employee) {
-            return $chat->client;
-        }
-
-        return $chat->employee;
     }
 }

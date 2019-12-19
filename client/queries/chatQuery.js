@@ -27,6 +27,10 @@ export const CHAT_ROOM = gql `
                 text
                 from_client
                 created_at
+                attachments {
+                    id
+                    url
+                }
             }
         }
     }
@@ -36,7 +40,7 @@ export const SEND_MESSAGE = gql `
     mutation sendMessage($input: MessageInput!) {
         sendMessage(input: $input) {
             id
-            chat_id
+            chat_id,
         }
     }
 `;

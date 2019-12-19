@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
+import { ArrowPrevSvg, ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, Gallery, ChatList, ChatRoom } from "UI";
 import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import Centrifugo from "components/centrifuge";
+import cx from "classnames";
 
 const ClientChatComponent = ({ user, type = 'client' }) => {
   const router = useRouter();
   const { id } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+  const [employeeInited, employeeInit] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
@@ -72,8 +74,9 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
     });
   }.bind(this);
 
-  if (!selectedChat) {
+  if (!employeeInited) {
     setSelectedChat(chats[0]);
+    employeeInit(true);
   }
 
   const handleLightboxClick = index => {
@@ -110,13 +113,64 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
     </>
   );
 
+  let mobileChoosedBlock = (
+    <>
+      <div
+        className="absolute"
+        style={{
+          top: '33%',
+          left: '10px',
+        }}
+      >
+        <a
+          className={cx(
+            "animation-arrow-left text-sm cursor-pointer",
+          )}
+          onClick={e => {setSelectedChat(null)}}
+        >
+          <ArrowPrevSvg className="stroke-red">
+            <span className="xs:hidden sm:inline-block ml-2">All chats</span>
+          </ArrowPrevSvg>
+        </a>
+      </div>
+      <span className="font-bold text-2xl">
+        Chat with {selectedChat && selectedChat.receiver.name}
+      </span>
+    </>
+  );
+
+  let mobileChoseBlock = (
+    <>
+      <span className="font-bold text-2xl">
+        Chose chat
+      </span>
+    </>
+  );
+
+  function getMobileChooseBlock() {
+    if (selectedChat) {
+      return mobileChoosedBlock;
+    }
+
+    return mobileChoseBlock;
+  };
+
+  let mobileChatBlock = (
+    <div className="relative block w-full md:hidden bg-white border-2 border-black rounded-lg text-center py-3 mb-3 sm:mx-3 mt-4">
+      {getMobileChooseBlock()}
+    </div>
+  );
+
   let chatRoomBlock = "";
 
   if (selectedChat) {
     chatRoomBlock = (
       <>
-        <div className="w-full sm:w-3/5 hd:w-2/3 px-3">
-          <div className="text-2xl font-extrabold my-5">Chat with {selectedChat.receiver.name}</div>
+        <div className={cx([
+          selectedChat ? "block" : "hidden md:block",
+          "w-full sm:w-full md:w-2/3 xl:w-6/12 px-3"
+        ])}>
+          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Chat with {selectedChat.receiver.name}</div>
           <div>
             <ChatRoom type={type} selectedChat={selectedChat} refetchChats={refetchChats}></ChatRoom>
           </div>
@@ -127,8 +181,11 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
 
   const chatsBlock = (
     <>
-      <div className="w-full sm:w-2/5 hd:w-1/3 px-3">
-        <div className="text-2xl font-extrabold my-5">Contacts</div>
+      <div className={cx([
+        selectedChat ? "hidden md:block" : "block",
+        "w-full sm:w-full md:w-1/3 xl:w-3/12 px-3"
+      ])}>
+        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Contacts</div>
         <div>
           <ChatList chats={chats} selectedChat={selectedChat} selectChat={selectChat}></ChatList>
         </div>
@@ -137,13 +194,17 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={user}>
+    <EmployeeBox employee={employee} user={user} viewed={false}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full sm:hidden hd:w-1/5 px-3">
+        <div className="hidden w-full xl:block xl:w-3/12 px-3">
           <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
           {sidebarColumn}
         </div>
+
+        {mobileChatBlock}
+
         {chatRoomBlock}
+
         {chatsBlock}
       </div>
     </EmployeeBox>
