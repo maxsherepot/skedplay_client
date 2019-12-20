@@ -12,7 +12,11 @@ export default class Centrifugo {
       return this.instance;
     }
 
-    this.instance = axios.get(process.env.API_URL + '/api/centrifuge-config')
+    let url = process.env.API_URL
+      ? process.env.API_URL
+      : process.env.GRAPHQL_BROWSER_URL.replace('/graphql', '');
+
+    this.instance = axios.get(url + '/api/centrifuge-config')
       .then(resp => resp.data)
       .then(function (data) {
         let user = '' + data.user;
