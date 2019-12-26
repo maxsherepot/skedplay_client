@@ -11,49 +11,49 @@ const GirlsSearch = ({ user }) => {
     GIRLS_FILTER_OPTIONS
   );
 
-  const { data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
+  const { loading: filtersLoading, data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
 
-  if (loading) {
+  if (loading || filtersLoading) {
     return "Loading...";
   }
 
   const fields = [
-    {
-      component: "select",
-      name: "location",
-      label: "Location",
-      placeholder: "Select your location",
-      options: [
-        {
-          label: "Zürich",
-          value: "zürich"
-        },
-        {
-          label: "Geneva",
-          value: "geneva"
-        },
-        {
-          label: "Basel",
-          value: "basel"
-        },
-        {
-          label: "Lausanne",
-          value: "lausanne"
-        },
-        {
-          label: "Bern",
-          value: "bern"
-        },
-        {
-          label: "Winterthur",
-          value: "winterthur"
-        },
-        {
-          label: "Lucerne",
-          value: "lucerne"
-        }
-      ]
-    },
+    // {
+    //   component: "select",
+    //   name: "location",
+    //   label: "Location",
+    //   placeholder: "Select your location",
+    //   options: [
+    //     {
+    //       label: "Zürich",
+    //       value: "zürich"
+    //     },
+    //     {
+    //       label: "Geneva",
+    //       value: "geneva"
+    //     },
+    //     {
+    //       label: "Basel",
+    //       value: "basel"
+    //     },
+    //     {
+    //       label: "Lausanne",
+    //       value: "lausanne"
+    //     },
+    //     {
+    //       label: "Bern",
+    //       value: "bern"
+    //     },
+    //     {
+    //       label: "Winterthur",
+    //       value: "winterthur"
+    //     },
+    //     {
+    //       label: "Lucerne",
+    //       value: "lucerne"
+    //     }
+    //   ]
+    // },
     {
       component: "multi-select",
       name: "services",
@@ -81,7 +81,7 @@ const GirlsSearch = ({ user }) => {
     },
     {
       component: "select",
-      name: "race_type",
+      name: "race_type_id",
       label: "Type",
       placeholder: "Select type",
       options: employee_race_types.map(s => {

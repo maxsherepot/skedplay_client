@@ -41,10 +41,10 @@ function SelectField({
                 <div
                   className={cx(
                     "flex items-center h-full pl-4 text-sm",
-                    value === "" || value === null ? "text-grey" : "text-black"
+                    !value ? "text-grey" : "text-black"
                   )}
                 >
-                  {value === "" || value === null ? placeholder : getLabel(value)}
+                  {!value ? placeholder : getLabel(value)}
                 </div>
               )
             }

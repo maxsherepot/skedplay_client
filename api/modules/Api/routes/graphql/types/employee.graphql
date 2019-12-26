@@ -62,11 +62,12 @@ input EmployeeInput {
 
 input EmployeeFilters {
 #  location: String @whereHas(key: "location_id", method: "whereIn")
-  location: String @where
+#  location: String @where
   gender: String @where
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   age: AgeRange @whereBetween
-  race_type: String @whereHas(key: "race_type_id", method: "whereIn")
+#  race_type: String @whereHas(key: "race_type_id", method: "whereIn")
+  race_type_id: String @where
   __typename: String
 }
 

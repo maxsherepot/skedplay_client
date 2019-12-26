@@ -72,21 +72,21 @@ function create(initialState, {
         location: "",
         services: [],
         gender: "",
-        race_type: "",
+        race_type_id: "",
         __typename: "GirlFilters"
       },
       boys: {
         location: "",
         services: [],
         gender: "",
-        race_type: "",
+        race_type_id: "",
         __typename: "BoyFilters"
       },
       couple: {
         location: "",
         services: [],
         gender: "",
-        race_type: "",
+        race_type_id: "",
         __typename: "CoupleFilters"
       },
       clubs: {

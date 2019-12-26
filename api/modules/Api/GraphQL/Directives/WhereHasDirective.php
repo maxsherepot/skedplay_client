@@ -29,6 +29,10 @@ class WhereHasDirective extends BaseDirective implements ArgBuilderDirective
         $method = $this->directiveArgValue('method', 'where');
         $relationship = $this->directiveArgValue('relationship', $this->definitionNode->name->value);
 
+        if ($method === 'whereIn' && !$value) {
+            return $builder;
+        }
+
         return $builder->whereHas($relationship, function ($builder) use ($key, $value, $method) {
             return $builder
                 ->$method(

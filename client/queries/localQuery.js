@@ -4,22 +4,22 @@ export const GET_FILTERS_STATE = gql`
   query {
     filters @client {
       girls {
-        location
+#        location
         services
         gender
-        race_type
+        race_type_id
       }
       boys {
-        location
+#        location
         services
         gender
-        race_type
+        race_type_id
       }
       couple {
-        location
+#        location
         services
         gender
-        race_type
+        race_type_id
       }
       clubs {
         location
