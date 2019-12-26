@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useQuery } from "@apollo/react-hooks";
+import { useState } from "react";
 
 import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
@@ -20,22 +21,42 @@ function EmployeesBox({ inititalState = {} }) {
     filters[key] = inititalState[key];
   });
 
-  const { loading, error, data: { employees } = {} } = useQuery(ALL_EMPLOYEES, {
+  const [filtersState, setFilters] = useState(filters);
+  console.log(filtersState);
+
+  const { loading, error, data: { employees } = {}, refetch } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
       page,
       filters: {
-        ...filters
+        ...filtersState
       }
     }
   });
+
+  function setFilter(key, value) {
+    filters[key] = value;
+
+    setFilters(filters);
+
+    refetch({
+      variables: {
+        first: 10,
+        page,
+        filters: {
+          ...filtersState
+        }
+      }
+    });
+  }
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
     <>
-      <Sort>
+      <Sort setFilter={setFilter} orderBy={filtersState.orderBy}>
         <div>
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total

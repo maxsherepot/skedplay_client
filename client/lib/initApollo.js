@@ -73,6 +73,13 @@ function create(initialState, {
         services: [],
         gender: "",
         race_type_id: "",
+        orderBy: [
+          {
+            field: "age",
+            order: 'ASC',
+            // __typename: "orderBy"
+          }
+        ],
         __typename: "GirlFilters"
       },
       boys: {
@@ -80,6 +87,13 @@ function create(initialState, {
         services: [],
         gender: "",
         race_type_id: "",
+        orderBy: [
+          {
+            field: "age",
+            order: 'ASC',
+            // __typename: "orderBy"
+          }
+        ],
         __typename: "BoyFilters"
       },
       couple: {
@@ -87,6 +101,13 @@ function create(initialState, {
         services: [],
         gender: "",
         race_type_id: "",
+        orderBy: [
+          {
+            field: "age",
+            order: 'ASC',
+            // __typename: "orderBy"
+          }
+        ],
         __typename: "CoupleFilters"
       },
       clubs: {

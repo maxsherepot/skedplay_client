@@ -11,11 +11,18 @@ const GirlsSearch = ({ user }) => {
     GIRLS_FILTER_OPTIONS
   );
 
-  const { loading: filtersLoading, data: { filters } = {} } = useQuery(GET_FILTERS_STATE);
+  const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
   if (loading || filtersLoading) {
     return "Loading...";
   }
+
+  filters[ENTITY_NAME].orderBy = [
+    {
+      field: "age",
+      order: 'ASC',
+    }
+  ];
 
   const fields = [
     // {

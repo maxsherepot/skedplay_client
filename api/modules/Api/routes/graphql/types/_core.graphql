@@ -16,3 +16,14 @@ input AgeRange {
     from: Int!
     to: Int!
 }
+
+input OrderByClause {
+    field: String!
+    order: SortOrder!
+#    __typename: String
+}
+
+enum SortOrder {
+    ASC
+    DESC
+}
