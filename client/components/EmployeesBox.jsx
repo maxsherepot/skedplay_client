@@ -1,61 +1,18 @@
 import PropTypes from "prop-types";
-import { useQuery } from "@apollo/react-hooks";
-import { useState } from "react";
 
 import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort } from "UI";
 
-function EmployeesBox({ inititalState = {} }) {
-  const [page, setPage] = usePagination();
+function EmployeesBox({ inititalState = {}, employees, loading, error, page, setPage, setFilter, networkStatus }) {
 
-  const filters = [];
-
-  Object.keys(inititalState).map(key => {
-    if (inititalState[key] === "") return;
-
-    if (inititalState[key] === null) {
-      return (filters[key] = "");
-    }
-
-    filters[key] = inititalState[key];
-  });
-
-  const [filtersState, setFilters] = useState(filters);
-
-  const { loading, error, data: { employees } = {}, refetch } = useQuery(ALL_EMPLOYEES, {
-    variables: {
-      first: 10,
-      page,
-      filters: {
-        ...filtersState
-      }
-    }
-  });
-
-  function setFilter(key, value) {
-    filters[key] = value;
-
-    setFilters(filters);
-
-    refetch({
-      variables: {
-        first: 10,
-        page,
-        filters: {
-          ...filtersState
-        }
-      }
-    });
-  }
-
-
-  if (loading) return <div>Loading...</div>;
+  if (loading || networkStatus === 4) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
+  if (!employees) return <div>-----</div>;
 
   return (
     <>
-      <Sort setFilter={setFilter} orderBy={filtersState.orderBy}>
+      <Sort setFilter={setFilter} orderBy={inititalState.orderBy}>
         <div>
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total

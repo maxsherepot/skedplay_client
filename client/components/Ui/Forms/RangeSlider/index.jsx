@@ -34,8 +34,8 @@ const RangeSlider = ({ className, labelClassName, label, name, from, to }) => {
       <Field name={name}>
         {({ field: { value, ...rest } }) =>
           <>
-            <input type="hidden" name={`[${name}][from]`} value={start}/>
-            <input type="hidden" name={`[${name}][to]`} value={end}/>
+            <input type="hidden" name={`${name}[from]`} value={start}/>
+            <input type="hidden" name={`${name}[to]`} value={end}/>
             <ReactSlider
               className="horizontal-slider"
               thumbClassName="example-thumb"

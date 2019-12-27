@@ -80,6 +80,11 @@ function create(initialState, {
             // __typename: "orderBy"
           }
         ],
+        age: {
+          from: 18,
+          to: 45,
+          // __typename: "age"
+        },
         __typename: "GirlFilters"
       },
       boys: {

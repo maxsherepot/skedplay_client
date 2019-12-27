@@ -10,7 +10,7 @@ import {
 } from "UI";
 import { useApolloClient } from "@apollo/react-hooks";
 
-function Filter({ name, fields, inititalState }) {
+function Filter({ name, fields, inititalState, setFilters }) {
   const client = useApolloClient();
 
   return (
@@ -32,17 +32,20 @@ function Filter({ name, fields, inititalState }) {
             onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(false);
               console.log('submit', values);
-              client.writeData({
-                data: {
-                  filters: {
-                    [name]: {
-                      ...values,
-                      __typename: "GirlFilters"
-                    },
-                    __typename: "Filters"
-                  }
-                }
-              });
+
+              setFilters(values);
+
+              // client.writeData({
+              //   data: {
+              //     filters: {
+              //       [name]: {
+              //         ...values,
+              //         __typename: "GirlFilters"
+              //       },
+              //       __typename: "Filters"
+              //     }
+              //   }
+              // });
             }}
           >
             {({ handleSubmit, isSubmitting }) => (

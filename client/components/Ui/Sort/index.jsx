@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
-import {useApolloClient} from "@apollo/react-hooks";
 import cx from "classnames";
 import {Fragment, useState} from "react";
 import React from "react";
 import { Dropdown } from "UI";
 
 function Sort({ children, setFilter, orderBy }) {
-  // const client = useApolloClient();
 
   const sorts = [
     {
@@ -36,7 +34,7 @@ function Sort({ children, setFilter, orderBy }) {
   if (orderBy) {
     initSort = sorts.find(s => s.orderBy[0].field === orderBy[0].field && s.orderBy[0].order === orderBy[0].order)
   }
-  console.log(orderBy, initSort);
+
   if (!initSort) {
     initSort = sorts[0];
   }
@@ -89,15 +87,6 @@ function Sort({ children, setFilter, orderBy }) {
           </Fragment>
         ))}
       </Dropdown>
-
-
-      {/*<select onChange={changeSort}>*/}
-        {/*{sorts.map(sort => {*/}
-          {/*return (*/}
-            {/*<option value={sort.id} key={sort.id}>{sort.label}</option>*/}
-          {/*)*/}
-        {/*})}*/}
-      {/*</select>*/}
     </div>
   );
 }

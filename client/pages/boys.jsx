@@ -1,7 +1,7 @@
 import EmployeesSearch from "components/EmployeesSearch";
 
-const GirlsSearch = () => {
-  const ENTITY_NAME = "girls";
+const BoysSearch = () => {
+  const ENTITY_NAME = "boys";
 
   return (
     <>
@@ -10,4 +10,4 @@ const GirlsSearch = () => {
   );
 };
 
-export default GirlsSearch;
+export default BoysSearch;
