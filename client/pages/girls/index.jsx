@@ -24,6 +24,11 @@ const GirlsSearch = ({ user }) => {
     }
   ];
 
+  filters[ENTITY_NAME].age = {
+    from: 18,
+    to: 45,
+  };
+
   const fields = [
     // {
     //   component: "select",
@@ -98,7 +103,9 @@ const GirlsSearch = ({ user }) => {
     {
       component: "range",
       name: "age",
-      label: "Age"
+      label: "Age",
+      from: 18,
+      to: 45,
     }
   ];
 
@@ -108,6 +115,7 @@ const GirlsSearch = ({ user }) => {
         name={ENTITY_NAME}
         inititalState={filters[ENTITY_NAME]}
         fields={fields}
+
       />
       <EmployeesBox inititalState={filters[ENTITY_NAME]} />
     </>

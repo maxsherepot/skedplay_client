@@ -31,7 +31,7 @@ function Filter({ name, fields, inititalState }) {
             initialValues={inititalState}
             onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(false);
-
+              console.log('submit', values);
               client.writeData({
                 data: {
                   filters: {
@@ -74,15 +74,15 @@ function Filter({ name, fields, inititalState }) {
                             ></MultiSelectField>
                           );
 
-                        // case "range":
-                        //   return (
-                        //     <RangeSlider
-                        //       key={index}
-                        //       className="w-full lg:w-1/5 px-2"
-                        //       labelClassName="text-white"
-                        //       {...rest}
-                        //     ></RangeSlider>
-                        //   );
+                        case "range":
+                          return (
+                            <RangeSlider
+                              key={index}
+                              className="w-full lg:w-1/5 px-2"
+                              labelClassName="text-white"
+                              {...rest}
+                            ></RangeSlider>
+                          );
 
                         default:
                           break;

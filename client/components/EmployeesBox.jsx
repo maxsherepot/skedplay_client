@@ -22,7 +22,6 @@ function EmployeesBox({ inititalState = {} }) {
   });
 
   const [filtersState, setFilters] = useState(filters);
-  console.log(filtersState);
 
   const { loading, error, data: { employees } = {}, refetch } = useQuery(ALL_EMPLOYEES, {
     variables: {
