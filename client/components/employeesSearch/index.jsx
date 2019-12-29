@@ -8,6 +8,7 @@ import {useState} from "react";
 
 const GirlsSearch = ({ user, entityName }) => {
   const [page, setPage] = usePagination();
+  const [filtersState, setFiltersState] = useState({});
 
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
     GIRLS_FILTER_OPTIONS
@@ -19,17 +20,11 @@ const GirlsSearch = ({ user, entityName }) => {
     return "Loading...";
   }
 
-  filters[entityName].orderBy = [
-    {
-      field: "age",
-      order: 'ASC',
-    }
-  ];
+  if (error || !filters) {
+    console.log(error);
 
-  filters[entityName].age = {
-    from: 18,
-    to: 45,
-  };
+    return 'error';
+  }
 
   const fields = [
     // {
@@ -121,28 +116,41 @@ const GirlsSearch = ({ user, entityName }) => {
         return (filters[key] = "");
       }
 
-      filteredFilters[key] = filters[key];
+      let filter = filters[key];
+
+      if (key === 'age') {
+        delete filter.__typename;
+      }
+
+      if (key === 'orderBy') {
+        delete filter[0].__typename;
+      }
+
+      filteredFilters[key] = filter;
     });
 
     return filteredFilters;
   }
 
-  let filteredFilters = filterFilters(filters[entityName]);
+  let stateFilters = filtersState;
 
-  const [filtersState, setFiltersState] = useState(filteredFilters);
+  if (Object.keys(filtersState).length === 0) {
+    stateFilters = filterFilters(filters[entityName]);
+  }
+
+  let filteredFilters = stateFilters;
 
   const { loading: employeesLoading, error: employeesError, data: { employees } = {}, refetch, networkStatus } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
       page,
       filters: {
-        ...filtersState
+        ...filteredFilters
       }
     }
   });
 
   function setFilter(key, value) {
-    console.log('setFilter', key, value);
     filteredFilters[key] = value;
 
     setFiltersState(filterFilters(filteredFilters));
@@ -151,9 +159,6 @@ const GirlsSearch = ({ user, entityName }) => {
   }
 
   function setFilters(filters) {
-    console.log('filtered filters', filterFilters(filters));
-
-
     setFiltersState(filterFilters(filters));
     refetch();
   }

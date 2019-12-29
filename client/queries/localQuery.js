@@ -8,10 +8,14 @@ export const GET_FILTERS_STATE = gql`
         services
         gender
         race_type_id
-#        age {
-#          from
-#          to
-#        }
+        age {
+          from
+          to
+        }
+        orderBy {
+          field
+          order
+        }
       }
       boys {
 #        location

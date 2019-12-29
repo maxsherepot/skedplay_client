@@ -15,12 +15,13 @@ type Query {
 input AgeRange {
     from: Int!
     to: Int!
+    __typename: String
 }
 
 input OrderByClause {
     field: String!
     order: SortOrder!
-#    __typename: String
+    __typename: String
 }
 
 enum SortOrder {

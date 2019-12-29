@@ -77,13 +77,13 @@ function create(initialState, {
           {
             field: "age",
             order: 'ASC',
-            // __typename: "orderBy"
+            __typename: "orderBy"
           }
         ],
         age: {
           from: 18,
           to: 45,
-          // __typename: "age"
+          __typename: "age"
         },
         __typename: "GirlFilters"
       },
