@@ -1,5 +1,6 @@
 import React from "react";
 import cx from "classnames";
+import dot from "dot-object";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
@@ -17,7 +18,15 @@ function TextField({
   ...rest
 }) {
   const { touched, errors } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+
+  const currentTouched = dot.pick(name, touched);
+  const currentError = dot.pick(name, errors);
+
+  let error = currentTouched && currentError ? currentError : null;
+
+  if (error) {
+    error = error.replace(name, label);
+  }
 
   return (
     <FormGroup

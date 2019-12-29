@@ -66,7 +66,7 @@ function NewClubForm({ onSubmit }) {
         email: Yup.string()
           .email()
           .required(),
-        website: Yup.string(),
+        website: Yup.string().url(),
         moderator: Yup.object().shape( {
           first_name: Yup.string().required(),
           last_name: Yup.string().required(),

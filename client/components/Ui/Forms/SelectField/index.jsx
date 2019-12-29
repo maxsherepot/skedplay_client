@@ -4,6 +4,7 @@ import cx from "classnames";
 import { Field, useFormikContext } from "formik";
 
 import { FormGroup, Dropdown } from "UI";
+import dot from "dot-object";
 
 function SelectField({
   className,
@@ -15,7 +16,14 @@ function SelectField({
   disabled
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const currentTouched = dot.pick(name, touched);
+  const currentError = dot.pick(name, errors);
+
+  let error = currentTouched && currentError ? currentError : null;
+
+  if (error) {
+    error = error.replace(name, label);
+  }
 
   const getLabel = value => {
     const index = options.map(o => o.value).indexOf(value);

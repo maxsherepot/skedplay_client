@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
 import { FormGroup } from "UI";
+import dot from "dot-object";
 
 function TextField({
   className,
@@ -13,7 +14,14 @@ function TextField({
   ...rest
 }) {
   const { touched, errors } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const currentTouched = dot.pick(name, touched);
+  const currentError = dot.pick(name, errors);
+
+  let error = currentTouched && currentError ? currentError : null;
+
+  if (error) {
+    error = error.replace(name, label);
+  }
 
   return (
     <FormGroup className={className} error={error ? true : false}>
