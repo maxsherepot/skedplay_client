@@ -101,7 +101,7 @@ const AccountClubIndex = ({ user }) => {
                 </div>
 
                 <div className="flex mt-3">
-                    <Link href="/girls/add">
+                    <Link href={`/account/club/${cid}/workers/add`}>
                         <a>
                             <Button className="px-12 mr-4" size="sm">
                                 Add new

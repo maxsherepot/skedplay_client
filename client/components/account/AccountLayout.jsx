@@ -51,7 +51,7 @@ const ClubMenu = ({clubs}) => {
                                 </span>
                             </a>
                         </Link>
-                        <Link href="/girls/add">
+                        <Link href={`/account/club/${id}/workers/add`}>
                             <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
                                 <AddSvg/>
                                 <span className="ml-2">Add new card</span>

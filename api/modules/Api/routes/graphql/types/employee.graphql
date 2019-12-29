@@ -58,6 +58,7 @@ input EmployeeInput {
   parameters: JSON
   photos: [Upload]
   videos: [Upload]
+  club_id: Int
 }
 
 input EmployeeFilters {

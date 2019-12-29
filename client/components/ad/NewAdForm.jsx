@@ -5,7 +5,7 @@ import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 
-function NewAdForm({ children }) {
+function NewAdForm({ children, clubId }) {
   const { step, setStep } = useSteps();
 
   const activeStep = React.Children.toArray(children)[step];
@@ -59,7 +59,11 @@ function NewAdForm({ children }) {
     if (isLastStep) {
       try {
         setStep(0);
-        redirect({}, "/girls");
+        if (clubId) {
+          document.location.href = `/account/club/${clubId}`;
+        } else {
+          redirect({}, "/girls");
+        }
       } catch (e) {
         if (getErrors(e) instanceof Object) {
           setErrors(getErrors(e));

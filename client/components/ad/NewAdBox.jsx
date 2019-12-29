@@ -17,7 +17,7 @@ import {
   AdScheduleStep,
 } from "components/steps";
 
-const NewAdBox = () => {
+const NewAdBox = ({clubId}) => {
   const [employeeId, setEmployeeId] = useState(null);
   const [createEmployee] = useMutation(CREATE_EMPLOYEE_AD);
   const [syncEmployeePrices] = useMutation(SYNC_EMPLOYEE_PRICES);
@@ -26,6 +26,10 @@ const NewAdBox = () => {
   const [createEmployeeSchedule] = useMutation(CREATE_EMPLOYEE_SCHEDULE);
 
   const onSubmitInfo = async values => {
+    if (clubId) {
+      values.club_id = clubId;
+    }
+
     try {
       const {
         data: {
@@ -183,7 +187,7 @@ const NewAdBox = () => {
   };
 
   return (
-    <NewAdForm>
+    <NewAdForm clubId={clubId}>
       <NewAdForm.Step
         validationSchema={employeeRules}
         onStepSubmit={onSubmitInfo}

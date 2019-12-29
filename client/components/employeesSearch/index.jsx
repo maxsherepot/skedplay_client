@@ -7,6 +7,8 @@ import { usePagination } from "hooks";
 import {useState} from "react";
 
 const GirlsSearch = ({ user, entityName }) => {
+  const [page, setPage] = usePagination();
+
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
     GIRLS_FILTER_OPTIONS
   );
@@ -109,8 +111,6 @@ const GirlsSearch = ({ user, entityName }) => {
     }
   ];
 
-  const [page, setPage] = usePagination();
-
   function filterFilters(filters) {
     const filteredFilters = [];
 
@@ -131,7 +131,6 @@ const GirlsSearch = ({ user, entityName }) => {
 
   const [filtersState, setFiltersState] = useState(filteredFilters);
 
-  console.log('filtersState', filtersState);
   const { loading: employeesLoading, error: employeesError, data: { employees } = {}, refetch, networkStatus } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
