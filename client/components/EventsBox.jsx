@@ -32,7 +32,7 @@ function EventsBox({ inititalState }) {
 
   return (
     <>
-      <Sort>
+      <Sort setFilter={() => {}}>
         <div>
           {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
           <span className="ml-1">event found</span>

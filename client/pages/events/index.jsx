@@ -100,7 +100,7 @@ function Events({ user }) {
 
   return (
     <>
-      <Filter name="events" inititalState={events} fields={fields} />
+      <Filter name="events" inititalState={events} fields={fields} setFilters={() => {}} />
       <EventsBox inititalState={events} />
     </>
   );

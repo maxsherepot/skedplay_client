@@ -37,7 +37,7 @@ function ClubsBox({ inititalState }) {
 
   return (
     <>
-      <Sort>
+      <Sort setFilter={() => {}}>
         <div>
           {clubs && clubs.paginatorInfo ? clubs.paginatorInfo.total : 0}
           <span className="ml-1">clubs found</span>

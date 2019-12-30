@@ -20,42 +20,42 @@ function Clubs({ loggedInUser }) {
   }
 
   const fields = [
-    {
-      component: "select",
-      name: "location",
-      label: "Location",
-      placeholder: "Select your location",
-      options: [
-        {
-          label: "Zürich",
-          value: "zürich"
-        },
-        {
-          label: "Geneva",
-          value: "geneva"
-        },
-        {
-          label: "Basel",
-          value: "basel"
-        },
-        {
-          label: "Lausanne",
-          value: "lausanne"
-        },
-        {
-          label: "Bern",
-          value: "bern"
-        },
-        {
-          label: "Winterthur",
-          value: "winterthur"
-        },
-        {
-          label: "Lucerne",
-          value: "lucerne"
-        }
-      ]
-    },
+    // {
+    //   component: "select",
+    //   name: "location",
+    //   label: "Location",
+    //   placeholder: "Select your location",
+    //   options: [
+    //     {
+    //       label: "Zürich",
+    //       value: "zürich"
+    //     },
+    //     {
+    //       label: "Geneva",
+    //       value: "geneva"
+    //     },
+    //     {
+    //       label: "Basel",
+    //       value: "basel"
+    //     },
+    //     {
+    //       label: "Lausanne",
+    //       value: "lausanne"
+    //     },
+    //     {
+    //       label: "Bern",
+    //       value: "bern"
+    //     },
+    //     {
+    //       label: "Winterthur",
+    //       value: "winterthur"
+    //     },
+    //     {
+    //       label: "Lucerne",
+    //       value: "lucerne"
+    //     }
+    //   ]
+    // },
     {
       component: "select",
       name: "event_type",
@@ -97,6 +97,7 @@ function Clubs({ loggedInUser }) {
         name={ENTITY_NAME}
         inititalState={filters[ENTITY_NAME]}
         fields={fields}
+        setFilter={() => {}}
       />
       <ClubsBox inititalState={filters[ENTITY_NAME]} />
     </MainLayout>
