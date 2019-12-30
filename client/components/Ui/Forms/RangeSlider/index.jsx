@@ -33,24 +33,32 @@ const RangeSlider = ({ className, labelClassName, label, name, from, to }) => {
 
       <Field name={name}>
         {({ field: { value, ...rest } }) =>
-          <>
+          <div className="heart-slider-wrap">
+            <div className="heart-slider-wrap__from">
+              {start}
+            </div>
+            <div className="heart-slider-wrap__to">
+              {end}
+            </div>
+
             <input type="hidden" name={`${name}[from]`} value={start}/>
             <input type="hidden" name={`${name}[to]`} value={end}/>
-            <ReactSlider
-              className="horizontal-slider"
-              thumbClassName="example-thumb"
-              trackClassName="example-track"
-              defaultValue={[start, end]}
-              min={18}
-              max={45}
-              ariaLabel={['Lower thumb', 'Upper thumb']}
-              ariaValuetext={state => `Thumb value ${state.valueNow}`}
-              renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-              pearling
-              minDistance={1}
-              onChange={([start, end]) => setRange(start, end)}
-            />
-        </>}
+            <div className="slider-inner-wrap">
+              <div className="heart-slider">
+                <ReactSlider
+                  className="horizontal-slider"
+                  thumbClassName="thumb"
+                  trackClassName="track"
+                  defaultValue={[start, end]}
+                  min={18}
+                  max={45}
+                  pearling
+                  minDistance={1}
+                  onChange={([start, end]) => setRange(start, end)}
+                />
+              </div>
+            </div>
+        </div>}
       </Field>
     </FormGroup>
   );
