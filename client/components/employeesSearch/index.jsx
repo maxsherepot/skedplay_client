@@ -76,8 +76,12 @@ const GirlsSearch = ({ user, entityName }) => {
       component: "select",
       name: "gender",
       label: "Gender",
-      placeholder: "Select gender",
+      placeholder: "All Gender",
       options: [
+        {
+          label: "All Gender",
+          value: ''
+        },
         {
           label: "Female",
           value: 2
