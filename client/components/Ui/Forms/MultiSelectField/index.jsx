@@ -10,9 +10,67 @@ const MultiSelectField = ({
   label,
   name,
   placeholder,
-  options
+  options,
+  showCheckboxes = false
 }) => {
+
   const { values } = useFormikContext();
+
+  const getInputWithCheckboxes = (arrayHelpers, category, isChecked) => {
+    return (
+      <div className="flex">
+        <div>
+          <input
+            name={name}
+            type="checkbox"
+            value={category.value}
+            checked={isChecked}
+            onChange={e => {
+              if (e.target.checked)
+                arrayHelpers.push(category.value);
+              else {
+                const idx = values[name].indexOf(category.value);
+                arrayHelpers.remove(idx);
+              }
+            }}
+          />
+          <div>
+            <span />
+          </div>
+        </div>
+
+        <span className="capitalize select-none">
+          {category.label}
+        </span>
+      </div>
+    )
+  };
+
+  const getInputWithoutCheckboxes = (arrayHelpers, category, isChecked) => {
+    return (
+      <>
+        <input
+          name={name}
+          type="checkbox"
+          value={category.value}
+          checked={isChecked}
+          onChange={e => {
+            if (e.target.checked)
+              arrayHelpers.push(category.value);
+            else {
+              const idx = values[name].indexOf(category.value);
+              arrayHelpers.remove(idx);
+            }
+          }}
+        />
+        <span className="capitalize select-none">
+          {category.label}
+        </span>
+      </>
+    )
+  };
+
+  const input = showCheckboxes ? getInputWithCheckboxes : getInputWithoutCheckboxes;
 
   return (
     <FormGroup className={cx(className, "relative")}>
@@ -50,23 +108,7 @@ const MultiSelectField = ({
                         isChecked ? "text-red" : "text-black"
                       )}
                     >
-                      <input
-                        name={name}
-                        type="checkbox"
-                        value={category.value}
-                        checked={isChecked}
-                        onChange={e => {
-                          if (e.target.checked)
-                            arrayHelpers.push(category.value);
-                          else {
-                            const idx = values[name].indexOf(category.value);
-                            arrayHelpers.remove(idx);
-                          }
-                        }}
-                      />
-                      <span className="capitalize select-none">
-                        {category.label}
-                      </span>
+                      {input(arrayHelpers, category, isChecked)}
                     </label>
                   </div>
                 );

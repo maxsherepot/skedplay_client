@@ -68,6 +68,7 @@ const GirlsSearch = ({ user, entityName }) => {
       name: "services",
       label: "Services",
       placeholder: "Select services",
+      showCheckboxes: true,
       options: services.map(s => {
         return { label: s.name, value: s.id };
       })
@@ -107,11 +108,18 @@ const GirlsSearch = ({ user, entityName }) => {
       label: "Age",
       from: 18,
       to: 45,
+      labelResolver({from, to}) {
+        if (parseInt(from) === 18 && parseInt(to) === 45) {
+          return null;
+        }
+
+        return `Age from ${from} to ${to}`;
+      }
     }
   ];
 
   function filterFilters(filters) {
-    const filteredFilters = [];
+    const filteredFilters = {};
 
     Object.keys(filters).map(key => {
       if (filters[key] === "") return;
@@ -172,6 +180,7 @@ const GirlsSearch = ({ user, entityName }) => {
       <Filter
         name={entityName}
         inititalState={filters[entityName]}
+        filters={filteredFilters}
         fields={fields}
         setFilter={setFilter}
         setFilters={setFilters}

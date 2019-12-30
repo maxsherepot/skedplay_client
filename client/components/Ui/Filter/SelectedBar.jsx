@@ -1,18 +1,25 @@
 import PropTypes from "prop-types";
 import { CloseSvg } from "icons";
-import { useApolloClient } from "@apollo/react-hooks";
 
-function SelectedBar({ name, fields, inititalState }) {
+function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilters }) {
   const selected = [];
-  const client = useApolloClient();
 
   const getLabelFromOptions = (field, value) => {
-    if (field && field.options) {
+    if (!field) {
+      return null;
+    }
+
+    if (field.options) {
       const i = field.options.map(o => o.value).indexOf(value);
       if (field.options[i]) {
         return field.options[i].label;
       }
     }
+
+    if (field.labelResolver) {
+      return field.labelResolver(value);
+    }
+
     return null;
   };
 
@@ -23,9 +30,9 @@ function SelectedBar({ name, fields, inititalState }) {
     return getLabelFromOptions(field, value);
   };
 
-  inititalState &&
-    Object.keys(inititalState).map(key => {
-      const state = inititalState[key];
+  filters &&
+    Object.keys(filters).map(key => {
+      const state = filters[key];
 
       if (Array.isArray(state)) {
         state.map(value => {
@@ -60,27 +67,7 @@ function SelectedBar({ name, fields, inititalState }) {
       delete state[index];
     }
 
-    let newState = null;
-
-    if (isArray) {
-      newState = state.filter(s => s);
-
-      if (newState && newState.length === 0) {
-        newState = null;
-      }
-    }
-
-    client.writeData({
-      data: {
-        filters: {
-          [name]: {
-            [key]: newState,
-            __typename: "GirlFilters"
-          },
-          __typename: "Filters"
-        }
-      }
-    });
+    setFilter(key, state);
   };
 
   const clearAllValue = () => {
@@ -93,17 +80,7 @@ function SelectedBar({ name, fields, inititalState }) {
       keys[key] = "";
     });
 
-    client.writeData({
-      data: {
-        filters: {
-          [name]: {
-            ...keys,
-            __typename: "GirlFilters"
-          },
-          __typename: "Filters"
-        }
-      }
-    });
+    setFilters(inititalState);
   };
 
   if (Object.entries(selected).length === 0) {

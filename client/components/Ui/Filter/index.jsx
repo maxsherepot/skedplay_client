@@ -8,10 +8,8 @@ import {
   RangeSlider,
   SelectedBar
 } from "UI";
-import { useApolloClient } from "@apollo/react-hooks";
 
-function Filter({ name, fields, inititalState, setFilters }) {
-  const client = useApolloClient();
+function Filter({ name, fields, inititalState, filters, setFilters, setFilter }) {
 
   return (
     <>
@@ -28,24 +26,11 @@ function Filter({ name, fields, inititalState, setFilters }) {
           </div>
           <Formik
             enableReinitialize
-            initialValues={inititalState}
+            initialValues={filters}
             onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(false);
-              console.log('submit', values);
 
               setFilters(values);
-
-              // client.writeData({
-              //   data: {
-              //     filters: {
-              //       [name]: {
-              //         ...values,
-              //         __typename: "GirlFilters"
-              //       },
-              //       __typename: "Filters"
-              //     }
-              //   }
-              // });
             }}
           >
             {({ handleSubmit, isSubmitting }) => (
@@ -84,6 +69,7 @@ function Filter({ name, fields, inititalState, setFilters }) {
                               className="w-full lg:w-1/5 px-2"
                               labelClassName="text-white"
                               {...rest}
+                              value={filters[rest.name]}
                             ></RangeSlider>
                           );
 
@@ -108,7 +94,7 @@ function Filter({ name, fields, inititalState, setFilters }) {
         </div>
       </div>
 
-      <SelectedBar name={name} fields={fields} inititalState={inititalState} />
+      <SelectedBar name={name} fields={fields} inititalState={inititalState} filters={filters} setFilter={setFilter} setFilters={setFilters} />
     </>
   );
 }
