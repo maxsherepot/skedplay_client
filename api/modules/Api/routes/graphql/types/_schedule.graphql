@@ -58,6 +58,11 @@ input EmployeeScheduleInput {
   club_id: Int
 }
 
+input EmployeeSchedulesInput {
+  schedules: [EmployeeScheduleInput],
+  will_activate_at: String!
+}
+
 extend type Query {
   schedule_period: [SchedulePeriod!]!
     @field(resolver: "Modules\\Api\\GraphQL\\Queries\\ScheduleQuery")
@@ -76,9 +81,9 @@ type Mutation @middleware(checks: ["auth:api"]) {
   updateClubSchedule(input: [ClubScheduleInput]): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@updateSchedule")
 
-  createEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
+  createEmployeeSchedule(input: EmployeeSchedulesInput): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@schedule")
 
-  updateEmployeeSchedule(input: [EmployeeScheduleInput]): StatusPayload
+  updateEmployeeSchedule(input: EmployeeSchedulesInput): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@updateSchedule")
 }

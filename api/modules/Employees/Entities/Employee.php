@@ -35,6 +35,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
 
     const IS_NEW_DAYS = 3;
 
+    const SOON_DAYS = 10;
+    const SHOW_LEVEL_HIDDEN = 0;
+    const SHOW_LEVEL_ACTIVE = 1;
+    const SHOW_LEVEL_SOON = 2;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -46,7 +51,15 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'description',
         'languages',
         'text',
-        'isVip'
+        'isVip',
+        'will_activate_at',
+        'active',
+        'soon',
+        'show_level',
+    ];
+
+    protected $dates = [
+        'will_activate_at',
     ];
 
     public function getLanguagesAttribute($value)

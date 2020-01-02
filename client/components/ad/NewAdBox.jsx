@@ -167,7 +167,10 @@ const NewAdBox = ({clubId}) => {
         }
       } = await createEmployeeSchedule({
         variables: {
-          input: payload,
+          input: {
+            schedules: payload,
+            will_activated_at: values.will_activated_at
+          },
         }
       });
 

@@ -2,6 +2,8 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Common\SyncPricesRequest;
 use Modules\Api\Http\Requests\Common\SyncServicesRequest;
@@ -213,12 +215,15 @@ class EmployeeController extends Controller
     public function schedule(EmployeeScheduleCreateRequest $request)
     {
 //        $this->authorize('create-schedule', Club::class);
-        $schedules = $request->all()['input'];
+        $schedules = $request->get('input.schedules');
+        $willActivateAt = $request->all()['input']['will_activate_at'];
 
         try {
           foreach($schedules as $schedule) {
             $this->employees->storeSchedule(collect($schedule));
           }
+
+            $this->employees->storeActivatedAt($schedules[0]['employee_id'], Carbon::parse($willActivateAt));
 
           return $this->success();
 
@@ -235,12 +240,15 @@ class EmployeeController extends Controller
     {
 //        $this->authorize('create-schedule', Employee::class);
 
-        $schedules = $request->all()['input'];
+        $schedules = $request->all()['input']['schedules'];
+        $willActivateAt = $request->all()['input']['will_activate_at'];
 
         try {
             foreach($schedules as $schedule) {
                 $this->employees->updateSchedule(collect($schedule));
             }
+
+            $this->employees->storeActivatedAt($schedules[0]['employee_id'], Carbon::parse($willActivateAt));
 
             return $this->success();
 

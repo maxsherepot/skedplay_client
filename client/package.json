@@ -38,6 +38,8 @@
     "rc-slider": "^8.7.1",
     "react": "16.10.2",
     "react-datatrans-light-box": "^2.0.2",
+    "react-date-picker": "^7.10.0",
+    "react-datepicker": "^2.10.1",
     "react-dom": "16.10.2",
     "react-images": "^1.0.0",
     "react-multi-carousel": "^2.2.5",
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
+    "css-loader": "^3.4.0",
     "postcss-custom-properties": "^9.0.2",
     "postcss-easy-import": "^3.0.0",
     "postcss-import": "^12.0.1",

@@ -115,7 +115,20 @@ const GirlsSearch = ({ user, entityName }) => {
 
         return `Age from ${from} to ${to}`;
       }
-    }
+    },
+    {
+      component: "checkbox",
+      name: "show_level",
+      label: "Coming soon",
+      checked: false,
+      labelResolver(value) {
+        if (value) {
+          return this.label;
+        }
+
+        return null;
+      }
+    },
   ];
 
   function filterFilters(filters) {
@@ -138,8 +151,18 @@ const GirlsSearch = ({ user, entityName }) => {
         delete filter[0].__typename;
       }
 
+      if (key === 'show_level') {
+        // 1 - active, 2 - soon
+        // filter = filter ? 2 : 1;
+        filter = !!filter;
+      }
+
       filteredFilters[key] = filter;
     });
+
+    // if (!filteredFilters.show_level) {
+    //   filteredFilters.show_level = 1;
+    // }
 
     return filteredFilters;
   }
@@ -152,12 +175,17 @@ const GirlsSearch = ({ user, entityName }) => {
 
   let filteredFilters = stateFilters;
 
+  let filtersForQuery = Object.assign({}, filteredFilters);
+
+  // 1 - active, 2 - coming soon
+  filtersForQuery.show_level = filtersForQuery.show_level ? [1, 2] : [1];
+
   const { loading: employeesLoading, error: employeesError, data: { employees } = {}, refetch, networkStatus } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 10,
       page,
       filters: {
-        ...filteredFilters
+        ...filtersForQuery
       }
     }
   });

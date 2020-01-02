@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormikContext } from "formik";
-import { SelectGroupField, SelectField, ToggleField } from "UI";
+import { SelectGroupField, SelectField, ToggleField, DateField } from "UI";
 
 const AdScheduleStep = () => {
   const { values } = useFormikContext();
@@ -120,6 +120,13 @@ const AdScheduleStep = () => {
             </div>
           </div>
         ))}
+        <DateField
+          className="w-full sm:w-1/2 lg:w-1/3"
+          inputClassName="w-full md:w-1/3"
+          label="Activate date"
+          name="will_activate_at"
+          placeholder="Activate date"
+        />
       </div>
     </div>
   );

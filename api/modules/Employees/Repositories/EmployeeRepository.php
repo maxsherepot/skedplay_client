@@ -2,6 +2,7 @@
 
 namespace Modules\Employees\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Entities\EmployeeScheduleWork;
@@ -110,6 +111,31 @@ class EmployeeRepository implements HasMediable
     public function storeSchedule(Collection $collection): \Illuminate\Database\Eloquent\Model
     {
         return EmployeeScheduleWork::create($collection->toArray());
+    }
+
+    /**
+     * @param int $employeeId
+     * @param Carbon|null $willActivatedAt
+     */
+    public function storeActivatedAt(int $employeeId, ?Carbon $willActivatedAt = null): void
+    {
+        if (!$willActivatedAt || $willActivatedAt < now()) {
+            Employee::whereId($employeeId)->update([
+                'will_activate_at' => null,
+                'active' => 1,
+                'soon' => 0,
+                'show_level' => Employee::SHOW_LEVEL_ACTIVE,
+            ]);
+        }
+
+        $soon = $willActivatedAt->subDays(Employee::SOON_DAYS) < now();
+
+        Employee::whereId($employeeId)->update([
+            'will_activate_at' => $willActivatedAt->startOfDay(),
+            'active' => 0,
+            'soon' => $soon ? 1 : 0,
+            'show_level' => $soon ? Employee::SHOW_LEVEL_SOON : Employee::SHOW_LEVEL_HIDDEN,
+        ]);
     }
 
     /**

@@ -10,6 +10,7 @@ export const ALL_EMPLOYEES = gql `
         address
         isVip
         isNew
+        soon
         favorited {
           id
         }

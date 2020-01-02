@@ -60,7 +60,7 @@ export const CREATE_EMPLOYEE_EVENT = gql `
 
 export const CREATE_EMPLOYEE_SCHEDULE = gql `
   mutation createEmployeeSchedule(
-    $input: [EmployeeScheduleInput]
+    $input: EmployeeSchedulesInput
   ) {
     createEmployeeSchedule(
       input: $input
@@ -73,7 +73,7 @@ export const CREATE_EMPLOYEE_SCHEDULE = gql `
 
 export const UPDATE_EMPLOYEE_SCHEDULE = gql `
   mutation updateEmployeeSchedule(
-    $input: [EmployeeScheduleInput]
+    $input: EmployeeSchedulesInput
   ) {
     updateEmployeeSchedule(
       input: $input

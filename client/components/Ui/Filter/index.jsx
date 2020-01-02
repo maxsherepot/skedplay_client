@@ -6,7 +6,8 @@ import {
   MultiSelectField,
   FormGroup,
   RangeSlider,
-  SelectedBar
+  SelectedBar,
+  CheckboxField
 } from "UI";
 
 function Filter({ name, fields, inititalState, filters, setFilters, setFilter }) {
@@ -38,7 +39,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
                 className="flex flex-col flex-wrap items-center justify-between lg:flex-row"
                 onSubmit={handleSubmit}
               >
-                <div className="flex flex-wrap items-end w-full lg:w-4/5 -mx-4">
+                <div className="flex flex-wrap items-end w-full -mx-4">
                   {fields &&
                     fields.map(({ component, ...rest }, index) => {
                       switch (component) {
@@ -46,7 +47,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
                           return (
                             <SelectField
                               key={index}
-                              className="w-full lg:w-1/5 px-2"
+                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                             ></SelectField>
@@ -56,7 +57,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
                           return (
                             <MultiSelectField
                               key={index}
-                              className="w-full lg:w-1/5 px-2"
+                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                             ></MultiSelectField>
@@ -66,11 +67,22 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
                           return (
                             <RangeSlider
                               key={index}
-                              className="w-full lg:w-1/5 px-2"
+                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
                             ></RangeSlider>
+                          );
+
+                        case "checkbox":
+                          return (
+                            <div className="form-group px-2 pb-2 relative" key={index}>
+                              <CheckboxField
+                                className=""
+                                {...rest}
+                                value={filters[rest.name]}
+                              ></CheckboxField>
+                            </div>
                           );
 
                         default:

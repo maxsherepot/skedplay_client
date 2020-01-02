@@ -1,0 +1,21 @@
+.react-datepicker-popper {
+  z-index: 11;
+}
+
+.react-datepicker__input-container input {
+  display: block;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  border-width: 1px;
+  min-width: 100%;
+  border-color: #CCCCCC;
+  font-size: 1.0625rem;
+  line-height: 1;
+  transition: all .3s ease;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  height: 3.125rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.9rem;
+  outline: none;
+}

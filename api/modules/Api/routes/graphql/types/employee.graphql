@@ -35,6 +35,9 @@ type Employee {
   reviews: [Review] @hasMany
   #
   unread_messages_count: Int! @method(name: "unreadMessagesCount")
+  will_activate_at: String
+  active: Int!
+  soon: Int!
 }
 
 #  service_for: String // Todo: Add serice for
@@ -70,6 +73,7 @@ input EmployeeFilters {
   age: AgeRange @whereBetween
 #  race_type: String @whereHas(key: "race_type_id", method: "whereIn")
   race_type_id: String @where
+  show_level: [Int] @in
   __typename: String
 }
 

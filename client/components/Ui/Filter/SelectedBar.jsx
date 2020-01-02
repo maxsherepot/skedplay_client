@@ -20,6 +20,10 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
       return field.labelResolver(value);
     }
 
+    if (field.component === 'checkbox' && field.label && value) {
+      return field.label;
+    }
+
     return null;
   };
 

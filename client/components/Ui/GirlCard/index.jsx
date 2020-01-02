@@ -85,6 +85,27 @@ function GirlCard({
 
   const [photo] = girl.photos;
 
+  const getLink = (girl) => {
+    if (girl.soon) {
+      return (
+        <span className="text-sm font-medium leading-tight hover:text-red">
+          {girl.name}, {girl.age}
+        </span>
+      );
+    }
+
+    return (
+      <Link
+        href={girl.soon ? "" : "/employees/[id]/information"}
+        as={girl.soon ? "" : `/employees/${girl.id}/information`}
+      >
+        <a className="text-sm font-medium leading-tight hover:text-red">
+          {girl.name}, {girl.age}
+        </a>
+      </Link>
+    );
+  };
+
   return (
     <div className={cx(className, "girls__item bg-white border border-red")}>
       <div className="absolute z-20 top-0 right-0 p-3-5">
@@ -108,14 +129,7 @@ function GirlCard({
       )}
 
       <div className="p-3 z-10">
-        <Link
-          href="/employees/[id]/information"
-          as={`/employees/${girl.id}/information`}
-        >
-          <a className="text-sm font-medium leading-tight hover:text-red">
-            {girl.name}, {girl.age}
-          </a>
-        </Link>
+        {getLink(girl)}
         {available ? (
           <div className="flex">{availableButtons()}</div>
         ) : (
