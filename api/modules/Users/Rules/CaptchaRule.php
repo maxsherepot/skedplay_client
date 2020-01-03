@@ -4,10 +4,23 @@ namespace Modules\Users\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Modules\Users\Services\Captcha\Captcha;
+use Modules\Users\Services\LoginAttemptsCounter;
 
 class CaptchaRule implements Rule
 {
     use Captcha;
+
+    private const MAX_LOGIN_ATTEMPTS = 3;
+
+    /**
+     * @var LoginAttemptsCounter
+     */
+    private $attemptsCounter;
+
+    public function __construct()
+    {
+        $this->attemptsCounter = app()->make(LoginAttemptsCounter::class);
+    }
 
     /**
      * Determine if the validation rule passes.
@@ -18,12 +31,19 @@ class CaptchaRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (config('recaptcha.enabled')
-            && !$this->checkRecaptcha($value, request()->ip())) {
-            return false;
+        if (!config('recaptcha.enabled')) {
+            return true;
         }
 
-        return true;
+        $ip = request()->ip();
+
+        \Log::info('ttemptsCounter->getCount($ip)', [$this->attemptsCounter->getCount($ip) <= self::MAX_LOGIN_ATTEMPTS]);
+
+        if ($this->attemptsCounter->getCount($ip) <= self::MAX_LOGIN_ATTEMPTS) {
+            return true;
+        }
+
+        return !!$this->checkRecaptcha($value, $ip);
     }
 
     /**

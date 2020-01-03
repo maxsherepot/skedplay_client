@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
@@ -22,7 +22,7 @@ const LoginForm = ({ onSubmit }) => {
       validationSchema={Yup.object().shape({
         username: Yup.string().required(), // Todo: add phone number validation
         password: Yup.string().required(),
-        recaptcha: Yup.string().required()
+        // recaptcha: Yup.string().required()
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
@@ -76,9 +76,9 @@ const LoginForm = ({ onSubmit }) => {
             </div>
           </div>
 
-          <div className="flex justify-center my-5">
-            <Field name="recaptcha" as={Captcha} />
-          </div>
+          {/*<div className="flex justify-center my-5">*/}
+            {/*<Field name="recaptcha" as={Captcha} />*/}
+          {/*</div>*/}
 
           <Button
             className="text-xl min-w-full"

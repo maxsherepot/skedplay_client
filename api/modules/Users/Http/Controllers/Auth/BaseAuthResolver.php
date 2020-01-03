@@ -3,6 +3,7 @@
 namespace Modules\Users\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Modules\Users\Services\LoginAttemptsCounter;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 
 class BaseAuthResolver
@@ -35,9 +36,17 @@ class BaseAuthResolver
         ]);
         $response = app()->handle($request);
         $decodedResponse = json_decode($response->getContent(), true);
-        if ($response->getStatusCode() != 200) {
+
+        $statusCode = (int) $response->getStatusCode();
+
+        if ($statusCode === 401) {
+            app()->make(LoginAttemptsCounter::class)->incrementCount(\request()->ip());
+        }
+
+        if ($statusCode != 200) {
             throw new AuthenticationException($decodedResponse['message']);
         }
+
         return $decodedResponse;
     }
 }

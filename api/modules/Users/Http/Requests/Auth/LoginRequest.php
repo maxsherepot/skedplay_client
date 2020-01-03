@@ -17,7 +17,7 @@ class LoginRequest extends GraphQLFormRequest
         return [
             'username'      => 'required',
             'password'      => 'required',
-            'recaptcha'     => ['bail', 'required', 'string', new CaptchaRule],
+//            'recaptcha'     => ['bail', new CaptchaRule],
             'remember_me'   => 'nullable|boolean',
         ];
     }

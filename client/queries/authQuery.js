@@ -4,7 +4,7 @@ export const LOGIN_USER = gql`
   mutation login(
     $username: String!
     $password: String!
-    $recaptcha: String! # $remember_me: Boolean
+    $recaptcha: String # $remember_me: Boolean
   ) {
     login(
       input: {
