@@ -84,7 +84,7 @@ function RegisterForm({ onSubmit, children }) {
         recaptcha: "",
         code: ""
       }}
-      validate={validate}
+      validationSchema={activeStep.props.validationSchema || {}}
       onSubmit={handleSubmits}
     >
       {({ handleSubmit, isSubmitting, status }) => (
