@@ -15,13 +15,9 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
   return (
     <>
       <div
-        className="flex flex-col py-12"
-        style={{
-          background:
-            "linear-gradient(75deg, #F5758F, #D899CB, #4C3261, #3B3045)"
-        }}
+        className="flex flex-col py-4 employee-search"
       >
-        <div className="fluid-container w-full">
+        <div className="fluid-container w-full z-1">
           <div className="text-xl lg:text-3xl text-white font-black capitalize">
             {name}
           </div>
@@ -76,9 +72,13 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
 
                         case "checkbox":
                           return (
-                            <div className="form-group px-2 pb-2 relative" key={index}>
+                            <div className="form-group px-4 pb-2 relative" key={index}>
                               <CheckboxField
                                 className=""
+                                checkboxClass="white"
+                                labelStyle={{
+                                  padding: 0,
+                                }}
                                 {...rest}
                                 value={filters[rest.name]}
                               ></CheckboxField>

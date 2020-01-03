@@ -24,14 +24,30 @@ input[type="checkbox"]+div>span {
   margin-right: 9px;
 }
 
+input[type="checkbox"].white+div>span {
+  @apply flex justify-center items-center rounded cursor-pointer;
+  background-color: #fff;
+  border: none;
+}
+
 input[type="checkbox"]+div:hover,
 input[type="checkbox"]:focus+label {
   color: #555;
 }
 
+input[type="checkbox"].white+div:hover,
+input[type="checkbox"].white:focus+label {
+  color: #fff;
+}
+
 input[type="checkbox"]+div:hover>span,
 input[type="checkbox"]:focus+div>span {
   background: rgba(255, 255, 255, 0.1);
+}
+
+input[type="checkbox"].white+div:hover>span,
+input[type="checkbox"].white:focus+div>span {
+  background-color: #fff;
 }
 
 input[type="checkbox"]:checked+div>span {

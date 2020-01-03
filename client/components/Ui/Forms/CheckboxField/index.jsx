@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Checkbox } from "UI";
 import { useFormikContext, useField } from "formik";
 
-function CheckboxField({ className, label, name, ...rest }) {
+function CheckboxField({ className, checkboxClass, label, labelStyle = {}, name, ...rest }) {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
 
@@ -12,8 +12,9 @@ function CheckboxField({ className, label, name, ...rest }) {
   };
 
   return (
-    <label>
+    <label style={labelStyle}>
       <Checkbox
+        checkboxClass={checkboxClass}
         name={name}
         checked={field.value}
         value={field.value}
@@ -27,6 +28,7 @@ function CheckboxField({ className, label, name, ...rest }) {
 }
 
 CheckboxField.propTypes = {
+  labelStyle: PropTypes.object,
   className: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
