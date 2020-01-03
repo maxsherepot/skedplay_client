@@ -65,7 +65,7 @@ const LoginForm = ({ onSubmit }) => {
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
-              <CheckboxField label="Remember me" name="remember_me"  />
+              <CheckboxField label="Remember me" name="remember_me" checkboxClass="black-border" />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">
@@ -89,9 +89,13 @@ const LoginForm = ({ onSubmit }) => {
           </Button>
 
           <Link href="/register">
-            <a className="block mt-5 text-center text-red transition hover:text-pink text-lg">
+            <Button
+              className="text-xl min-w-full mt-3"
+              type="submit"
+              disabled={isSubmitting}
+            >
               Create account
-            </a>
+            </Button>
           </Link>
         </form>
       )}

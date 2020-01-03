@@ -30,6 +30,10 @@ input[type="checkbox"].white+div>span {
   border: none;
 }
 
+input[type="checkbox"].black-border+div>span {
+  border-color: #000;
+}
+
 input[type="checkbox"]+div:hover,
 input[type="checkbox"]:focus+label {
   color: #555;
