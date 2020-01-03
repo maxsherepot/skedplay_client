@@ -4,7 +4,7 @@ import dot from "dot-object";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
-import { FormGroup } from "UI";
+import { FormGroup, Label } from "UI";
 
 function TextField({
   className,
@@ -31,11 +31,14 @@ function TextField({
   return (
     <FormGroup
       className={cx(className, "relative")}
-      error={error ? true : false}
+      error={!!error}
     >
-      <label className={labelClassName} htmlFor={name}>
-        {error ? error : label}
-      </label>
+      <Label
+        name={name}
+        className={labelClassName}
+        label={label}
+        error={error}
+      />
 
       <div className="absolute left-0 bottom-0 pb-3-5  ml-6">{before}</div>
 

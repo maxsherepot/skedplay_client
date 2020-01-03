@@ -78,4 +78,8 @@ from "./ToggleField";
 export {
     default as ArrayField
 }
-    from "./ArrayField";
+from "./ArrayField";
+export {
+    default as Label
+}
+from "./Label";
