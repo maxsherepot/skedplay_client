@@ -69,7 +69,7 @@ const LoginForm = ({ onSubmit }) => {
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">
-                <a className="text-sm transition hover:opacity-75">
+                <a className="text-sm text-pink transition hover:opacity-75">
                   Lost your password?
                 </a>
               </Link>
