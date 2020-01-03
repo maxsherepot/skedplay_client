@@ -1,7 +1,7 @@
 import React from "react";
 import { GET_EMPLOYEE_PARAMETERS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { TextField, SelectField, TextAreaField } from "UI";
+import { TextField, PhoneField, SelectField, TextAreaField } from "UI";
 
 const AdInformationStep = () => {
   const { data: { parameters } = {} } = useQuery(
@@ -141,7 +141,7 @@ const AdInformationStep = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          <TextField
+          <PhoneField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label="Phone (example + 4179 251-15-22)"

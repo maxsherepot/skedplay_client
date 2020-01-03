@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Button, TextField } from "UI";
+import { Button, TextField, PhoneField } from "UI";
 import { getErrors } from "utils";
 
 const EditAccount = ({ initialValues, onSubmit }) => {
@@ -60,7 +60,7 @@ const EditAccount = ({ initialValues, onSubmit }) => {
 
             <TextField className="w-1/3" label="Contact email" name="email" />
 
-            <TextField
+            <PhoneField
               className="w-1/3"
               label="Contact phone number"
               name="phone"

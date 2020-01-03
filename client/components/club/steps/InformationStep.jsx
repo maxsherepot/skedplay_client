@@ -100,6 +100,7 @@ const InformationStep = ({ club }) => {
                 label="Phone (example +4176 251-15-22)"
                 name="phones"
                 placeholder="+4179"
+                phones={true}
             />
         </div>
     </>

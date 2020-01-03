@@ -10,7 +10,8 @@ import {
   TextField,
   SelectField,
   TextAreaField,
-  FileField
+  FileField,
+  PhoneField
 } from "UI";
 import { getErrors } from "utils";
 
@@ -155,7 +156,7 @@ function NewClubForm({ onSubmit }) {
             </div>
 
             <div className="flex w-full -mx-3">
-              <TextField
+              <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Phone (example +4176 251-15-22)"
@@ -211,7 +212,7 @@ function NewClubForm({ onSubmit }) {
             </div>
 
             <div className="flex w-full -mx-3">
-              <TextField
+              <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="Club administration phone number"

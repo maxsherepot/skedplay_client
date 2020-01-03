@@ -3,12 +3,12 @@ import * as Yup from "yup";
 import { Field } from "formik";
 
 import Captcha from "components/Captcha";
-import { TextField } from "components/Ui";
+import { PhoneField } from "components/Ui";
 
 function SendCodeStep() {
   return (
     <>
-      <TextField
+      <PhoneField
         className="my-4"
         label="Phone number"
         name="phone"

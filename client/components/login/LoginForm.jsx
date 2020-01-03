@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import Link from "next/link";
 
-import { TextField, CheckboxField, Button, FormGroup } from "UI";
+import { TextField, PhoneField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import Captcha from "components/Captcha";
 
@@ -43,7 +43,7 @@ const LoginForm = ({ onSubmit }) => {
     >
       {({ handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <TextField
+          <PhoneField
             className="mt-4"
             label="Phone number"
             name="username"

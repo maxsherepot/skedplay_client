@@ -11,6 +11,10 @@ export {
 }
 from "./TextField";
 export {
+    default as PhoneField
+}
+from "./PhoneField";
+export {
     default as DateField
 }
 from "./DateField";

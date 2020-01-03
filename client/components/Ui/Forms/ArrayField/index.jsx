@@ -3,10 +3,16 @@ import cx from "classnames";
 import PropTypes from "prop-types";
 import { TrashSvg } from "icons";
 import { FieldArray, useFormikContext } from 'formik';
-import { Button, TextField } from 'UI';
+import { Button, TextField, PhoneField } from 'UI';
 
-const ArrayField = ({ className, name, label }) => {
+const ArrayField = ({ className, name, label, phones }) => {
     const { values } = useFormikContext();
+
+    const getField = (name, index) => {
+      return phones
+        ? (<PhoneField className="flex-1" label="" name={`${name}.${index}`} />)
+        : (<TextField className="flex-1" label="" name={`${name}.${index}`} />);
+    };
 
     return (
       <div className={cx(className, "form-group")}>
@@ -18,7 +24,7 @@ const ArrayField = ({ className, name, label }) => {
                       {values[name] && (
                           values[name].map((item, index) => (
                               <div className="flex items-center px-3" key={index}>
-                                  <TextField className="flex-1" label="" name={`${name}.${index}`} />
+                                  {getField(name, index)}
                                   <button
                                       className="form-group ml-4"
                                       type="button"
@@ -43,6 +49,7 @@ const ArrayField = ({ className, name, label }) => {
 
 ArrayField.propTypes = {
   className: PropTypes.string,
+  phones: PropTypes.boolean,
 };
 
 export default ArrayField;
