@@ -7,7 +7,7 @@ input LoginInput {
 
 input ForgotPasswordInput {
   phone: String!
-  recaptcha: String!
+  recaptcha: String
 }
 
 input NewPasswordWithCodeInput {

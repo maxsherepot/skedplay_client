@@ -73,7 +73,7 @@ export const CHECK_VERTIFICATION_CODE = gql`
 `;
 
 export const FORGOT_PASSWORD = gql`
-  mutation forgotPassword($phone: String!, $recaptcha: String!) {
+  mutation forgotPassword($phone: String!, $recaptcha: String) {
     forgotPassword(input: { phone: $phone, recaptcha: $recaptcha }) {
       expires_at
       status

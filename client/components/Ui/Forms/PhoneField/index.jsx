@@ -27,8 +27,6 @@ function PhoneField({
 
   if (error && typeof error === 'string') {
     error = error.replace(name, label);
-  } else {
-    console.log(error);
   }
 
   return (

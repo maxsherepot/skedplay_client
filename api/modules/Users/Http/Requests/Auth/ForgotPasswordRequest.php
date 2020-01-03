@@ -16,7 +16,7 @@ class ForgotPasswordRequest extends GraphQLFormRequest
     {
         return [
             'phone'     => 'bail|required|string|phone:AUTO,CH',
-            'recaptcha' => ['bail', 'required', 'string', new CaptchaRule],
+//            'recaptcha' => ['bail', 'required', 'string', new CaptchaRule],
 
         ];
     }
