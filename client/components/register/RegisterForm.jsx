@@ -16,7 +16,7 @@ function RegisterForm({ onSubmit, children }) {
   const isLastStep = step === React.Children.count(children) - 1;
 
   React.useEffect(() => {
-    const maxWidth = isLastStep ? '630px' : '410px';
+    const maxWidth = isLastStep ? '700px' : '410px';
 
     document.querySelector('.modal__content').style.maxWidth = maxWidth;
   });
