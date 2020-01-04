@@ -96,9 +96,14 @@ function create(initialState, {
           {
             field: "age",
             order: 'ASC',
-            // __typename: "orderBy"
+            __typename: "orderBy1"
           }
         ],
+        age: {
+          from: 18,
+          to: 45,
+          __typename: "age1"
+        },
         __typename: "BoyFilters"
       },
       couple: {
@@ -110,9 +115,14 @@ function create(initialState, {
           {
             field: "age",
             order: 'ASC',
-            // __typename: "orderBy"
+            __typename: "orderBy2"
           }
         ],
+        age: {
+          from: 18,
+          to: 45,
+          __typename: "age2"
+        },
         __typename: "CoupleFilters"
       },
       clubs: {
