@@ -15,7 +15,7 @@ class SendVerificationRequest extends GraphQLFormRequest
     public function rules()
     {
         return [
-            'phone'     => 'bail|required|string|phone:AUTO,CH',
+            'phone'     => 'bail|required|string|phone:AUTO,CH|unique:users',
 //            'recaptcha' => ['bail', 'required', 'string', new CaptchaRule],
         ];
     }

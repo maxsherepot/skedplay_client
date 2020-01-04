@@ -7,12 +7,12 @@ import { TextField, FormGroup } from "UI";
 const CheckCodeStep = ({ phone }) => {
   return (
     <>
-      <div className="block text-xs text-center leading-normal my-4 px-6">
+      <div className="block text-sm text-center leading-normal my-4 px-6">
         A verification code has been sent your phone number
       </div>
 
       {phone && (
-        <div className="block text-lg text-center font-medium">{phone}</div>
+        <div className="block text-xl text-center text-dark-green font-medium">{phone}</div>
       )}
 
       <TextField

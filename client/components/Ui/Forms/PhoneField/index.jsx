@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import cx from "classnames";
 import dot from "dot-object";
 import PropTypes from "prop-types";
@@ -29,6 +29,27 @@ function PhoneField({
     error = error.replace(name, label);
   }
 
+  const [value, setValue] = useState('');
+
+  const beforeMaskedValueChange = (newState, oldState, userInput) => {
+    let { value, selection } = newState;
+
+    if (value.substr(4, 1) === '0') {
+      value = value.substr(0, 4);
+      selection = {
+        start: 4,
+        end: 4
+      };
+    }
+
+    setValue(value);
+
+    return {
+      value,
+      selection
+    };
+  };
+
   return (
     <FormGroup
       className={cx(className, "relative")}
@@ -50,8 +71,9 @@ function PhoneField({
               "pl-10": before
             })}
             {...field}
-            value={field.value || ""}
+            value={value}
             style={before ? { paddingLeft: "2.5rem" } : null}
+            beforeMaskedValueChange={beforeMaskedValueChange}
           />
         )}
       </Field>

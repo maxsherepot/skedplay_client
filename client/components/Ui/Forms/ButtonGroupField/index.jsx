@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 import { FormGroup } from "UI";
 
-function ButtonGroupField({ className, label, name, items }) {
+function ButtonGroupField({ className, label, name, items, style }) {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
   if (!items) return null;
 
   return (
-    <FormGroup className={className} error={error ? true : false}>
+    <FormGroup className={className} error={!!error} style={style}>
       <label className="text-grey" htmlFor={name}>
         {error ? error : label}
       </label>

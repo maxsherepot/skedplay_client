@@ -10,8 +10,11 @@
   }
 
   .button {
+    transition: box-shadow .2s cubic-bezier(0.47, 0, 0.75, 0.72);
+
     &:hover {
       @apply text-red;
+      box-shadow: 1px 1px 1px rgba(0,0,0,.1) inset, -1px -1px 1px rgba(0,0,0,.1) inset, -1px 1px 1px rgba(0,0,0,.1) inset, 1px -1px 1px rgba(0,0,0,.1) inset;
     }
 
     &.active {

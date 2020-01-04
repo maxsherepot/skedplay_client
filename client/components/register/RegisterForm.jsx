@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import cx from "classnames";
 
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
@@ -13,6 +14,12 @@ function RegisterForm({ onSubmit, children }) {
   const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
+
+  React.useEffect(() => {
+    const maxWidth = isLastStep ? '630px' : '410px';
+
+    document.querySelector('.modal__content').style.maxWidth = maxWidth;
+  });
 
   const next = () => {
     setStep(Math.min(step + 1, children.length - 1));
@@ -110,19 +117,24 @@ function RegisterForm({ onSubmit, children }) {
             </div>
           )}
 
-          <div className="flex flex-col md:flex-row justify-between mt-4">
+          <div className={cx([
+            "flex flex-col justify-between mt-4",
+            isLastStep ? "md:flex-row" : ""
+          ])}>
             <Button
               type="submit"
               className="text-xl px-8 sm:px-25 mb-3"
               disabled={isSubmitting}
             >
-              {isLastStep ? "Sign Up" : "Next step"}
+              Next step
             </Button>
 
             <Link href="/login">
               <Button
                 className="text-xl px-8 sm:px-12 mb-3 ml-1"
                 disabled={isSubmitting}
+                outline
+                level="primary-black"
               >
                 Already have an account
               </Button>

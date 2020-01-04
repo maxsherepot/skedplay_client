@@ -7,6 +7,9 @@ const RegisterStep = () => {
   return (
     <>
       <ButtonGroupField
+        style={{
+          marginBottom: '50px',
+        }}
         className="mt-4"
         label="What account type you need"
         name="account_type"

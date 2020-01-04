@@ -11,6 +11,9 @@ function Register() {
     <>
       <AnimationBackground />
       <Modal
+        contentStyle={{
+          maxWidth: '410px'
+        }}
         logo={<Logo />}
         title="Sing up"
         left={<ArrowBack href="/" />}
