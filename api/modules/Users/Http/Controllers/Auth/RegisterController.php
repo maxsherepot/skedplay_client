@@ -74,7 +74,9 @@ class RegisterController extends Controller
         $data->put('name', $data->only(['first_name', 'last_name'])->implode(' '));
 
         if ($birthday = $data->get('birthday')) {
-            $data->put('age', Carbon::parse($birthday)->age);
+            $birthday = Carbon::parse($birthday);
+            $data->put('birthday', $birthday);
+            $data->put('age', $birthday->age);
         }
 
         return $data;

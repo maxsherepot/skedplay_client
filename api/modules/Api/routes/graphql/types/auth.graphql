@@ -27,7 +27,7 @@ input RegisterInput {
   first_name: String!
   last_name: String
   gender: Int
-  birthday: Date
+  birthday: String
   club_type_id: Int
   phone: String!
   email: String!

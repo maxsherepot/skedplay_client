@@ -43,6 +43,7 @@
     "react-dom": "16.10.2",
     "react-images": "^1.0.0",
     "react-input-mask": "^2.0.4",
+    "react-maskinput": "^2.0.1",
     "react-multi-carousel": "^2.2.5",
     "react-paginate": "^6.3.0",
     "react-popover": "^0.5.10",

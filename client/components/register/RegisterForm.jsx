@@ -74,7 +74,8 @@ function RegisterForm({ onSubmit, children }) {
   return (
     <Formik
       initialValues={{
-        account_type: "client",
+        account_type: "",
+        birthday: "",
         first_name: "",
         phone: "",
         email: "",
@@ -84,6 +85,7 @@ function RegisterForm({ onSubmit, children }) {
         recaptcha: "",
         code: ""
       }}
+      // validate={validate}
       validationSchema={activeStep.props.validationSchema || {}}
       onSubmit={handleSubmits}
     >
@@ -118,9 +120,12 @@ function RegisterForm({ onSubmit, children }) {
             </Button>
 
             <Link href="/login">
-              <a className="flex flex-1 items-center justify-center text-red transition hover:text-pink text-lg">
+              <Button
+                className="text-xl px-8 sm:px-12 mb-3 ml-1"
+                disabled={isSubmitting}
+              >
                 Already have an account
-              </a>
+              </Button>
             </Link>
           </div>
         </form>

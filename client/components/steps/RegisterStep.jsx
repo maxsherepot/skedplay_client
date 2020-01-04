@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { TextField, ButtonGroupField } from "UI";
+import { TextField, ButtonGroupField, DateRawField } from "UI";
 
 const RegisterStep = () => {
   return (
@@ -43,7 +43,7 @@ const RegisterStep = () => {
           ]}
         />
 
-        <TextField
+        <DateRawField
           className="md:w-7/12 md:px-3"
           label="Date of birth"
           name="birthday"
@@ -89,6 +89,7 @@ const RegisterStep = () => {
 
 RegisterStep.validationSchema = Yup.object().shape({
   account_type: Yup.string().required(),
+  birthday: Yup.string().required(),
   first_name: Yup.string().required(),
   gender: Yup.number().required(),
   email: Yup.string().required(),

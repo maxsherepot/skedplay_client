@@ -26,6 +26,7 @@ export const LOGIN_USER = gql`
 export const REGISTER_USER = gql`
   mutation register(
     $account_type: String!
+    $birthday: String!
     $first_name: String!
     $phone: String!
     $email: String!
@@ -36,6 +37,7 @@ export const REGISTER_USER = gql`
     register(
       input: {
         account_type: $account_type
+        birthday: $birthday
         first_name: $first_name
         phone: $phone
         email: $email

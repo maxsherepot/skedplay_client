@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Http\Requests\Auth;
 
+use Carbon\Carbon;
 use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Users\Entities\User;
 use Modules\Users\Rules\CaptchaRule;
@@ -15,6 +16,8 @@ class RegistrationRequest extends GraphQLFormRequest
      */
     public function rules()
     {
+        \Log::info($this->all());
+
         $root = [
 //            'recaptcha'    => ['bail', 'required', 'string', new CaptchaRule],
             // 'plan_id'      => 'bail|nullable|numeric|exists:plans,id',
@@ -36,7 +39,12 @@ class RegistrationRequest extends GraphQLFormRequest
             case User::ACCOUNT_EMPLOYEE:
                 $root = array_merge($root, [
                     // 'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
-                    // 'birthday' => 'required|date',
+                    'birthday'     => [
+                        'required',
+                        'date',
+                        'after:' . now()->subYears(60)->startOfDay(),
+                        'before:' . now()->subYears(18)->startOfDay(),
+                    ],
                     'lat' => 'nullable|string',
                     'lng' => 'nullable|string',
                 ]);
@@ -54,5 +62,13 @@ class RegistrationRequest extends GraphQLFormRequest
     public function authorize()
     {
         return true;
+    }
+
+    public function messages()
+    {
+        return array_merge(parent::messages(), [
+            'birthday.after' => 'Your age must be between 18 and 60.',
+            'birthday.before' => 'Your age must be between 18 and 60.',
+        ]);
     }
 }
