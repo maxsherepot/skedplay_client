@@ -37,12 +37,13 @@ function ClubsBox({ inititalState }) {
 
   return (
     <>
-      <Sort setFilter={() => {}}>
+      <div className="fluid-container flex justify-between my-6">
         <div>
           {clubs && clubs.paginatorInfo ? clubs.paginatorInfo.total : 0}
           <span className="ml-1">clubs found</span>
         </div>
-      </Sort>
+      </div>
+
       <div className="fluid-container">
         {clubs && clubs.data && !loading ? (
           <>

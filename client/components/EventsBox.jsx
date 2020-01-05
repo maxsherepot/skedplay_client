@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { usePagination } from "hooks";
 import { ALL_EVENTS } from "queries/eventQuery";
 import { EventCard, Pagination, Sort, AddressCard } from "UI";
+import React from "react";
 
 function EventsBox({ inititalState }) {
   const [page, setPage] = usePagination();
@@ -32,12 +33,12 @@ function EventsBox({ inititalState }) {
 
   return (
     <>
-      <Sort setFilter={() => {}}>
+      <div className="fluid-container flex justify-between my-6">
         <div>
           {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
           <span className="ml-1">event found</span>
         </div>
-      </Sort>
+      </div>
 
       <div className="fluid-container">
         {events && events.data && !loading ? (
