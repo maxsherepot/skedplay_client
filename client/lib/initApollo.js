@@ -69,6 +69,7 @@ function create(initialState, {
     step: 0,
     filters: {
       girls: {
+        type: 1,
         location: "",
         services: [],
         gender: "",
@@ -88,6 +89,7 @@ function create(initialState, {
         __typename: "GirlFilters"
       },
       boys: {
+        type: 2,
         location: "",
         services: [],
         gender: "",
@@ -107,6 +109,7 @@ function create(initialState, {
         __typename: "BoyFilters"
       },
       couple: {
+        type: 3,
         location: "",
         services: [],
         gender: "",

@@ -5,6 +5,7 @@ export const GET_FILTERS_STATE = gql`
     filters @client {
       girls {
 #        location
+        type
         services
         gender
         race_type_id
@@ -19,6 +20,7 @@ export const GET_FILTERS_STATE = gql`
       }
       boys {
 #        location
+        type
         services
         gender
         race_type_id
@@ -33,6 +35,7 @@ export const GET_FILTERS_STATE = gql`
       }
       couple {
 #        location
+        type
         services
         gender
         race_type_id

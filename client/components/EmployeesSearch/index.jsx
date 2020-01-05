@@ -5,131 +5,12 @@ import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, ALL_EMPLOYEES } from "queries"
 import EmployeesBox from "components/EmployeesBox";
 import { usePagination } from "hooks";
 import {useState} from "react";
+import {Sort} from "UI";
+import React from "react";
 
-const GirlsSearch = ({ user, entityName }) => {
+const GirlsSearch = ({ user, entityName, fields, filters, }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState({});
-
-  const { loading, data: { services, employee_race_types } = {} } = useQuery(
-    GIRLS_FILTER_OPTIONS
-  );
-
-  const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
-
-  if (loading || filtersLoading) {
-    return "Loading...";
-  }
-
-  if (error || !filters) {
-    console.log(error);
-
-    return 'error';
-  }
-
-  const fields = [
-    // {
-    //   component: "select",
-    //   name: "location",
-    //   label: "Location",
-    //   placeholder: "Select your location",
-    //   options: [
-    //     {
-    //       label: "Zürich",
-    //       value: "zürich"
-    //     },
-    //     {
-    //       label: "Geneva",
-    //       value: "geneva"
-    //     },
-    //     {
-    //       label: "Basel",
-    //       value: "basel"
-    //     },
-    //     {
-    //       label: "Lausanne",
-    //       value: "lausanne"
-    //     },
-    //     {
-    //       label: "Bern",
-    //       value: "bern"
-    //     },
-    //     {
-    //       label: "Winterthur",
-    //       value: "winterthur"
-    //     },
-    //     {
-    //       label: "Lucerne",
-    //       value: "lucerne"
-    //     }
-    //   ]
-    // },
-    {
-      component: "multi-select",
-      name: "services",
-      label: "Services",
-      placeholder: "Select services",
-      showCheckboxes: true,
-      options: services.map(s => {
-        return { label: s.name, value: s.id };
-      })
-    },
-    {
-      component: "select",
-      name: "gender",
-      label: "Gender",
-      placeholder: "All Gender",
-      options: [
-        {
-          label: "All Gender",
-          value: ''
-        },
-        {
-          label: "Female",
-          value: 2
-        },
-        {
-          label: "Male",
-          value: 1
-        }
-      ]
-    },
-    {
-      component: "select",
-      name: "race_type_id",
-      label: "Type",
-      placeholder: "Select type",
-      options: employee_race_types.map(s => {
-        return { label: s.name, value: s.id };
-      })
-    },
-    {
-      component: "range",
-      name: "age",
-      label: "Age",
-      from: 18,
-      to: 45,
-      labelResolver({from, to}) {
-        if (parseInt(from) === 18 && parseInt(to) === 45) {
-          return null;
-        }
-
-        return `Age from ${from} to ${to}`;
-      }
-    },
-    {
-      component: "checkbox",
-      name: "show_level",
-      label: "Coming soon",
-      checked: false,
-      labelResolver(value) {
-        if (value) {
-          return this.label;
-        }
-
-        return null;
-      }
-    },
-  ];
 
   function filterFilters(filters) {
     const filteredFilters = {};
@@ -203,6 +84,29 @@ const GirlsSearch = ({ user, entityName }) => {
     refetch();
   }
 
+  const sorts = [
+    {
+      id: 1,
+      label: 'First: young',
+      orderBy: [
+        {
+          field: "age",
+          order: 'ASC',
+        }
+      ],
+    },
+    {
+      id: 2,
+      label: 'First: old',
+      orderBy: [
+        {
+          field: "age",
+          order: 'DESC',
+        }
+      ],
+    },
+  ];
+
   return (
     <>
       <Filter
@@ -214,14 +118,12 @@ const GirlsSearch = ({ user, entityName }) => {
         setFilters={setFilters}
       />
       <EmployeesBox
-        inititalState={filters[entityName]}
+        sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
         loading={employeesLoading}
         error={employeesError}
         page={page}
         setPage={setPage}
         employees={employees}
-        setFilter={setFilter}
-        setFilters={setFilters}
         networkStatus={networkStatus}
       />
     </>

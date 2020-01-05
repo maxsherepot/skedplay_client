@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort } from "UI";
+import React from "react";
 
-function EmployeesBox({ inititalState = {}, employees, loading, error, page, setPage, setFilter, networkStatus }) {
+function EmployeesBox({ sortComponent, employees, loading, error, page, setPage, networkStatus }) {
 
   if (loading || networkStatus === 4) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -12,14 +13,15 @@ function EmployeesBox({ inititalState = {}, employees, loading, error, page, set
 
   return (
     <>
-      <Sort setFilter={setFilter} orderBy={inititalState.orderBy}>
+      <div className="fluid-container flex justify-between my-6">
         <div>
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total
             : 0}
           <span className="ml-1">adverts found</span>
         </div>
-      </Sort>
+        {sortComponent}
+      </div>
 
       <div className="fluid-container">
         <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-2">
@@ -45,7 +47,7 @@ function EmployeesBox({ inititalState = {}, employees, loading, error, page, set
 }
 
 EmployeesBox.propTypes = {
-  inititalState: PropTypes.object.isRequired
+  // inititalState: PropTypes.object.isRequired
 };
 
 export default EmployeesBox;
