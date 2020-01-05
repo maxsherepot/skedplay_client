@@ -8,13 +8,13 @@ import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
 
-function ClubCard({ id, name, address, favorited, phones, photos }) {
+function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = true }) {
   let phone = null
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
 
   const [thumb] = photos;
-  
+
   if (phone) {
     const [number] = JSON.parse(phones);
     phone = number
@@ -24,7 +24,10 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
 
   return (
     <div
-      className="relative overflow-hidden w-full md:w-1/2 lg:w-1/3 hd:w-1/4 mb-6 px-3 rounded-t-lg"
+      className={cx([
+        "relative overflow-hidden mb-6 px-3 rounded-t-lg",
+        gridClasses ? "w-full md:w-1/2 lg:w-1/3 hd:w-1/4" : "",
+      ])}
       key={id}
     >
       <div
@@ -60,7 +63,7 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
           </Link>
         </div>
       </div>
-      <div className="bg-white p-5">
+      <div className="bg-white p-5 rounded-b-lg">
         <div className="flex justify-between text-xs cursor-pointer">
           <div className="flex flex-col pr-4">
             <p className="py-1 font-bold" onClick={() => setEventMapId(id)}>
@@ -116,6 +119,7 @@ function ClubCard({ id, name, address, favorited, phones, photos }) {
 ClubCard.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
+  // gridClasses: PropTypes.boolean,
   photos: PropTypes.array
 };
 

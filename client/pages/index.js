@@ -5,6 +5,7 @@ import {Header, Footer} from "UI";
 import {ArrowNextSvg} from "icons";
 import GirlsBox from "components/homepage/GirlsBox";
 import EventsBox from "components/homepage/EventsBox";
+import ClubsBox from "components/homepage/ClubsBox";
 
 import checkLoggedIn from "lib/checkLoggedIn";
 
@@ -101,6 +102,7 @@ const Index = ({ user }) => (
             hero={<EventsContainer/>}
         />
         <main className="relative z-10 mt-12 xl:mt-22-5">
+            <div className="index-bg-bottom"/>
             <div className="container">
                 <div className="flex text-black items-end leading-none text-black md:text-white">
                     <div className="text-4xl font-extrabold tracking-tighter">
@@ -115,8 +117,23 @@ const Index = ({ user }) => (
                     </Link>
                 </div>
                 <GirlsBox/>
+
+                <div className="flex text-black items-end leading-none mt-8">
+                    <div className="text-4xl font-extrabold tracking-tighter">
+                        Clubs
+                    </div>
+                    <Link href="/clubs">
+                        <a className="block text-sm whitespace-no-wrap transition ml-4">
+                            <ArrowNextSvg>
+                                <span className="mr-1">All clubs</span>
+                            </ArrowNextSvg>
+                        </a>
+                    </Link>
+                </div>
+                <ClubsBox/>
             </div>
         </main>
+
         <Footer/>
     </>
 );

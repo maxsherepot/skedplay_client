@@ -1,6 +1,6 @@
 .animation-background {
   z-index: -1;
-  @apply fixed top-0 left-0 w-full h-screen;
+  @apply fixed top-0 left-0 w-full /*h-screen*/;
   .animation-gradient {
     height: 57.6%;
     @apply block w-full relative;
@@ -26,7 +26,8 @@
 .animation-gradient {
   background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  height: 1080px;
+  //animation: gradientBG 15s ease infinite;
 }
 
 @keyframes gradientBG {
