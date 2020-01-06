@@ -53,18 +53,20 @@ function GirlCard({
   const Labels = ({ girl }) => (
     <>
       <div className="flex flex-col">
-        {girl.isNew && (
-          <div className="mb-2">
-            <Badge className="bg-black">NEW</Badge>
-          </div>
-        )}
-        {girl.isVip && (
-          <div className="mb-2">
-            <Badge className="bg-red">VIP</Badge>
-          </div>
-        )}
-        <div className="flex flex-wrap-reverse">
-          <div className="rounded-full bg-xs-grey text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
+        <div className="flex flex-col -mb-2 hide-on-hover">
+          {girl.isNew && (
+            <div className="">
+              <Badge className="bg-black">NEW</Badge>
+            </div>
+          )}
+          {girl.isVip && (
+            <div className="mt-2">
+              <Badge className="bg-red">VIP</Badge>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-wrap-reverse show-on-hover mt-2">
+          <div className="rounded-full bg-xs-grey text-xs xl:text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
             +38 050 145 78 89
           </div>
           <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
@@ -72,7 +74,7 @@ function GirlCard({
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap items-end justify-end flex-row">
+      <div className="flex flex-wrap items-end justify-end flex-row show-on-hover">
         <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
           <CocktailSvg />
         </button>
@@ -112,6 +114,9 @@ function GirlCard({
         <FavoriteButton
           variables={{ model_id: girl.id, model_type: "employee" }}
           favorited={girl.favorited}
+          small={true}
+          iconWidth={18}
+          iconHeight={16}
         />
       </div>
 

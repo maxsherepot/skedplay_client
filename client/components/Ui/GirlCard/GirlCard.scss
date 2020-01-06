@@ -10,5 +10,31 @@
       line-height: 26px;
       height: 26px;
     }
+
+    @screen xl {
+      .show-on-hover {
+        @apply transition;
+        height: 0;
+        opacity: 0;
+      }
+
+      .hide-on-hover {
+        @apply transition;
+        height: 40px;
+        opacity: 1;
+      }
+
+      &:hover {
+        .show-on-hover {
+          height: 40px;
+          opacity: 1;
+        }
+
+        .hide-on-hover {
+          height: 0;
+          opacity: 0;
+        }
+      }
+    }
   }
 }

@@ -1,9 +1,9 @@
-export default function HeartSvg({ className }) {
+export default function HeartSvg({ className, iconWidth, iconHeight }) {
   return (
     <svg
       className={className}
-      width="22"
-      height="19"
+      width={iconWidth || 22}
+      height={iconHeight || 19}
       viewBox="0 0 22 19"
       xmlns="http://www.w3.org/2000/svg"
     >

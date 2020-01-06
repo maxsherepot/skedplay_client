@@ -75,40 +75,45 @@ function Slick({ id, photos, labels, available, slider, className }) {
       {labels && (
         <div
           className={cx(
-            "absolute inset-0 flex flex-row justify-between items-end p-3",
-            isActiveSlider ? "mb-22-5" : null
+            "absolute transition inset-0 flex flex-row justify-between items-end p-3",
           )}
+          style={{
+            marginBottom: isActiveSlider ? "5.2rem" : 0,
+          }}
         >
           {labels}
         </div>
       )}
 
-      {isActiveSlider && (
-        <div className="absolute inset-0 hidden lg:flex flex-col lg:justify-end">
-          <div className="slider px-6 pt-3">
-            <Slider
-              asNavFor={mainNav}
-              ref={slider => setSlider2(slider)}
-              slidesToShow={5}
-              infinite={false}
-              swipeToSlide={true}
-              focusOnSelect={true}
-              adaptiveHeight
-              nextArrow={<NextArrow className="prev-arrow" />}
-              prevArrow={<PrevArrow className="next-arrow" />}
-            >
-              {images.map((image, i) => (
+      <div className={cx([
+        "flex w-full absolute transition bottom-0 flex-col lg:justify-end  overflow-hidden",
+        isActiveSlider ? "h-0 lg:h-24" : "h-0",
+      ])}>
+        <div className="slider px-6 pt-3">
+          <Slider
+            asNavFor={mainNav}
+            ref={slider => setSlider2(slider)}
+            slidesToShow={5}
+            infinite={false}
+            swipeToSlide={true}
+            focusOnSelect={true}
+            adaptiveHeight
+            nextArrow={<NextArrow className="prev-arrow" />}
+            prevArrow={<PrevArrow className="next-arrow" />}
+          >
+            {images.map((image, i) => (
+              <div className="pr-1 outline-none" key={i}>
                 <img
-                  key={i}
                   className="object-cover rounded-lg h-15 outline-none cursor-pointer"
                   src={image}
                   alt=""
+                  onMouseEnter={() => slider1.slickGoTo(i)}
                 />
-              ))}
-            </Slider>
-          </div>
+              </div>
+            ))}
+          </Slider>
         </div>
-      )}
+      </div>
     </div>
   );
 }
