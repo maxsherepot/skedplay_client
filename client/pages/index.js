@@ -31,7 +31,7 @@ const EventsContainer = () => (
                         className="block relative z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
                         <div className="block">Intimate</div>
                         <div className="block ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-8 xl:-mt-10">
-                            serveces
+                            services
                         </div>
                     </div>
                     <div

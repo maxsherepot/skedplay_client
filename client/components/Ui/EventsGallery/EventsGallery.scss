@@ -10,31 +10,42 @@
 .gallery-accordion {
   @apply flex;
   &__item {
-    @apply transition flex-1 overflow-hidden;
+    @apply /*transition*/ flex-1 overflow-hidden;
+    //transition: all .3s cubic-bezier(.8,.16,.42,.89);
+    transition: all .4s cubic-bezier(.8,.16,.42,.89);
     img {
-      @apply transition;
+      //@apply transition;
       height: 308px;
     }
     &__badge {
       max-width: 0;
       overflow: hidden;
       color: transparent;
-      @apply px-2 transition left-auto right-0 mr-6;
+      @apply /*px-2*/ /*transition*/ left-auto right-0 mr-6;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      transition: all .3s cubic-bezier(.8,.16,.42,.89);
     }
     &__address {
       max-width: 0;
+      opacity: 0;
       overflow: hidden;
-      @apply transition whitespace-no-wrap;
+      @apply /*transition*/ whitespace-no-wrap;
+      transition: all .3s cubic-bezier(.8,.16,.42,.89);
     }
     &__name {
       @apply text-white text-lg leading-none tracking-tighter font-extrabold;
       position: absolute;
       right: -207px;
-      bottom: 75%;
+      //bottom: 75%;
+      bottom: -6%;
       width: 251px;
       height: 40px;
-      transform: rotate(-90deg) translate(-100%);
-      transition: bottom .2s ease, left .2s ease, right .2s ease;
+      transform: rotate(-90deg) /*translate(-100%)*/;
+      //transition: bottom .2s ease, left .2s ease, right .2s ease;
+      //transition: bottom 1s ease, left 1s ease, right 1s ease;
+      //transition: transform 2s ease, font-size 2s ease;
+      transition: all .3s cubic-bezier(.8,.16,.42,.89);
       transform-origin: top left;
     }
     &.open {
@@ -45,6 +56,7 @@
         }
         &__address {
           @apply max-w-full;
+          opacity: 1;
         }
         &__name {
           @apply text-4xl p-5;

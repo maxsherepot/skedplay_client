@@ -93,6 +93,7 @@ header {
 
   &__item {
     @apply flex justify-center mr-2;
+    //@include background-hover;
     a {
       @apply text-white capitalize font-medium text-lg transition pl-5 pr-5;
       &:hover {

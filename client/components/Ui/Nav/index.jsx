@@ -12,7 +12,7 @@ const NAV_HEIGHT = 90;
 function Nav({ user, className }) {
   const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
-    throttle: 200
+    throttle: 500
   });
 
   const prevY = usePrevious(currentY || 0);
