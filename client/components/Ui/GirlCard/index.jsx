@@ -138,10 +138,14 @@ function GirlCard({
         {available ? (
           <div className="flex">{availableButtons()}</div>
         ) : (
-          <div className="text-sm text-grey">
-            <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-            150 km from me
-          </div>
+          <>
+            {girl.address &&
+              <div className="text-sm text-grey">
+                <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
+                {girl.address}
+              </div>
+            }
+          </>
         )}
       </div>
     </div>
