@@ -82,20 +82,22 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               {(employee.reviews && employee.reviews.length) || 0}
             </span>
           </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={`/employees/[id]/chat`}
-              as={`/employees/${employee.id}/chat`}
-            >
-              <a>Chat</a>
-            </ActiveLink>
-            {employee.unread_messages_count > 0 &&
-              <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
-                +{employee.unread_messages_count}
-              </span>
-            }
-          </li>
+          {user &&
+            <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
+              <ActiveLink
+                activeClassName="text-red"
+                href={`/employees/[id]/chat`}
+                as={`/employees/${employee.id}/chat`}
+              >
+                <a>Chat</a>
+              </ActiveLink>
+              {employee.unread_messages_count > 0 &&
+                <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
+                  +{employee.unread_messages_count}
+                </span>
+              }
+            </li>
+          }
         </ul>
       </SecondaryNav>
 
