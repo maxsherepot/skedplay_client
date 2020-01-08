@@ -87,7 +87,7 @@ function GirlCard({
 
   const [photo] = girl.photos;
 
-  const getLink = (girl) => {
+  const getLinkHtml = (girl) => {
     if (girl.soon) {
       return (
         <span className="text-sm font-medium leading-tight hover:text-red">
@@ -106,6 +106,14 @@ function GirlCard({
         </a>
       </Link>
     );
+  };
+
+  const getLink = (girl) => {
+    if (girl.soon) {
+      return '';
+    }
+
+    return `/employees/${girl.id}/information`;
   };
 
   return (
@@ -130,11 +138,13 @@ function GirlCard({
           labels={labels ? <Labels girl={girl} /> : null}
           slider={slider}
           available={available}
+          link="/employees/[id]/information"
+          as={getLink(girl)}
         />
       )}
 
       <div className="p-3 z-10">
-        {getLink(girl)}
+        {getLinkHtml(girl)}
         {available ? (
           <div className="flex">{availableButtons()}</div>
         ) : (
@@ -167,7 +177,7 @@ GirlCard.propTypes = {
   previewClass: PropTypes.string,
   slickClass: PropTypes.string,
   preview: PropTypes.bool,
-  girl: PropTypes.object,
+  girl: PropTypes.object.isRequired,
   labels: PropTypes.bool,
   slider: PropTypes.bool
 };
