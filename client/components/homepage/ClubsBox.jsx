@@ -46,6 +46,7 @@ function ClubsBox() {
         swipeToSlide={true}
         autoplay={true}
         autoplaySpeed={5000}
+        slidesToShow={5}
         responsive={[
           {
             breakpoint: 1780,
