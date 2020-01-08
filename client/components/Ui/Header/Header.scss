@@ -93,7 +93,7 @@ header {
 
   &__item {
     @apply flex justify-center mr-2;
-    //@include background-hover;
+    @include background-hover;
     a {
       @apply text-white capitalize font-medium text-lg transition pl-5 pr-5;
       &:hover {
@@ -160,7 +160,7 @@ header {
   &__item {
     @apply text-white text-sm transition whitespace-no-wrap pr-6;
     &:last-child {
-      padding-right: 0 !important;
+      //padding-right: 0 !important;
     }
     &:focus {
       @apply outline-none;
@@ -168,6 +168,12 @@ header {
     &:hover {
       @apply text-red;
     }
+
+    &.hovered {
+      @include background-hover;
+    }
+
+    padding: 2px 10px!important;
   }
 
   @screen sm {
@@ -179,7 +185,7 @@ header {
   @screen md {
     &__item {
       &_last {
-        padding-right: 0 !important;
+        //padding-right: 0 !important;
       }
     }
   }

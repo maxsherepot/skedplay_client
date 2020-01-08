@@ -129,7 +129,7 @@ function Nav({ user, className }) {
               </Link>
             }
             <Link href="/favorites/girls">
-              <a className="menu-icons__item">
+              <a className="menu-icons__item hovered">
                 <svg
                   className="inline-block stroke-red mr-1"
                   width="17"
@@ -148,7 +148,7 @@ function Nav({ user, className }) {
               </a>
             </Link>
             {user &&
-              <a className="menu-icons__item" href="#">
+              <a className="menu-icons__item hovered" href="#">
                 <svg
                   className="inline-block fill-red mr-1"
                   width="17"
@@ -168,14 +168,14 @@ function Nav({ user, className }) {
             ) : (
               <>
                 <Link href="/login">
-                  <a className="menu-icons__item menu-icons__item_last hidden sm:block">
+                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
                     <ProfileSvg />
                     Login
                   </a>
                 </Link>
 
                 <Link href="/register">
-                  <a className="menu-icons__item menu-icons__item_last hidden sm:block ml-3">
+                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
                     Sign up
                   </a>
                 </Link>
