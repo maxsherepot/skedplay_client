@@ -39,21 +39,37 @@
     }
   }
 
-&__content {
-&.open {
-  @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50 w-full py-4 px-4;
-  @apply overflow-y-scroll h-64;
+  &__content {
+    &.open {
+      @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50 w-full py-4 px-4;
+      @apply overflow-y-scroll h-64;
 
-  input[type="radio"] {
-    @apply w-px h-px inline-block absolute;
-    opacity: 0.01;
+      input[type="radio"] {
+        @apply w-px h-px inline-block absolute;
+        opacity: 0.01;
+      }
+
+      label {
+        @apply py-1;
+        padding-left: 0;
+        margin: 0;
+      }
+    }
   }
 
-  label {
-    @apply py-1;
-    padding-left: 0;
-    margin: 0;
+
+  &.lang {
+    .dropdown__trigger {
+      font-weight: normal;
+      padding-bottom: 0;
+    }
+
+    .dropdown__content {
+      &.open {
+        overflow-y: initial;
+        @apply h-auto;
+
+      }
+    }
   }
-}
-}
 }

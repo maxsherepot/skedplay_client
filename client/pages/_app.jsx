@@ -4,6 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import withApollo from "lib/withApollo";
 import {MainLayout} from 'layouts'
 import "styles/style.scss";
+import { appWithTranslation } from 'lib/i18n';
 
 class MyApp extends App {
   static displayName = "MyApp";
@@ -22,4 +23,4 @@ class MyApp extends App {
   }
 }
 
-export default withApollo(MyApp);
+export default withApollo(appWithTranslation(MyApp));

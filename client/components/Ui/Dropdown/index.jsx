@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-function Dropdown({ trigger, triggerClassName, disabled, children, transparent }) {
+function Dropdown({ trigger, triggerClassName, disabled, children, transparent, lang }) {
   const node = useRef();
   const [open, setOpen] = useState(false);
 
@@ -30,7 +30,8 @@ function Dropdown({ trigger, triggerClassName, disabled, children, transparent }
   return (
     <div ref={node} className={cx([
       "dropdown",
-      transparent ? "transparent" : ""
+      transparent ? "transparent" : "",
+      lang ? "lang" : "",
     ])}>
       <div className={cx("dropdown__trigger", {
         "dropdown__trigger--disabled": disabled

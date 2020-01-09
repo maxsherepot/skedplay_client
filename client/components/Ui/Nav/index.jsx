@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Link from "next/link";
 
 import { ProfileSvg } from "icons";
-import { Logo, Button } from "UI";
+import { Logo, Button, Lang } from "UI";
 import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 
@@ -102,23 +102,9 @@ function Nav({ user, className }) {
             </ul>
           </div>
           <div className="menu-icons flex items-center justify-between">
-            <a className="menu-icons__item hidden md:block" href="#">
-              EN
-              <svg
-                className="inline-block stroke-red ml-1"
-                width="11"
-                height="6"
-                viewBox="0 0 11 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 1L5.5 5L1 1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+            <span className="menu-icons__item hidden md:block">
+              <Lang/>
+            </span>
             {user &&
               <Link href="/girls/add">
                 <a className="menu-icons__item hidden sm:block">
