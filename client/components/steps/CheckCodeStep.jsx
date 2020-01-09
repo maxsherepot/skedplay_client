@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 
 import { TextField, FormGroup } from "UI";
+import {useTranslation} from "react-i18next";
 
 const CheckCodeStep = ({ phone }) => {
+  const { t, i18n } = useTranslation();
   return (
     <>
       <div className="block text-sm text-center leading-normal my-4 px-6">
-        A verification code has been sent your phone number
+        {t('register.verification_code_send')}
       </div>
 
       {phone && (
@@ -17,9 +19,9 @@ const CheckCodeStep = ({ phone }) => {
 
       <TextField
         className="mt-4"
-        label="Confirmation code"
+        label={t('register.confirmation_code')}
         name="code"
-        placeholder="Enter code"
+        placeholder={t('register.enter_code')}
       />
     </>
   );

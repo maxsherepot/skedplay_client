@@ -7,8 +7,10 @@ import { AddSvg, ProfileSvg } from "icons";
 import { Avatar, MenuDropdown, Button } from "UI";
 import { AccountLabel } from "components/account";
 import { setCookie } from "utils";
+import {useTranslation} from "react-i18next";
 
 const UserDropdown = ({ user }) => {
+  const { t, i18n } = useTranslation();
   const client = useApolloClient();
   const [isUserMenu, toggleUserMenu] = useState(false);
 
@@ -41,7 +43,7 @@ const UserDropdown = ({ user }) => {
               <div className="text-2xl font-medium capitalize">{user.name}</div>
               <div className="text-lg text-red ml-4">
                 <Link href="/account">
-                  <a>View profile</a>
+                  <a>{t('layout.view_profile')}</a>
                 </Link>
               </div>
             </div>
@@ -52,9 +54,9 @@ const UserDropdown = ({ user }) => {
               <div className="ml-4">{user.phone}</div>
             </div>
             <div className="flex items-center">
-              <div className="mr-2">Plan: free</div>
+              <div className="mr-2">{t('common.plan')}: {t('common.free')}</div>
               <div className="bg-transparent hover:bg-pink hover:text-white border border-red rounded-full text-xs ml-4 px-2-5 leading-loose cursor-pointer">
-                Upgrade
+                {t('common.upgrade')}
               </div>
             </div>
           </div>
@@ -67,53 +69,53 @@ const UserDropdown = ({ user }) => {
             {(user.is_employee || user.is_club_owner) && (
               <Link href="/account">
                 <a className="block text-red font-medium hover:text-pink cursor-pointer mb-2">
-                  View my account
+                  {t('layout.view_my_account')}
                 </a>
               </Link>
             )}
             {(user.is_employee || user.is_club_owner) && (
               <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                Bills and Usage
+                {t('common.bills_and_usage')}
               </div>
             )}
             {user.is_client && (
               <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                My Favorites
+                {t('common.my_favorites')}
               </div>
             )}
             <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-              Messages / Chats
+              {t('common.messages_chats')}
             </div>
             {user.is_employee &&  user.employee && user.employee.reviews.length !== 0 && (
               <div className="text-red font-medium hover:text-pink cursor-pointer">
-                Reviews
+                {t('common.reviews')}
               </div>
             )}
           </div>
           <div className="w-1/2">
             {user.is_club_owner && (
               <div className="text-red font-medium mb-2 hover:text-pink cursor-pointer">
-                My clubs
+                {t('common.my_clubs')}
               </div>
             )}
             {user.is_club_owner && (
               <div className="flex items-center mb-2">
                 <Link href="/clubs/add">
                   <a className="flex items-center cursor-pointer">
-                    <AddSvg /> <span className="ml-2">Add new Club</span>
+                    <AddSvg /> <span className="ml-2">{t('common.add_new_club')}</span>
                   </a>
                 </Link>
               </div>
             )}
             {(user.is_employee || user.is_club_owner) && (
               <div className="flex items-center mb-2">
-                <AddSvg /> <span className="ml-2">Add new AD</span>
+                <AddSvg /> <span className="ml-2">{t('common.add_new_ad')}</span>
               </div>
             )}
             {(user.is_employee || user.is_club_owner) && (
               <div className="flex items-center">
                 <AddSvg />
-                <span className="ml-2">Add new Event</span>
+                <span className="ml-2">{t('common.add_new_event')}</span>
               </div>
             )}
           </div>
@@ -129,7 +131,7 @@ const UserDropdown = ({ user }) => {
             style={{ color: "black" }}
             onClick={signOut}
           >
-            Sign out
+            {t('common.sign_out')}
           </Button>
         </div>
       </MenuDropdown>

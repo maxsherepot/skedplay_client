@@ -6,10 +6,12 @@ import { ProfileSvg } from "icons";
 import { Logo, Button, Lang } from "UI";
 import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
+import {useTranslation} from "react-i18next";
 
 const NAV_HEIGHT = 90;
 
 function Nav({ user, className }) {
+  const { t, i18n } = useTranslation();
   const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
     throttle: 500
@@ -56,22 +58,24 @@ function Nav({ user, className }) {
                 <ul>
                   <li>
                     <Link href="/girls">
-                      <a>girls</a>
+                      <a>{t('common.girls')}</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/boys">
-                      <a>boys</a>
+                      <a>{t('common.boys')}</a>
                     </Link>
                   </li>
                   <li>
                     <Link href="/couple">
-                      <a>couple</a>
+                      <a>{t('common.couple')}</a>
                     </Link>
                   </li>
                 </ul>
                 <span>
-                  Girls
+                  <span className="capitalize">
+                    {t('common.girls')}
+                  </span>
                   <svg
                     className="inline-block strokeWhite ml-1"
                     width="15"
@@ -91,12 +95,12 @@ function Nav({ user, className }) {
               </li>
               <li className="menu__item">
                 <Link href="/clubs">
-                  <a>clubs</a>
+                  <a>{t('common.clubs')}</a>
                 </Link>
               </li>
               <li className="menu__item">
                 <Link href="/events">
-                  <a>events</a>
+                  <a>{t('common.events')}</a>
                 </Link>
               </li>
             </ul>
@@ -109,7 +113,7 @@ function Nav({ user, className }) {
               <Link href="/girls/add">
                 <a className="menu-icons__item hidden sm:block">
                   <button className="bg-red text-white px-5 py-2 rounded-full">
-                    Add new ad
+                    {t('common.add_new_ad')}
                   </button>
                 </a>
               </Link>
@@ -156,13 +160,13 @@ function Nav({ user, className }) {
                 <Link href="/login">
                   <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
                     <ProfileSvg />
-                    Login
+                    {t('common.login')}
                   </a>
                 </Link>
 
                 <Link href="/register">
                   <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
-                    Sign up
+                    {t('common.sign_up')}
                   </a>
                 </Link>
               </>
@@ -217,64 +221,58 @@ function Nav({ user, className }) {
           <ul>
             <li>
               <Link href="/girls">
-                <a>girls</a>
+                <a>{t('common.girls')}</a>
               </Link>
             </li>
             <li>
               <Link href="/boys">
-                <a>boys</a>
+                <a>{t('common.boys')}</a>
               </Link>
             </li>
             <li>
               <Link href="/couple">
-                <a>couple</a>
+                <a>{t('common.couple')}</a>
               </Link>
             </li>
             <li>
               <Link href="/clubs">
-                <a>clubs</a>
+                <a>{t('common.clubs')}</a>
               </Link>
             </li>
             <li>
               <Link href="/events">
-                <a>events</a>
+                <a>{t('common.events')}</a>
               </Link>
             </li>
           </ul>
           {user &&
             <Link href="/girls/add">
               <a>
-                <Button className="w-full text-2xl mt-1">Add new ad</Button>
+                <Button className="w-full text-2xl mt-1">{t('common.add_new_ad')}</Button>
               </a>
             </Link>
           }
           {user ? (
             <Link href="/profile/[id]" as={`/profile/${user.id}`}>
               <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
-                My account
+                {t('common.my_account')}
               </a>
             </Link>
           ) : (
             <>
               <Link href="/login">
                 <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
-                  Login
+                  {t('common.login')}
                 </a>
               </Link>
               <Link href="/register">
                 <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
-                  Sign up
+                  {t('common.sign_up')}
                 </a>
               </Link>
             </>
           )}
-          <div className="locales">
-            <a className="active" href="#ru">
-              ru
-            </a>
-            <a href="#en">en</a>
-            <a href="#ch">ch</a>
-          </div>
+          <Lang mobile={true} />
         </div>
       </div>
     </nav>

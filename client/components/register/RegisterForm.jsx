@@ -7,8 +7,10 @@ import cx from "classnames";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 function RegisterForm({ onSubmit, children }) {
+  const { t, i18n } = useTranslation();
   const { step, setStep } = useSteps();
 
   const stepLength = React.Children.count(children);
@@ -99,7 +101,7 @@ function RegisterForm({ onSubmit, children }) {
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="block text-lg text-center mt-4 font-medium">
-            Step {step + 1} / {stepLength}
+            {t('common.step')} {step + 1} / {stepLength}
           </div>
 
           {activeStep}
@@ -112,8 +114,7 @@ function RegisterForm({ onSubmit, children }) {
 
           {step === 0 && (
             <div className="block text-xs text-center leading-normal mb-8 px-6">
-              By clicking the “sing up” button, I agree to the terms of service
-              and personal data processing policy
+              {t('register.agree')}
             </div>
           )}
 
@@ -126,7 +127,7 @@ function RegisterForm({ onSubmit, children }) {
               className="text-xl px-8 sm:px-25 mb-3"
               disabled={isSubmitting}
             >
-              Next step
+              {t('common.next_step')}
             </Button>
 
             <Link href="/login">
@@ -136,7 +137,7 @@ function RegisterForm({ onSubmit, children }) {
                 outline
                 level="primary-black"
               >
-                Already have an account
+                {t('register.already_have_account')}
               </Button>
             </Link>
           </div>

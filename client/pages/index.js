@@ -53,7 +53,7 @@ const EventsContainer = () => {
                           </div>
                           <div className="flex text-white text-xl">
                               <div className="w-9 border-t border-yellow mr-3 mt-3" />
-                              girls
+                              {t('common.girls')}
                           </div>
                       </div>
                       <div
@@ -63,7 +63,7 @@ const EventsContainer = () => {
                           </div>
                           <div className="flex text-white text-xl">
                               <div className="w-9 border-t border-yellow mr-3 mt-3" />
-                              clubs
+                              {t('common.clubs')}
                           </div>
                       </div>
                       <div
@@ -71,7 +71,7 @@ const EventsContainer = () => {
                           <div className="block text-white font-extrabold text-2xl">23</div>
                           <div className="flex text-white text-xl">
                               <div className="w-9 border-t border-yellow mr-3 mt-3" />
-                              events today
+                              {t('common.events')} {t('common.today')}
                           </div>
                       </div>
                   </div>
@@ -79,12 +79,12 @@ const EventsContainer = () => {
               <div className="relative md:mt-2 xl:flex xl:self-end xl:mb-6 xl:mt-0 xl:flex-col xl:ml-10 hd:ml-42">
                   <div className="flex text-white items-end leading-none">
                       <div className="text-4xl font-extrabold tracking-tighter">
-                          Fresh events
+                          {t('index.fresh_events')}
                       </div>
                       <Link href="/events">
                           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
                               <ArrowNextSvg>
-                                  <span className="mr-1">All events</span>
+                                  <span className="mr-1">{t('common.all_events')}</span>
                               </ArrowNextSvg>
                           </a>
                       </Link>
@@ -99,49 +99,53 @@ const EventsContainer = () => {
 };
 
 
-const Index = ({ user }) => (
-    <>
-        <Header
+const Index = ({ user }) => {
+    const { t, i18n } = useTranslation();
+
+    return (
+      <>
+          <Header
             user={user}
             animation={<Animation/>}
             hero={<EventsContainer/>}
-        />
-        <main className="relative z-10 mt-12 xl:mt-22-5">
-            <div className="index-bg-bottom"/>
-            <div className="container">
-                <div className="flex text-black items-end leading-none text-black md:text-white">
-                    <div className="text-4xl font-extrabold tracking-tighter">
-                        Girls
-                    </div>
-                    <Link href="/girls">
-                        <a className="block text-sm whitespace-no-wrap transition ml-4">
-                            <ArrowNextSvg stroke="#fff">
-                                <span className="mr-1">All girls</span>
-                            </ArrowNextSvg>
-                        </a>
-                    </Link>
-                </div>
-                <GirlsBox/>
+          />
+          <main className="relative z-10 mt-12 xl:mt-22-5">
+              <div className="index-bg-bottom"/>
+              <div className="container">
+                  <div className="flex text-black items-end leading-none text-black md:text-white">
+                      <div className="text-4xl font-extrabold tracking-tighter">
+                          {t('index.girls')}
+                      </div>
+                      <Link href="/girls">
+                          <a className="block text-sm whitespace-no-wrap transition ml-4">
+                              <ArrowNextSvg stroke="#fff">
+                                  <span className="mr-1">{t('index.all_girls')}</span>
+                              </ArrowNextSvg>
+                          </a>
+                      </Link>
+                  </div>
+                  <GirlsBox/>
 
-                <div className="flex text-black items-end leading-none mt-8">
-                    <div className="text-4xl font-extrabold tracking-tighter">
-                        Clubs
-                    </div>
-                    <Link href="/clubs">
-                        <a className="block text-sm whitespace-no-wrap transition ml-4">
-                            <ArrowNextSvg>
-                                <span className="mr-1">All clubs</span>
-                            </ArrowNextSvg>
-                        </a>
-                    </Link>
-                </div>
-                <ClubsBox/>
-            </div>
-        </main>
+                  <div className="flex text-black items-end leading-none mt-8">
+                      <div className="text-4xl font-extrabold tracking-tighter">
+                          {t('index.clubs')}
+                      </div>
+                      <Link href="/clubs">
+                          <a className="block text-sm whitespace-no-wrap transition ml-4">
+                              <ArrowNextSvg>
+                                  <span className="mr-1">{t('index.all_clubs')}</span>
+                              </ArrowNextSvg>
+                          </a>
+                      </Link>
+                  </div>
+                  <ClubsBox/>
+              </div>
+          </main>
 
-        <Footer/>
-    </>
-);
+          <Footer/>
+      </>
+    );
+};
 
 Index.getInitialProps = async ctx => {
     const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);

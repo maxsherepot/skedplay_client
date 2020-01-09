@@ -7,8 +7,10 @@ import Link from "next/link";
 import { TextField, PhoneField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import Captcha from "components/Captcha";
+import {useTranslation} from "react-i18next";
 
 const LoginForm = ({ onSubmit }) => {
+  const { t, i18n } = useTranslation();
   const [error, setError] = useState(null);
 
   return (
@@ -45,16 +47,16 @@ const LoginForm = ({ onSubmit }) => {
         <form onSubmit={handleSubmit}>
           <PhoneField
             className="mt-4"
-            label="Phone number"
+            label={t('login.phone_number')}
             name="username"
-            placeholder="Your phone number"
+            placeholder={t('login.phone_number_placeholder')}
           />
 
           <TextField
-            label="Password"
+            label={t('login.password')}
             type="password"
             name="password"
-            placeholder="Your password"
+            placeholder={t('login.password_placeholder')}
           />
 
           {error && (
@@ -65,12 +67,12 @@ const LoginForm = ({ onSubmit }) => {
 
           <div className="flex px-3 my-5">
             <div className="w-1/2">
-              <CheckboxField label="Remember me" name="remember_me" checkboxClass="black-border" />
+              <CheckboxField label={t('login.remember_me')} name="remember_me" checkboxClass="black-border" />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">
                 <a className="text-sm text-pink transition hover:opacity-75">
-                  Lost your password?
+                  {t('login.password_lost')}
                 </a>
               </Link>
             </div>
@@ -85,7 +87,7 @@ const LoginForm = ({ onSubmit }) => {
             type="submit"
             disabled={isSubmitting}
           >
-            Login
+            {t('common.login')}
           </Button>
 
           <Link href="/register">
@@ -94,7 +96,7 @@ const LoginForm = ({ onSubmit }) => {
               type="submit"
               disabled={isSubmitting}
             >
-              Create account
+              {t('common.create_account')}
             </Button>
           </Link>
         </form>

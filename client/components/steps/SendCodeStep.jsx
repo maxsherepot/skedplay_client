@@ -4,13 +4,15 @@ import { Field } from "formik";
 
 import Captcha from "components/Captcha";
 import { PhoneField } from "components/Ui";
+import {useTranslation} from "react-i18next";
 
 function SendCodeStep() {
+  const { t, i18n } = useTranslation();
   return (
     <>
       <PhoneField
         className="my-4"
-        label="Phone number"
+        label={t('register.phone_number')}
         name="phone"
         placeholder="+417"
       />

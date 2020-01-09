@@ -2,8 +2,11 @@ import React from "react";
 import * as Yup from "yup";
 
 import { TextField, ButtonGroupField, DateRawField } from "UI";
+import {useTranslation} from "react-i18next";
 
 const RegisterStep = () => {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <ButtonGroupField
@@ -11,19 +14,19 @@ const RegisterStep = () => {
           marginBottom: '50px',
         }}
         className="mt-4"
-        label="What account type you need"
+        label={t('register.account_type')}
         name="account_type"
         items={[
           {
-            name: "I provide sex services",
+            name: t('register.employee'),
             value: "employee"
           },
           {
-            name: "I own a club",
+            name: t('register.club_owner'),
             value: "club_owner"
           },
           {
-            name: "I'm looking for sex",
+            name: t('register.client'),
             value: "client"
           }
         ]}
@@ -32,15 +35,15 @@ const RegisterStep = () => {
       <div className="md:flex md:justify-between md:-mx-3">
         <ButtonGroupField
           className="md:w-5/12 md:px-3"
-          label="Gender"
+          label={t('common.gender')}
           name="gender"
           items={[
             {
-              name: "Male",
+              name: t('common.male'),
               value: 2
             },
             {
-              name: "Female",
+              name: t('common.female'),
               value: 1
             }
           ]}
@@ -48,7 +51,7 @@ const RegisterStep = () => {
 
         <DateRawField
           className="md:w-7/12 md:px-3"
-          label="Date of birth"
+          label={t('register.birth')}
           name="birthday"
         />
       </div>
@@ -56,34 +59,34 @@ const RegisterStep = () => {
       <div className="sm:flex sm:justify-between sm:-mx-3">
         <TextField
           className="sm:flex-1 sm:px-3"
-          label="First name (required)"
+          label={t('register.first_name')}
           name="first_name"
         />
 
         <TextField
           className="sm:flex-1 sm:px-3"
-          label="Last name"
+          label={t('register.last_name')}
           name="last_name"
         />
       </div>
 
-      <TextField label="Mail" name="email" placeholder="Enter your email" />
+      <TextField label={t('register.mail')} name="email" placeholder={t('register.mail_placeholder')} />
 
       <div className="sm:flex sm:justify-between sm:-mx-3">
         <TextField
           className="sm:flex-1 sm:px-3"
-          label="Password"
+          label={t('register.password')}
           type="password"
           name="password"
-          placeholder="Enter password"
+          placeholder={t('register.password_placeholder')}
         />
 
         <TextField
           className="sm:flex-1 sm:px-3"
-          label="Confirm password"
+          label={t('register.password_confirm')}
           type="password"
           name="password_confirmation"
-          placeholder="Enter password confirmation"
+          placeholder={t('register.password_confirm_placeholder')}
         />
       </div>
     </>

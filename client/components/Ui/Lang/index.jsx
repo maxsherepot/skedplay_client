@@ -3,12 +3,28 @@ import cx from "classnames";
 import {Fragment, useState} from "react";
 import React from "react";
 import { Dropdown } from "UI";
-import {useTranslation} from "react-i18next";
 import { i18n } from 'lib/i18n';
 
-function Lang() {
-  // const { t, i18n } = useTranslation();
-  console.log(i18n, i18n.options.allLanguages);
+function Lang({ mobile, black, className }) {
+  if (mobile) {
+    return (
+      <div className="locales">
+        {i18n.options.allLanguages.reverse().map((lang, index) => (
+          <a
+            href="#"
+            className={cx([
+              lang === i18n.language ? "active" : "",
+            ])}
+            key={index}
+            onClick={e => {e.preventDefault(); i18n.changeLanguage(lang)}}
+          >
+            {lang}
+          </a>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <Dropdown
       transparent={true}
@@ -18,8 +34,9 @@ function Lang() {
           <div
             className={cx(
               "flex items-center h-full text-xs",
-              "text-white",
-              "uppercase"
+              !black ? "text-white" : "text-black",
+              "uppercase",
+              className
             )}
           >
             {i18n.language}
@@ -27,7 +44,7 @@ function Lang() {
         )
       }
     >
-      {i18n.options.allLanguages.map((lang, index) => (
+      {i18n.options.allLanguages.reverse().map((lang, index) => (
         <Fragment key={index}>
           <input
             id={'lang_' + lang}
@@ -54,7 +71,7 @@ function Lang() {
 
 Lang.propTypes = {
   // children: PropTypes.node,
-  // client: PropTypes.object.required
+  // mobile: PropTypes.boolean
 };
 
 export default Lang;
