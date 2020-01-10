@@ -13,7 +13,7 @@ class LanguageController extends Controller
 {
     public function languages()
     {
-        return response()->json(Language::whereActive(1)->get()->pluck('code'));
+        return response()->json(Language::whereActive(1)->where('code', '!=', 'en')->get()->pluck('code'));
     }
 
     public function translations(string $lang)
