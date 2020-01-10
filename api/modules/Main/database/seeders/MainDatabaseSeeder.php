@@ -18,5 +18,7 @@ class MainDatabaseSeeder extends Seeder
 
         $this->call(PageTableSeeder::class);
         $this->call(FaqTableSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
+        $this->call(UiTranslatesTableSeeder::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Console\Commands\BossCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Employees\Console\CheckEmployeesActivation;
+use Modules\Main\Console\ReplaceTranslates;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         BossCommand::class,
         CheckEmployeesActivation::class,
+        ReplaceTranslates::class,
     ];
 
     /**
