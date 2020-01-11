@@ -11,4 +11,9 @@ class UiTranslate extends Model
         'key',
         'value',
     ];
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
 }

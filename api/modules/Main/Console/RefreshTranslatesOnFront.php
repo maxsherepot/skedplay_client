@@ -42,7 +42,15 @@ class RefreshTranslatesOnFront extends Command
      */
     public function handle()
     {
-        file_get_contents(preg_replace('#\:\d{4}$#', '', config('app.url')));
+        $url = config('app.front_url') . '/reload-lang';
+
+        $this->line($url);
+
+        try  {
+            file_get_contents($url);
+        } catch (\Exception $e) {
+            $this->warn($e->getMessage());
+        };
     }
 
     /**

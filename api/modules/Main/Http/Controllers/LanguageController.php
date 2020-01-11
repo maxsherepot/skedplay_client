@@ -28,6 +28,8 @@ class LanguageController extends Controller
             Arr::set($translatesFormatted, $translate->key, $translate->value);
         }
 
+        \Log::info('get lang ' . $lang);
+
         return response()->json($translatesFormatted);
     }
 }

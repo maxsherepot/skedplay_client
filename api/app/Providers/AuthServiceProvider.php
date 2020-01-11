@@ -19,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Events\Entities\Event::class       => \Modules\Events\Policies\EventPolicy::class,
         \Modules\Common\Entities\Service::class     => \Modules\Common\Policies\ServicePolicy::class,
         \Modules\Common\Entities\PriceType::class   => \Modules\Common\Policies\PriceTypePolicy::class,
+        \Modules\Main\Entities\Language::class   => \Modules\Main\Policies\LanguagePolicy::class,
+        \Modules\Main\Entities\UiTranslate::class   => \Modules\Main\Policies\UiTranslatePolicy::class,
     ];
 
     /**

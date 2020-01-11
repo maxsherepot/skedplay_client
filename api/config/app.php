@@ -55,6 +55,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'front_url' => env('FRONT_URL', 'http://nextjs:3000'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -174,6 +175,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         CentrifugeServiceProvider::class,

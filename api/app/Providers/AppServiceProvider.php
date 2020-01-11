@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Nova;
 use Laravel\Telescope\TelescopeServiceProvider;
 use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
@@ -12,6 +13,8 @@ use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Faq;
 use Modules\Main\Entities\FaqItem;
 use Modules\Main\Entities\Page;
+use Modules\Main\Entities\UiTranslate;
+use Modules\Main\Observers\UiTranslateObserver;
 use Modules\Users\Entities\User;
 
 class AppServiceProvider extends ServiceProvider
@@ -46,5 +49,9 @@ class AppServiceProvider extends ServiceProvider
             Faq::MORPH_TYPE     => 'Modules\Main\Entities\Faq',
             FaqItem::MORPH_TYPE => 'Modules\Main\Entities\FaqItem',
         ]);
+
+        Nova::serving(function () {
+            UiTranslate::observe(UiTranslateObserver::class);
+        });
     }
 }

@@ -1,0 +1,13 @@
+.lang-text {
+  @apply text-white;
+
+  &.text-black-important {
+    color: #000!important;
+  }
+}
+
+.nav__theme_white {
+  .lang-text {
+    @apply text-black;
+  }
+}

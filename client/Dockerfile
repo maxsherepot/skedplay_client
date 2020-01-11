@@ -6,6 +6,7 @@ WORKDIR /usr/src
 
 COPY package.json ./
 
+RUN npm install -g forever
 RUN npm install
 
 # Copy all files to the working directly, build the application
@@ -17,4 +18,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the server for Next.js using Node.js
-CMD ["npm", "start"]
+#CMD ["npm", "start"]

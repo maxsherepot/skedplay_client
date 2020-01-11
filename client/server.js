@@ -1,5 +1,4 @@
 const express = require('express');
-// const axios = require('axios');
 const next = require('next');
 const nextI18NextMiddleware = require('next-i18next/middleware').default;
 
@@ -19,13 +18,15 @@ const handle = app.getRequestHandler();
 
   server.get('/reload-lang', (req, res) => {
     console.log('reload-lang');
-    nextI18next.i18n.reloadResources(nextI18next.i18n.options.allLanguages);
+    nextI18next.i18n.reloadResources(nextI18next.i18n.options.allLanguages)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
 
-    return handle(req, res)
+    return handle(req, res);
   });
 
   server.get('*', (req, res) => handle(req, res));
 
-  await server.listen(port)
+  await server.listen(port);
   console.log(`> Ready on http://localhost:${port}`); // eslint-disable-line no-console
-})()
+})();
