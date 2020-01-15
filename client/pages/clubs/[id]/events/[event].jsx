@@ -7,10 +7,12 @@ import { Button, Gallery, EventLabel } from "UI";
 import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useTranslation} from "react-i18next";
 
 const ClubEventShow = ({ user }) => {
   const router = useRouter();
   const { id, event: eventId } = router.query;
+  const {t, i18n} = useTranslation();
 
   const { data: { club } = {}, loading: clubLoading } = useQuery(GET_CLUB, {
     variables: {
@@ -25,7 +27,7 @@ const ClubEventShow = ({ user }) => {
   });
 
   if (clubLoading || eventLoading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   const [photo] = event && event.photos;
@@ -37,12 +39,12 @@ const ClubEventShow = ({ user }) => {
       <div className="w-full px-3">
         <div className="flex items-end my-5">
           <div className="text-2xl font-extrabold tracking-tighter">
-            Event in {club.name}
+            {t('clubs.event_in', {name: club.name})}
           </div>
           <Link href={`/clubs/[id]/events`} as={`/clubs/${club.id}/events`}>
             <a className="block text-sm whitespace-no-wrap transition leading-loose hover:text-red ml-4">
               <ArrowNextSvg>
-                <span className="mr-1">All club events</span>
+                <span className="mr-1">{t('clubs.all_club')}</span>
               </ArrowNextSvg>
             </a>
           </Link>
@@ -62,7 +64,7 @@ const ClubEventShow = ({ user }) => {
                   weight="normal"
                   size="xxs"
                 >
-                  TODAY
+                  {t('common.today')}
                 </Button>
               </div>
               <div className="px-3">
@@ -85,7 +87,7 @@ const ClubEventShow = ({ user }) => {
     <ClubBox club={club} user={user}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full lg:w-2/5 px-3">
-          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
           {sidebarColumn}
         </div>
         <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>

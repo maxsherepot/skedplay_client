@@ -11,6 +11,7 @@ import {useQuery, useLazyQuery, useMutation} from "@apollo/react-hooks";
 import {CHAT_ROOM, SEND_MESSAGE} from "../../../queries/chatQuery";
 import Centrifugo from "components/centrifuge";
 import { WhiteTrashSvg } from "icons";
+import {useTranslation} from "react-i18next";
 
 function ChatRoom({
   chatId,
@@ -20,6 +21,7 @@ function ChatRoom({
 }) {
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const {t, i18n} = useTranslation();
 
   const scrollToBottom = () => {
     if (!messagesEndRef || !messagesEndRef.current) {
@@ -93,7 +95,7 @@ function ChatRoom({
   );
 
   if (chatLoading && !selectedChat) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   if (loadedChat) {

@@ -1,22 +1,26 @@
 import React from "react";
 
-import { AnimationBackground, Modal, Logo, ArrowBack, LangSelector } from "UI";
-import { ForgotBox } from "components/forgot";
+import {AnimationBackground, Modal, Logo, ArrowBack, LangSelector} from "UI";
+import {ForgotBox} from "components/forgot";
+import {useTranslation} from "react-i18next";
 
 function Forgot() {
-  return (
-    <>
-      <AnimationBackground />
-      <Modal
-        logo={<Logo />}
-        title="Password recovery"
-        left={<ArrowBack href="/" />}
-        right={<LangSelector />}
-      >
-        <ForgotBox />
-      </Modal>
-    </>
-  );
+
+    const {t, i18n} = useTranslation();
+
+    return (
+        <>
+            <AnimationBackground/>
+            <Modal
+                logo={<Logo/>}
+                title={t('forgot.password_recovery')}
+                left={<ArrowBack href="/"/>}
+                right={<LangSelector/>}
+            >
+                <ForgotBox/>
+            </Modal>
+        </>
+    );
 }
 
 Forgot.getLayout = page => page;

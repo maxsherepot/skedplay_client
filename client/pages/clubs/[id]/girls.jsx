@@ -5,10 +5,12 @@ import { useQuery } from "@apollo/react-hooks";
 import { GirlCard } from "UI";
 import { ClubBox } from "components/club";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useTranslation} from "react-i18next";
 
 const ClubGirls = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
+  const {t, i18n} = useTranslation();
 
   const { data: { club } = {}, loading } = useQuery(GET_CLUB, {
     variables: {
@@ -17,7 +19,7 @@ const ClubGirls = ({ user }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   return (

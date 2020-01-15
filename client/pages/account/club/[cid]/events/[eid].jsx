@@ -6,10 +6,12 @@ import {getLayout} from "components/account/AccountLayout";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_EVENT, UPDATE_EVENT} from "queries";
 import EditEventBox from "components/account/club/EditEventBox";
+import {useTranslation} from "react-i18next";
 
 const AccountClubEventsEdit = () => {
     const {query: {eid}} = useRouter();
     const [updateEvent] = useMutation(UPDATE_EVENT);
+    const {t, i18n} = useTranslation();
 
     const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
         variables: {
@@ -19,7 +21,7 @@ const AccountClubEventsEdit = () => {
     const onSubmit = async variables => await updateEvent(variables);
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div>{t('common.loading')}</div>
     }
 
     return (

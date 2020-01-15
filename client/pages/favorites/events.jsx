@@ -4,8 +4,11 @@ import { FAVORITE_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { EventCard } from "UI";
 import { FavoriteBox } from "components/favorite";
+import {useTranslation} from "react-i18next";
 
 const FavoriteEvents = ({ user }) => {
+  const {t, i18n} = useTranslation();
+
   const { data: { favoriteEvents } = {}, loading } = useQuery(FAVORITE_EVENTS, {
     variables: {
       id: user.id
@@ -13,12 +16,12 @@ const FavoriteEvents = ({ user }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   return (
     <FavoriteBox user={user}>
-      <div className="text-2xl font-extrabold my-5">Favorite Events</div>
+      <div className="text-2xl font-extrabold my-5">{t('favorites.page_events')}</div>
 
       <div className="flex flex-wrap -mx-3">
         {favoriteEvents &&
@@ -33,10 +36,9 @@ const FavoriteEvents = ({ user }) => {
 
       {favoriteEvents && favoriteEvents.length === 0 && (
         <div>
-          <div className="font-bold mb-4">No favorite events found!</div>
+          <div className="font-bold mb-4">{t('favorites.not_events')}</div>
           <div className="italic">
-            You have no favorite events yet. Tap the heart on the event's card
-            to add one.
+            {t('favorites.add_events')}
           </div>
         </div>
       )}

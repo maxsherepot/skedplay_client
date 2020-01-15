@@ -9,8 +9,10 @@ import {
 } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { getLayout } from "components/account/AccountLayout";
+import {useTranslation} from "react-i18next";
 
 const AccountAdEdit = () => {
+    const {t, i18n} = useTranslation();
     const { query: { eid } } = useRouter();
     const { data: { employee } = {}, loading} = useQuery(GET_EMPLOYEE, {
         variables: {
@@ -19,14 +21,14 @@ const AccountAdEdit = () => {
     });
 
     const links = [
-        "Card / Ad Information",
-        "Services and price",
-        "Photos and videos",
-        "Schedule and activation"
+        t('account.card_information'),
+        t('account.services_and_price'),
+        t('account.photos_and_videos'),
+        t('account.schedule_and_activation')
     ];
 
     if (loading) {
-        return  <div>Loading...</div>
+        return  <div>{t('common.loading')}</div>
     }
 
     return (

@@ -14,10 +14,12 @@ import {
     GET_CLUB,
 } from "queries";
 import {useQuery} from "@apollo/react-hooks";
+import {useTranslation} from "react-i18next";
 
 const EmployeeCard = ({employee}) => {
     const [photo] = employee.photos;
     const {query: {cid}} = useRouter();
+    const {t, i18n} = useTranslation();
 
     return (
         <div className="w-3/12 px-2 mb-4">
@@ -58,7 +60,7 @@ const EmployeeCard = ({employee}) => {
 
                 <div className="flex flex-col items-center mt-2">
                     <div>1234 views</div>
-                    <div className="text-grey">5 day left</div>
+                    <div className="text-grey">{t('account.day_left', {days: 5})}</div>
                 </div>
             </div>
         </div>
@@ -113,6 +115,7 @@ const AccountClubWorkersShow = ({user}) => {
             id: cid
         }
     });
+    const {t, i18n} = useTranslation();
 
     if (loading) return null;
 
@@ -120,13 +123,13 @@ const AccountClubWorkersShow = ({user}) => {
         <>
             <div className="flex items-center justify-between px-8 py-12">
                 <h1 className="text-4-65xl font-extrabold">
-                    Sex workers cards
+                    {t('account.workers_cards')}
                 </h1>
 
                 <Button className="px-4" level="primary" outline size="sm">
                     <div className="flex items-center">
                         <CalendarSvg className="hover:text-white"/>
-                        <span className="text-black ml-2">Open calendar</span>
+                        <span className="text-black ml-2">{t('account.open_calendar')}</span>
                     </div>
                 </Button>
             </div>
@@ -135,10 +138,10 @@ const AccountClubWorkersShow = ({user}) => {
 
             <Tabs>
                 <div className="px-8 pt-12">
-                    <Tab>All workers</Tab>
-                    <Tab>Available today</Tab>
-                    <Tab>Cooming soon</Tab>
-                    <Tab>Not active</Tab>
+                    <Tab>{t('account.all_workers')}</Tab>
+                    <Tab>{t('account.available_today')}</Tab>
+                    <Tab>{t('account.cooming_soon')}</Tab>
+                    <Tab>{t('common.not_active')}</Tab>
                 </div>
 
                 <div className="border-t border-divider"/>
@@ -150,10 +153,10 @@ const AccountClubWorkersShow = ({user}) => {
                     <AvailableToday employees={club.employees}/>
                 </Panel>
                 <Panel>
-                    <div className="text-4xl font-extrabold mb-2">Cooming soon</div>
+                    <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>
                 </Panel>
                 <Panel>
-                    <div className="text-4xl font-extrabold mb-2">Not active</div>
+                    <div className="text-4xl font-extrabold mb-2">{t('account.not_active')}</div>
                 </Panel>
             </Tabs>
         </>)

@@ -11,8 +11,11 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import Index from "../../index";
+import {useTranslation} from "react-i18next";
+
 
 const EmployeeInformation = ({ user }) => {
+  const {t, i18n} = useTranslation();
   const router = useRouter();
   const { id } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -38,7 +41,7 @@ const EmployeeInformation = ({ user }) => {
   );
 
   if (employeeLoading || eventsLoading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   const handleLightboxClick = index => {
@@ -83,7 +86,7 @@ const EmployeeInformation = ({ user }) => {
 
       <div className="flex items-end my-5">
         <div className="text-2xl font-extrabold tracking-tighter leading-none">
-          Nachste event
+          {t('employees.nachste_event')}
         </div>
         <Link
           href={`/employees/[id]/events`}
@@ -91,7 +94,7 @@ const EmployeeInformation = ({ user }) => {
         >
           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
             <ArrowNextSvg>
-              <span className="mr-1">All my events</span>
+              <span className="mr-1">{t('employees.all_events')}</span>
             </ArrowNextSvg>
           </a>
         </Link>
@@ -107,7 +110,7 @@ const EmployeeInformation = ({ user }) => {
     <>
       <div className="flex -mx-3">
         <div className="w-full hd:w-2/3 px-3">
-          <div className="text-2xl font-extrabold my-5">Beschreibung</div>
+          <div className="text-2xl font-extrabold my-5">{t('employees.description')}</div>
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
             {employee.description}
           </div>
@@ -115,19 +118,19 @@ const EmployeeInformation = ({ user }) => {
           <div className="flex flex-col sm:flex-row bg-white rounded-b-lg p-4 hd:p-8">
             <div className="w-full sm:w-3/5">
               <section className="mb-3">
-                <div className="text-grey">Gender</div>
+                <div className="text-grey">{t('common.gender')}</div>
                 <div className="line" />
-                <div className="w-32">Female</div>
+                <div className="w-32">{t('common.female')}</div>
               </section>
 
               <section className="my-3">
-                <div className="text-grey">Gender Type</div>
+                <div className="text-grey">{t('employees.gender_type')}</div>
                 <div className="line" />
                 <div className="w-32">TS</div>
               </section>
 
               <section className="mt-3 mb-6">
-                <div className="text-grey">Type of woman</div>
+                <div className="text-grey">{t('employees.type_woman')}</div>
                 <div className="line" />
                 <div className="w-32">Asian</div>
               </section>
@@ -141,7 +144,7 @@ const EmployeeInformation = ({ user }) => {
               ))}
 
               <section className="mt-6 mb-3">
-                <div className="text-grey">Languages</div>
+                <div className="text-grey">{t('employees.languages')}</div>
                 <div className="line" />
                 <div className="w-32">
                   <div className="flex items-center justify-between mb-2">
@@ -192,7 +195,7 @@ const EmployeeInformation = ({ user }) => {
     <EmployeeBox employee={employee} user={user}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
         <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
-          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
           {sidebarColumn}
         </div>
         <div className="w-full sm:w-1/3 px-3 block hd:hidden">
