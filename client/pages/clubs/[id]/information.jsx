@@ -17,6 +17,7 @@ import {GET_CLUB} from "queries";
 import {useQuery} from "@apollo/react-hooks";
 import {ClubBox, ClubGirlsBox} from "components/club";
 import {ClubSchedule} from "components/schedule";
+import {useTranslation} from "react-i18next";
 
 const ClubInformation = ({user}) => {
     const router = useRouter();
@@ -29,9 +30,11 @@ const ClubInformation = ({user}) => {
             id
         }
     });
+    const {t, i18n} = useTranslation();
+
 
     if (loading) {
-        return "Loading...";
+        return t('common.loading');
     }
 
     const [event] = club.events;
@@ -39,7 +42,7 @@ const ClubInformation = ({user}) => {
 
     const Contacts = () => (
         <>
-            <div className="text-2xl font-extrabold my-5">Adress and Contacts</div>
+            <div className="text-2xl font-extrabold my-5">{t('clubs.address_and_contacts')}</div>
 
             <div className="bg-white rounded-lg p-4">
                 <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
@@ -108,7 +111,7 @@ const ClubInformation = ({user}) => {
         <>
             <div className="flex flex-wrap -mx-3">
                 <div className="w-full sm:w-8/12 lg:w-9/12 px-3 lg:h-64">
-                    <div className="flex text-2xl font-extrabold my-5">Description</div>
+                    <div className="flex text-2xl font-extrabold my-5">{t('employees.description')}</div>
 
                     <div className="flex flex-col lg:flex-row flex-wrap bg-white rounded-t-lg">
                         <div
@@ -120,7 +123,7 @@ const ClubInformation = ({user}) => {
 
                             <div className="flex items-center text-light-grey">
                                 <FakeSvg className="float-left"/>
-                                <span className="ml-3">fake or not working</span>
+                                <span className="ml-3">{t('clubs.fake_or_not_working')}</span>
                             </div>
                         </div>
                     </div>
@@ -139,7 +142,7 @@ const ClubInformation = ({user}) => {
                             <div className="w-full sm:w-4/12 lg:w-3/12 px-3 hidden sm:block">
                                 <div className="flex items-end my-5">
                                     <div className="text-2xl font-extrabold tracking-tighter leading-none">
-                                        Next Event in {club.name}
+                                        {t('clubs.next_event', {name: club.name})}
                                     </div>
                                 </div>
 
@@ -150,7 +153,7 @@ const ClubInformation = ({user}) => {
                                 <Link href={`/clubs/[id]/events`} as={`/clubs/${club.id}/events`}>
                                     <a className="block text-sm whitespace-no-wrap transition hover:text-red">
                                         <ArrowNextSvg>
-                                            <span className="mr-2">All events</span>
+                                            <span className="mr-2">{t('common.all_events')}</span>
                                         </ArrowNextSvg>
                                     </a>
                                 </Link>
@@ -163,32 +166,32 @@ const ClubInformation = ({user}) => {
                 <div className="w-full hd:w-9/12 px-3">
                     <div className="flex flex-col hd:flex-row -mx-3">
                         <div className="w-full hd:w-1/2 px-3">
-                            <div className="text-2xl font-extrabold mb-5">Photos</div>
+                            <div className="text-2xl font-extrabold mb-5">{t('clubs.photos')}</div>
                             <Gallery photos={club.photos} height="424px"/>
                         </div>
                         <div className="w-full hd:w-1/2 px-3 mt-5 hd:mt-0">
                             <div className="flex flex-wrap -mx-3">
                                 <div className="w-full md:w-7/12 px-3 hd:w-full hd:px-0">
                                     <div className="text-2xl font-extrabold mb-5">
-                                        Services and Pricing
+                                        {t('clubs.services_and_pricing')}
                                     </div>
                                     <div className="bg-white text-sm hd:text-base rounded-lg p-6">
                                         <div className="w-full sm:w-2/4 mb-5">
                                             <section className="mb-3">
-                                                <div className="text-grey">Entry from 16:00</div>
+                                                <div className="text-grey">{t('clubs.entry_from')} 16:00</div>
                                                 <div className="line"/>
-                                                <div className="w-12 text-dark-green">Free</div>
+                                                <div className="w-12 text-dark-green">{t('common.free')}</div>
                                             </section>
 
                                             <section className="mb-3">
-                                                <div className="text-grey">Entry from 00:00</div>
+                                                <div className="text-grey">{t('clubs.entry_from')} 00:00</div>
                                                 <div className="line"/>
                                                 <div className="w-12">$100</div>
                                             </section>
                                         </div>
 
                                         <div className="text-xl font-medium mb-5">
-                                            Girls Pricing
+                                            {t('clubs.girls_pricing')}
                                         </div>
 
                                         <div className="flex flex-col sm:flex-row">
@@ -224,7 +227,7 @@ const ClubInformation = ({user}) => {
                                                     <div className="w-12">$600</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">Night</div>
+                                                    <div className="text-grey">{t('common.night')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$1500</div>
                                                 </section>
@@ -240,18 +243,18 @@ const ClubInformation = ({user}) => {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="px-2 my-2">Extra service</div>
+                                                <div className="px-2 my-2">{t('clubs.extra_service')}</div>
                                                 <div className="flex flex-wrap -mx-2">
                                                     <div className="px-2">
                                                         <div
                                                             className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                                                            Anal <span className="text-red ml-1">+$100</span>
+                                                            {t('clubs.anal')} <span className="text-red ml-1">+$100</span>
                                                         </div>
                                                     </div>
                                                     <div className="px-2">
                                                         <div
                                                             className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                                                            Erotic massage
+                                                            {t('clubs.erotic_massage')}
                                                             <span className="text-red ml-1">+$100</span>
                                                         </div>
                                                     </div>

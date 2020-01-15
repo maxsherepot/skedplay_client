@@ -6,8 +6,12 @@ import { Avatar, Button } from "UI";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { getLayout } from "components/account/AccountLayout";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
+import {useTranslation} from "react-i18next";
 
+const {t, i18n} = useTranslation();
 const GirlRow = ({ employee, soon, active }) => (
+
+
     <div className="flex items-center my-2">
         <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
 
@@ -22,7 +26,7 @@ const GirlRow = ({ employee, soon, active }) => (
                         05.06-07.06
                         {soon && (
                             <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
-                                Coming soon
+                                {t('common.coming_soon')}
                             </div>
                         )}
                     </div>
@@ -30,10 +34,10 @@ const GirlRow = ({ employee, soon, active }) => (
             ) : (
                 <div className="flex items-center">
                     <div className="bg-light-grey text-white text-xs rounded-full whitespace-no-wrap px-3 py-1">
-                        Not active
+                        {t('common.not_active')}
                     </div>
                     <div className="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full whitespace-no-wrap px-3 py-1 ml-3">
-                        Active now
+                        {t('common.active_now')}
                     </div>
                 </div>
             )}
@@ -83,17 +87,17 @@ const AccountClubIndex = ({ user }) => {
                     <UserSvg />
                 </div>
 
-                <span className="text-2xl font-extrabold">{club.employees.length || 0} sex workers</span>
+                <span className="text-2xl font-extrabold">{club.employees.length || 0} {t('account.sex_workers')}</span>
                 <div className="flex">
                     <div className="flex flex-col w-1/2">
-                        <span className="text-xl font-medium">My Cards / AD</span>
+                        <span className="text-xl font-medium">{t('account.my_cards')}</span>
 
                         {club.employees.map(employee => (
                             <GirlRow key={employee.id} employee={employee} />
                         ))}
                     </div>
                     <div className="flex flex-col w-1/2">
-                        <span className="text-xl font-medium">Another</span>
+                        <span className="text-xl font-medium">{t('account.another')}</span>
 
                         <GirlRow soon />
                         <GirlRow active />
@@ -104,13 +108,13 @@ const AccountClubIndex = ({ user }) => {
                     <Link href={`/account/club/${cid}/workers/add`}>
                         <a>
                             <Button className="px-12 mr-4" size="sm">
-                                Add new
+                                {t('account.another')}
                             </Button>
                         </a>
                     </Link>
 
                     <Button className="px-12" size="sm" outline style={{ color: "#000" }}>
-                        Edit
+                        {t('common.edit')}
                     </Button>
                 </div>
             </div>
@@ -120,13 +124,13 @@ const AccountClubIndex = ({ user }) => {
                     <div className="h-full p-5 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                         <div className="flex flex-col justify-between h-full">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-extrabold mb-6">{club.events_count} Event</span>
+                                <span className="text-2xl font-extrabold mb-6">{club.events_count} {t('account.event')}</span>
                                 <StarSvg />
                             </div>
                             <Link href={`/account/club/${club.id}/events/create`}>
                                 <a>
                                     <Button className="w-2/3" size="sm">
-                                        Add new
+                                        {t('navigation.add_new')}
                                     </Button>
                                 </a>
                             </Link>
@@ -137,7 +141,7 @@ const AccountClubIndex = ({ user }) => {
                     <div className="p-5 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer mb-6">
                         <div className="flex flex-col justify-center">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-extrabold mb-6">{club.photos_count} photos</span>
+                                <span className="text-2xl font-extrabold mb-6">{t('account.count_photos', {count: club.photos_count})}</span>
                                 <PhotoSvg />
                             </div>
                         </div>
@@ -145,7 +149,7 @@ const AccountClubIndex = ({ user }) => {
                     <div className="p-5 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                         <div className="flex flex-col justify-center">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-extrabold mb-6">{club.videos_count} videos</span>
+                                <span className="text-2xl font-extrabold mb-6">{t('account.count_videos', {count: club.videos_count})}</span>
                                 <VideoSvg />
                             </div>
                         </div>

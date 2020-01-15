@@ -10,20 +10,23 @@ import { FavoriteButton } from "components/favorite";
 import Centrifugo from "components/centrifuge";
 import { ArrowBack } from "UI";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
 
 const EmployeeChatComponent = ({ user }) => {
   let type = user.employee ? 'employee' : 'client';
 
-  const Breadcrumbs = () => (
+    const {t, i18n} = useTranslation();
+
+    const Breadcrumbs = () => (
     <div className="fluid-container">
       <div className="flex items-center py-4">
         <ArrowBack back />
         <div className="ml-10">
           <Link href="/account">
-            <a className="text-red hover:text-pink">My account</a>
+            <a className="text-red hover:text-pink">{t('account.my_account')}</a>
           </Link>
           <span className="px-2 text-grey">/</span>
-          Chats
+            {t('account.chats')}
         </div>
       </div>
     </div>
@@ -36,7 +39,7 @@ const EmployeeChatComponent = ({ user }) => {
   );
 
   if (chatsLoading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   Centrifugo.init().then(centrifuge => {
@@ -82,12 +85,12 @@ const EmployeeChatComponent = ({ user }) => {
           onClick={e => {setSelectedChat(null)}}
         >
           <ArrowPrevSvg className="stroke-red">
-            <span className="xs:hidden sm:inline-block ml-2">All chats</span>
+            <span className="xs:hidden sm:inline-block ml-2">{t('chat.all')}</span>
           </ArrowPrevSvg>
         </a>
       </div>
       <span className="font-bold text-2xl">
-        Chat with {selectedChat && selectedChat.receiver.name}
+          {t('chat.chat_with')} {selectedChat && selectedChat.receiver.name}
       </span>
     </>
   );
@@ -95,7 +98,7 @@ const EmployeeChatComponent = ({ user }) => {
   let mobileChoseBlock = (
     <>
       <span className="font-bold text-2xl">
-        Chose chat
+          {t('chat.chose_chat')}
       </span>
     </>
   );
@@ -122,7 +125,7 @@ const EmployeeChatComponent = ({ user }) => {
           "w-full sm:w-full md:w-2/3 px-3 mb-3"
         ])}
       >
-        <div className="text-2xl font-extrabold my-5">Please select the chat</div>
+        <div className="text-2xl font-extrabold my-5">{t('chat.select_chat')}</div>
       </div>
     </>
   );
@@ -136,7 +139,7 @@ const EmployeeChatComponent = ({ user }) => {
             "w-full sm:w-full md:w-2/3 px-3 mb-3"
           ])}
         >
-          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Chat with {selectedChat.receiver.name}</div>
+          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
           <div>
             <ChatRoom type={type} selectedChat={selectedChat}></ChatRoom>
           </div>
@@ -153,7 +156,7 @@ const EmployeeChatComponent = ({ user }) => {
           "w-full sm:w-full md:w-1/3 px-3 mb-3"
         ])}
       >
-        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Contacts</div>
+        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('layout.contacts')}</div>
         <div>
           <ChatList type={type} chats={chats} selectedChat={selectedChat} selectChat={selectChat}></ChatList>
         </div>

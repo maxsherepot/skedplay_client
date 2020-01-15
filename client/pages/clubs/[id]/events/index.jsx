@@ -5,10 +5,12 @@ import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { ClubBox } from "components/club";
 import checkLoggedIn from "lib/checkLoggedIn";
+import {useTranslation} from "react-i18next";
 
 const ClubEventsIndex = ({ user }) => {
   const router = useRouter();
   const { id } = router.query;
+  const {t, i18n} = useTranslation();
 
   const { data: { club } = {}, loading } = useQuery(GET_CLUB, {
     variables: {
@@ -17,14 +19,14 @@ const ClubEventsIndex = ({ user }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   const sidebarColumn = <Gallery photos={club.photos} height="597px" />;
 
   const contentColumn = (
     <>
-      <div className="text-2xl font-extrabold my-5">Meine Events</div>
+      <div className="text-2xl font-extrabold my-5">{t('clubs.meine_events')}</div>
 
       {club.events && club.events ? (
         <>
@@ -41,7 +43,7 @@ const ClubEventsIndex = ({ user }) => {
           </div>
         </>
       ) : (
-        <div>Loading...</div>
+        <div>{t('common.loading')}</div>
       )}
     </>
   );
@@ -50,7 +52,7 @@ const ClubEventsIndex = ({ user }) => {
     <ClubBox club={club} user={user}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
         <div className="w-full lg:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
           {sidebarColumn}
         </div>
         <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>

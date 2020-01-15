@@ -5,8 +5,12 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import { Filter } from "UI";
 import EventsBox from "components/EventsBox";
 import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
+import {useTranslation} from "react-i18next";
+
 
 function Events({ user }) {
+  const {t, i18n} = useTranslation();
+
   const { loading, data: { club_types } = {} } = useQuery(
     EVENTS_FILTER_OPTIONS
   );
@@ -16,15 +20,15 @@ function Events({ user }) {
   } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
-    return <div>"Loading..."</div>;
+    return <div>{t('common.loading')}</div>;
   }
 
   const fields = [
     {
       component: "select",
       name: "location",
-      label: "Location",
-      placeholder: "Select your location",
+      label: t('common.location'),
+      placeholder: t('common.select_location'),
       options: [
         {
           label: "Zürich",
@@ -59,8 +63,8 @@ function Events({ user }) {
     {
       component: "select",
       name: "event_type",
-      label: "Event type",
-      placeholder: "Select event type",
+      label: t('clubs.event_type'),
+      placeholder: t('event.select_event_type'),
       options: club_types.map(s => {
         return { label: s.name, value: s.id };
       })
@@ -68,8 +72,8 @@ function Events({ user }) {
     {
       component: "select",
       name: "perimeter",
-      label: "Perimeter",
-      placeholder: "Select perimeter",
+      label: t('clubs.perimeter'),
+      placeholder: t('clubs.select_perimeter'),
       options: [
         {
           label: "2 km",
@@ -92,8 +96,8 @@ function Events({ user }) {
     {
       component: "select",
       name: "date",
-      label: "Date",
-      placeholder: "Select date",
+      label: t('common.date'),
+      placeholder: t('common.select_date'),
       options: []
     }
   ];

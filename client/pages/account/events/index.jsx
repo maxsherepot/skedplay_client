@@ -1,25 +1,28 @@
 import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { getLayout } from "components/account/AccountLayout";
-import { Button, DeletePopup } from "UI";
+import {getLayout} from "components/account/AccountLayout";
+import {Button, DeletePopup} from "UI";
 import {
     DELETE_EVENT,
     EVENTS_BY_OWNER,
 } from "queries";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import Link from "next/link";
+import {useTranslation} from "react-i18next";
 
-const AccountEventsIndex = ({ user }) => {
-    const { data: { eventsByOwner } = {}, loading} = useQuery(EVENTS_BY_OWNER, {
+const AccountEventsIndex = ({user}) => {
+    const {data: {eventsByOwner} = {}, loading} = useQuery(EVENTS_BY_OWNER, {
         variables: {
             owner_id: user.id,
             owner_type: "employee"
         }
     });
+    const {t, i18n} = useTranslation();
+
 
     if (loading) {
-        return "Loading..."
+        return t('common.loading');
     }
 
     const EventCard = ({event}) => {
@@ -63,7 +66,7 @@ const AccountEventsIndex = ({ user }) => {
             } catch (e) {
                 return {
                     status: false,
-                    message: "Server error"
+                    message: t('errors.server_error')
                 };
             }
         };
@@ -80,7 +83,7 @@ const AccountEventsIndex = ({ user }) => {
                             <Link href="/account/events/[eid]" as={`/account/events/${event.id}`}>
                                 <a>
                                     <Button className="px-2" level="secondary" outline size="xxs">
-                                        Edit
+                                        {t('common.edit')}
                                     </Button>
                                 </a>
                             </Link>
@@ -88,7 +91,7 @@ const AccountEventsIndex = ({ user }) => {
                         <div className="px-2">
                             <DeletePopup onEnter={handleDelete} title={`Delete ${event.title}?`}>
                                 <div className="pt-6">
-                                    <p>Are you sure you want to delete this event?</p>
+                                    <p>{t('account.are_you_sure_delete_event')}</p>
                                 </div>
                             </DeletePopup>
                         </div>
@@ -111,21 +114,21 @@ const AccountEventsIndex = ({ user }) => {
     return (
         <>
             <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
-                Events
+                {t('account.events')}
             </div>
 
-            <EventList events={eventsByOwner} />
+            <EventList events={eventsByOwner}/>
         </>
     );
 };
 
 AccountEventsIndex.getInitialProps = async ctx => {
-    const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+    const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
     if (!user) {
         redirect(ctx, "/login");
     }
 
-    return { user };
+    return {user};
 };
 
 AccountEventsIndex.getLayout = getLayout;

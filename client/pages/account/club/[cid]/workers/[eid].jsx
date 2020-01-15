@@ -12,11 +12,14 @@ import {
 import StepBox from "components/StepBox";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {getLayout} from "components/account/AccountLayout";
+import {useTranslation} from "react-i18next";
+
 
 const Header = ({employee}) => {
     const router = useRouter();
     const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
     const [photo] = employee.photos;
+    const {t, i18n} = useTranslation();
 
     const handleDelete = () => {
         try {
@@ -30,7 +33,7 @@ const Header = ({employee}) => {
         } catch (e) {
             return {
                 status: false,
-                message: "Server error"
+                message: t('errors.server_error')
             };
         }
     };
@@ -59,23 +62,23 @@ const Header = ({employee}) => {
                         <div className="flex items-center">
                             <SelectClub className="w-40" owner={employee.owner}/>
 
-                            <div className="mx-4">1234 views</div>
+                            <div className="mx-4">{t('account.count_views', {count: 1234})}</div>
 
-                            <div className="text-grey">5 day left</div>
+                            <div className="text-grey">{t('account.day_left', {days: 5})}</div>
                         </div>
                     </div>
 
                     <div className="flex justify-center flex-col h-full px-2">
                         <Button className="px-3 mb-3" level="primary" outline size="xxs">
-                            <span className="text-black">Cancel VIP</span>
+                            <span className="text-black">{t('account.cancel_vip')}</span>
                         </Button>
                         <Button className="px-3 mb-3" level="primary" outline size="xxs">
-                            <span className="text-black">Deactivate</span>
+                            <span className="text-black">{t('account.deactivate')}</span>
                         </Button>
 
                         <DeletePopup onEnter={handleDelete} title={`Delete ${employee.name}?`}>
                             <div className="pt-6">
-                                <p>Are you sure you want to delete this card?</p>
+                                <p>{t('account.sure_delete_card')}</p>
                             </div>
                         </DeletePopup>
                     </div>

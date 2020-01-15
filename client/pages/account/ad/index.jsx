@@ -5,10 +5,14 @@ import {useMutation} from "@apollo/react-hooks";
 import {GET_ME, DELETE_EMPLOYEE} from "queries";
 import {Button, DeletePopup} from "UI";
 import Link from "next/link";
+import {useTranslation} from "react-i18next";
+
 
 import { getLayout } from 'components/account/AccountLayout'
 
 const EmployeeCard = ({employee}) => {
+  const {t, i18n} = useTranslation();
+
   const [deleteEmployee] = useMutation(DELETE_EMPLOYEE, {
     update(
         cache,
@@ -45,7 +49,7 @@ const EmployeeCard = ({employee}) => {
     } catch (e) {
       return {
         status: false,
-        message: "Server error"
+        message: t('errors.server_error')
       };
     }
   };
@@ -62,7 +66,7 @@ const EmployeeCard = ({employee}) => {
               <Link href="/account/ad/[eid]" as={`/account/ad/${employee.id}`}>
                 <a>
                   <Button className="px-2" level="secondary" outline size="xxs">
-                    Edit
+                    {t('common.edit')}
                   </Button>
                 </a>
               </Link>
@@ -70,7 +74,7 @@ const EmployeeCard = ({employee}) => {
             <div className="px-2">
               <DeletePopup onEnter={handleDelete} title={`Delete ${employee.name}?`}>
                 <div className="pt-6">
-                  <p>Are you sure you want to delete this ad?</p>
+                  <p>{t('account.sure_delete_ad')}</p>
                 </div>
               </DeletePopup>
             </div>
@@ -81,6 +85,7 @@ const EmployeeCard = ({employee}) => {
 };
 
 const EmployeesList = ({employees}) => {
+
   return (
       <>
         <div className="flex flex-wrap -mx-3">

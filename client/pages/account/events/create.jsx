@@ -9,10 +9,12 @@ import {
     CREATE_EMPLOYEE_EVENT,
 } from "queries";
 import {useMutation} from "@apollo/react-hooks";
+import {useTranslation} from "react-i18next";
 
 const AccountEventsCreate = ({ user }) => {
     const router = useRouter();
     const [createUserEvent] = useMutation(CREATE_EMPLOYEE_EVENT);
+    const {t, i18n} = useTranslation();
 
     const handleSubmits = async (
         values,
@@ -39,7 +41,7 @@ const AccountEventsCreate = ({ user }) => {
     return (
         <>
             <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
-                Create new event
+                {t('account.create_event')}
             </div>
 
             <EventForm initialValues={{ title: "", event_type_id: "", description: "", club_id: null }} onSubmit={handleSubmits} />

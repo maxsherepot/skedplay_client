@@ -4,8 +4,12 @@ import { FAVORITE_CLUBS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { ClubCard } from "UI";
 import { FavoriteBox } from "components/favorite";
+import {useTranslation} from "react-i18next";
+
 
 const FavoriteClubs = ({ user }) => {
+  const {t, i18n} = useTranslation();
+
   const { data: { favoriteClubs } = {}, loading } = useQuery(FAVORITE_CLUBS, {
     variables: {
       id: user.id
@@ -13,12 +17,12 @@ const FavoriteClubs = ({ user }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   return (
     <FavoriteBox user={user}>
-      <div className="text-2xl font-extrabold my-5">Favorite Clubs</div>
+      <div className="text-2xl font-extrabold my-5">{t('favorites.page_clubs')}</div>
 
       <div className="flex flex-wrap -mx-3">
         {favoriteClubs &&
@@ -27,10 +31,9 @@ const FavoriteClubs = ({ user }) => {
 
       {favoriteClubs && favoriteClubs.length === 0 && (
         <div>
-          <div className="font-bold mb-4">No favorite clubs found!</div>
+          <div className="font-bold mb-4">{t('favorites.not_clubs')}</div>
           <div className="italic">
-            You have no favorite clubs yet. Tap the heart on the club's card to
-            add one.
+            {t('favorites.add_clubs')}
           </div>
         </div>
       )}

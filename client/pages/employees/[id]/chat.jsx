@@ -10,6 +10,8 @@ import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import Centrifugo from "components/centrifuge";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
+
 
 const ClientChatComponent = ({ user, type = 'client' }) => {
   const router = useRouter();
@@ -18,6 +20,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   const [isModalOpen, toggleModalOpen] = useState(false);
   const [employeeInited, employeeInit] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
+  const {t, i18n} = useTranslation();
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
@@ -33,7 +36,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   );
 
   if (employeeLoading || chatsLoading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   let chatByReceiver = chats.find(c => c.receiver.id === parseInt(id));
@@ -108,7 +111,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
             large={true}
           />
         }
-        large
+        {t('chat.large')}
       />
     </>
   );
@@ -129,12 +132,12 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
           onClick={e => {setSelectedChat(null)}}
         >
           <ArrowPrevSvg className="stroke-red">
-            <span className="xs:hidden sm:inline-block ml-2">All chats</span>
+            <span className="xs:hidden sm:inline-block ml-2">{t('chat.all')}</span>
           </ArrowPrevSvg>
         </a>
       </div>
       <span className="font-bold text-2xl">
-        Chat with {selectedChat && selectedChat.receiver.name}
+        {t('chat.chat_with')} {selectedChat && selectedChat.receiver.name}
       </span>
     </>
   );
@@ -142,7 +145,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   let mobileChoseBlock = (
     <>
       <span className="font-bold text-2xl">
-        Chose chat
+        {t('chat.chose_chat')}
       </span>
     </>
   );
@@ -170,7 +173,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
           selectedChat ? "block" : "hidden md:block",
           "w-full sm:w-full md:w-2/3 xl:w-6/12 px-3"
         ])}>
-          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Chat with {selectedChat.receiver.name}</div>
+          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
           <div>
             <ChatRoom type={type} selectedChat={selectedChat} refetchChats={refetchChats}></ChatRoom>
           </div>
@@ -185,7 +188,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
         selectedChat ? "hidden md:block" : "block",
         "w-full sm:w-full md:w-1/3 xl:w-3/12 px-3"
       ])}>
-        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">Contacts</div>
+        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('layout.contacts')}</div>
         <div>
           <ChatList chats={chats} selectedChat={selectedChat} selectChat={selectChat}></ChatList>
         </div>
@@ -197,7 +200,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
     <EmployeeBox employee={employee} user={user} viewed={false}>
       <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
         <div className="hidden w-full xl:block xl:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">Fotogalerie</div>
+          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
           {sidebarColumn}
         </div>
 

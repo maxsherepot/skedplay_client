@@ -4,8 +4,12 @@ import { FAVORITE_EMPLOYEES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { GirlCard } from "UI";
 import { FavoriteBox } from "components/favorite";
+import {useTranslation} from "react-i18next";
+
 
 const FavoriteGirls = ({ user }) => {
+  const {t, i18n} = useTranslation();
+
   const { data: { favoriteEmployees } = {}, loading } = useQuery(
     FAVORITE_EMPLOYEES,
     {
@@ -16,12 +20,12 @@ const FavoriteGirls = ({ user }) => {
   );
 
   if (loading) {
-    return "Loading...";
+    return t('common.loading');
   }
 
   return (
     <FavoriteBox user={user}>
-      <div className="text-2xl font-extrabold my-5">Favorite Girls</div>
+      <div className="text-2xl font-extrabold my-5">{t('favorites.page_girls')}</div>
 
       {favoriteEmployees &&
         favoriteEmployees.map(girl => (
@@ -35,10 +39,9 @@ const FavoriteGirls = ({ user }) => {
 
       {favoriteEmployees && favoriteEmployees.length === 0 && (
         <div>
-          <div className="font-bold mb-4">No favorite girls found!</div>
+          <div className="font-bold mb-4">{t('favorites.not_girls')}</div>
           <div className="italic">
-            You have no favorite girls yet. Tap the heart on the girl's card to
-            add one.
+            {t('favorites.add_girls')}
           </div>
         </div>
       )}

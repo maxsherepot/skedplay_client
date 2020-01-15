@@ -2,13 +2,16 @@ import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { AnimationBackground } from "UI";
+import {useTranslation} from "react-i18next";
+
 
 const InvoiceShow = ({ user }) => {
-  return (
+    const {t, i18n} = useTranslation();
+    return (
     <>
       <AnimationBackground full />
       <div className="container mx-auto">
-        <div className="flex items-center flex-col">Invoice page</div>
+        <div className="flex items-center flex-col">{t('invoices.page')}</div>
       </div>
     </>
   );

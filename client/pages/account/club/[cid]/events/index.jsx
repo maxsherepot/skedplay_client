@@ -7,9 +7,11 @@ import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_CLUB, DELETE_EVENT} from "queries";
 import {Button, DeletePopup} from "UI";
 import Link from "next/link";
+import {useTranslation} from "react-i18next";
 
 const EventCard = ({event}) => {
     const {query: {cid}} = useRouter();
+    const {t, i18n} = useTranslation();
     const [deleteEvent] = useMutation(DELETE_EVENT, {
         update(
             cache,
@@ -73,7 +75,7 @@ const EventCard = ({event}) => {
                         <Link href={`/account/club/${cid}/events/${event.id}`}>
                             <a>
                                 <Button className="px-2" level="secondary" outline size="xxs">
-                                    Edit
+                                    {t('common.edit')}
                                 </Button>
                             </a>
                         </Link>
@@ -81,7 +83,7 @@ const EventCard = ({event}) => {
                     <div className="px-2">
                         <DeletePopup onEnter={handleDelete} title={`Delete ${event.title}?`}>
                             <div className="pt-6">
-                                <p>Are you sure you want to delete this event?</p>
+                                <p>{t('account.are_you_sure_delete_event')}</p>
                             </div>
                         </DeletePopup>
                     </div>

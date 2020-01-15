@@ -9,6 +9,7 @@ import {
 } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { getLayout } from "components/account/AccountLayout";
+import {useTranslation} from "react-i18next";
 
 const AccountClubEdit = ({ user }) => {
     const { query: { cid } } = useRouter();
@@ -23,9 +24,10 @@ const AccountClubEdit = ({ user }) => {
         'Photos and videos',
         'Schedule and activation',
     ];
+    const {t, i18n} = useTranslation();
 
     if (loading) {
-        return  <div>Loading...</div>
+        return t('common.loading');
     }
 
     return (

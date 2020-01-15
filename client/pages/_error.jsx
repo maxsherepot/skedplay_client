@@ -5,36 +5,39 @@ import {
     Button,
     AnimationBackground,
 } from "UI";
+import {useTranslation} from "react-i18next";
 
 function Error({statusCode}) {
+    const {t, i18n} = useTranslation();
+
     const Display404 = () => (
         <div className="relative flex flex-col items-start mx-auto hd:w-7/12">
-            <span className="mb-3">Error #404</span>
-            <h1 className="text-6xl font-extrabold">PAGE NOT FOUND</h1>
-            <p>We're sorry, the page you requested could not be found.</p>
+            <span className="mb-3">{t('errors.error')} #404</span>
+            <h1 className="text-6xl font-extrabold">{t('errors.page_not_found')}</h1>
+            <p>{t('errors.sorry_not_found')}</p>
 
             <div className="flex mt-6">
                 <Link href="/">
                     <a>
-                        <Button className="px-16 mr-3">Go home</Button>
+                        <Button className="px-16 mr-3">{t('navigation.go_home')}</Button>
                     </a>
                 </Link>
                 <Link href="/girls/add">
                     <a>
                         <Button className="px-16" outline>
-                            <span className="text-black hover:text-white">Add new add</span>
+                            <span className="text-black hover:text-white">{t('navigation.add_new')}</span>
                         </Button>
                     </a>
                 </Link>
             </div>
 
-            <span className="absolute right-0 bottom-0">Copyright © 2019 Skedplay. All rights reserved.</span>
+            <span className="absolute right-0 bottom-0">{t('common.copyright')}</span>
         </div>
     );
 
     const DisplayServerError = () => (
         <div className="flex flex-col items-start mx-auto hd:w-7/12">
-            <h1 className="text-6xl font-extrabold">An error occurred on server</h1>
+            <h1 className="text-6xl font-extrabold">{t('errors.error_occurred')}</h1>
         </div>
     );
 
