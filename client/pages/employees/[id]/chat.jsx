@@ -111,9 +111,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
             large={true}
           />
         }
-        >
-        {t('chat.large')}
-      />
+      >{t('chat.large')}</Gallery>
     </>
   );
 
