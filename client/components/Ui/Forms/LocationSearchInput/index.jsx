@@ -6,9 +6,10 @@ import PlacesAutocomplete, {
 
 import { TextField } from "UI/Forms";
 import {useFormikContext} from "formik";
+import {LoadScript} from "@react-google-maps/api";
 
 function LocationSearchInput({initAddress}) {
-  const [address, setAddress] = useState(initAddress || null);
+  const [address, setAddress] = useState(initAddress || '');
   const { setFieldValue } = useFormikContext();
 
 
@@ -20,10 +21,6 @@ function LocationSearchInput({initAddress}) {
   const handleSelect = address => {
     setAddress(address);
     setFieldValue('address', address);
-    // geocodeByAddress(address)
-    //   .then(results => getLatLng(results[0]))
-    //   .then(latLng => console.log('Success', latLng))
-    //   .catch(error => console.error('Error', error));
   };
 
   return (

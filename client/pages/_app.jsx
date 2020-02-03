@@ -5,6 +5,7 @@ import withApollo from "lib/withApollo";
 import {MainLayout} from 'layouts'
 import "styles/style.scss";
 import { appWithTranslation } from 'lib/i18n';
+import {LoadScript} from "@react-google-maps/api";
 
 class MyApp extends App {
   static displayName = "MyApp";
@@ -17,7 +18,13 @@ class MyApp extends App {
 
     return (
         <ApolloProvider client={apolloClient}>
-          {getLayout(<Component {...pageProps} />, pageProps)}
+          <LoadScript
+            id="script-loader"
+            googleMapsApiKey={process.env.GOOGLE_MAP_KEY}
+            libraries={['places']}
+          >
+            {getLayout(<Component {...pageProps} />, pageProps)}
+          </LoadScript>
         </ApolloProvider>
     )
   }

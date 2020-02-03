@@ -62,6 +62,10 @@ class EmployeeRepository implements HasMediable
      */
     public function store(EmployeeOwnerInterface $owner, Collection $data)
     {
+        if ($data['birthday']) {
+            $data['age'] = Carbon::parse($data['birthday'])->age;
+        }
+
         $employee = new Employee($data->toArray());
         $employee->owner()->associate($owner);
 
@@ -119,6 +123,10 @@ class EmployeeRepository implements HasMediable
      */
     public function storeActivatedAt(int $employeeId, ?Carbon $willActivatedAt = null): void
     {
+        if ($willActivatedAt) {
+            $willActivatedAt->startOfDay();
+        }
+
         if (!$willActivatedAt || $willActivatedAt <= now()) {
             Employee::whereId($employeeId)->update([
                 'will_activate_at' => null,
@@ -130,10 +138,10 @@ class EmployeeRepository implements HasMediable
             return;
         }
 
-        $soon = $willActivatedAt->subDays(Employee::SOON_DAYS) < now();
+        $soon = $willActivatedAt->copy()->subDays(Employee::SOON_DAYS) < now();
 
         Employee::whereId($employeeId)->update([
-            'will_activate_at' => $willActivatedAt->startOfDay(),
+            'will_activate_at' => $willActivatedAt,
             'active' => 0,
             'soon' => $soon ? 1 : 0,
             'show_level' => $soon ? Employee::SHOW_LEVEL_SOON : Employee::SHOW_LEVEL_HIDDEN,

@@ -4,12 +4,17 @@ import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort } from "UI";
 import React from "react";
+import MapWithMarkers from "components/maps/MapWithMarkers";
 
 function EmployeesBox({ sortComponent, employees, loading, error, page, setPage, networkStatus }) {
 
   if (loading || networkStatus === 4) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   if (!employees) return <div>-----</div>;
+
+  const employeesWithCoordinates = employees.data.filter(e => e.lat !== null && e.lng !== null);
+
+  console.log(employeesWithCoordinates);
 
   return (
     <>
@@ -21,6 +26,13 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
           <span className="ml-1">adverts found</span>
         </div>
         {sortComponent}
+      </div>
+
+      <div className="fluid-container">
+        <MapWithMarkers
+          markers={employeesWithCoordinates}
+          mapContainerStyle={{width: '100%', height: '400px'}}
+        ></MapWithMarkers>
       </div>
 
       <div className="fluid-container">

@@ -11,6 +11,8 @@ export const ALL_EMPLOYEES = gql `
         isVip
         isNew
         soon
+        lat
+        lng
         favorited {
           id
         }

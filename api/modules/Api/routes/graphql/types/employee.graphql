@@ -16,6 +16,8 @@ type Employee {
   age: Int
   type: Int
   race_type_id: Int
+  lat: Float,
+  lng: Float,
   created_at: DateTime!
   updated_at: DateTime!
   #
