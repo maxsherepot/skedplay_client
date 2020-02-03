@@ -14,8 +14,6 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
 
   const employeesWithCoordinates = employees.data.filter(e => e.lat !== null && e.lng !== null);
 
-  console.log(employeesWithCoordinates);
-
   return (
     <>
       <div className="fluid-container flex justify-between my-6">
@@ -32,6 +30,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
         <MapWithMarkers
           markers={employeesWithCoordinates}
           mapContainerStyle={{width: '100%', height: '400px'}}
+          showLabel={true}
         ></MapWithMarkers>
       </div>
 

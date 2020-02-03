@@ -52,6 +52,8 @@ export const GET_EMPLOYEE = gql `
       description
       isVip
       isNew
+      lat
+      lng
       favorited {
         id
       }

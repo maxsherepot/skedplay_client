@@ -12,6 +12,7 @@ import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import Index from "../../index";
 import {useTranslation} from "react-i18next";
+import MapWithMarkers from "components/maps/MapWithMarkers";
 
 
 const EmployeeInformation = ({ user }) => {
@@ -215,6 +216,16 @@ const EmployeeInformation = ({ user }) => {
           />
         </div>
       </div>
+
+      {(employee.lat !== null && employee.lng !== null) &&
+      <div className="mt-6">
+        <MapWithMarkers
+          markers={[employee]}
+          center={{lat: employee.lat, lng: employee.lng}}
+          mapContainerStyle={{width: '100%', height: '400px'}}
+        ></MapWithMarkers>
+      </div>
+      }
     </EmployeeBox>
   );
 };
