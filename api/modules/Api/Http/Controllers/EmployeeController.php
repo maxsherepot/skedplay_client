@@ -215,20 +215,21 @@ class EmployeeController extends Controller
     public function schedule(EmployeeScheduleCreateRequest $request)
     {
 //        $this->authorize('create-schedule', Club::class);
-        $schedules = $request->get('input.schedules');
+        $schedules = $request->all()['input']['schedules'];
         $willActivateAt = $request->all()['input']['will_activate_at'];
 
         try {
-          foreach($schedules as $schedule) {
-            $this->employees->storeSchedule(collect($schedule));
-          }
+            foreach ($schedules as $schedule) {
+                $this->employees->storeSchedule(collect($schedule));
+            }
 
             $this->employees->storeActivatedAt($schedules[0]['employee_id'], Carbon::parse($willActivateAt));
 
-          return $this->success();
+            return $this->success();
 
         } catch (\Exception $exception) {
-          return $this->fail();
+            Log::error($exception->getMessage());
+            return $this->fail();
         }
     }
 

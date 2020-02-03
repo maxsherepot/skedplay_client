@@ -60,7 +60,7 @@ input EmployeeScheduleInput {
 
 input EmployeeSchedulesInput {
   schedules: [EmployeeScheduleInput],
-  will_activate_at: String!
+  will_activate_at: String
 }
 
 extend type Query {

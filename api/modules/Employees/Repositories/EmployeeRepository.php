@@ -28,7 +28,7 @@ class EmployeeRepository implements HasMediable
         if (isset($name[1])) {
             $data->put('last_name', $name[1]);
         }
-        
+
         $user = auth('api')->user();
 
         if ($user->is_club_owner && $clubId = $data->get('club_id')) {
@@ -119,13 +119,15 @@ class EmployeeRepository implements HasMediable
      */
     public function storeActivatedAt(int $employeeId, ?Carbon $willActivatedAt = null): void
     {
-        if (!$willActivatedAt || $willActivatedAt < now()) {
+        if (!$willActivatedAt || $willActivatedAt <= now()) {
             Employee::whereId($employeeId)->update([
                 'will_activate_at' => null,
                 'active' => 1,
                 'soon' => 0,
                 'show_level' => Employee::SHOW_LEVEL_ACTIVE,
             ]);
+
+            return;
         }
 
         $soon = $willActivatedAt->subDays(Employee::SOON_DAYS) < now();

@@ -169,7 +169,7 @@ const NewAdBox = ({clubId}) => {
         variables: {
           input: {
             schedules: payload,
-            will_activated_at: values.will_activated_at
+            will_activate_at: values.will_activate_at || new Date(),
           },
         }
       });
