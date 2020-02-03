@@ -17,7 +17,7 @@ function TextField({
   after,
   ...rest
 }) {
-  const { touched, errors } = useFormikContext();
+  const { touched, errors, setFieldValue } = useFormikContext();
 
   const currentTouched = dot.pick(name, touched);
   const currentError = dot.pick(name, errors);
@@ -51,8 +51,12 @@ function TextField({
               "pl-10": before
             })}
             {...field}
-            value={field.value || ""}
+            value={rest.value || field.value || ""}
             style={before ? { paddingLeft: "2.5rem" } : null}
+            onChange={e => {
+              rest.onChange ? rest.onChange(e) : null;
+              field.onChange ? field.onChange(e) : null;
+            }}
           />
         )}
       </Field>

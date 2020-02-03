@@ -35,7 +35,8 @@
         "stevebauman/location": "^3.0",
         "sudiptpa/paypal-ipn": "^2.0",
         "tightenco/parental": "0.7",
-        "laravel/nova": "*"
+        "laravel/nova": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",

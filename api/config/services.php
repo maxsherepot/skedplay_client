@@ -51,4 +51,7 @@ return [
         'sandbox'   => env('PAYPAL_SANDBOX'),
     ],
 
+    'google_maps' => [
+        'api_key' => env('GOOGLE_API_KEY'),
+    ],
 ];

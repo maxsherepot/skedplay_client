@@ -21,19 +21,27 @@ trait Locationable
 
     public static function bootLocationable()
     {
-        static::creating(function (Model $model) {
-            if (is_null($model->lat) && is_null($model->lng) && $ip = request()->ip()) {
-                try {
-                    $coordinates = (new LocationCoordinatesIpService())
-                        ->setIp($ip)
-                        ->getCoordinates();
-
-                    $model->lat = $coordinates->lat ?? self::DEFAULT_LATITUDE;
-                    $model->lng = $coordinates->lng ?? self::DEFAULT_LONGITUDE;
-
-                } catch (\Exception $e) {
-                }
-            }
+        static::saving(function (Model $model) {
+            static::setCoordinates($model);
         });
+    }
+
+    private static function setCoordinates(Model $model): void
+    {
+        if (!is_null($model->lat) && !is_null($model->lng)) {
+            return;
+        }
+
+        if (!$model->address) {
+            return;
+        }
+
+        try {
+            $coordinates = (new LocationCoordinatesAddressService())
+                ->getCoordinatesByAddress($model->address);
+
+            $model->lat = $coordinates->getLat();
+            $model->lng = $coordinates->getLng();
+        } catch (\Exception $e) {}
     }
 }
