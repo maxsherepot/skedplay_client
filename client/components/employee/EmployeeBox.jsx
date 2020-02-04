@@ -82,7 +82,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               {(employee.reviews && employee.reviews.length) || 0}
             </span>
           </li>
-          {user &&
+          {(user && user.is_client) &&
             <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
               <ActiveLink
                 activeClassName="text-red"
