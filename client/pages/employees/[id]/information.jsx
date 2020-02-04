@@ -81,7 +81,7 @@ const EmployeeInformation = ({ user }) => {
 
   const AddressAndEvent = () => (
     <>
-      <AddressCard isAvailable={false} />
+      <AddressCard employee={employee} isAvailable={false} />
 
       <div className="flex items-end my-5">
         <div className="text-2xl font-extrabold tracking-tighter leading-none">
