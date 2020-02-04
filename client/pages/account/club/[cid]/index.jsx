@@ -8,30 +8,30 @@ import { getLayout } from "components/account/AccountLayout";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 import {useTranslation} from "react-i18next";
 
-const {t, i18n} = useTranslation();
-const GirlRow = ({ employee, soon, active }) => (
+const GirlRow = ({ employee, soon, active }) => {
+    const {t, i18n} = useTranslation();
 
+    return (
+      <div className="flex items-center my-2">
+          <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
 
-    <div className="flex items-center my-2">
-        <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
-
-        <div className="flex-col">
-            <div className="font-medium">{employee && employee.name}</div>
-            {!active ? (
+          <div className="flex-col">
+              <div className="font-medium">{employee && employee.name}</div>
+              {!active ? (
                 <div className="flex items-center text-grey">
                     {!soon && (
-                        <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
+                      <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
                     )}
                     <div className="flex items-center">
                         05.06-07.06
                         {soon && (
-                            <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
-                                {t('common.coming_soon')}
-                            </div>
+                          <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
+                              {t('common.coming_soon')}
+                          </div>
                         )}
                     </div>
                 </div>
-            ) : (
+              ) : (
                 <div className="flex items-center">
                     <div className="bg-light-grey text-white text-xs rounded-full whitespace-no-wrap px-3 py-1">
                         {t('common.not_active')}
@@ -40,12 +40,15 @@ const GirlRow = ({ employee, soon, active }) => (
                         {t('common.active_now')}
                     </div>
                 </div>
-            )}
-        </div>
-    </div>
-);
+              )}
+          </div>
+      </div>
+    );
+};
 
 const AccountClubIndex = ({ user }) => {
+    const {t, i18n} = useTranslation();
+
     let phone = null;
     const { query: {cid} } = useRouter();
 
