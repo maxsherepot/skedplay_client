@@ -40,7 +40,7 @@ const EmployeeEvents = ({user}) => {
     const sidebarColumn = (
         <>
             <Gallery photos={employee.photos}/>
-            <AddressCard/>
+            <AddressCard addressable={employee}/>
         </>
     );
 

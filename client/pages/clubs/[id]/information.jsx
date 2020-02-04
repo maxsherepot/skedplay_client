@@ -18,6 +18,21 @@ import {useQuery} from "@apollo/react-hooks";
 import {ClubBox, ClubGirlsBox} from "components/club";
 import {ClubSchedule} from "components/schedule";
 import {useTranslation} from "react-i18next";
+import Distance from "components/distance";
+import EmployeeMaps from "components/employee/EmployeeMaps";
+
+const DistanceView = ({ distanceKm }) => {
+    if (!distanceKm) {
+        return '';
+    }
+
+    return (
+      <div className="flex items-center my-2">
+          <MapSvg/>
+          <span className="ml-3 text-grey text-sm">{distanceKm} km from me</span>
+      </div>
+    )
+};
 
 const ClubInformation = ({user}) => {
     const router = useRouter();
@@ -45,11 +60,15 @@ const ClubInformation = ({user}) => {
             <div className="text-2xl font-extrabold my-5">{t('clubs.address_and_contacts')}</div>
 
             <div className="bg-white rounded-lg p-4">
-                <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
-                <div className="flex items-center my-2">
-                    <MapSvg/>
-                    <span className="ml-3 text-grey text-sm">12 km from me</span>
-                </div>
+                <p className="font-bold">{club.address}</p>
+                {(club.lat && club.lng) &&
+                    <Distance
+                      originByGeo={true}
+                      destination={{lat: club.lat, lng: club.lng}}
+                    >
+                        <DistanceView/>
+                    </Distance>
+                }
             </div>
 
             <div className="bg-white rounded-lg p-4 my-4">
@@ -282,6 +301,10 @@ const ClubInformation = ({user}) => {
                 <div className="w-full hd:w-3/12 px-3 hidden hd:block">
                     <ClubSchedule title={`Schedule in ${club.name}`} club={club}/>
                 </div>
+            </div>
+
+            <div className="mt-6 mb-6">
+                <EmployeeMaps employee={club}/>
             </div>
         </>
     );

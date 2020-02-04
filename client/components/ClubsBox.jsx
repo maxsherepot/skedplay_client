@@ -59,20 +59,20 @@ function ClubsBox({ inititalState }) {
         )}
       </div>
 
-      <div className="fluid-container">
-        <div className="text-2xl font-black">Meine Adresse</div>
-        {/* add page-card? */}
-        <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">
-          <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>
-          <div className="flex my-4">
-            <MapSvg />
-            <span className="ml-3">12 km from me</span>
-          </div>
-          <Button className="px-4" size="xxs" level="success" weight="normal">
-            Available
-          </Button>
-        </div>
-      </div>
+      {/*<div className="fluid-container">*/}
+      {/*  <div className="text-2xl font-black">Meine Adresse</div>*/}
+      {/*  /!* add page-card? *!/*/}
+      {/*  <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">*/}
+      {/*    <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>*/}
+      {/*    <div className="flex my-4">*/}
+      {/*      <MapSvg />*/}
+      {/*      <span className="ml-3">12 km from me</span>*/}
+      {/*    </div>*/}
+      {/*    <Button className="px-4" size="xxs" level="success" weight="normal">*/}
+      {/*      Available*/}
+      {/*    </Button>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
       <Pagination
         page={page}

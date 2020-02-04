@@ -59,9 +59,9 @@ function EventsBox({ inititalState }) {
         )}
       </div>
 
-      <div className="fluid-container">
-        <AddressCard className="w-full sm:w-2/3 lg:w-2/5 hd:w-1/5" />
-      </div>
+      {/*<div className="fluid-container">*/}
+      {/*  <AddressCard className="w-full sm:w-2/3 lg:w-2/5 hd:w-1/5" />*/}
+      {/*</div>*/}
 
       <Pagination
         page={page}

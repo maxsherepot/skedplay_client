@@ -8,6 +8,8 @@ export const ALL_CLUBS = gql`
         name
         address
         phones
+        lat
+        lng
         favorited {
           id
         }
@@ -44,6 +46,8 @@ export const GET_CLUB = gql`
       index
       city
       address
+      lat
+      lng
       email
       website
       phones

@@ -7,6 +7,21 @@ import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
 import { MapSvg, CloseSvg } from "icons";
+import Distance from "components/distance";
+import MapDirection from "components/maps/MapDirection";
+
+function DistanceView({distanceKm}) {
+  if (!distanceKm) {
+    return '';
+  }
+
+  return (
+    <div className="flex p-1">
+      <MapSvg />
+      <span className="ml-1 whitespace-no-wrap">{distanceKm} km</span>
+    </div>
+  );
+}
 
 function EventCard({
   className,
@@ -97,15 +112,31 @@ function EventCard({
           onClick={() => setEventMapId(id)}
         >
           <div className="py-1">{club.address}</div>
-          <div className="flex p-1">
-            <MapSvg />
-            <span className="ml-1 whitespace-no-wrap">150 km</span>
-          </div>
+
+          {(club.lat && club.lng) &&
+            <Distance
+              originByGeo={true}
+              destination={{lat: club.lat, lng: club.lng}}
+            >
+              <DistanceView/>
+            </Distance>
+          }
         </div>
       </div>
       {isMap && (
         <div>
-          <GoogleMap className="absolute top-0 left-0 z-20 px-2" />
+          <div
+            className="google-map absolute top-0 left-0 z-20 px-3"
+            style={{ height: "100%", width: "100%" }}
+          >
+            <MapDirection
+              originByGeo={true}
+              destination={{lat: club.lat, lng: club.lng}}
+              height="100%"
+              black={true}
+            ></MapDirection>
+          </div>
+
           <div className="absolute bottom-0 left-0 z-30 p-6">
             <Button className="px-6" size="sm">
               Get me to the club

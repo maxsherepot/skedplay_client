@@ -11,6 +11,8 @@ export const ALL_EVENTS = gql`
                 }
                 club {
                     address
+                    lat
+                    lng
                     services {
                         id
                         name
@@ -51,6 +53,8 @@ export const EVENTS_BY_OWNER = gql`
             }
             club {
                 address
+                lat
+                lng
                 services {
                     id
                     name
@@ -81,6 +85,8 @@ export const GET_EVENT = gql`
             }
             club {
                 address
+                lat
+                lng
                 services {
                     id
                     name

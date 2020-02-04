@@ -7,8 +7,20 @@ import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
+import Distance from "components/distance";
+import MapDirection from "components/maps/MapDirection";
 
-function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = true }) {
+function DistanceView({distanceKm}) {
+  if (!distanceKm) {
+    return '';
+  }
+
+  return (
+    <p className="text-grey">{distanceKm} km from me</p>
+  );
+}
+
+function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = true, lat, lng }) {
   let phone = null
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -69,7 +81,14 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
             <p className="py-1 font-bold" onClick={() => setEventMapId(id)}>
               {address}
             </p>
-            <p className="text-grey">30 km from me</p>
+            {(lat && lng) &&
+              <Distance
+                originByGeo={true}
+                destination={{lat, lng}}
+              >
+                <DistanceView/>
+              </Distance>
+            }
 
             <div className="flex">
               {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
@@ -104,7 +123,18 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
       </div>
       {isMap && (
         <div>
-          <GoogleMap className="absolute top-0 left-0 z-20 px-2"></GoogleMap>
+          <div
+            className="google-map absolute top-0 left-0 z-20 px-3"
+            style={{ height: "100%", width: "100%" }}
+          >
+            <MapDirection
+              originByGeo={true}
+              destination={{lat, lng}}
+              height="100%"
+              black={true}
+            ></MapDirection>
+          </div>
+
           <div className="absolute bottom-0 left-0 z-30 p-6">
             <Button className="px-6" size="sm">
               Get me to the club

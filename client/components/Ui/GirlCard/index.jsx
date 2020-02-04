@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
+import Distance from "components/distance";
+import MapSvg from "components/icons/MapSvg";
 
 function GirlCard({
   className,
@@ -16,6 +18,28 @@ function GirlCard({
   available,
   preview
 }) {
+  function DistanceView({distanceKm}) {
+    if (!distanceKm) {
+      return (
+        <>
+          {girl.address &&
+          <div className="text-sm text-grey">
+            <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
+            {girl.address}
+          </div>
+          }
+        </>
+      );
+    }
+
+    return (
+      <div className="text-sm text-grey">
+        <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
+        {distanceKm} km from me
+      </div>
+    );
+  }
+
   const availableButtons = () => {
     const type = Math.floor(Math.random() * Math.floor(4));
 
@@ -149,12 +173,12 @@ function GirlCard({
           <div className="flex">{availableButtons()}</div>
         ) : (
           <>
-            {girl.address &&
-              <div className="text-sm text-grey">
-                <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-                {girl.address}
-              </div>
-            }
+            <Distance
+              originByGeo={true}
+              destination={{lat: girl.lat, lng: girl.lng}}
+            >
+              <DistanceView/>
+            </Distance>
           </>
         )}
       </div>

@@ -40,12 +40,13 @@ class Distance extends Component {
   }
 
   render() {
-    if (!this.state.origin) {
-      return '';
-    }
+    // if (!this.state.origin) {
+    //   return '';
+    // }
 
     let distanceText = null;
     let distanceValue = null;
+    let distanceKm = null;
 
     if (
       !this.props.callback
@@ -54,19 +55,23 @@ class Distance extends Component {
       try {
         distanceValue = this.state.response.rows[0].elements[0].distance.value;
         distanceText = this.state.response.rows[0].elements[0].distance.text;
-      } catch (e) {console.log('distance error');}
+        distanceKm = Math.round(distanceValue / 1000 * 10) / 10;
+      } catch (e) {
+        // console.log('distance error', e, this.state.response);
+      }
     }
 
     const children = Children.map(this.props.children, (child, index) => {
       return React.cloneElement(child, {
         distanceText,
         distanceValue,
+        distanceKm,
       });
     });
 
     return (
       <>
-        {!this.state.response &&
+        {(!this.state.response && this.state.origin) &&
           <DistanceMatrixService
             callback={response => {
               this.defaultCallback(response);

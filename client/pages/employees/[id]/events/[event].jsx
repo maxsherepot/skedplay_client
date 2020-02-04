@@ -38,7 +38,7 @@ const EmployeeEventShow = ({user}) => {
     const sidebarColumn = (
         <>
             <Gallery photos={employee.photos}/>
-            <AddressCard isAvailable={false}/>
+            <AddressCard addressable={employee} isAvailable={false}/>
         </>
     );
 

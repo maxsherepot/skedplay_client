@@ -10,6 +10,8 @@ import {useTranslation} from "react-i18next";
 const ENTITY_NAME = "clubs";
 
 function Clubs({loggedInUser}) {
+    const {t, i18n} = useTranslation();
+
     const {loading, data: {club_types} = {}} = useQuery(
         EVENTS_FILTER_OPTIONS
     );
@@ -19,8 +21,6 @@ function Clubs({loggedInUser}) {
     if (loading) {
         return <Loader/>;
     }
-
-    const {t, i18n} = useTranslation();
 
     const fields = [
         // {
