@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { ClubCard } from "UI";
+import { ClubCard, Loader } from "UI";
 import Slider from "react-slick";
 import React from "react";
 
@@ -33,7 +33,7 @@ const GET_CLUBS = gql`
 function ClubsBox() {
   const { loading, error, data: { clubs } = {} } = useQuery(GET_CLUBS);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   return (

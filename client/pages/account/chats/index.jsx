@@ -8,7 +8,7 @@ import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import Centrifugo from "components/centrifuge";
-import { ArrowBack } from "UI";
+import { ArrowBack, Loader } from "UI";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 
@@ -39,7 +39,7 @@ const EmployeeChatComponent = ({ user }) => {
   );
 
   if (chatsLoading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   Centrifugo.init().then(centrifuge => {

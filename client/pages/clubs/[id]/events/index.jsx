@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Gallery, EventCard } from "UI";
+import { Gallery, EventCard, Loader } from "UI";
 import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { ClubBox } from "components/club";
@@ -19,7 +19,7 @@ const ClubEventsIndex = ({ user }) => {
   });
 
   if (loading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   const sidebarColumn = <Gallery photos={club.photos} height="597px" />;
@@ -43,7 +43,7 @@ const ClubEventsIndex = ({ user }) => {
           </div>
         </>
       ) : (
-        <div>{t('common.loading')}</div>
+        <div><Loader/></div>
       )}
     </>
   );

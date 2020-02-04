@@ -6,6 +6,7 @@ import {MainLayout} from 'layouts'
 import "styles/style.scss";
 import { appWithTranslation } from 'lib/i18n';
 import {LoadScript} from "@react-google-maps/api";
+import { Loader } from "UI";
 
 class MyApp extends App {
   static displayName = "MyApp";
@@ -22,6 +23,7 @@ class MyApp extends App {
             id="script-loader"
             googleMapsApiKey={process.env.GOOGLE_MAP_KEY}
             libraries={['places']}
+            loadingElement={<Loader/>}
           >
             {getLayout(<Component {...pageProps} />, pageProps)}
           </LoadScript>

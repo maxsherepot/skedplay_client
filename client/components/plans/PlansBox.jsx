@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Lightbox from 'react-datatrans-light-box'
-import { PlanCard } from "UI";
+import { PlanCard, Loader } from "UI";
 import redirect from "lib/redirect";
 import { SUBSCRIBE_ON_PLAN } from "queries";
 
@@ -49,7 +49,7 @@ function PlansBox({ user }) {
   });
   const { loading, error, data: { plans } = {} } = useQuery(GET_PLANS);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   const onSubscribe = (planId, price) => {

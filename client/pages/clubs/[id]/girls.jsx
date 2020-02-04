@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { GET_CLUB } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { GirlCard } from "UI";
+import { GirlCard, Loader } from "UI";
 import { ClubBox } from "components/club";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
@@ -19,7 +19,7 @@ const ClubGirls = ({ user }) => {
   });
 
   if (loading) {
-    return t('common.loading');
+    return <Loader />;
   }
 
   return (

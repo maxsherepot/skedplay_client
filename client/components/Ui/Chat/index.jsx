@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import _ from "lodash";
 import Link from "next/link";
-import { Badge, Slick, Button, MultiPhotoField, MultiVideoField  } from "UI";
+import { Badge, Slick, Button, MultiPhotoField, MultiVideoField, Loader  } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
 import {useQuery, useLazyQuery, useMutation} from "@apollo/react-hooks";
@@ -95,7 +95,7 @@ function ChatRoom({
   );
 
   if (chatLoading && !selectedChat) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   if (loadedChat) {

@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {usePagination} from "hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {Avatar, MasonryLayout, Pagination} from "UI";
+import {Avatar, MasonryLayout, Pagination, Loader} from "UI";
 import {GET_EMPLOYEE, ALL_REVIEWS, CREATE_REVIEW} from "queries";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
@@ -37,7 +37,7 @@ const EmployeeReviews = ({user}) => {
     );
 
     if (employeeLoading || reviewsLoading) {
-        return t('common.loading');
+        return <Loader/>;
     }
 
     const ViewReply = ({replies}) => {

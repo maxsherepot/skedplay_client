@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {EditEmployeeBox} from "components/employee";
 import SelectClub from "components/account/SelectClub";
-import {Button, DeletePopup} from "UI";
+import {Button, DeletePopup, Loader} from "UI";
 import {
     GET_EMPLOYEE,
     DELETE_EMPLOYEE,
@@ -103,7 +103,7 @@ const AccountClubWorkersIndex = ({user}) => {
         'Schedule and activation',
     ];
 
-    if (loading) return (<div>Loading..</div>);
+    if (loading) return <Loader/>;
 
     return employee && (
         <>

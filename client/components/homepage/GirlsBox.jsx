@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { GirlCard } from "UI";
+import { GirlCard, Loader } from "UI";
 
 const GET_GIRLS = gql`
   {
@@ -24,7 +24,7 @@ const GET_GIRLS = gql`
 function GirlsBox() {
   const { loading, error, data: { employees } = {} } = useQuery(GET_GIRLS);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   return (

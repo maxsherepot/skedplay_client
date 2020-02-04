@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { usePagination } from "hooks";
 import { ALL_CLUBS } from "queries/clubQuery";
 import { MapSvg } from "icons";
-import { ClubCard, Pagination, Sort, Button } from "UI";
+import { ClubCard, Pagination, Sort, Button, Loader } from "UI";
 
 function ClubsBox({ inititalState }) {
   const [page, setPage] = usePagination();
@@ -32,7 +32,7 @@ function ClubsBox({ inititalState }) {
     }
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -55,7 +55,7 @@ function ClubsBox({ inititalState }) {
             </div>
           </>
         ) : (
-          <div>Loading...</div>
+          <div><Loader/></div>
         )}
       </div>
 

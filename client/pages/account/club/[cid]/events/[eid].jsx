@@ -7,6 +7,7 @@ import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_EVENT, UPDATE_EVENT} from "queries";
 import EditEventBox from "components/account/club/EditEventBox";
 import {useTranslation} from "react-i18next";
+import { Loader } from "UI";
 
 const AccountClubEventsEdit = () => {
     const {query: {eid}} = useRouter();
@@ -21,7 +22,7 @@ const AccountClubEventsEdit = () => {
     const onSubmit = async variables => await updateEvent(variables);
 
     if (loading) {
-        return <div>{t('common.loading')}</div>
+        return <Loader/>;
     }
 
     return (

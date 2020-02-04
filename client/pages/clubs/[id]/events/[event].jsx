@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_CLUB, GET_EVENT } from "queries";
-import { Button, Gallery, EventLabel } from "UI";
+import { Button, Gallery, EventLabel, Loader } from "UI";
 import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -27,7 +27,7 @@ const ClubEventShow = ({ user }) => {
   });
 
   if (clubLoading || eventLoading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   const [photo] = event && event.photos;

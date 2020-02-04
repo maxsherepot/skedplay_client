@@ -4,7 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {ALL_EVENTS, GET_EMPLOYEE} from "queries";
 import EmployeeBox from "components/employee/EmployeeBox";
-import {EventCard, Gallery, Pagination, AddressCard} from "UI";
+import {EventCard, Gallery, Pagination, AddressCard, Loader} from "UI";
 import {useTranslation} from "react-i18next";
 
 
@@ -34,7 +34,7 @@ const EmployeeEvents = ({user}) => {
     );
 
     if (employeeLoading || eventsLoading) {
-        return t('common.loading');
+        return <Loader/>;
     }
 
     const sidebarColumn = (
@@ -69,7 +69,7 @@ const EmployeeEvents = ({user}) => {
                     />
                 </>
             ) : (
-                <div>{t('common.loading')}</div>
+                <div><Loader/></div>
             )}
         </>
     );

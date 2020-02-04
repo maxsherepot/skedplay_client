@@ -1,6 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import { TextField, CheckboxField } from "UI";
+import { TextField, CheckboxField, Loader } from "UI";
 import { GET_PRICE_TYPES, GET_SERVICES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -13,7 +13,7 @@ const ServicesAndPricesStep = () => {
   );
 
   if (priceLoading || serviceLoading) {
-    return "Loading..";
+    return <Loader/>;
   }
 
   return (

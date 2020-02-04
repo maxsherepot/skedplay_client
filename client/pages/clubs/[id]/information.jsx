@@ -12,7 +12,7 @@ import {
     MapSvg,
     MessageSvg
 } from "icons";
-import {Gallery, EventCard} from "UI";
+import {Gallery, EventCard, Loader} from "UI";
 import {GET_CLUB} from "queries";
 import {useQuery} from "@apollo/react-hooks";
 import {ClubBox, ClubGirlsBox} from "components/club";
@@ -34,7 +34,7 @@ const ClubInformation = ({user}) => {
 
 
     if (loading) {
-        return t('common.loading');
+        return <Loader />;
     }
 
     const [event] = club.events;

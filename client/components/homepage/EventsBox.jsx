@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { EventsGallery } from "UI";
+import { EventsGallery, Loader } from "UI";
 
 const GET_EVENTS = gql`
   {
@@ -28,7 +28,7 @@ const GET_EVENTS = gql`
 function EventsBox() {
   const { loading, error, data: { events } = {} } = useQuery(GET_EVENTS);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   if (events) return <EventsGallery events={events.data} />;

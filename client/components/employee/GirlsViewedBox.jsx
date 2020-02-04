@@ -6,7 +6,7 @@ import cx from "classnames";
 
 import { ALL_EMPLOYEES } from "queries";
 import { ArrowNextSvg } from "icons";
-import { GirlCard } from "UI";
+import { GirlCard, Loader } from "UI";
 
 const GirlsViewedBox = () => {
   const [index, setIndex] = useState(0);
@@ -18,7 +18,7 @@ const GirlsViewedBox = () => {
     }
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   const appendDots = dots => (

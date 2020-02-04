@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_EMPLOYEE, GET_EVENT} from "queries";
 import {CloseSvg} from "icons";
-import {Button, Gallery, AddressCard, EventLabel} from "UI";
+import {Button, Gallery, AddressCard, EventLabel, Loader} from "UI";
 import checkLoggedIn from "lib/checkLoggedIn";
 import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
@@ -30,7 +30,7 @@ const EmployeeEventShow = ({user}) => {
     });
 
     if (employeeLoading || eventLoading) {
-        return t('common.loading');
+        return <Loader/>;
     }
 
     const [photo] = event && event.photos;

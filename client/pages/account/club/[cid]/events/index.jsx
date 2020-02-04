@@ -5,7 +5,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_CLUB, DELETE_EVENT} from "queries";
-import {Button, DeletePopup} from "UI";
+import {Button, DeletePopup, Loader} from "UI";
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 
@@ -112,7 +112,7 @@ const AccountClubEvents = ({user}) => {
     });
 
     if (loading) {
-        return <div>Loading...</div>
+        return <Loader/>;
     }
 
     return (<EventList events={club.events}/>);

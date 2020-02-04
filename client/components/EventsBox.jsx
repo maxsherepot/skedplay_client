@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 
 import { usePagination } from "hooks";
 import { ALL_EVENTS } from "queries/eventQuery";
-import { EventCard, Pagination, Sort, AddressCard } from "UI";
+import { EventCard, Pagination, Sort, AddressCard, Loader } from "UI";
 import React from "react";
 
 function EventsBox({ inititalState }) {
@@ -28,7 +28,7 @@ function EventsBox({ inititalState }) {
     }
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>{error.message}</div>;
 
   return (
@@ -55,7 +55,7 @@ function EventsBox({ inititalState }) {
             </div>
           </>
         ) : (
-          <div>Loading...</div>
+          <div><Loader/></div>
         )}
       </div>
 

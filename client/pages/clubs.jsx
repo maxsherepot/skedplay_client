@@ -1,7 +1,7 @@
 import React from "react";
 import {useQuery} from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {Filter} from "UI";
+import {Filter, Loader} from "UI";
 import {MainLayout} from "layouts";
 import ClubsBox from "components/ClubsBox";
 import {GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS} from "queries";
@@ -17,7 +17,7 @@ function Clubs({loggedInUser}) {
     const {data: {filters} = {}} = useQuery(GET_FILTERS_STATE);
 
     if (loading) {
-        return <div>"Loading..."</div>;
+        return <Loader/>;
     }
 
     const {t, i18n} = useTranslation();

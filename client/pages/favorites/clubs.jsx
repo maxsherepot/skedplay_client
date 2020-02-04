@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { ClubCard } from "UI";
 import { FavoriteBox } from "components/favorite";
 import {useTranslation} from "react-i18next";
+import {Loader} from "UI";
 
 
 const FavoriteClubs = ({ user }) => {
@@ -17,7 +18,7 @@ const FavoriteClubs = ({ user }) => {
   });
 
   if (loading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   return (

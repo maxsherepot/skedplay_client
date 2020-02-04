@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard } from "UI";
+import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader } from "UI";
 import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -40,7 +40,7 @@ const EmployeeInformation = ({ user }) => {
   );
 
   if (employeeLoading || eventsLoading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   const handleLightboxClick = index => {

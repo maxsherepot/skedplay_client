@@ -30,8 +30,8 @@ class MapDirection extends Component {
   }
 
   componentWillUnmount() {
-    if (this.geoWatchId) {
-      navigator.geolocation.clearWatch(this.geoWatchId);
+    if (this.state.geoWatchId) {
+      navigator.geolocation.clearWatch(this.state.geoWatchId);
     }
   }
 

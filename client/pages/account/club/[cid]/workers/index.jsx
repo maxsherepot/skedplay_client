@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";
 import SelectClub from "components/account/SelectClub";
-import {Button, Tab, Panel} from "UI";
+import {Button, Tab, Panel, Loader} from "UI";
 import {Tabs} from "@bumaga/tabs";
 import {CalendarSvg} from "icons";
 import {SCHEDULE_WEEK_PERIOD} from "queries";
@@ -81,7 +81,7 @@ const AvailableToday = ({employees}) => {
 const CalendarWeek = () => {
     const {data: {schedule_period} = {}, loading} = useQuery(SCHEDULE_WEEK_PERIOD);
 
-    if (loading) return null;
+    if (loading) return <Loader/>;
 
     return (
         <div className="px-2 mt-4">
@@ -117,7 +117,7 @@ const AccountClubWorkersShow = ({user}) => {
     });
     const {t, i18n} = useTranslation();
 
-    if (loading) return null;
+    if (loading) return <Loader/>;
 
     return (
         <>

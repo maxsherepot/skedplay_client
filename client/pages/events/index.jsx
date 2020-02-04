@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { Filter } from "UI";
+import { Filter, Loader } from "UI";
 import EventsBox from "components/EventsBox";
 import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
 import {useTranslation} from "react-i18next";
@@ -20,7 +20,7 @@ function Events({ user }) {
   } = useQuery(GET_FILTERS_STATE);
 
   if (loading) {
-    return <div>{t('common.loading')}</div>;
+    return <Loader/>;
   }
 
   const fields = [

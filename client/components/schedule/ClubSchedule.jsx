@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { GET_CLUB_SCHEDULE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import Schedule from "./Schedule";
+import {Loader} from 'UI';
 
 const ClubSchedule = ({ club, ...rest }) => {
   const {
@@ -15,7 +16,7 @@ const ClubSchedule = ({ club, ...rest }) => {
   });
 
   if (loading) {
-    return "Loading...";
+    return <Loader/>;
   }
 
   return (

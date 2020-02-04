@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
 import EditServices from "components/employee/EditServices";
 import {useTranslation} from "react-i18next";
+import {Loader} from "UI";
 
 
 const EmployeeEditServices = ({ loggedInUser }) => {
@@ -20,7 +21,7 @@ const EmployeeEditServices = ({ loggedInUser }) => {
   });
 
   if (loading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   return (

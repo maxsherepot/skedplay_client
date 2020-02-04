@@ -2,7 +2,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import { FAVORITE_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { EventCard } from "UI";
+import { EventCard, Loader } from "UI";
 import { FavoriteBox } from "components/favorite";
 import {useTranslation} from "react-i18next";
 
@@ -16,7 +16,7 @@ const FavoriteEvents = ({ user }) => {
   });
 
   if (loading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   return (

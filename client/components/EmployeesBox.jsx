@@ -2,13 +2,13 @@ import PropTypes from "prop-types";
 
 import { usePagination } from "hooks";
 import { ALL_EMPLOYEES } from "queries";
-import { GirlCard, Pagination, Sort } from "UI";
+import { GirlCard, Pagination, Sort, Loader } from "UI";
 import React from "react";
 import MapWithMarkers from "components/maps/MapWithMarkers";
 
 function EmployeesBox({ sortComponent, employees, loading, error, page, setPage, networkStatus }) {
 
-  if (loading || networkStatus === 4) return <div>Loading...</div>;
+  if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
   if (!employees) return <div>-----</div>;
 

@@ -2,7 +2,7 @@ import React from "react";
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";
-import {Button, DeletePopup} from "UI";
+import {Button, DeletePopup, Loader} from "UI";
 import {
     DELETE_EVENT,
     EVENTS_BY_OWNER,
@@ -22,7 +22,7 @@ const AccountEventsIndex = ({user}) => {
 
 
     if (loading) {
-        return t('common.loading');
+        return <Loader/>;
     }
 
     const EventCard = ({event}) => {

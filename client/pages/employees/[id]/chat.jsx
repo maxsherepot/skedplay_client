@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowPrevSvg, ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, Gallery, ChatList, ChatRoom } from "UI";
+import { Lightbox, Gallery, ChatList, ChatRoom, Loader } from "UI";
 import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -36,7 +36,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   );
 
   if (employeeLoading || chatsLoading) {
-    return t('common.loading');
+    return <Loader/>;
   }
 
   let chatByReceiver = chats.find(c => c.receiver.id === parseInt(id));

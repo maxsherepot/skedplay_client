@@ -2,6 +2,7 @@ import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS} from "queries";
 import {useTranslation} from "react-i18next";
+import {Loader} from 'UI';
 
 const GirlsSearch = () => {
     const {t, i18n} = useTranslation();
@@ -15,7 +16,7 @@ const GirlsSearch = () => {
     const {loading: filtersLoading, data: {filters} = {}, error} = useQuery(GET_FILTERS_STATE);
 
     if (loading || filtersLoading) {
-        return t('common.loading');
+        return <Loader/>;
     }
 
     if (error || !filters) {

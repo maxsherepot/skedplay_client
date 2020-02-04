@@ -10,6 +10,7 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 import { getLayout } from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
+import { Loader } from "UI";
 
 const AccountAdEdit = () => {
     const {t, i18n} = useTranslation();
@@ -28,7 +29,7 @@ const AccountAdEdit = () => {
     ];
 
     if (loading) {
-        return  <div>{t('common.loading')}</div>
+        return <Loader/>;
     }
 
     return (

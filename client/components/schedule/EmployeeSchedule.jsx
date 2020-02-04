@@ -4,6 +4,7 @@ import cx from "classnames";
 import { GET_EMPLOYEE_SCHEDULE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
+import { Loader } from "UI";
 
 const EmployeeSchedule = ({ employee, ...rest }) => {
   const {
@@ -17,7 +18,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
   const [isShowPhoneId, toggleShowPhoneId] = useState(false);
 
   if (loading) {
-    return "Loading...";
+    return <Loader/>;
   }
 
   const getPeriodDate = day => {
