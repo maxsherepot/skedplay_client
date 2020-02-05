@@ -5,3 +5,5 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    links:
+      - "front:front.com"

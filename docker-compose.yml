@@ -29,6 +29,7 @@ services:
     container_name: "skidplay_front"
     environment:
       - CADDYPATH=/etc/caddycerts
+      - ACME_AGREE=TRUE
     ports:
       - 80:80
       - 443:443
@@ -38,7 +39,7 @@ services:
       - ./.docker/caddy/caddyssl:/etc/caddycerts
       - ./api:/app
     depends_on:
-      - nextjs
+#      - nextjs
       - app
 
   nextjs:
@@ -51,6 +52,8 @@ services:
       - ./client:/app
     depends_on:
       - app
+    links:
+      - "front:front.com"
 
   websocket:
     build: .docker/centrifugo/
