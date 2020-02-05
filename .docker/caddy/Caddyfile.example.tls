@@ -1,0 +1,24 @@
+https://skidplay.tk {
+    tls aioslike@gmail.com
+    proxy / nextjs:3000
+}
+
+https://skidplay.tk:8080 {
+    tls aioslike@gmail.com
+    root /app/public
+    gzip
+    fastcgi / app:9000 php
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+http://front.com:8081 {
+    tls off
+    root /app/public
+    gzip
+    fastcgi / app:9000 php
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
