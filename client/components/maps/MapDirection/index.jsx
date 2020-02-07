@@ -245,10 +245,10 @@ class MapDirection extends Component {
       fullscreenControl: false,
     };
 
-    if (this.props.black) {
+    // if (this.props.black) {
       options.zoomControl = false;
       options.styles = [...blackStyles];
-    }
+    // }
 
     return (
       <div className='map-container' style={{height: this.props.height || '400px'}}>

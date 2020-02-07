@@ -58,7 +58,7 @@ function NewAdForm({ children, clubId }) {
 
     if (isLastStep) {
       try {
-        setStep(0);
+        // setStep(0);
         if (clubId) {
           document.location.href = `/account/club/${clubId}`;
         } else {
