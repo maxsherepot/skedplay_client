@@ -132,6 +132,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
               destination={{lat, lng}}
               height="100%"
               black={true}
+              goBtnLeft={true}
             ></MapDirection>
           </div>
 

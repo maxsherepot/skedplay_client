@@ -1,5 +1,9 @@
+import React from "react";
+
 const { Component } = require('react');
 const { GoogleMap, DirectionsService, DirectionsRenderer } = require("@react-google-maps/api");
+
+import cx from 'classnames';
 
 class MapDirection extends Component {
   constructor (props) {
@@ -251,7 +255,24 @@ class MapDirection extends Component {
     // }
 
     return (
-      <div className='map-container' style={{height: this.props.height || '400px'}}>
+      <div className='map-container relative' style={{height: this.props.height || '400px'}}>
+        <div className={cx([
+          `absolute top-0 pt-5`,
+          `${this.props.goBtnLeft ? 'left-0 pl-2' : 'right-0 pr-2'}`,
+        ])}>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${this.props.destination.lat},${this.props.destination.lng}`}
+            className="btn btn-sm btn-primary"
+            target="_blank"
+            style={{
+              padding: '.5rem',
+              fontSize: '1rem',
+            }}
+          >
+            GO
+          </a>
+        </div>
+
         <GoogleMap
           // required
           id='direction-example'

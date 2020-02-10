@@ -93,7 +93,6 @@ const LoginForm = ({ onSubmit }) => {
           <Link href="/register">
             <Button
               className="text-xl min-w-full mt-3"
-              type="submit"
               disabled={isSubmitting}
             >
               {t('common.create_account')}

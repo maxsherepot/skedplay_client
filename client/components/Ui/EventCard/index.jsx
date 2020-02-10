@@ -134,6 +134,7 @@ function EventCard({
               destination={{lat: club.lat, lng: club.lng}}
               height="100%"
               black={true}
+              goBtnLeft={true}
             ></MapDirection>
           </div>
 
