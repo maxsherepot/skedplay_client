@@ -10,7 +10,7 @@ function Modal({ logo, title, left, right, children, style, contentStyle}) {
           <a className="modal__logo block text-center">{logo}</a>
         </Link>
         <div className="modal__content" style={contentStyle}>
-          <div className="modal__content__header relative z-1">
+          <div className="modal__content__header relative z-20">
             {left}
             <div className="text-4xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">
               {title}

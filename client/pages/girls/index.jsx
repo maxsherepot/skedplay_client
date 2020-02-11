@@ -3,8 +3,9 @@ import {useQuery} from "@apollo/react-hooks";
 import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
+import { geolocated } from "react-geolocated";
 
-const GirlsSearch = () => {
+const GirlsSearch = ({isGeolocationEnabled}) => {
   const ENTITY_NAME = "girls";
   const {t, i18n} = useTranslation();
 
@@ -24,7 +25,7 @@ const GirlsSearch = () => {
     return 'error';
   }
 
-  const fields = [
+  let fields = [
     // {
     //   component: "select",
     //   name: "location",
@@ -115,6 +116,34 @@ const GirlsSearch = () => {
       }
     },
     {
+      component: "distance-slider",
+      name: "close_to",
+      label: t('common.perimeter'),
+      initValue: 0,
+      valueResolver(value) {
+        if (!parseInt(value)) {
+          return t('common.off');
+        }
+
+        return value + 'km';
+      },
+      labelResolver(value) {
+        if (!value) {
+          return null;
+        }
+
+        if (!parseInt(value)) {
+          value = value.distanceKm;
+        }
+
+        if (!value) {
+          return null;
+        }
+
+        return t('common.perimeter') + ' ' + value + 'km';
+      }
+    },
+    {
       component: "checkbox",
       name: "show_level",
       label: t('common.coming_soon'),
@@ -129,6 +158,10 @@ const GirlsSearch = () => {
     },
   ];
 
+  if (!isGeolocationEnabled) {
+    fields.splice(fields.length - 2, 1);
+  }
+
   return (
     <>
       <EmployeesSearch entityName={ENTITY_NAME} fields={fields} filters={filters} />
@@ -136,4 +169,4 @@ const GirlsSearch = () => {
   );
 };
 
-export default GirlsSearch;
+export default geolocated()(GirlsSearch);

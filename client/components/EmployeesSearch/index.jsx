@@ -7,51 +7,16 @@ import { usePagination } from "hooks";
 import {useState} from "react";
 import {Sort} from "UI";
 import React from "react";
+import filterHelpers from "UI/Filter/helpers";
 
-const GirlsSearch = ({ user, entityName, fields, filters, }) => {
+const GirlsSearch = ({ user, entityName, fields, filters }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState({});
-
-  function filterFilters(filters) {
-    const filteredFilters = {};
-
-    Object.keys(filters).map(key => {
-      if (filters[key] === "") return;
-
-      if (filters[key] === null) {
-        return (filters[key] = "");
-      }
-
-      let filter = filters[key];
-
-      if (key === 'age') {
-        delete filter.__typename;
-      }
-
-      if (key === 'orderBy') {
-        delete filter[0].__typename;
-      }
-
-      if (key === 'show_level') {
-        // 1 - active, 2 - soon
-        // filter = filter ? 2 : 1;
-        filter = !!filter;
-      }
-
-      filteredFilters[key] = filter;
-    });
-
-    // if (!filteredFilters.show_level) {
-    //   filteredFilters.show_level = 1;
-    // }
-
-    return filteredFilters;
-  }
 
   let stateFilters = filtersState;
 
   if (Object.keys(filtersState).length === 0) {
-    stateFilters = filterFilters(filters[entityName]);
+    stateFilters = filterHelpers.filterFilters(filters[entityName]);
   }
 
   let filteredFilters = stateFilters;
@@ -74,13 +39,13 @@ const GirlsSearch = ({ user, entityName, fields, filters, }) => {
   function setFilter(key, value) {
     filteredFilters[key] = value;
 
-    setFiltersState(filterFilters(filteredFilters));
+    setFiltersState(filterHelpers.filterFilters(filteredFilters));
 
     refetch();
   }
 
   function setFilters(filters) {
-    setFiltersState(filterFilters(filters));
+    setFiltersState(filterHelpers.filterFilters(filters));
     refetch();
   }
 

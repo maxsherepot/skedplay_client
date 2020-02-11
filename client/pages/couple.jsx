@@ -1,19 +1,19 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS} from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
 import {useTranslation} from "react-i18next";
-import {Loader} from 'UI';
+import { Loader } from "UI";
+import { geolocated } from "react-geolocated";
 
-const GirlsSearch = () => {
+const GirlsSearch = ({isGeolocationEnabled}) => {
+    const ENTITY_NAME = "couple";
     const {t, i18n} = useTranslation();
 
-    const ENTITY_NAME = "couple";
-
-    const {loading, data: {services, employee_race_types} = {}} = useQuery(
-        GIRLS_FILTER_OPTIONS
+    const { loading, data: { services, employee_race_types } = {} } = useQuery(
+      GIRLS_FILTER_OPTIONS
     );
 
-    const {loading: filtersLoading, data: {filters} = {}, error} = useQuery(GET_FILTERS_STATE);
+    const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
     if (loading || filtersLoading) {
         return <Loader/>;
@@ -25,8 +25,7 @@ const GirlsSearch = () => {
         return 'error';
     }
 
-
-    const fields = [
+    let fields = [
         // {
         //   component: "select",
         //   name: "location",
@@ -70,7 +69,7 @@ const GirlsSearch = () => {
             placeholder: t('common.select_services'),
             showCheckboxes: true,
             options: services.map(s => {
-                return {label: s.name, value: s.id};
+                return { label: s.name, value: s.id };
             })
         },
         {
@@ -99,7 +98,7 @@ const GirlsSearch = () => {
             label: t('common.type'),
             placeholder: t('common.select_type'),
             options: employee_race_types.map(s => {
-                return {label: s.name, value: s.id};
+                return { label: s.name, value: s.id };
             })
         },
         {
@@ -117,6 +116,30 @@ const GirlsSearch = () => {
             }
         },
         {
+            component: "slider",
+            name: "close_to",
+            label: t('common.perimeter'),
+            initValue: 0,
+            valueResolver(value) {
+                if (!parseInt(value)) {
+                    return t('common.off');
+                }
+
+                return value + 'km';
+            },
+            labelResolver(value) {
+                if (!parseInt(value)) {
+                    value = value.distanceKm;
+                }
+
+                if (!value) {
+                    return null;
+                }
+
+                return t('common.perimeter') + ' ' + value + 'km';
+            }
+        },
+        {
             component: "checkbox",
             name: "show_level",
             label: t('common.coming_soon'),
@@ -131,11 +154,15 @@ const GirlsSearch = () => {
         },
     ];
 
+    if (!isGeolocationEnabled) {
+        fields.splice(fields.length - 2, 1);
+    }
+
     return (
-        <>
-            <EmployeesSearch entityName={ENTITY_NAME} fields={fields} filters={filters}/>
-        </>
+      <>
+          <EmployeesSearch entityName={ENTITY_NAME} fields={fields} filters={filters} />
+      </>
     );
 };
 
-export default GirlsSearch;
+export default geolocated()(GirlsSearch);

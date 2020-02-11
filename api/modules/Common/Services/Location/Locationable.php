@@ -2,6 +2,7 @@
 
 namespace Modules\Common\Services\Location;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 trait Locationable
@@ -24,6 +25,28 @@ trait Locationable
         static::saving(function (Model $model) {
             static::setCoordinates($model);
         });
+    }
+
+    public function scopeCloseTo(Builder $query, array $params): void
+    {
+        if (
+            !$params['lng'] ?? false
+            || !$params['lat'] ?? false
+            || !$params['distanceKm'] ?? false
+        ) {
+            return;
+        }
+
+        $query->whereRaw("
+           ST_Distance_Sphere(
+                point(lng, lat),
+                point(?, ?)
+           ) / 1000 <= ?
+        ", [
+            $params['lng'],
+            $params['lat'],
+            $params['distanceKm'],
+        ]);
     }
 
     private static function setCoordinates(Model $model): void

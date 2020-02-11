@@ -5,26 +5,22 @@ import { Field, useFormikContext } from "formik";
 import ReactSlider from 'react-slider';
 import { FormGroup } from "UI";
 
-const RangeSlider = ({ className, labelClassName, label, name, value: {from, to}, min = 18, max = 45 }) => {
+const Slider = ({ className, labelClassName, label, name, value: initValue, min = 0, max = 500, valueResolver }) => {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
-  const [start, setStart] = useState(from);
-  const [end, setEnd] = useState(to);
+  const [sliderValue, setValue] = useState(initValue || 0);
 
   useEffect(() => {
-      setStart(from);
-      setEnd(to);
+        setValue(initValue || 0);
     },
-    [from, to]
+    [initValue]
   );
 
-  function setRange(start, end) {
-    setFieldValue(`${name}[from]`, start, false);
-    setFieldValue(`${name}[to]`, end, false);
+  function setSliderValue(value) {
+    setFieldValue(name, value, false);
 
-    setStart(start);
-    setEnd(end);
+    setValue(value);
   }
 
   return (
@@ -38,29 +34,24 @@ const RangeSlider = ({ className, labelClassName, label, name, value: {from, to}
 
       <Field name={name}>
         {({ field: { value, ...rest } }) =>
-          <div className="heart-slider-wrap">
-            <div className="heart-slider-wrap__from">
-              {start}
-            </div>
-            <div className="heart-slider-wrap__to">
-              {end}
+          <div className="heart-slider-wrap simple">
+            <div className="heart-slider-wrap__center">
+              {valueResolver(sliderValue)}
             </div>
 
-            <input type="hidden" name={`${name}[from]`} value={start}/>
-            <input type="hidden" name={`${name}[to]`} value={end}/>
+            <input type="hidden" name={name} value={sliderValue}/>
             <div className="slider-inner-wrap">
               <div className="heart-slider">
                 <ReactSlider
                   className="horizontal-slider"
                   thumbClassName="thumb"
                   trackClassName="track"
-                  defaultValue={[from, to]}
+                  defaultValue={sliderValue}
                   min={min}
                   max={max}
                   pearling
-                  minDistance={1}
-                  value={[start, end]}
-                  onChange={([start, end]) => setRange(start, end)}
+                  value={sliderValue}
+                  onChange={value => setSliderValue(value)}
                 />
               </div>
             </div>
@@ -70,11 +61,16 @@ const RangeSlider = ({ className, labelClassName, label, name, value: {from, to}
   );
 };
 
-RangeSlider.propTypes = {
+Slider.propTypes = {
   className: PropTypes.string,
   labelClassName: PropTypes.string,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  valueResolver: PropTypes.func
 };
 
-export default RangeSlider;
+Slider.defaultProps = {
+  valueResolver: value => value,
+};
+
+export default Slider;

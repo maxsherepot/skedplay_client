@@ -56,6 +56,16 @@ export {
 from "./GroupCheckbox";
 
 export {
+    default as Slider
+}
+    from "./Slider";
+
+export {
+    default as DistanceSlider
+}
+    from "./DistanceSlider";
+
+export {
     default as RangeSlider
 }
 from "./RangeSlider";

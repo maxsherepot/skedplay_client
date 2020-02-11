@@ -6,21 +6,25 @@ import {MainLayout} from "layouts";
 import ClubsBox from "components/ClubsBox";
 import {GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS} from "queries";
 import {useTranslation} from "react-i18next";
+import { geolocated } from "react-geolocated";
+import filterHelpers from "UI/Filter/helpers";
 
 const ENTITY_NAME = "clubs";
 
-function Clubs({loggedInUser}) {
+function Clubs({loggedInUser, isGeolocationEnabled, coords}) {
     const {t, i18n} = useTranslation();
 
     const {loading, data: {club_types} = {}} = useQuery(
         EVENTS_FILTER_OPTIONS
     );
 
-    const {data: {filters} = {}} = useQuery(GET_FILTERS_STATE);
+    const {data: {filters} = {}, loading: filtersLoading} = useQuery(GET_FILTERS_STATE);
 
-    if (loading) {
+    if (loading || filtersLoading) {
         return <Loader/>;
     }
+
+    const filteredFilters = filterHelpers.filterFilters(filters[ENTITY_NAME]);
 
     const fields = [
         // {
@@ -68,31 +72,58 @@ function Clubs({loggedInUser}) {
                 return {label: s.name, value: s.id};
             })
         },
-        {
-            component: "select",
-            name: "perimeter",
-            label: t('clubs.perimeter'),
-            placeholder: t('clubs.select_perimeter'),
-            options: [
-                {
-                    label: "2 km",
-                    value: 2
-                },
-                {
-                    label: "5 km",
-                    value: 5
-                },
-                {
-                    label: "10 km",
-                    value: 10
-                },
-                {
-                    label: "20 km",
-                    value: 20
-                }
-            ]
-        }
+        // {
+        //     component: "select",
+        //     name: "perimeter",
+        //     label: t('clubs.perimeter'),
+        //     placeholder: t('clubs.select_perimeter'),
+        //     options: [
+        //         {
+        //             label: "2 km",
+        //             value: 2
+        //         },
+        //         {
+        //             label: "5 km",
+        //             value: 5
+        //         },
+        //         {
+        //             label: "10 km",
+        //             value: 10
+        //         },
+        //         {
+        //             label: "20 km",
+        //             value: 20
+        //         }
+        //     ]
+        // }
     ];
+
+    if (isGeolocationEnabled) {
+        fields.push({
+            component: "distance-slider",
+            name: "close_to",
+            label: t('common.perimeter'),
+            initValue: 0,
+            valueResolver(value) {
+                if (!parseInt(value)) {
+                    return t('common.off');
+                }
+
+                return value + 'km';
+            },
+            labelResolver(value) {
+                if (!parseInt(value)) {
+                    value = value.distanceKm;
+                }
+
+                if (!value) {
+                    return null;
+                }
+
+                return t('common.perimeter') + ' ' + value + 'km';
+            }
+        });
+    }
 
     return (
         <MainLayout user={loggedInUser}>
@@ -100,8 +131,9 @@ function Clubs({loggedInUser}) {
                 name={ENTITY_NAME}
                 inititalState={filters[ENTITY_NAME]}
                 fields={fields}
-                setFilter={() => {
-                }}
+                filters={filteredFilters}
+                setFilter={() => {}}
+                setFilters={() => {}}
             />
             <ClubsBox inititalState={filters[ENTITY_NAME]}/>
         </MainLayout>
@@ -118,4 +150,4 @@ Clubs.getInitialProps = async ctx => {
 
 Clubs.getLayout = page => page;
 
-export default Clubs;
+export default geolocated()(Clubs);

@@ -28,3 +28,10 @@ enum SortOrder {
     ASC
     DESC
 }
+
+input Distance {
+    lat: Float!
+    lng: Float!
+    distanceKm: Int!
+    __typename: String
+}

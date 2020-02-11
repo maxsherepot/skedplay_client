@@ -39,7 +39,7 @@
     "age": "Age",
     "services": "Services",
     "select_services": "Select services",
-    "age_from_to": "Age from ${{from}} to ${{to}}",
+    "age_from_to": "Age from {{from}} to {{to}}",
     "coming_soon": "Coming soon",
     "copyright": "Copyright © 2020 Skedplay. All rights reserved",
     "location": "Location",
@@ -50,6 +50,7 @@
     "edit": "Edit",
     "not_active": "Not active",
     "active_now": "Active now",
+    "perimeter": "Perimeter",
     "": ""
   },
   "layout": {

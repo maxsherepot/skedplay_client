@@ -10,7 +10,7 @@
   line-height: 1;
   height: 3.125rem;
 
-  &__from, &__to {
+  &__from, &__to, &__center {
     height: 2.95rem;
     line-height: 3.125rem;
     text-align: center;
@@ -25,6 +25,10 @@
 
   &__to {
     width: 50%;
+  }
+
+  &__center {
+    width: 100%;
   }
 
   .slider-inner-wrap {
@@ -55,6 +59,16 @@
       top: -8px;
       background: url(/static/img/heart.svg);
       outline: none;
+    }
+  }
+
+  &.simple {
+    .slider-inner-wrap {
+      .track {
+        &.track-0, &.track-2 {
+          display: block;
+        }
+      }
     }
   }
 }

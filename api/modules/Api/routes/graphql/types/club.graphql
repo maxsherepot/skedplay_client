@@ -65,6 +65,7 @@ type ClubType {
 input ClubFilters {
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   club_type_id: Int @where
+  close_to: Distance @scope(name: "closeTo")
 }
 
 extend type Query {

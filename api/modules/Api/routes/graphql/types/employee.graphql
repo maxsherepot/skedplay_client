@@ -77,6 +77,7 @@ input EmployeeFilters {
 #  race_type: String @whereHas(key: "race_type_id", method: "whereIn")
   race_type_id: String @where
   show_level: [Int] @in
+  close_to: Distance @scope(name: "closeTo")
   __typename: String
 }
 

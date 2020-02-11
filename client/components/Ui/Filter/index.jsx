@@ -5,6 +5,8 @@ import {
   SelectField,
   MultiSelectField,
   FormGroup,
+  Slider,
+  DistanceSlider,
   RangeSlider,
   SelectedBar,
   CheckboxField
@@ -57,6 +59,28 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter })
                               labelClassName="text-white"
                               {...rest}
                             ></MultiSelectField>
+                          );
+
+                        case "slider":
+                          return (
+                            <Slider
+                              key={index}
+                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              labelClassName="text-white"
+                              {...rest}
+                              value={filters[rest.name]}
+                            ></Slider>
+                          );
+
+                        case "distance-slider":
+                          return (
+                            <DistanceSlider
+                              key={index}
+                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              labelClassName="text-white"
+                              {...rest}
+                              value={filters[rest.name]}
+                            ></DistanceSlider>
                           );
 
                         case "range":
