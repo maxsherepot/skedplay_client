@@ -33,15 +33,12 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
 
   let fields = [
     {
-      component: "select",
-      name: "city_id",
+      component: "multi-select",
+      name: "cities",
       label: t('common.location'),
+      showCheckboxes: true,
       placeholder: t('common.all_switzerland'),
       options: [
-        {
-          value: null,
-          label: t('common.all_switzerland')
-        },
         ...cities.map(c => ({value: c.id, label: c.name})),
       ],
     },
@@ -143,6 +140,8 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
 
   if (!isGeolocationEnabled) {
     fields.splice(fields.length - 2, 1);
+  } else {
+    fields.splice(0, 1);
   }
 
   return (

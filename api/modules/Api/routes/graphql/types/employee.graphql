@@ -78,7 +78,8 @@ input EmployeeFilters {
   race_type_id: String @where
   show_level: [Int] @in
   close_to: Distance @scope(name: "closeTo")
-  city_id: String @where
+  city_id: Int @where
+  cities: [Int] @in(key: "city_id")
   __typename: String
 }
 
