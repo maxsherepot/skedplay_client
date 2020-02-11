@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -46,6 +47,16 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         self::GENDER_FEMALE,
     ];
 
+    const STATUS_AWAITING_CONFIRMATION = 0;
+    const STATUS_CONFIRMED = 1;
+    const STATUS_REFUSED = 2;
+
+    const STATUSES = [
+        self::STATUS_AWAITING_CONFIRMATION => 'Awaiting confirmation',
+        self::STATUS_CONFIRMED => 'Confirmed',
+        self::STATUS_REFUSED => 'Refused',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -68,8 +79,12 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         'employees_photos',
         'employees_videos',
         'employees_events',
-        'jwt_connection_token'
+        'jwt_connection_token',
+        'nova_status',
+        'age',
     ];
+
+    protected $dates = ['birthday'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -147,6 +162,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
     }
 
+    public function getTypeAttribute(): Role
+    {
+        return $this->roles->first();
+    }
+
     /**
      * @return mixed
      */
@@ -209,6 +229,28 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
             ->where('chats.receiver_id', $this->id)
             ->orWhere('chats.creator_id', $this->id)
             ->orderBy('updated_at', 'desc');
+    }
+
+    public function getNovaStatusAttribute(): string
+    {
+        if ($this->status === self::STATUS_CONFIRMED) {
+            return $this->created_at->longAbsoluteDiffForHumans(now());
+        }
+
+        return self::STATUSES[$this->status];
+    }
+
+    public function getAgeAttribute(): ?int
+    {
+        if ($this->attributes['age']) {
+            return $this->attributes['age'];
+        }
+
+        if (!$this->birthday) {
+            return null;
+        }
+
+        return Carbon::parse($this->birthday)->diffInDays(now());
     }
 
     public function isClient(): bool

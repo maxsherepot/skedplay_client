@@ -18,4 +18,9 @@ class UserPolicy
     {
         return $authUser->owns($user, 'id') || $authUser->hasPermission('update-users');
     }
+
+    public function view(User $authUser, User $user): bool
+    {
+        return $authUser->owns($user, 'id') || $authUser->hasPermission('update-users');
+    }
 }

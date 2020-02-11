@@ -2,11 +2,14 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\UserRoleFilter;
+use Eminiarts\Tabs\Tabs;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
+use Skidplay\UserTopInfo\UserTopInfo;
 
 class User extends Resource
 {
@@ -16,6 +19,10 @@ class User extends Resource
      * @var string
      */
     public static $model = 'Modules\Users\Entities\User';
+
+    public static $with = [
+        'roles'
+    ];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,6 +40,13 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+//    public static function indexQuery(NovaRequest $request, $query)
+//    {
+//        return $query->whereDoesntHave('roles', function($query) {
+//            $query->whereNotIn('name', ['admin', 'moderator']);
+//        });
+//    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -41,23 +55,63 @@ class User extends Resource
      */
     public function fields(Request $request)
     {
+        $userId = $request->route('resourceId');
+
+        if (!$userId) {
+            return $this->getTableFields();
+        }
+
+        $user = \Modules\Users\Entities\User::find($request->route('resourceId'));
+
+        if ($user->hasRole('client')) {
+            return $this->getClientTabs();
+        }
+
+        if ($user->hasRole('employee')) {
+            new Tabs('Tabs', [
+                'About' => $this->getAboutTabFields(),
+                'Other Info' => [
+                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
+
+                    Text::make('In system status', 'nova_status')
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
+                ],
+            ]),
+        }
+
         return [
-            ID::make()->sortable(),
+            new Tabs('Tabs', [
+                'About' => $this->getAboutTabFields(),
+                'Other Info' => [
+                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
 
+                    Text::make('In system status', 'nova_status')
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
+                ],
+            ]),
+        ];
+    }
+
+    private function getTableFields(): array
+    {
+        return [
             Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+                ->sortable(),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+            Text::make('Type')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->displayUsing(function($role) {
+                    return $role->display_name;
+                }),
 
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
+            DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
+
+            Text::make('In system status', 'nova_status')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 
@@ -69,7 +123,9 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new UserTopInfo())->onlyOnDetail(),
+        ];
     }
 
     /**
@@ -80,7 +136,9 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new UserRoleFilter(),
+        ];
     }
 
     /**
@@ -103,5 +161,43 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    private function getAboutTabFields(): array
+    {
+        return [
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+            Text::make('Type')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->displayUsing(function ($role) {
+                    return $role->display_name;
+                }),
+
+            Text::make('Phone')
+                ->hideFromIndex(),
+
+            Text::make('Email')
+                ->hideFromIndex(),
+
+            DateTime::make('Birthday')
+                ->format('DD.MM.YYYY')
+                ->hideFromIndex(),
+
+            Text::make('Age')
+                ->hideFromIndex(),
+        ];
+    }
+
+    private function getClientTabs(): array
+    {
+        return [
+            new Tabs('Tabs', [
+                'About' => $this->getAboutTabFields(),
+            ]),
+        ];
     }
 }

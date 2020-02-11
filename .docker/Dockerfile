@@ -3,6 +3,9 @@ FROM theparticles/libs:alpine
 RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositories; \
     echo http://mirror.yandex.ru/mirrors/alpine/v3.9/community >> /etc/apk/repositories
 
+RUN apk update && apk upgrade && \
+    apk add --no-cache git
+
 #####################################
 # Exif:
 #####################################
