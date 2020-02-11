@@ -1,12 +1,20 @@
 import React from "react";
-import { GET_EMPLOYEE_PARAMETERS } from "queries";
+import { GET_EMPLOYEE_PARAMETERS, CITIES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { TextField, PhoneField, SelectField, TextAreaField, LocationSearchInput } from "UI";
+import { TextField, PhoneField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
 
 const AdInformationStep = () => {
   const { data: { parameters } = {} } = useQuery(
     GET_EMPLOYEE_PARAMETERS
   );
+
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
+    CITIES
+  );
+
+  if (citiesLoading) {
+    return <Loader/>;
+  }
 
   return (
     <>
@@ -125,11 +133,20 @@ const AdInformationStep = () => {
             name="index"
           />
 
-          <TextField
+          {/*<TextField*/}
+          {/*  className="w-1/2 md:w-2/6 px-2"*/}
+          {/*  inputClassName="w-1/2 md:w-2/6"*/}
+          {/*  label="City"*/}
+          {/*  name="city_id"*/}
+          {/*/>*/}
+
+          <SelectField
             className="w-1/2 md:w-2/6 px-2"
             inputClassName="w-1/2 md:w-2/6"
             label="City"
-            name="city"
+            name="city_id"
+            options={cities.map(c => ({value: c.id, label: c.name}))}
+            placeholder=""
           />
 
           {/*<TextField*/}

@@ -19,31 +19,20 @@ const DistanceSlider = ({ value: initValue, name, isGeolocationEnabled, coords, 
     return null;
   }
 
+  const distanceKm = initValue ? initValue.distanceKm || 0 : 0;
+
   return (
     <>
-      <FormGroup>
-        <Field name={`${name}[lat]`}>
-          {({ field: { value, ...rest } }) =>
-            <>
-              <input type="hidden" name={`${name}[lat]`} value={coords.latitude}/>
-            </>
-          }
-        </Field>
-      </FormGroup>
-
-      <FormGroup>
-        <Field name={`${name}[lng]`}>
-          {({ field: { value, ...rest } }) =>
-            <>
-              <input type="hidden" name={`${name}[lng]`} value={coords.longitude}/>
-            </>
-          }
-        </Field>
-      </FormGroup>
+      {!!distanceKm &&
+        <>
+          <input type="hidden" name={`${name}[lat]`} value={coords.latitude}/>
+          <input type="hidden" name={`${name}[lng]`} value={coords.longitude}/>
+        </>
+      }
 
       <Slider
         name={`${name}[distanceKm]`}
-        value={initValue ? initValue.distanceKm || 0 : 0}
+        value={distanceKm}
         {...props}
       />
     </>

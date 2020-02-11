@@ -30,8 +30,8 @@ enum SortOrder {
 }
 
 input Distance {
-    lat: Float!
-    lng: Float!
-    distanceKm: Int!
+    lat: Float
+    lng: Float
+    distanceKm: Int
     __typename: String
 }

@@ -82,7 +82,7 @@ function NewAdForm({ children, clubId }) {
         type: "",
         description: "",
         index: "",
-        city: "",
+        city_id: "",
         address: "",
         phone: "",
         email: "",

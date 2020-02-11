@@ -1,6 +1,6 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CITIES } from "queries";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
 import { geolocated } from "react-geolocated";
@@ -9,13 +9,17 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
   const ENTITY_NAME = "girls";
   const {t, i18n} = useTranslation();
 
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
+    CITIES
+  );
+
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
     GIRLS_FILTER_OPTIONS
   );
 
   const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
-  if (loading || filtersLoading) {
+  if (loading || citiesLoading || filtersLoading) {
     return <Loader/>;
   }
 
@@ -25,43 +29,22 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     return 'error';
   }
 
+  console.log(cities);
+
   let fields = [
-    // {
-    //   component: "select",
-    //   name: "location",
-    //   label: "Location",
-    //   placeholder: "Select your location",
-    //   options: [
-    //     {
-    //       label: "Zürich",
-    //       value: "zürich"
-    //     },
-    //     {
-    //       label: "Geneva",
-    //       value: "geneva"
-    //     },
-    //     {
-    //       label: "Basel",
-    //       value: "basel"
-    //     },
-    //     {
-    //       label: "Lausanne",
-    //       value: "lausanne"
-    //     },
-    //     {
-    //       label: "Bern",
-    //       value: "bern"
-    //     },
-    //     {
-    //       label: "Winterthur",
-    //       value: "winterthur"
-    //     },
-    //     {
-    //       label: "Lucerne",
-    //       value: "lucerne"
-    //     }
-    //   ]
-    // },
+    {
+      component: "select",
+      name: "city_id",
+      label: t('common.location'),
+      placeholder: t('common.all_switzerland'),
+      options: [
+        {
+          value: null,
+          label: t('common.all_switzerland')
+        },
+        ...cities.map(c => ({value: c.id, label: c.name})),
+      ],
+    },
     {
       component: "multi-select",
       name: "services",

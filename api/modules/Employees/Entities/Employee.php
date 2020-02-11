@@ -48,6 +48,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'age',
         'type',
         'race_type_id',
+        'city_id',
         'description',
         'languages',
         'text',

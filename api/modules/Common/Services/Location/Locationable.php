@@ -30,9 +30,9 @@ trait Locationable
     public function scopeCloseTo(Builder $query, array $params): void
     {
         if (
-            !$params['lng'] ?? false
-            || !$params['lat'] ?? false
-            || !$params['distanceKm'] ?? false
+            !($params['lng'] ?? false)
+            || !($params['lat'] ?? false)
+            || !($params['distanceKm'] ?? false)
         ) {
             return;
         }

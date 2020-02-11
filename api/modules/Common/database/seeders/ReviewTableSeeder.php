@@ -28,6 +28,10 @@ class ReviewTableSeeder extends Seeder
     {
         Model::unguard();
 
+        if (Review::count()) {
+            return;
+        }
+
         $start = now();
         $this->command->info('Review seeder started');
 

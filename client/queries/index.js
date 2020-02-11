@@ -14,3 +14,4 @@ export * from "queries/parameterQuery";
 export * from "queries/mediaQuery";
 export * from "queries/scheduleQuery";
 export * from "queries/chatQuery";
+export * from "queries/cityQuery";

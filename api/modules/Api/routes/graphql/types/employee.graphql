@@ -52,7 +52,7 @@ input EmployeeInput {
   type: String
   description: String
   index: String
-  city: String
+  city_id: Int
   address: String
   phone: String
   email: String
@@ -78,6 +78,7 @@ input EmployeeFilters {
   race_type_id: String @where
   show_level: [Int] @in
   close_to: Distance @scope(name: "closeTo")
+  city_id: String @where
   __typename: String
 }
 

@@ -19,6 +19,10 @@ class ClubScheduleTableSeeder extends Seeder
     {
         Model::unguard();
 
+        if (ClubScheduleWork::count()) {
+            return;
+        }
+
         $start = now();
         $this->command->info('Club schedule seeder started');
 
