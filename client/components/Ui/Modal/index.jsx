@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 
-function Modal({ logo, title, left, right, children, style, contentStyle}) {
+function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle}) {
   return (
     <div className="modal" style={style}>
-      <div className="modal__dialog">
+      <div className="modal__dialog" style={modalDialogStyle}>
         <Link href="/">
           <a className="modal__logo block text-center">{logo}</a>
         </Link>
@@ -31,6 +31,7 @@ Modal.propTypes = {
   right: PropTypes.node,
   children: PropTypes.node,
   style: PropTypes.object,
+  modalDialogStyle: PropTypes.object,
 };
 
 export default Modal;

@@ -18,6 +18,7 @@ function Login() {
         title={t('common.login')}
         left={<ArrowBack href="/" />}
         right={<LangSelector />}
+        modalDialogStyle={{height: '650px'}}
       >
         <LoginBox />
       </Modal>

@@ -18,6 +18,7 @@ function Register() {
         title="Sing up"
         left={<ArrowBack href="/" />}
         right={<LangSelector />}
+        modalDialogStyle={{height: '650px'}}
       >
         <RegisterBox />
       </Modal>

@@ -93,7 +93,9 @@ const LoginForm = ({ onSubmit }) => {
           <Link href="/register">
             <Button
               className="text-xl min-w-full mt-3"
+              level="primary-black"
               disabled={isSubmitting}
+              outline
             >
               {t('common.create_account')}
             </Button>
