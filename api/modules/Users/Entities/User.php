@@ -233,16 +233,18 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
 
     public function getNovaStatusAttribute(): string
     {
-        if ($this->status === self::STATUS_CONFIRMED) {
+        $status = $this->attributes['status'] ?? self::STATUS_AWAITING_CONFIRMATION;
+
+        if ($status === self::STATUS_CONFIRMED) {
             return $this->created_at->longAbsoluteDiffForHumans(now());
         }
 
-        return self::STATUSES[$this->status];
+        return self::STATUSES[$status];
     }
 
     public function getAgeAttribute(): ?int
     {
-        if ($this->attributes['age']) {
+        if ($this->attributes['age'] ?? false) {
             return $this->attributes['age'];
         }
 

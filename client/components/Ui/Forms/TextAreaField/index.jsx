@@ -4,6 +4,7 @@ import { Field, useFormikContext } from "formik";
 
 import { FormGroup } from "UI";
 import dot from "dot-object";
+import formErrors from "services/formErrors";
 
 function TextField({
   className,
@@ -14,17 +15,10 @@ function TextField({
   ...rest
 }) {
   const { touched, errors } = useFormikContext();
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
-
-  let error = currentTouched && currentError ? currentError : null;
-
-  if (error) {
-    error = error.replace(name, label);
-  }
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   return (
-    <FormGroup className={className} error={error ? true : false}>
+    <FormGroup className={className} error={!!error}>
       <label className={labelClassName} htmlFor={name}>
         {error ? error : label}
       </label>

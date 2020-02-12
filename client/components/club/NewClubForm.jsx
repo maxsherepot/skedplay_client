@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
+import { CITIES } from "queries";
 
 import {
   Button,
@@ -11,12 +12,23 @@ import {
   SelectField,
   TextAreaField,
   FileField,
+  LocationSearchInput,
+  Loader,
   PhoneField
 } from "UI";
 import { getErrors } from "utils";
+import {useQuery} from "@apollo/react-hooks";
 
 function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
+
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
+    CITIES
+  );
+
+  if (citiesLoading) {
+    return <Loader/>;
+  }
 
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
     try {
@@ -42,7 +54,7 @@ function NewClubForm({ onSubmit }) {
         club_type_id: "",
         description: "",
         index: "",
-        city: "",
+        city_id: "",
         address: "",
         phone: "",
         email: "",
@@ -61,7 +73,7 @@ function NewClubForm({ onSubmit }) {
         club_type_id: Yup.number().required(),
         description: Yup.string().required(),
         index: Yup.string(),
-        city: Yup.string(),
+        city_id: Yup.number(),
         address: Yup.string().required(),
         phone: Yup.string().required(),
         email: Yup.string()
@@ -138,21 +150,33 @@ function NewClubForm({ onSubmit }) {
                 placeholder=""
               />
 
-              <TextField
+              {/*<TextField*/}
+              {/*  className="px-3 w-1/3"*/}
+              {/*  inputClassName="w-1/3"*/}
+              {/*  label="City"*/}
+              {/*  name="city"*/}
+              {/*  placeholder=""*/}
+              {/*/>*/}
+
+              <SelectField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
                 label="City"
-                name="city"
+                name="city_id"
+                options={cities.map(c => ({value: c.id, label: c.name}))}
                 placeholder=""
               />
 
-              <TextField
-                className="px-3 w-1/3"
-                inputClassName="w-1/3"
-                label="Adress"
-                name="address"
-                placeholder=""
-              />
+              {/*<TextField*/}
+              {/*  className="px-3 w-1/3"*/}
+              {/*  inputClassName="w-1/3"*/}
+              {/*  label="Adress"*/}
+              {/*  name="address"*/}
+              {/*  placeholder=""*/}
+              {/*/>*/}
+
+
+              <LocationSearchInput/>
             </div>
 
             <div className="flex w-full -mx-3">

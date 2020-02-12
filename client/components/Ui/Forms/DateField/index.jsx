@@ -5,9 +5,10 @@ import { Field, useFormikContext } from "formik";
 
 import { FormGroup, Dropdown } from "UI";
 import dot from "dot-object";
-// import DatePicker from 'react-date-picker';
-import DatePicker from "react-datepicker";
 
+import formErrors from "services/formErrors";
+
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function DateField({
@@ -20,14 +21,7 @@ function DateField({
 }) {
   const [date, setDateState] = useState(new Date());
   const { touched, errors, setFieldValue } = useFormikContext();
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
-
-  let error = currentTouched && currentError ? currentError : null;
-
-  if (error) {
-    error = error.replace(name, label);
-  }
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   function setDate(date) {
     setDateState(date);

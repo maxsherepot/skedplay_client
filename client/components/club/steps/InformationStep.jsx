@@ -1,8 +1,18 @@
 import React from "react";
 import * as Yup from "yup";
-import { TextField, SelectField, FileField, TextAreaField, ArrayField } from "UI";
+import { TextField, SelectField, FileField, TextAreaField, ArrayField, LocationSearchInput, Loader } from "UI";
+import {useQuery} from "@apollo/react-hooks";
+import { CITIES } from "queries";
 
 const InformationStep = ({ club }) => {
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
+    CITIES
+  );
+
+  if (citiesLoading) {
+    return <Loader/>;
+  }
+
   return (
     <>
       <div className="text-4xl font-extrabold">Information</div>
@@ -59,21 +69,32 @@ const InformationStep = ({ club }) => {
           placeholder=""
         />
 
-        <TextField
+        {/*<TextField*/}
+        {/*  className="px-3 w-1/3"*/}
+        {/*  inputClassName="w-1/3"*/}
+        {/*  label="City"*/}
+        {/*  name="city"*/}
+        {/*  placeholder=""*/}
+        {/*/>*/}
+
+        <SelectField
           className="px-3 w-1/3"
           inputClassName="w-1/3"
           label="City"
-          name="city"
+          name="city_id"
+          options={cities.map(c => ({value: c.id, label: c.name}))}
           placeholder=""
         />
 
-        <TextField
-          className="px-3 w-1/3"
-          inputClassName="w-1/3"
-          label="Adress"
-          name="address"
-          placeholder=""
-        />
+        {/*<TextField*/}
+        {/*  className="px-3 w-1/3"*/}
+        {/*  inputClassName="w-1/3"*/}
+        {/*  label="Adress"*/}
+        {/*  name="address"*/}
+        {/*  placeholder=""*/}
+        {/*/>*/}
+
+        <LocationSearchInput/>
       </div>
 
       <div className="flex w-full -mx-3">

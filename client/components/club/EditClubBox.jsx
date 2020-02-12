@@ -40,7 +40,7 @@ const EditClubBox = ({club, user}) => {
         club_type_id: +club.type.id,
         description: club.description,
         index: club.index,
-        city: club.city,
+        city_id: club.city_id,
         address: club.address,
         phones: JSON.parse(club.phones),
         email: club.email,

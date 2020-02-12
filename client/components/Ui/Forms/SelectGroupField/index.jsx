@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useFormikContext } from "formik";
 import { FormGroup } from "UI";
+import formErrors from "services/formErrors";
 
 function SelectGroupField({ className, label, name, children }) {
   const { touched, errors } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   return (
     <FormGroup className={className} error={error ? true : false}>

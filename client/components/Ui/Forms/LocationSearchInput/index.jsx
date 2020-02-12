@@ -6,7 +6,6 @@ import PlacesAutocomplete, {
 
 import { TextField } from "UI/Forms";
 import {useFormikContext} from "formik";
-import {LoadScript} from "@react-google-maps/api";
 
 function LocationSearchInput({initAddress}) {
   const [address, setAddress] = useState(initAddress || '');

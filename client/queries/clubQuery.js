@@ -44,7 +44,7 @@ export const GET_CLUB = gql`
       id
       name
       index
-      city
+      city_id
       address
       lat
       lng

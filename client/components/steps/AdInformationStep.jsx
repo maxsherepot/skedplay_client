@@ -156,9 +156,7 @@ const AdInformationStep = () => {
           {/*  name="address"*/}
           {/*/>*/}
 
-          <LocationSearchInput>
-
-          </LocationSearchInput>
+          <LocationSearchInput/>
         </div>
 
         <div className="flex flex-wrap -mx-4">

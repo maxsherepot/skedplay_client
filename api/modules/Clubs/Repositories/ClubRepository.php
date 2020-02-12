@@ -3,6 +3,7 @@
 namespace Modules\Users\Repositories;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Entities\ClubScheduleWork;
@@ -30,6 +31,8 @@ class ClubRepository implements HasMediable
             $inputs['phone'],
         ]);
 
+        DB::beginTransaction();
+
         /** @var Club $club */
         $club = $user->clubs()->create($inputs);
 
@@ -40,6 +43,8 @@ class ClubRepository implements HasMediable
         if ($file = $collection->get('logotype')) {
             $club->addMedia($file)->toMediaCollection(Club::LOGO_COLLECTION);
         }
+
+        DB::commit();
 
         return $club;
     }
@@ -54,11 +59,15 @@ class ClubRepository implements HasMediable
      */
     public function update(Club $club, Collection $collection): bool
     {
+        DB::beginTransaction();
+
         $result = $club->update($collection->toArray());
 
         if ($logo = $collection->get('logotype')) {
             $club->addMedia($logo)->toMediaCollection(Club::LOGO_COLLECTION);
         }
+
+        DB::commit();
 
         return $result;
     }
@@ -96,6 +105,7 @@ class ClubRepository implements HasMediable
         $data = $collection->get('moderator');
         $data['name'] = $data['first_name']." ".$data['last_name'];
         $data['password'] = bcrypt(\Str::random(6));
+        $data['status'] = User::STATUS_AWAITING_CONFIRMATION;
 
         /** @var User $moderator */
         $moderator = User::create($data);

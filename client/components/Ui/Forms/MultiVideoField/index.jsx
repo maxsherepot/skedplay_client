@@ -6,6 +6,7 @@ import { FormGroup } from "UI";
 import { WhiteTrashSvg } from "icons";
 import { DELETE_MEDIA } from "queries";
 import { useMutation } from "@apollo/react-hooks";
+import formErrors from "services/formErrors";
 
 const DisplayPreviews = ({ videos, indexes, setPreviews }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
@@ -67,7 +68,7 @@ function MultiVideoField({
   const [previews, setPreviews] = useState(initialValues || []);
 
   const { touched, errors, setFieldValue } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   const handleChange = ({ target: { validity, files } }) => {
     if (validity.valid) {

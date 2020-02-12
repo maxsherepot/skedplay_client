@@ -49,7 +49,7 @@ const ArrayField = ({ className, name, label, phones }) => {
 
 ArrayField.propTypes = {
   className: PropTypes.string,
-  phones: PropTypes.boolean,
+  phones: PropTypes.bool,
 };
 
 export default ArrayField;

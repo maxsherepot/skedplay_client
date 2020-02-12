@@ -1,10 +1,11 @@
 import React from "react";
 import cx from "classnames";
-import dot from "dot-object";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 
 import { FormGroup, Label } from "UI";
+
+import formErrors from "services/formErrors";
 
 function TextField({
   className,
@@ -19,14 +20,7 @@ function TextField({
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
 
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
-
-  let error = currentTouched && currentError ? currentError : null;
-
-  if (error) {
-    error = error.replace(name, label);
-  }
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   return (
     <FormGroup

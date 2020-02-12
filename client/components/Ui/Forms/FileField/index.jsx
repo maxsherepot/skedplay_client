@@ -5,11 +5,12 @@ import { Field, useFormikContext } from "formik";
 import { CloseSvg, AddPhotoSvg } from "icons";
 
 import { FormGroup } from "UI";
+import formErrors from "services/formErrors";
 
 function FileField({ className, labelClassName, preview, label, name, ...inputProps }) {
   const [filePreview, setFilePreview] = useState(null);
   const { touched, errors, setFieldValue } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   useEffect(() => {
     if (preview) {

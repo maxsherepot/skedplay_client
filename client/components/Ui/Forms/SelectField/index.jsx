@@ -5,6 +5,7 @@ import { Field, useFormikContext } from "formik";
 
 import { FormGroup, Dropdown } from "UI";
 import dot from "dot-object";
+import formErrors from "services/formErrors";
 
 function SelectField({
   className,
@@ -16,14 +17,7 @@ function SelectField({
   disabled
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
-
-  let error = currentTouched && currentError ? currentError : null;
-
-  if (error) {
-    error = error.replace(name, label);
-  }
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   const getLabel = value => {
     const index = options.map(o => o.value).indexOf(value);
@@ -34,7 +28,7 @@ function SelectField({
   return (
     <FormGroup
       className={cx(className, "relative")}
-      error={error ? true : false}
+      error={!!error}
     >
       <label className={labelClassName} htmlFor={name}>
         {error ? error : label}

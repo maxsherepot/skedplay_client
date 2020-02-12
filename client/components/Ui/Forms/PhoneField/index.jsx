@@ -6,6 +6,7 @@ import { Field, useFormikContext } from "formik";
 import InputMask from 'react-input-mask';
 
 import { FormGroup } from "UI";
+import formErrors from "services/formErrors";
 
 function PhoneField({
   className,
@@ -18,18 +19,13 @@ function PhoneField({
   after,
   ...rest
 }) {
-  const { touched, errors } = useFormikContext();
+  const { touched, errors, values } = useFormikContext();
 
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
+  const initialValue = dot.pick(name, values) || values[name];
 
-  let error = currentTouched && currentError ? currentError : null;
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
-  if (error && typeof error === 'string') {
-    error = error.replace(name, label);
-  }
-
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initialValue || '');
 
   const beforeMaskedValueChange = (newState, oldState, userInput) => {
     let { value, selection } = newState;

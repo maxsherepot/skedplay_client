@@ -7,6 +7,7 @@ import InputMask from 'react-input-mask';
 import MaskInput from 'react-maskinput';
 
 import { FormGroup, Label } from "UI";
+import formErrors from "services/formErrors";
 
 function DateRawField({
   className,
@@ -21,14 +22,7 @@ function DateRawField({
 }) {
   const { touched, errors } = useFormikContext();
 
-  const currentTouched = dot.pick(name, touched);
-  const currentError = dot.pick(name, errors);
-
-  let error = currentTouched && currentError ? currentError : null;
-
-  if (error && typeof error === 'string') {
-    error = error.replace(name, label);
-  }
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   const [value, setValue] = React.useState('');
   const [mask, setMask] = React.useState('00.00.0000');

@@ -8,13 +8,13 @@ type Club {
   description: String
   address: String
   index: String
-  city: String
+  city_id: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: String
   lng: String
   owner: User @belongsTo
   admin: User @belongsTo
-  employees: [Employee] @belongsToMany
+  employees: [Employee] @morphMany
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
   events: [Event] @belongsToMany
@@ -37,7 +37,7 @@ input ClubInput {
   description: String!
   address: String!
   index: String
-  city: String
+  city_id: Int
   moderator: ClubModeratorInput
   lat: String
   lng: String
@@ -48,6 +48,7 @@ input ClubInput {
   schedule: JSON
   photos: [Upload]
   videos: [Upload]
+  access_phone_edit: Boolean
 }
 
 input ClubModeratorInput {

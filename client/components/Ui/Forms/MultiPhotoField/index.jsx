@@ -6,6 +6,7 @@ import { FormGroup, CheckboxField } from "UI";
 import { WhiteTrashSvg } from "icons";
 import { DELETE_MEDIA } from "queries";
 import { useMutation } from "@apollo/react-hooks";
+import formErrors from "services/formErrors";
 
 const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
@@ -86,7 +87,7 @@ function MultiPhotoField({
   const [indexes, setIndexes] = useState([]);
 
   const { touched, errors, setFieldValue } = useFormikContext();
-  const error = touched[name] && errors[name] ? errors[name] : null;
+  const error = formErrors.getErrorText(name, label, touched, errors);
 
   const handleChange = ({ target: { validity, files } }) => {
     if (validity.valid) {
