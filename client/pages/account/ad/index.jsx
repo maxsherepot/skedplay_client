@@ -1,118 +1,66 @@
 import React from "react";
 import redirect from "lib/redirect";
+import { useRouter } from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {useMutation} from "@apollo/react-hooks";
-import {GET_ME, DELETE_EMPLOYEE} from "queries";
-import {Button, DeletePopup} from "UI";
-import Link from "next/link";
+import StepBox from "components/StepBox";
+import { EditEmployeeBox } from "components/employee";
+import {
+  GET_EMPLOYEE,
+} from "queries";
+import { useQuery } from "@apollo/react-hooks";
+import { getLayout } from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
+import { Loader } from "UI";
 
-
-import { getLayout } from 'components/account/AccountLayout'
-
-const EmployeeCard = ({employee}) => {
+const AccountAdEdit = ({user}) => {
   const {t, i18n} = useTranslation();
 
-  const [deleteEmployee] = useMutation(DELETE_EMPLOYEE, {
-    update(
-        cache,
-        {
-          data: {deleteEmployee}
-        }
-    ) {
-      const {me} = cache.readQuery({
-        query: GET_ME,
-      });
+  const employeeId = user.employee.id;
 
-      let employees = me.employees;
-      employees = employees.filter(e => e.id !== deleteEmployee.message);
-
-      cache.writeQuery({
-        query: GET_ME,
-        data: {
-          me: {
-            ...me,
-            employees
-          }
-        }
-      });
+  const { data: { employee } = {}, loading} = useQuery(GET_EMPLOYEE, {
+    variables: {
+      id: employeeId
     }
   });
 
-  const handleDelete = () => {
-    try {
-      deleteEmployee({
-        variables: {
-          employee: employee.id
-        }
-      });
-    } catch (e) {
-      return {
-        status: false,
-        message: t('errors.server_error')
-      };
-    }
-  };
+  const links = [
+    t('account.card_information'),
+    t('account.services_and_price'),
+    t('account.photos_and_videos'),
+    t('account.schedule_and_activation')
+  ];
+
+  if (loading) {
+    return <Loader/>;
+  }
 
   return (
-      <div className="px-3 w-full md:w-1/2 mb-5">
-        <div className="p-5 border-light-grey border rounded-lg shadow h-full">
-          <div className="truncate">
-            {employee.name}
-          </div>
-
-          <div className="flex flex-wrap justify-end -mx-2">
-            <div className="px-2">
-              <Link href="/account/ad/[eid]" as={`/account/ad/${employee.id}`}>
-                <a>
-                  <Button className="px-2" level="secondary" outline size="xxs">
-                    {t('common.edit')}
-                  </Button>
-                </a>
-              </Link>
-            </div>
-            <div className="px-2">
-              <DeletePopup onEnter={handleDelete} title={`Delete ${employee.name}?`}>
-                <div className="pt-6">
-                  <p>{t('account.sure_delete_ad')}</p>
-                </div>
-              </DeletePopup>
-            </div>
-          </div>
-        </div>
-      </div>
-  )
-};
-
-const EmployeesList = ({employees}) => {
-
-  return (
-      <>
-        <div className="flex flex-wrap -mx-3">
-          {employees.map(e => <EmployeeCard key={e.id} employee={e}/>)}
-        </div>
-      </>
-  )
-};
-
-const AccountAdIndex = ({ user }) => (
     <>
-      <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
-        My ads
+      <div className="flex flex-col lg:flex-row justify-between">
+        <StepBox links={links} />
       </div>
-      <EmployeesList employees={user.employees} />
+      <div className="border-b border-divider" />
+      <EditEmployeeBox employee={employee} />
     </>
-);
+  );
+};
 
-AccountAdIndex.getInitialProps = async ctx => {
+AccountAdEdit.getLayout = getLayout;
+
+AccountAdEdit.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
   if (!user) {
     redirect(ctx, "/login");
   }
 
-  return { user };
+  if (!user.employee) {
+    redirect(ctx, "/girls/add");
+  }
+
+  return {
+    user,
+    className: "lg:w-3/5 py-12"
+  };
 };
 
-AccountAdIndex.getLayout = getLayout;
-
-export default AccountAdIndex;
+export default AccountAdEdit;

@@ -17,9 +17,22 @@ class EmployeeRepository implements HasMediable
     /**
      * @param Collection $data
      * @return mixed
+     * @throws \Exception
      */
     public function create(Collection $data)
     {
+        $user = auth('api')->user();
+
+        if ($user->is_club_owner && $clubId = $data->get('club_id')) {
+            $employeeOwner = $user->clubs()->findOrFail($clubId);
+        } else {
+            $employeeOwner = $user;
+
+            if ($user->employee) {
+                throw new \Exception('employee user can have only one ad');
+            }
+        }
+
         $name = explode(' ', $data->get('name'));
 
         if (isset($name[0])) {
@@ -27,14 +40,6 @@ class EmployeeRepository implements HasMediable
         }
         if (isset($name[1])) {
             $data->put('last_name', $name[1]);
-        }
-
-        $user = auth('api')->user();
-
-        if ($user->is_club_owner && $clubId = $data->get('club_id')) {
-            $employeeOwner = $user->clubs()->findOrFail($clubId);
-        } else {
-            $employeeOwner = $user;
         }
 
         /** @var Employee $employee */

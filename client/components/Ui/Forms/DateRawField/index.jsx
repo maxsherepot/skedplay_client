@@ -64,7 +64,6 @@ function DateRawField({
         valueItems[2] = ((new Date().getFullYear()) - 60);
       }
     }
-    console.log(valueItems);
     setValue(valueItems.join('.'));
   };
 

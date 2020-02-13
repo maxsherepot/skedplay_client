@@ -83,39 +83,33 @@ const ClubMenu = ({clubs}) => {
     });
 };
 
-const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees}}) => (
-    <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
-        <div className="flex flex-col py-10 lg:pr-32">
-            {is_employee && (
+const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees, employee}}) => {
+    const employeeButtonText = employee
+      ? 'Edit AD'
+      : 'Add AD';
+
+    const employeeLink = employee
+      ? '/account/ad'
+      : '/girls/add';
+
+    return (
+      <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
+          <div className="flex flex-col py-10 lg:pr-32">
+              {is_employee && (
                 <div>
                       <span
-                          className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                        My Ad/Cards
+                        className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
+                      >
+                        <Link href={employeeLink}>
+                          <a>
+                              {employeeButtonText}
+                          </a>
+                        </Link>
                       </span>
-                    <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
-                        <li>
-                            <Link href="/girls/add">
-                                <a>
-                                    Add new AD+
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/account/ad">
-                                <a>
-                                    Active AD
-                                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                                        {employees.length}
-                                    </span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>Archive</li>
-                    </ul>
                 </div>
-            )}
+              )}
 
-            {is_employee && (
+              {is_employee && (
                 <div className="mt-5">
                   <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
                     My Events
@@ -141,9 +135,9 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                         <li>Archive</li>
                     </ul>
                 </div>
-            )}
+              )}
 
-            {is_club_owner && (
+              {is_club_owner && (
                 <>
                     <div className="text-2xl font-extrabold px-5 mt-5">
                         You have {clubs.length} clubs
@@ -159,19 +153,19 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                         </a>
                     </Link>
                 </>
-            )}
+              )}
 
-            {is_club_owner && (
+              {is_club_owner && (
                 <div className="text-2xl font-extrabold px-5 mt-5">Menu</div>
-            )}
+              )}
 
-            <div className="mt-4">
+              <div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
                   Bills and usage
                 </span>
-            </div>
+              </div>
 
-            <div className="mt-4">
+              <div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
 
                   <Link href="/account/chats">
@@ -180,26 +174,27 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                       </a>
                   </Link>
                 </span>
-            </div>
+              </div>
 
-            {/*{employee && employee.reviews && employee.reviews.length !== 0 && (*/}
-            {/*    <div className="mt-4">*/}
-            {/*      <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">*/}
-            {/*        Reviews*/}
-            {/*      </span>*/}
-            {/*    </div>*/}
-            {/*)}*/}
+              {/*{employee && employee.reviews && employee.reviews.length !== 0 && (*/}
+              {/*    <div className="mt-4">*/}
+              {/*      <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">*/}
+              {/*        Reviews*/}
+              {/*      </span>*/}
+              {/*    </div>*/}
+              {/*)}*/}
 
-            <div className="mt-4">
-                <Link href="/account/settings">
-                    <a className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                        Settings
-                    </a>
-                </Link>
-            </div>
-        </div>
-    </div>
-);
+              <div className="mt-4">
+                  <Link href="/account/settings">
+                      <a className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                          Settings
+                      </a>
+                  </Link>
+              </div>
+          </div>
+      </div>
+    );
+};
 
 const AccountLayout = ({contentClass, user, className, children}) => {
     const getClass = () => {
