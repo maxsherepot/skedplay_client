@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import {useMutation} from "@apollo/react-hooks";
 import {
   UPDATE_EMPLOYEE,
@@ -41,13 +42,13 @@ const EditEmployeeBox = ({ employee }) => {
 
   const initialValues = {
     name: employee.name,
-    birthday: employee.birthday,
+    birthday: moment(employee.birthday).format('DD.MM.YYYY'),
     gender: employee.gender,
     race_type_id: employee.race_type_id,
     type: employee.type,
     description: employee.description,
     index: employee.index,
-    city: employee.city,
+    city_id: employee.city_id,
     address: employee.address,
     phone: employee.phone,
     email: employee.email,

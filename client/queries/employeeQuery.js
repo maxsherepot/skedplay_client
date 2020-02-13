@@ -11,6 +11,10 @@ export const ALL_EMPLOYEES = gql `
         isVip
         isNew
         soon
+        website
+        email
+        phone
+        city_id
         lat
         lng
         favorited {
@@ -42,16 +46,20 @@ export const GET_EMPLOYEE = gql `
       first_name
       last_name
       name
+      birthday
       age
       gender
       index
-      city
+      email
+      phone
+      city_id
       address
       type
       race_type_id
       description
       isVip
       isNew
+      website
       lat
       lng
       favorited {

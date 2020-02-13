@@ -68,6 +68,7 @@ class EmployeeRepository implements HasMediable
     public function store(EmployeeOwnerInterface $owner, Collection $data)
     {
         if ($data['birthday']) {
+            $data['birthday'] = Carbon::parse($data['birthday']);
             $data['age'] = Carbon::parse($data['birthday'])->age;
         }
 
@@ -86,6 +87,11 @@ class EmployeeRepository implements HasMediable
      */
     public function update(Employee $employee, Collection $collection): Employee
     {
+        if ($collection['birthday']) {
+            $collection['birthday'] = Carbon::parse($collection['birthday']);
+            $collection['age'] = Carbon::parse($collection['birthday'])->age;
+        }
+
         $employee->update($collection->toArray());
 
         if ($parameters = $collection->get('parameters')) {

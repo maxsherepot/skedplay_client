@@ -1,9 +1,12 @@
 import React from "react";
 import { GET_EMPLOYEE_PARAMETERS, CITIES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { TextField, PhoneField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
+import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
+import {useTranslation} from "react-i18next";
 
 const AdInformationStep = () => {
+  const {t, i18n} = useTranslation();
+
   const { data: { parameters } = {} } = useQuery(
     GET_EMPLOYEE_PARAMETERS
   );
@@ -29,12 +32,19 @@ const AdInformationStep = () => {
             name="name"
           />
 
-          <TextField
+          {/*<TextField*/}
+          {/*  className="w-full sm:w-1/3 px-2"*/}
+          {/*  inputClassName="w-1/3"*/}
+          {/*  label="Birthday"*/}
+          {/*  name="birthday"*/}
+          {/*  placeholder="21 jule 1989"*/}
+          {/*/>*/}
+
+          <DateRawField
             className="w-full sm:w-1/3 px-2"
             inputClassName="w-1/3"
-            label="Birthday"
+            label={t('register.birth')}
             name="birthday"
-            placeholder="21 jule 1989"
           />
 
           {/* <GroupCheckbox

@@ -20,11 +20,11 @@ function DateRawField({
   after,
   ...rest
 }) {
-  const { touched, errors } = useFormikContext();
+  const { touched, errors, values } = useFormikContext();
 
   const error = formErrors.getErrorText(name, label, touched, errors);
-
-  const [value, setValue] = React.useState('');
+  console.log(name, values);
+  const [value, setValue] = React.useState(dot.pick(name, values) || values[name] || '');
   const [mask, setMask] = React.useState('00.00.0000');
   const [maskString, setMaskString] = React.useState('dd.mm.yyyy');
 

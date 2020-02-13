@@ -33,6 +33,12 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     const TYPE_BOY = 2;
     const TYPE_COUPLE = 3;
 
+    const TYPES = [
+        self::TYPE_GIRL => 'Girl',
+        self::TYPE_BOY => 'Boy',
+        self::TYPE_COUPLE => 'Couple',
+    ];
+
     const IS_NEW_DAYS = 3;
 
     const SOON_DAYS = 10;
@@ -57,10 +63,19 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'active',
         'soon',
         'show_level',
+        'phone',
+        'birthday',
+        'index',
+        'email',
+        'website',
     ];
 
     protected $dates = [
         'will_activate_at',
+    ];
+
+    protected $appends = [
+        'readable_type'
     ];
 
     public function getLanguagesAttribute($value)
@@ -91,6 +106,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function getIsNewAttribute()
     {
         return now()->subDays(self::IS_NEW_DAYS) < $this->created_at;
+    }
+
+    public function getReadableTypeAttribute(): ?string
+    {
+        return self::TYPES[$this->attributes['type'] ?? null] ?? null;
     }
 
     /**

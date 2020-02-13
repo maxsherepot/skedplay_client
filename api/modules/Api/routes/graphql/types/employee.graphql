@@ -6,18 +6,22 @@ type Employee {
   last_name: String
   name: String!
   index: String
-  city: String
+  city_id: Int
   address: String
   description: String
   isVip: Boolean
   isNew: Boolean
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   gender: Int
+  birthday: Date
   age: Int
   type: Int
   race_type_id: Int
   lat: Float,
   lng: Float,
+  email: String,
+  phone: String,
+  website: String,
   created_at: DateTime!
   updated_at: DateTime!
   #

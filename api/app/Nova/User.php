@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
 
 class User extends Resource
@@ -22,7 +23,8 @@ class User extends Resource
     public static $model = 'Modules\Users\Entities\User';
 
     public static $with = [
-        'roles'
+        'roles',
+        'employee',
     ];
 
     /**
@@ -170,7 +172,12 @@ class User extends Resource
     private function getEmployeeAboutTabFields(): array
     {
         return array_merge($this->getAboutTabFields(), [
-            Text::make('Name'),
+            Text::make('User type', 'employee.readable_type'),
+            Text::make('Race type', 'employee.race_type.name'),
+            Text::make('Address', 'employee.address'),
+            Text::make('Description', 'employee.description'),
+            Text::make('Employee phone', 'employee.phone'),
+//            Text::make('Website', 'employee.birthday'),
         ]);
     }
 
@@ -187,7 +194,7 @@ class User extends Resource
     {
         return [
             new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
+                'About' => $this->getEmployeeAboutTabFields(),
                 'Other Info' => [
                     DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
 
