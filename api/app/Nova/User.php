@@ -69,30 +69,10 @@ class User extends Resource
         }
 
         if ($user->hasRole('employee')) {
-            new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
-                'Other Info' => [
-                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-
-                    Text::make('In system status', 'nova_status')
-                        ->hideWhenCreating()
-                        ->hideWhenUpdating(),
-                ],
-            ]);
+            return $this->getEmployeeTabs();
         }
 
-        return [
-            new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
-                'Other Info' => [
-                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-
-                    Text::make('In system status', 'nova_status')
-                        ->hideWhenCreating()
-                        ->hideWhenUpdating(),
-                ],
-            ]),
-        ];
+        return $this->getClubOwnerTabs();
     }
 
     private function getTableFields(): array
@@ -169,30 +149,29 @@ class User extends Resource
     private function getAboutTabFields(): array
     {
         return [
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Text::make('Name'),
 
             Text::make('Type')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
                 ->displayUsing(function ($role) {
                     return $role->display_name;
                 }),
 
-            Text::make('Phone')
-                ->hideFromIndex(),
+            Text::make('Phone'),
 
-            Text::make('Email')
-                ->hideFromIndex(),
+            Text::make('Email'),
 
             DateTime::make('Birthday')
-                ->format('DD.MM.YYYY')
-                ->hideFromIndex(),
+                ->format('DD.MM.YYYY'),
 
-            Text::make('Age')
-                ->hideFromIndex(),
+            Text::make('Age'),
         ];
+    }
+
+    private function getEmployeeAboutTabFields(): array
+    {
+        return array_merge($this->getAboutTabFields(), [
+            Text::make('Name'),
+        ]);
     }
 
     private function getClientTabs(): array
@@ -200,6 +179,38 @@ class User extends Resource
         return [
             new Tabs('Tabs', [
                 'About' => $this->getAboutTabFields(),
+            ]),
+        ];
+    }
+
+    private function getEmployeeTabs(): array
+    {
+        return [
+            new Tabs('Tabs', [
+                'About' => $this->getAboutTabFields(),
+                'Other Info' => [
+                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
+
+                    Text::make('In system status', 'nova_status')
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
+                ],
+            ])
+        ];
+    }
+
+    private function getClubOwnerTabs(): array
+    {
+        return [
+            new Tabs('Tabs', [
+                'About' => $this->getAboutTabFields(),
+                'Other Info' => [
+                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
+
+                    Text::make('In system status', 'nova_status')
+                        ->hideWhenCreating()
+                        ->hideWhenUpdating(),
+                ],
             ]),
         ];
     }
