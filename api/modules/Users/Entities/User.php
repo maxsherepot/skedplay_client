@@ -81,6 +81,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         'employees_events',
         'jwt_connection_token',
         'nova_status',
+        'readable_status',
         'age',
     ];
 
@@ -242,6 +243,13 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         return self::STATUSES[$status];
     }
 
+    public function getReadableStatusAttribute(): string
+    {
+        $status = $this->attributes['status'] ?? self::STATUS_AWAITING_CONFIRMATION;
+
+        return self::STATUSES[$status];
+    }
+
     public function getAgeAttribute(): ?int
     {
         if ($this->attributes['age'] ?? false) {
@@ -252,7 +260,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
             return null;
         }
 
-        return Carbon::parse($this->birthday)->diffInDays(now());
+        return Carbon::parse($this->birthday)->diffInYears();
     }
 
     public function isClient(): bool

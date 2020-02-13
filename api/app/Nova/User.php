@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ConfirmUser;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -77,7 +78,7 @@ class User extends Resource
                         ->hideWhenCreating()
                         ->hideWhenUpdating(),
                 ],
-            ]),
+            ]);
         }
 
         return [
@@ -160,7 +161,9 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+
+        ];
     }
 
     private function getAboutTabFields(): array
