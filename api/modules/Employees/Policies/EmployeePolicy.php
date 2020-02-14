@@ -17,7 +17,31 @@ class EmployeePolicy
      */
     public function create(User $user): bool
     {
-      return $user->hasPermission(Permission::CREATE_EMPLOYEES);
+        if ($user->hasRole('admin')) {
+            return false;
+        }
+
+        return $user->hasPermission(Permission::CREATE_EMPLOYEES);
+    }
+
+    public function view(User $user)
+    {
+        return $user->hasRole('admin');
+    }
+
+    public function attachService()
+    {
+        return false;
+    }
+
+    public function attachAnyService()
+    {
+        return false;
+    }
+
+    public function detachService()
+    {
+        return false;
     }
 
     /**
@@ -27,6 +51,10 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
+        if ($user->hasRole('admin')) {
+            return false;
+        }
+
         return ($user->employees_club_owners->contains($employee->id) || $user->owns($employee, 'owner_id'))
             && $user->hasPermission(Permission::UPDATE_EMPLOYEES);
     }
@@ -37,6 +65,10 @@ class EmployeePolicy
      */
     public function delete(User $user): bool
     {
+        if ($user->hasRole('admin')) {
+            return false;
+        }
+
         return $user->hasPermission(Permission::DELETE_EMPLOYEES);
     }
 }

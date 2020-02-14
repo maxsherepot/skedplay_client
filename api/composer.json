@@ -16,6 +16,7 @@
         "barryvdh/laravel-omnipay": "0.3.*@dev",
         "centrifugal/phpcent": "~3.0",
         "doctrine/dbal": "^2.9",
+        "ebess/advanced-nova-media-library": "^2.9",
         "eminiarts/nova-tabs": "^1.2",
         "fideloper/proxy": "^4.0",
         "laracomponents/centrifuge-broadcaster": "^1.0",
@@ -34,11 +35,11 @@
         "propaganistas/laravel-phone": "^4.2",
         "santigarcor/laratrust": "^5.2",
         "sentry/sentry-laravel": "1.2.0",
+        "skidplay/user-top-info": "*",
         "spatie/laravel-medialibrary": "^7.0.0",
         "stevebauman/location": "^3.0",
         "sudiptpa/paypal-ipn": "^2.0",
-        "tightenco/parental": "0.7",
-        "skidplay/user-top-info": "*"
+        "tightenco/parental": "0.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",

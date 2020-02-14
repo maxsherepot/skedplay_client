@@ -3,25 +3,30 @@
 namespace App\Nova;
 
 use App\Nova\Filters\UserRoleFilter;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Tabs;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
 
-class User extends Resource
+class Employee extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Modules\Users\Entities\User';
+    public static $model = 'Modules\Employees\Entities\Employee';
 
     public static $with = [
-        'roles',
     ];
 
     /**
@@ -61,17 +66,7 @@ class User extends Resource
             return $this->getTableFields();
         }
 
-        $user = \Modules\Users\Entities\User::find($request->route('resourceId'));
-
-//        if ($user->hasRole('client')) {
-            return $this->getClientTabs();
-//        }
-
-//        if ($user->hasRole('employee')) {
-//            return $this->getEmployeeTabs();
-//        }
-//
-//        return $this->getClubOwnerTabs();
+        return $this->getEmployeeTabs();
     }
 
     private function getTableFields(): array
@@ -79,19 +74,9 @@ class User extends Resource
         return [
             Text::make('Name')
                 ->sortable(),
-
-            Text::make('Type')
-                ->hideWhenCreating()
-                ->hideWhenUpdating()
-                ->displayUsing(function($role) {
-                    return $role->display_name;
-                }),
-
-            DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-
-            Text::make('In system status', 'nova_status')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+            Text::make('User type', 'readable_type'),
+            Text::make('Age', 'age'),
+            MorphTo::make('Owner'),
         ];
     }
 
@@ -104,7 +89,7 @@ class User extends Resource
     public function cards(Request $request)
     {
         return [
-            (new UserTopInfo())->onlyOnDetail(),
+//            (new UserTopInfo())->onlyOnDetail(),
         ];
     }
 
@@ -117,7 +102,7 @@ class User extends Resource
     public function filters(Request $request)
     {
         return [
-            new UserRoleFilter(),
+//            new UserRoleFilter(),
         ];
     }
 
@@ -148,47 +133,21 @@ class User extends Resource
     private function getAboutTabFields(): array
     {
         return [
+            MorphTo::make('Owner'),
             Text::make('Name'),
-
-            Text::make('Type')
-                ->displayUsing(function ($role) {
-                    return $role->display_name;
-                }),
-
-            Text::make('Phone'),
-
-            Text::make('Email'),
-
-            DateTime::make('Birthday')
+            Date::make('Birthday')
                 ->format('DD.MM.YYYY'),
-
             Text::make('Age'),
-        ];
-    }
-
-    private function getEmployeeAboutTabFields(): array
-    {
-        return array_merge($this->getAboutTabFields(), [
-            Text::make('User type', 'employee.readable_type'),
-            Text::make('Race type', 'employee.race_type.name'),
-            Text::make('Address', 'employee.address'),
-            Text::make('Description', 'employee.description'),
-            Text::make('Employee email', 'employee.email'),
-            Text::make('Employee phone', 'employee.phone'),
-            Text::make('Employee birthday', 'employee.birthday'),
-            Text::make('Website', 'employee.website'),
-            KeyValue::make('Prices', 'employee.prices_list')
+            Text::make('User type', 'readable_type'),
+            Text::make('Race type', 'race_type.name'),
+            Text::make('Address', 'address'),
+            Text::make('Description', 'description'),
+            Text::make('Email', 'email'),
+            Text::make('Phone', 'phone'),
+            Text::make('Website', 'website'),
+            KeyValue::make('Prices', 'prices_list')
                 ->keyLabel('Time')
                 ->valueLabel('Price'),
-        ]);
-    }
-
-    private function getClientTabs(): array
-    {
-        return [
-            new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
-            ]),
         ];
     }
 
@@ -196,24 +155,17 @@ class User extends Resource
     {
         return [
             new Tabs('Tabs', [
-                new Panel('About', $this->getEmployeeAboutTabFields()),
+                new Panel('About', $this->getAboutTabFields()),
+                MorphToMany::make('Services')
+                    ->fields(function() {
+                        return [
+                            Text::make('Price', 'price')->displayUsing(function($price) {
+                                return $price . '$';
+                            }),
+                        ];
+                    }),
+                HasMany::make('Photos'),
             ])
-        ];
-    }
-
-    private function getClubOwnerTabs(): array
-    {
-        return [
-            new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
-                'Other Info' => [
-                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-
-                    Text::make('In system status', 'nova_status')
-                        ->hideWhenCreating()
-                        ->hideWhenUpdating(),
-                ],
-            ]),
         ];
     }
 }

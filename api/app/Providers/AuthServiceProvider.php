@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
+use Spatie\MediaLibrary\Models\Media;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Common\Entities\PriceType::class   => \Modules\Common\Policies\PriceTypePolicy::class,
         \Modules\Main\Entities\Language::class   => \Modules\Main\Policies\LanguagePolicy::class,
         \Modules\Main\Entities\UiTranslate::class   => \Modules\Main\Policies\UiTranslatePolicy::class,
+        Media::class   => \Modules\Main\Policies\MediaPolicy::class,
     ];
 
     /**

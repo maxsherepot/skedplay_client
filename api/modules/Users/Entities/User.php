@@ -13,6 +13,7 @@ use Modules\Billing\Traits\Billable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\Service;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
@@ -161,6 +162,18 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
     public function employee(): MorphOne
     {
         return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
+    }
+
+    public function employeeServices(): MorphOne
+    {
+        return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
+
+        return $this->hasManyThrough(
+            Employee::class,
+            Service::class,
+            'user_id',
+            'owner_id'
+        )->where('owner_type', 'user');
     }
 
     public function getTypeAttribute(): Role

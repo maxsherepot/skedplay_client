@@ -72,6 +72,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
 
     protected $dates = [
         'will_activate_at',
+        'birthday',
     ];
 
     protected $appends = [

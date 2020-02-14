@@ -4,7 +4,8 @@ namespace Modules\Common\Entities\Traits;
 
 use Modules\Common\Entities\Service;
 
-trait Serviceable {
+trait Serviceable
+{
     /**
      * @return mixed
      */
