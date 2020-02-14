@@ -165,6 +165,7 @@ class Employee extends Resource
                         ];
                     }),
                 HasMany::make('Photos'),
+                HasMany::make('Videos'),
             ])
         ];
     }

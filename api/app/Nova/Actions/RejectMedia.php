@@ -14,7 +14,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Nova\Fields\Textarea;
 use Modules\Users\Entities\User;
 
-class RejectPhoto extends Action
+class RejectMedia extends Action
 {
 //    use InteractsWithQueue, Queueable, SerializesModels;
 

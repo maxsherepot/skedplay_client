@@ -13,7 +13,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Photo extends Resource
+class Video extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -40,7 +40,7 @@ class Photo extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->where('collection_name', 'like', '%photo%');
+        return $query->where('collection_name', 'like', '%video%');
     }
 
     /**
@@ -54,8 +54,8 @@ class Photo extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Photo', function() {
-                return view('nova.photo', ['photo' => $this])->render();
+            Text::make('Video', function() {
+                return view('nova.video', ['video' => $this])->render();
             })->asHtml(),
 
             Text::make('Status', 'status')->displayUsing(function($status) {

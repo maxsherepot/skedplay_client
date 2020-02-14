@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Modules\Users\Entities\User;
 
-class ConfirmPhoto extends Action
+class ConfirmMedia extends Action
 {
 //    use InteractsWithQueue, Queueable, SerializesModels;
 
