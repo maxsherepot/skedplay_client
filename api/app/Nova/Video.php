@@ -2,8 +2,8 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\ConfirmMedia;
-use App\Nova\Actions\RejectMedia;
+use App\Nova\Actions\Confirm;
+use App\Nova\Actions\Reject;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -108,10 +108,10 @@ class Video extends Resource
     public function actions(Request $request)
     {
         return [
-            (new ConfirmMedia())->canRun(function($request) {
+            (new Confirm())->canRun(function($request) {
                 return true;
             }),
-            (new RejectMedia())->canRun(function($request) {
+            (new Reject())->canRun(function($request) {
                 return true;
             }),
         ];

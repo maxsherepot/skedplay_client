@@ -4,17 +4,15 @@ namespace App\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
+use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Laravel\Nova\Actions\DestructiveAction;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Laravel\Nova\Fields\Textarea;
 use Modules\Users\Entities\User;
 
-class RejectMedia extends Action
+class Confirm extends Action
 {
 //    use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -35,12 +33,11 @@ class RejectMedia extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            $model->status = User::STATUS_REFUSED;
-            $model->rejected_reason = $fields->get('rejected_reason');
+            $model->status = User::STATUS_CONFIRMED;
             $model->save();
         }
 
-        return Action::message('Photo(s) rejected');
+        return Action::message('Confirmed');
     }
 
     /**
@@ -50,8 +47,6 @@ class RejectMedia extends Action
      */
     public function fields()
     {
-        return [
-            Textarea::make('Reason', 'rejected_reason')->rules('required', 'max:255'),
-        ];
+        return [];
     }
 }

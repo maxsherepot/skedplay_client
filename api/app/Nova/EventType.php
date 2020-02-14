@@ -2,25 +2,21 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\Confirm;
-use App\Nova\Actions\Reject;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Photo extends Resource
+class EventType extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Spatie\MediaLibrary\Models\Media';
+    public static $model = 'Modules\Events\Entities\EventType';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -35,13 +31,8 @@ class Photo extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name',
     ];
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        return $query->where('collection_name', 'like', '%photo%');
-    }
 
     /**
      * Get the fields displayed by the resource.
@@ -54,15 +45,10 @@ class Photo extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Photo', function() {
-                return view('nova.photo', ['photo' => $this])->render();
-            })->asHtml(),
 
-            Text::make('Status', 'status')->displayUsing(function($status) {
-                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-            }),
-
-            Text::make('Refuse reason', 'rejected_reason'),
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
         ];
     }
 
@@ -107,13 +93,6 @@ class Photo extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            (new Confirm())->canRun(function($request) {
-                return true;
-            }),
-            (new Reject())->canRun(function($request) {
-                return true;
-            }),
-        ];
+        return [];
     }
 }

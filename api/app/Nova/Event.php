@@ -4,23 +4,25 @@ namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
+use Illuminate\Support\Str;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Photo extends Resource
+class Event extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Spatie\MediaLibrary\Models\Media';
+    public static $model = 'Modules\Events\Entities\Event';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -35,13 +37,8 @@ class Photo extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        return $query->where('collection_name', 'like', '%photo%');
-    }
 
     /**
      * Get the fields displayed by the resource.
@@ -54,9 +51,14 @@ class Photo extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Photo', function() {
-                return view('nova.photo', ['photo' => $this])->render();
-            })->asHtml(),
+            Text::make('Title')
+                ->displayUsing(function($title) {
+                    return Str::limit($title, 30, '...');
+                }),
+
+            BelongsTo::make('Type', 'type', EventType::class)->sortable(),
+
+            MorphTo::make('Owner')->sortable(),
 
             Text::make('Status', 'status')->displayUsing(function($status) {
                 return \Modules\Users\Entities\User::STATUSES[$status ?? 0];

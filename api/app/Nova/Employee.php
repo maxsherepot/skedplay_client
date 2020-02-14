@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
@@ -166,6 +167,7 @@ class Employee extends Resource
                     }),
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
+                MorphMany::make('Events'),
             ])
         ];
     }
