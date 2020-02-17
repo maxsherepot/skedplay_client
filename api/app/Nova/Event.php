@@ -66,9 +66,12 @@ class Event extends Resource
 
                 MorphTo::make('Owner')->sortable(),
 
-                Text::make('Status', 'status')->displayUsing(function($status) {
-                    return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-                }),
+                Text::make('Status', function() {
+                    return view(
+                        'nova.moderation_status',
+                        ['status' => \Modules\Users\Entities\User::STATUSES[$this->status ?? 0]]
+                    );
+                })->asHtml(),
 
                 Text::make('Refuse reason', 'rejected_reason'),
             ];
@@ -87,9 +90,12 @@ class Event extends Resource
 
                     MorphTo::make('Owner')->sortable(),
 
-                    Text::make('Status', 'status')->displayUsing(function($status) {
-                        return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-                    }),
+                    Text::make('Status', function() {
+                        return view(
+                            'nova.moderation_status',
+                            ['status' => $this->status ?? 0]
+                        )->render();
+                    })->asHtml(),
 
                     Text::make('Refuse reason', 'rejected_reason'),
                 ]),

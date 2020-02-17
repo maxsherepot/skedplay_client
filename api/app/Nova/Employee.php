@@ -78,6 +78,12 @@ class Employee extends Resource
             Text::make('User type', 'readable_type'),
             Text::make('Age', 'age'),
             MorphTo::make('Owner'),
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
         ];
     }
 

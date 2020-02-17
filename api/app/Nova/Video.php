@@ -58,9 +58,12 @@ class Video extends Resource
                 return view('nova.video', ['video' => $this])->render();
             })->asHtml(),
 
-            Text::make('Status', 'status')->displayUsing(function($status) {
-                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-            }),
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
 
             Text::make('Refuse reason', 'rejected_reason'),
         ];
