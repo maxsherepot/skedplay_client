@@ -114,6 +114,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return self::TYPES[$this->attributes['type'] ?? null] ?? null;
     }
 
+    public function getCreatedAtDiffAttribute(): string
+    {
+        return $this->created_at->longAbsoluteDiffForHumans(now());
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

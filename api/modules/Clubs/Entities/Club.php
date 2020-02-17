@@ -139,4 +139,9 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     {
         return $this->hasOne(Media::class, 'model_id', 'id')->where('collection_name', self::LOGO_COLLECTION);
     }
+
+    public function getCreatedAtDiffAttribute(): string
+    {
+        return $this->created_at->longAbsoluteDiffForHumans(now());
+    }
 }

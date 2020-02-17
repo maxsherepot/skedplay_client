@@ -2,6 +2,18 @@
 
 namespace App\Providers;
 
+use App\Nova\Club;
+use App\Nova\ClubType;
+use App\Nova\Employee;
+use App\Nova\Event;
+use App\Nova\EventType;
+use App\Nova\Language;
+use App\Nova\Photo;
+use App\Nova\Race;
+use App\Nova\Service;
+use App\Nova\UiTranslate;
+use App\Nova\User;
+use App\Nova\Video;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
@@ -76,5 +88,27 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         //
+    }
+
+    public function resources()
+    {
+        Nova::resources([
+            User::class,
+            Employee::class,
+
+            Club::class,
+            ClubType::class,
+            Event::class,
+            EventType::class,
+
+            Photo::class,
+            Video::class,
+
+            Service::class,
+            Race::class,
+
+            UiTranslate::class,
+            Language::class,
+        ]);
     }
 }

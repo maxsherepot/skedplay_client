@@ -164,18 +164,6 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
     }
 
-    public function employeeServices(): MorphOne
-    {
-        return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
-
-        return $this->hasManyThrough(
-            Employee::class,
-            Service::class,
-            'user_id',
-            'owner_id'
-        )->where('owner_type', 'user');
-    }
-
     public function getTypeAttribute(): Role
     {
         return $this->roles->first();
@@ -254,6 +242,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         }
 
         return self::STATUSES[$status];
+    }
+
+    public function getCreatedAtDiff(): string
+    {
+        return $this->created_at->longAbsoluteDiffForHumans(now());
     }
 
     public function getReadableStatusAttribute(): string

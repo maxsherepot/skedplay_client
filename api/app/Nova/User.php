@@ -7,6 +7,8 @@ use Eminiarts\Tabs\Tabs;
 use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
@@ -37,7 +39,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name', 'email', 'phone',
     ];
 
 //    public static function indexQuery(NovaRequest $request, $query)
@@ -63,15 +65,15 @@ class User extends Resource
 
         $user = \Modules\Users\Entities\User::find($request->route('resourceId'));
 
-//        if ($user->hasRole('client')) {
+        if ($user->hasRole('client')) {
             return $this->getClientTabs();
-//        }
+        }
 
-//        if ($user->hasRole('employee')) {
-//            return $this->getEmployeeTabs();
-//        }
-//
-//        return $this->getClubOwnerTabs();
+        if ($user->hasRole('employee')) {
+            return $this->getEmployeeTabs();
+        }
+
+        return $this->getClubOwnerTabs();
     }
 
     private function getTableFields(): array
@@ -89,9 +91,17 @@ class User extends Resource
 
             DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
 
-            Text::make('In system status', 'nova_status')
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+            Text::make('Status', function() {
+                $status = $this->status ?? 0;
+                $time = $status === \Modules\Users\Entities\User::STATUS_CONFIRMED
+                    ? $this->getCreatedAtDiff()
+                    : null;
+
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0, 'time' => $time]
+                )->render();
+            })->asHtml(),
         ];
     }
 
@@ -168,19 +178,13 @@ class User extends Resource
 
     private function getEmployeeAboutTabFields(): array
     {
-        return array_merge($this->getAboutTabFields(), [
-            Text::make('User type', 'employee.readable_type'),
-            Text::make('Race type', 'employee.race_type.name'),
-            Text::make('Address', 'employee.address'),
-            Text::make('Description', 'employee.description'),
-            Text::make('Employee email', 'employee.email'),
-            Text::make('Employee phone', 'employee.phone'),
-            Text::make('Employee birthday', 'employee.birthday'),
-            Text::make('Website', 'employee.website'),
-            KeyValue::make('Prices', 'employee.prices_list')
-                ->keyLabel('Time')
-                ->valueLabel('Price'),
-        ]);
+        return array_merge([
+            Text::make('Employee', function () {
+                $url = '/admin/resources/employees/' . $this->employee->id;
+
+                return "<a href='$url'>{$this->employee->name}</a>";
+            })->asHtml(),
+        ], $this->getAboutTabFields());
     }
 
     private function getClientTabs(): array
@@ -205,14 +209,9 @@ class User extends Resource
     {
         return [
             new Tabs('Tabs', [
-                'About' => $this->getAboutTabFields(),
-                'Other Info' => [
-                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-
-                    Text::make('In system status', 'nova_status')
-                        ->hideWhenCreating()
-                        ->hideWhenUpdating(),
-                ],
+                'About' => array_merge($this->getAboutTabFields(), [
+                    MorphMany::make('Clubs'),
+                ]),
             ]),
         ];
     }

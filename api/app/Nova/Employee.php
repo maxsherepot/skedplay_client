@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\EmployeeTypeFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Tabs;
@@ -84,6 +85,7 @@ class Employee extends Resource
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml(),
+            Text::make('In system', 'created_at_diff'),
         ];
     }
 
@@ -96,7 +98,7 @@ class Employee extends Resource
     public function cards(Request $request)
     {
         return [
-//            (new UserTopInfo())->onlyOnDetail(),
+
         ];
     }
 
@@ -109,7 +111,7 @@ class Employee extends Resource
     public function filters(Request $request)
     {
         return [
-//            new UserRoleFilter(),
+            new EmployeeTypeFilter(),
         ];
     }
 
@@ -142,6 +144,13 @@ class Employee extends Resource
         return [
             MorphTo::make('Owner'),
             Text::make('Name'),
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+            Text::make('Refuse reason', 'rejected_reason'),
             Date::make('Birthday')
                 ->format('DD.MM.YYYY'),
             Text::make('Age'),

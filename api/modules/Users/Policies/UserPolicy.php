@@ -16,6 +16,10 @@ class UserPolicy
      */
     public function update(User $authUser, User $user): bool
     {
+        if ($authUser->hasRole('admin')) {
+            return false;
+        }
+
         return $authUser->owns($user, 'id') || $authUser->hasPermission('update-users');
     }
 

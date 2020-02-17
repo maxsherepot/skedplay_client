@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Support\Str;
@@ -81,11 +82,14 @@ class Club extends Resource
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
 
-            Text::make('Status', 'status')->displayUsing(function($status) {
-                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-            }),
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
 
-            Text::make('Refuse reason', 'rejected_reason'),
+            Text::make('In system', 'created_at_diff'),
         ];
     }
 
@@ -98,7 +102,7 @@ class Club extends Resource
     public function cards(Request $request)
     {
         return [
-//            (new UserTopInfo())->onlyOnDetail(),
+
         ];
     }
 
@@ -111,7 +115,7 @@ class Club extends Resource
     public function filters(Request $request)
     {
         return [
-//            new UserRoleFilter(),
+            new ClubTypeFilter(),
         ];
     }
 

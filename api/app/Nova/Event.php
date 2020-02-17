@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
+use App\Nova\Filters\EventTypeFilter;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
@@ -69,11 +70,9 @@ class Event extends Resource
                 Text::make('Status', function() {
                     return view(
                         'nova.moderation_status',
-                        ['status' => \Modules\Users\Entities\User::STATUSES[$this->status ?? 0]]
-                    );
+                        ['status' => $this->status ?? 0]
+                    )->render();
                 })->asHtml(),
-
-                Text::make('Refuse reason', 'rejected_reason'),
             ];
         }
 
@@ -124,7 +123,9 @@ class Event extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new EventTypeFilter(),
+        ];
     }
 
     /**
