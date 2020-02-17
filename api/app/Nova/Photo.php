@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
+use App\Nova\Filters\ModerationStatusFilter;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -88,7 +89,9 @@ class Photo extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new ModerationStatusFilter(),
+        ];
     }
 
     /**

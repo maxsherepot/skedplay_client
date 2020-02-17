@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Filters\ClubTypeFilter;
+use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Support\Str;
@@ -116,6 +117,7 @@ class Club extends Resource
     {
         return [
             new ClubTypeFilter(),
+            new ModerationStatusFilter(),
         ];
     }
 

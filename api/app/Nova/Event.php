@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\EventTypeFilter;
+use App\Nova\Filters\ModerationStatusFilter;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
@@ -125,6 +126,7 @@ class Event extends Resource
     {
         return [
             new EventTypeFilter(),
+            new ModerationStatusFilter(),
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Filters\EmployeeTypeFilter;
+use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Tabs;
@@ -112,6 +113,7 @@ class Employee extends Resource
     {
         return [
             new EmployeeTypeFilter(),
+            new ModerationStatusFilter(),
         ];
     }
 

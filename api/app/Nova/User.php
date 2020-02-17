@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
 use Laravel\Nova\Fields\DateTime;
@@ -128,6 +129,7 @@ class User extends Resource
     {
         return [
             new UserRoleFilter(),
+            new ModerationStatusFilter(),
         ];
     }
 
