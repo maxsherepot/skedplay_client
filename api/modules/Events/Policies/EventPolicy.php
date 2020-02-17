@@ -11,6 +11,11 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
+    public function view()
+    {
+        return true;
+    }
+
     /**
      * @param User $user
      * @return bool

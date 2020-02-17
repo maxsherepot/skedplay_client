@@ -12,12 +12,21 @@ class ClubPolicy
 {
     use HandlesAuthorization;
 
+    public function view()
+    {
+        return true;
+    }
+
     /**
      * @param User $user
      * @return bool
      */
     public function create(User $user): bool
     {
+        if ($user->hasRole('admin')) {
+            return false;
+        }
+
         return $user->hasPermissionPlan(PermissionPlan::MAX_CLUB) && $user->hasPermission(Permission::CREATE_CLUBS);
     }
 
@@ -28,6 +37,10 @@ class ClubPolicy
      */
     public function update(User $user, Club $club): bool
     {
+        if ($user->hasRole('admin')) {
+            return false;
+        }
+
         return $user->owns($club, 'id') || $user->hasPermission(Permission::UPDATE_CLUBS);
     }
 }

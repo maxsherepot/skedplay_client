@@ -4,9 +4,11 @@ namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
+use Eminiarts\Tabs\Tabs;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphTo;
@@ -14,6 +16,7 @@ use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Panel;
 
 class Event extends Resource
 {
@@ -48,23 +51,51 @@ class Event extends Resource
      */
     public function fields(Request $request)
     {
-        return [
-            ID::make()->sortable(),
+        $eventId = $request->route('resourceId');
 
-            Text::make('Title')
-                ->displayUsing(function($title) {
-                    return Str::limit($title, 30, '...');
+        if (!$eventId) {
+            return [
+                ID::make()->sortable(),
+
+                Text::make('Title')
+                    ->displayUsing(function($title) {
+                        return Str::limit($title, 30, '...');
+                    }),
+
+                BelongsTo::make('Type', 'type', EventType::class)->sortable(),
+
+                MorphTo::make('Owner')->sortable(),
+
+                Text::make('Status', 'status')->displayUsing(function($status) {
+                    return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
                 }),
 
-            BelongsTo::make('Type', 'type', EventType::class)->sortable(),
+                Text::make('Refuse reason', 'rejected_reason'),
+            ];
+        }
 
-            MorphTo::make('Owner')->sortable(),
+        return [
+            new Tabs('Tabs', [
+                new Panel('About', [
+                    ID::make(),
 
-            Text::make('Status', 'status')->displayUsing(function($status) {
-                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
-            }),
+                    Text::make('Title'),
 
-            Text::make('Refuse reason', 'rejected_reason'),
+                    Text::make('Description'),
+
+                    BelongsTo::make('Type', 'type', EventType::class)->sortable(),
+
+                    MorphTo::make('Owner')->sortable(),
+
+                    Text::make('Status', 'status')->displayUsing(function($status) {
+                        return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
+                    }),
+
+                    Text::make('Refuse reason', 'rejected_reason'),
+                ]),
+                HasMany::make('Photos'),
+                HasMany::make('Videos'),
+            ])
         ];
     }
 

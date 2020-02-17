@@ -4,9 +4,14 @@ namespace App\Nova;
 
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
+use Illuminate\Support\Str;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
@@ -54,33 +59,33 @@ class Club extends Resource
      */
     public function fields(Request $request)
     {
-        $userId = $request->route('resourceId');
+        $clubId = $request->route('resourceId');
 
-        if (!$userId) {
+        if (!$clubId) {
             return $this->getTableFields();
         }
 
-        return $this->getClubOwnerTabs();
+        return $this->getViewFields();
     }
 
     private function getTableFields(): array
     {
         return [
+            ID::make()->sortable(),
+
             Text::make('Name')
                 ->sortable(),
 
-//            Text::make('Type')
-//                ->hideWhenCreating()
-//                ->hideWhenUpdating()
-//                ->displayUsing(function($role) {
-//                    return $role->display_name;
-//                }),
-//
-//            DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-//
-//            Text::make('In system status', 'nova_status')
-//                ->hideWhenCreating()
-//                ->hideWhenUpdating(),
+            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+
+            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+
+
+            Text::make('Status', 'status')->displayUsing(function($status) {
+                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
+            }),
+
+            Text::make('Refuse reason', 'rejected_reason'),
         ];
     }
 
@@ -137,36 +142,36 @@ class Club extends Resource
     private function getAboutTabFields(): array
     {
         return [
-            Text::make('Name'),
+            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
-//            Text::make('Type')
-//                ->displayUsing(function ($role) {
-//                    return $role->display_name;
-//                }),
-//
-//            Text::make('Phone'),
-//
-//            Text::make('Email'),
-//
-//            DateTime::make('Birthday')
-//                ->format('DD.MM.YYYY'),
-//
-//            Text::make('Age'),
+            Text::make('Name'),
+            Text::make('Description'),
+            Text::make('Address'),
+
+            Text::make('Email'),
+            Text::make('Website'),
+            Text::make('Phones', function() {
+                return implode('<br>', json_decode($this->phones, true));
+            })->asHtml(),
+
+            Text::make('Status', 'status')->displayUsing(function($status) {
+                return \Modules\Users\Entities\User::STATUSES[$status ?? 0];
+            }),
+
+            Text::make('Refuse reason', 'rejected_reason'),
         ];
     }
 
-    private function getClubOwnerTabs(): array
+    private function getViewFields(): array
     {
         return [
             new Tabs('Tabs', [
                 'About' => $this->getAboutTabFields(),
-//                'Other Info' => [
-//                    DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
-//
-//                    Text::make('In system status', 'nova_status')
-//                        ->hideWhenCreating()
-//                        ->hideWhenUpdating(),
-//                ],
+                HasMany::make('Photos'),
+                HasMany::make('Videos'),
+                MorphMany::make('Events'),
+                MorphMany::make('Employees'),
             ]),
         ];
     }
