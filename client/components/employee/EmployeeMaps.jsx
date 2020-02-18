@@ -1,5 +1,6 @@
 import MapDirection from "components/maps/MapDirection";
 import MapWithMarkers from "components/maps/MapWithMarkers";
+import React from "react";
 
 const { Component } = require('react');
 
@@ -53,8 +54,11 @@ class EmployeeMaps extends Component {
 
     return (
       <MapWithMarkers
+        goBtn={this.props.goBtn}
+        goBtnLeft={this.props.goBtnLeft || false}
         markers={[this.props.employee]}
         center={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
+        destination={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
         mapContainerStyle={{width: '100%', height: '400px'}}
       ></MapWithMarkers>
     );

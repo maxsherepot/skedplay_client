@@ -6,6 +6,7 @@ type Employee {
   last_name: String
   name: String!
   index: String
+  city_id: Int
   city: City @belongsTo
   address: String
   description: String

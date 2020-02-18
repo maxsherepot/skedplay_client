@@ -216,7 +216,7 @@ const EmployeeInformation = ({ user }) => {
       </div>
 
       <div className="mt-6">
-        <EmployeeMaps employee={employee}/>
+        <EmployeeMaps employee={employee} goBtn={true}/>
       </div>
     </EmployeeBox>
   );
