@@ -50,7 +50,7 @@ function EventsBox({ entities: events, loading, networkStatus, error, page, setP
 }
 
 EventsBox.propTypes = {
-  inititalState: PropTypes.object.isRequired
+  // inititalState: PropTypes.object.isRequired
 };
 
 export default EventsBox;

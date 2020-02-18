@@ -6,17 +6,25 @@ import Link from "next/link";
 import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
-import { WebsiteSvg, FavoriteSvg, CloseSvg } from "icons";
+import { WebsiteSvg, FavoriteSvg, MapSvg, CloseSvg } from "icons";
 import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
+import EntityMaps from "components/maps/EntityMaps";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
-    return '';
+    return (
+      <div className="flex py-1 pr-1">
+        <MapSvg />
+      </div>
+    )
   }
 
   return (
-    <p className="text-grey">{distanceKm} km from me</p>
+    <div className="flex py-1 pr-1">
+      <MapSvg />
+      <span className="ml-1 whitespace-no-wrap">{distanceKm} km</span>
+    </div>
   );
 }
 
@@ -65,6 +73,9 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
             <FavoriteButton
               variables={{ model_id: id, model_type: "club" }}
               favorited={favorited}
+              small={true}
+              iconWidth={18}
+              iconHeight={16}
             />
           </div>
         )}
@@ -127,13 +138,11 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
             className="google-map absolute top-0 left-0 z-20 px-3"
             style={{ height: "100%", width: "100%" }}
           >
-            <MapDirection
-              originByGeo={true}
-              destination={{lat, lng}}
+            <EntityMaps
+              entity={{lat, lng}}
               height="100%"
-              black={true}
               goBtnLeft={true}
-            ></MapDirection>
+            />
           </div>
 
           <div className="absolute bottom-0 left-0 z-30 p-6">

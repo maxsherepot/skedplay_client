@@ -10,8 +10,8 @@ type Club {
   index: String
   city_id: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
-  lat: String
-  lng: String
+  lat: Float
+  lng: Float
   owner: User @belongsTo
   admin: User @belongsTo
   employees: [Employee] @morphMany

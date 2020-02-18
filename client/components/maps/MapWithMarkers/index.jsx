@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from '@react-google-maps/api'
+import cx from "classnames";
 
-function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel }) {
+function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, goBtn, goBtnLeft, destination, height }) {
   const blackStyles = [
     {
       elementType: "geometry",
@@ -199,37 +200,60 @@ function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel })
   // }
 
   return (
-    <GoogleMap
-      id="marker-example"
-      mapContainerStyle={mapContainerStyle || {}}
-      zoom={zoom || 7}
-      center={center || {lat: 46.8181877, lng: 8.2275124}}
-      options={options}
-    >
-      <MarkerClusterer
-        // options={}
+    <div className='map-container relative' style={{height: height || '400px'}}>
+
+      {goBtn &&
+        <div className={cx([
+          `absolute top-0 pt-5`,
+          `${goBtnLeft ? 'left-0 pl-2' : 'right-0 pr-2'}`,
+        ])}>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${destination.lat},${destination.lng}`}
+            className="btn btn-sm btn-primary"
+            target="_blank"
+            style={{
+              padding: '.5rem',
+              fontSize: '1rem',
+            }}
+          >
+            GO
+          </a>
+        </div>
+      }
+
+      <GoogleMap
+        id="marker-example"
+        mapContainerStyle={mapContainerStyle || {}}
+        zoom={zoom || 7}
+        center={center || {lat: 46.8181877, lng: 8.2275124}}
+        options={options}
       >
-        {
-          (clusterer) => markers.map((marker, i) => (
-            <Marker
-              key={i}
-              position={{lat: marker.lat, lng: marker.lng}}
-              clusterer={clusterer}
-              label={showLabel ? {
-                text: marker.name,
-                // color: "#FF3366"
-              } : undefined}
-              // icon={{
-              //   url: '/static/img/pin.png',
-              //   // size: new google.maps.Size(24, 24),
-              //   size: new google.maps.Size(47, 43),
-              //   labelOrigin: new google.maps.Point(88, 22)
-              // }}
-            />
-          ))
-        }
-      </MarkerClusterer>
-    </GoogleMap>
+        <MarkerClusterer
+          // options={}
+        >
+          {
+            (clusterer) => markers.map((marker, i) => (
+              <Marker
+                key={i}
+                position={{lat: marker.lat, lng: marker.lng}}
+                clusterer={clusterer}
+                label={showLabel ? {
+                  text: marker.name,
+                  // color: "#FF3366"
+                } : undefined}
+                // icon={{
+                //   url: '/static/img/pin.png',
+                //   // size: new google.maps.Size(24, 24),
+                //   size: new google.maps.Size(47, 43),
+                //   labelOrigin: new google.maps.Point(88, 22)
+                // }}
+              />
+            ))
+          }
+        </MarkerClusterer>
+      </GoogleMap>
+
+    </div>
   )
 }
 
