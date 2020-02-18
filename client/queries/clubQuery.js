@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const ALL_CLUBS = gql`
-  query allClubs($first: Int!, $page: Int!) {
-    clubs(first: $first, page: $page) {
+  query allClubs($first: Int!, $page: Int!, $filters: ClubFilters) {
+    clubs(first: $first, page: $page, filters: $filters) {
       data {
         id
         name

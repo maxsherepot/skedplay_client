@@ -70,7 +70,7 @@ function create(initialState, {
     filters: {
       girls: {
         type: 1,
-        location: "",
+        cantons: [],
         services: [],
         gender: "",
         race_type_id: "",
@@ -83,14 +83,14 @@ function create(initialState, {
         ],
         age: {
           from: 18,
-          to: 45,
+          to: 60,
           __typename: "age"
         },
         __typename: "GirlFilters"
       },
       boys: {
         type: 2,
-        location: "",
+        cantons: [],
         services: [],
         gender: "",
         race_type_id: "",
@@ -103,14 +103,14 @@ function create(initialState, {
         ],
         age: {
           from: 18,
-          to: 45,
+          to: 60,
           __typename: "age1"
         },
         __typename: "BoyFilters"
       },
       couple: {
         type: 3,
-        location: "",
+        cantons: [],
         services: [],
         gender: "",
         race_type_id: "",
@@ -123,21 +123,21 @@ function create(initialState, {
         ],
         age: {
           from: 18,
-          to: 45,
+          to: 60,
           __typename: "age2"
         },
         __typename: "CoupleFilters"
       },
       clubs: {
-        location: "",
-        event_type: "",
-        perimeter: 10,
+        cantons: [],
+        club_type: "",
+        // perimeter: 10,
         __typename: "ClubFilters"
       },
       events: {
-        location: "",
+        cantons: [],
         event_type: "",
-        perimeter: 10,
+        // perimeter: 10,
         date: "",
         __typename: "EventFilters"
       },

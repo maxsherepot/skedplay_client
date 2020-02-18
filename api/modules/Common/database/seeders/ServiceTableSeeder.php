@@ -15,6 +15,10 @@ class ServiceTableSeeder extends Seeder
      */
     public function run()
     {
+        if (Service::count()) {
+            return;
+        }
+
         Model::unguard();
 
         $start = now();

@@ -6,30 +6,10 @@ import { ALL_EVENTS } from "queries/eventQuery";
 import { EventCard, Pagination, Sort, AddressCard, Loader } from "UI";
 import React from "react";
 
-function EventsBox({ inititalState }) {
-  const [page, setPage] = usePagination();
-
-  let filters = [];
-
-  Object.keys(inititalState).map(key => {
-    if (inititalState[key] === "") return;
-
-    if (inititalState[key] === null) {
-      return (filters[key] = "");
-    }
-
-    filters[key] = inititalState[key];
-  });
-
-  const { data: { events } = {}, loading, error } = useQuery(ALL_EVENTS, {
-    variables: {
-      first: 8,
-      page
-    }
-  });
-
-  if (loading) return <Loader/>;
+function EventsBox({ entities: events, loading, networkStatus, error, page, setPage, sortComponent }) {
+  if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
+  if (!events) return <div>-----</div>;
 
   return (
     <>
@@ -38,6 +18,7 @@ function EventsBox({ inititalState }) {
           {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
           <span className="ml-1">event found</span>
         </div>
+        {sortComponent}
       </div>
 
       <div className="fluid-container">
@@ -58,10 +39,6 @@ function EventsBox({ inititalState }) {
           <div><Loader/></div>
         )}
       </div>
-
-      {/*<div className="fluid-container">*/}
-      {/*  <AddressCard className="w-full sm:w-2/3 lg:w-2/5 hd:w-1/5" />*/}
-      {/*</div>*/}
 
       <Pagination
         page={page}

@@ -84,6 +84,7 @@ input EmployeeFilters {
   close_to: Distance @scope(name: "closeTo")
   city_id: Int @where
   cities: [Int] @in(key: "city_id")
+  cantons: [Int] @scope(name: "hasCantons")
   __typename: String
 }
 

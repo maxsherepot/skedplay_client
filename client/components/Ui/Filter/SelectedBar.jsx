@@ -64,11 +64,13 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
     });
 
   const clearValue = ({ key, isArray, value }) => {
-    const state = inititalState[key];
+    let state = filters[key];
 
     if (isArray) {
       const index = state.indexOf(value);
-      delete state[index];
+      state.splice(index, 1);
+    } else {
+      state = "";
     }
 
     setFilter(key, state);

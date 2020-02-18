@@ -4,6 +4,7 @@ namespace Modules\Common\database\seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Common\Entities\Canton;
 use Modules\Common\Entities\City;
 
 class CitiesTableSeeder extends Seeder
@@ -29,8 +30,21 @@ class CitiesTableSeeder extends Seeder
 
         $this->command->info('Cities seeder started');
 
-        collect($this->cities)->map(function($city) {
-            City::updateOrCreate(['name' => $city]);
+        $cities = json_decode(
+            file_get_contents(
+                storage_path('cities.json')
+            ),
+            true
+        );
+
+        collect($cities)->map(function($city) {
+            $canton = Canton::updateOrCreate(['name' => $city['admin']]);
+
+            City::updateOrCreate([
+                'name' => $city['city'],
+            ], [
+                'canton_id' => $canton->id,
+            ]);
         });
 
         $this->command->info('Cities seeder finished');

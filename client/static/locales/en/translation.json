@@ -118,8 +118,8 @@
     "": ""
   },
   "clubs": {
-    "event_type": "Event type",
-    "select_event_type": "Select event type",
+    "event_type": "Club type",
+    "select_event_type": "Select club type",
     "perimeter": "Perimeter",
     "select_perimeter": "Select perimeter",
     "add_club": "Adding a new Club",

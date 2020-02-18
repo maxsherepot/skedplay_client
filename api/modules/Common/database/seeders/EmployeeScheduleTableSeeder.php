@@ -18,6 +18,10 @@ class EmployeeScheduleTableSeeder extends Seeder
      */
     public function run()
     {
+        if (EmployeeScheduleWork::count()) {
+            return;
+        }
+
         Model::unguard();
 
         $start = now();

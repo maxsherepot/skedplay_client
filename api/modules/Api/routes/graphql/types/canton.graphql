@@ -1,0 +1,9 @@
+type Canton {
+    id: Int!
+    name: String!
+    cities: [City] @hasMany
+}
+
+extend type Query {
+    cantons: [Canton!]! @all
+}

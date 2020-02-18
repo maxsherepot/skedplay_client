@@ -4,94 +4,50 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Filter, Loader } from "UI";
 import EventsBox from "components/EventsBox";
-import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS } from "queries";
+import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS, CANTONS, ALL_EVENTS } from "queries";
 import {useTranslation} from "react-i18next";
+import { geolocated } from "react-geolocated";
+import EntitySearch from "components/EntitySearch";
+import ClubsBox from "components/ClubsBox";
 
+const ENTITY_NAME = "events";
 
-function Events({ user }) {
+function Events({ user, isGeolocationEnabled }) {
   const {t, i18n} = useTranslation();
 
-  const { loading, data: { club_types } = {} } = useQuery(
+  const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
+
+  const { loading, data: { event_types } = {} } = useQuery(
     EVENTS_FILTER_OPTIONS
   );
 
-  const {
-    data: { filters: { events } = {} }
-  } = useQuery(GET_FILTERS_STATE);
+  const { loading: cantonsLoading, data: { cantons } = {} } = useQuery(
+    CANTONS
+  );
 
-  if (loading) {
+  if (loading || filtersLoading || cantonsLoading) {
     return <Loader/>;
   }
 
   const fields = [
     {
-      component: "select",
-      name: "location",
+      component: "multi-select",
+      name: "cantons",
       label: t('common.location'),
-      placeholder: t('common.select_location'),
+      showCheckboxes: true,
+      placeholder: t('common.all_switzerland'),
       options: [
-        {
-          label: "Zürich",
-          value: "zürich"
-        },
-        {
-          label: "Geneva",
-          value: "geneva"
-        },
-        {
-          label: "Basel",
-          value: "basel"
-        },
-        {
-          label: "Lausanne",
-          value: "lausanne"
-        },
-        {
-          label: "Bern",
-          value: "bern"
-        },
-        {
-          label: "Winterthur",
-          value: "winterthur"
-        },
-        {
-          label: "Lucerne",
-          value: "lucerne"
-        }
-      ]
+        ...cantons.map(c => ({value: c.id, label: c.name})),
+      ],
     },
     {
       component: "select",
-      name: "event_type",
-      label: t('clubs.event_type'),
-      placeholder: t('event.select_event_type'),
-      options: club_types.map(s => {
+      name: "event_type_id",
+      label: t('events.event_type'),
+      placeholder: t('events.select_event_type'),
+      options: event_types.map(s => {
         return { label: s.name, value: s.id };
       })
-    },
-    {
-      component: "select",
-      name: "perimeter",
-      label: t('clubs.perimeter'),
-      placeholder: t('clubs.select_perimeter'),
-      options: [
-        {
-          label: "2 km",
-          value: 2
-        },
-        {
-          label: "5 km",
-          value: 5
-        },
-        {
-          label: "10 km",
-          value: 10
-        },
-        {
-          label: "20 km",
-          value: 20
-        }
-      ]
     },
     {
       component: "select",
@@ -102,10 +58,43 @@ function Events({ user }) {
     }
   ];
 
+  if (isGeolocationEnabled) {
+    fields.splice(0, 1);
+    fields.splice(fields.length - 1, 0, {
+      component: "distance-slider",
+      name: "close_to",
+      label: t('common.perimeter'),
+      initValue: 0,
+      valueResolver(value) {
+        if (!parseInt(value)) {
+          return t('common.off');
+        }
+
+        return value + 'km';
+      },
+      labelResolver(value) {
+        if (!parseInt(value)) {
+          value = value.distanceKm;
+        }
+
+        if (!value) {
+          return null;
+        }
+
+        return t('common.perimeter') + ' ' + value + 'km';
+      }
+    });
+  }
+
   return (
     <>
-      <Filter name="events" inititalState={events} fields={fields} setFilters={() => {}} />
-      <EventsBox inititalState={events} />
+      <EntitySearch
+        entityName={ENTITY_NAME}
+        fields={fields}
+        filters={filters}
+        Box={EventsBox}
+        entityQuery={ALL_EVENTS}
+      />
     </>
   );
 }
@@ -118,4 +107,4 @@ Events.getInitialProps = async ctx => {
   return { user };
 };
 
-export default Events;
+export default geolocated()(Events);

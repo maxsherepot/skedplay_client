@@ -1,3 +1,5 @@
+union Owner = User | Club
+
 type Event {
     id: ID!
     title: String!
@@ -6,6 +8,7 @@ type Event {
     favorited: Favorite @morphOne @with(relation: "favoriteRelation")
     type: EventType! @belongsTo
     club: Club @belongsTo
+    owner: Owner @belongsTo
     photos: [Media] @hasMany
 }
 
@@ -26,11 +29,14 @@ input EventUpdateInput {
 }
 
 input EventFilters {
-    event_type_id: Int!
+    event_type_id: Int @where
+    cantons: [Int] @scope(name: "hasCantons")
+    close_to: Distance @scope(name: "closeTo")
+    __typename: String
 }
 
 extend type Query {
-    events(filters: EventFilters): [Event!]! @paginate
+    events(filters: EventFilters @spread): [Event!]! @paginate
     eventsByOwner(owner_id: ID!, owner_type: String!): [Event!]! @router(action: "Modules\\Api\\Http\\Controllers\\EventController@getByOwner")
     event(id: ID @eq): Event @find
 }

@@ -4,3 +4,7 @@ type EventType {
     display_name: String!
 }
 
+extend type Query {
+    event_types: [EventType] @all
+}
+

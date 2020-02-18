@@ -4,6 +4,8 @@ namespace Modules\Common\Services\Location;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Common\Entities\City;
 
 trait Locationable
 {
@@ -24,6 +26,22 @@ trait Locationable
     {
         static::saving(function (Model $model) {
             static::setCoordinates($model);
+        });
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function scopeHasCantons(Builder $query, ?array $cantons = null): void
+    {
+        if (!$cantons) {
+            return;
+        }
+
+        $query->whereHas('city', function(Builder $query) use ($cantons) {
+            $query->whereIn('canton_id', $cantons);
         });
     }
 

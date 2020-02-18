@@ -26,6 +26,10 @@ export const GET_SERVICES = gql`
 export const EVENTS_FILTER_OPTIONS = gql`
   query options {
     club_types {
+        id
+        name
+    }
+    event_types {
       id
       name
     }

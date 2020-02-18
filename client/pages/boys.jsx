@@ -1,6 +1,6 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS } from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS } from "queries";
 import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
 import { geolocated } from "react-geolocated";
@@ -13,9 +13,13 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     GIRLS_FILTER_OPTIONS
   );
 
+  const { loading: cantonsLoading, data: { cantons } = {} } = useQuery(
+    CANTONS
+  );
+
   const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
-  if (loading || filtersLoading) {
+  if (loading || cantonsLoading || filtersLoading) {
     return <Loader/>;
   }
 
@@ -26,42 +30,16 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
   }
 
   let fields = [
-    // {
-    //   component: "select",
-    //   name: "location",
-    //   label: "Location",
-    //   placeholder: "Select your location",
-    //   options: [
-    //     {
-    //       label: "Zürich",
-    //       value: "zürich"
-    //     },
-    //     {
-    //       label: "Geneva",
-    //       value: "geneva"
-    //     },
-    //     {
-    //       label: "Basel",
-    //       value: "basel"
-    //     },
-    //     {
-    //       label: "Lausanne",
-    //       value: "lausanne"
-    //     },
-    //     {
-    //       label: "Bern",
-    //       value: "bern"
-    //     },
-    //     {
-    //       label: "Winterthur",
-    //       value: "winterthur"
-    //     },
-    //     {
-    //       label: "Lucerne",
-    //       value: "lucerne"
-    //     }
-    //   ]
-    // },
+    {
+      component: "multi-select",
+      name: "cantons",
+      label: t('common.location'),
+      showCheckboxes: true,
+      placeholder: t('common.all_switzerland'),
+      options: [
+        ...cantons.map(c => ({value: c.id, label: c.name})),
+      ],
+    },
     {
       component: "multi-select",
       name: "services",
@@ -156,6 +134,8 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
 
   if (!isGeolocationEnabled) {
     fields.splice(fields.length - 2, 1);
+  } else {
+    fields.splice(0, 1);
   }
 
   return (

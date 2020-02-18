@@ -1,6 +1,6 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CITIES } from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS } from "queries";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
 import { geolocated } from "react-geolocated";
@@ -9,8 +9,8 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
   const ENTITY_NAME = "girls";
   const {t, i18n} = useTranslation();
 
-  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
-    CITIES
+  const { loading: cantonsLoading, data: { cantons } = {} } = useQuery(
+    CANTONS
   );
 
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
@@ -19,7 +19,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
 
   const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
-  if (loading || citiesLoading || filtersLoading) {
+  if (loading || cantonsLoading || filtersLoading) {
     return <Loader/>;
   }
 
@@ -29,17 +29,15 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     return 'error';
   }
 
-  console.log(cities);
-
   let fields = [
     {
       component: "multi-select",
-      name: "cities",
+      name: "cantons",
       label: t('common.location'),
       showCheckboxes: true,
       placeholder: t('common.all_switzerland'),
       options: [
-        ...cities.map(c => ({value: c.id, label: c.name})),
+        ...cantons.map(c => ({value: c.id, label: c.name})),
       ],
     },
     {

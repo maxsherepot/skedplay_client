@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const ALL_EVENTS = gql`
-    query allEvents($first: Int!, $page: Int!) {
-        events(first: $first, page: $page) {
+    query allEvents($first: Int!, $page: Int!, $filters: EventFilters) {
+        events(first: $first, page: $page, filters: $filters) {
             data {
                 id
                 title

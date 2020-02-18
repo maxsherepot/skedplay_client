@@ -7,33 +7,10 @@ import { ALL_CLUBS } from "queries/clubQuery";
 import { MapSvg } from "icons";
 import { ClubCard, Pagination, Sort, Button, Loader } from "UI";
 
-function ClubsBox({ inititalState }) {
-  const [page, setPage] = usePagination();
-
-  const filters = [];
-
-  Object.keys(inititalState).map(key => {
-    if (inititalState[key] === "") return;
-
-    if (inititalState[key] === null) {
-      return (filters[key] = "");
-    }
-
-    filters[key] = inititalState[key];
-  });
-
-  const { data: { clubs } = {}, loading, error } = useQuery(ALL_CLUBS, {
-    variables: {
-      first: 8,
-      page,
-      filters: {
-        ...filters
-      }
-    }
-  });
-
-  if (loading) return <Loader/>;
+function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPage, sortComponent }) {
+  if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
+  if (!clubs) return <div>-----</div>;
 
   return (
     <>
@@ -42,6 +19,7 @@ function ClubsBox({ inititalState }) {
           {clubs && clubs.paginatorInfo ? clubs.paginatorInfo.total : 0}
           <span className="ml-1">clubs found</span>
         </div>
+        {sortComponent}
       </div>
 
       <div className="fluid-container">
@@ -59,21 +37,6 @@ function ClubsBox({ inititalState }) {
         )}
       </div>
 
-      {/*<div className="fluid-container">*/}
-      {/*  <div className="text-2xl font-black">Meine Adresse</div>*/}
-      {/*  /!* add page-card? *!/*/}
-      {/*  <div className="mt-5 bg-white w-full sm:w-2/3 lg:w-2/5 hd:w-1/5 p-4">*/}
-      {/*    <p className="font-bold">Badenersrasse 109, 8004 Zurich</p>*/}
-      {/*    <div className="flex my-4">*/}
-      {/*      <MapSvg />*/}
-      {/*      <span className="ml-3">12 km from me</span>*/}
-      {/*    </div>*/}
-      {/*    <Button className="px-4" size="xxs" level="success" weight="normal">*/}
-      {/*      Available*/}
-      {/*    </Button>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
       <Pagination
         page={page}
         setPage={setPage}
@@ -84,7 +47,7 @@ function ClubsBox({ inititalState }) {
 }
 
 ClubsBox.propTypes = {
-  inititalState: PropTypes.object.isRequired
+  // inititalState: PropTypes.object.isRequired
 };
 
 export default ClubsBox;

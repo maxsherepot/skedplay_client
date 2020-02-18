@@ -1,104 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {Filter, Loader} from "UI";
-import {MainLayout} from "layouts";
-import ClubsBox from "components/ClubsBox";
-import {GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS} from "queries";
+import {GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS, CANTONS, ALL_CLUBS} from "queries";
 import {useTranslation} from "react-i18next";
 import { geolocated } from "react-geolocated";
-import filterHelpers from "UI/Filter/helpers";
+import EntitySearch from "components/EntitySearch";
+import ClubsBox from "components/ClubsBox";
 
 const ENTITY_NAME = "clubs";
 
-function Clubs({loggedInUser, isGeolocationEnabled, coords}) {
+function Clubs({loggedInUser, isGeolocationEnabled}) {
     const {t, i18n} = useTranslation();
 
     const {loading, data: {club_types} = {}} = useQuery(
         EVENTS_FILTER_OPTIONS
     );
 
-    const {data: {filters} = {}, loading: filtersLoading} = useQuery(GET_FILTERS_STATE);
+    const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
 
-    if (loading || filtersLoading) {
+    const { loading: cantonsLoading, data: { cantons } = {} } = useQuery(
+      CANTONS
+    );
+
+    if (loading || cantonsLoading || filtersLoading) {
         return <Loader/>;
     }
 
-    const filteredFilters = filterHelpers.filterFilters(filters[ENTITY_NAME]);
-
     const fields = [
-        // {
-        //   component: "select",
-        //   name: "location",
-        //   label: "Location",
-        //   placeholder: "Select your location",
-        //   options: [
-        //     {
-        //       label: "Zürich",
-        //       value: "zürich"
-        //     },
-        //     {
-        //       label: "Geneva",
-        //       value: "geneva"
-        //     },
-        //     {
-        //       label: "Basel",
-        //       value: "basel"
-        //     },
-        //     {
-        //       label: "Lausanne",
-        //       value: "lausanne"
-        //     },
-        //     {
-        //       label: "Bern",
-        //       value: "bern"
-        //     },
-        //     {
-        //       label: "Winterthur",
-        //       value: "winterthur"
-        //     },
-        //     {
-        //       label: "Lucerne",
-        //       value: "lucerne"
-        //     }
-        //   ]
-        // },
+        {
+            component: "multi-select",
+            name: "cantons",
+            label: t('common.location'),
+            showCheckboxes: true,
+            placeholder: t('common.all_switzerland'),
+            options: [
+                ...cantons.map(c => ({value: c.id, label: c.name})),
+            ],
+        },
         {
             component: "select",
-            name: "event_type",
+            name: "club_type_id",
             label: t('clubs.event_type'),
             placeholder: t('clubs.select_event_type'),
             options: club_types.map(s => {
                 return {label: s.name, value: s.id};
             })
         },
-        // {
-        //     component: "select",
-        //     name: "perimeter",
-        //     label: t('clubs.perimeter'),
-        //     placeholder: t('clubs.select_perimeter'),
-        //     options: [
-        //         {
-        //             label: "2 km",
-        //             value: 2
-        //         },
-        //         {
-        //             label: "5 km",
-        //             value: 5
-        //         },
-        //         {
-        //             label: "10 km",
-        //             value: 10
-        //         },
-        //         {
-        //             label: "20 km",
-        //             value: 20
-        //         }
-        //     ]
-        // }
     ];
 
     if (isGeolocationEnabled) {
+        fields.splice(0, 1);
         fields.push({
             component: "distance-slider",
             name: "close_to",
@@ -126,17 +78,15 @@ function Clubs({loggedInUser, isGeolocationEnabled, coords}) {
     }
 
     return (
-        <MainLayout user={loggedInUser}>
-            <Filter
-                name={ENTITY_NAME}
-                inititalState={filters[ENTITY_NAME]}
-                fields={fields}
-                filters={filteredFilters}
-                setFilter={() => {}}
-                setFilters={() => {}}
-            />
-            <ClubsBox inititalState={filters[ENTITY_NAME]}/>
-        </MainLayout>
+      <>
+          <EntitySearch
+            entityName={ENTITY_NAME}
+            fields={fields}
+            filters={filters}
+            Box={ClubsBox}
+            entityQuery={ALL_CLUBS}
+          />
+      </>
     );
 }
 

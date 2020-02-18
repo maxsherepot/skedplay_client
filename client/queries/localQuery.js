@@ -6,6 +6,7 @@ export const GET_FILTERS_STATE = gql`
       girls {
 #        location
         type
+        cantons
         services
         gender
         race_type_id
@@ -22,6 +23,7 @@ export const GET_FILTERS_STATE = gql`
 #        location
         type
         services
+        cantons
         gender
         race_type_id
         age {
@@ -37,6 +39,7 @@ export const GET_FILTERS_STATE = gql`
 #        location
         type
         services
+        cantons
         gender
         race_type_id
         age {
@@ -49,14 +52,14 @@ export const GET_FILTERS_STATE = gql`
         }
       }
       clubs {
-        location
-        event_type
-        perimeter
+        cantons
+        club_type
+#        perimeter
       }
       events {
-        location
+        cantons
         event_type
-        perimeter
+#        perimeter
         date
       }
     }

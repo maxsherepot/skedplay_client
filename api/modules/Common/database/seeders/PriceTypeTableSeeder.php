@@ -17,6 +17,10 @@ class PriceTypeTableSeeder extends Seeder
     {
         Model::unguard();
 
+        if (PriceType::count()) {
+            return;
+        }
+
         $start = now();
         $this->command->info('Price seeder started');
 
