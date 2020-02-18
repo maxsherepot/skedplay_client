@@ -22,10 +22,11 @@ function GirlCard({
     if (!distanceKm) {
       return (
         <>
-          {girl.address &&
+          {girl.city &&
           <div className="text-sm text-grey">
             <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-            {girl.address}
+            {girl.index}
+            {girl.city.name}
           </div>
           }
         </>

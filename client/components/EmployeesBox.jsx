@@ -26,13 +26,13 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
         {sortComponent}
       </div>
 
-      <div className="fluid-container">
-        <MapWithMarkers
-          markers={employeesWithCoordinates}
-          mapContainerStyle={{width: '100%', height: '400px'}}
-          showLabel={true}
-        ></MapWithMarkers>
-      </div>
+      {/*<div className="fluid-container">*/}
+      {/*  <MapWithMarkers*/}
+      {/*    markers={employeesWithCoordinates}*/}
+      {/*    mapContainerStyle={{width: '100%', height: '400px'}}*/}
+      {/*    showLabel={true}*/}
+      {/*  ></MapWithMarkers>*/}
+      {/*</div>*/}
 
       <div className="fluid-container">
         <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">

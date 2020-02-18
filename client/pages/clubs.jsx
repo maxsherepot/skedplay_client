@@ -39,8 +39,9 @@ function Clubs({loggedInUser, isGeolocationEnabled}) {
             ],
         },
         {
-            component: "select",
-            name: "club_type_id",
+            component: "multi-select",
+            showCheckboxes: true,
+            name: "club_type_ids",
             label: t('clubs.event_type'),
             placeholder: t('clubs.select_event_type'),
             options: club_types.map(s => {

@@ -51,15 +51,12 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
             })
         },
         {
-            component: "select",
-            name: "gender",
+            component: "multi-select",
+            showCheckboxes: true,
+            name: "genders",
             label: t('common.gender'),
             placeholder: t('common.all_gender'),
             options: [
-                {
-                    label: t('common.all_gender'),
-                    value: ''
-                },
                 {
                     label: t('common.female'),
                     value: 2
@@ -71,8 +68,9 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
             ]
         },
         {
-            component: "select",
-            name: "race_type_id",
+            component: "multi-select",
+            showCheckboxes: true,
+            name: "race_type_ids",
             label: t('common.type'),
             placeholder: t('common.select_type'),
             options: employee_race_types.map(s => {
@@ -84,9 +82,9 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
             name: "age",
             label: t('common.age'),
             from: 18,
-            to: 45,
+            to: 60,
             labelResolver({from, to}) {
-                if (parseInt(from) === 18 && parseInt(to) === 45) {
+                if (parseInt(from) === 18 && parseInt(to) === 60) {
                     return null;
                 }
 
@@ -94,7 +92,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
             }
         },
         {
-            component: "slider",
+            component: "distance-slider",
             name: "close_to",
             label: t('common.perimeter'),
             initValue: 0,
@@ -106,6 +104,10 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
                 return value + 'km';
             },
             labelResolver(value) {
+                if (!value) {
+                    return null;
+                }
+
                 if (!parseInt(value)) {
                     value = value.distanceKm;
                 }

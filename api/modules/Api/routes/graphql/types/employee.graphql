@@ -6,7 +6,7 @@ type Employee {
   last_name: String
   name: String!
   index: String
-  city_id: Int
+  city: City @belongsTo
   address: String
   description: String
   isVip: Boolean
@@ -76,10 +76,12 @@ input EmployeeFilters {
   type: Int @where
   orderBy: [OrderByClause!] @orderBy
   gender: String @where
+  genders: [String] @in(key: "gender")
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   age: AgeRange @whereBetween
 #  race_type: String @whereHas(key: "race_type_id", method: "whereIn")
   race_type_id: String @where
+  race_type_ids: [String] @in(key: "race_type_id")
   show_level: [Int] @in
   close_to: Distance @scope(name: "closeTo")
   city_id: Int @where

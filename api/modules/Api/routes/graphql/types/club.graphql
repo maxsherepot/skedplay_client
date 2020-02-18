@@ -66,6 +66,7 @@ type ClubType {
 input ClubFilters {
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   club_type_id: Int @where
+  club_type_ids: [Int] @in(key: "club_type_id")
   close_to: Distance @scope(name: "closeTo")
   cantons: [Int] @scope(name: "hasCantons")
   __typename: String

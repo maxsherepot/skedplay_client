@@ -12,6 +12,11 @@ const GET_GIRLS = gql`
         address
         isVip
         isNew
+        index
+        city {
+          id
+          name
+        }
         photos {
           id
           thumb_url

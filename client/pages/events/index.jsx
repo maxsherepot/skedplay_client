@@ -41,8 +41,9 @@ function Events({ user, isGeolocationEnabled }) {
       ],
     },
     {
-      component: "select",
-      name: "event_type_id",
+      component: "multi-select",
+      showCheckboxes: true,
+      name: "event_type_ids",
       label: t('events.event_type'),
       placeholder: t('events.select_event_type'),
       options: event_types.map(s => {

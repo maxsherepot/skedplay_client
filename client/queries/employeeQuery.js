@@ -8,13 +8,17 @@ export const ALL_EMPLOYEES = gql `
         name
         age
         address
+        index
         isVip
         isNew
         soon
         website
         email
         phone
-        city_id
+        city {
+          id
+          name
+        }
         lat
         lng
         favorited {

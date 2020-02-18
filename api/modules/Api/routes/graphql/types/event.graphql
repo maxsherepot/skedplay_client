@@ -30,6 +30,7 @@ input EventUpdateInput {
 
 input EventFilters {
     event_type_id: Int @where
+    event_type_ids: [Int] @in(key: "event_type_id")
     cantons: [Int] @scope(name: "hasCantons")
     close_to: Distance @scope(name: "closeTo")
     __typename: String
