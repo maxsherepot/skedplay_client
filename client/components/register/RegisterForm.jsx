@@ -8,8 +8,10 @@ import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
+import {useRouter} from "next/router";
 
 function RegisterForm({ onSubmit, children }) {
+  const {query} = useRouter();
   const { t, i18n } = useTranslation();
   const { step, setStep } = useSteps();
 
@@ -83,7 +85,7 @@ function RegisterForm({ onSubmit, children }) {
   return (
     <Formik
       initialValues={{
-        account_type: "",
+        account_type: query.role || "",
         birthday: "",
         first_name: "",
         phone: "",

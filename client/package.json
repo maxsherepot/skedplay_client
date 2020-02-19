@@ -41,6 +41,7 @@
     "i18next-node-remote-backend": "^1.1.0",
     "i18next-xhr-backend": "^3.2.2",
     "isomorphic-unfetch": "^3.0.0",
+    "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.24.0",

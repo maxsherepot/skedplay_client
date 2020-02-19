@@ -30,7 +30,13 @@ function Footer({ user }) {
         </div>
         <div className="flex flex-col justify-center text-center md:w-1/2">
           <ul className="md:flex items-center justify-end leading-loose">
-            <li>{t('layout.about')}</li>
+            <li>
+              <Link href='/about'>
+                <a className="text-white">
+                  {t('layout.about')}
+                </a>
+              </Link>
+            </li>
             {/* Only odd */}
             <li className="mx-8">{t('layout.contacts')}</li>
             <li>{t('layout.help_center')}</li>
