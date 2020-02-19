@@ -11,6 +11,8 @@ const GET_CLUBS = gql`
                 id
                 name
                 address
+                lat
+                lng
                 phones
                 favorited {
                     id

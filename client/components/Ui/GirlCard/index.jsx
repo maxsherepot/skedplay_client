@@ -142,7 +142,11 @@ function GirlCard({
   };
 
   return (
-    <div className={cx(className, "girls__item bg-white border border-red")}>
+    <div className={cx(
+      className,
+      "girls__item bg-white",
+      girl.isVip ? "border border-red" : ""
+    )}>
       <div className="absolute z-20 top-0 right-0 p-3-5">
         <FavoriteButton
           variables={{ model_id: girl.id, model_type: "employee" }}

@@ -13,30 +13,25 @@ import EntityMaps from "components/maps/EntityMaps";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
-    return (
-      <div className="flex py-1 pr-1">
-        <MapSvg />
-      </div>
-    )
+    return '';
   }
 
   return (
-    <div className="flex py-1 pr-1">
-      <MapSvg />
-      <span className="ml-1 whitespace-no-wrap">{distanceKm} km</span>
-    </div>
+    <p className="text-grey">{distanceKm} km from me</p>
   );
 }
 
 function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = true, lat, lng }) {
-  let phone = null
+  let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
 
   const [thumb] = photos;
 
-  if (phone) {
-    const [number] = JSON.parse(phones);
+  const phonesList = JSON.parse(phones);
+
+  if (phonesList.length) {
+    const [number] = phonesList;
     phone = number
   }
 
@@ -108,7 +103,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
                     "w-8": !showNumber
                   })}
                 >
-                  +{phone}
+                  {phone}
                 </span>
                 {!showNumber && (
                   <span

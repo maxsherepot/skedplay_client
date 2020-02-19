@@ -113,13 +113,13 @@ const Index = ({ user }) => {
               <div className="index-bg-bottom"/>
               <div className="container">
                   <div className="flex text-black items-end leading-none text-black md:text-white">
-                      <div className="text-4xl font-extrabold tracking-tighter">
-                          {t('index.girls')}
+                      <div className="text-4xl font-extrabold tracking-tighter capitalize">
+                          {t('common.girls')}
                       </div>
                       <Link href="/girls">
                           <a className="block text-sm whitespace-no-wrap transition ml-4">
                               <ArrowNextSvg stroke="#fff">
-                                  <span className="mr-1">{t('index.all_girls')}</span>
+                                  <span className="mr-1">{t('common.all_girls')}</span>
                               </ArrowNextSvg>
                           </a>
                       </Link>
@@ -128,12 +128,12 @@ const Index = ({ user }) => {
 
                   <div className="flex text-black items-end leading-none mt-8">
                       <div className="text-4xl font-extrabold tracking-tighter">
-                          {t('index.clubs')}
+                          {t('common.best_clubs')}
                       </div>
                       <Link href="/clubs">
                           <a className="block text-sm whitespace-no-wrap transition ml-4">
                               <ArrowNextSvg>
-                                  <span className="mr-1">{t('index.all_clubs')}</span>
+                                  <span className="mr-1">{t('common.all_clubs')}</span>
                               </ArrowNextSvg>
                           </a>
                       </Link>
