@@ -81,6 +81,7 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
         fields={fields}
         setFilter={setFilter}
         setFilters={setFilters}
+        bgClass="employee-search"
       />
       <EmployeesBox
         sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}

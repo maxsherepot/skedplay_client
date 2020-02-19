@@ -1,15 +1,13 @@
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
 import { Filter } from "UI";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, ALL_CLUBS } from "queries";
 import { usePagination } from "hooks";
 import {useState} from "react";
 import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
-import ClubsBox from "components/ClubsBox";
 
-const ClubsSearch = ({ user, entityName, fields, filters, Box, entityQuery }) => {
+const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState({});
 
@@ -59,6 +57,7 @@ const ClubsSearch = ({ user, entityName, fields, filters, Box, entityQuery }) =>
         fields={fields}
         setFilter={setFilter}
         setFilters={setFilters}
+        bgClass={entityName + '-search'}
       />
       <Box
         // sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
@@ -73,7 +72,7 @@ const ClubsSearch = ({ user, entityName, fields, filters, Box, entityQuery }) =>
   );
 };
 
-ClubsSearch.getInitialProps = async ctx => {
+EntitySearch.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
   if (!user) {
     return {};
@@ -81,4 +80,4 @@ ClubsSearch.getInitialProps = async ctx => {
   return { user };
 };
 
-export default ClubsSearch;
+export default EntitySearch;

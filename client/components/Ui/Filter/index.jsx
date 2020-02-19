@@ -12,12 +12,17 @@ import {
   CheckboxField
 } from "UI";
 
-function Filter({ name, fields, inititalState, filters, setFilters, setFilter }) {
+import cx from 'classnames';
+
+function Filter({ name, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
 
   return (
     <>
       <div
-        className="flex flex-col py-4 employee-search"
+        className={cx([
+          "flex flex-col py-4",
+          bgClass
+        ])}
       >
         <div className="fluid-container w-full z-1">
           <div className="text-xl lg:text-3xl text-white font-black capitalize">
