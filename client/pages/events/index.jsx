@@ -108,4 +108,15 @@ Events.getInitialProps = async ctx => {
   return { user };
 };
 
-export default geolocated()(Events);
+let geoLocatedPage = geolocated()(Events);
+
+geoLocatedPage.getInitialProps = async ctx => {
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+
+  if (!user) {
+    return {};
+  }
+  return { user };
+};
+
+export default geoLocatedPage;

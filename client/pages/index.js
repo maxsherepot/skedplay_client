@@ -142,7 +142,7 @@ const Index = ({ user }) => {
               </div>
           </main>
 
-          <Footer/>
+          <Footer user={user}/>
       </>
     );
 };

@@ -8,8 +8,9 @@ import {
   SmsSvg
 } from "icons";
 import {useTranslation} from "react-i18next";
+import Link from "next/link";
 
-function Footer() {
+function Footer({ user }) {
   const { t, i18n } = useTranslation();
 
   return (
@@ -19,9 +20,13 @@ function Footer() {
           <Button size="xs" className="my-4 md:mr-4 md:w-40" outline>
             {t('layout.create_site')}
           </Button>
-          <Button size="xs" className="my-4 md:w-40" outline>
-            {t('layout.join_now')}
-          </Button>
+          {!user &&
+            <Link href="/register">
+              <Button size="xs" className="my-4 md:w-40" outline>
+                {t('layout.join_now')}
+              </Button>
+            </Link>
+          }
         </div>
         <div className="flex flex-col justify-center text-center md:w-1/2">
           <ul className="md:flex items-center justify-end leading-loose">

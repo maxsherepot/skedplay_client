@@ -91,14 +91,15 @@ function Clubs({loggedInUser, isGeolocationEnabled}) {
     );
 }
 
-Clubs.getInitialProps = async ctx => {
-    const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
+let geoLocatedPage = geolocated()(Clubs);
+
+geoLocatedPage.getInitialProps = async ctx => {
+    const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+
     if (!user) {
         return {};
     }
-    return {user};
+    return { user };
 };
 
-Clubs.getLayout = page => page;
-
-export default geolocated()(Clubs);
+export default geoLocatedPage;

@@ -4,6 +4,7 @@ import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS } from "queries";
 import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
 import { geolocated } from "react-geolocated";
+import checkLoggedIn from "lib/checkLoggedIn";
 
 const GirlsSearch = ({isGeolocationEnabled}) => {
     const ENTITY_NAME = "couple";
@@ -147,4 +148,15 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     );
 };
 
-export default geolocated()(GirlsSearch);
+let geoLocatedPage = geolocated()(GirlsSearch);
+
+geoLocatedPage.getInitialProps = async ctx => {
+    const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+
+    if (!user) {
+        return {};
+    }
+    return { user };
+};
+
+export default geoLocatedPage;
