@@ -1,7 +1,11 @@
 import script from './script';
 import Link from "next/link";
+import {useTranslation} from "react-i18next";
+import { Trans } from 'react-i18next';
 
 const About = ({user}) => {
+  const { t, i18n } = useTranslation();
+
   script();
 
   return (
@@ -11,12 +15,12 @@ const About = ({user}) => {
           <div className="q-sections-panel__inner js-sections-panel">
             <img src="/static/img/logo_sm.svg" alt="" className="q-sections-panel__logo"/>
             <span className="q-sections-panel__text">
-				<a href="#about" className="q-sections-panel__title _white js-sections-panel-title">Skedplay &nbsp;-&nbsp; для удовольствия</a>
-				<a href="#clubs" className="q-sections-panel__title js-sections-panel-title">Клубам</a>
-				<a href="#workers"
-           className="q-sections-panel__title _white js-sections-panel-title">Работникам секс-индустрии</a>
-				<a href="#clients" className="q-sections-panel__title js-sections-panel-title">Для клиентов</a>
-				<a href="#final" className="q-sections-panel__title _white js-sections-panel-title">Для клиентов</a>
+            <a href="#about" className="q-sections-panel__title _white js-sections-panel-title">Skedplay &nbsp;-&nbsp; <Trans i18nKey="about.for_pleasure"/></a>
+            <a href="#clubs" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clubs"/></a>
+            <a href="#workers"
+               className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_employees"/></a>
+            <a href="#clients" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
+            <a href="#final" className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
 			</span>
           </div>
         </div>
@@ -28,10 +32,9 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-section__main-info _center-text">
                   <img src="/static/img/about-logo.svg" alt="Skedplay" className="inline-block q-section__main-info--logo"/>
-                  <span className="q-section__main-info--title">Каталог и маркетплейс платформа для организации сервисов интим-услуг в Швейцарии №1</span>
+                  <span className="q-section__main-info--title"><Trans i18nKey="about.header_1"/></span>
                   <div className="q-section__main-info--text">
-                    <p>Здесь клиенты находятся в безопасности при выборе любимых услуг, а секс-работники и владельцы
-                      интим-клубов получают всё необходимое для старта, роста и управления своим интернет-бизнесом.</p>
+                    <p><Trans i18nKey="about.header_2"/></p>
                   </div>
                 </div>
               </div>
@@ -40,7 +43,7 @@ const About = ({user}) => {
           <section className="section q-section q-section-2 _no-bg">
             <div className="q-inner">
               <div className="q-section__inner">
-                <span className="q-section__main-info--title _center-text">Маркетплейс с приставкой "секс"</span>
+                <span className="q-section__main-info--title _center-text"><Trans i18nKey="about.marketplace.header_1"/></span>
                 <div className="q-about">
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -50,7 +53,7 @@ const About = ({user}) => {
                           fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Любые интимные развлечения по вкусу</span>
+                    <span className="q-about__item--text"><Trans i18nKey="about.marketplace.item_1"/></span>
                   </div>
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -60,7 +63,7 @@ const About = ({user}) => {
                           fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Надежная авторизация по номеру телефона</span>
+                    <span className="q-about__item--text"><Trans i18nKey="about.marketplace.item_2"/></span>
                   </div>
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -70,7 +73,9 @@ const About = ({user}) => {
                           fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Проверенные<br/>анкеты</span>
+                    <span className="q-about__item--text">
+                      <Trans i18nKey="about.marketplace.item_3"/>
+                    </span>
                   </div>
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -80,7 +85,7 @@ const About = ({user}) => {
                           fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Онлайн-чаты</span>
+                    <span className="q-about__item--text"><Trans i18nKey="about.marketplace.item_4"/></span>
                   </div>
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -90,7 +95,7 @@ const About = ({user}) => {
                               fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Максимальная безопасность без лишних расходов</span>
+                    <span className="q-about__item--text"><Trans i18nKey="about.marketplace.item_5"/></span>
                   </div>
                   <div className="q-about__item">
                     <div className="q-about__item--icon-container">
@@ -100,7 +105,7 @@ const About = ({user}) => {
                           fill="white"/>
                       </svg>
                     </div>
-                    <span className="q-about__item--text">Анонсы ваших мероприятий, акций и особых дней</span>
+                    <span className="q-about__item--text"><Trans i18nKey="about.marketplace.item_6"/></span>
                   </div>
                 </div>
               </div>
@@ -109,12 +114,9 @@ const About = ({user}) => {
           <section className="section q-section q-section-3 _center-text _no-bg">
             <div className="q-inner">
               <div className="q-section__inner">
-                <span className="q-section__title _pb">Простой. Быстрый. Впечатляющий.</span>
+                <span className="q-section__title _pb"><Trans i18nKey="about.marketplace.header_2"/></span>
                 <div className="q-section__text">
-                  <p>Большинство подобных сервисов обычно скучные и сложные. Именно поэтому мы долго и упорно работали,
-                    чтобы Skedplay был простым, ярким и интерактивным. Больше никаких сложных форм, долгих регистраций и
-                    утомительных настроек. Все готовые и нужные инструменты для владельцев клубов любого типа! Прямо
-                    здесь и сейчас.</p>
+                  <p><Trans i18nKey="about.marketplace.desc"/></p>
                 </div>
               </div>
             </div>
@@ -124,12 +126,9 @@ const About = ({user}) => {
           <section className="section q-section q-section-4 _white _center-text">
             <div className="q-inner">
               <div className="q-section__inner">
-                <span className="q-section__title">Вы только попробуйте</span>
+                <span className="q-section__title"><Trans i18nKey="about.clubs.header"/></span>
                 <div className="q-section__text">
-                  <p>Создайте собственный клуб по оказанию интим-услуг за пару минут и начните свой бизнес с нуля.
-                    Управляйте созданной инфраструктурой и анкетами в одном месте из любой точки мира. Теперь Вам не
-                    нужно обращаться к специалистам, бесконечно платить дизайнерам, программистам, контент-менеджерам и
-                    маркетологам для продвижения.</p>
+                  <p><Trans i18nKey="about.clubs.desc"/></p>
                 </div>
                 <div className="q-video">
                   <video loop muted="muted" type="video/mov" src="http://vlamisha.com/fl/2020/skedplay/1.mov"
@@ -143,11 +142,9 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-section__cols _double-col _phone-block">
                   <div className="q-section__text-container">
-                    <span className="q-section__title">Ваши клиенты всегда будут в курсе событий</span>
+                    <span className="q-section__title"><Trans i18nKey="about.clubs.item_1.header"/></span>
                     <div className="q-section__text">
-                      <p>Собираетесь провести мероприятие, объявить скидку или сделать определенный день особенным,
-                        легко и просто оповестите клиентов об этом, создав событие. А если у Вас есть база постояльцев,
-                        их можно уведомить через собственную <nobr>E-mail-рассылку.</nobr></p>
+                      <p><Trans i18nKey="about.clubs.item_1.desc"/></p>
                     </div>
                   </div>
                   <div className="q-section__img-container _center-text">
@@ -162,10 +159,9 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-section__cols _img-first _double-col">
                   <div className="q-section__text-container">
-                    <span className="q-section__title">Выбирайте  абсолютное<br/> спокойствие</span>
+                    <span className="q-section__title"><Trans i18nKey="about.clubs.item_2.header"/></span>
                     <div className="q-section__text">
-                      <p>Разработанная собственная система с закрытым исходным кодом, самые продвинутые технологии,
-                        несколько серверов и платные фаерволы улучшают защиту наших посетителей во много раз.</p>
+                      <p><Trans i18nKey="about.clubs.item_2.desc"/></p>
                     </div>
                   </div>
                   <div className="q-section__img-container">
@@ -174,8 +170,8 @@ const About = ({user}) => {
                 </div>
                 <div className="q-servers-info _cols-paddings">
                   <div className="q-servers-info__item">
-                    <span className="q-servers-info__item--title">DDoS защита</span>
-                    <span className="q-servers-info__item--subtitle">Бесперебойная работа вашего сайта</span>
+                    <span className="q-servers-info__item--title"><Trans i18nKey="about.clubs.item_3.header"/></span>
+                    <span className="q-servers-info__item--subtitle"><Trans i18nKey="about.clubs.item_3.desc"/></span>
                     <svg className="q-servers-info__item--img" width="133" height="143" viewBox="0 0 133 143"
                          fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -184,8 +180,8 @@ const About = ({user}) => {
                     </svg>
                   </div>
                   <div className="q-servers-info__item">
-                    <span className="q-servers-info__item--title">Резервное копирование</span>
-                    <span className="q-servers-info__item--subtitle">Восстановление данных в&nbsp;случае взлома</span>
+                    <span className="q-servers-info__item--title"><Trans i18nKey="about.clubs.item_4.header"/></span>
+                    <span className="q-servers-info__item--subtitle"><Trans i18nKey="about.clubs.item_4.header"/></span>
                     <svg className="q-servers-info__item--img" width="130" height="129" viewBox="0 0 130 129"
                          fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -194,8 +190,8 @@ const About = ({user}) => {
                     </svg>
                   </div>
                   <div className="q-servers-info__item">
-                    <span className="q-servers-info__item--title">Служба поддержки</span>
-                    <span className="q-servers-info__item--subtitle">Наши специалисты<br/>на связи 24/7</span>
+                    <span className="q-servers-info__item--title"><Trans i18nKey="about.clubs.item_5.header"/></span>
+                    <span className="q-servers-info__item--subtitle"><Trans i18nKey="about.clubs.item_5.desc"/></span>
                     <svg className="q-servers-info__item--img" width="110" height="126" viewBox="0 0 110 126"
                          fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -204,9 +200,9 @@ const About = ({user}) => {
                     </svg>
                   </div>
                   <div className="q-servers-info__item">
-                    <span className="q-servers-info__item--title">SSL-соединение</span>
+                    <span className="q-servers-info__item--title"><Trans i18nKey="about.clubs.item_6.header"/></span>
                     <span
-                      className="q-servers-info__item--subtitle">Безопасный обмен информацией между пользователями</span>
+                      className="q-servers-info__item--subtitle"><Trans i18nKey="about.clubs.item_6.desc"/></span>
                     <svg className="q-servers-info__item--img" width="90" height="124" viewBox="0 0 90 124" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -235,15 +231,15 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-new js-animated-text">
                 <span className="q-new__title">
-                  <span className="q-new__title--text _small">Новый уровень.</span>
-                  <span className="q-new__title--text _medium">Новые возможности.</span>
-                  <span className="q-new__title--text">Максимально просто.</span>
+                  <span className="q-new__title--text _small"><Trans i18nKey="about.workers.header_1"/></span>
+                  <span className="q-new__title--text _medium"><Trans i18nKey="about.workers.header_2"/></span>
+                  <span className="q-new__title--text"><Trans i18nKey="about.workers.header_3"/></span>
                 </span>
                   <div className="q-new__content">
                     <div className="q-advantages__list">
                       <div className="q-advantages__item">
                         <div className="q-advantages__item--img">
-                          <svg width="95" height="95" viewBox="0 0 95 95" fill="none"
+                          <svg className="inline-block" width="95" height="95" viewBox="0 0 95 95" fill="none"
                                xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M7.95611 0H77.711C79.8924 0 81.8804 0.884392 83.3251 2.30755L83.3334 2.31568C84.776 3.74291 85.6692 5.70687 85.6692 7.86194V33.243H90.4354C91.6846 33.243 92.8227 33.7492 93.652 34.5665L93.6603 34.5747C94.4876 35.394 95 36.5203 95 37.7524V90.4906C95 91.7227 94.4876 92.849 93.6603 93.6683L93.652 93.6765C92.8227 94.4938 91.6825 95 90.4354 95H77.4949H62.7249H22.9834V91.1839H40.2354V78.3978H7.95817C5.76849 78.3978 3.77637 77.5134 2.3358 76.0903C0.895217 74.6671 0 72.6991 0 70.5359V7.86398C0 5.69874 0.895217 3.73275 2.3358 2.30959L2.33991 2.31365C3.78666 0.886425 5.77466 0.00203304 7.95817 0.00203304L7.95611 0ZM18.1739 14.9554C20.3245 14.9554 22.0676 16.6774 22.0676 18.802C22.0676 20.9266 20.3245 22.6486 18.1739 22.6486C16.0234 22.6486 14.2803 20.9266 14.2803 18.802C14.2803 16.6774 16.0234 14.9554 18.1739 14.9554ZM36.1338 16.1163L36.1359 16.3826C36.1359 21.9512 33.8515 26.9912 30.1575 30.6406C26.4634 34.29 21.3617 36.5467 15.7249 36.5467L15.4677 36.5447V30.8805C15.5541 30.8826 15.6385 30.8826 15.7249 30.8826C19.7791 30.8826 23.4485 29.2602 26.1053 26.6355C28.7601 24.0107 30.4044 20.3858 30.4044 16.3826C30.4044 16.2931 30.4024 16.2037 30.4003 16.1163H36.1338ZM48.9323 16.1163L48.9344 16.3826C48.9344 25.442 45.2177 33.6435 39.2064 39.5801C33.1971 45.5167 24.8932 49.1905 15.7229 49.1905L15.4656 49.1885V43.5243L15.7229 43.5263C23.3106 43.5263 30.1801 40.4889 35.1522 35.577C40.1242 30.665 43.1988 23.8786 43.1988 16.3826L43.1968 16.1163H48.9303H48.9323ZM76.5791 76.501C78.7297 76.501 80.4728 78.223 80.4728 80.3475C80.4728 82.4721 78.7297 84.1942 76.5791 84.1942C74.4285 84.1942 72.6854 82.4721 72.6854 80.3475C72.6854 78.223 74.4285 76.501 76.5791 76.501ZM44.0961 91.1819H58.2138C58.1767 90.9562 58.1582 90.7244 58.1582 90.4886V78.3958H44.0961V91.1819ZM81.8084 33.243V7.86194C81.8084 6.74578 81.3495 5.73534 80.6107 5.00546L80.6024 4.99732C79.8636 4.26745 78.8408 3.81407 77.711 3.81407H7.95611C6.82629 3.81407 5.80347 4.26745 5.06466 4.99732V5.00546C4.32174 5.7394 3.85869 6.75188 3.85869 7.86194V70.5338C3.85869 71.6439 4.31968 72.6564 5.06466 73.3903C5.80759 74.1243 6.83246 74.5817 7.95611 74.5817H58.1582V37.7524C58.1582 36.5183 58.6707 35.394 59.498 34.5747L59.5062 34.5665C60.3356 33.7492 61.4757 33.243 62.7228 33.243H81.8064H81.8084ZM90.4375 37.0591H62.7249C62.5293 37.0591 62.3544 37.1343 62.2309 37.2563L62.2227 37.2644C62.0992 37.3864 62.0231 37.5592 62.0231 37.7524V90.4906C62.0231 90.6838 62.0992 90.8566 62.2227 90.9786L62.2309 90.9867C62.3524 91.1066 62.5232 91.1819 62.7166 91.1839H62.7269H77.497H90.4375C90.633 91.1839 90.8079 91.1087 90.9314 90.9867L90.9396 90.9786C91.0631 90.8566 91.1392 90.6838 91.1392 90.4906V37.7524C91.1392 37.5592 91.0631 37.3864 90.9396 37.2644L90.9314 37.2563C90.8079 37.1343 90.633 37.0591 90.4375 37.0591Z"
@@ -258,12 +254,12 @@ const About = ({user}) => {
                           </svg>
                         </div>
                         <div className="q-advantages__item--text">
-                          <p>Загрузка фото и видео с любого мобильного устройства</p>
+                          <p><Trans i18nKey="about.workers.item_1"/></p>
                         </div>
                       </div>
                       <div className="q-advantages__item">
                         <div className="q-advantages__item--img">
-                          <svg width="95" height="98" viewBox="0 0 95 98" fill="none"
+                          <svg className="inline-block" width="95" height="98" viewBox="0 0 95 98" fill="none"
                                xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M6.65879 0H56.5599C58.3858 0 60.0479 0.755084 61.2597 1.97023L61.2679 1.97849C62.4736 3.19776 63.2228 4.87504 63.2228 6.7153V9.69025H72.1967C73.9899 9.69025 75.6193 10.4288 76.7983 11.6172C77.9774 12.8055 78.7102 14.4477 78.7102 16.2549V17.2266H88.4865C90.2797 17.2266 91.9091 17.9652 93.0881 19.1536C94.2672 20.3419 95 21.9841 95 23.7913V74.2087C95 76.0159 94.2672 77.6581 93.0881 78.8465C91.9091 80.0348 90.2797 80.7734 88.4865 80.7734H78.7102V81.7451C78.7102 83.5523 77.9774 85.1945 76.7983 86.3829C75.6193 87.5712 73.9899 88.3098 72.1967 88.3098H63.2228V91.2847C63.2228 93.125 62.4715 94.8043 61.2638 96.0257L61.2679 96.0298C60.0623 97.2449 58.396 98 56.5619 98H6.66084C4.82676 98 3.16052 97.2449 1.95486 96.0298C0.749189 94.8146 0 93.1353 0 91.2868V6.72149C0 4.87297 0.749189 3.19363 1.95486 1.97849L1.95895 1.98261C3.16872 0.763336 4.83495 0.00825228 6.66289 0.00825228L6.65879 0ZM44.3395 58.5066C44.3395 61.5579 43.4654 64.1161 41.7173 66.1792C39.9692 68.2423 37.5374 69.5317 34.4239 70.0475V76.6225H29.8817V70.2393C27.8777 70.0248 25.8942 69.476 23.9332 68.595C21.9722 67.7141 20.2875 66.6062 18.8792 65.2756L21.8207 60.8276C25.1471 63.5777 28.3669 64.9537 31.4804 64.9537C33.6543 64.9537 35.298 64.4277 36.4054 63.3734C37.5149 62.3213 38.0696 60.8482 38.0696 58.9564C38.0696 57.5803 37.7175 56.3982 37.0134 55.41C36.3092 54.4217 35.4454 53.5945 34.4219 52.9281C33.3984 52.2617 31.9696 51.4551 30.1355 50.5102C28.0886 49.4786 26.4141 48.5111 25.1143 47.6095C23.8145 46.7059 22.7152 45.5464 21.8207 44.127C20.9241 42.7097 20.4779 40.9891 20.4779 38.9693C20.4779 36.046 21.3315 33.5868 23.0366 31.5877C24.7418 29.5886 27.0241 28.3528 29.8817 27.8803V21.3693H34.4239V27.8164C36.344 28.0309 38.0287 28.557 39.4779 29.3967C40.9272 30.2343 42.313 31.3628 43.6353 32.7822L40.2455 36.5865C38.9662 35.3404 37.7728 34.4368 36.6633 33.8777C35.5539 33.3186 34.2336 33.0401 32.6983 33.0401C30.8643 33.0401 29.415 33.5455 28.3485 34.5544C27.282 35.5653 26.7498 36.929 26.7498 38.6475C26.7498 39.809 27.0692 40.8179 27.7099 41.6782C28.3506 42.5385 29.1489 43.2585 30.1089 43.8382C31.0689 44.4179 32.379 45.1173 34.0432 45.9343C36.2171 47.0091 37.9979 48.0077 39.3837 48.9319C40.7695 49.8562 41.9425 51.1023 42.9025 52.6723C43.8625 54.2402 44.3415 56.1857 44.3415 58.5066H44.3395ZM78.7102 21.097V76.8989H88.4865C89.2193 76.8989 89.8867 76.5956 90.3718 76.1067C90.8569 75.6177 91.1578 74.9452 91.1578 74.2066V23.7893C91.1578 23.0507 90.8569 22.3781 90.3718 21.8892C89.8867 21.4002 89.2193 21.097 88.4865 21.097H78.7102ZM63.2228 13.5606V84.4333H72.1967C72.9295 84.4333 73.5968 84.13 74.082 83.641C74.5671 83.1521 74.868 82.4795 74.868 81.7409V16.2529C74.868 15.5143 74.5671 14.8417 74.082 14.3528C73.5968 13.8638 72.9295 13.5606 72.1967 13.5606H63.2228ZM56.5599 3.87238H6.65879C5.88095 3.87238 5.17475 4.1901 4.66914 4.70174V4.70999C4.1574 5.22576 3.83807 5.93546 3.83807 6.7153V91.2806C3.83807 92.0604 4.1574 92.7701 4.66914 93.2859C5.18089 93.8017 5.88709 94.1235 6.65879 94.1235H56.5599C57.3337 94.1235 58.0378 93.8017 58.5495 93.2859H58.5577C59.0654 92.7742 59.3806 92.0646 59.3806 91.2806V6.7153C59.3806 5.93133 59.0654 5.21957 58.5577 4.70999L58.5495 4.70174C58.0419 4.1901 57.3377 3.87238 56.5599 3.87238Z"
@@ -278,12 +274,12 @@ const About = ({user}) => {
                           </svg>
                         </div>
                         <div className="q-advantages__item--text">
-                          <p>Различные и удобные способы оплаты</p>
+                          <p><Trans i18nKey="about.workers.item_2"/></p>
                         </div>
                       </div>
                       <div className="q-advantages__item">
                         <div className="q-advantages__item--img">
-                          <svg width="96" height="93" viewBox="0 0 96 93" fill="none"
+                          <svg className="inline-block" width="96" height="93" viewBox="0 0 96 93" fill="none"
                                xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M39.9525 14.0184C43.371 14.0184 46.6863 14.4431 49.8528 15.2414V19.2105C46.707 18.3244 43.3855 17.8507 39.9525 17.8507C29.9902 17.8507 20.9718 21.8422 14.4425 28.2941C7.9153 34.7459 3.87708 43.662 3.87708 53.5092C3.87708 63.3462 7.90704 72.2542 14.424 78.7039V76.3437C14.424 72.493 16.0165 68.9915 18.582 66.4557C21.1474 63.9199 24.6899 62.3457 28.5856 62.3457H42.7637C46.6594 62.3457 50.2019 63.9199 52.7674 66.4557C55.3328 68.9915 56.9254 72.493 56.9254 76.3437V84.9822C60.0795 83.3162 62.9548 81.203 65.4624 78.7243C71.9897 72.2725 76.0279 63.3564 76.0279 53.5092C76.0279 52.1617 75.9515 50.8305 75.8048 49.5217H79.7046C79.8368 50.8325 79.905 52.1637 79.905 53.5092C79.905 64.414 75.433 74.2877 68.2035 81.4337C60.9739 88.5797 50.9848 93 39.9525 93C28.9202 93 18.9331 88.5797 11.7015 81.4337C4.47197 74.2877 0 64.414 0 53.5092C0 42.6044 4.47197 32.7327 11.7015 25.5847C18.931 18.4387 28.9202 14.0184 39.9525 14.0184ZM77.0359 0C79.8926 0 82.487 1.15357 84.3666 3.01153C86.2463 4.86948 87.4134 7.43388 87.4134 10.2576V18.2978H92.598C93.5358 18.2978 94.3868 18.6755 95.0023 19.284C95.6179 19.8924 96 20.7336 96 21.6605V36.8835C96 37.8105 95.6179 38.6517 95.0023 39.2601C94.3868 39.8685 93.5358 40.2462 92.598 40.2462H61.4759C60.5381 40.2462 59.6871 39.8685 59.0715 39.2601C58.456 38.6517 58.0738 37.8105 58.0738 36.8835V21.6605C58.0738 20.7336 58.456 19.8924 59.0715 19.284C59.6871 18.6755 60.5381 18.2978 61.4759 18.2978H66.6605V10.2576C66.6605 7.43592 67.8275 4.86948 69.7072 3.01153C71.5869 1.15357 74.1813 0 77.038 0H77.0359ZM83.5363 18.2978V10.2576C83.5363 8.49352 82.8051 6.8867 81.6256 5.72088C80.4462 4.55506 78.8226 3.83229 77.0359 3.83229C75.2492 3.83229 73.6256 4.55506 72.4462 5.72088C71.2667 6.8867 70.5355 8.49148 70.5355 10.2576V18.2978H83.5363ZM92.1229 22.1301H61.9509V36.4139H92.1229V22.1301ZM18.3011 82.034C24.3305 86.5135 31.8285 89.1697 39.9525 89.1697C44.5732 89.1697 48.9894 88.3102 53.0483 86.7462V76.3457C53.0483 73.5527 51.8895 71.0108 50.0263 69.1671C48.1611 67.3234 45.5915 66.1801 42.7637 66.1801H28.5856C25.7599 66.1801 23.1882 67.3255 21.323 69.1671C19.4578 71.0108 18.3011 73.5506 18.3011 76.3457V82.034ZM35.6747 30.934C38.6408 30.934 41.3261 32.1223 43.2678 34.0435C45.2115 35.9648 46.4136 38.619 46.4136 41.5488C46.4136 44.4787 45.2115 47.135 43.2678 49.0542C41.324 50.9754 38.6388 52.1637 35.6747 52.1637C32.7106 52.1637 30.0232 50.9754 28.0816 49.0542C26.1379 47.1329 24.9357 44.4787 24.9357 41.5488C24.9357 38.6169 26.1379 35.9627 28.0816 34.0435C30.0253 32.1223 32.7106 30.934 35.6747 30.934ZM40.5267 36.7529C39.2853 35.5258 37.5688 34.7663 35.6747 34.7663C33.7805 34.7663 32.064 35.5258 30.8226 36.7529C29.5812 37.9799 28.8128 39.6766 28.8128 41.5488C28.8128 43.4211 29.5812 45.1178 30.8226 46.3448C32.064 47.5719 33.7805 48.3314 35.6747 48.3314C37.5688 48.3314 39.2853 47.5719 40.5267 46.3448C41.7681 45.1178 42.5365 43.4211 42.5365 41.5488C42.5365 39.6766 41.7681 37.9799 40.5267 36.7529Z"
@@ -298,13 +294,11 @@ const About = ({user}) => {
                           </svg>
                         </div>
                         <div className="q-advantages__item--text">
-                          <p>Автоматическое скрытие лица при загрузки фотографии</p>
+                          <p><Trans i18nKey="about.workers.item_3"/></p>
                         </div>
                       </div>
                     </div>
-                    <p className="q-new__text">Целая секс-индустрия в удобном маркетплэйсе: кроме Skedplay, Вам больше
-                      ничего не понадобиться. Интеллектуальные функции и мощные технологии и все это на одной платформе.
-                      На Skedplay.</p>
+                    <p className="q-new__text"><Trans i18nKey="about.workers.desc"/></p>
                   </div>
                 </div>
               </div>
@@ -317,21 +311,18 @@ const About = ({user}) => {
                   <div className="q-free__text">
                     <div className="q-free__text--info">
                       <div className="q-free__text--content">
-                        <span className="q-free__text--title">Один месяц за наш счёт</span>
+                        <span className="q-free__text--title"><Trans i18nKey="about.workers.header_4"/></span>
                         <p>
-                          Любое начинание трудно. Поэтому сделали цены на подписку для секс-работников доступными, а
-                          регистрацию бесплатной.
-                          Потестируй нашу систему - целый месяц безвозмездно.<span> * </span>
+                          <Trans i18nKey="about.workers.desc_2"/><span> * </span>
                         </p>
                       </div>
-                      <span className="q-free__text--subtitle">*При условии подписки, получай за каждые три месяца один - в подарок!</span>
+                      <span className="q-free__text--subtitle"><Trans i18nKey="about.workers.desc_3"/></span>
                     </div>
                   </div>
                   <div className="q-hello">
-                    <span className="q-hello__title">你好 - “Привет”, <nobr>по-китайски</nobr></span>
+                    <span className="q-hello__title"><Trans i18nKey="about.workers.header_5"/></span>
                     <div className="q-hello__comment">
-                      <p>Сайт говорит на Вашем языке. Мы позаботились о том, чтобы на сайте присутствовали самые
-                        основные языки, а Ваш клиент понимал, чего вы хотите.</p>
+                      <p><Trans i18nKey="about.workers.desc_4"/></p>
                     </div>
                     <div className="q-hello__comment--decor"></div>
                   </div>
@@ -344,17 +335,16 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-premium">
                   <div className="q-premium__text">
-                    <span className="q-premium__text--title">Отличный выбор для тех, кто любит побольше</span>
+                    <span className="q-premium__text--title"><Trans i18nKey="about.workers.header_6"/></span>
                     <div className="q-premium__text--content">
-                      <p>Если вам мало обычного аккаунта, и Вы чувствуете себя уверенно в этом бизнесе, переходите на
-                        уровень Premium. Никаких дополнительных затрат, оформите подписку, где все включено.</p>
+                      <p><Trans i18nKey="about.workers.desc_5"/></p>
                     </div>
                     <div className="q-supremacy">
-                      <span className="q-supremacy__title">Приемущество премиум аккаунта</span>
+                      <span className="q-supremacy__title"><Trans i18nKey="about.workers.header_7"/></span>
                       <ul>
-                        <li>Бесплатная раскрутка и волшебное SEO</li>
-                        <li>Поддержка по телефону</li>
-                        <li>До 5 профилей на одном аккаунте</li>
+                        <li><Trans i18nKey="about.workers.item_4"/></li>
+                        <li><Trans i18nKey="about.workers.item_5"/></li>
+                        <li><Trans i18nKey="about.workers.item_6"/></li>
                       </ul>
                     </div>
                   </div>
@@ -368,36 +358,33 @@ const About = ({user}) => {
             <div className="q-inner">
               <div className="q-section__inner">
                 <div className="q-graph js-animated-chart">
-                  <span className="q-graph__title">Развлечения начинаются</span>
+                  <span className="q-graph__title"><Trans i18nKey="about.clients.header_1"/></span>
                   <div className="q-graph__list">
                     <div className="q-chart">
                       <div className="q-chart__item _small _yellow">
                         <div className="q-chart__item--column"></div>
                         <div className="q-chart__item--text">
-                          <span className="q-chart__item--title">1200</span>
-                          <span className="q-chart__item--subtitle">клубов</span>
+                          <span className="q-chart__item--title"><Trans i18nKey="about.clients.item_1"/></span>
+                          <span className="q-chart__item--subtitle"><Trans i18nKey="about.clients.item_2"/></span>
                         </div>
                       </div>
                       <div className="q-chart__item _medium _pink">
                         <div className="q-chart__item--column"></div>
                         <div className="q-chart__item--text">
-                          <span className="q-chart__item--title">20 000</span>
-                          <span className="q-chart__item--subtitle">работников</span>
+                          <span className="q-chart__item--title"><Trans i18nKey="about.clients.item_3"/></span>
+                          <span className="q-chart__item--subtitle"><Trans i18nKey="about.clients.item_4"/></span>
                         </div>
                       </div>
                       <div className="q-chart__item _large _purple">
                         <div className="q-chart__item--column"></div>
                         <div className="q-chart__item--text">
-                          <span className="q-chart__item--title">30000</span>
-                          <span className="q-chart__item--subtitle">клиентов</span>
+                          <span className="q-chart__item--title"><Trans i18nKey="about.clients.item_5"/></span>
+                          <span className="q-chart__item--subtitle"><Trans i18nKey="about.clients.item_6"/></span>
                         </div>
                       </div>
                     </div>
                     <div className="q-graph__text">
-                      <p>Интим-услуги в Швейцарии легальны - тут более 1100 салонов, сауна-клубов и всевозможных
-                        контакт-баров. Свыше 20 000 работников секс-индустрии и ежедневно 30 000 тех, кто хочет
-                        воспользоваться интим-услугами, найти вечеринку или подходящий для себя клуб. Изучайте сервис
-                        подробнее и мы уверены, тут каждый найдет что-то для себя.</p>
+                      <p><Trans i18nKey="about.clients.desc"/></p>
                     </div>
                   </div>
                 </div>
@@ -409,13 +396,9 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-benefits">
                   <div className="q-benefits__text--container">
-                    <span className="q-benefits__title">Удобный поиск.<br/> Точно в цель</span>
+                    <span className="q-benefits__title"><Trans i18nKey="about.clients.header_2"/></span>
                     <div className="q-benefits__text">
-                      <p>Порой найти то, что нужно, не так-то просто. Skedplay по желанию определит Вашу геолокацию и
-                        покажет сначала те анкеты или клубы, которые ближе к Вам. Кстати, мы тоже не любим сотни
-                        бесполезных фильтров и настроек. Поэтому мы помогаем находить, в первую очередь, то, что рядом и
-                        по самым основным предпочтениям. Формируйте запрос по наиболее актуальным критериям - и хватит
-                        промедлений, воспользуйтесь поиском прямо сейчас!</p>
+                      <p><Trans i18nKey="about.clients.desc_2"/></p>
                     </div>
                   </div>
                   <div className="q-benefits__image--container">
@@ -430,23 +413,20 @@ const About = ({user}) => {
           <section className="section q-section q-section-13 _center-text _bg-with-logo">
             <div className="q-inner">
               <div className="q-section__inner">
-                <span className="q-section__title _pbl">Полная анонимность,<br/> не переживайте по пустякам</span>
+                <span className="q-section__title _pbl"><Trans i18nKey="about.clients.header_3"/></span>
                 <div className="q-section__text">
-                  <p>Чтобы просто пользоваться сайтом, регистрация не нужна. Добавляйте в избранное, просматривайте
-                    номера с адресами и вперед за удовольствием! Хотите больше? Писать комментарии, оставлять отзывы,
-                    отслеживать прибытие секс-работника, общаться в чате? Тогда регистрируйтесь и ни о чем не
-                    беспокойтесь. Мы не передаем персональные данные третьим лицам, и при желании имя будет скрыто.</p>
+                  <p><Trans i18nKey="about.clients.desc_3"/></p>
                 </div>
                 {!user &&
                   <div className="q-section__buttons">
                     <Link href='/register?role=club_owner'>
-                      <a className="q-button">Зарегистрироваться как владелец клуба</a>
+                      <a className="q-button"><Trans i18nKey="about.reg_as_club_owner"/></a>
                     </Link>
                     <Link href='/register?role=employee'>
-                      <a className="q-button">Зарегистрироваться как секс-работник</a>
+                      <a className="q-button"><Trans i18nKey="about.reg_as_worker"/></a>
                     </Link>
                     <Link href='/register?role=client'>
-                      <a className="q-button">Зарегистрироваться как клиент</a>
+                      <a className="q-button"><Trans i18nKey="about.reg_as_client"/></a>
                     </Link>
                   </div>
                 }

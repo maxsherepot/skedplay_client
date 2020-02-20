@@ -1,13 +1,10 @@
 import {Footer} from "UI";
 
 import checkLoggedIn from "lib/checkLoggedIn";
-import {useTranslation} from "react-i18next";
 
 import About from 'components/about';
 
 const AboutPage = ({ user }) => {
-  const { t, i18n } = useTranslation();
-
   return (
     <>
       <About user={user}/>

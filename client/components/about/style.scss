@@ -604,6 +604,7 @@ a:hover {
 	padding: 0 0 24px 37px;
 }
 .q-supremacy li:before {
+	box-sizing: content-box;
 	content: '';
 	display: block;
 	position: absolute;
