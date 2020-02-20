@@ -37,7 +37,7 @@ function GirlsBox() {
       {employees &&
         employees.data.map(girl => (
           <div
-            className="sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
+            className="flex justify-center sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
             key={girl.id}
           >
             <GirlCard girl={girl} />

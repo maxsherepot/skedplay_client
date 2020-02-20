@@ -16,7 +16,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
 
   return (
     <>
-      <div className="fluid-container flex justify-between my-6">
+      <div className="container flex justify-between my-6">
         <div>
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total
@@ -34,12 +34,12 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
       {/*  ></MapWithMarkers>*/}
       {/*</div>*/}
 
-      <div className="fluid-container">
+      <div className="container">
         <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">
           {employees &&
             employees.data.map(girl => (
               <div
-                className="sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
+                className="flex justify-center sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
                 key={girl.id}
               >
                 <GirlCard girl={girl} href="/employee" />
