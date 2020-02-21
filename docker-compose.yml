@@ -89,6 +89,15 @@ services:
     depends_on:
       - app
 
+  node:
+    container_name: "skidplay_node"
+    build: ./.docker/node
+    tty: true
+    volumes:
+      - ./api:/app
+    depends_on:
+      - app
+
 volumes:
   db_data2:
   redis_data:
