@@ -1,0 +1,8 @@
+type ContactPhone {
+    id: Int!
+    phone: String!
+}
+
+extend type Query {
+    contactPhones: [ContactPhone!] @all
+}

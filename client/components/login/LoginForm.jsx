@@ -13,6 +13,10 @@ const LoginForm = ({ onSubmit }) => {
   const { t, i18n } = useTranslation();
   const [error, setError] = useState(null);
 
+  React.useEffect(() => {
+    document.querySelector('.modal__dialog').style.minWidth = '410px';
+  });
+
   return (
     <Formik
       initialValues={{

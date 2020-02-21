@@ -9,6 +9,8 @@ import {
 } from "icons";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
+import {useState} from "react";
+import ContactsPopup from "components/popups/ContactsPupup";
 
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
@@ -38,7 +40,9 @@ function Footer({ user }) {
               </Link>
             </li>
             {/* Only odd */}
-            <li className="mx-8">{t('layout.contacts')}</li>
+
+            <ContactsPopup/>
+
             <li>{t('layout.help_center')}</li>
           </ul>
         </div>
