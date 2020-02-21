@@ -5,5 +5,9 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+    ports:
+      - 3000:3000
     links:
       - "front:front.com"

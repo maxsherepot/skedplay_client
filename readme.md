@@ -1,0 +1,1 @@
+###For run in production just run docker-compose.yml
