@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Nova\Club;
 use App\Nova\ClubType;
+use App\Nova\ContactPhone;
 use App\Nova\Employee;
 use App\Nova\Event;
 use App\Nova\EventType;
@@ -106,6 +107,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             Service::class,
             Race::class,
+
+            ContactPhone::class,
 
             UiTranslate::class,
             Language::class,
