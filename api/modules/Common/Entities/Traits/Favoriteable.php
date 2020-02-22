@@ -78,9 +78,7 @@ trait Favoriteable
             $userId = $this->loggedInUserId();
         }
 
-        return (bool)$this->favorites()
-            ->where('user_id', $userId)
-            ->count();
+        return $this->morphOne(Favorite::class, 'favoriteable')->where('user_id', $userId);
     }
 
     public function loggedInUserId()

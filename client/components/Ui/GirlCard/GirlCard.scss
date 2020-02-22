@@ -12,19 +12,19 @@
     }
 
     @screen sm {
-      max-width: 210px;
+      width: 210px;
     }
 
     @screen md {
-      max-width: 229px;
+      width: 229px;
     }
 
     @screen lg {
-      max-width: 306px;
+      width: 306px;
     }
 
     @screen xl {
-      max-width: 332px;
+      width: 332px;
 
       .show-on-hover {
         @apply transition;
