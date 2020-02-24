@@ -29,6 +29,7 @@ input EventUpdateInput {
 }
 
 input EventFilters {
+    ids: [Int] @in(key: "id")
     event_type_id: Int @where
     event_type_ids: [Int] @in(key: "event_type_id")
     cantons: [Int] @scope(name: "hasCantons")

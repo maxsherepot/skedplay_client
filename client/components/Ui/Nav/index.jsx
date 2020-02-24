@@ -7,6 +7,7 @@ import { Logo, Button, Lang } from "UI";
 import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
+import Cookies from "js-cookie";
 
 const NAV_HEIGHT = 90;
 
@@ -33,6 +34,28 @@ function Nav({ user, className }) {
 
     toggleNav(!nav);
   };
+
+  const loadFavoriteFromCookies = true;
+
+  let favoriteCount = 0;
+
+  if (!loadFavoriteFromCookies && user) {
+    favoriteCount = user.favorites_count;
+  } else {
+    const entities = ['employee', 'club', 'event'];
+
+    let favoritesIds = [];
+
+    for (let i in entities) {
+      favoritesIds.push(
+        ...JSON.parse(
+          Cookies.get('favorite_' + entities[i]) || '[]'
+        )
+      );
+    }
+
+    favoriteCount = favoritesIds.length;
+  }
 
   return (
     <nav
@@ -134,7 +157,7 @@ function Nav({ user, className }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-                {(user && user.favorites_count) || 0}
+                {favoriteCount}
               </a>
             </Link>
             {user &&

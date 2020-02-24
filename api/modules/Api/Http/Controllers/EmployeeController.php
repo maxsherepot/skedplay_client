@@ -62,6 +62,7 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function create(EmployeeCreateRequest $request)
     {

@@ -70,6 +70,9 @@ export const FAVORITE_EMPLOYEES = gql`
             id
             name
             age
+            index
+            lat
+            lng
             address
             isVip
             isNew
@@ -90,6 +93,8 @@ export const FAVORITE_CLUBS = gql`
             id
             name
             address
+            lat
+            lng
             phones
             favorited {
                 id
@@ -118,6 +123,8 @@ export const FAVORITE_EVENTS = gql`
                 services {
                     id
                     name
+                    lat
+                    lng
                     pivot {
                         price
                     }

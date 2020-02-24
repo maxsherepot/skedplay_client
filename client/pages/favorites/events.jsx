@@ -1,23 +1,39 @@
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { FAVORITE_EVENTS } from "queries";
+import { FAVORITE_EVENTS, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { EventCard, Loader } from "UI";
 import { FavoriteBox } from "components/favorite";
 import {useTranslation} from "react-i18next";
+import Cookies from "js-cookie";
 
 const FavoriteEvents = ({ user }) => {
   const {t, i18n} = useTranslation();
 
-  const { data: { favoriteEvents } = {}, loading } = useQuery(FAVORITE_EVENTS, {
-    variables: {
+  const loadFromCookies = true; // !user
+
+  let favoritesIdsJson = Cookies.get('favorite_event') || '[]';
+  let favoritesIds = JSON.parse(favoritesIdsJson);
+
+  const { data = {}, loading } = useQuery(
+    !loadFromCookies ? FAVORITE_EVENTS : ALL_EVENTS,
+    {
+    variables: !loadFromCookies ? {
       id: user.id
+    } : {
+      first: 100,
+      page: 1,
+      filters: {
+        ids: favoritesIds
+      }
     }
   });
 
   if (loading) {
     return <Loader/>;
   }
+
+  const favoriteEvents = !loadFromCookies ? data.favoriteEvents : data.events.data;
 
   return (
     <FavoriteBox user={user}>

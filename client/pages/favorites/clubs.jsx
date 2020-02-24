@@ -1,25 +1,41 @@
 import checkLoggedIn from "lib/checkLoggedIn";
 
-import { FAVORITE_CLUBS } from "queries";
+import { FAVORITE_CLUBS, ALL_CLUBS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { ClubCard } from "UI";
 import { FavoriteBox } from "components/favorite";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
+import Cookies from "js-cookie";
 
 
 const FavoriteClubs = ({ user }) => {
   const {t, i18n} = useTranslation();
 
-  const { data: { favoriteClubs } = {}, loading } = useQuery(FAVORITE_CLUBS, {
-    variables: {
-      id: user.id
-    }
+  const loadFromCookies = true; // !user
+
+  let favoritesIdsJson = Cookies.get('favorite_club') || '[]';
+  let favoritesIds = JSON.parse(favoritesIdsJson);
+
+  const { data = {}, loading } = useQuery(
+    !loadFromCookies ? FAVORITE_CLUBS : ALL_CLUBS,
+    {
+      variables: !loadFromCookies ? {
+        id: user.id
+      } : {
+        first: 100,
+        page: 1,
+        filters: {
+          ids: favoritesIds
+        }
+      }
   });
 
   if (loading) {
     return <Loader/>;
   }
+
+  const favoriteClubs = !loadFromCookies ? data.favoriteClubs : data.clubs.data;
 
   return (
     <FavoriteBox user={user}>

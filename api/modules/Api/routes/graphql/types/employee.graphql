@@ -74,6 +74,7 @@ input EmployeeInput {
 input EmployeeFilters {
 #  location: String @whereHas(key: "location_id", method: "whereIn")
 #  location: String @where
+  ids: [Int] @in(key: "id")
   type: Int @where
   orderBy: [OrderByClause!] @orderBy
   gender: String @where

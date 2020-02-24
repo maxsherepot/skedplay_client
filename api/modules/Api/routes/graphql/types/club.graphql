@@ -64,6 +64,7 @@ type ClubType {
 }
 
 input ClubFilters {
+  ids: [Int] @in(key: "id")
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   club_type_id: Int @where
   club_type_ids: [Int] @in(key: "club_type_id")
