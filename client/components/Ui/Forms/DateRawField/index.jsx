@@ -23,7 +23,7 @@ function DateRawField({
   const { touched, errors, values } = useFormikContext();
 
   const error = formErrors.getErrorText(name, label, touched, errors);
-  console.log(name, values);
+
   const [value, setValue] = React.useState(dot.pick(name, values) || values[name] || '');
   const [mask, setMask] = React.useState('00.00.0000');
   const [maskString, setMaskString] = React.useState('dd.mm.yyyy');
@@ -56,15 +56,24 @@ function DateRawField({
       if (parseInt(valueItems[2]) > new Date().getFullYear()) {
         valueItems[2] = new Date().getFullYear();
       }
-      // else if (parseInt(valueItems[2]) > ((new Date().getFullYear()) - 18)) {
-      //   valueItems[2] = (new Date().getFullYear() - 18);
-      // }
+      else if (parseInt(valueItems[2]) > ((new Date().getFullYear()) - 18)) {
+        valueItems[2] = (new Date().getFullYear() - 18);
+      }
 
       else if (parseInt(valueItems[2]) < ((new Date().getFullYear()) - 60)) {
         valueItems[2] = ((new Date().getFullYear()) - 60);
       }
     }
     setValue(valueItems.join('.'));
+  };
+
+  const cursorToStart = (e) => {
+    if (value !== '') {
+      return;
+    }
+
+    e.target.selectionStart = 0;
+    e.target.selectionEnd = 0;
   };
 
   return (
@@ -86,6 +95,7 @@ function DateRawField({
           <MaskInput
             {...field}
             onChange={(e) => {onChange(e);field.onChange(e)}}
+            onClick={cursorToStart}
             id={name}
             alwaysShowMask
             value={value}

@@ -25,6 +25,12 @@ class RegistrationRequest extends GraphQLFormRequest
             'phone'        => 'bail|required|string|unique:users,phone|phone:AUTO,CH',
             'email'        => 'bail|required|email|max:255|unique:users,email',
             'password'     => 'required|string|min:6|confirmed',
+            'birthday'     => [
+                'required',
+                'date',
+//                'after:' . now()->subYears(60)->startOfDay(),
+                'before:' . now()->subYears(18)->startOfDay(),
+            ],
         ];
 
         switch ($this->request->get('account_type')) {
@@ -37,12 +43,6 @@ class RegistrationRequest extends GraphQLFormRequest
             case User::ACCOUNT_EMPLOYEE:
                 $root = array_merge($root, [
                     // 'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
-                    'birthday'     => [
-                        'required',
-                        'date',
-                        'after:' . now()->subYears(60)->startOfDay(),
-                        'before:' . now()->subYears(18)->startOfDay(),
-                    ],
                     'lat' => 'nullable|string',
                     'lng' => 'nullable|string',
                 ]);

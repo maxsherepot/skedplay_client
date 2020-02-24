@@ -116,7 +116,8 @@
     "mail_placeholder": "Enter your email",
     "date": "Date",
     "select_date": "Select date",
-    "": ""
+    "small_age_title": "Warning",
+    "small_age_text": "Registration available only after 18 years old"
   },
   "clubs": {
     "event_type": "Club type",

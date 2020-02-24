@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import cx from "classnames";
+import moment from 'moment';
 
 import { useSteps } from "hooks";
-import { Button, FormGroup } from "UI";
+import { Button, FormGroup, Popup } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/router";
@@ -14,6 +15,7 @@ function RegisterForm({ onSubmit, children }) {
   const {query} = useRouter();
   const { t, i18n } = useTranslation();
   const { step, setStep } = useSteps();
+  const [agePopupShow, setAgePopupShow] = useState(false);
 
   const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
@@ -65,6 +67,17 @@ function RegisterForm({ onSubmit, children }) {
     }
 
     if (isLastStep) {
+
+      let birthday = moment(values.birthday, 'DD.MM.YYYY');
+
+      if (birthday && moment().diff(birthday, 'years') < 18) {
+        setAgePopupShow(true);
+
+        setSubmitting(false);
+
+        return;
+      }
+
       try {
         await onSubmit({
           variables: {
@@ -101,6 +114,15 @@ function RegisterForm({ onSubmit, children }) {
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
+          <Popup
+            title={t('register.small_age_title')}
+            open={agePopupShow}
+            closeOnDocumentClick
+            onClose={() => setAgePopupShow(false)}
+          >
+            <h3 className="mt-3">{t('register.small_age_text')}</h3>
+          </Popup>
+
           <div className="block text-lg text-center mt-4 font-medium">
             {t('common.step')} {step + 1} / {stepLength}
           </div>
