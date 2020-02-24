@@ -9,14 +9,14 @@ use Modules\Main\Entities\UiTranslate;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ReplaceTranslates extends Command
+class InsertTranslates extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $signature = 'translates:replace';
+    protected $signature = 'translates:insert {--update=false}';
 
     /**
      * The console command description.
@@ -42,6 +42,15 @@ class ReplaceTranslates extends Command
      */
     public function handle()
     {
+        $update = $this->option('update') === 'true';
+
+        $this->insertTranslates($update);
+
+        $this->call('translates:check');
+    }
+
+    private function insertTranslates(bool $update): void
+    {
         foreach (Language::all() as $lang) {
             if (!file_exists(storage_path('locales/' . $lang->code . '/translation.json'))) {
                 continue;
@@ -54,10 +63,12 @@ class ReplaceTranslates extends Command
 
             foreach ($translates as $key => $translate) {
                 if ($translateModel = UiTranslate::whereLanguageId($lang->id)->where('key', $key)->first()) {
-                    $translateModel->update([
-                        'key' => $key,
-                        'value' => $translate,
-                    ]);
+                    if ($update) {
+                        $translateModel->update([
+                            'key' => $key,
+                            'value' => $translate,
+                        ]);
+                    }
 
                     continue;
                 }

@@ -12,8 +12,10 @@ use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Faq;
 use Modules\Main\Entities\FaqItem;
+use Modules\Main\Entities\Language;
 use Modules\Main\Entities\Page;
 use Modules\Main\Entities\UiTranslate;
+use Modules\Main\Observers\LanguageObserver;
 use Modules\Main\Observers\UiTranslateObserver;
 use Modules\Users\Entities\User;
 
@@ -52,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
 
         Nova::serving(function () {
             UiTranslate::observe(UiTranslateObserver::class);
+            Language::observe(LanguageObserver::class);
         });
     }
 }

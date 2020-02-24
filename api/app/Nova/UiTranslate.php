@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Filters\UiTranslateLangFilter;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -66,7 +67,10 @@ class UiTranslate extends Resource
 
             Text::make('Value')
                 ->sortable()
-                ->rules('required', 'max:3000'),
+                ->rules('required', 'max:3000')
+                ->displayUsing(function($title) {
+                    return Str::limit($title, 30, '...');
+                }),
         ];
     }
 

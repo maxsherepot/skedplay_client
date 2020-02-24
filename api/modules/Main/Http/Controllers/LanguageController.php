@@ -25,10 +25,11 @@ class LanguageController extends Controller
         $translates = UiTranslate::whereLanguageId($lang->id)->get();
 
         foreach ($translates as $translate) {
+            if (!$translate->value) {
+                continue;
+            }
             Arr::set($translatesFormatted, $translate->key, $translate->value);
         }
-
-        \Log::info('get lang ' . $lang);
 
         return response()->json($translatesFormatted);
     }
