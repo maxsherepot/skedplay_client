@@ -9,19 +9,19 @@ const About = ({user}) => {
   script();
 
   return (
-    <>
+    <div className="about-wrap">
       <div className="q-sections-panel">
         <div className="q-inner">
           <div className="q-sections-panel__inner js-sections-panel">
             <img src="/static/img/logo_sm.svg" alt="" className="q-sections-panel__logo"/>
             <span className="q-sections-panel__text">
-            <a href="#about" className="q-sections-panel__title _white js-sections-panel-title">Skedplay &nbsp;-&nbsp; <Trans i18nKey="about.for_pleasure"/></a>
-            <a href="#clubs" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clubs"/></a>
-            <a href="#workers"
-               className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_employees"/></a>
-            <a href="#clients" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
-            <a href="#final" className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
-			</span>
+              <a href="#about" className="q-sections-panel__title _white js-sections-panel-title">Skedplay &nbsp;-&nbsp; <Trans i18nKey="about.for_pleasure"/></a>
+              <a href="#clubs" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clubs"/></a>
+              <a href="#workers"
+                 className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_employees"/></a>
+              <a href="#clients" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
+              <a href="#final" className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
+			      </span>
           </div>
         </div>
       </div>
@@ -435,7 +435,7 @@ const About = ({user}) => {
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

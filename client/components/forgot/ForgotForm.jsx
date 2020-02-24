@@ -9,6 +9,10 @@ import { Button, FormGroup } from "UI";
 function ForgotForm({ onSubmit, children }) {
   const { step, setStep } = useSteps();
 
+  React.useEffect(() => {
+    document.querySelector('.modal__dialog').style.minWidth = '410px';
+  });
+
   const stepLength = React.Children.count(children);
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
