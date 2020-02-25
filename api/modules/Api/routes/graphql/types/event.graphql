@@ -6,10 +6,17 @@ type Event {
     short_title: String!
     description: String!
     favorited: Favorite @morphOne @with(relation: "favoriteRelation")
+    address: String
+    lat: Float,
+    lng: Float,
     type: EventType! @belongsTo
+    mode: Int!
     club: Club @belongsTo
     owner: Owner @belongsTo
     photos: [Media] @hasMany
+    start_date: Date,
+    end_date: Date,
+    days: [Int!],
 }
 
 input EventInput {
@@ -17,7 +24,13 @@ input EventInput {
     description: String!
     event_type_id: Int!
     club_id: Int
+    mode: Int!
+    address: String
+    start_date: Date,
+    end_date: Date,
     photos: [Upload]
+    days: [Int!]
+    employees_ids: [Int!]
 }
 
 input EventUpdateInput {
@@ -25,7 +38,13 @@ input EventUpdateInput {
     description: String
     event_type_id: Int
     club_id: Int
+    mode: Int!
+    address: String
     photos: [Upload]
+    start_date: Date,
+    end_date: Date,
+    days: [Int!]
+    employees_ids: [Int!]
 }
 
 input EventFilters {
@@ -34,6 +53,7 @@ input EventFilters {
     event_type_ids: [Int] @in(key: "event_type_id")
     cantons: [Int] @scope(name: "hasCantons")
     close_to: Distance @scope(name: "closeTo")
+    date: Date @scope(name: "ofDate")
     __typename: String
 }
 

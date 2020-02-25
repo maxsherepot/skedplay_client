@@ -18,9 +18,9 @@ class EventRepository implements HasMediable
     /**
      * @param Model $model
      * @param Collection $collection
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function store(Model $model, Collection $collection): \Illuminate\Database\Eloquent\Model
+    public function store(Model $model, Collection $collection): Model
     {
         /** @var Club|Employee $model */
         return $model->events()->create($collection->toArray());

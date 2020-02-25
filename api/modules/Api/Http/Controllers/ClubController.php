@@ -2,7 +2,6 @@
 
 namespace Modules\Api\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
@@ -19,7 +18,7 @@ use Modules\Common\Entities\Service;
 use Modules\Common\Repositories\PriceRepository;
 use Modules\Common\Repositories\ServiceRepository;
 use Modules\Events\Entities\Event;
-use Modules\Main\Repositories\EventRepository;
+use Modules\Main\Repositories\ClubEventRepository;
 use Modules\Users\Repositories\ClubRepository;
 use Nwidart\Modules\Routing\Controller;
 
@@ -33,7 +32,7 @@ class ClubController extends Controller
     protected $clubs;
 
     /**
-     * @var EventRepository
+     * @var ClubEventRepository
      */
     protected $events;
 
@@ -47,7 +46,7 @@ class ClubController extends Controller
      */
     private $prices;
 
-    public function __construct(ClubRepository $clubs, EventRepository $events, ServiceRepository $services, PriceRepository $prices)
+    public function __construct(ClubRepository $clubs, ClubEventRepository $events, ServiceRepository $services, PriceRepository $prices)
     {
         $this->clubs = $clubs;
         $this->events = $events;

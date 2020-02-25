@@ -159,6 +159,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return $this->morphMany(Event::class, 'owner');
     }
 
+    public function eventsTakePart(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
     /**
      * @return HasMany
      */
