@@ -5,9 +5,11 @@ import { Formik } from "formik";
 import { BlackPlusSvg } from "icons";
 import { Button, TextField, SelectField, TextAreaField, MultiPhotoField } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 const EditEventBox = ({ initialValues, onSubmit }) => {
     const router = useRouter();
+    const {t, i18n} = useTranslation();
 
     const handleSubmits = async (
         values,
@@ -57,29 +59,29 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                             </div>
                         )}
 
-                        <TextField label="Title" name="title" />
+                        <TextField label={t('common.title')} name="title" />
 
                         <SelectField
-                            label="Type"
+                            label={t('common.type')}
                             name="event_type_id"
                             options={[
                                 {
-                                    label: "Special day",
+                                    label: t('account.event_type.special_day'),
                                     value: 1
                                 },
                                 {
-                                    label: "Parties and shows",
+                                    label: t('account.event_type.parties_and_shows'),
                                     value: 2
                                 },
                                 {
-                                    label: "Discount",
+                                    label: t('account.event_type.discount'),
                                     value: 3
                                 }
                             ]}
                             placeholder=""
                         />
 
-                        <TextAreaField rows={6} label="Description" name="description" />
+                        <TextAreaField rows={6} label={t('employees.description')} name="description" />
 
                         <div className="flex flex-wrap mb-4">
                             <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
@@ -92,7 +94,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                                 >
                                     <div className="flex items-center">
                                         <BlackPlusSvg />
-                                        <span className="ml-2">from device</span>
+                                        <span className="ml-2">{t('account.from_device')}</span>
                                     </div>
                                 </Button>
                             </MultiPhotoField>
@@ -104,7 +106,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                             size="sm"
                             disabled={isSubmitting}
                         >
-                            Save changes
+                            {t('account.save_changes')}
                         </Button>
                     </div>
                 </form>

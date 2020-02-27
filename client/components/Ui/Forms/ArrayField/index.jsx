@@ -4,9 +4,11 @@ import PropTypes from "prop-types";
 import { TrashSvg } from "icons";
 import { FieldArray, useFormikContext } from 'formik';
 import { Button, TextField, PhoneField } from 'UI';
+import {useTranslation} from "react-i18next";
 
 const ArrayField = ({ className, name, label, phones }) => {
     const { values } = useFormikContext();
+    const {t, i18n} = useTranslation();
 
     const getField = (name, index) => {
       return phones
@@ -37,7 +39,7 @@ const ArrayField = ({ className, name, label, phones }) => {
                       )}
                       <div className="form-group px-3">
                           <Button className="px-6" size="xs" type="button" level="grey" onClick={() => arrayHelpers.push('')}>
-                              Add
+                              {t('common.add')}
                           </Button>
                       </div>
                   </>

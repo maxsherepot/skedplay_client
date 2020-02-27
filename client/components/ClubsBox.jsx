@@ -6,8 +6,11 @@ import { usePagination } from "hooks";
 import { ALL_CLUBS } from "queries/clubQuery";
 import { MapSvg } from "icons";
 import { ClubCard, Pagination, Sort, Button, Loader } from "UI";
+import {useTranslation} from "react-i18next";
 
 function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPage, sortComponent }) {
+  const {t, i18n} = useTranslation();
+
   if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
   if (!clubs) return <div>-----</div>;
@@ -17,7 +20,7 @@ function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPag
       <div className="fluid-container flex justify-between my-6">
         <div>
           {clubs && clubs.paginatorInfo ? clubs.paginatorInfo.total : 0}
-          <span className="ml-1">clubs found</span>
+          <span className="ml-1">{t('clubs.found')}</span>
         </div>
         {sortComponent}
       </div>

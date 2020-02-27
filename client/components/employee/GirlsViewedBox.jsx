@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import Link from "next/link";
 import Slider from "react-slick";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
 
 import { ALL_EMPLOYEES } from "queries";
 import { ArrowNextSvg } from "icons";
@@ -10,6 +11,7 @@ import { GirlCard, Loader } from "UI";
 
 const GirlsViewedBox = () => {
   const [index, setIndex] = useState(0);
+  const {t, i18n} = useTranslation();
 
   const { data, loading, error } = useQuery(ALL_EMPLOYEES, {
     variables: {
@@ -108,12 +110,12 @@ const GirlsViewedBox = () => {
     <>
       <div className="flex items-end my-5">
         <div className="text-3xl font-extrabold tracking-tighter leading-none">
-          Zuvor angesehen
+          {t('employees.previously_viewed')}
         </div>
         <Link href="/girls">
           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
             <ArrowNextSvg>
-              <span className="mr-1">All girls</span>
+              <span className="mr-1">{t('common.all_girls')}</span>
             </ArrowNextSvg>
           </a>
         </Link>

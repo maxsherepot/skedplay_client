@@ -5,8 +5,11 @@ import { usePagination } from "hooks";
 import { ALL_EVENTS } from "queries/eventQuery";
 import { EventCard, Pagination, Sort, AddressCard, Loader } from "UI";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 function EventsBox({ entities: events, loading, networkStatus, error, page, setPage, sortComponent }) {
+  const {t, i18n} = useTranslation();
+
   if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
   if (!events) return <div>-----</div>;
@@ -16,7 +19,7 @@ function EventsBox({ entities: events, loading, networkStatus, error, page, setP
       <div className="fluid-container flex justify-between my-6">
         <div>
           {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
-          <span className="ml-1">event found</span>
+          <span className="ml-1">{t('employees.event_found')}</span>
         </div>
         {sortComponent}
       </div>

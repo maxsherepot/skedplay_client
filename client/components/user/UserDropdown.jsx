@@ -10,7 +10,7 @@ import { setCookie } from "utils";
 import {useTranslation} from "react-i18next";
 
 const UserDropdown = ({ user }) => {
-  const { t, i18n } = useTranslation();
+
   const client = useApolloClient();
   const [isUserMenu, toggleUserMenu] = useState(false);
 
@@ -21,6 +21,8 @@ const UserDropdown = ({ user }) => {
 
     client.clearStore().then(() => redirect({}, "/"));
   };
+
+  const { t, i18n } = useTranslation();
 
   return (
     <>

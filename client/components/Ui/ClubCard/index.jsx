@@ -10,14 +10,17 @@ import { WebsiteSvg, FavoriteSvg, MapSvg, CloseSvg } from "icons";
 import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
+import {useTranslation} from "react-i18next";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
     return '';
   }
 
+  const {t, i18n} = useTranslation();
+
   return (
-    <p className="text-grey">{distanceKm} km from me</p>
+    <p className="text-grey">{distanceKm} {t('index.km_from_me')}</p>
   );
 }
 
@@ -36,6 +39,8 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
   }
 
   const isMap = eventMapId === id;
+
+  const {t, i18n} = useTranslation();
 
   return (
     <div
@@ -110,7 +115,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
                     className="ml-4 text-red whitespace-no-wrap"
                     onClick={() => setToggleNumber(!showNumber)}
                   >
-                    Show number
+                    {t('about.clubs.show_number')}
                   </span>
                 )}
               </div>)}
@@ -121,7 +126,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
             <div className="flex mt-2">
               <WebsiteSvg></WebsiteSvg>
               <span className="ml-1 whitespace-no-wrap text-grey">
-                visit site
+                {t('index.visit_site')}
               </span>
             </div>
           </div>
@@ -142,7 +147,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
 
           <div className="absolute bottom-0 left-0 z-30 p-6">
             <Button className="px-6" size="sm">
-              Get me to the club
+             {t('employees.get_me')}
             </Button>
           </div>
         </div>

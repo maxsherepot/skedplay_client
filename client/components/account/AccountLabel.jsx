@@ -1,15 +1,18 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 const AccountLabel = ({ is_client, is_club_owner, is_employee }) => {
+  const {t, i18n} = useTranslation();
+
   let account_name = "";
   if (is_client) {
-    account_name = "Visitor";
+    account_name = t('account.label.visitor');
   }
   if (is_club_owner) {
-    account_name = "Club owner";
+    account_name = t('account.label.club_owner');
   }
   if (is_employee) {
-    account_name = "Private account";
+    account_name = t('account.label.private_account');
   }
 
   return (

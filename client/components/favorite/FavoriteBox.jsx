@@ -1,11 +1,13 @@
 import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink } from "UI";
+import {useTranslation} from "react-i18next";
 
 const FavoriteBox = ({ user, children }) => {
+  const {t, i18n} = useTranslation();
   const leftInfo = (
     <div className="hidden hd:block text-3xl font-extrabold hd:text-white">
-      Favorites
+      {t('layout.favorites')}
     </div>
   );
 
@@ -15,17 +17,17 @@ const FavoriteBox = ({ user, children }) => {
         <ul className="flex -mx-4 text-white">
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-5 hd:px-10">
             <ActiveLink activeClassName="text-red" href="/favorites/girls">
-              <a>Girls</a>
+              <a>{t('layout.girls')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-5 hd:px-10">
             <ActiveLink activeClassName="text-red" href="/favorites/clubs">
-              <a>Clubs</a>
+              <a>{t('favorite.clubs')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-5 hd:px-10">
             <ActiveLink activeClassName="text-red" href="/favorites/events">
-              <a>Events</a>
+              <a>{t('layout.events')}</a>
             </ActiveLink>
           </li>
         </ul>

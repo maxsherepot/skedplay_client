@@ -3,8 +3,10 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {BlackPlusSvg} from "icons";
 import {Button, TextField, SelectField, TextAreaField, MultiPhotoField} from "UI";
+import {useTranslation} from "react-i18next";
 
 const EventForm = ({ initialValues, onSubmit }) => {
+    const {t, i18n} = useTranslation();
 
     return (
         <Formik
@@ -25,29 +27,29 @@ const EventForm = ({ initialValues, onSubmit }) => {
                             </div>
                         )}
 
-                        <TextField label="Title" name="title"/>
+                        <TextField label={t('common.title')} name="title"/>
 
                         <SelectField
-                            label="Type"
+                            label={t('clubs.type')}
                             name="event_type_id"
                             options={[
                                 {
-                                    label: "Special day",
+                                    label: t('account.event_type.special_day'),
                                     value: 1
                                 },
                                 {
-                                    label: "Parties and shows",
+                                    label: t('account.event_type.parties_and_shows'),
                                     value: 2
                                 },
                                 {
-                                    label: "Discount",
+                                    label: t('account.event_type.discount'),
                                     value: 3
                                 }
                             ]}
                             placeholder=""
                         />
 
-                        <TextAreaField rows={6} label="Description" name="description"/>
+                        <TextAreaField rows={6} label={t('employees.description')} name="description"/>
 
                         <div className="flex flex-wrap mb-4">
                             <MultiPhotoField name="photos" label="" selectable={false}>
@@ -60,7 +62,7 @@ const EventForm = ({ initialValues, onSubmit }) => {
                                 >
                                     <div className="flex items-center">
                                         <BlackPlusSvg/>
-                                        <span className="ml-2">from device</span>
+                                        <span className="ml-2">{t('account.from_device')}</span>
                                     </div>
                                 </Button>
                             </MultiPhotoField>
@@ -72,7 +74,7 @@ const EventForm = ({ initialValues, onSubmit }) => {
                             size="sm"
                             disabled={isSubmitting}
                         >
-                            Create
+                            {t('act.create')}
                         </Button>
                     </div>
                 </form>

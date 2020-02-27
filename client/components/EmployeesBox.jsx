@@ -5,6 +5,7 @@ import { ALL_EMPLOYEES } from "queries";
 import { GirlCard, Pagination, Sort, Loader } from "UI";
 import React from "react";
 import MapWithMarkers from "components/maps/MapWithMarkers";
+import {useTranslation} from "react-i18next";
 
 function EmployeesBox({ sortComponent, employees, loading, error, page, setPage, networkStatus }) {
 
@@ -13,6 +14,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
   if (!employees) return <div>-----</div>;
 
   const employeesWithCoordinates = employees.data.filter(e => e.lat !== null && e.lng !== null);
+  const {t, i18n} = useTranslation();
 
   return (
     <>
@@ -21,7 +23,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total
             : 0}
-          <span className="ml-1">adverts found</span>
+          <span className="ml-1">{t('employees.adverts_found')}</span>
         </div>
         {sortComponent}
       </div>

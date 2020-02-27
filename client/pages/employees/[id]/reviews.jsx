@@ -121,7 +121,7 @@ const EmployeeReviews = ({user}) => {
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
                 <div className="w-full hd:w-3/12 px-3">
                     <div className="text-2xl font-extrabold my-5">
-                        Hinterlasse eine Bewertung
+                        {t('employees.leave_comment')}
                     </div>
                     {sidebarColumn}
                 </div>

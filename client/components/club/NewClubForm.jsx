@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
 import { CITIES } from "queries";
+import {useTranslation} from "react-i18next";
 
 import {
   Button,
@@ -21,6 +22,7 @@ import {useQuery} from "@apollo/react-hooks";
 
 function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
+  const {t, i18n} = useTranslation();
 
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(
     CITIES
@@ -98,12 +100,12 @@ function NewClubForm({ onSubmit }) {
               </FormGroup>
             )}
 
-            <div className="text-4xl font-extrabold">Information</div>
+            <div className="text-4xl font-extrabold">{t('clubs.information')}</div>
             <div className="flex w-full -mx-3">
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Club name"
+                label={t('clubs.club_name')}
                 name="name"
                 placeholder=""
               />
@@ -111,7 +113,7 @@ function NewClubForm({ onSubmit }) {
               <SelectField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Type"
+                label={t('clubs.type')}
                 name="club_type_id"
                 options={[
                   { label: "Sauna club", value: 1 },
@@ -124,7 +126,7 @@ function NewClubForm({ onSubmit }) {
             <div className="flex w-full -mx-3">
               <TextAreaField
                 className="relative px-3 w-2/3"
-                label="About club"
+                label={t('clubs.about_club')}
                 name="description"
                 placeholder=""
                 rows={7}
@@ -132,20 +134,20 @@ function NewClubForm({ onSubmit }) {
               />
               <FileField
                 className="px-3 w-1/3"
-                label="Logotype"
+                label={t('clubs.logotype')}
                 name="logotype"
               />
             </div>
 
             <div className="text-4xl font-extrabold mt-12">
-              Club location and contacts
+              {t('clubs.club_location_and_contacts')}
             </div>
 
             <div className="flex w-full -mx-3">
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Index"
+                label={t('clubs.index')}
                 name="index"
                 placeholder=""
               />
@@ -161,7 +163,7 @@ function NewClubForm({ onSubmit }) {
               <SelectField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="City"
+                label={t('clubs.city')}
                 name="city_id"
                 options={cities.map(c => ({value: c.id, label: c.name}))}
                 placeholder=""
@@ -183,7 +185,7 @@ function NewClubForm({ onSubmit }) {
               <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Phone (example +4176 251-15-22)"
+                label={t('clubs.phone_exampl')}
                 name="phone"
                 placeholder="+4179"
               />
@@ -191,7 +193,7 @@ function NewClubForm({ onSubmit }) {
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Mail"
+                label={t('clubs.mail')}
                 name="email"
                 placeholder=""
               />
@@ -199,21 +201,21 @@ function NewClubForm({ onSubmit }) {
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Webpage"
+                label={t('layout.webpage')}
                 name="website"
                 placeholder=""
               />
             </div>
 
             <div className="text-4xl font-extrabold mt-12">
-              Set administrator he gor a for your Club
+              {t('clubs.set_admin_for_club')}
             </div>
 
             <div className="flex w-full -mx-3">
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Name"
+                label={t('common.name')}
                 name="moderator.first_name"
                 placeholder=""
               />
@@ -221,7 +223,7 @@ function NewClubForm({ onSubmit }) {
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Last name"
+                label={t('register.last_name')}
                 name="moderator.last_name"
                 placeholder=""
               />
@@ -229,7 +231,7 @@ function NewClubForm({ onSubmit }) {
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Mail"
+                label={t('register.mail')}
                 name="moderator.email"
                 placeholder=""
               />
@@ -239,14 +241,14 @@ function NewClubForm({ onSubmit }) {
               <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label="Club administration phone number"
+                label={t('clubs.club_admin_phone_number')}
                 name="moderator.phone"
                 placeholder="+4179"
               />
 
               <div className="px-3 w-2/3 flex items-center">
                 <CheckboxField
-                  label="Enable to edit Sex Workers profiles in my Club for this number"
+                  label={t('clubs.enable_edit_profiles')}
                   name="access_phone_edit"
                 />
               </div>
@@ -261,12 +263,11 @@ function NewClubForm({ onSubmit }) {
               className="text-xl px-12"
               disabled={isSubmitting}
             >
-              Create club account
+              {t('clubs.create_club_account')}
             </Button>
 
             <p className="mt-8 text-sm">
-              By clicking the "Create Club Account" button, i agree to the terms
-              of servece and privacy policy
+              {t('clubs.agree_terms_and_privacy_policy')}
             </p>
           </div>
         </form>

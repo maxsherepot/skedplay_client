@@ -131,7 +131,7 @@ const EmployeeInformation = ({ user }) => {
               <section className="mt-3 mb-6">
                 <div className="text-grey">{t('employees.type_woman')}</div>
                 <div className="line" />
-                <div className="w-32">Asian</div>
+                <div className="w-32">{t('nationality.asian')}</div>
               </section>
 
               {employee.parameters.map(p => (
@@ -147,7 +147,7 @@ const EmployeeInformation = ({ user }) => {
                 <div className="line" />
                 <div className="w-32">
                   <div className="flex items-center justify-between mb-2">
-                    Russia
+                    {t('language.russian')}
                     <span className="flex justify-between w-16">
                       <div className="flex ml-2">
                         <RatingSvg /> <RatingSvg /> <RatingSvg />
@@ -155,7 +155,7 @@ const EmployeeInformation = ({ user }) => {
                     </span>
                   </div>
                   <div className="flex items-center justify-between mb-2">
-                    English
+                    {t('language.english')}
                     <span className="flex justify-between w-16">
                       <div className="flex ml-2">
                         <RatingSvg /> <RatingSvg />
@@ -170,7 +170,7 @@ const EmployeeInformation = ({ user }) => {
               <div className="flex sm:flex-col items-end">
                 {employee.isVip && (
                     <div className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
-                      VIP
+                      {t('status.vip')}
                     </div>
                 )}
                 <div className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
@@ -205,11 +205,11 @@ const EmployeeInformation = ({ user }) => {
 
       <div className="flex flex-wrap -mx-3">
         <div className="w-full hd:w-2/5 px-3">
-          <PriceAndService title="Services and Pricing" prices={employee.prices} services={employee.services} />
+          <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
         </div>
         <div className="w-full hd:w-2/5 px-3">
           <EmployeeSchedule
-            title={`My schedule in ${employee.club ? employee.club.name : ""}`}
+            title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
             employee={employee}
           />
         </div>

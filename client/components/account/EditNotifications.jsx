@@ -3,8 +3,11 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { Button, FormGroup, CheckboxField } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 const EditNotifications = ({ initialValues, onSubmit }) => {
+  const {t, i18n} = useTranslation();
+
   const handleSubmits = async (
     { news, comments, push },
     { setSubmitting, setErrors, setError, setStatus }
@@ -55,24 +58,24 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
             )}
             <div className="px-1 mb-4">
               <CheckboxField
-                label="Service News"
-                bottom="Subscribe news updates and changes in the service."
+                label={t('account.service_news')}
+                bottom={t('account.subscribe_news_updates_and_changes')}
                 name="news"
               />
             </div>
 
             <div className="px-1 mb-4">
               <CheckboxField
-                label="Comment Notifications"
-                bottom="Notification of new comments in your profile."
+                label={t('account.comment_notifications')}
+                bottom={t('account.notification_new_comments_in_your_profile')}
                 name="comments"
               />
             </div>
 
             <div className="px-1 mb-4">
               <CheckboxField
-                label="Push notifications"
-                bottom="Notifications in the browser"
+                label={t('account.push_notifications')}
+                bottom={t('account.notifications_in_browser')}
                 name="push"
               />
             </div>
@@ -83,7 +86,7 @@ const EditNotifications = ({ initialValues, onSubmit }) => {
               size="sm"
               disabled={isSubmitting}
             >
-              Save changes
+              {t('account.save_changes')}
             </Button>
           </div>
         </form>

@@ -6,11 +6,12 @@ import PlacesAutocomplete, {
 
 import { TextField } from "UI/Forms";
 import {useFormikContext} from "formik";
+import {useTranslation} from "react-i18next";
 
 function LocationSearchInput({initAddress}) {
   const [address, setAddress] = useState(initAddress || '');
   const { setFieldValue } = useFormikContext();
-
+  const {t, i18n} = useTranslation();
 
   const handleChange = address => {
     setAddress(address);
@@ -32,7 +33,7 @@ function LocationSearchInput({initAddress}) {
         <div className="w-full md:w-3/6 px-2 relative">
           <TextField
             inputClassName="w-full md:w-3/6"
-            label="Address"
+            label={t('index.address')}
             name="address"
             {...getInputProps({
               className: 'location-search-input',

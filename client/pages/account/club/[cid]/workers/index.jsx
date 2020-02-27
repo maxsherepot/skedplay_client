@@ -45,7 +45,7 @@ const EmployeeCard = ({employee}) => {
                     </div>
                     {employee.isVip && (
                         <div className="absolute bottom-0 left-0 w-full">
-                            <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">VIP</div>
+                            <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">{t('status.vip')}</div>
                         </div>
                     )}
                 </div>
@@ -59,7 +59,7 @@ const EmployeeCard = ({employee}) => {
                 <SelectClub owner={employee.owner}/>
 
                 <div className="flex flex-col items-center mt-2">
-                    <div>1234 views</div>
+                    <div>1234 {t('account.views')}</div>
                     <div className="text-grey">{t('account.day_left', {days: 5})}</div>
                 </div>
             </div>
@@ -68,9 +68,10 @@ const EmployeeCard = ({employee}) => {
 };
 
 const AvailableToday = ({employees}) => {
+    const {t, i18n} = useTranslation();
     return (
         <>
-            <div className="text-4xl font-extrabold mb-2">Available today</div>
+            <div className="text-4xl font-extrabold mb-2">{t('account.available_today')}</div>
             <div className="flex flex-wrap -mx-2">
                 {employees.map((employee) => <EmployeeCard key={employee.id} employee={employee}/>)}
             </div>

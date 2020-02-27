@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "UI";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
+
 
 const PERMISSION_INFINITY = -1;
 const PERMISSION_FALSE = null;
@@ -92,13 +94,15 @@ const getBackgroundColor = id => {
 };
 
 function PlanCard({ plan: { id, name, price, permissions }, onSubscribe }) {
+  const {t, i18n} = useTranslation();
+
   return (
     <div className="plans__item">
       <div className="flex items-center justify-center font-extrabold text-center capitalize text-2xl">
         {name}
         {id === "2" && (
           <div className="bg-dark-green ml-3 py-1 px-3 rounded-full text-white text-xs font-normal uppercase">
-            popular
+            {t('index.popular')}
           </div>
         )}
       </div>
@@ -147,7 +151,7 @@ function PlanCard({ plan: { id, name, price, permissions }, onSubscribe }) {
           outline
           onClick={() => onSubscribe(id, price)}
         >
-          <span className="text-black">Choose</span>
+          <span className="text-black">{t('act.choose')}</span>
         </Button>
       </div>
     </div>

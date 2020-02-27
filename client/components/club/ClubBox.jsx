@@ -1,8 +1,10 @@
 import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink } from "UI";
+import {useTranslation} from "react-i18next";
 
 const ClubBox = ({ club, user, children }) => {
+  const {t, i18n} = useTranslation();
   const leftInfo = (
     <>
       {club && (
@@ -28,7 +30,7 @@ const ClubBox = ({ club, user, children }) => {
               href={`/clubs/[id]/information`}
               as={`/clubs/${club.id}/information`}
             >
-              <a>Information</a>
+              <a>{t('clubs.information')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
@@ -37,7 +39,7 @@ const ClubBox = ({ club, user, children }) => {
               href={`/clubs/[id]/girls`}
               as={`/clubs/${club.id}/girls`}
             >
-              <a>Our Girls</a>
+              <a>{t('common.our_girls')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
@@ -46,7 +48,7 @@ const ClubBox = ({ club, user, children }) => {
               href={`/clubs/[id]/events`}
               as={`/clubs/${club.id}/events`}
             >
-              <a>Events</a>
+              <a>{t('layout.events')}</a>
             </ActiveLink>
           </li>
         </ul>

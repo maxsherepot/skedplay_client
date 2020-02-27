@@ -2,22 +2,25 @@ import React from "react";
 import * as Yup from "yup";
 
 import { TextField } from "UI";
+import {useTranslation} from "react-i18next";
 
 const PasswordRecoveryStep = () => {
+  const {t, i18n} = useTranslation();
+
   return (
     <>
       <TextField
-        label="New password"
+        label={t('account.password.new')}
         type="password"
         name="password"
-        placeholder="Enter new password"
+        placeholder={t('account.password.enter_new_password')}
       />
 
       <TextField
-        label="Confirm new password"
+        label={t('account.password.confirm_new')}
         type="password"
         name="password_confirmation"
-        placeholder="Enter new password confirmation"
+        placeholder={t('account.password.enter_new_password_confirmation')}
       />
     </>
   );

@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
-
+import {useTranslation} from "react-i18next";
 import { getErrors } from "utils";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 
 function ForgotForm({ onSubmit, children }) {
   const { step, setStep } = useSteps();
-
+  const {t, i18n} = useTranslation();
   React.useEffect(() => {
     document.querySelector('.modal__dialog').style.minWidth = '410px';
   });
@@ -85,7 +85,7 @@ function ForgotForm({ onSubmit, children }) {
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="block text-lg text-center mt-4 font-medium">
-            Step {step + 1} / {stepLength}
+            {t('common.step')} {step + 1} / {stepLength}
           </div>
 
           {activeStep}
@@ -102,11 +102,11 @@ function ForgotForm({ onSubmit, children }) {
             disabled={isSubmitting}
           >
             {{
-              0: "Send verification code",
-              1: "Check verification code",
-              2: "Confirm",
-              3: "Go to Login page"
-            }[step] || "Next step"}
+              0: t('forgot.send_verification_code'),
+              1: t('forgot.check_verification_code'),
+              2: t('forgot.confirm'),
+              3: t('forgot.go_to_login_page')
+            }[step] || t('forgot.next_step')}
           </Button>
         </form>
       )}

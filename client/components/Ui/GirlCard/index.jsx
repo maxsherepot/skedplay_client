@@ -6,6 +6,7 @@ import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
 import Distance from "components/distance";
+import {useTranslation} from "react-i18next";
 import MapSvg from "components/icons/MapSvg";
 
 function GirlCard({
@@ -32,40 +33,42 @@ function GirlCard({
       );
     }
 
+    const {t, i18n} = useTranslation();
+
     return (
       <div className="text-sm text-grey">
         <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-        {distanceKm} km from me
+        {distanceKm} {t('index.km_from_me')}
       </div>
     );
   }
 
   const availableButtons = () => {
     const type = Math.floor(Math.random() * Math.floor(4));
-
+    const {t, i18n} = useTranslation();
     switch (type) {
       case 0:
         return (
           <div className="bg-black text-white text-xs rounded-full uppercase px-4">
-            coming soon
+            {t('index.coming_soon')}
           </div>
         );
       case 1:
         return (
           <div className="bg-dark-green text-white text-xs rounded-full uppercase px-4">
-            available
+            {t('index.available')}
           </div>
         );
       case 2:
         return (
           <div className="bg-grey text-white text-xs rounded-full uppercase px-4">
-            attended us
+            {t('index.attended_us')}
           </div>
         );
       case 3:
         return (
           <div className="bg-divider text-white text-xs rounded-full uppercase px-4">
-            not available
+            {t('index.not_available')}
           </div>
         );
 
@@ -74,40 +77,43 @@ function GirlCard({
     }
   };
 
-  const Labels = ({ girl }) => (
-    <>
-      <div className="flex flex-col">
-        <div className="flex flex-col -mb-2 hide-on-hover">
-          {girl.isNew && (
-            <div className="">
-              <Badge className="bg-black">NEW</Badge>
+  const Labels = ({ girl }) => {
+    const {t, i18n} = useTranslation();
+    return(
+        <>
+          <div className="flex flex-col">
+            <div className="flex flex-col -mb-2 hide-on-hover">
+              {girl.isNew && (
+                  <div className="">
+                    <Badge className="bg-black">{t('status.new')}</Badge>
+                  </div>
+              )}
+              {girl.isVip && (
+                  <div className="mt-2">
+                    <Badge className="bg-red">{t('status.vip')}</Badge>
+                  </div>
+              )}
             </div>
-          )}
-          {girl.isVip && (
-            <div className="mt-2">
-              <Badge className="bg-red">VIP</Badge>
+            <div className="flex flex-wrap-reverse show-on-hover mt-2">
+              <div className="rounded-full bg-xs-grey text-xs xl:text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
+                +38 050 145 78 89
+              </div>
+              <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
+                <MessageSvg />
+              </button>
             </div>
-          )}
-        </div>
-        <div className="flex flex-wrap-reverse show-on-hover mt-2">
-          <div className="rounded-full bg-xs-grey text-xs xl:text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
-            +38 050 145 78 89
           </div>
-          <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
-            <MessageSvg />
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-wrap items-end justify-end flex-row show-on-hover">
-        <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
-          <CocktailSvg />
-        </button>
-        <button className="flex justify-center content-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
-          <span className="text-white font-bold text-2xs">100%</span>
-        </button>
-      </div>
-    </>
-  );
+          <div className="flex flex-wrap items-end justify-end flex-row show-on-hover">
+            <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
+              <CocktailSvg />
+            </button>
+            <button className="flex justify-center content-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
+              <span className="text-white font-bold text-2xs">100%</span>
+            </button>
+          </div>
+        </>
+    );
+  }
 
   const [photo] = girl.photos;
 

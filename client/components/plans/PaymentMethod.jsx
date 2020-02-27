@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
 import {
   VisaSvg,
   PayPalSvg,
@@ -18,11 +19,12 @@ function PaymentMethod({ payment, setPayment }) {
     <SmsSvg />,
     <InvoiceSvg />
   ];
+  const {t, i18n} = useTranslation();
 
   return (
     <div className="flex flex-col">
       <div className="text-white text-center mt-6 mb-3">
-        Select Payment Method
+        {t('plans.select_payment_method')}
       </div>
 
       <div className="flex bg-white rounded-full">

@@ -5,9 +5,11 @@ import * as Yup from "yup";
 import { TextField, TextAreaField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";
 import Captcha from "components/Captcha";
+import {useTranslation} from "react-i18next";
 
 const NewReviewForm = ({ employee, onSubmit }) => {
   const [error, setError] = useState(null);
+  const {t, i18n} = useTranslation();
 
   return (
     <Formik
@@ -57,16 +59,16 @@ const NewReviewForm = ({ employee, onSubmit }) => {
         <form onSubmit={handleSubmit}>
           {status && (
             <FormGroup className="text-dark-green text-center">
-              <span>Review successfully added</span>
+              <span>{t('review.review_successfully_added')}</span>
             </FormGroup>
           )}
 
-          <TextField label="Email" name="email" placeholder="" />
+          <TextField label={t('review.email')} name="email" placeholder="" />
 
-          <TextField label="Kurztitel" name="title" placeholder="" />
+          <TextField label={t('review.short_title')} name="title" placeholder="" />
 
           <TextAreaField
-            label="Beschreiben Sie Ihre Eindrücke"
+            label={t('review.describe_your_impressions')}
             name="body"
             placeholder=""
           />
@@ -78,7 +80,7 @@ const NewReviewForm = ({ employee, onSubmit }) => {
           )}
 
           <div className="flex px-3 my-5">
-            <CheckboxField label="Hide my name" name="hide" />
+            <CheckboxField label={t('review.hide_my_name')} name="hide" />
           </div>
 
           <div className="flex justify-center my-5">
@@ -90,7 +92,7 @@ const NewReviewForm = ({ employee, onSubmit }) => {
             type="submit"
             disabled={isSubmitting}
           >
-            Send
+            {t('review.send')}
           </Button>
         </form>
       )}

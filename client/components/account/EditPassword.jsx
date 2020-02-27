@@ -3,8 +3,10 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { Button, TextField } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 const EditPassword = ({ initialValues, onSubmit }) => {
+  const {t, i18n} = useTranslation();
   const handleSubmits = async (
     { password, new_password, new_password_confirmation },
     { setSubmitting, setErrors, setError, setStatus }
@@ -54,19 +56,19 @@ const EditPassword = ({ initialValues, onSubmit }) => {
 
             <TextField
               className="w-1/3"
-              label="Current password"
+              label={t('account.password.current')}
               name="password"
             />
 
             <TextField
               className="w-1/3"
-              label="New password"
+              label={t('account.password.new')}
               name="new_password"
             />
 
             <TextField
               className="w-1/3"
-              label="Confirm new password"
+              label={t('account.password.confirm_new')}
               name="new_password_confirmation"
             />
 
@@ -76,7 +78,7 @@ const EditPassword = ({ initialValues, onSubmit }) => {
               size="sm"
               disabled={isSubmitting}
             >
-              Save changes
+              {t('account.save_changes')}
             </Button>
           </div>
         </form>

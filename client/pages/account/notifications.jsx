@@ -21,7 +21,7 @@ const AccountNotifications = ({ user }) => {
             <a className="text-red hover:text-pink">{t('common.my_account')}</a>
           </Link>
           <span className="px-2 text-grey">/</span>
-          {t('account.notifications')}
+            {t('account.notifications')}
         </div>
       </div>
     </div>

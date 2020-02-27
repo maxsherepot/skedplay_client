@@ -1,14 +1,18 @@
 import React from "react";
 import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField } from "UI";
+import {useTranslation} from "react-i18next";
+
 
 const AdMediaStep = ({ photos, videos }) => {
+  const {t, i18n} = useTranslation();
+
   return (
     <>
       <div className="flex flex-col md:flex-row md:items-end mb-5">
-        <div className="text-4xl font-extrabold leading-none">Photos</div>
+        <div className="text-4xl font-extrabold leading-none">{t('clubs.photos')}</div>
         <span className="md:ml-6 text-xs md:text-lg">
-          Maximum size of photos that can be aploaded is 10mb.
+          {t('max_size_uploaded.photos')}
         </span>
       </div>
 
@@ -23,16 +27,16 @@ const AdMediaStep = ({ photos, videos }) => {
           >
             <div className="flex items-center">
               <BlackPlusSvg />
-              <span className="ml-2">from device</span>
+              <span className="ml-2">{t('account.from_device')}</span>
             </div>
           </Button>
         </MultiPhotoField>
       </div>
 
       <div className="flex flex-col md:flex-row md:items-end my-5">
-        <div className="text-4xl font-extrabold leading-none">Video</div>
+        <div className="text-4xl font-extrabold leading-none">{t('clubs.video')}</div>
         <span className="md:ml-6 text-xs md:text-lg">
-          Maximum size of video that can be aploaded is 100mb.
+          {t('max_size_uploaded.video')}
         </span>
       </div>
 

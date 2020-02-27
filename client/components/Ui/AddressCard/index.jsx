@@ -3,6 +3,7 @@ import cx from "classnames";
 import { Button } from "UI";
 import { MapSvg } from "icons";
 import Distance from "components/distance";
+import {useTranslation} from "react-i18next";
 
 const DistanceView = ({ distanceValue }) => {
   if (!distanceValue) {
@@ -10,21 +11,25 @@ const DistanceView = ({ distanceValue }) => {
   }
 
   const distanceKm = Math.round(distanceValue / 1000 * 10) / 10;
+  const {t, i18n} = useTranslation();
 
   return (
     <div className="flex items-center my-2">
       <MapSvg></MapSvg>
       <span className="ml-3">
-        {distanceKm} km from me
+        {distanceKm} {t('index.km_from_me')}
       </span>
     </div>
   )
 };
 
+
 const AddressCard = ({ className, addressable, isAvailable }) => {
+  const {t, i18n} = useTranslation();
+
   return (
     <>
-      <div className="text-2xl font-extrabold my-5">Meine Adresse</div>
+      <div className="text-2xl font-extrabold my-5">{t('index.my_address')}</div>
       <div className={cx("bg-white rounded-lg p-4", className)}>
         <p className="font-bold">{addressable ? addressable.address : 'default address'}</p>
         {(addressable && addressable.lat && addressable.lng) &&
@@ -37,7 +42,7 @@ const AddressCard = ({ className, addressable, isAvailable }) => {
         }
         {isAvailable && (
           <Button className="px-4" size="xxs" level="success" weight="normal">
-            Available
+            {t('employees.available')}
           </Button>
         )}
       </div>

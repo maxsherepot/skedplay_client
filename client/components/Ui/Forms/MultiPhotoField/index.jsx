@@ -7,10 +7,11 @@ import { WhiteTrashSvg } from "icons";
 import { DELETE_MEDIA } from "queries";
 import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
+import {useTranslation} from "react-i18next";
 
 const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
-
+  const {t, i18n} = useTranslation();
   const [hovered, setHovered] = useState(null);
   const [index, setIndex] = useState(null);
 
@@ -59,7 +60,7 @@ const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
                     <div className="absolute inset-0 flex items-end">
                       <CheckboxField
                           className="text-white"
-                          label="Main photo"
+                          label={t('index.main_photo')}
                           name={indexes[i]}
                           checked={index === i}
                       />

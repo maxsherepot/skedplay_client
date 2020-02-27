@@ -45,7 +45,7 @@ const Header = ({employee}) => {
                      alt={employee.name}/>
                 {employee.isVip && (
                     <div className="absolute bottom-0 left-0 w-full">
-                        <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">VIP</div>
+                        <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">{t('status.vip')}</div>
                     </div>
                 )}
             </div>
@@ -76,7 +76,7 @@ const Header = ({employee}) => {
                             <span className="text-black">{t('account.deactivate')}</span>
                         </Button>
 
-                        <DeletePopup onEnter={handleDelete} title={`Delete ${employee.name}?`}>
+                        <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
                             <div className="pt-6">
                                 <p>{t('account.sure_delete_card')}</p>
                             </div>
@@ -90,6 +90,7 @@ const Header = ({employee}) => {
 
 const AccountClubWorkersIndex = ({user}) => {
     const {query: {eid}} = useRouter();
+    const {t, i18n} = useTranslation();
     const {data: {employee} = {}, loading} = useQuery(GET_EMPLOYEE, {
         variables: {
             id: eid
@@ -97,10 +98,10 @@ const AccountClubWorkersIndex = ({user}) => {
     });
 
     const links = [
-        'Information',
-        'Services and Prices',
-        'Photos and videos',
-        'Schedule and activation',
+        t('account.links.information'),
+        t('account.links.services_and_prices'),
+        t('account.links.photos_and_videos'),
+        t('account.links.schedule_and_activation'),
     ];
 
     if (loading) return <Loader/>;
