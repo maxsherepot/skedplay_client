@@ -8,13 +8,13 @@ import MapWithMarkers from "components/maps/MapWithMarkers";
 import {useTranslation} from "react-i18next";
 
 function EmployeesBox({ sortComponent, employees, loading, error, page, setPage, networkStatus }) {
+  const {t, i18n} = useTranslation();
 
   if (loading || networkStatus === 4) return <Loader/>;
   if (error) return <div>{error.message}</div>;
   if (!employees) return <div>-----</div>;
 
   const employeesWithCoordinates = employees.data.filter(e => e.lat !== null && e.lng !== null);
-  const {t, i18n} = useTranslation();
 
   return (
     <>

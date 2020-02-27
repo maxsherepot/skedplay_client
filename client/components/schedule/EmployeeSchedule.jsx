@@ -17,6 +17,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
     }
   });
   const [isShowPhoneId, toggleShowPhoneId] = useState(false);
+  const {t, i18n} = useTranslation();
 
   if (loading) {
     return <Loader/>;
@@ -33,8 +34,6 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
 
     return phone;
   };
-
-  const {t, i18n} = useTranslation();
 
   return (
     <>

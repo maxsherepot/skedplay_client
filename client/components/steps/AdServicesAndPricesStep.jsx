@@ -12,11 +12,11 @@ const AdServicesAndPricesStep = () => {
     GET_SERVICES
   );
 
+  const {t, i18n} = useTranslation();
+
   if (priceLoading || serviceLoading) {
     return <Loader/>;
   }
-
-  const {t, i18n} = useTranslation();
 
   return (
     <>
