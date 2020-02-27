@@ -40,7 +40,7 @@ class EventPolicy
             return false;
         }
 
-        return ($user->events_club_owners->contains($event->id) || $user->owns($event, 'owner_id'))
+        return $this->checkUserCan($user, $event)
             && $user->hasPermission(Permission::UPDATE_EVENTS);
     }
 
@@ -55,7 +55,19 @@ class EventPolicy
             return false;
         }
 
-        return ($user->events_club_owners->contains($event->id) || $user->owns($event, 'owner_id'))
+        return $this->checkUserCan($user, $event)
             && $user->hasPermission(Permission::DELETE_EVENTS);
+    }
+
+    private function checkUserCan(User $user, Event $event): bool
+    {
+        return $user->events_club_owners->contains($event->id) || $this->checkUserEmployeeOwner($user, $event);
+    }
+
+    private function checkUserEmployeeOwner(User $user, Event $event): bool
+    {
+        return $event->owner_type === 'employee'
+            && $user->is_employee
+            && $event->owner_id === $user->employee->id;
     }
 }

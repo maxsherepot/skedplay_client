@@ -64,6 +64,11 @@ class Event extends Model implements HasMedia
         return Str::limit($this->title, 10);
     }
 
+    public function getEmployeesAttribute()
+    {
+        return $this->employees;
+    }
+
     /**
      * @return MorphTo
      */
@@ -113,9 +118,9 @@ class Event extends Model implements HasMedia
             ->where('collection_name', self::MAIN_PHOTO_COLLECTION);
     }
 
-    public function employees(): BelongsToMany
+    public function employeesRelation(): BelongsToMany
     {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsToMany(Employee::class, 'event_employee');
     }
 
     public function scopeHasCantons(Builder $query, ?array $cantons = null): void

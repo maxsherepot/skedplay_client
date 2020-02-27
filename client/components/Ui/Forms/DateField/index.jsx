@@ -19,9 +19,14 @@ function DateField({
   placeholder,
   disabled
 }) {
-  const [date, setDateState] = useState(new Date());
-  const { touched, errors, setFieldValue } = useFormikContext();
+  const { values, touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
+
+  const dateValue = formErrors.getFieldValue(values, name);
+
+  const dateInitialValue = !dateValue || dateValue.length ? "" : new Date(dateValue);
+
+  const [date, setDateState] = useState(dateInitialValue);
 
   function setDate(date) {
     setDateState(date);
@@ -45,6 +50,7 @@ function DateField({
               dateFormat="dd.MM.yyyy"
               selected={date}
               onChange={date => setDate(date)}
+              placeholderText={placeholder}
             />
           </>
         )}
@@ -57,7 +63,7 @@ DateField.propTypes = {
   className: PropTypes.string,
   labelClassName: PropTypes.string,
   label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   name: PropTypes.string.isRequired
 };
 

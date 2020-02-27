@@ -161,7 +161,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
 
     public function eventsTakePart(): BelongsToMany
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_employee');
     }
 
     /**

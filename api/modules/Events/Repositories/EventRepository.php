@@ -2,6 +2,7 @@
 
 namespace Modules\Main\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -19,11 +20,22 @@ class EventRepository implements HasMediable
      * @param Model $model
      * @param Collection $collection
      * @return Model
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function store(Model $model, Collection $collection): Model
     {
+        $collection = $this->handleInput($collection);
+
         /** @var Club|Employee $model */
-        return $model->events()->create($collection->toArray());
+        $event = $model->events()->create($collection->toArray());
+
+        if ($photos = $collection->get('photos')) {
+            $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
+        }
+
+        return $event;
     }
 
     /**
@@ -36,6 +48,8 @@ class EventRepository implements HasMediable
      */
     public function update(Event $event, Collection $collection): bool
     {
+        $collection = $this->handleInput($collection);
+
         $response = $event->update($collection->toArray());
 
         if ($photos = $collection->get('photos')) {
@@ -53,5 +67,28 @@ class EventRepository implements HasMediable
     public function delete(Event $event): bool
     {
         return $event->delete();
+    }
+
+    private function handleInput(Collection $collection): Collection
+    {
+        $startDate = $collection['start_date'] ?? null;
+
+        try {
+            $startDate = Carbon::parse($startDate);
+        } catch (\Exception $e) {
+            $startDate = null;
+        }
+
+        $endDate = $collection['end_date'] ?? null;
+
+        try {
+            $endDate = Carbon::parse($endDate);
+        } catch (\Exception $e) {
+            $endDate = null;
+        }
+
+        $collection['start_date'] = $startDate;
+        $collection['end_date'] = $endDate;
+        return $collection;
     }
 }

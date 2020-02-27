@@ -5,6 +5,8 @@ import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts'
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
+import {useQuery} from "@apollo/react-hooks";
+import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
@@ -92,6 +94,8 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
       ? '/account/ad'
       : '/girls/add';
 
+    const { loading: userCountsLoading, error: userCountsError, data: { me: userCounts } = {} } = useQuery(GET_MY_EMPLOYEE_EVENTS_COUNT);
+
     return (
       <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
           <div className="flex flex-col py-10 lg:pr-32">
@@ -126,9 +130,11 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                             <Link href="/account/events">
                                 <a>
                                     Active Events
-                                    <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                                        {employees_events}
-                                    </span>
+                                    {(!userCountsLoading && userCounts) &&
+                                      <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
+                                          {userCounts.employees_events}
+                                      </span>
+                                    }
                                 </a>
                             </Link>
                         </li>

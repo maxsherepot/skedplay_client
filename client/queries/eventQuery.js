@@ -6,6 +6,9 @@ export const ALL_EVENTS = gql`
             data {
                 id
                 title
+                address
+                lat
+                lng
                 favorited {
                     id
                 }
@@ -48,6 +51,9 @@ export const EVENTS_BY_OWNER = gql`
         eventsByOwner(owner_id: $owner_id, owner_type: $owner_type) {
             id
             title
+            address
+            lat
+            lng
             favorited {
                 id
             }
@@ -80,6 +86,21 @@ export const GET_EVENT = gql`
             id
             title
             description
+            mode
+            address
+            lat
+            lng
+            employees {
+                id
+                name
+                photos {
+                    url
+                    thumb_url
+                }
+            }
+            days
+            start_date
+            end_date
             favorited {
                 id
             }

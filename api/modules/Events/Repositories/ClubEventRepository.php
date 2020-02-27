@@ -30,7 +30,7 @@ class ClubEventRepository implements HasMediable
         /** @var Event $event */
         $event = $this->eventRepository->store($club, $collection);
 
-        $event->employees()->sync($collection->get('employees_ids', []));
+        $event->employeesRelation()->sync($collection->get('employees_ids', []));
 
         DB::commit();
 
@@ -47,7 +47,7 @@ class ClubEventRepository implements HasMediable
             return $result;
         }
 
-        $event->employees()->sync($collection->get('employees_ids', []));
+        $event->employeesRelation()->sync($collection->get('employees_ids', []));
 
         DB::commit();
 

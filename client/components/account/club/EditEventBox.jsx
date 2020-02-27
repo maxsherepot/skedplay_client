@@ -5,9 +5,12 @@ import { Formik } from "formik";
 import { BlackPlusSvg } from "icons";
 import { Button, TextField, SelectField, TextAreaField, MultiPhotoField } from "UI";
 import { getErrors } from "utils";
+import {EventForm} from "components/event";
+import {useTranslation} from "react-i18next";
 
 const EditEventBox = ({ initialValues, onSubmit }) => {
     const router = useRouter();
+    const {t, i18n} = useTranslation();
 
     const handleSubmits = async (
         values,
@@ -20,8 +23,16 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                     input: {
                         title: values.title,
                         description: values.description,
+                        mode: values.mode,
+                        address: values.address,
+                        start_date: values.start_date,
+                        end_date: values.end_date,
+                        days: (values.days || [])
+                          .map((checked, day) => checked ? day : null)
+                          .filter(day => day !== null),
+                        employees_ids: values.employees_ids,
                         event_type_id: values.event_type_id,
-                        photos: values.photos,
+                        photos: values.photos instanceof FileList ? values.photos : [],
                     }
                 }
             });
@@ -41,75 +52,17 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
     };
 
     return (
-        <Formik
+      <div>
+          <div className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+              {t('account.update_event')}
+          </div>
+
+          <EventForm
+            update={true}
             initialValues={initialValues}
-            validationSchema={Yup.object().shape({
-                title: Yup.string().required(),
-            })}
             onSubmit={handleSubmits}
-        >
-            {({ handleSubmit, isSubmitting, status }) => (
-                <form onSubmit={handleSubmit}>
-                    <div className="px-2">
-                        {status && (
-                            <div className="text-dark-green text-white px-1 mb-3">
-                                {status}
-                            </div>
-                        )}
-
-                        <TextField label="Title" name="title" />
-
-                        <SelectField
-                            label="Type"
-                            name="event_type_id"
-                            options={[
-                                {
-                                    label: "Special day",
-                                    value: 1
-                                },
-                                {
-                                    label: "Parties and shows",
-                                    value: 2
-                                },
-                                {
-                                    label: "Discount",
-                                    value: 3
-                                }
-                            ]}
-                            placeholder=""
-                        />
-
-                        <TextAreaField rows={6} label="Description" name="description" />
-
-                        <div className="flex flex-wrap mb-4">
-                            <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
-                                <Button
-                                    className="px-3"
-                                    level="primary-black"
-                                    outline
-                                    size="sm"
-                                    type="button"
-                                >
-                                    <div className="flex items-center">
-                                        <BlackPlusSvg />
-                                        <span className="ml-2">from device</span>
-                                    </div>
-                                </Button>
-                            </MultiPhotoField>
-                        </div>
-
-                        <Button
-                            type="submit"
-                            className="px-8"
-                            size="sm"
-                            disabled={isSubmitting}
-                        >
-                            Save changes
-                        </Button>
-                    </div>
-                </form>
-            )}
-        </Formik>
+          />
+      </div>
     );
 };
 

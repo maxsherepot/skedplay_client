@@ -16,5 +16,8 @@ export default {
     }
 
     return error;
+  },
+  getFieldValue(values, field) {
+    return dot.pick(field, values) || values[field];
   }
 };

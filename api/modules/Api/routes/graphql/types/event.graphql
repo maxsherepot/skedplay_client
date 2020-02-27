@@ -14,9 +14,11 @@ type Event {
     club: Club @belongsTo
     owner: Owner @belongsTo
     photos: [Media] @hasMany
+    employees: [Employee] @belongsToMany @with(relation: "employeesRelation")
     start_date: Date,
     end_date: Date,
     days: [Int!],
+    days_for_checkboxes: String,
 }
 
 input EventInput {
@@ -26,8 +28,8 @@ input EventInput {
     club_id: Int
     mode: Int!
     address: String
-    start_date: Date,
-    end_date: Date,
+    start_date: String,
+    end_date: String,
     photos: [Upload]
     days: [Int!]
     employees_ids: [Int!]
@@ -41,8 +43,8 @@ input EventUpdateInput {
     mode: Int!
     address: String
     photos: [Upload]
-    start_date: Date,
-    end_date: Date,
+    start_date: String,
+    end_date: String,
     days: [Int!]
     employees_ids: [Int!]
 }

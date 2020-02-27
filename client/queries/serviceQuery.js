@@ -35,3 +35,13 @@ export const EVENTS_FILTER_OPTIONS = gql`
     }
   }
 `;
+
+export const EVENT_TYPES = gql`
+    query eventTypes {
+        event_types {
+            id
+            name
+            display_name
+        }
+    }
+`;

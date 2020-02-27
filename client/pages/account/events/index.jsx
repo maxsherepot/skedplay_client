@@ -6,20 +6,23 @@ import {Button, DeletePopup, Loader} from "UI";
 import {
     DELETE_EVENT,
     EVENTS_BY_OWNER,
+    GET_ME,
+    GET_MY_EMPLOYEE_EVENTS_COUNT,
 } from "queries";
-import {useMutation, useQuery} from "@apollo/react-hooks";
+import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 
 const AccountEventsIndex = ({user}) => {
     const {data: {eventsByOwner} = {}, loading} = useQuery(EVENTS_BY_OWNER, {
+        fetchPolicy: 'no-cache',
         variables: {
-            owner_id: user.id,
+            owner_id: user.employee.id,
             owner_type: "employee"
         }
     });
-    const {t, i18n} = useTranslation();
 
+    const {t, i18n} = useTranslation();
 
     if (loading) {
         return <Loader/>;
@@ -27,33 +30,50 @@ const AccountEventsIndex = ({user}) => {
 
     const EventCard = ({event}) => {
         const [deleteEvent] = useMutation(DELETE_EVENT, {
-            update(
-                cache,
+            // update( // TODO из-за бага apollo - cache.writeQuery не пашет
+            //     cache,
+            //     {
+            //         data: {deleteEvent}
+            //     }
+            // ) {
+            //     const {eventsByOwner} = cache.readQuery({
+            //         query: EVENTS_BY_OWNER,
+            //         variables: {
+            //             owner_id: user.employee.id,
+            //             owner_type: "employee",
+            //         }
+            //     });
+            //
+            //     const events = eventsByOwner
+            //       .filter(e => parseInt(e.id) !== parseInt(deleteEvent.message));
+            //
+            //     cache.writeQuery({
+            //         query: EVENTS_BY_OWNER,
+            //         data: {
+            //             eventsByOwner: [...events]
+            //         }
+            //     });
+            //
+            //     cache.writeFragment({
+            //         fragment: MY_EVENTS_COUNT_FRAGMENT,
+            //         data: {
+            //             employees_events: events.length,
+            //             __typename: 'me'
+            //         },
+            //     });
+            // },
+            refetchQueries: [
                 {
-                    data: {deleteEvent}
-                }
-            ) {
-                const {eventsByOwner} = cache.readQuery({
                     query: EVENTS_BY_OWNER,
                     variables: {
-                        owner_id: "6",
-                        owner_type: "employee",
+                        owner_id: user.employee.id,
+                        owner_type: "employee"
                     }
-                });
-
-                console.log(eventsByOwner)
-
-                const events = eventsByOwner.filter(e => e.id !== deleteEvent.message);
-
-                cache.writeQuery({
-                    query: EVENTS_BY_OWNER,
-                    data: {
-                        eventsByOwner: {
-                            ...events,
-                        }
-                    }
-                });
-            }
+                },
+                {
+                    query: GET_MY_EMPLOYEE_EVENTS_COUNT,
+                }
+            ]
         });
 
         const handleDelete = () => {

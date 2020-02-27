@@ -17,7 +17,7 @@ function GroupRadio({ className, name, items, handleChange, defaultValue }) {
               id={indexName}
               name={indexName}
               value={item.value}
-              checked={defaultValue == item.value}
+              checked={defaultValue === item.value}
               onChange={handleChange}
             />
             <label htmlFor={indexName}>{item.name}</label>

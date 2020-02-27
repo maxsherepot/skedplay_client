@@ -6,11 +6,12 @@ import PlacesAutocomplete, {
 
 import { TextField } from "UI/Forms";
 import {useFormikContext} from "formik";
+import PropTypes from "prop-types";
+import cx from 'classnames';
 
-function LocationSearchInput({initAddress}) {
-  const [address, setAddress] = useState(initAddress || '');
+function LocationSearchInput({initAddress, className, inputClassName}) {
+  const [address, setAddress] = useState(initAddress);
   const { setFieldValue } = useFormikContext();
-
 
   const handleChange = address => {
     setAddress(address);
@@ -29,9 +30,14 @@ function LocationSearchInput({initAddress}) {
       onSelect={handleSelect}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div className="w-full md:w-3/6 px-2 relative">
+        <div className={cx([
+          className,
+          'relative',
+        ])}>
           <TextField
-            inputClassName="w-full md:w-3/6"
+            inputClassName={cx([
+              inputClassName,
+            ])}
             label="Address"
             name="address"
             {...getInputProps({
@@ -66,5 +72,17 @@ function LocationSearchInput({initAddress}) {
     </PlacesAutocomplete>
   );
 }
+
+LocationSearchInput.propTypes = {
+  initAddress: PropTypes.string,
+  className: PropTypes.string,
+  inputClassName: PropTypes.string,
+};
+
+LocationSearchInput.defaultProps = {
+  initAddress: '',
+  className: 'w-full md:w-3/6 px-2',
+  inputClassName: 'w-full md:w-3/6',
+};
 
 export default LocationSearchInput;

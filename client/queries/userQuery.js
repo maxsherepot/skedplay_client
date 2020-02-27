@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_ME = gql`
-    query {
+    query me {
         me {
             id
             name
@@ -13,7 +13,7 @@ export const GET_ME = gql`
             favorites_count
             employees_photos
             employees_videos
-            employees_events
+#            employees_events
             clubs {
                 id
                 name
@@ -60,6 +60,15 @@ export const GET_ME = gql`
                     id
                 }
             }
+        }
+    }
+`;
+
+export const GET_MY_EMPLOYEE_EVENTS_COUNT = gql`
+    query me {
+        me {
+            id
+            employees_events
         }
     }
 `;
@@ -138,5 +147,11 @@ export const FAVORITE_EVENTS = gql`
                 url
             }
         }
+    }
+`;
+
+export const MY_EVENTS_COUNT_FRAGMENT = gql`
+    fragment myEventsCount on me {
+        employees_events
     }
 `;

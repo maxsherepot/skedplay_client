@@ -15,7 +15,6 @@ const AccountClubEventsEdit = () => {
     const {t, i18n} = useTranslation();
 
     const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
-        fetchPolicy: 'no-cache',
         variables: {
             id: eid
         }

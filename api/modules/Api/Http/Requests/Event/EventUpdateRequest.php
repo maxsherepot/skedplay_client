@@ -15,20 +15,26 @@ class EventUpdateRequest extends GraphQLFormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title'         => 'string|max:255',
             'description'   => 'string',
             'event_type_id' => 'sometimes|numeric|exists:events,id',
             'club_id'       => 'sometimes|nullable|numeric|exists:clubs,id',
             'address'       => 'string|max:255',
             'mode' => ['required', Rule::in(array_keys(Event::MODES))],
-            'employees_ids' => 'nullable|array',
+            'employees_ids' => ['required_with:club_id', 'array'],
             'employees_ids.*' => 'integer',
-            'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
-            'days' => 'nullable|array',
-            'days.*' => 'integer',
         ];
+
+        if (intval($this->get('mode')) === Event::MODE_REGULAR) {
+            $rules['days'] = ['required', 'array', 'min:1'];
+            $rules['days.*'] = ['integer'];
+        } elseif (intval($this->get('mode')) === Event::MODE_DATE) {
+            $rules['start_date'] = ['required', 'date'];
+        }
+
+        return $rules;
     }
 
     /**

@@ -128,6 +128,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'days' => [
+            'required' => 'You should choose days when regular type is selected',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------

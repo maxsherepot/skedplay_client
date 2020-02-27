@@ -20,12 +20,13 @@ trait Locationable
         $this->fillable[] = 'lat';
         $this->fillable[] = 'lng';
         $this->fillable[] = 'address';
+        $this->fillable[] = 'city_id';
     }
 
     public static function bootLocationable()
     {
         static::saving(function (Model $model) {
-            static::setCoordinates($model);
+            static::setCityAndCoordinates($model);
         });
     }
 
@@ -67,7 +68,7 @@ trait Locationable
         ]);
     }
 
-    private static function setCoordinates(Model $model): void
+    private static function setCityAndCoordinates(Model $model): void
     {
         if (!is_null($model->lat) && !is_null($model->lng)) {
             return;
@@ -78,8 +79,10 @@ trait Locationable
         }
 
         try {
-            $coordinates = (new LocationCoordinatesAddressService())
-                ->getCoordinatesByAddress($model->address);
+            [$city, $coordinates] = (new LocationCoordinatesAddressService())
+                ->getCityAndCoordinatesByAddress($model->address);
+
+            $model->city_id = $city->id;
 
             $model->lat = $coordinates->getLat();
             $model->lng = $coordinates->getLng();
