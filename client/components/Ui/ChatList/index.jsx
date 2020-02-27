@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment-timezone";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
@@ -56,6 +57,7 @@ function ChatList({
       >+{chat.unread_messages_count}</div>
     )
   };
+  const {t, i18n} = useTranslation();
 
   return (
     <div className="chats rounded-lg overflow-y-scroll">
@@ -74,7 +76,7 @@ function ChatList({
             <div className="font-bold">{chat.receiver.name}</div>
             <div className="text-sm text-grey">
               <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-              150 km from me
+              150 {t('index.km_from_me')}
             </div>
           </div>
           <div className="flex-grow text-right flex flex-col flex-grow">

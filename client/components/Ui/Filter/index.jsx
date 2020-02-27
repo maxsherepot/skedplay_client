@@ -13,8 +13,11 @@ import {
 } from "UI";
 
 import cx from 'classnames';
+import {useTranslation} from "react-i18next";
 
 function Filter({ name, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
+
+  const {t, i18n} = useTranslation();
 
   return (
     <>
@@ -125,7 +128,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      Find
+                        {t('index.find')}
                     </Button>
                   </FormGroup>
                 </div>

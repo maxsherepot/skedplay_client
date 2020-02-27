@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import { useFormikContext, FieldArray } from "formik";
 import { FormGroup, Dropdown } from "UI";
+import {useTranslation} from "react-i18next";
 
 const MultiSelectField = ({
   className,
@@ -15,6 +16,7 @@ const MultiSelectField = ({
 }) => {
 
   const { values } = useFormikContext();
+  const {t, i18n} = useTranslation();
 
   const getInputWithCheckboxes = (arrayHelpers, category, isChecked) => {
     return (
@@ -87,7 +89,7 @@ const MultiSelectField = ({
             )}
           >
             {values[name] && values[name].length
-              ? `Selected ${values[name].length} items`
+              ? `${t('index.selected')} ${values[name].length} ${t('index.items')}`
               : placeholder}
           </div>
         }

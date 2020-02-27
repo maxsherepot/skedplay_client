@@ -1,9 +1,11 @@
 import React from "react";
 import { useFormikContext } from "formik";
 import { SelectGroupField, SelectField, ToggleField, DateField } from "UI";
+import {useTranslation} from "react-i18next";
 
 const AdScheduleStep = () => {
   const { values } = useFormikContext();
+  const {t, i18n} = useTranslation();
 
   let hours = [];
   let minutes = [
@@ -37,31 +39,31 @@ const AdScheduleStep = () => {
   const weeks = [
     {
       day: 0,
-      name: "Sunday"
+      name: t('day.sunday')
     },
     {
       day: 1,
-      name: "Monday"
+      name: t('day.monday')
     },
     {
       day: 2,
-      name: "Tuesday"
+      name: t('day.tuesday')
     },
     {
       day: 3,
-      name: "Wednesday"
+      name: t('day.wednesday')
     },
     {
       day: 4,
-      name: "Thursday"
+      name: t('day.thursday')
     },
     {
       day: 5,
-      name: "Friday"
+      name: t('day.friday')
     },
     {
       day: 6,
-      name: "Saturday"
+      name: t('day.saturday')
     }
   ];
 
@@ -79,7 +81,7 @@ const AdScheduleStep = () => {
 
   let startOptions = timeOptions;
   startOptions.unshift({
-    label: "Day off",
+    label: t('about.clubs.day_off'),
     value: 0,
   });
 
@@ -91,11 +93,11 @@ const AdScheduleStep = () => {
           <div className="flex items-center" key={week.day}>
             <div className="w-1/5 px-2">{week.name}</div>
             <div className="w-1/6 hd:w-2/6 px-2">
-              <ToggleField name="scheduled" label="Alone" value={true} />
+              <ToggleField name="scheduled" label={t('steps.alone')} value={true} />
             </div>
             <div className="w-2/5 hd:w-3/5 px-2">
               <SelectGroupField
-                label="Time"
+                label={t('clubs.time')}
                 name="time"
               >
                 <SelectField
@@ -123,9 +125,9 @@ const AdScheduleStep = () => {
         <DateField
           className="w-full sm:w-1/2 lg:w-1/3"
           inputClassName="w-full md:w-1/3"
-          label="Activate date"
+          label={t('steps.activate_date')}
           name="will_activate_at"
-          placeholder="Activate date"
+          placeholder={t('steps.activate_date')}
         />
       </div>
     </div>

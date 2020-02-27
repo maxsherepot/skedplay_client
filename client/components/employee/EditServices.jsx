@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import { Button, TextField, TextAreaField, SelectField } from "UI";
+import {useTranslation} from "react-i18next";
 
 const EditServices = ({ initialValues: { prices, services }, children }) => {
   const validate = values => {
@@ -14,7 +15,7 @@ const EditServices = ({ initialValues: { prices, services }, children }) => {
 
     return {};
   };
-
+  const {t, i18n} = useTranslation();
   const handleSubmits = async (
     values,
     { setSubmitting, setErrors, setStatus }
@@ -51,7 +52,7 @@ const EditServices = ({ initialValues: { prices, services }, children }) => {
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
           <div className="px-2">
-            <div className="text-xl px-2 mb-5">My Price-list</div>
+            <div className="text-xl px-2 mb-5">{t('employees.my_price_list')}</div>
 
             <div className="flex flex-wrap -mx-2">
               {prices &&
@@ -73,7 +74,7 @@ const EditServices = ({ initialValues: { prices, services }, children }) => {
               size="sm"
               disabled={isSubmitting}
             >
-              Save changes
+              {t('account.save_changes')}
             </Button>
           </div>
         </form>

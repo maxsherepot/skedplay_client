@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SelectField } from "UI";
 import { FieldArray, useFormikContext } from "formik";
 import { RatingSvg, TrashSvg } from "icons";
+import {useTranslation} from "react-i18next";
 
 const LangSelector = () => {
   const [langs, setlangs] = useState([
@@ -15,14 +16,15 @@ const LangSelector = () => {
   ]);
 
   const { values } = useFormikContext();
+  const {t, i18n} = useTranslation();
 
   const languages = [
     {
-      label: "English",
+      label: t('language.english'),
       value: "english"
     },
     {
-      label: "Russian",
+      label: t('language.russian'),
       value: "russian"
     }
   ];
@@ -53,7 +55,7 @@ const LangSelector = () => {
       onClick={() => deleteRow(index)}
     >
       <TrashSvg />
-      <div className="ml-2">Delete language</div>
+      <div className="ml-2">{t('ad.delete_language')}</div>
     </div>
   );
 
@@ -98,11 +100,11 @@ const LangSelector = () => {
             ) : (
                 <button type="button" onClick={() => arrayHelpers.push("")}>
                   {/* show this when user has removed all language from the list */}
-                  Add a friend
+                  {t('ad.add_friend')}
               </button>
               )}
             <div>
-              <button type="submit">Submit</button>
+              <button type="submit">{t('common.submit')}</button>
             </div>
           </div>
         )}

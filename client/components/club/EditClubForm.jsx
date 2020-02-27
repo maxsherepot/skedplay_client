@@ -5,9 +5,11 @@ import Router from "next/router";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 function EditClubForm({ initialValues, children }) {
   const { step, setStep } = useSteps();
+  const {t, i18n} = useTranslation();
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
@@ -101,14 +103,14 @@ function EditClubForm({ initialValues, children }) {
                 type="button"
                 disabled={isSubmitting}
               >
-                Back
+                {t('common.back')}
               </Button>
               <Button
                 type="submit"
                 className="text-xl px-16"
                 disabled={isSubmitting}
               >
-                {isLastStep ? "Save" : "Next"}
+                {isLastStep ? t('common.save') : t('common.next')}
               </Button>
             </div>
           </div>

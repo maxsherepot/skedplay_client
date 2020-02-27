@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import Router from "next/router";
+import {useTranslation} from "react-i18next";
 
 import { FORGOT_PASSWORD, RESET_PASSWORD } from "queries";
 import { getErrors } from "utils";
@@ -13,7 +14,7 @@ import {
 
 const ForgotBox = () => {
   const [phone, setPhone] = useState(null);
-
+  const {t, i18n} = useTranslation();
   const [forgotPassword] = useMutation(FORGOT_PASSWORD);
   const [resetPassword] = useMutation(RESET_PASSWORD);
 
@@ -116,7 +117,7 @@ const ForgotBox = () => {
 
       <ForgotForm.Step>
         <h1 className="text-2xl text-center mt-4">
-          Password recovered successfully!
+          {t('forgot.password_recovery_successfully')}
         </h1>
         <div className="text-center my-4">
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>

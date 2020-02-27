@@ -12,7 +12,6 @@ import Cookies from "js-cookie";
 const NAV_HEIGHT = 90;
 
 function Nav({ user, className }) {
-  const { t, i18n } = useTranslation();
   const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
     throttle: 500
@@ -56,6 +55,8 @@ function Nav({ user, className }) {
 
     favoriteCount = favoritesIds.length;
   }
+
+  const { t, i18n } = useTranslation();
 
   return (
     <nav

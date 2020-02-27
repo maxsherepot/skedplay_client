@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from '@react-google-maps/api'
 import cx from "classnames";
+import {useTranslation} from "react-i18next";
 
 function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, goBtn, goBtnLeft, destination, height }) {
   const blackStyles = [
@@ -198,6 +199,7 @@ function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, g
     options.zoomControl = false;
     options.styles = [...blackStyles];
   // }
+  const {t, i18n} = useTranslation();
 
   return (
     <div className='map-container relative' style={{height: height || '400px'}}>
@@ -216,7 +218,7 @@ function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, g
               fontSize: '1rem',
             }}
           >
-            GO
+            {t('index.go')}
           </a>
         </div>
       }

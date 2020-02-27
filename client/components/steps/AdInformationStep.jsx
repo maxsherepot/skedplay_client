@@ -21,14 +21,14 @@ const AdInformationStep = () => {
 
   return (
     <>
-      <div className="text-4xl font-extrabold mb-5">Information</div>
+      <div className="text-4xl font-extrabold mb-5">{t('account.links.information')}</div>
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           <TextField
             className="w-full sm:w-1/3 px-2"
             inputClassName="w-1/3"
-            label="Name"
+            label={t('common.name')}
             name="name"
           />
 
@@ -72,15 +72,15 @@ const AdInformationStep = () => {
           <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Gender"
+            label={t('common.gender')}
             name="gender"
             options={[
               {
-                label: "Male",
+                label: t('common.male'),
                 value: 1
               },
               {
-                label: "Female",
+                label: t('common.female'),
                 value: 2
               }
             ]}
@@ -90,11 +90,11 @@ const AdInformationStep = () => {
           <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Gender type"
+            label={t('employees.gender_type')}
             name="type"
             options={[
               {
-                label: "TS",
+                label: t('steps.gender_type_ts'),
                 value: 1
               }
             ]}
@@ -104,19 +104,19 @@ const AdInformationStep = () => {
           <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Nationality"
+            label={t('common.nationality')}
             name="race_type_id"
             options={[
                 {
-                    label: "European",
+                    label: t('nationality.european'),
                     value: 1
                 },
                 {
-                    label: "Asian",
+                    label: t('nationality.asian'),
                     value: 2
                 },
                 {
-                    label: "African",
+                    label: t('nationality.african'),
                     value: 3
                 },
             ]}
@@ -126,20 +126,20 @@ const AdInformationStep = () => {
           <TextAreaField
             className="w-full px-2"
             rows="5"
-            label="About your self"
+            label={t('steps.about_yourself')}
             name="description"
           />
         </div>
       </div>
 
-      <div className="text-4xl font-extrabold my-5">Contacts</div>
+      <div className="text-4xl font-extrabold my-5">{t('contacts_popup.title')}</div>
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           <TextField
             className="w-1/2 md:w-1/6 px-2"
             inputClassName="w-1/2 md:w-1/6"
-            label="Index"
+            label={t('clubs.index')}
             name="index"
           />
 
@@ -153,7 +153,7 @@ const AdInformationStep = () => {
           <SelectField
             className="w-1/2 md:w-2/6 px-2"
             inputClassName="w-1/2 md:w-2/6"
-            label="City"
+            label={t('clubs.city')}
             name="city_id"
             options={cities.map(c => ({value: c.id, label: c.name}))}
             placeholder=""
@@ -173,7 +173,7 @@ const AdInformationStep = () => {
           <PhoneField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Phone (example + 4179 251-15-22)"
+            label={t('clubs.phone_exampl')}
             name="phone"
             placeholder="+41 79"
           />
@@ -181,14 +181,14 @@ const AdInformationStep = () => {
           <TextField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Mail"
+            label={t('clubs.mail')}
             name="email"
           />
 
           <TextField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label="Webpage"
+            label={t('layout.webpage')}
             name="website"
           />
         </div>
@@ -196,9 +196,9 @@ const AdInformationStep = () => {
 
       <div className="flex items-end my-5">
         <div className="text-4xl font-extrabold leading-none">
-          Personal info
+          {t('steps.personal_info')}
         </div>
-        <div className="ml-6">Optional</div>
+        <div className="ml-6">{t('steps.optional')}</div>
       </div>
 
       <div className="px-2">

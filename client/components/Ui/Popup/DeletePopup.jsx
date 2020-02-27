@@ -2,6 +2,7 @@ import React from "react";
 import {Button} from "UI";
 import Popup from "reactjs-popup";
 import Content from "./Content";
+import {useTranslation} from "react-i18next";
 
 const contentStyle = {
     background: "transparent",
@@ -10,17 +11,24 @@ const contentStyle = {
     border: "none",
 };
 
-const DeleteButton = React.forwardRef(({...props}, ref) => (
-    <Button className="px-3" level="primary" outline size="xxs" ref={ref} {...props}>
-        <span className="text-black hover:text-white">Delete</span>
-    </Button>
-));
+const DeleteButton = React.forwardRef(({...props}, ref) => {
+    const {t, i18n} = useTranslation();
 
-const YesButton = React.forwardRef(({...props}, ref) => (
-    <Button className="px-3 mr-4" level="primary" size="xs" ref={ref} {...props}>
-        Yes, delete
-    </Button>
-));
+    return (
+        <Button className="px-3" level="primary" outline size="xxs" ref={ref} {...props}>
+            <span className="text-black hover:text-white">{t('act.delete')}</span>
+        </Button>
+    )
+});
+
+const YesButton = React.forwardRef(({...props}, ref) => {
+    const {t, i18n} = useTranslation();
+    return (
+        <Button className="px-3 mr-4" level="primary" size="xs" ref={ref} {...props}>
+            {t('answer.yes_delete')}
+        </Button>
+    )
+});
 
 export default ({title, onEnter, children}) => {
     const handleClick = (onClose, onEnter) => {
@@ -29,6 +37,7 @@ export default ({title, onEnter, children}) => {
             onClose();
         }
     };
+    const {t, i18n} = useTranslation();
 
     return (
         <Popup modal trigger={<DeleteButton/>} contentStyle={contentStyle}>
@@ -38,7 +47,7 @@ export default ({title, onEnter, children}) => {
                         <YesButton onClick={() => handleClick(close, onEnter)} />
 
                         <Button className="px-3" level="black" outline size="xs" onClick={close}>
-                            <span className="text-black">No, close</span>
+                            <span className="text-black">{t('answer.no_close')}</span>
                         </Button>
                     </div>
                 )}>

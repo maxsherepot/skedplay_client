@@ -47,6 +47,7 @@
     "select_location": "Select your location",
     "min": "min",
     "hour": "hour",
+    "hours": "hours",
     "night": "Night",
     "edit": "Edit",
     "not_active": "Not active",
@@ -64,7 +65,15 @@
     },
     "create": "Create",
     "save": "Save changes",
-    "": ""
+    "add": "Add",
+    "submit": "Submit",
+    "next": "Next",
+    "our_girls": "Our Girls",
+    "save": "Save",
+    "name": "Name",
+    "title": "Title",
+    "nationality": "Nationality",
+    "prev": "Prev"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -76,6 +85,33 @@
     "help_center": "Help center",
     "copyrights": "Copyright © 2019 Skedplay. All rights reserved.",
     "terms": "Terms and Conditions & Privacy Policy",
+    "add_new_card": "Add new card",
+    "archive_sex_workers": "Archive Sex workers",
+    "events": "Events",
+    "admin": "Admin",
+    "edit": "Edit",
+    "webpage": "Webpage",
+    "edit_ad": "Edit AD",
+    "add_ed": "Add AD",
+    "my_events": "My Events",
+    "add_new_event": "Add new Event",
+    "active_events": "Active Events",
+    "archive": "Archive",
+    "add_new_club": "Add new club",
+    "menu": "Menu",
+    "bills_and_usage": "Bills and usage",
+    "messages": "Messages",
+    "chats": "Chats",
+    "settings": "Settings",
+    "you_have": "You have",
+    "clubs": "clubs",
+    "card": "Card",
+    "ad": "Ad",
+    "girls": "Girls",
+    "favorites": "Favorites"
+  },
+  "favorite": {
+    "clubs": "Clubs",
     "": ""
   },
   "index": {
@@ -86,7 +122,29 @@
     "events_today": "events today",
     "all_clubs": "All clubs",
     "all_girls": "All girls",
-    "": ""
+    "go": "GO",
+    "km_from_me": "km from me",
+    "my_address": "Meine Adresse",
+    "visit_site": "visit site",
+    "km": "km",
+    "today": "TODAY",
+    "find": "Find",
+    "selected": "Selected",
+    "clear_all": "Clear all",
+    "delete_attachment": "Delete attachment",
+    "add_logo": "Add logo",
+    "address": "Address",
+    "main_photo": "Main photo",
+    "items": "items",
+    "coming_soon": "coming soon",
+    "available": "available",
+    "attended_us": "attended us",
+    "not_available": "not available",
+    "popular": "popular"
+  },
+  "answer": {
+    "yes_delete": "Yes, delete",
+    "no_close": "No, close"
   },
   "login": {
     "phone_number": "Phone number",
@@ -99,10 +157,16 @@
   },
   "plans": {
     "choose_plan": "Choose a plan and duration",
-    "": ""
+    "select_payment_method": "Select Payment Method"
   },
   "forgot": {
     "password_recovery": "Password recovery",
+    "password_recovery_successfully": "Password recovered successfully!",
+    "send_verification_code": "Send verification code",
+    "check_verification_code": "Check verification code",
+    "confirm": "Confirm",
+    "go_to_login_page": "Go to Login page",
+    "next_step": "Next step",
     "": ""
   },
   "register": {
@@ -150,7 +214,30 @@
     "meine_events": "Meine Events",
     "event_in": "Event in {{name}}",
     "all_club": "All club events",
-    "": ""
+    "information": "Information",
+    "club_name" : "Club name",
+    "type": "Type",
+    "sauna_club": "Sauna club",
+    "night_club": "Night club",
+    "about_club": "About club",
+    "logotype": "Logotype",
+    "club_location_and_contacts": "Club location and contacts",
+    "index": "Index",
+    "city": "City",
+    "phone_exampl": "Phone (example +4176 251-15-22)",
+    "video": "Video",
+    "mail": "Mail",
+    "set_admin_for_club": "Set administrator for your Club",
+    "club_admin_phone_number": "Club administration phone number",
+    "enable_edit_profiles": "Enable to edit Sex Workers profiles in my Club for this number",
+    "create_club_account": "Create club account",
+    "agree_terms_and_privacy_policy": "By clicking the \"Create Club Account\" button, i agree to the terms\n of servece and privacy policy",
+    "time": "Time",
+    "found": "clubs found"
+  },
+  "max_size_uploaded": {
+    "photos": "Maximum size of photos that can be uploaded is 10mb.",
+    "video": "Maximum size of video that can be uploaded is 100mb."
   },
   "navigation": {
     "go_home": "Go home",
@@ -168,6 +255,24 @@
   "invoices": {
     "page": "Invoice page",
     "": ""
+  },
+  "steps": {
+    "gender_type_ts": "TS",
+    "about_yourself": "About yourself",
+    "personal_info": "Personal info",
+    "optional": "Optional",
+    "alone": "Alone",
+    "activate_date": "Activate date",
+    "price": "Price"
+  },
+  "day": {
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
   },
   "favorites": {
     "page_clubs": "Favorite Clubs",
@@ -197,6 +302,40 @@
     "get_me": "Get me to the club",
     "price_and_services": "Price and Services",
     "personal_information": "Personal Information",
+    "leave_comment": "Hinterlasse eine Bewertung",
+    "my_price_list": "My Price-list",
+    "available": "Available",
+    "show_phone": "Show phone",
+    "events": "Events",
+    "chat": "Chat",
+    "previously_viewed": "Zuvor angesehen",
+    "first_young": "First: young",
+    "first_old": "First: old",
+    "adverts_found": "adverts found",
+    "event_found": "event found"
+  },
+  "titles": {
+    "price_and_service": "Services and Pricing",
+    "": ""
+  },
+  "nationality": {
+    "asian": "Asian",
+    "european": "European",
+    "african": "African"
+  },
+  "language": {
+    "russian": "Russian",
+    "english": "English"
+  },
+  "ad": {
+    "delete_language": "Delete language",
+    "add_friend": "Add a friend",
+    "save": "Save ad",
+    "new": "New ad"
+  },
+  "status" : {
+    "vip": "VIP",
+    "new": "NEW",
     "": ""
   },
   "chat": {
@@ -205,6 +344,20 @@
     "chat_with": "Chat with",
     "chose_chat": "Chose chat",
     "": ""
+  },
+  "review": {
+    "review_successfully_added": "Review successfully added",
+    "email": "Email",
+    "short_title": "Kurztitel",
+    "describe_your_impressions": "Beschreiben Sie Ihre Eindrücke",
+    "hide_my_name": "Hide my name",
+    "send": "Send",
+    "": ""
+  },
+  "schedule": {
+    "view_for_month": "View for a month",
+    "view_phone": "View phone",
+    "my_schedule_in": "My schedule in"
   },
   "account": {
     "my_account": "My account",
@@ -257,6 +410,51 @@
         "placeholder": "Not required"
       }
     },
+    "book_and_pay": "Book and pay",
+    "views": "views",
+    "from_device": "from device",
+    "save_changes": "Save changes",
+    "sex_workers_cards": "Sex workers cards",
+    "label": {
+      "visitor": "Visitor",
+      "club_owner": "Club owner",
+      "private_account": "Private account"
+    },
+    "event_type": {
+      "special_day": "Special day",
+      "parties_and_shows": "Parties and shows",
+      "discount": "Discount"
+    },
+    "links": {
+      "information": "Information",
+      "services_and_prices": "Services and Prices",
+      "photos_and_videos": "Photos and videos",
+      "schedule_and_activation": "Schedule and activation"
+    },
+    "user_name": "User name",
+    "contact_email": "Contact email",
+    "photos": "photos",
+    "videos": "videos",
+    "contact_phone_number": "Contact phone number",
+    "service_news": "Service News",
+    "comment_notifications": "Comment Notifications",
+    "push_notifications": "Push notifications",
+    "notifications_in_browser": "Notifications in the browser",
+    "notification_new_comments_in_your_profile": "Notification of new comments in your profile.",
+    "subscribe_news_updates_and_changes": "Subscribe news updates and changes in the service.",
+    "password": {
+      "current": "Current password",
+      "new": "New password",
+      "confirm_new": "Confirm new password",
+      "enter_new_password": "Enter new password",
+      "enter_new_password_confirmation": "Enter new password confirmation"
+    },
+    "": ""
+  },
+  "act": {
+    "delete": "Delete",
+    "create": "Create",
+    "choose": "Choose",
     "": ""
   },
   "about": {
@@ -304,8 +502,12 @@
         "header": "SSL-соединение",
         "desc": "Безопасный обмен информацией между пользователями"
       },
-      "": "",
-      "": "",
+      "from_me": "from me",
+      "administrator": "Administrator",
+      "show_number": "Show number",
+      "reviews": "reviews",
+      "schedule_in": "Schedule in",
+      "day_off": "Day off",
       "": ""
     },
     "workers": {

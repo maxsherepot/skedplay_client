@@ -3,8 +3,10 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { Button, TextField, PhoneField } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 const EditAccount = ({ initialValues, onSubmit }) => {
+  const {t, i18n} = useTranslation();
   const handleSubmits = async (
     { name, email, phone },
     { setSubmitting, setErrors, setError, setStatus }
@@ -56,13 +58,13 @@ const EditAccount = ({ initialValues, onSubmit }) => {
               </div>
             )}
 
-            <TextField className="w-1/3" label="User name" name="name" />
+            <TextField className="w-1/3" label={t('account.user_name')} name="name" />
 
-            <TextField className="w-1/3" label="Contact email" name="email" />
+            <TextField className="w-1/3" label={t('account.contact_email')} name="email" />
 
             <PhoneField
               className="w-1/3"
-              label="Contact phone number"
+              label={t('account.contact_phone_number')}
               name="phone"
             />
 
@@ -72,7 +74,7 @@ const EditAccount = ({ initialValues, onSubmit }) => {
               size="sm"
               disabled={isSubmitting}
             >
-              Save changes
+              {t('account.save_changes')}
             </Button>
           </div>
         </form>

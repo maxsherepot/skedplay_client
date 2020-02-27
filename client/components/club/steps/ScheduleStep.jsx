@@ -2,9 +2,11 @@ import React from "react";
 import * as Yup from "yup";
 import { useFormikContext } from "formik";
 import { SelectGroupField, SelectField } from "UI";
+import {useTranslation} from "react-i18next";
 
 const ScheduleStep = () => {
   const { values } = useFormikContext();
+  const {t, i18n} = useTranslation();
 
   let hours = [];
   let minutes = [
@@ -38,31 +40,31 @@ const ScheduleStep = () => {
   const weeks = [
     {
       day: 0,
-      name: "Sunday"
+      name: t('day.sunday')
     },
     {
       day: 1,
-      name: "Monday"
+      name: t('day.monday')
     },
     {
       day: 2,
-      name: "Tuesday"
+      name: t('day.tuesday')
     },
     {
       day: 3,
-      name: "Wednesday"
+      name: t('day.wednesday')
     },
     {
       day: 4,
-      name: "Thursday"
+      name: t('day.thursday')
     },
     {
       day: 5,
-      name: "Friday"
+      name: t('day.friday')
     },
     {
       day: 6,
-      name: "Saturday"
+      name: t('day.saturday')
     }
   ]
 
@@ -78,10 +80,9 @@ const ScheduleStep = () => {
 
   let startOptions = timeOptions
   startOptions.unshift({
-    label: "Day off",
+    label: t('clubs.day_off'),
     value: 0,
   })
-
 
   return (
     <div className="px-2">
@@ -91,7 +92,7 @@ const ScheduleStep = () => {
             <div className="w-2/5 px-2">{week.name}</div>
             <div className="w-3/5 px-2">
               <SelectGroupField
-                label="Time"
+                label={t('clubs.time')}
                 name="time"
               >
                 <SelectField

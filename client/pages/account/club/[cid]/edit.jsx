@@ -19,13 +19,13 @@ const AccountClubEdit = ({ user }) => {
             id: cid
         }
     });
-    const links = [
-        'Information',
-        'Services and Prices',
-        'Photos and videos',
-        'Schedule and activation',
-    ];
     const {t, i18n} = useTranslation();
+    const links = [
+        t('account.links.information'),
+        t('account.links.services_and_prices'),
+        t('account.links.photos_and_videos'),
+        t('account.links.schedule_and_activation'),
+    ];
 
     if (loading) {
         return <Loader/>;

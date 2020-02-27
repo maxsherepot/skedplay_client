@@ -8,10 +8,13 @@ import { TextField } from "UI/Forms";
 import {useFormikContext} from "formik";
 import PropTypes from "prop-types";
 import cx from 'classnames';
+import {useTranslation} from "react-i18next";
 
 function LocationSearchInput({initAddress, className, inputClassName}) {
   const [address, setAddress] = useState(initAddress);
   const { setFieldValue } = useFormikContext();
+
+  const {t, i18n} = useTranslation();
 
   const handleChange = address => {
     setAddress(address);
@@ -38,7 +41,7 @@ function LocationSearchInput({initAddress, className, inputClassName}) {
             inputClassName={cx([
               inputClassName,
             ])}
-            label="Address"
+            label={t('index.address')}
             name="address"
             {...getInputProps({
               className: 'location-search-input',

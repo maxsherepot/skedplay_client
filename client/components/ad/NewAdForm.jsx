@@ -4,9 +4,11 @@ import redirect from "lib/redirect";
 import { useSteps } from "hooks";
 import { Button, FormGroup } from "UI";
 import { getErrors } from "utils";
+import {useTranslation} from "react-i18next";
 
 function NewAdForm({ children, clubId }) {
   const { step, setStep } = useSteps();
+  const {t, i18n} = useTranslation();
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
@@ -186,14 +188,14 @@ function NewAdForm({ children, clubId }) {
                 type="button"
                 disabled={isSubmitting}
               >
-                Back
+                {t('common.back')}
               </Button>
               <Button
                 type="submit"
                 className="text-xl px-16"
                 disabled={isSubmitting}
               >
-                {isLastStep ? "Save ad" : "Next"}
+                {isLastStep ? t('ad.save') : t('common.next')}
               </Button>
             </div>
           </div>

@@ -2,30 +2,33 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "UI";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
-
-const counters = [
-    {
-        counter: "employees_photos",
-        title: "photos",
-        icon: "photo",
-        buttonText: null
-    },
-    {
-        counter: "employees_videos",
-        title: "videos",
-        icon: "video",
-        buttonText: null
-    }
-];
+import {useTranslation} from "react-i18next";
 
 const PrivateBox = ({ user }) => {
+    const {t, i18n} = useTranslation();
+
     const employeeButtonText = user.employee
-        ? 'Edit'
-        : 'Add';
+        ? t('common.edit')
+        : t('common.add');
 
     const employeeLink = user.employee
       ? '/account/ad'
       : '/girls/add';
+
+    const counters = [
+        {
+            counter: "employees_photos",
+            title: t('account.photos'),
+            icon: "photo",
+            buttonText: null
+        },
+        {
+            counter: "employees_videos",
+            title: t('account.videos'),
+            icon: "video",
+            buttonText: null
+        }
+    ];
 
     return (
         <>
@@ -34,7 +37,7 @@ const PrivateBox = ({ user }) => {
                     <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                         <div className="flex flex-col justify-center h-full">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-bold mb-6">Card / Ad</span>
+                                <span className="text-2xl font-bold mb-6">{t('layout.card')} / {t('layout.ad')}</span>
                                 <UserSvg />
                             </div>
                             <Link href={employeeLink}>
@@ -52,11 +55,11 @@ const PrivateBox = ({ user }) => {
                     <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                         <div className="flex flex-col justify-center h-full">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-bold mb-6">{user.employees_events} Events</span>
+                                <span className="text-2xl font-bold mb-6">{user.employees_events} {t('account.events')}</span>
                                 <StarSvg />
                             </div>
                             <Button className="w-2/3" size="sm">
-                                Add new
+                                {t('navigation.add_new')}
                             </Button>
                         </div>
                     </div>

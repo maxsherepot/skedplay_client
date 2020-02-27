@@ -4,9 +4,11 @@ import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
+import {useTranslation} from "react-i18next";
 
 const EmployeeBox = ({ employee, user, viewed, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
+  const {t, i18n} = useTranslation();
 
   const leftInfo = (
     <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
@@ -21,7 +23,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
         level="success"
         weight="normal"
       >
-        Available
+        {t('employees.available')}
       </Button>
     </div>
   );
@@ -41,7 +43,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           className="ml-4 whitespace-no-wrap"
           onClick={() => setToggleNumber(!showNumber)}
         >
-          Show phone
+            {t('employees.show_phone')}
         </span>
       )}
     </div>
@@ -57,7 +59,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               href={`/employees/[id]/information`}
               as={`/employees/${employee.id}/information`}
             >
-              <a>Information</a>
+              <a>{t('account.links.information')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
@@ -66,7 +68,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               href={`/employees/[id]/events`}
               as={`/employees/${employee.id}/events`}
             >
-              <a>Events</a>
+              <a>{t('employees.events')}</a>
             </ActiveLink>
           </li>
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
@@ -75,7 +77,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               href={`/employees/[id]/reviews`}
               as={`/employees/${employee.id}/reviews`}
             >
-              <a>Reviews</a>
+              <a>{t('common.reviews')}</a>
             </ActiveLink>
 
             <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
@@ -89,7 +91,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
                 href={`/employees/[id]/chat`}
                 as={`/employees/${employee.id}/chat`}
               >
-                <a>Chat</a>
+                <a>{t('employees.chat')}</a>
               </ActiveLink>
               {employee.unread_messages_count > 0 &&
                 <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">

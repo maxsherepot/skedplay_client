@@ -5,6 +5,7 @@ import { GET_EMPLOYEE_SCHEDULE } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
 import { Loader } from "UI";
+import {useTranslation} from "react-i18next";
 
 const EmployeeSchedule = ({ employee, ...rest }) => {
   const {
@@ -33,12 +34,14 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
     return phone;
   };
 
+  const {t, i18n} = useTranslation();
+
   return (
     <>
       <div className="flex items-center">
         <div className="text-2xl font-extrabold my-5">{rest.title}</div>
         <span className="hidden sm:flex items-center ml-9">
-          <span className="text-xs mr-2">View for a month</span>
+          <span className="text-xs mr-2">{t('schedule.view_for_month')}</span>
           <CalendarSvg />
         </span>
       </div>
@@ -77,7 +80,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                           className="text-red font-bold cursor-pointer whitespace-no-wrap"
                           onClick={() => toggleShowPhoneId(i)}
                         >
-                          View phone
+                          {t('schedule.view_phone')}
                         </span>
                       )}
                     </div>
@@ -91,7 +94,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                       </div>
                     ) : (
                         <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
-                          <div>Day off</div>
+                          <div>{t('about.clubs.day_off')}</div>
                         </div>
                       )}
                   </>
@@ -100,7 +103,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
           ))}
 
         <span className="flex sm:hidden items-center mt-6">
-          <span className="text-sm mr-2">View for a month</span>
+          <span className="text-sm mr-2">{t('schedule.view_for_month')}</span>
           <CalendarSvg />
         </span>
       </div>

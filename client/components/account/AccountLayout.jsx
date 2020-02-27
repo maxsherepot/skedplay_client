@@ -7,6 +7,7 @@ import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
+import {useTranslation} from "react-i18next";
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
@@ -25,6 +26,8 @@ const ProfileHeader = ({user}) => (
 
 const ClubMenu = ({clubs}) => {
     const router = useRouter();
+    const {t, i18n} = useTranslation();
+
     return clubs.map(({id, name, employees, events}) => {
         const path = '/account/club/:cid';
         const asPath = `/account/club/${id}`;
@@ -47,7 +50,7 @@ const ClubMenu = ({clubs}) => {
 
                         <Link href={`/${path}/workers`} as={`${asPath}/workers`}>
                             <a className="text-red p-1 cursor-pointer">
-                                Sex workers cards
+                                {t('account.sex_workers_cards')}
                                 <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
                                   {(employees && employees.length) || 0}
                                 </span>
@@ -56,16 +59,16 @@ const ClubMenu = ({clubs}) => {
                         <Link href={`/account/club/${id}/workers/add`}>
                             <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
                                 <AddSvg/>
-                                <span className="ml-2">Add new card</span>
+                                <span className="ml-2">{t('layout.add_new_card')}</span>
                             </a>
                         </Link>
                         <div className="text-red p-1 cursor-pointer">
-                            Archive Sex workers
+                            {t('layout.archive_sex_workers')}
                         </div>
                         <div className="text-red p-1 cursor-pointer">
                             <Link href={`/${path}/events`} as={`${asPath}/events`}>
                                 <a>
-                                    Events
+                                    {t('layout.events')}
                                     <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
                                         {(events && events.length) || 0}
                                    </span>
@@ -74,10 +77,10 @@ const ClubMenu = ({clubs}) => {
                         </div>
                         <Link href={`/${path}/edit`} as={`${asPath}/edit`}>
                             <a>
-                                <div className="text-red p-1 cursor-pointer">Admin / Edit</div>
+                                <div className="text-red p-1 cursor-pointer">{t('layout.admin')} / {t('layout.edit')}</div>
                             </a>
                         </Link>
-                        <div className="text-red p-1 cursor-pointer">Webpage</div>
+                        <div className="text-red p-1 cursor-pointer">{t('layout.webpage')}</div>
                     </div>
                 )}
             </div>
@@ -86,9 +89,10 @@ const ClubMenu = ({clubs}) => {
 };
 
 const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees, employee}}) => {
+    const {t, i18n} = useTranslation();
     const employeeButtonText = employee
-      ? 'Edit AD'
-      : 'Add AD';
+      ? t('layout.edit_ad')
+      : t('layout.add_ad');
 
     const employeeLink = employee
       ? '/account/ad'
@@ -116,20 +120,20 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               {is_employee && (
                 <div className="mt-5">
                   <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                    My Events
+                      {t('layout.my_events')}
                   </span>
                     <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
                         <li>
                             <Link href="/account/events/create">
                                 <a>
-                                    Add new Event
+                                    {t('layout.add_new_event')}
                                 </a>
                             </Link>
                         </li>
                         <li>
                             <Link href="/account/events">
                                 <a>
-                                    Active Events
+                                  {t('layout.active_events')}
                                     {(!userCountsLoading && userCounts) &&
                                       <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
                                           {userCounts.employees_events}
@@ -138,7 +142,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                                 </a>
                             </Link>
                         </li>
-                        <li>Archive</li>
+                        <li>{t('layout.archive')}</li>
                     </ul>
                 </div>
               )}
@@ -146,7 +150,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               {is_club_owner && (
                 <>
                     <div className="text-2xl font-extrabold px-5 mt-5">
-                        You have {clubs.length} clubs
+                        {t('layout.you_have')} {clubs.length} {t('layout.clubs')}
                     </div>
 
                     <ClubMenu clubs={clubs}/>
@@ -154,7 +158,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                     <Link href="/clubs/add">
                         <a className="ml-5 mt-5">
                             <Button className="px-8" size="sm">
-                                Add new club
+                                {t('layout.add_new_club')}
                             </Button>
                         </a>
                     </Link>
@@ -162,12 +166,12 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               )}
 
               {is_club_owner && (
-                <div className="text-2xl font-extrabold px-5 mt-5">Menu</div>
+                <div className="text-2xl font-extrabold px-5 mt-5">{t('layout.menu')}</div>
               )}
 
               <div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                  Bills and usage
+                  {t('layout.bills_and_usage')}
                 </span>
               </div>
 
@@ -176,7 +180,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
 
                   <Link href="/account/chats">
                       <a>
-                        Messages / Chats
+                        {t('layout.messages')} / {t('layout.chats')}
                       </a>
                   </Link>
                 </span>
@@ -193,7 +197,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               <div className="mt-4">
                   <Link href="/account/settings">
                       <a className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                          Settings
+                          {t('layout.settings')}
                       </a>
                   </Link>
               </div>

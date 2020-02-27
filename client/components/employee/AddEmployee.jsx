@@ -7,29 +7,31 @@ import StepBox from "components/StepBox";
 import { NewAdBox } from "components/ad";
 import { CloseSvg } from "icons";
 import { PageCard } from "UI";
+import {useTranslation} from "react-i18next";
 
 const AddEmployee = ({clubId}) => {
   const router = useRouter();
+  const {t, i18n} = useTranslation();
 
   const links = [
-    "Card / Ad Information",
-    "Services and price",
-    "Photos and videos",
-    "Schedule and activation",
-    "Book and pay"
+    t('account.card_information'),
+    t('account.services_and_price'),
+    t('account.photos_and_videos'),
+    t('account.schedule_and_activation'),
+    t('account.book_and_pay')
   ];
 
   return (
     <>
       <div className="fluid-container">
         <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto py-8">
-          <div className="text-4-65xl font-extrabold">New ad</div>
+          <div className="text-4-65xl font-extrabold">{t('ad.new')}</div>
           <div
             className="flex items-center cursor-pointer"
             onClick={() => router.back()}
           >
             <CloseSvg width={18} height={18} />
-            <div className="ml-2">Close without saves</div>
+            <div className="ml-2">{t('clubs.close')}</div>
           </div>
         </div>
       </div>

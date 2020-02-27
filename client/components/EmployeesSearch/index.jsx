@@ -8,10 +8,12 @@ import {useState} from "react";
 import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
+import {useTranslation} from "react-i18next";
 
 const GirlsSearch = ({ user, entityName, fields, filters }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState({});
+  const {t, i18n} = useTranslation();
 
   let stateFilters = filtersState;
 
@@ -52,7 +54,7 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
   const sorts = [
     {
       id: 1,
-      label: 'First: young',
+      label: t('employees.first_young'),
       orderBy: [
         {
           field: "age",
@@ -62,7 +64,7 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
     },
     {
       id: 2,
-      label: 'First: old',
+      label: t('employees.first_old'),
       orderBy: [
         {
           field: "age",

@@ -109,7 +109,7 @@ const AccountEventsIndex = ({user}) => {
                             </Link>
                         </div>
                         <div className="px-2">
-                            <DeletePopup onEnter={handleDelete} title={`Delete ${event.title}?`}>
+                            <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${event.title}?`}>
                                 <div className="pt-6">
                                     <p>{t('account.are_you_sure_delete_event')}</p>
                                 </div>

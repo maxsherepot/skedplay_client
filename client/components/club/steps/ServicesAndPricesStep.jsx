@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { TextField, CheckboxField, Loader } from "UI";
 import { GET_PRICE_TYPES, GET_SERVICES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
+import {useTranslation} from "react-i18next";
 
 const ServicesAndPricesStep = () => {
   const { data: { price_types } = {}, loading: priceLoading } = useQuery(
@@ -11,6 +12,7 @@ const ServicesAndPricesStep = () => {
   const { data: { services } = {}, loading: serviceLoading } = useQuery(
     GET_SERVICES
   );
+  const {t, i18n} = useTranslation();
 
   if (priceLoading || serviceLoading) {
     return <Loader/>;
@@ -35,7 +37,7 @@ const ServicesAndPricesStep = () => {
         </div>
       </div>
 
-      <div className="text-4xl font-extrabold my-5">Services</div>
+      <div className="text-4xl font-extrabold my-5">{t('common.services')}</div>
 
       <div className="px-4">
         <div className="flex flex-wrap -mx-8">

@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import { CloseSvg } from "icons";
+import {useTranslation} from "react-i18next";
 
 function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilters }) {
   const selected = [];
+  const {t, i18n} = useTranslation();
 
   const getLabelFromOptions = (field, value) => {
     if (!field) {
@@ -96,7 +98,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
   return (
     <div className="border-b border-divider">
       <div className="fluid-container p-5 flex items-center">
-        <div className="hidden sm:block mr-2">Selected:</div>
+        <div className="hidden sm:block mr-2">{t('index.selected')}:</div>
         <div className="flex flex-wrap items-center -mb-4">
           {selected.map((s, i) => (
             <div
@@ -119,7 +121,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
             className="text-red cursor-pointer ml-4 mb-4"
             onClick={() => clearAllValue()}
           >
-            Clear all
+            {t('index.clear_all')}
           </span>
         </div>
       </div>

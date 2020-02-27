@@ -26,10 +26,12 @@ const DistanceView = ({ distanceKm }) => {
         return '';
     }
 
+    const {t, i18n} = useTranslation();
+
     return (
       <div className="flex items-center my-2">
           <MapSvg/>
-          <span className="ml-3 text-grey text-sm">{distanceKm} km from me</span>
+          <span className="ml-3 text-grey text-sm">{distanceKm} {t('index.km')} {t('clubs.from_me')}</span>
       </div>
     )
 };
@@ -46,7 +48,6 @@ const ClubInformation = ({user}) => {
         }
     });
     const {t, i18n} = useTranslation();
-
 
     if (loading) {
         return <Loader />;
@@ -80,7 +81,7 @@ const ClubInformation = ({user}) => {
             </div>
 
             <div className="bg-white rounded-lg p-4">
-                <p className="font-bold">Administrator: James Uebb</p>
+                <p className="font-bold">{t('about.clubs.administrator')}: James Uebb</p>
                 <div className="flex items-center my-2">
                     <div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
             <span
@@ -95,7 +96,7 @@ const ClubInformation = ({user}) => {
                                 className="ml-4 text-red whitespace-no-wrap"
                                 onClick={() => toggleShowPhone(!isShowPhone)}
                             >
-                Show number
+                  {t('about.clubs.show_number')}
               </span>
                         )}
                     </div>
@@ -115,7 +116,7 @@ const ClubInformation = ({user}) => {
                     <RatingSvg className="mx-1"/>
                     <RatingSvg className="mx-1"/>
                 </div>
-                <div>23 reviews</div>
+                <div>23 {t('about.clubs.reviews')}</div>
             </div>
 
             {favorited && (
@@ -216,32 +217,32 @@ const ClubInformation = ({user}) => {
                                         <div className="flex flex-col sm:flex-row">
                                             <div className="w-full sm:w-1/3 px-2 sm:px-0">
                                                 <section className="mb-3">
-                                                    <div className="text-grey">15 min</div>
+                                                    <div className="text-grey">15 {t('common.min')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$100</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">30 min</div>
+                                                    <div className="text-grey">30 {t('common.min')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$150</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">45 min</div>
+                                                    <div className="text-grey">45 {t('common.min')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$250</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">1 hour</div>
+                                                    <div className="text-grey">1 {t('common.hour')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$300</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">2 hours</div>
+                                                    <div className="text-grey">2 {t('common.hours')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$300</div>
                                                 </section>
                                                 <section className="mb-3">
-                                                    <div className="text-grey">3 hours</div>
+                                                    <div className="text-grey">3 {t('common.hours')}</div>
                                                     <div className="line"/>
                                                     <div className="w-12">$600</div>
                                                 </section>
@@ -290,7 +291,7 @@ const ClubInformation = ({user}) => {
                                 </div>
                                 <div className="w-full md:w-5/12 px-3 hd:hidden">
                                     <ClubSchedule
-                                        title={`Schedule in ${club.name}`}
+                                        title={`${t('about.clubs.schedule_in')} ${club.name}`}
                                         club={club}
                                     />
                                 </div>
@@ -299,7 +300,7 @@ const ClubInformation = ({user}) => {
                     </div>
                 </div>
                 <div className="w-full hd:w-3/12 px-3 hidden hd:block">
-                    <ClubSchedule title={`Schedule in ${club.name}`} club={club}/>
+                    <ClubSchedule title={`${t('about.clubs.schedule_in')} ${club.name}`} club={club}/>
                 </div>
             </div>
 

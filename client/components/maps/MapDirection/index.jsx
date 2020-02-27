@@ -4,6 +4,7 @@ const { Component } = require('react');
 const { GoogleMap, DirectionsService, DirectionsRenderer } = require("@react-google-maps/api");
 
 import cx from 'classnames';
+import {useTranslation} from "react-i18next";
 
 class MapDirection extends Component {
   constructor (props) {
@@ -253,7 +254,7 @@ class MapDirection extends Component {
       options.zoomControl = false;
       options.styles = [...blackStyles];
     // }
-
+    const {t, i18n} = useTranslation();
     return (
       <div className='map-container relative' style={{height: this.props.height || '400px'}}>
         <div className={cx([
@@ -269,7 +270,7 @@ class MapDirection extends Component {
               fontSize: '1rem',
             }}
           >
-            GO
+            {t('index.go')}
           </a>
         </div>
 

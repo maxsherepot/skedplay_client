@@ -10,6 +10,7 @@ import { MapSvg, CloseSvg } from "icons";
 import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
+import {useTranslation} from "react-i18next";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
@@ -20,10 +21,12 @@ function DistanceView({distanceKm}) {
     );
   }
 
+  const {t, i18n} = useTranslation();
+
   return (
     <div className="flex py-1 pr-1">
       <MapSvg />
-      <span className="ml-1 whitespace-no-wrap">{distanceKm} km</span>
+      <span className="ml-1 whitespace-no-wrap">{distanceKm} {t('index.km')}</span>
     </div>
   );
 }
@@ -44,6 +47,8 @@ function EventCard({
   const [thumb] = photos;
 
   const isMap = eventMapId === id;
+
+  const {t, i18n} = useTranslation();
 
   return (
     <div
@@ -92,7 +97,7 @@ function EventCard({
                   weight="normal"
                   size="xxs"
                 >
-                  TODAY
+                  {t('index.today')}
                 </Button>
               </div>
               <div className="px-3">
@@ -103,10 +108,10 @@ function EventCard({
           {/* {title} */}
           {href ? (
             <Link href={`${href}/[id]`} as={`${href}/${id}`}>
-              <a className="hover:text-red">Ultra Party</a>
+              <a className="hover:text-red">{t('employees.ultra_party')}</a>
             </Link>
           ) : (
-            <div>Ultra Party</div>
+            <div>{t('employees.ultra_party')}</div>
           )}
         </div>
       </div>
@@ -146,7 +151,7 @@ function EventCard({
 
           <div className="absolute bottom-0 left-0 z-30 p-6">
             <Button className="px-6" size="sm">
-              Get me to the club
+              {t('employees.get_me')}
             </Button>
           </div>
         </div>

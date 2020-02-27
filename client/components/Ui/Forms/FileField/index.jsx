@@ -6,11 +6,13 @@ import { CloseSvg, AddPhotoSvg } from "icons";
 
 import { FormGroup } from "UI";
 import formErrors from "services/formErrors";
+import {useTranslation} from "react-i18next";
 
 function FileField({ className, labelClassName, preview, label, name, ...inputProps }) {
   const [filePreview, setFilePreview] = useState(null);
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
     if (preview) {
@@ -45,14 +47,14 @@ function FileField({ className, labelClassName, preview, label, name, ...inputPr
                 onClick={() => setFilePreview(null)}
               >
                 <CloseSvg width={14} height={14} />
-                <div className="ml-2">Delete attachment</div>
+                <div className="ml-2">{t('index.delete_attachment')}</div>
               </div>
             </div>
           ) : (
             <div className="border border-light-grey border-dashed rounded-lg py-7">
               <div className="flex flex-col items-center">
                 <AddPhotoSvg />
-                <span className="mt-4 font-medium text-lg">Add logo</span>
+                <span className="mt-4 font-medium text-lg">{t('index.add_logo')}</span>
               </div>
               <input
                 className="absolute inset-0 opacity-0 w-full"
