@@ -75,9 +75,9 @@ function Error({statusCode}) {
                 </div>
 
                 <div className="fluid-container">
-                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2"
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 error-section__main-info-img"
                          src="/static/img/man.png" alt=""/>
-                    <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4"
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 error-section__main-info-img"
                          src="/static/img/woman.png" alt=""/>
                 </div>
             </AnimationBackground>

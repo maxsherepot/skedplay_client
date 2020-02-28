@@ -28,6 +28,12 @@ main {
   }
 }
 
+@media (max-width: 876px) {
+  .error-section__main-info-img {
+    display: none;
+  }
+}
+
 .index-bg-bottom {
   position: absolute;
   bottom: 0;

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {
     Logo,
     Button,
+    AnimationBackground,
 } from "UI";
 import {useTranslation} from "react-i18next";
 
@@ -25,6 +26,12 @@ function ErrorTest() {
                         </Button>
                     </a>
                 </Link>
+            </div>
+            <div className="fluid-container">
+                <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 error-section__main-info-img"
+                     src="/static/img/man.png" alt=""/>
+                <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 error-section__main-info-img"
+                     src="/static/img/woman.png" alt=""/>
             </div>
         </div>
     );
