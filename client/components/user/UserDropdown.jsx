@@ -4,7 +4,7 @@ import Link from "next/link";
 import redirect from "lib/redirect";
 import { useApolloClient } from "@apollo/react-hooks";
 import { AddSvg, ProfileSvg } from "icons";
-import { Avatar, MenuDropdown, Button } from "UI";
+import { Avatar, MenuDropdown, Button, FavoritesCount } from "UI";
 import { AccountLabel } from "components/account";
 import { setCookie } from "utils";
 import {useTranslation} from "react-i18next";
@@ -81,13 +81,17 @@ const UserDropdown = ({ user }) => {
               </div>
             )}
             {user.is_client && (
-              <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                {t('common.my_favorites')}
-              </div>
+              <Link href="/favorites/girls">
+                <a className="text-red font-medium hover:text-pink cursor-pointer mb-2">
+                  {t('common.my_favorites')} (<FavoritesCount/>)
+                </a>
+              </Link>
             )}
-            <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-              {t('common.messages_chats')}
-            </div>
+            <Link href="/account/chats">
+              <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
+                {t('common.messages_chats')} ({user.unread_messages_count || 0})
+              </div>
+            </Link>
             {user.is_employee &&  user.employee && user.employee.reviews.length !== 0 && (
               <div className="text-red font-medium hover:text-pink cursor-pointer">
                 {t('common.reviews')}
@@ -95,11 +99,11 @@ const UserDropdown = ({ user }) => {
             )}
           </div>
           <div className="w-1/2">
-            {user.is_club_owner && (
-              <div className="text-red font-medium mb-2 hover:text-pink cursor-pointer">
-                {t('common.my_clubs')}
-              </div>
-            )}
+            {/*{user.is_club_owner && (*/}
+            {/*  <div className="text-red font-medium mb-2 hover:text-pink cursor-pointer">*/}
+            {/*    {t('common.my_clubs')}*/}
+            {/*  </div>*/}
+            {/*)}*/}
             {user.is_club_owner && (
               <div className="flex items-center mb-2">
                 <Link href="/clubs/add">
@@ -109,16 +113,35 @@ const UserDropdown = ({ user }) => {
                 </Link>
               </div>
             )}
-            {(user.is_employee || user.is_club_owner) && (
-              <div className="flex items-center mb-2">
-                <AddSvg /> <span className="ml-2">{t('common.add_new_ad')}</span>
-              </div>
+            {(user.is_employee && !user.employee) && (
+              <Link href="/girls/add">
+                <a className="flex items-center mb-2">
+                  <AddSvg /> <span className="ml-2">{t('common.add_new_ad')}</span>
+                </a>
+              </Link>
             )}
-            {(user.is_employee || user.is_club_owner) && (
-              <div className="flex items-center">
-                <AddSvg />
-                <span className="ml-2">{t('common.add_new_event')}</span>
-              </div>
+            {(user.is_employee && user.employee) && (
+              <Link href="/account/ad">
+                <a className="flex items-center mb-2">
+                  <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>
+                </a>
+              </Link>
+            )}
+            {user.is_employee && (
+              <Link href="/account/events/create">
+                <a className="flex items-center">
+                  <AddSvg />
+                  <span className="ml-2">{t('common.add_new_event')}</span>
+                </a>
+              </Link>
+            )}
+            {user.is_club_owner && (
+              <Link href="/account/clubs/add">
+                <a className="flex items-center">
+                  <AddSvg />
+                  <span className="ml-2">{t('common.add_new_club')}</span>
+                </a>
+              </Link>
             )}
           </div>
         </div>

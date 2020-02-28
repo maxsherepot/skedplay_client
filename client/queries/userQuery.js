@@ -14,6 +14,7 @@ export const GET_ME = gql`
             employees_photos
             employees_videos
 #            employees_events
+            unread_messages_count
             clubs {
                 id
                 name

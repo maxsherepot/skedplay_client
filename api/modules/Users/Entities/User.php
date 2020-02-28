@@ -12,6 +12,7 @@ use Laravel\Passport\HasApiTokens;
 use Modules\Billing\Traits\Billable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
+use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\Service;
 use Modules\Employees\Entities\Employee;
@@ -231,6 +232,18 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
             ->where('chats.receiver_id', $this->id)
             ->orWhere('chats.creator_id', $this->id)
             ->orderBy('updated_at', 'desc');
+    }
+
+    public function unreadMessagesCount(): int
+    {
+        return Message::query()
+            ->select(['messages.*'])
+            ->leftJoin('chats', 'chats.id', '=', 'messages.chat_id')
+            ->whereFromClient(0)
+            ->whereSeen(0)
+//            ->where('chats.employee_id', $this->id)
+            ->where('chats.client_id', $this->id)
+            ->count();
     }
 
     public function getNovaStatusAttribute(): string

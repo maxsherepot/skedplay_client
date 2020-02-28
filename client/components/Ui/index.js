@@ -21,6 +21,7 @@ export { default as Avatar } from "./Avatar";
 export { default as Button } from "./Button";
 export { default as LangSelector } from "./LangSelector";
 export { default as Loader } from "./Loader";
+export { default as FavoritesCount } from "./FavoritesCount";
 
 export { default as Dropdown } from "./Dropdown";
 export { default as Lang } from "./Lang";

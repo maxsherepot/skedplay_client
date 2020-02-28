@@ -197,10 +197,10 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return Message::query()
             ->select(['messages.*'])
             ->leftJoin('chats', 'chats.id', '=', 'messages.chat_id')
-            ->whereFromClient(0)
+            ->whereFromClient(1)
             ->whereSeen(0)
             ->where('chats.employee_id', $this->id)
-            ->where('chats.client_id', auth()->id())
+//            ->where('chats.client_id', auth()->id())
             ->count();
     }
 

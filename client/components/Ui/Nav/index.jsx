@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Link from "next/link";
 
 import { ProfileSvg } from "icons";
-import { Logo, Button, Lang } from "UI";
+import { Logo, Button, Lang, FavoritesCount } from "UI";
 import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
@@ -33,28 +33,6 @@ function Nav({ user, className }) {
 
     toggleNav(!nav);
   };
-
-  const loadFavoriteFromCookies = true;
-
-  let favoriteCount = 0;
-
-  if (!loadFavoriteFromCookies && user) {
-    favoriteCount = user.favorites_count;
-  } else {
-    const entities = ['employee', 'club', 'event'];
-
-    let favoritesIds = [];
-
-    for (let i in entities) {
-      favoritesIds.push(
-        ...JSON.parse(
-          Cookies.get('favorite_' + entities[i]) || '[]'
-        )
-      );
-    }
-
-    favoriteCount = favoritesIds.length;
-  }
 
   const { t, i18n } = useTranslation();
 
@@ -133,7 +111,7 @@ function Nav({ user, className }) {
             <span className="menu-icons__item hidden md:block">
               <Lang/>
             </span>
-            {user &&
+            {(user && user.is_employee && !user.employee) &&
               <Link href="/girls/add">
                 <a className="menu-icons__item hidden sm:block">
                   <button className="bg-red text-white px-5 py-2 rounded-full">
@@ -142,6 +120,17 @@ function Nav({ user, className }) {
                 </a>
               </Link>
             }
+
+            {(user && user.is_employee && user.employee) &&
+              <Link href="/account/ad">
+                <a className="menu-icons__item hidden sm:block">
+                  <button className="bg-red text-white px-5 py-2 rounded-full">
+                    {t('layout.edit_ad')}
+                  </button>
+                </a>
+              </Link>
+            }
+
             <Link href="/favorites/girls">
               <a className="menu-icons__item hovered">
                 <svg
@@ -158,7 +147,7 @@ function Nav({ user, className }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-                {favoriteCount}
+                <FavoritesCount/>
               </a>
             </Link>
             {user &&
@@ -269,10 +258,17 @@ function Nav({ user, className }) {
               </Link>
             </li>
           </ul>
-          {user &&
+          {(user && user.is_employee && !user.employee) &&
             <Link href="/girls/add">
               <a>
                 <Button className="w-full text-2xl mt-1">{t('common.add_new_ad')}</Button>
+              </a>
+            </Link>
+          }
+          {(user && user.is_employee && user.employee) &&
+            <Link href="/account/ad">
+              <a>
+                <Button className="w-full text-2xl mt-1">{t('layout.edit_ad')}</Button>
               </a>
             </Link>
           }

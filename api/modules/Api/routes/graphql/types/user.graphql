@@ -17,6 +17,7 @@ type User {
     employees_photos: Int
     employees_videos: Int
     employees_events: Int
+    unread_messages_count: Int! @method(name: "unreadMessagesCount")
 }
 
 input UserInput {
