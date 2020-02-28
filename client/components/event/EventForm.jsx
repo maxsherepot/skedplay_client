@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Formik} from "formik";
+import {Formik, useFormikContext} from "formik";
 import * as Yup from "yup";
 import {BlackPlusSvg} from "icons";
 import {
@@ -12,6 +12,8 @@ import {
   CheckboxField,
   DateField,
   LocationSearchInput,
+  EventEmployeesField,
+  Loader,
 } from "UI";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/react-hooks";
@@ -21,7 +23,11 @@ const EventForm = ({initialValues, onSubmit, update}) => {
   const {t} = useTranslation();
   const [mode, setMode] = useState(initialValues.mode || "1");
 
-  const {data: {eventTypes} = {}, loading} = useQuery(EVENT_TYPES);
+  const {data: {event_types: eventTypes} = {}, eventTypesLoading} = useQuery(EVENT_TYPES);
+
+  if (eventTypesLoading) {
+    return <Loader/>
+  }
 
   const dayCheckboxes = [
     {label: t('common.days_short.sun'), value: 0},
@@ -36,14 +42,12 @@ const EventForm = ({initialValues, onSubmit, update}) => {
   let days = [];
 
   for (let i in dayCheckboxes) {
-    days.push(initialValues.days.findIndex(d => parseInt(d) === dayCheckboxes[i].value) !== -1);
+    days.push((initialValues.days || []).findIndex(d => parseInt(d) === dayCheckboxes[i].value) !== -1);
   }
-
-  initialValues.days = days;
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{...initialValues, days}}
       validationSchema={Yup.object().shape({
         title: Yup.string().required(),
         mode: Yup.string().required(),
@@ -67,7 +71,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
             <SelectField
               label={t('account.events_actions.type')}
               name="event_type_id"
-              options={(eventTypes || []).map(e => ({label: e.display_name, value: e.id}))}
+              options={(eventTypes || []).map(e => ({label: e.display_name, value: parseInt(e.id)}))}
               placeholder=""
             />
 
@@ -129,7 +133,11 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               className="w-full"
             />
 
-            <div className="flex flex-wrap mb-4">
+            {initialValues.club &&
+              <EventEmployeesField clubEmployees={initialValues.club.employees} eventEmployees={initialValues.employees}/>
+            }
+
+            <div className="flex flex-wrap mb-4 mt-4">
               <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
                 <Button
                   className="px-3"
@@ -140,7 +148,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 >
                   <div className="flex items-center">
                     <BlackPlusSvg/>
-                    <span className="ml-2">from device</span>
+                    <span className="ml-2">{t('common.from_device')}</span>
                   </div>
                 </Button>
               </MultiPhotoField>

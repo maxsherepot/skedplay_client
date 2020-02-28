@@ -105,3 +105,7 @@ export {
     default as RadioField
 }
     from "./RadioField";
+export {
+    default as EventEmployeesField
+}
+    from "./EventEmployeesField";

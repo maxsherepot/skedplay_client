@@ -69,10 +69,10 @@
     "submit": "Submit",
     "next": "Next",
     "our_girls": "Our Girls",
-    "save": "Save",
     "name": "Name",
     "title": "Title",
     "nationality": "Nationality",
+    "from_device": "from device",
     "prev": "Prev"
   },
   "layout": {
@@ -408,7 +408,12 @@
       "end_date": {
         "label": "End date",
         "placeholder": "Not required"
-      }
+      },
+      "event_employees": "What sex Workers will attend at your Event",
+      "event_no_girls": "Girls list is empty",
+      "club_no_girls": "Club girls list is empty",
+      "new_girl": "New girl",
+      "add_girl": "Add girl"
     },
     "book_and_pay": "Book and pay",
     "views": "views",
@@ -449,6 +454,7 @@
       "enter_new_password": "Enter new password",
       "enter_new_password_confirmation": "Enter new password confirmation"
     },
+    "events_in": "Events in",
     "": ""
   },
   "act": {

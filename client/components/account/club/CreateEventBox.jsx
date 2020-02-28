@@ -16,7 +16,18 @@ const CreateEventBox = ({ initialValues, onSubmit}) => {
                 variables: {
                     club: cid,
                     input: {
-                        ...values,
+                        title: values.title,
+                        description: values.description,
+                        mode: values.mode,
+                        address: values.address,
+                        start_date: values.start_date,
+                        end_date: values.end_date,
+                        days: (values.days || [])
+                          .map((checked, day) => checked ? day : null)
+                          .filter(day => day !== null),
+                        employees_ids: values.employees_ids,
+                        event_type_id: values.event_type_id,
+                        photos: values.photos instanceof FileList ? values.photos : [],
                         club_id: cid,
                     }
                 }

@@ -110,6 +110,9 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
 
+  updateEmployeeEvent(event: ID!, input: EventUpdateInput @spread): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@updateEvent")
+
   uploadEmployeeFiles(employee: ID!, collection: String!, files: [Upload!]): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@uploadFiles")
 

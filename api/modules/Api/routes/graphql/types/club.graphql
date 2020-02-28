@@ -95,6 +95,9 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   createClubEvent(club: ID!, input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@createEvent")
 
+  updateClubEvent(event: ID!, input: EventUpdateInput @spread): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@updateEvent")
+
   syncClubServices(club: ID!, services: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@syncServices")
 
