@@ -10,6 +10,7 @@ use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
+use Modules\Api\Http\Requests\Event\EventUpdateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Api\Http\Requests\Review\ReviewCreateRequest;
@@ -113,6 +114,24 @@ class EmployeeController extends Controller
         $this->authorize('create', Event::class);
 
         return $this->events->store($employee, collect($request->all()));
+    }
+
+    /**
+     * @param EventUpdateRequest $request
+     * @param Event $event
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+     */
+    public function updateEvent(EventUpdateRequest $request, Event $event)
+    {
+        $this->authorize('update', $event);
+
+        $response = $this->events->update($event, collect($request->all()));
+
+        return $response ? $this->success() : $this->fail();
     }
 
     /**

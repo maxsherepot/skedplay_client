@@ -13,6 +13,7 @@ export const ALL_EVENTS = gql`
                     id
                 }
                 club {
+                    name
                     address
                     lat
                     lng
@@ -58,6 +59,7 @@ export const EVENTS_BY_OWNER = gql`
                 id
             }
             club {
+                name
                 address
                 lat
                 lng
@@ -93,6 +95,7 @@ export const GET_EVENT = gql`
             employees {
                 id
                 name
+                isVip
                 photos {
                     url
                     thumb_url
@@ -105,6 +108,7 @@ export const GET_EVENT = gql`
                 id
             }
             club {
+                name
                 address
                 lat
                 lng
@@ -113,6 +117,15 @@ export const GET_EVENT = gql`
                     name
                     pivot {
                         price
+                    }
+                }
+                employees {
+                    id
+                    name
+                    isVip
+                    photos {
+                        url
+                        thumb_url
                     }
                 }
             }
@@ -134,6 +147,15 @@ export const CREATE_CLUB_EVENT = gql`
         createClubEvent(club: $club, input: $input) {
             id
             title
+        }
+    }
+`;
+
+export const UPDATE_CLUB_EVENT = gql`
+    mutation updateClubEvent($event: ID!, $input: EventUpdateInput) {
+        updateClubEvent(event: $event, input: $input) {
+            status
+            message
         }
     }
 `;

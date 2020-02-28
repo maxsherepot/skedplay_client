@@ -12,6 +12,10 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
+    if (initialValues.club) {
+        initialValues.employees_ids = (initialValues.employees || []).map(e => e.id);
+    }
+
     const handleSubmits = async (
         values,
         { setSubmitting, setErrors, setError, setStatus }

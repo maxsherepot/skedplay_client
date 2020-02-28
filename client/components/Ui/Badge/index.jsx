@@ -5,7 +5,7 @@ function Badge({ className, children }) {
   return (
     <div
       className={cx(
-        "badge rounded-full uppercase font-medium text-xs pt-1 pb-2 px-4 leading-none inline-block text-white",
+        "badge rounded-full uppercase font-medium text-xs pt-1 pb-1 px-4 leading-none inline-block text-white",
         className
       )}
     >

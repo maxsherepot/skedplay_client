@@ -17,7 +17,7 @@ class AddNewColumnsToEventsTable extends Migration
             $table->string('address')->nullable()->after('rejected_reason');
             $table->string('lat')->nullable()->after('address');
             $table->string('lng')->nullable()->after('lat');
-            $table->tinyInteger('mode')->after('lng');
+            $table->tinyInteger('mode')->default(\Modules\Events\Entities\Event::MODE_REGULAR)->after('lng');
             $table->json('days')->nullable()->after('mode');
             $table->date('start_date')->nullable()->after('days');
             $table->date('end_date')->nullable()->after('start_date');

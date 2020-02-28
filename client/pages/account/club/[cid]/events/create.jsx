@@ -1,28 +1,61 @@
 import React from "react";
 import redirect from "lib/redirect";
-import {CREATE_CLUB_EVENT} from "queries";
+import {CREATE_CLUB_EVENT, GET_CLUB} from "queries";
 import checkLoggedIn from "lib/checkLoggedIn";
-import {useMutation} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {getLayout} from "components/account/AccountLayout";
 import CreateEventBox from "components/account/club/CreateEventBox";
 
+import {Loader} from 'UI';
+import {useRouter} from "next/router";
+
 const AccountClubEventsCreate = () => {
-    const [createClubEvent] = useMutation(CREATE_CLUB_EVENT);
+  const {query: {cid}} = useRouter();
 
-    const onSubmit = async variables => await createClubEvent(variables);
+  const [createClubEvent] = useMutation(CREATE_CLUB_EVENT);
 
-    return (
-        <CreateEventBox initialValues={{ title: "", description: "", event_type_id: "" }} onSubmit={onSubmit} />
-    );
+  const onSubmit = async variables => await createClubEvent(variables);
+
+  const {data: {club} = {}, loading} = useQuery(GET_CLUB, {
+    fetchPolicy: 'no-cache',
+    variables: {
+      id: cid
+    }
+  });
+
+  if (loading) {
+    return <Loader/>;
+  }
+
+  return (
+    <CreateEventBox
+      initialValues={{
+        club: club,
+        employees: [],
+        title: "",
+        event_type_id: "",
+        description: "",
+        mode: "1",
+        address: "",
+        start_date: "",
+        end_date: "",
+        days: [],
+        employees_ids: [],
+        club_id: null,
+        photos: [],
+      }}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 AccountClubEventsCreate.getInitialProps = async ctx => {
-    const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
-    if (!user) {
-        redirect(ctx, "/login");
-    }
+  const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
+  if (!user) {
+    redirect(ctx, "/login");
+  }
 
-    return {user};
+  return {user};
 };
 
 AccountClubEventsCreate.getLayout = getLayout;
