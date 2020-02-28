@@ -455,6 +455,8 @@
       "enter_new_password_confirmation": "Enter new password confirmation"
     },
     "events_in": "Events in",
+    "account_rejected": "Your account was rejected",
+    "reason": "Reason",
     "": ""
   },
   "act": {

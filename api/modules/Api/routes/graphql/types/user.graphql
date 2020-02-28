@@ -18,6 +18,8 @@ type User {
     employees_videos: Int
     employees_events: Int
     unread_messages_count: Int! @method(name: "unreadMessagesCount")
+    status: Int!
+    rejected_reason: String
 }
 
 input UserInput {
