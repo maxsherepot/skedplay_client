@@ -87,11 +87,13 @@ const UserDropdown = ({ user }) => {
                 </a>
               </Link>
             )}
-            <Link href="/account/chats">
-              <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                {t('common.messages_chats')} ({user.unread_messages_count || 0})
-              </div>
-            </Link>
+            {!user.is_club_owner &&
+              <Link href="/account/chats">
+                <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
+                  {t('common.messages_chats')} ({user.unread_messages_count || 0})
+                </div>
+              </Link>
+            }
             {user.is_employee &&  user.employee && user.employee.reviews.length !== 0 && (
               <div className="text-red font-medium hover:text-pink cursor-pointer">
                 {t('common.reviews')}
@@ -104,15 +106,6 @@ const UserDropdown = ({ user }) => {
             {/*    {t('common.my_clubs')}*/}
             {/*  </div>*/}
             {/*)}*/}
-            {user.is_club_owner && (
-              <div className="flex items-center mb-2">
-                <Link href="/clubs/add">
-                  <a className="flex items-center cursor-pointer">
-                    <AddSvg /> <span className="ml-2">{t('common.add_new_club')}</span>
-                  </a>
-                </Link>
-              </div>
-            )}
             {(user.is_employee && !user.employee) && (
               <Link href="/girls/add">
                 <a className="flex items-center mb-2">
