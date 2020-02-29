@@ -73,7 +73,8 @@
     "title": "Title",
     "nationality": "Nationality",
     "from_device": "from device",
-    "prev": "Prev"
+    "prev": "Prev",
+    "off": "Off"
   },
   "layout": {
     "view_my_account": "View my account",

@@ -138,7 +138,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     if (!isGeolocationEnabled) {
         fields.splice(fields.length - 2, 1);
     } else {
-        fields.splice(0, 1);
+        // fields.splice(0, 1);
     }
 
     return (

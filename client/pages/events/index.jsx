@@ -60,7 +60,7 @@ function Events({ user, isGeolocationEnabled }) {
   ];
 
   if (isGeolocationEnabled) {
-    fields.splice(0, 1);
+    // fields.splice(0, 1);
     fields.splice(fields.length - 1, 0, {
       component: "distance-slider",
       name: "close_to",

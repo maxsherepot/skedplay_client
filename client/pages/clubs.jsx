@@ -51,7 +51,7 @@ function Clubs({loggedInUser, isGeolocationEnabled}) {
     ];
 
     if (isGeolocationEnabled) {
-        fields.splice(0, 1);
+        // fields.splice(0, 1);
         fields.push({
             component: "distance-slider",
             name: "close_to",
