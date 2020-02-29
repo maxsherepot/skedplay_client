@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
-        <div className="flex items-center lg:w-7/12 mx-auto py-8">
+        <div className="flex items-center lg:w-7/12 ml-8 py-8">
             <Avatar src="/static/img/Avatar.png"/>
             <div className="ml-4">
                 <span className="text-2xl font-medium capitalize">{user.name}</span>
