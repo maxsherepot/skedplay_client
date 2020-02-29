@@ -111,6 +111,8 @@ function RegisterForm({ onSubmit, children }) {
       // validate={validate}
       validationSchema={activeStep.props.validationSchema || {}}
       onSubmit={handleSubmits}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
