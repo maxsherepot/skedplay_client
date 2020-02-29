@@ -14,7 +14,7 @@ function Forgot() {
             <Modal
                 logo={<Logo/>}
                 title={t('forgot.password_recovery')}
-                left={<ArrowBack href="/"/>}
+                left={<ArrowBack href="/login"/>}
                 right={<LangSelector/>}
             >
                 <ForgotBox/>
