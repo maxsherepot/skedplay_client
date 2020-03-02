@@ -20,7 +20,7 @@ const CookiesBlock = () => {
   }
 
   return (
-    <div className="fixed bottom-0 py-10 px-4 items-center bg-light-grey-transparent w-full flex justify-center text-light-grey">
+    <div className="fixed bottom-0 py-10 px-4 items-center bg-light-grey-transparent w-full flex justify-center text-light-grey z-10">
       <div className="text-center">
         <Trans i18nKey="cookies.text">
           This site uses cookies to offer you a better browsing experience. Find out more on&nbsp;
