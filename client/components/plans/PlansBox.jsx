@@ -60,7 +60,12 @@ function PlansBox({ user }) {
       amount: price,
     };
 
-    setShowLightbox(true);
+    if (parseFloat(price) > 0) {
+      setShowLightbox(true);
+    } else {
+      redirect({}, '/')
+    }
+
     // subscribe({
     //   variables: {
     //     plan: planId,
