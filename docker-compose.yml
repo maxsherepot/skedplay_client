@@ -65,7 +65,7 @@ services:
       - ./.docker/centrifugo/config.json:/centrifugo/config.json
       - ./.docker/caddy/caddyssl:/etc/caddycerts
     depends_on:
-      - app
+#      - app
       - redis
     ulimits:
       nofile:
@@ -81,6 +81,8 @@ services:
     depends_on:
       - mysql
       - redis
+    links:
+      - "websocket:websocket.com"
 
   php:
     image: skidplay_app:alpine
