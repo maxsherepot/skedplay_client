@@ -61,8 +61,9 @@ function EventCard({
       <div
         className="relative overflow-hidden rounded-t-lg"
         style={{
-          backgroundImage: `url(${thumb.url})`,
+          backgroundImage: `url(${thumb.url || '/static/img/event-none.png'})`,
           backgroundSize: "cover",
+          backgroundPosition: "center",
           height
         }}
       >
