@@ -74,7 +74,8 @@
     "nationality": "Nationality",
     "from_device": "from device",
     "prev": "Prev",
-    "off": "Off"
+    "off": "Off",
+    "send": "Send"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -559,6 +560,15 @@
     "reg_as_client": "Зарегистрироваться как клиент"
   },
   "contacts_popup": {
-    "title": "Contacts"
+    "title": "Contacts",
+    "theme": "Theme",
+    "theme_placeholder": "",
+    "name": "Your name",
+    "name_placeholder": "",
+    "email": "Your email",
+    "email_placeholder": "",
+    "message": "Your message",
+    "message_placeholder": "Describe you problem",
+    "success": "Your request was sent"
   }
 }

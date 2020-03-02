@@ -12,6 +12,7 @@ function TextField({
   label,
   name,
   textLength,
+  autoComplete,
   ...rest
 }) {
   const { touched, errors } = useFormikContext();
@@ -31,6 +32,7 @@ function TextField({
             </span>
             <textarea
               {...rest}
+              autoComplete={autoComplete || 'off'}
               id={name}
               className="form-control"
               {...field}

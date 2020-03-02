@@ -16,6 +16,7 @@ function TextField({
   width,
   before,
   after,
+  autoComplete,
   ...rest
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
@@ -40,6 +41,7 @@ function TextField({
         {({ field }) => (
           <input
             {...rest}
+            autoComplete={autoComplete || 'off'}
             id={name}
             className={cx("form-control", inputClassName, {
               "pl-10": before
@@ -68,7 +70,7 @@ TextField.propTypes = {
   name: PropTypes.string.isRequired,
   width: PropTypes.string,
   after: PropTypes.node,
-  type: PropTypes.oneOf(["text", "password"])
+  type: PropTypes.oneOf(["text", "password", "email"])
 };
 
 TextField.defaultProps = {

@@ -29,7 +29,7 @@ function Label({
           isOpen={isPopoverOpen}
           position={'top'} // preferred position
           content={(
-            <div className="rounded-lg bg-light-grey break-words p-4">
+            <div className="rounded-lg bg-light-grey break-words p-4 z-100">
               {error}
             </div>
           )}

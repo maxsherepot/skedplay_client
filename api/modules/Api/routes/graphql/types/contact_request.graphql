@@ -1,0 +1,19 @@
+type ContactRequest {
+    id: Int!
+    theme: String!
+    email: String!
+    name: String!
+    message: String!
+}
+
+input ContactRequestInput {
+    theme: String!
+    email: String!
+    name: String!
+    message: String!
+}
+
+extend type Mutation {
+    createContactRequest(input: ContactRequestInput @spread): ContactRequest
+    @router(action: "Modules\\Api\\Http\\Controllers\\CommonController@contactRequestCreate")
+}

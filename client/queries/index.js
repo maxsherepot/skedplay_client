@@ -17,3 +17,4 @@ export * from "queries/chatQuery";
 export * from "queries/cityQuery";
 export * from "queries/cantonQuery";
 export * from "queries/contactPhoneQuery";
+export * from "queries/contactRequestQuery";
