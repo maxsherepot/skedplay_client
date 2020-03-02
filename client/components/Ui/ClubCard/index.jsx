@@ -24,7 +24,7 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = true, lat, lng }) {
+function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng }) {
   let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -39,7 +39,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
   }
 
   const isMap = eventMapId === id;
-
+  const city_name = (city !== null) ? city['name'] : "";
   const {t, i18n} = useTranslation();
 
   return (
@@ -91,7 +91,7 @@ function ClubCard({ id, name, address, favorited, phones, photos, gridClasses = 
         <div className="flex justify-between text-xs cursor-pointer">
           <div className="flex flex-col pr-4">
             <p className="py-1 font-bold" onClick={() => setEventMapId(id)}>
-              {address}
+              {city_name}
             </p>
             {(lat && lng) &&
               <Distance

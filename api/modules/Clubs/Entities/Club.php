@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
+use Modules\Common\Entities\City;
 use Modules\Common\Entities\ClubScheduleWork;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
@@ -23,6 +24,18 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
+/**
+ * Class Club
+ * @package Modules\Clubs\Entities
+ * @property string name
+ * @property string slug
+ * @property int club_type_id
+ * @property string email
+ * @property string website
+ * @property string address
+ * @property int city_id
+ * 
+ */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
     use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable;
@@ -74,6 +87,14 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     public function type(): HasOne
     {
         return $this->hasOne(ClubType::class, 'id', 'club_type_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     /**
