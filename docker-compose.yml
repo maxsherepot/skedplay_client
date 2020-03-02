@@ -63,6 +63,7 @@ services:
       - "8000:8000"
     volumes:
       - ./.docker/centrifugo/config.json:/centrifugo/config.json
+      - ./.docker/caddy/caddyssl:/etc/caddycerts
     depends_on:
       - app
       - redis
