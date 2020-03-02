@@ -82,7 +82,7 @@ services:
       - mysql
       - redis
     links:
-      - "websocket:websocket.com"
+      - "websocket:skidplay.tk"
 
   php:
     image: skidplay_app:alpine
