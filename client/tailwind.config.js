@@ -11,6 +11,7 @@ const colors = {
   "dark-grey": "#443E3E",
   grey: "#909090",
   "light-grey": "#CCCCCC",
+  "light-grey-transparent": "rgba(27,27,27,.8)",
   "xs-grey": "#F6F6F6",
   divider: "#DFDFDF",
   yellow: "#FEFA00",

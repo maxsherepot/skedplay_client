@@ -75,7 +75,8 @@
     "from_device": "from device",
     "prev": "Prev",
     "off": "Off",
-    "send": "Send"
+    "send": "Send",
+    "okay": "Okay"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -570,5 +571,8 @@
     "message": "Your message",
     "message_placeholder": "Describe you problem",
     "success": "Your request was sent"
+  },
+  "cookies": {
+    "text": "This site uses cookies to offer you a better browsing experience. Find out more on <1>how we use cookies</1> and <3>how you can change your settings</3>."
   }
 }

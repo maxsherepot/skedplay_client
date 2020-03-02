@@ -58,3 +58,5 @@ export { default as Panel } from "./Tabs/Panel";
 /** Modals | Popup */
 export { default as Popup } from "./Popup";
 export { default as DeletePopup } from "./Popup/DeletePopup";
+
+export { default as CookiesBlock } from "./CookiesBlock";

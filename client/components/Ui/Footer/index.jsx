@@ -12,11 +12,15 @@ import Link from "next/link";
 import {useState} from "react";
 import ContactsPopup from "components/popups/ContactsPupup";
 
+import {CookiesBlock} from 'UI';
+
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
 
   return (
     <div className="footer flex flex-col bg-black">
+      <CookiesBlock/>
+
       <div className="fluid-container flex flex-col md:flex-row w-full text-white my-6">
         <div className="flex flex-col md:flex-row md:w-1/2">
           {/*<Button size="xs" className="my-4 md:mr-4 md:w-40" outline>*/}
