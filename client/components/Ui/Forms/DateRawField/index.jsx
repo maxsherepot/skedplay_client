@@ -52,18 +52,18 @@ function DateRawField({
       }
     }
 
-    if (valueItems[2] && valueItems[2].length === 4) {
-      if (parseInt(valueItems[2]) > new Date().getFullYear()) {
-        valueItems[2] = new Date().getFullYear();
-      }
-      else if (parseInt(valueItems[2]) > ((new Date().getFullYear()) - 18)) {
-        valueItems[2] = (new Date().getFullYear() - 18);
-      }
-
-      else if (parseInt(valueItems[2]) < ((new Date().getFullYear()) - 60)) {
-        valueItems[2] = ((new Date().getFullYear()) - 60);
-      }
-    }
+    // if (valueItems[2] && valueItems[2].length === 4) {
+    //   if (parseInt(valueItems[2]) > new Date().getFullYear()) {
+    //     valueItems[2] = new Date().getFullYear();
+    //   }
+    //   else if (parseInt(valueItems[2]) > ((new Date().getFullYear()) - 18)) {
+    //     valueItems[2] = (new Date().getFullYear() - 18);
+    //   }
+    //
+    //   else if (parseInt(valueItems[2]) < ((new Date().getFullYear()) - 60)) {
+    //     valueItems[2] = ((new Date().getFullYear()) - 60);
+    //   }
+    // }
     setValue(valueItems.join('.'));
   };
 
