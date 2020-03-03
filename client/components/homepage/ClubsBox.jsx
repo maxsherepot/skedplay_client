@@ -10,6 +10,10 @@ const GET_CLUBS = gql`
             data {
                 id
                 name
+                city {
+                    id
+                    name
+                }
                 address
                 lat
                 lng

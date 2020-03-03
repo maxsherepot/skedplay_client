@@ -10,6 +10,10 @@ export const ALL_CLUBS = gql`
         phones
         lat
         lng
+        city {
+          id
+          name
+        }
         favorited {
           id
         }
