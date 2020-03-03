@@ -563,11 +563,11 @@
   "contacts_popup": {
     "title": "Contacts",
     "theme": "Theme",
-    "theme_placeholder": "",
+    "theme_placeholder": " ",
     "name": "Your name",
-    "name_placeholder": "",
+    "name_placeholder": " ",
     "email": "Your email",
-    "email_placeholder": "",
+    "email_placeholder": " ",
     "message": "Your message",
     "message_placeholder": "Describe you problem",
     "success": "Your request was sent"
