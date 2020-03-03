@@ -1,0 +1,9 @@
+type HelpCenterCategoryAllLangs {
+    id: Int!
+    name: String!
+    topics: [HelpCenterTopicAllLangs!] @hasMany(relation: "topics")
+}
+
+extend type Query {
+    helpCenterCategories: [HelpCenterCategoryAllLangs!]! @all
+}

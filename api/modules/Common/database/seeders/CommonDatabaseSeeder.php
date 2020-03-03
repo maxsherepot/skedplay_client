@@ -25,6 +25,7 @@ class CommonDatabaseSeeder extends Seeder
         $this->call(ClubScheduleTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
         $this->call(ContactPhonesTableSeeder::class);
+        $this->call(HelpCenterCategoryTableSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

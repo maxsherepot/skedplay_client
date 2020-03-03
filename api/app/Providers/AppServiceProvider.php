@@ -56,5 +56,7 @@ class AppServiceProvider extends ServiceProvider
             UiTranslate::observe(UiTranslateObserver::class);
             Language::observe(LanguageObserver::class);
         });
+
+        \Spatie\NovaTranslatable\Translatable::defaultLocales(['en', 'de', 'fr']);
     }
 }

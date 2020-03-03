@@ -1,0 +1,13 @@
+type HelpCenterTopicAllLangs {
+    id: Int!
+    slug: String!
+    name: String!
+    hyphen: Int!
+    content: String!
+    content_html: JSON!
+}
+
+extend type Query {
+    helpCenterTopic(slug: String @eq): HelpCenterTopicAllLangs @first
+    helpCenterTopics: [HelpCenterTopicAllLangs!]! @all
+}

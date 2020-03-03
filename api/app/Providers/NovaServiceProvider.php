@@ -9,6 +9,8 @@ use App\Nova\ContactRequest;
 use App\Nova\Employee;
 use App\Nova\Event;
 use App\Nova\EventType;
+use App\Nova\HelpCenterCategory;
+use App\Nova\HelpCenterTopic;
 use App\Nova\Language;
 use App\Nova\Photo;
 use App\Nova\Race;
@@ -16,6 +18,8 @@ use App\Nova\Service;
 use App\Nova\UiTranslate;
 use App\Nova\User;
 use App\Nova\Video;
+use Illuminate\Validation\Rule;
+use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +35,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Field::macro('fallbackLocaleRules', function ($rules) {
+            $this->fallbackLocaleRules = ($rules instanceof Rule || is_string($rules)) ? func_get_args() : $rules;
+
+            return $this;
+        });
+
+        Field::macro('creationFallbackLocaleRules', function ($rules) {
+            $this->creationFallbackLocaleRules = ($rules instanceof Rule || is_string($rules)) ? func_get_args() : $rules;
+
+            return $this;
+        });
+
+        Field::macro('updateFallbackLocaleRules', function ($rules) {
+            $this->updateFallbackLocaleRules = ($rules instanceof Rule || is_string($rules)) ? func_get_args() : $rules;
+
+            return $this;
+        });
     }
 
     /**
@@ -111,6 +133,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             ContactPhone::class,
             ContactRequest::class,
+
+            HelpCenterCategory::class,
+            HelpCenterTopic::class,
 
             UiTranslate::class,
             Language::class,
