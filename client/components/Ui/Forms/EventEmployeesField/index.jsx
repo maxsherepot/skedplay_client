@@ -152,8 +152,8 @@ const EventEmployeesField = ({eventEmployees: initEventEmployees, clubEmployees:
                 type="button"
                 onClick={e => addEmployee(employee)}
               >
-                <div className="flex items-center">
-                  <span className="ml-2">{t('account.events_actions.add_girl')}</span>
+                <div className="text-center">
+                  {t('account.events_actions.add_girl')}
                 </div>
               </Button>
             </div>
