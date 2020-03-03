@@ -70,7 +70,7 @@ const RegisterStep = () => {
         />
       </div>
 
-      <TextField label={t('register.mail')} name="email" autoComplete="off" placeholder={t('register.mail_placeholder')} />
+      <TextField label={t('register.mail')} name="email" autoComplete="new-password" placeholder={t('register.mail_placeholder')} />
 
       <div className="sm:flex sm:justify-between sm:-mx-3">
         <TextField
@@ -78,7 +78,7 @@ const RegisterStep = () => {
           label={t('register.password')}
           type="password"
           name="password"
-          autoComplete="off"
+          autoComplete="new-password"
           placeholder={t('register.password_placeholder')}
         />
 
@@ -86,7 +86,7 @@ const RegisterStep = () => {
           className="sm:flex-1 sm:px-3"
           label={t('register.password_confirm')}
           type="password"
-          autoComplete="off"
+          autoComplete="new-password"
           name="password_confirmation"
           placeholder={t('register.password_confirm_placeholder')}
         />

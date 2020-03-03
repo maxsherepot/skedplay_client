@@ -115,7 +115,7 @@ function RegisterForm({ onSubmit, children }) {
       validateOnBlur={false}
     >
       {({ handleSubmit, isSubmitting, status }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <Popup
             title={t('register.small_age_title')}
             open={agePopupShow}
