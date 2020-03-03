@@ -38,7 +38,7 @@ function Error({statusCode}) {
     const DisplayServerError = () => (
         <div className="flex flex-col items-start mx-auto hd:w-7/12">
             <h1 className="text-4xl font-extrabold">{t('errors.error_occurred')}</h1>
-            <div className="flex mt-6">
+            <div className="flex mt-6 flex-wrap error__btn-wrap">
                 <Link href="/">
                     <a>
                         <Button className="px-16 mr-3">{t('navigation.go_home')}</Button>
@@ -69,25 +69,20 @@ function Error({statusCode}) {
         <>
             <AnimationBackground invert footer={<Footer/>}>
                 <div className="absolute inset-0 fluid-container hd:w-7/12 mx-auto flex">
-                    <div className="">
+                    <div className="z-10">
                         <Logo className="text-white mx-auto mt-5" />
                     </div>
                 </div>
 
                 <div className="fluid-container">
-                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 error-section__main-info-img"
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 contain-section__img-man"
                          src="/static/img/man.png" alt=""/>
-                    <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 error-section__main-info-img"
+                    <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 contain-section__img-woman"
                          src="/static/img/woman.png" alt=""/>
                 </div>
             </AnimationBackground>
         </>
-        // <p>
-        //     {statusCode
-        //         ? `An error ${statusCode} occurred on server`
-        //         : 'An error occurred on client'}
-        // </p>
-    )
+    );
 }
 
 

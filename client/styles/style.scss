@@ -28,6 +28,56 @@ main {
   }
 }
 
+.contain-section {
+  &__img-man {
+    object-fit: fill;
+    width: 100%;
+    max-width: 600px;
+    height: 380px;
+
+    @media (max-width: 580px) {
+      height: 300px;
+    }
+
+    @media (max-width: 325px) {
+      height: 250px;
+    }
+  }
+
+  &__img-woman {
+    object-fit: fill;
+    width: 100%;
+    max-width: 300px;
+
+    @media (max-width: 580px) {
+      max-width: 250px;
+    }
+
+    @media (max-width: 325px) {
+      max-width: 200px;
+    }
+  }
+}
+
+.animation-gradient {
+  height: 380px !important;
+  @media (max-width: 580px) {
+    height: 300px !important;
+  }
+
+  @media (max-width: 325px) {
+    height: 250px !important;
+  }
+}
+
+.error__btn-wrap {
+  @media (max-width: 445px) {
+    a:first-child {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 .index-bg-bottom {
   position: absolute;
   bottom: 0;
