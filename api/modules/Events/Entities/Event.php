@@ -123,6 +123,11 @@ class Event extends Model implements HasMedia
         return $this->belongsToMany(Employee::class, 'event_employee');
     }
 
+    public function employees(): BelongsToMany
+    {
+        return $this->employeesRelation();
+    }
+
     public function scopeHasCantons(Builder $query, ?array $cantons = null): void
     {
         if (!$cantons) {
