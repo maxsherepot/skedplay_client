@@ -88,7 +88,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 },
               ]}
               name="mode"
-              defaultValue={{name: t('events_actions.regular'), value: 1}}
+              defaultValue={{name: t('account.events_actions.regular'), value: 1}}
               handleChange={setMode}
             />
 
@@ -113,15 +113,15 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 <div className="flex">
                   <DateField
                     name="start_date"
-                    label={t('events_actions.start_date.label')}
-                    placeholder={t('events_actions.start_date.placeholder')}
+                    label={t('account.events_actions.start_date.label')}
+                    placeholder={t('account.events_actions.start_date.placeholder')}
                     className="mr-5"
                   />
 
                   <DateField
                     name="end_date"
-                    label={t('events_actions.end_date.label')}
-                    placeholder={t('events_actions.end_date.placeholder')}
+                    label={t('account.events_actions.end_date.label')}
+                    placeholder={t('account.events_actions.end_date.placeholder')}
                   />
                 </div>
               }
