@@ -131,7 +131,7 @@ const UserDropdown = ({ user }) => {
               </Link>
             )}
             {user.is_club_owner && (
-              <Link href="/account/clubs/add">
+              <Link href="/clubs/add">
                 <a className="flex items-center">
                   <AddSvg />
                   <span className="ml-2">{t('common.add_new_club')}</span>

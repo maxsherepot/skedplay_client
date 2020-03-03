@@ -113,7 +113,7 @@ function Nav({ user, className }) {
             </span>
 
             {(user && user.is_club_owner) &&
-              <Link href="/account/clubs/add">
+              <Link href="/clubs/add">
                 <a className="menu-icons__item hidden sm:block">
                   <button className="bg-red text-white px-5 py-2 rounded-full">
                     {t('common.add_new_club')}
@@ -272,7 +272,7 @@ function Nav({ user, className }) {
             </li>
           </ul>
           {(user && user.is_club_owner) &&
-            <Link href="/account/clubs/add">
+            <Link href="/clubs/add">
               <a>
                 <Button className="w-full text-2xl mt-1">{t('common.add_new_club')}</Button>
               </a>
