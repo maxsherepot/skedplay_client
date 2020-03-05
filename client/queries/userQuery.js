@@ -17,6 +17,7 @@ export const GET_ME = gql`
                 id 
                 name
                 url
+                thumb_url
             }
 #            employees_events
             unread_messages_count

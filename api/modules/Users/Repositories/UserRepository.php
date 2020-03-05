@@ -4,6 +4,7 @@ namespace Modules\Users\Repositories;
 
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Users\Entities\User;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Traits\Mediable;
@@ -16,22 +17,53 @@ class UserRepository implements HasMediable
     /**
      * @param Collection $collection
      * @return User
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function store(Collection $collection): User
     {
-        return User::create($collection->toArray());
+        $inputs = $collection->toArray();
+
+        DB::beginTransaction();
+
+        /** @var User $user */
+        $user = User::create($inputs);
+
+        $user->save();
+
+        if ($avatar = $collection->get('avatar')) {
+            dd(dfghjk);
+            $user->addMedia($avatar)->toMediaCollection(User::PHOTO_AVATAR);
+        }
+
+        DB::commit();
+
+        return $user;
     }
 
     /**
      * @param User $user
      * @param Collection $collection
-     * @return User
+     * @return bool
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
-    public function update(User $user, Collection $collection): User
+    public function update(User $user, Collection $collection): bool
     {
-        $user->update($collection->toArray());
+        DB::beginTransaction();
+        $result = $user->update($collection->toArray());
 
-        return $user;
+        if ($avatar = $collection->get('avatar')) {
+            dd(dfghjk);
+
+            $user->addMedia($avatar)->toMediaCollection(User::PHOTO_AVATAR);
+        }
+
+        DB::commit();
+
+        return $result;
     }
 
     /**

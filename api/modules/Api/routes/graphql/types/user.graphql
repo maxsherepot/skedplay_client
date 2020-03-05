@@ -56,6 +56,6 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
     updateUser(user: ID!, input: UserInput @spread): UserPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@update")
 
-    uploadUserAvatar(avatar: Upload!, collection: String): StatusPayload
+    uploadUserAvatar(avatar: Upload!, collection: String!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadAvatar")
 }
