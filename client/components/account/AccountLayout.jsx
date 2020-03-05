@@ -1,18 +1,26 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {Avatar, Button, PageCard} from "UI";
-import {getLayout as getMainLayout} from 'layouts'
+import {Avatar, Button, PageCard, FileField} from "UI";
+import { UPLOAD_USER_AVATAR} from "queries/userQuery";
+import { GET_ME } from "queries/userQuery";
+
+import {getLayout as getMainLayout} from 'layouts';
+import {getErrors, defaultSchedule} from "utils";
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
+import classNames from "classnames";
+import AddPhotoSvg from "components/icons/AddPhotoSvg";
+import {getDataFromTree} from "@apollo/react-ssr";
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
         <div className="flex items-center lg:w-7/12 ml-8 py-8">
-            <Avatar src="/static/img/Avatar.png"/>
+            {/*<Avatar src="/static/img/Avatar.png"/>*/}
+            <CheckAvatar />
             <div className="ml-4">
                 <span className="text-2xl font-medium capitalize">{user.name}</span>
                 <div className="flex mt-4">
@@ -24,8 +32,61 @@ const ProfileHeader = ({user}) => (
     </div>
 );
 
+const CheckAvatar = () => {
+    const [uploadUserAvatar] = useMutation(UPLOAD_USER_AVATAR);
+    const user = useQuery(GET_ME);
+    console.log({user});
+    function handleClick(e) {
+        console.log('Click');
+    }
+
+    const handleChange = async fileEvent => {
+        try {
+            const [avatar] = fileEvent.target.files;
+
+            const {
+                data: {
+                    uploadUserAvatar: {status: statusPhoto, message: messagePhoto}
+                }
+            } = await uploadUserAvatar({
+                variables: {
+                    avatar: avatar,
+                    collection: 'avatar'
+                },
+            });
+            console.log('Click2');
+
+            return {
+                status: statusPhoto,
+                message: messagePhoto
+            };
+        } catch (e) {
+            const errors = getErrors(e);
+            console.log('Click3');
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
+    return (
+        <>
+            <div className="flex items-center c-account__avatar-wrap">
+                <img className="rounded-full position-relative" src="/static/img/Avatar.png"/>
+                <label htmlFor="fileUpload" className="c-account__avatar-plus" onClick={handleClick}>
+                    <AddPhotoSvg/>
+                </label>
+                <input className="c-account__avatar-input" type="file" id="fileUpload" onChange={handleChange}/>
+            </div>
+        </>
+    );
+};
+
 const ClubMenu = ({clubs}) => {
     const router = useRouter();
+
     const {t, i18n} = useTranslation();
 
     return clubs.map(({id, name, employees, events}) => {
