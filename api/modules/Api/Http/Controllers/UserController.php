@@ -56,8 +56,9 @@ class UserController extends Controller
                 $request->get('collection')
             );
 
-
-            return $this->users->avatar();
+            return $this->success(
+                $this->users::UPLOAD_FILE_SUCCESS
+            );
         } catch (\Exception $exception) {
             return $this->fail(
                $this->users::UPLOAD_FILE_FAILED
