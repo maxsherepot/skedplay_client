@@ -45,7 +45,7 @@ function Footer({ user }) {
             </li>
             {/* Only odd */}
 
-            <ContactsPopup/>HelpCenterCategory
+            <ContactsPopup/>
 
             <li>
               <Link href={`/helpcenter`}>
