@@ -162,7 +162,7 @@ function Nav({ user, className }) {
               </a>
             </Link>
             {(user && !user.is_club_owner) &&
-              <Link href="/account/chats">
+              <Link href="/account/messages-and-chats">
                 <a className="menu-icons__item hovered">
                   <svg
                     className="inline-block fill-red mr-1"

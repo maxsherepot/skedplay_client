@@ -13,6 +13,7 @@ type Employee {
   isVip: Boolean
   isNew: Boolean
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
+  club: Club @belongsTo @with
   gender: Int
   birthday: Date
   age: Int

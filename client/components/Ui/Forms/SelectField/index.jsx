@@ -14,7 +14,8 @@ function SelectField({
   name,
   placeholder,
   options,
-  disabled
+  disabled,
+  onSelect
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
@@ -23,6 +24,14 @@ function SelectField({
     const index = options.map(o => o.value).indexOf(value);
 
     return options[index] ? options[index].label : "";
+  };
+
+  const handleSelect = (name, value) => {
+    if (onSelect) {
+      onSelect(value);
+    }
+
+    setFieldValue(name, value, false);
   };
 
   return (
@@ -68,7 +77,7 @@ function SelectField({
                       value === option.value ? "text-red" : "text-black"
                     )}
                     htmlFor={`${name}-${option.value}`}
-                    onClick={() => setFieldValue(name, option.value, false)}
+                    onClick={() => handleSelect(name, option.value)}
                   >
                     {option.label}
                   </label>

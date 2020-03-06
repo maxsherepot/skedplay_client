@@ -37,4 +37,10 @@ class Chat extends Model
 //    {
 //        return $this->hasOne(Message::class, 'id', 'last_message_id');
 //    }
+
+    public function lastMessage()
+    {
+        return $this->hasOne(Message::class, 'chat_id', 'id')
+            ->orderBy('created_at', 'desc');
+    }
 }

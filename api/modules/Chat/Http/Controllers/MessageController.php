@@ -38,24 +38,24 @@ class MessageController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     * @param SendMessageRequest $request
+     * @return array
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function store(SendMessageRequest $request)
     {
         /** @var User $user */
         $user = auth()->user();
 
-        if (!$request->input('chat_id')) {
-            if (!$chat = $this->repository->getChatQueryByChatMember($user, (int) $request->input('employee_id'))->first()) {
-                $chat = Chat::create([
-                    'employee_id' => $request->get('employee_id'),
-                    'client_id' => $user->id,
-                ]);
-            }
-        } else {
-            $chat = $this->repository->getChatsQuery($user)->where('chats.id', $request->input('chat_id'))->first();
-        }
+        $clientId = $request->get('client_id');
+        $employeeId = $request->get('employee_id');
+
+        $chat = $this->repository->getOrCreateChat(
+            intval($employeeId),
+            intval($clientId)
+        );
 
         DB::beginTransaction();
 
@@ -63,7 +63,7 @@ class MessageController extends Controller
         $message = Message::create([
             'text' => $request->input('text'),
             'chat_id' => $chat->id,
-            'from_client' => $user->isClient() ? 1 : 0,
+            'from_client' => $user->is_client ? 1 : 0,
         ]);
 
         foreach ($request->allFiles() as $attachment) {
@@ -76,8 +76,8 @@ class MessageController extends Controller
 
         DB::commit();
 
-        $chatsTypeChannelClient = 'client_chats:' . $user->id;
-        $chatsTypeChannelEmployee = 'employee_chats:' . (optional($user->employee)->id ?? $request->get('employee_id'));
+        $chatsTypeChannelClient = 'client_chats:' . $clientId;
+        $chatsTypeChannelEmployee = 'employee_chats:' . $employeeId;
 
         $this->centrifugeClient->publish($chatsTypeChannelClient, [
             'action' => 'refresh',

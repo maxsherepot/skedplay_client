@@ -5,8 +5,10 @@ namespace Modules\Chat\Repositories;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
+use Modules\Users\Entities\User;
 
 class ChatRepository
 {
@@ -30,30 +32,80 @@ class ChatRepository
             [$receiver_id, $user_id, $user_id, $receiver_id]);
     }
 
-    public function getChatQueryByChatMember(ChatMember $chatMember, int $receiverId): Builder
+    public function getChatQueryByChatMember(User $user, int $receiverId): Builder
     {
-        if ($chatMember->isClient()) {
-            return Chat::query()->whereClientId($chatMember->id)->whereEmployeeId($receiverId);
+        if ($user->is_client) {
+            return Chat::query()->whereClientId($user->id)->whereEmployeeId($receiverId);
         }
 
-        return Chat::query()->whereClientId($receiverId)->whereEmployeeId($chatMember->id);
+        return Chat::query()->whereClientId($receiverId)->whereEmployeeId($user->id);
     }
 
-    public function getChatsQuery(ChatMember $chatMember): Builder
+    public function getOrCreateChat(int $employeeId, int $clientId): Chat
     {
-        $chatMemberId = $chatMember->isClient()
-            ? $chatMember->id
-            : $chatMember->employee->id;
-
         return Chat::query()
+            ->whereClientId($clientId)
+            ->whereEmployeeId($employeeId)
+            ->firstOrCreate([
+                'client_id' => $clientId,
+                'employee_id' => $employeeId,
+            ]);
+    }
+
+    public function getChatsQuery(User $user, ?int $employeeId = null): Builder
+    {
+        $query = Chat::query()
             ->select(['chats.*', 'messages.updated_at as last_message_date'])
-            ->when($chatMember->isClient(), function($query) use ($chatMemberId) {
-                $query->whereClientId($chatMemberId);
-            })
-            ->when($chatMember->isEmployee(), function($query) use ($chatMemberId) {
-                $query->whereEmployeeId($chatMemberId);
-            })
             ->leftJoin('messages', 'messages.chat_id', '=', 'chats.id')
             ->orderBy('updated_at', 'desc');
+
+        if ($user->is_club_owner) {
+            if (!$employeeId) {
+                throw new \Exception('club owner must specify employee id');
+            }
+
+            return $query->whereEmployeeId($employeeId);
+        }
+
+        $chatMemberId = $user->is_client
+            ? $user->id
+            : $user->employee->id;
+
+        return $query
+            ->when($user->is_client, function($query) use ($chatMemberId) {
+                $query->whereClientId($chatMemberId);
+            })
+            ->when($user->is_employee, function($query) use ($chatMemberId) {
+                $query->whereEmployeeId($chatMemberId);
+            });
+    }
+
+    public function getUserChatsWithLastMessages(User $user): Collection
+    {
+        $query = Chat::query()
+            ->with(['lastMessage.attachments', 'client', 'employee'])
+            ->orderBy('updated_at', 'desc');
+
+        if ($user->is_club_owner) {
+            return $query
+//                ->with(['lastMessage' => function(Builder $builder) {
+//                    $builder->whereFromClient(1);
+//                }])
+                ->whereIn(
+                'employee_id',
+                    $user->employees_club_owners->pluck('id')
+                )
+                ->get();
+        }
+
+        if ($user->is_employee) {
+            return $query
+                ->where('employee_id', $user->employee->id)
+                ->get();
+        }
+
+        return $query
+            ->where('client_id', $user->id)
+            ->get();
     }
 }

@@ -12,44 +12,77 @@ import { ArrowBack, Loader } from "UI";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 
-const EmployeeChatComponent = ({ user }) => {
-  let type = user.employee ? 'employee' : 'client';
+const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
+  let type = user.is_employee || user.is_club_owner ? 'employee' : 'client';
 
-    const {t, i18n} = useTranslation();
-
-    const Breadcrumbs = () => (
-    <div className="fluid-container">
-      <div className="flex items-center py-4">
-        <ArrowBack back />
-        <div className="ml-10">
-          <Link href="/account">
-            <a className="text-red hover:text-pink">{t('account.my_account')}</a>
-          </Link>
-          <span className="px-2 text-grey">/</span>
-            {t('account.chats')}
-        </div>
-      </div>
-    </div>
-  );
+  const {t, i18n} = useTranslation();
 
   const [selectedChat, setSelectedChat] = useState(null);
 
   let { data: { chats } = [], loading: chatsLoading, refetch: refetchChats } = useQuery(
-    ALL_CHATS
+    ALL_CHATS,
+    {
+      fetchPolicy: 'no-cache',
+      variables: {
+        employeeId: employeeId
+      }
+    }
   );
 
   if (chatsLoading) {
     return <Loader/>;
   }
 
+  const selectChat = function(chatId) {
+    chatId = parseInt(chatId);
+
+    if (selectedChat && chatId === parseInt(selectedChat.id)) {
+      return;
+    }
+
+    const chat = chats.find(c => parseInt(c.id) === chatId);
+    console.log(chats, chat)
+    if (chat) {
+      setSelectedChat(chat);
+    }
+  }.bind(this);
+
+  if (!!selectedChatId && !selectedChat) {
+    selectChat(selectedChatId)
+  }
+
+  if (employee && type === 'client') {
+    let chatByReceiver = chats.find(c => c.receiver.id === parseInt(employee.id));
+
+    if (!chatByReceiver && !chats.find(c => c.id === null)) {
+      chats.unshift({
+        id: null,
+        employee_id: employee.id,
+        client_id: user.id,
+        receiver: employee,
+        messages: [],
+        active: true,
+      });
+
+      if (!selectedChat) {
+        setSelectedChat(chats[0]);
+      }
+    } else if (chatByReceiver && !selectedChat) {
+      chats = [chatByReceiver, ...chats.filter(c => c.id !== chatByReceiver.id)];
+      setSelectedChat(chats[0]);
+    }
+  }
+
   Centrifugo.init().then(centrifuge => {
     let chatsChannel = type === 'client'
       ? 'client_chats:' + user.id
-      : 'employee_chats:' + user.employee.id;
+      : 'employee_chats:' + (employeeId || user.employee.id);
+
+    if (centrifuge.getSub(chatsChannel)) {
+      return;
+    }
 
     centrifuge.subscribe(chatsChannel, data => {
-      console.log(data);
-
       if (data.data.action === 'refresh') {
         console.log('refreshing chats');
         refetchChats();
@@ -58,16 +91,6 @@ const EmployeeChatComponent = ({ user }) => {
       }
     });
   });
-
-  const selectChat = function(chatId) {
-    chats = chats.map(chat => {
-      if (chat.id === chatId && (!selectedChat || chatId !== selectedChat.id)) {
-        setSelectedChat(chat);
-      }
-
-      return chat;
-    });
-  }.bind(this);
 
   let mobileChoosedBlock = (
     <>
@@ -109,7 +132,7 @@ const EmployeeChatComponent = ({ user }) => {
     }
 
     return mobileChoseBlock;
-  };
+  }
 
   let mobileChatBlock = (
     <div className="relative block w-full md:hidden bg-white border-2 border-black rounded-lg text-center py-3 mb-3 sm:mx-3 mt-4">
@@ -125,7 +148,7 @@ const EmployeeChatComponent = ({ user }) => {
           "w-full sm:w-full md:w-2/3 px-3 mb-3"
         ])}
       >
-        <div className="text-2xl font-extrabold my-5">{t('chat.select_chat')}</div>
+        <div className="text-2xl font-extrabold my-5">{t('chat.chose_chat')}</div>
       </div>
     </>
   );
@@ -136,12 +159,12 @@ const EmployeeChatComponent = ({ user }) => {
         <div
           className={cx([
             selectedChat ? "block" : "hidden md:block",
-            "w-full sm:w-full md:w-2/3 px-3 mb-3"
+            "w-full sm:w-full md:w-2/3 px-3"
           ])}
         >
           <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
           <div>
-            <ChatRoom type={type} selectedChat={selectedChat}></ChatRoom>
+            <ChatRoom type={type} selectedChat={selectedChat} refetchChats={refetchChats}/>
           </div>
         </div>
       </>
@@ -158,15 +181,24 @@ const EmployeeChatComponent = ({ user }) => {
       >
         <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('layout.contacts')}</div>
         <div>
-          <ChatList type={type} chats={chats} selectedChat={selectedChat} selectChat={selectChat}></ChatList>
+          <ChatList type={type} chats={chats} selectedChat={selectedChat} selectChat={selectChat}/>
         </div>
       </div>
     </>
   );
 
+  if (type === 'client' && employee) {
+    return (
+      <div className="flex flex-col sm:flex-row flex-wrap">
+        {mobileChatBlock}
+        {chatRoomBlock}
+        {chatsBlock}
+      </div>
+    );
+  }
+
   return (
     <>
-      <Breadcrumbs />
       <div className="fluid-container">
         <div className="bg-white shadow rounded-lg p-8">
           <div className="flex flex-col sm:flex-row flex-wrap -mx-3 bg-xs-grey rounded-lg">
@@ -180,14 +212,4 @@ const EmployeeChatComponent = ({ user }) => {
   );
 };
 
-EmployeeChatComponent.getInitialProps = async ctx => {
-  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
-  if (!user) {
-    return {};
-  }
-  return { user };
-};
-
-// EmployeeChatComponent.getLayout = getLayout;
-
-export default EmployeeChatComponent;
+export default EmployeeClientChat;

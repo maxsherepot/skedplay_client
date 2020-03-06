@@ -2,6 +2,7 @@
 
 namespace Modules\Chat\Http\Controllers;
 
+use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Repositories\ChatRepository;
@@ -27,16 +28,17 @@ class ChatController extends Controller
         $this->chatService = $chatService;
     }
 
-    public function index()
+    public function index($employee_id = null)
     {
+        /** @var User $user */
         $user = auth()->user();
 
         $chats = $this->repository
-            ->getChatsQuery($user)
+            ->getChatsQuery($user, is_numeric($employee_id) ? (int) $employee_id : null)
             ->with(['employee', 'client'])
             ->withCount([
                 'messages' => function($query) use ($user) {
-                    $query->whereSeen(0)->whereFromClient($user->isClient() ? 0 : 1);
+                    $query->whereSeen(0)->whereFromClient($user->is_client ? 0 : 1);
                 }
             ])
             ->get()
@@ -52,28 +54,51 @@ class ChatController extends Controller
     public function show($chat_id)
     {
         $chat = Chat::with(['employee', 'client', 'messages' => function($query) {
-            return $query->with('media')->limit(Chat::MESSAGES_LIMIT);
+            return $query->with('attachments')->limit(Chat::MESSAGES_LIMIT);
         }])->findOrFail($chat_id);
 
         $user = auth()->user();
 
-        $chatMemberId = $user->isClient()
-            ? $user->id
-            : $user->employee->id;
+        if ($user->is_client) {
+            $chatMemberId = $user->id;
+        } elseif ($user->is_employee) {
+            $chatMemberId = $user->employee->id;
+        } else {
+            $chatMemberId = $chat->employee_id;
 
-        $idField = $user->isClient() ? 'client_id' : 'employee_id';
+            if (!$user->employees_club_owners()->where('employees.id', $chatMemberId)->first()) {
+                return $this->fail('chat not found');
+            }
+        }
+
+        $idField = $user->is_client ? 'client_id' : 'employee_id';
 
         if ($chat->$idField !== $chatMemberId) {
             return $this->fail('chat not found');
         }
 
-        $user = auth()->user();
-
         $chat->messages()
-            ->whereFromClient($user->isClient() ? 0 : 1)
+            ->whereFromClient($user->is_client ? 0 : 1)
             ->update(['seen' => 1]);
 
         return $this->chatService->formatChatRoom($chat);
+    }
+
+    public function myChatsWithLastMessages()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        return $this->repository->getUserChatsWithLastMessages($user)
+            ->filter(function(Chat $chat) {
+                return $chat->lastMessage !== null;
+            })
+            ->map(function(Chat $chat) {
+                $chat->last_message = $chat->lastMessage;
+
+                return $chat;
+            })
+            ->values();
     }
 
     public function profileChat($receiver_id)

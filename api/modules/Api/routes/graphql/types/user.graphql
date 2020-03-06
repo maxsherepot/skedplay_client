@@ -20,6 +20,7 @@ type User {
     unread_messages_count: Int! @method(name: "unreadMessagesCount")
     status: Int!
     rejected_reason: String
+    employees_club_owners: [Employee] @hasMany
 }
 
 input UserInput {

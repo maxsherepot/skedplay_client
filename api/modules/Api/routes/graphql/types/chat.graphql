@@ -1,12 +1,14 @@
 type Message {
     id: Int!
     chat_id: Int!
+#    employee_id: Int!
+#    client_id: Int!
     created_at: String!
     updated_at: String!
     from_client: Int!
     text: String!
     seen: Int!
-    attachments: [Attachment]
+    attachments: [Media] @hasMany
 }
 
 type Attachment {
@@ -21,15 +23,26 @@ type Receiver {
 
 type ChatRoom {
     id: Int!
+    employee_id: Int!
+    client_id: Int!
     receiver: Receiver!
     messages: [Message!]!
 }
 
 type Chat {
     id: Int!
+    employee_id: Int!
+    client_id: Int!
     receiver: Receiver!
     last_message_date: String!
     unread_messages_count: Int!
+}
+
+type ChatWithLastMessage {
+    id: Int!
+    employee: Employee!
+    client: User!
+    last_message: Message
 }
 
 type ProfileChat {
@@ -40,26 +53,22 @@ type ProfileChat {
 
 input MessageInput {
     chat_id: Int
-    employee_id: Int
+    client_id: Int!
+    employee_id: Int!
     text: String!
-    attachments: [Upload]
+    attachments: [Upload!]
 }
 
 extend type Query @middleware(checks: ["auth:api"]) {
     chat(chatId: Int!): ChatRoom!
     @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@show")
 
-    chats: [Chat!]!
+    chats(employeeId: Int): [Chat!]!
     @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@index")
 
-    # profileChat(receiver_id: Int!): ProfileChat
-    # @router(action:  "Modules\\Chat\\Http\\Controllers\\ChatController@profileChat")
+    myChats: [ChatWithLastMessage!]
+    @router(action: "Modules\\Chat\\Http\\Controllers\\ChatController@myChatsWithLastMessages")
 }
-
-# extend type Query @middleware(checks: ["auth:api"]) {
-#     chat(planId: Int!, periodId: Int!, userId: Int!): DatatransCredentials!
-#     @router(action: "Modules\\Billing\\Http\\Controllers\\BillingController@getCredentials")
-# }
 
  extend type Mutation @middleware(checks: ["auth:api"]) {
      sendMessage(input: MessageInput! @spread) : Message!

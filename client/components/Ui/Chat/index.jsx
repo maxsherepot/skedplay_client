@@ -45,19 +45,14 @@ function ChatRoom({
       case "remove":
         const dt = new DataTransfer();
         for (let i = 0; i < fileInputRef.current.files.length; i++) {
-          console.log('--aaa-->', i === value, i === value);
           if (i === value || !(fileInputRef.current.files[i] instanceof File)) {
             continue;
           }
           dt.items.add(fileInputRef.current.files[i])
-          console.log('--add-->', dt.files.length);
         }
-
-        console.log(currentAttachments.filter((a, i) => i !== value).length, dt.files.length);
 
         fileInputRef.current.files = dt.files;
 
-        // fileInputRef.current.files.splice(value, 1);
         return currentAttachments.filter((a, i) => i !== value);
       case "clear":
         return [];
@@ -88,6 +83,7 @@ function ChatRoom({
   let { data: { chat: loadedChat } = selectedChat, loading: chatLoading, refetch: refetchChat, client } = useQuery(
     CHAT_ROOM,
     {
+      fetchPolicy: 'no-cache',
       variables: {
         chatId: selectedChat.id
       }
@@ -106,15 +102,11 @@ function ChatRoom({
     if (centrifuge.getSub('chat:' + selectedChat.id)) {
       return;
     }
-    console.log('chat:' + selectedChat.id);
-    centrifuge.subscribe('chat:' + selectedChat.id, data => {
-      console.log(data);
 
+    centrifuge.subscribe('chat:' + selectedChat.id, data => {
       if (data.data.action === 'refresh') {
-        console.log('refreshing chat');
         refetchChat();
       } else if (data.data.action === 'add') {
-        console.log('adding message');
         chat.messages.push(data.data.message);
         client.writeData({ data: { chat: {messages: chat.messages} } });
       }
@@ -137,7 +129,7 @@ function ChatRoom({
 
     message.time_block = "";
     message.avatar_block = (
-      <div className="avatar empty transparent"></div>
+      <div className="avatar empty transparent"/>
     );
 
     let timeBlock = (
@@ -147,7 +139,7 @@ function ChatRoom({
     );
 
     let avatarBlock = (
-      <div className="avatar empty"></div>
+      <div className="avatar empty"/>
     );
 
     let nextMessage = chat.messages[i + 1];
@@ -199,7 +191,8 @@ function ChatRoom({
         input: {
           text: messageText,
           chat_id: chat.id,
-          employee_id: selectedChat.receiver.id,
+          client_id: selectedChat.client_id,
+          employee_id: selectedChat.employee_id,
           attachments: fileInputRef.current.files,
         }
       }
@@ -228,8 +221,6 @@ function ChatRoom({
     }
 
     setAttachments({type: 'merge', value: attachmentsList});
-
-    console.log(fileInputRef.current.files);
   }
 
   function simulateFileInputClick() {
@@ -335,7 +326,7 @@ function ChatRoom({
             onChange={e => setMessageText(e.target.value)}
             className="flex-grow outline-none resize-none px-3 py-1"
             onKeyPress={e => {e.key === 'Enter' && sendMessageEventHandler(e)}}
-          ></textarea>
+          />
 
           <a href="#" onClick={sendMessageEventHandler} className="text-pink font-bold text-xl ml-3">Send</a>
         </form>

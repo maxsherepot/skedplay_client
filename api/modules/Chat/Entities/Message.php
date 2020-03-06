@@ -3,6 +3,7 @@
 namespace Modules\Chat\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Chat\Contracts\RealtimeInterface;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -34,5 +35,10 @@ class Message extends Model implements RealtimeInterface, HasMedia
     public function getCentrifugeChannel() : string
     {
         return '$CHAT_' . $this->receiver_id . '_' . $this->creator_id ;
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')->where('collection_name', self::ATTACHMENTS_COLLECTION);
     }
 }

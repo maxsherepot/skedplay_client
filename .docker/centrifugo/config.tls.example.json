@@ -4,6 +4,9 @@
   "admin_password": "password",
   "admin_secret": "secret",
   "client_insecure": true,
+  "tls": true,
+  "tls_key": "/etc/caddycerts/acme/acme-v02.api.letsencrypt.org/sites/skidplay.tk/skidplay.tk.key",
+  "tls_cert": "/etc/caddycerts/acme/acme-v02.api.letsencrypt.org/sites/skidplay.tk/skidplay.tk.crt",
   "namespaces": [
     {
       "name": "chat",

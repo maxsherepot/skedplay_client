@@ -12,6 +12,8 @@ class ChatService
 
         return [
             'id' => $chat->id,
+            'client_id' => $chat->client_id,
+            'employee_id' => $chat->employee_id,
             'unread_messages_count' => $chat->messages_count,
             'last_message_date' => $chat->last_message_date,
             'receiver' => [
@@ -25,19 +27,21 @@ class ChatService
     {
         $receiver = $this->getChatReceiver($chat);
 
-        $messages = $chat->messages->map(function($message) {
-            $message->attachments = $message->media->map(function($media) {
-                return [
-                    'id' => $media->id,
-                    'url' => $media->getFullUrl(),
-                ];
-            });
-
-            return $message;
-        });
+//        $messages = $chat->messages->map(function($message) {
+//            $message->attachments = $message->media->map(function($media) {
+//                return [
+//                    'id' => $media->id,
+//                    'url' => $media->getFullUrl(),
+//                ];
+//            });
+//
+//            return $message;
+//        });
 
         return [
-            'messages' => $messages->toArray(),
+            'client_id' => $chat->client_id,
+            'employee_id' => $chat->employee_id,
+            'messages' => $chat->messages,
             'receiver' => [
                 'id' => $receiver->id,
                 'name' => $receiver->name,
@@ -48,7 +52,7 @@ class ChatService
 
     public function getChatReceiver($chat)
     {
-        if (auth()->user()->is_employee) {
+        if (!auth()->user()->is_client) {
             return $chat->client;
         }
 

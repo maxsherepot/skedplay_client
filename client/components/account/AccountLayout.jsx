@@ -178,7 +178,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               <div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
 
-                  <Link href="/account/chats">
+                  <Link href="/account/messages-and-chats">
                       <a>
                         {t('layout.messages')} / {t('layout.chats')}
                       </a>

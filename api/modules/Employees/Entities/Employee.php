@@ -76,7 +76,8 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     ];
 
     protected $appends = [
-        'readable_type'
+        'readable_type',
+        'name',
     ];
 
     public function getLanguagesAttribute($value)
@@ -162,6 +163,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function eventsTakePart(): BelongsToMany
     {
         return $this->belongsToMany(Event::class, 'event_employee');
+    }
+
+    public function club(): BelongsTo
+    {
+        return $this->belongsTo(Club::class, 'owner_id');
     }
 
     /**
