@@ -11,6 +11,7 @@ type User {
     is_employee: Boolean
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
+    avatar: Media @hasOne
     employees: [Employee] @morphMany
     employee: Employee
     # counters
@@ -55,4 +56,7 @@ extend type Query @middleware(checks: ["auth:api"]) {
 extend type Mutation @middleware(checks: ["auth:api"]) {
     updateUser(user: ID!, input: UserInput @spread): UserPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@update")
+
+    uploadUserAvatar(avatar: Upload!, collection: String!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadAvatar")
 }

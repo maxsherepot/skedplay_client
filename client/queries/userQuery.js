@@ -13,6 +13,12 @@ export const GET_ME = gql`
             favorites_count
             employees_photos
             employees_videos
+            avatar {
+                id 
+                name
+                url
+                thumb_url
+            }
 #            employees_events
             unread_messages_count
             status
@@ -63,6 +69,21 @@ export const GET_ME = gql`
                     id
                 }
             }
+        }
+    }
+`;
+
+export const UPLOAD_USER_AVATAR = gql `
+    mutation uploadUserAvatar(
+        $avatar: Upload!
+        $collection: String!
+    ) {
+        uploadUserAvatar(
+            avatar: $avatar
+            collection: $collection
+        ) { 
+            status
+            message
         }
     }
 `;

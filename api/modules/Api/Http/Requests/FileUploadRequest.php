@@ -6,6 +6,7 @@ use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Clubs\Entities\Club;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
+use Modules\Users\Entities\User;
 
 class FileUploadRequest extends GraphQLFormRequest
 {
@@ -29,6 +30,7 @@ class FileUploadRequest extends GraphQLFormRequest
             case Club::LOGO_COLLECTION:
             case Club::PHOTO_COLLECTION:
             case Employee::PHOTO_COLLECTION:
+            case User::PHOTO_AVATAR:
             case Event::MAIN_PHOTO_COLLECTION:
                 $rules->push($photoRules);
                 break;

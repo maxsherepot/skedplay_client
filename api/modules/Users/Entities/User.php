@@ -5,6 +5,7 @@ namespace Modules\Users\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -20,16 +21,27 @@ use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\Traits\HasFavoriteables;
 use Modules\Users\Entities\Traits\HasPermissionPlan;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Firebase\JWT\JWT;
 
-class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
+/**
+ * Class User
+ * @package Modules\Users\Entities
+ *
+ * @property Media avatar
+ * @property int id
+ */
+class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia
 {
-    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables;
+    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables, HasMediaTrait;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;
         LaratrustUserTrait::can as laratrustCan;
     }
+    const PHOTO_AVATAR = 'user-avatar';
 
     const ACCOUNT_CLIENT = Role::CLIENT;
     const ACCOUNT_EMPLOYEE = Role::EMPLOYEE_OWNER;
@@ -105,6 +117,16 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
     public function findForPassport($username)
     {
         return $this->where('phone', $username)->first();
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection(self::PHOTO_AVATAR)->singleFile();
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_AVATAR);
     }
 
     /**
@@ -200,6 +222,16 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember
         }, 0);
     }
 
+    /**
+     * @return HasOne
+     */
+    public function avatar(): HasOne
+    {
+        return $this
+            ->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::PHOTO_AVATAR)
+        ;
+    }
 
     public function employees_club_owners()
     {

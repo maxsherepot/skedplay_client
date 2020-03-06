@@ -1,18 +1,25 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
-import {Avatar, Button, PageCard} from "UI";
-import {getLayout as getMainLayout} from 'layouts'
+import Router, {useRouter} from "next/router";
+import {Avatar, Button, PageCard, FileField} from "UI";
+import { UPLOAD_USER_AVATAR} from "queries/userQuery";
+import { GET_ME } from "queries/userQuery";
+
+import {getLayout as getMainLayout} from 'layouts';
+import {getErrors, defaultSchedule} from "utils";
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
+import AddPhotoSvg from "components/icons/AddPhotoSvg";
+import {Loader} from 'UI';
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
         <div className="flex items-center lg:w-7/12 ml-8 py-8">
-            <Avatar src="/static/img/Avatar.png"/>
+            {/*<Avatar src="/static/img/Avatar.png"/>*/}
+            <CheckAvatar />
             <div className="ml-4">
                 <span className="text-2xl font-medium capitalize">{user.name}</span>
                 <div className="flex mt-4">
@@ -24,8 +31,56 @@ const ProfileHeader = ({user}) => (
     </div>
 );
 
+const CheckAvatar = () => {
+    const [uploadUserAvatar] = useMutation(UPLOAD_USER_AVATAR);
+    const {
+        data: { me } = {},
+        loading
+    } = useQuery(GET_ME);
+
+    if (loading) {
+        return <Loader/>;
+    }
+
+    const handleChange = async fileEvent => {
+        try {
+            const [avatar] = fileEvent.target.files;
+
+            await uploadUserAvatar({
+                variables: {
+                    avatar: avatar,
+                    collection: 'user-avatar'
+                },
+            });
+
+            Router.reload();
+
+        } catch (e) {
+            const errors = getErrors(e);
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
+    return (
+        <>
+            <div className={`c-account__avatar-wrap ${me.avatar ? '' : 'c-account__avatar--empty'}`}>
+                {me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
+                <label htmlFor="fileUpload" className="c-account__avatar-plus">
+                    <AddPhotoSvg/>
+                </label>
+                <input className="c-account__avatar-input" type="file" id="fileUpload" onChange={handleChange}/>
+            </div>
+        </>
+    );
+};
+
 const ClubMenu = ({clubs}) => {
     const router = useRouter();
+
     const {t, i18n} = useTranslation();
 
     return clubs.map(({id, name, employees, events}) => {
