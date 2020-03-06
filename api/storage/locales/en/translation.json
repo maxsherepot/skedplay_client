@@ -76,7 +76,14 @@
     "prev": "Prev",
     "off": "Off",
     "send": "Send",
-    "okay": "Okay"
+    "okay": "Okay",
+    "chat": "chat",
+    "from": "from",
+    "client": "client",
+    "answer": "Answer",
+    "ignore": "Ignore",
+    "report_abuse": "Report abuse",
+    "to": "to"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -342,10 +349,12 @@
     "": ""
   },
   "chat": {
+    "header": "Last messages",
     "large": "large",
     "all": "All chats",
     "chat_with": "Chat with",
-    "chose_chat": "Chose chat",
+    "chose_chat": "Select chat",
+    "select_employee": "Select employee",
     "": ""
   },
   "review": {
@@ -364,6 +373,7 @@
   },
   "account": {
     "my_account": "My account",
+    "messages_and_chats": "Messages and chats",
     "account_settings": "Account setting",
     "contact_information": "Contact Information",
     "for_administration": "This information need only for site administrators, and account control.",
