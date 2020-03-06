@@ -118,6 +118,42 @@ main {
   }
 }
 
+.c-account {
+  &__avatar {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+    &-wrap:hover, &--empty {
+      .c-account__avatar-plus {
+        display: block;
+      }
+    }
+
+    &-wrap {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #dfdfdf;
+    }
+
+    &-input {
+      display: none;
+    }
+
+    &-plus {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      cursor: pointer;
+    }
+  }
+}
+
 @import "components/Ui/AnimationBackground/AnimationBackground";
 @import "components/Ui/Button/Button";
 @import "components/Ui/Header/Header";

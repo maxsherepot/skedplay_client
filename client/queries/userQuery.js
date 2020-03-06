@@ -97,20 +97,6 @@ export const GET_MY_EMPLOYEE_EVENTS_COUNT = gql`
     }
 `;
 
-export const GET_MY_AVATAR = gql `
-    query me {
-        me {
-            id
-            avatar {
-                id
-                name
-                url
-                thumb_url
-            }
-        }
-    }
-`;
-
 export const FAVORITE_EMPLOYEES = gql`
     query getFavoriteEmployees($id: ID!) {
         favoriteEmployees(id: $id) {

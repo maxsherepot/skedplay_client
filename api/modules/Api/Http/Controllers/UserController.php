@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Api\Http\Requests\User\UserUpdateRequest;
@@ -49,9 +50,12 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
+        /** @var User $currentUser */
+        $currentUser = $request->user();
+
         try {
             $this->users->saveAttachments(
-                $user,
+                $currentUser,
                 $request->allFiles(),
                 $request->get('collection')
             );

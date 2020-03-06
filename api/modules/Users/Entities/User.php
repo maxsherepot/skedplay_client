@@ -41,7 +41,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         Authorizable::can insteadof LaratrustUserTrait;
         LaratrustUserTrait::can as laratrustCan;
     }
-    const PHOTO_AVATAR = 'avatar';
+    const PHOTO_AVATAR = 'user-avatar';
 
     const ACCOUNT_CLIENT = Role::CLIENT;
     const ACCOUNT_EMPLOYEE = Role::EMPLOYEE_OWNER;
@@ -122,6 +122,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     public function registerMediaCollections()
     {
         $this->addMediaCollection(self::PHOTO_AVATAR)->singleFile();
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_AVATAR);
     }
 
     /**
@@ -222,8 +227,10 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
      */
     public function avatar(): HasOne
     {
-        return $this->hasOne(Media::class, 'model_id', 'id')
-            ->where('collection_name', self::PHOTO_AVATAR);
+        return $this
+            ->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::PHOTO_AVATAR)
+        ;
     }
 
     public function employees_club_owners()

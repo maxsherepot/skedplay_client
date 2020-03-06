@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 import {Avatar, Button, PageCard, FileField} from "UI";
 import { UPLOAD_USER_AVATAR} from "queries/userQuery";
 import { GET_ME } from "queries/userQuery";
@@ -12,9 +12,8 @@ import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
-import classNames from "classnames";
 import AddPhotoSvg from "components/icons/AddPhotoSvg";
-import {getDataFromTree} from "@apollo/react-ssr";
+import {Loader} from 'UI';
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
@@ -34,35 +33,30 @@ const ProfileHeader = ({user}) => (
 
 const CheckAvatar = () => {
     const [uploadUserAvatar] = useMutation(UPLOAD_USER_AVATAR);
-    const user = useQuery(GET_ME);
-    console.log({user});
-    function handleClick(e) {
-        console.log('Click');
+    const {
+        data: { me } = {},
+        loading
+    } = useQuery(GET_ME);
+
+    if (loading) {
+        return <Loader/>;
     }
 
     const handleChange = async fileEvent => {
         try {
             const [avatar] = fileEvent.target.files;
 
-            const {
-                data: {
-                    uploadUserAvatar: {status: statusPhoto, message: messagePhoto}
-                }
-            } = await uploadUserAvatar({
+            await uploadUserAvatar({
                 variables: {
                     avatar: avatar,
-                    collection: 'avatar'
+                    collection: 'user-avatar'
                 },
             });
-            console.log('Click2');
 
-            return {
-                status: statusPhoto,
-                message: messagePhoto
-            };
+            Router.reload();
+
         } catch (e) {
             const errors = getErrors(e);
-            console.log('Click3');
             return {
                 status: false,
                 message: "Server error",
@@ -73,9 +67,9 @@ const CheckAvatar = () => {
 
     return (
         <>
-            <div className="flex items-center c-account__avatar-wrap">
-                <img className="rounded-full position-relative" src="/static/img/Avatar.png"/>
-                <label htmlFor="fileUpload" className="c-account__avatar-plus" onClick={handleClick}>
+            <div className={`c-account__avatar-wrap ${me.avatar ? '' : 'c-account__avatar--empty'}`}>
+                {me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
+                <label htmlFor="fileUpload" className="c-account__avatar-plus">
                     <AddPhotoSvg/>
                 </label>
                 <input className="c-account__avatar-input" type="file" id="fileUpload" onChange={handleChange}/>
