@@ -40,7 +40,10 @@ function EventCard({
   type,
   photos,
   href,
-  height
+  height,
+  lat,
+  lng,
+  address
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -49,6 +52,9 @@ function EventCard({
   const isMap = eventMapId === id;
 
   const {t, i18n} = useTranslation();
+
+  lat = lat || (club && club.lat);
+  lng = lng || (club && club.lng);
 
   return (
     <div
@@ -61,7 +67,7 @@ function EventCard({
       <div
         className="relative overflow-hidden rounded-t-lg"
         style={{
-          backgroundImage: `url(${thumb.url || '/static/img/event-none.png'})`,
+          backgroundImage: `url(${thumb && thumb.url || '/static/img/event-none.png'})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           height
@@ -125,12 +131,12 @@ function EventCard({
           className="flex flex-wrap justify-between text-xs cursor-pointer"
           onClick={() => setEventMapId(id)}
         >
-          <div className="py-1">{club.address}</div>
+          <div className="py-1">{address || (club && club.address)}</div>
 
-          {(club.lat && club.lng) &&
+          {(lat && lng) &&
             <Distance
               originByGeo={true}
-              destination={{lat: club.lat, lng: club.lng}}
+              destination={{lat, lng}}
             >
               <DistanceView/>
             </Distance>
