@@ -84,7 +84,7 @@ const ClubMenu = ({clubs}) => {
     const {t, i18n} = useTranslation();
 
     return clubs.map(({id, name, employees, events}) => {
-        const path = '/account/club/:cid';
+        const path = '/account/club/[cid]';
         const asPath = `/account/club/${id}`;
 
         const isActive = router.asPath.includes(asPath);
@@ -103,7 +103,7 @@ const ClubMenu = ({clubs}) => {
                     <div className="ml-12 font-medium">
                         {/* Add ActiveLink with special class! */}
 
-                        <Link href={`/${path}/workers`} as={`${asPath}/workers`}>
+                        <Link href={`${path}/workers`} as={`${asPath}/workers`}>
                             <a className="text-red p-1 cursor-pointer">
                                 {t('account.sex_workers_cards')}
                                 <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
@@ -111,7 +111,7 @@ const ClubMenu = ({clubs}) => {
                                 </span>
                             </a>
                         </Link>
-                        <Link href={`/account/club/${id}/workers/add`}>
+                        <Link href={`${path}/workers/add`} as={`${asPath}/workers/add`}>
                             <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
                                 <AddSvg/>
                                 <span className="ml-2">{t('layout.add_new_card')}</span>
@@ -121,7 +121,7 @@ const ClubMenu = ({clubs}) => {
                             {t('layout.archive_sex_workers')}
                         </div>
                         <div className="text-red p-1 cursor-pointer">
-                            <Link href={`/${path}/events`} as={`${asPath}/events`}>
+                            <Link href={`${path}/events`} as={`${asPath}/events`}>
                                 <a>
                                     {t('layout.events')}
                                     <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
@@ -130,7 +130,7 @@ const ClubMenu = ({clubs}) => {
                                 </a>
                             </Link>
                         </div>
-                        <Link href={`/${path}/edit`} as={`${asPath}/edit`}>
+                        <Link href={`${path}/edit`} as={`${asPath}/edit`}>
                             <a>
                                 <div className="text-red p-1 cursor-pointer">{t('layout.admin')} / {t('layout.edit')}</div>
                             </a>
