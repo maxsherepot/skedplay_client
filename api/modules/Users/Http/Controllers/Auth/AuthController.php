@@ -51,7 +51,7 @@ class AuthController extends BaseAuthResolver
         $user = $model->where('phone', $request->get('username'))->firstOrFail();
 
         if ($user->status === User::STATUS_REFUSED) {
-            throw new AuthenticationException('user blocked by reason');
+            throw new AuthenticationException('user blocked by reason: '. $user->rejected_reason);
         }
 
         $response['user'] = $user;

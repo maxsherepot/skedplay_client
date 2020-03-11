@@ -40,7 +40,6 @@ function Footer({ user }) {
         if (data.data.status === 'rejected') {
           console.log(data.data.status);
           signOut();
-          // :TODO logout
         }
       });
     });
