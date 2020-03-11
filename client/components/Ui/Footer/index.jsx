@@ -11,11 +11,40 @@ import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import {useState} from "react";
 import ContactsPopup from "components/popups/ContactsPupup";
-
+import { setCookie } from "utils";
 import {CookiesBlock} from 'UI';
+import redirect from "lib/redirect";
+import Centrifugo from "components/centrifuge";
+import {useApolloClient} from "@apollo/react-hooks";
 
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
+  const client = useApolloClient();
+  const signOut = () => {
+    setCookie("token", "", {
+      "max-age": -1
+    });
+
+    client.clearStore().then(() => redirect({}, "/"));
+  };
+
+  if (user) {
+    Centrifugo.init().then(centrifuge => {
+      const channel = 'user_status';
+
+      if (centrifuge.getSub(channel)) {
+        return;
+      }
+
+      centrifuge.subscribe(channel, data => {
+        if (data.data.status === 'rejected') {
+          console.log(data.data.status);
+          signOut();
+          // :TODO logout
+        }
+      });
+    });
+  }
 
   return (
     <div className="footer flex flex-col bg-black">
@@ -78,6 +107,6 @@ function Footer({ user }) {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;
