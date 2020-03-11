@@ -46,7 +46,7 @@ class UserController extends Controller
         $user->status = User::STATUS_REFUSED;
         $user->rejected_reason = $request->get('reason');
         $user->save();
-        $chanel = 'user_status';
+        $chanel = 'user_status:'. $user->id;
 
         $this->centrifugeClient->publish($chanel, [
             'status' => 'rejected',

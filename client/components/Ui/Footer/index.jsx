@@ -30,7 +30,7 @@ function Footer({ user }) {
 
   if (user) {
     Centrifugo.init().then(centrifuge => {
-      const channel = 'user_status';
+      const channel = 'user_status:' + user.id;
 
       if (centrifuge.getSub(channel)) {
         return;
