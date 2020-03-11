@@ -17,7 +17,7 @@ function Avatar({ className, src }) {
 
   return (
       <>
-      {me.avatar ? <img className={classNames(className, "rounded-full w-1/4")} src={me.avatar.url}/> :
+      {me && me.avatar ? <img className={classNames(className, "rounded-full w-1/4")} src={me.avatar.url}/> :
           <img className={classNames(className, "rounded-full")} src={src}/>}
       </>
   );

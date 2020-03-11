@@ -18,7 +18,6 @@ import {Loader} from 'UI';
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
         <div className="flex items-center lg:w-7/12 ml-8 py-8">
-            {/*<Avatar src="/static/img/Avatar.png"/>*/}
             <CheckAvatar />
             <div className="ml-4">
                 <span className="text-2xl font-medium capitalize">{user.name}</span>
@@ -67,8 +66,8 @@ const CheckAvatar = () => {
 
     return (
         <>
-            <div className={`c-account__avatar-wrap ${me.avatar ? '' : 'c-account__avatar--empty'}`}>
-                {me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
+            <div className={`c-account__avatar-wrap ${me && me.avatar ? '' : 'c-account__avatar--empty'}`}>
+                {me && me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
                 <label htmlFor="fileUpload" className="c-account__avatar-plus">
                     <AddPhotoSvg/>
                 </label>

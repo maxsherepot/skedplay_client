@@ -32,6 +32,7 @@ use Firebase\JWT\JWT;
  *
  * @property Media avatar
  * @property int id
+ * @property int status
  */
 class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia
 {
