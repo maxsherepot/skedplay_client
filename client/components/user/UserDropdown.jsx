@@ -39,7 +39,9 @@ const UserDropdown = ({ user }) => {
         toggle={toggleUserMenu}
       >
         <div className="flex justify-between p-7">
-          <Avatar src="/static/img/Avatar-2.png" />
+          <div className="c-account__avatar-wrap">
+            <Avatar className="c-account__avatar" src="/static/img/Avatar-2.png" />
+          </div>
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">
               <div className="text-2xl font-medium capitalize">{user.name}</div>
