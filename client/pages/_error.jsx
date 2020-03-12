@@ -16,7 +16,7 @@ function Error({statusCode}) {
             <h1 className="text-6xl font-extrabold">{t('errors.page_not_found')}</h1>
             <p>{t('errors.sorry_not_found')}</p>
 
-            <div className="flex mt-6">
+            <div className="flex mt-6 flex-wrap error__btn-wrap">
                 <Link href="/">
                     <a href="/">
                         <Button className="px-16 mr-3">{t('navigation.go_home')}</Button>
@@ -69,7 +69,7 @@ function Error({statusCode}) {
         <>
             <AnimationBackground invert footer={<Footer/>}>
                 <div className="absolute inset-0 fluid-container hd:w-7/12 mx-auto flex">
-                    <div className="z-10">
+                    <div className="z-10 h-20">
                         <a href="/">
                             <Logo className="text-white mx-auto mt-5" />
                         </a>
