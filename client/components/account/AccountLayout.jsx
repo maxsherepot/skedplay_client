@@ -135,7 +135,6 @@ const ClubMenu = ({clubs}) => {
                                 <div className="text-red p-1 cursor-pointer">{t('layout.admin')} / {t('layout.edit')}</div>
                             </a>
                         </Link>
-                        <div className="text-red p-1 cursor-pointer">{t('layout.webpage')}</div>
                     </div>
                 )}
             </div>
