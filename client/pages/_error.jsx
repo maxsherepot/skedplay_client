@@ -18,7 +18,7 @@ function Error({statusCode}) {
 
             <div className="flex mt-6">
                 <Link href="/">
-                    <a>
+                    <a href="/">
                         <Button className="px-16 mr-3">{t('navigation.go_home')}</Button>
                     </a>
                 </Link>
@@ -70,7 +70,9 @@ function Error({statusCode}) {
             <AnimationBackground invert footer={<Footer/>}>
                 <div className="absolute inset-0 fluid-container hd:w-7/12 mx-auto flex">
                     <div className="z-10">
-                        <Logo className="text-white mx-auto mt-5" />
+                        <a href="/">
+                            <Logo className="text-white mx-auto mt-5" />
+                        </a>
                     </div>
                 </div>
 
