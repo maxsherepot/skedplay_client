@@ -3,6 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Laravel\Passport\Token;
 use Modules\Admin\Http\Requests\RejectUserRequest;
 use Modules\Users\Entities\User;
 use phpcent\Client;
@@ -51,5 +52,10 @@ class UserController extends Controller
         $this->centrifugeClient->publish($chanel, [
             'status' => 'rejected',
         ]);
+
+        Token::query()
+            ->where('user_id', '=', $user->id)
+            ->forceDelete();
+
     }
 }
