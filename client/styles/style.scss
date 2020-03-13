@@ -59,17 +59,6 @@ main {
   }
 }
 
-.animation-gradient {
-  height: 380px !important;
-  @media (max-width: 580px) {
-    height: 300px !important;
-  }
-
-  @media (max-width: 325px) {
-    height: 250px !important;
-  }
-}
-
 .error__btn-wrap {
   @media (max-width: 445px) {
     a:first-child {
