@@ -2,22 +2,18 @@ import React from "react";
 import moment from "moment";
 import {useMutation} from "@apollo/react-hooks";
 import {
-  UPDATE_EMPLOYEE,
   SYNC_EMPLOYEE_PRICES,
   SYNC_EMPLOYEE_SERVICES,
-  UPLOAD_EMPLOYEE_FILES,
+  UPDATE_EMPLOYEE,
   UPDATE_EMPLOYEE_SCHEDULE,
+  UPDATE_USER,
+  UPLOAD_EMPLOYEE_FILES,
 } from "queries";
 
-import {getErrors, defaultSchedule} from "utils";
+import {defaultSchedule, getErrors} from "utils";
 import {employeeRules} from "rules";
 import {EditEmployeeForm} from "components/employee";
-import {
-  AdInformationStep,
-  AdServicesAndPricesStep,
-  AdMediaStep,
-  AdScheduleStep,
-} from 'components/steps';
+import {AdInformationStep, AdMediaStep, AdScheduleStep, AdServicesAndPricesStep,} from 'components/steps';
 
 const EditEmployeeBox = ({ employee }) => {
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
@@ -25,6 +21,7 @@ const EditEmployeeBox = ({ employee }) => {
   const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
   const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
   const [updateEmployeeSchedule] = useMutation(UPDATE_EMPLOYEE_SCHEDULE);
+  const [updateUser] = useMutation(UPDATE_USER);
 
   let parameters = {};
   let services = {};
@@ -41,7 +38,7 @@ const EditEmployeeBox = ({ employee }) => {
   employee.prices.forEach(p => prices[p.id] = p.pivot.price);
 
   const initialValues = {
-    name: employee.name,
+    name: `${employee.first_name} ${employee.last_name}`,
     birthday: moment(employee.birthday).format('DD.MM.YYYY'),
     gender: employee.gender,
     race_type_id: employee.race_type_id,
@@ -63,6 +60,8 @@ const EditEmployeeBox = ({ employee }) => {
 
   const onSubmitInfo = async values => {
     try {
+      const [first_name, last_name] = values.name.split(' ');
+
       const {
         data: {
           updateEmployee: {status, message}
@@ -72,10 +71,27 @@ const EditEmployeeBox = ({ employee }) => {
           employee: employee.id,
           input: {
             ...values,
+            first_name,
+            last_name,
             schedule: JSON.stringify(values.schedule),
             prices: JSON.stringify(values.prices),
             services: JSON.stringify(values.services),
             parameters: JSON.stringify(values.parameters)
+          }
+        }
+      });
+
+      const {
+        data: {
+          updateUser: {}
+        }
+      } = await updateUser({
+        variables: {
+          user: employee.owner.id,
+          input: {
+            phone: values.phone,
+            birthday: values.birthday,
+            email: values.email,
           }
         }
       });
