@@ -9,16 +9,72 @@ import {
 } from "icons";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
-import {useState} from "react";
+import React, {useState} from "react";
 import ContactsPopup from "components/popups/ContactsPupup";
-
+import { setCookie } from "utils";
 import {CookiesBlock} from 'UI';
+import redirect from "lib/redirect";
+import Centrifugo from "components/centrifuge";
+import {useApolloClient} from "@apollo/react-hooks";
+import Content from "UI/Popup/Content";
+import {useQuery} from "@apollo/react-hooks";
+import Popup from "reactjs-popup";
+import {GET_ME} from "queries/userQuery";
 
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
+  const client = useApolloClient();
+  const {
+    data: { me } = {},
+    loading
+  } = useQuery(GET_ME);
+  const [banPopupShow, setBanPopupShow] = useState(false);
+
+  const signOut = () => {
+    setCookie("token", "", {
+      "max-age": -1
+    });
+
+    setBanPopupShow(false);
+
+    client.clearStore().then(() => redirect({}, "/"));
+  };
+
+  if (user) {
+    Centrifugo.init().then(centrifuge => {
+      const channel = 'user_status:' + user.id;
+
+      if (centrifuge.getSub(channel)) {
+        return;
+      }
+
+      centrifuge.subscribe(channel, data => {
+        if (data.data.status === 'rejected') {
+          console.log(data.data.status);
+          setBanPopupShow(true);
+        }
+      });
+    });
+  }
 
   return (
     <div className="footer flex flex-col bg-black">
+      <Popup
+          modal
+          closeOnDocumentClick
+          onClose={signOut}
+          open={banPopupShow}
+          contentStyle={{
+            width: "100%",
+            maxWidth: "600px",
+          }}
+      >
+        <Content
+            title={t('account.account_rejected')}
+            close={signOut}>
+          <h3 className="mt-3">{t('account.reason')}: {me && me.rejected_reason ? me.rejected_reason : ''} </h3>
+        </Content>
+      </Popup>
       <CookiesBlock/>
 
       <div className="fluid-container flex flex-col md:flex-row w-full text-white my-6">
@@ -78,6 +134,6 @@ function Footer({ user }) {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

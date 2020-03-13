@@ -3,11 +3,27 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Laravel\Passport\Token;
 use Modules\Admin\Http\Requests\RejectUserRequest;
 use Modules\Users\Entities\User;
+use phpcent\Client;
 
 class UserController extends Controller
 {
+    /**
+     * @var Client
+     */
+    private $centrifugeClient;
+
+    /**
+     * UserController constructor.
+     * @param Client $centrifugeClient
+     */
+    public function __construct(Client $centrifugeClient)
+    {
+        $this->centrifugeClient = $centrifugeClient;
+    }
+
     public function show($id)
     {
         $user = User::findOrFail($id)->append(['type']);
@@ -31,5 +47,15 @@ class UserController extends Controller
         $user->status = User::STATUS_REFUSED;
         $user->rejected_reason = $request->get('reason');
         $user->save();
+        $chanel = 'user_status:'. $user->id;
+
+        $this->centrifugeClient->publish($chanel, [
+            'status' => 'rejected',
+        ]);
+
+        Token::query()
+            ->where('user_id', '=', $user->id)
+            ->forceDelete();
+
     }
 }

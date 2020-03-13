@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Header, Footer } from "UI";
 
 const MainLayout = ({ user, children }) => {
+
   return (
     <div className="flex flex-col min-h-screen bg-xs-grey">
       <Header user={user} className="nav__theme_white" />

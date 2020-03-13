@@ -2,9 +2,11 @@
 
 namespace Modules\Users\Http\Controllers\Auth;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\ForgotPasswordRequest;
 use Modules\Users\Http\Requests\Auth\LoginRequest;
 use Modules\Users\Http\Requests\Auth\ResetPasswordRequest;
@@ -40,13 +42,18 @@ class AuthController extends BaseAuthResolver
      * @return array
      * @throws AuthenticationException
      */
-    public function login(LoginRequest $request): array
+    public function login(LoginRequest $request)
     {
         $credentials = $this->buildCredentials($request->all());
         $response = $this->makeRequest($credentials);
 
         $model = app(config('auth.providers.users.model'));
         $user = $model->where('phone', $request->get('username'))->firstOrFail();
+
+        if ($user->status === User::STATUS_REFUSED) {
+            throw new AuthenticationException('user blocked by reason: '. $user->rejected_reason);
+        }
+
         $response['user'] = $user;
 
         return $response;
