@@ -28,10 +28,12 @@ class ChatController extends Controller
         $this->chatService = $chatService;
     }
 
-    public function index($employee_id = null)
+    public function index()
     {
         /** @var User $user */
         $user = auth()->user();
+
+        $employee_id = func_get_args()[0] ?? null;
 
         $chats = $this->repository
             ->getChatsQuery($user, is_numeric($employee_id) ? (int) $employee_id : null)
