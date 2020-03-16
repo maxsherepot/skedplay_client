@@ -132,15 +132,15 @@ function Nav({ user, className }) {
               </Link>
             }
 
-            {(user && user.is_employee && user.employee) &&
-              <Link href="/account/ad">
-                <a className="menu-icons__item hidden sm:block">
-                  <button className="bg-red text-white px-5 py-2 rounded-full">
-                    {t('layout.edit_ad')}
-                  </button>
-                </a>
-              </Link>
-            }
+            {/*{(user && user.is_employee && user.employee) &&*/}
+            {/*  <Link href="/account/ad">*/}
+            {/*    <a className="menu-icons__item hidden sm:block">*/}
+            {/*      <button className="bg-red text-white px-5 py-2 rounded-full">*/}
+            {/*        {t('layout.edit_ad')}*/}
+            {/*      </button>*/}
+            {/*    </a>*/}
+            {/*  </Link>*/}
+            {/*}*/}
 
             <Link href="/favorites/girls">
               <a className="menu-icons__item hovered">
