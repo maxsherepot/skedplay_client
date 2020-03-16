@@ -9,6 +9,7 @@ use App\Nova\ContactRequest;
 use App\Nova\Employee;
 use App\Nova\Event;
 use App\Nova\EventType;
+use App\Nova\GroupService;
 use App\Nova\HelpCenterCategory;
 use App\Nova\HelpCenterTopic;
 use App\Nova\Language;
@@ -129,6 +130,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Video::class,
 
             Service::class,
+            GroupService::class,
             Race::class,
 
             ContactPhone::class,
