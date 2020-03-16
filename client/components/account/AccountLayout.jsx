@@ -156,7 +156,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
     return (
       <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
           <div className="flex flex-col py-10 lg:pr-32">
-              {is_employee && (
+              {/*{is_employee && (
                 <div>
                       <span
                         className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
@@ -168,7 +168,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                         </Link>
                       </span>
                 </div>
-              )}
+              )}*/}
 
               {is_employee && (
                 <div className="mt-5">

@@ -53,6 +53,8 @@ type Employee {
 #  languages: String // Todo: Add languages
 input EmployeeInput {
   name: String
+  first_name: String
+  last_name: String
   birthday: String
   gender: String
   race_type_id: String

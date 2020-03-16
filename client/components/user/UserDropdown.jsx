@@ -117,13 +117,13 @@ const UserDropdown = ({ user }) => {
                 </a>
               </Link>
             )}
-            {(user.is_employee && user.employee) && (
-              <Link href="/account/ad">
-                <a className="flex items-center mb-2">
-                  <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>
-                </a>
-              </Link>
-            )}
+            {/*{(user.is_employee && user.employee) && (*/}
+            {/*  <Link href="/account/ad">*/}
+            {/*    <a className="flex items-center mb-2">*/}
+            {/*      <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>*/}
+            {/*    </a>*/}
+            {/*  </Link>*/}
+            {/*)}*/}
             {user.is_employee && (
               <Link href="/account/events/create">
                 <a className="flex items-center">

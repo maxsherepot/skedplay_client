@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Collection;
 use Modules\Common\Contracts\HasMediable;
@@ -28,6 +29,15 @@ class UserRepository implements HasMediable
      */
     public function update(User $user, Collection $collection): User
     {
+        try {
+            if ($collection['birthday']) {
+                $collection['birthday'] = Carbon::parse($collection['birthday']);
+                $collection['age'] = Carbon::parse($collection['birthday'])->age;
+            }
+        } catch (\Exception $e) {
+            $collection['birthday'] = null;
+        }
+
         $user->update($collection->toArray());
 
         return $user;
