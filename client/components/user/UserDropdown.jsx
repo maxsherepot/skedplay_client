@@ -94,7 +94,7 @@ const UserDropdown = ({ user }) => {
             {!user.is_club_owner &&
               <Link href="/account/messages-and-chats">
                 <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                  {t('common.messages_chats')} ({user.unread_messages_count || 0})
+                  {t('common.messages_chats')} ({user.is_employee ? user.employee.unread_messages_count || 0 : user.unread_messages_count || 0})
                 </div>
               </Link>
             }

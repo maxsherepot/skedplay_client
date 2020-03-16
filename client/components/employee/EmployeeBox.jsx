@@ -93,9 +93,9 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
               >
                 <a>{t('employees.chat')}</a>
               </ActiveLink>
-              {employee.unread_messages_count > 0 &&
+              {employee.user_unread_messages_count > 0 &&
                 <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
-                  +{employee.unread_messages_count}
+                  +{employee.user_unread_messages_count}
                 </span>
               }
             </li>

@@ -138,6 +138,7 @@ export const GET_EMPLOYEE = gql `
         thumb_url
       }
       unread_messages_count
+      user_unread_messages_count
     }
   }
 `;

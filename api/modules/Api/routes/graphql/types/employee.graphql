@@ -43,6 +43,7 @@ type Employee {
   reviews: [Review] @hasMany
   #
   unread_messages_count: Int! @method(name: "unreadMessagesCount")
+  user_unread_messages_count: Int! @method(name: "userUnreadMessagesCount")
   will_activate_at: String
   active: Int!
   soon: Int!
