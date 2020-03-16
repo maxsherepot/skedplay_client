@@ -24,11 +24,10 @@ trait NameSlugable
     /**
      * Set the price type's name in slug format.
      *
-     * @param string $value
      * @return void
      */
-    public function setNameAttribute($value)
+    /*public function setNameAttribute($value)
     {
         $this->attributes['name'] = Str::slug($value, $this->separator);
-    }
+    }*/
 }
