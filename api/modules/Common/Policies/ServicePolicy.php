@@ -10,12 +10,30 @@ class ServicePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * @param User $user
-     * @return bool
-     */
     public function create(User $user): bool
     {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
         return $user->hasPermission(Permission::CREATE_SERVICES);
+    }
+
+    public function update(User $user): bool
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return $user->hasPermission(Permission::UPDATE_SERVICES);
+    }
+
+    public function view(User $user): bool
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return $user->hasPermission(Permission::READ_SERVICES);
     }
 }
