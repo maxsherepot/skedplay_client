@@ -43,6 +43,7 @@ class UserRoleFilter extends Filter
             'Sex-workers' => 'employee',
             'Club owners' => 'club_owner',
             'Clients' => 'client',
+            'Manager' => 'manager',
         ];
     }
 }

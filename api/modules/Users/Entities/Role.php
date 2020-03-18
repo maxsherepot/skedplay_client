@@ -11,4 +11,6 @@ class Role extends LaratrustRole
     const MODERATOR = 'moderator';
     const CLUB_OWNER = 'club_owner';
     const EMPLOYEE_OWNER = 'employee';
+    const MANAGER = 'manager';
+    const ADMIN = 'admin';
 }

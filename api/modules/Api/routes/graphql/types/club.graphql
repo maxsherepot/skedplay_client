@@ -13,6 +13,7 @@ type Club {
   lat: Float
   lng: Float
   owner: User @belongsTo
+  manager: User @belongsTo
   admin: User @belongsTo
   city: City @belongsTo
   employees: [Employee] @morphMany

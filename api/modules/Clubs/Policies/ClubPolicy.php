@@ -27,6 +27,10 @@ class ClubPolicy
             return false;
         }
 
+        if ($user->hasRole(User::ACCOUNT_MANAGER)) {
+            return true;
+        }
+
         return $user->hasPermissionPlan(PermissionPlan::MAX_CLUB) && $user->hasPermission(Permission::CREATE_CLUBS);
     }
 
@@ -38,7 +42,7 @@ class ClubPolicy
     public function update(User $user, Club $club): bool
     {
         if ($user->hasRole('admin')) {
-            return false;
+            return true;
         }
 
         return $user->owns($club, 'id') || $user->hasPermission(Permission::UPDATE_CLUBS);

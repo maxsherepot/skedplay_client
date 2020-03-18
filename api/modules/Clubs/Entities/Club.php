@@ -2,6 +2,7 @@
 
 namespace Modules\Clubs\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,7 @@ use Modules\Common\Services\Location\Locationable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
+use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -34,7 +36,8 @@ use Spatie\MediaLibrary\Models\Media;
  * @property string website
  * @property string address
  * @property int city_id
- * 
+ * @property int manager_id
+ * @property User user
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
@@ -58,6 +61,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'index',
         'city_id',
         'user_id',
+        'manager_id',
         'moderator_id',
     ];
 
@@ -103,6 +107,14 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'manager_id');
     }
 
     /**

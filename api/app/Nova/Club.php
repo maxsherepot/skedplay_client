@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
 
@@ -67,10 +68,19 @@ class Club extends Resource
             return $this->getTableFields();
         }
 
-        return $this->getViewFields();
+        if ($request->user()->is_admin) {
+            return $this->getAdminTabs();
+        }
+
+        if ($request->user()->is_manager) {
+            return $this->getManagerTabs();
+        }
+
+        return $this->getTableFields();
     }
 
-    private function getTableFields(): array
+    //TODO: admin can change club`s manager && allow admin to update clubs
+    private function getAdminTabs(): array
     {
         return [
             ID::make()->sortable(),
@@ -82,6 +92,53 @@ class Club extends Resource
 
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
+            BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable(),
+
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
+            Text::make('In system', 'created_at_diff'),
+        ];
+    }
+
+    private function getManagerTabs(): array
+    {
+        return [
+            ID::make()->sortable(),
+
+            Text::make('Name')->sortable(),
+
+            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+
+            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
+            Text::make('In system', 'created_at_diff'),
+        ];
+    }
+
+    private function getTableFields(): array
+    {
+        return [
+            ID::make()->sortable(),
+
+            Text::make('Name')
+                ->sortable(),
+
+            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+            BelongsTo::make('Manager', 'manager', User::class)->sortable(),
+
+            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
             Text::make('Status', function() {
                 return view(
@@ -145,11 +202,24 @@ class Club extends Resource
         ];
     }
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->is_manager) {
+            $query
+                ->where('manager_id', '=', $request->user()->id)
+                ->orWhere('status', '=',\Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION)
+            ;
+        }
+
+        return $query;
+    }
+
     private function getAboutTabFields(): array
     {
         return [
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+            BelongsTo::make('Manager', 'manager', User::class)->sortable(),
 
             Text::make('Name'),
             Text::make('Description'),
