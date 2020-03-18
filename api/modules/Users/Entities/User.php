@@ -178,6 +178,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->hasRole(self::ACCOUNT_MANAGER);
     }
 
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_ADMIN);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

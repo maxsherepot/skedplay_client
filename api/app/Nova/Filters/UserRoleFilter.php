@@ -44,6 +44,7 @@ class UserRoleFilter extends Filter
             'Club owners' => 'club_owner',
             'Clients' => 'client',
             'Manager' => 'manager',
+            'Admin' => 'admin',
         ];
     }
 }

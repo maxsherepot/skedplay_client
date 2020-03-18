@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -76,58 +77,42 @@ class Club extends Resource
             return $this->getManagerTabs();
         }
 
-        return $this->getTableFields();
+        return $this->getViewFields();
     }
 
     //TODO: admin can change club`s manager && allow admin to update clubs
-    private function getAdminTabs(): array
+    private function getAdminTabFields(): array
     {
         return [
-            ID::make()->sortable(),
-
-            Text::make('Name')
-                ->sortable(),
-
-            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
-
-            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
-
             BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable(),
-
-            Text::make('Status', function() {
-                return view(
-                    'nova.moderation_status',
-                    ['status' => $this->status ?? 0]
-                )->render();
-            })->asHtml(),
-
-            Text::make('In system', 'created_at_diff'),
         ];
     }
 
-    private function getManagerTabs(): array
+    private function getManagerTabFields(): array
     {
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')->sortable(),
-
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
-
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
-            Text::make('Status', function() {
-                return view(
-                    'nova.moderation_status',
-                    ['status' => $this->status ?? 0]
-                )->render();
-            })->asHtml(),
+            Text::make('Name'),
+            Text::make('Description'),
+            Text::make('Address'),
 
-            Text::make('In system', 'created_at_diff'),
+            Text::make('Email'),
+            Text::make('Website'),
+
+            Select::make('Status')->options([
+                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+            ])->displayUsingLabels(),
+
+            Text::make('Phones'),
         ];
     }
 
-    private function getTableFields(): array
+    private function getTableFields(): array // info
     {
         return [
             ID::make()->sortable(),
@@ -136,6 +121,7 @@ class Club extends Resource
                 ->sortable(),
 
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+
             BelongsTo::make('Manager', 'manager', User::class)->sortable(),
 
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
@@ -214,12 +200,11 @@ class Club extends Resource
         return $query;
     }
 
-    private function getAboutTabFields(): array
+    private function getAboutTabFields(): array //main info
     {
         return [
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
-            BelongsTo::make('Manager', 'manager', User::class)->sortable(),
 
             Text::make('Name'),
             Text::make('Description'),
@@ -228,7 +213,7 @@ class Club extends Resource
             Text::make('Email'),
             Text::make('Website'),
             Text::make('Phones', function() {
-                return implode('<br>', json_decode($this->phones, true));
+                return json_decode($this->phones, true);
             })->asHtml(),
 
             Text::make('Status', function() {
@@ -252,6 +237,32 @@ class Club extends Resource
                 MorphMany::make('Events'),
                 MorphMany::make('Employees'),
             ]),
+        ];
+    }
+
+    private function getAdminTabs(): array
+    {
+        return [
+            new Tabs('Tabs', [
+                'Manager' => $this->getAdminTabFields(),
+                HasMany::make('Photos'),
+                HasMany::make('Videos'),
+                MorphMany::make('Events'),
+                MorphMany::make('Employees'),
+            ]),
+        ];
+    }
+
+    private function getManagerTabs(): array
+    {
+        return [
+            new Tabs('Tabs', [
+                'About' => $this->getManagerTabFields(),
+                HasMany::make('Photos'),
+                HasMany::make('Videos'),
+                MorphMany::make('Events'),
+                MorphMany::make('Employees'),
+            ])
         ];
     }
 }

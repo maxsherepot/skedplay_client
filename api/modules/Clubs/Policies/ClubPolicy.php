@@ -23,12 +23,8 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER) ) {
             return false;
-        }
-
-        if ($user->hasRole(User::ACCOUNT_MANAGER)) {
-            return true;
         }
 
         return $user->hasPermissionPlan(PermissionPlan::MAX_CLUB) && $user->hasPermission(Permission::CREATE_CLUBS);

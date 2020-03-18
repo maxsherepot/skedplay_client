@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +39,8 @@ use Spatie\MediaLibrary\Models\Media;
  * @property string address
  * @property int city_id
  * @property int manager_id
- * @property User user
+ * @property int moderator_id
+ *
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
@@ -69,6 +72,10 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'phones' => 'array',
     ];
 
+    protected $dates = [
+        'created_at'
+    ];
+
     /**
      * @return MorphMany
      */
@@ -86,11 +93,11 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function type(): HasOne
+    public function type(): BelongsTo
     {
-        return $this->hasOne(ClubType::class, 'id', 'club_type_id');
+        return $this->belongsTo(ClubType::class, 'club_type_id');
     }
 
     /**

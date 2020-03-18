@@ -35,13 +35,13 @@ class RegistrationRequest extends GraphQLFormRequest
 
         switch ($this->request->get('account_type')) {
             case User::ACCOUNT_CLUB_OWNER:
-            case User::ACCOUNT_MANAGER:
                 $root = array_merge($root, [
                     // 'club_type' => 'required|string|max:255',
                 ]);
                 break;
             case User::ACCOUNT_CLIENT:
             case User::ACCOUNT_EMPLOYEE:
+            case User::ACCOUNT_MANAGER:
                 $root = array_merge($root, [
                     // 'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
                     'lat' => 'nullable|string',

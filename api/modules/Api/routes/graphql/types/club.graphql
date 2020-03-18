@@ -1,7 +1,7 @@
 type Club {
   id: ID!
   name: String!
-  type: ClubType @hasOne
+  type: ClubType @belongsTo
   email: String
   website: String
   phones: String

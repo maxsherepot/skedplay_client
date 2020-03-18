@@ -45,7 +45,7 @@ return [
         ],
         'manager' => [
             'users'     => 'r',
-            'clubs'     => 'c,r,u',
+            'clubs'     => 'r,u',
             'employees' => 'r',
             'events'    => 'r',
             'services'  => 'r',
