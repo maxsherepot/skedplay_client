@@ -37,10 +37,6 @@ class ClubRepository implements HasMediable
         /** @var Club $club */
         $club = $user->clubs()->create($inputs);
 
-        if (!$club) {
-            return NotFoundHttpException::class();
-        }
-
         if ($user->hasRole(User::ACCOUNT_MANAGER)) {
             $club->manager_id = $user->id;
         }
