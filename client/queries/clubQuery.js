@@ -53,6 +53,7 @@ export const GET_CLUB = gql`
       lat
       lng
       email
+      comment
       website
       phones
       favorited {

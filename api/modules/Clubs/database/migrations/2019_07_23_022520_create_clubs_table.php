@@ -31,10 +31,10 @@ class CreateClubsTable extends Migration
 
             $table->text('description')->nullable();
 
+            $table->string('comment')->nullable();
             $table->string('address')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
-
 
             $table->softDeletes();
             $table->timestamps();

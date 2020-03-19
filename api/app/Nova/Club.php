@@ -80,11 +80,20 @@ class Club extends Resource
         return $this->getViewFields();
     }
 
-    //TODO: admin can change club`s manager && allow admin to update clubs
     private function getAdminTabFields(): array
     {
+        $userOptions = \Modules\Users\Entities\User::query()
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where('roles.name', '=', 'manager')
+            ->pluck('users.name','users.id')
+            ->toArray()
+        ;
+
         return [
-            BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable(),
+            BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable()->exceptOnForms(),
+
+            Select::make('Manager','manager_id')->options($userOptions)->onlyOnForms(),
         ];
     }
 
@@ -109,6 +118,7 @@ class Club extends Resource
             ])->displayUsingLabels(),
 
             Text::make('Phones'),
+            Text::make('Comment'),
         ];
     }
 
@@ -224,6 +234,8 @@ class Club extends Resource
             })->asHtml(),
 
             Text::make('Refuse reason', 'rejected_reason'),
+
+            Text::make('Comment'),
         ];
     }
 
