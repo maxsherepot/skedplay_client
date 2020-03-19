@@ -5,9 +5,10 @@ import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
 import { geolocated } from "react-geolocated";
 import checkLoggedIn from "lib/checkLoggedIn";
+import redirect from "lib/redirect";
 
 const GirlsSearch = ({isGeolocationEnabled}) => {
-  const ENTITY_NAME = "boys";
+  const ENTITY_NAME = "vip_escort";
   const {t, i18n} = useTranslation();
 
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
@@ -154,7 +155,7 @@ geoLocatedPage.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
   if (!user) {
-    return {};
+    redirect(ctx, "/login");
   }
   return { user };
 };

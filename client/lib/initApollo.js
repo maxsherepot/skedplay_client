@@ -88,7 +88,7 @@ function create(initialState, {
         },
         __typename: "GirlFilters"
       },
-      boys: {
+      vip_escort: {
         type: 2,
         cantons: [],
         services: [],
@@ -108,7 +108,7 @@ function create(initialState, {
         },
         __typename: "BoyFilters"
       },
-      couple: {
+      trans: {
         type: 3,
         cantons: [],
         services: [],

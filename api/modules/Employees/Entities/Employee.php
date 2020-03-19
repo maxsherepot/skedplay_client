@@ -30,13 +30,13 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     const VIDEO_COLLECTION = 'employee-video';
 
     const TYPE_GIRL = 1;
-    const TYPE_BOY = 2;
-    const TYPE_COUPLE = 3;
+    const TYPE_VIP_ESCORT = 2;
+    const TYPE_TRANS = 3;
 
     const TYPES = [
         self::TYPE_GIRL => 'Girl',
-        self::TYPE_BOY => 'Boy',
-        self::TYPE_COUPLE => 'Couple',
+        self::TYPE_VIP_ESCORT => 'Vip Escort',
+        self::TYPE_TRANS => 'Trans',
     ];
 
     const IS_NEW_DAYS = 3;

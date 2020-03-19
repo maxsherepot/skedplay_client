@@ -262,7 +262,6 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
             'owner_id'
         )->where('owner_type', (new Club())->getMorphClass());
     }
-    //TODO: get clubs with current user_id === manager_id
 
     public function events_club_owners()
     {
