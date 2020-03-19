@@ -12,6 +12,7 @@ import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import {useTranslation} from "react-i18next";
 import EmployeeMaps from "components/employee/EmployeeMaps";
+import redirect from "lib/redirect";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -222,10 +223,26 @@ const EmployeeInformation = ({ user }) => {
   );
 };
 
+const checkIsEmployeeVip = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { data: { employee } = {}, loading: employeeLoading } = useQuery(
+      GET_EMPLOYEE,
+      {
+        variables: {
+          id
+        }
+      }
+  );
+console.log(employee.isVip);
+  return employee.isVip;
+};
+
 EmployeeInformation.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
-  if (!user) {
-    return {};
+
+  if (!user && checkIsEmployeeVip) {
+    redirect(ctx, "/login");
   }
   return { user };
 };

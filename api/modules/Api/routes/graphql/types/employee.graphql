@@ -80,6 +80,7 @@ input EmployeeFilters {
 #  location: String @where
   ids: [Int] @in(key: "id")
   type: Int @where
+  isVip: Boolean @where
   orderBy: [OrderByClause!] @orderBy
   gender: String @where
   genders: [String] @in(key: "gender")

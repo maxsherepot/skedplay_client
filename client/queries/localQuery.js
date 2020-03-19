@@ -21,7 +21,7 @@ export const GET_FILTERS_STATE = gql`
       }
       vip_escort {
 #        location
-        type
+        isVip
         services
         cantons
         gender
