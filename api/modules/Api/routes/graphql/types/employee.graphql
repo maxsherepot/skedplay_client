@@ -12,6 +12,7 @@ type Employee {
   description: String
   isVip: Boolean
   isNew: Boolean
+  inGeneral: Boolean
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   club: Club @belongsTo @with
   gender: Int
@@ -73,6 +74,7 @@ input EmployeeInput {
   photos: [Upload]
   videos: [Upload]
   club_id: Int
+  inGeneral: Boolean
 }
 
 input EmployeeFilters {
@@ -81,6 +83,7 @@ input EmployeeFilters {
   ids: [Int] @in(key: "id")
   type: Int @where
   isVip: Boolean @where
+  inGeneral: Boolean @where
   orderBy: [OrderByClause!] @orderBy
   gender: String @where
   genders: [String] @in(key: "gender")

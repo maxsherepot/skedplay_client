@@ -126,6 +126,7 @@ export const GET_CLUB = gql`
         address
         isVip
         isNew
+        inGeneral
         favorited {
           id
         }

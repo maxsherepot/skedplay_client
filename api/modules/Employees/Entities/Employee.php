@@ -57,6 +57,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'languages',
         'text',
         'isVip',
+        'inGeneral',
         'will_activate_at',
         'active',
         'soon',

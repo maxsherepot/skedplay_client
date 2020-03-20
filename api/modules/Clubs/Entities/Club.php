@@ -40,6 +40,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @property int city_id
  * @property int manager_id
  * @property int moderator_id
+ * @property int id
  *
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface

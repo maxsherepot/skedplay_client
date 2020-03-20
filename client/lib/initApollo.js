@@ -72,6 +72,7 @@ function create(initialState, {
         type: 1,
         cantons: [],
         services: [],
+        inGeneral: true,
         gender: "",
         race_type_id: "",
         orderBy: [
@@ -110,6 +111,7 @@ function create(initialState, {
       },
       trans: {
         type: 2,
+        inGeneral: true,
         cantons: [],
         services: [],
         gender: "",

@@ -33,6 +33,7 @@ class CreateEmployeesTable extends Migration
             $table->text('text')->nullable();
 
             $table->boolean('isVip')->default(false);
+            $table->boolean('inGeneral')->nullable();
 
             $table->json('languages')->nullable();
 
