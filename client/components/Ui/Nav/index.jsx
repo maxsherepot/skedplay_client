@@ -78,6 +78,9 @@ function Nav({ user, className }) {
                   <span className="capitalize">
                     {t('common.girls')}
                   </span>
+                  <span className="inline-block">
+                    <img src="/static/img/arrow-down.svg"/>
+                  </span>
                   <svg
                     className="inline-block strokeWhite ml-1"
                     width="15"
