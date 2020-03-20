@@ -47,32 +47,38 @@ const EventsContainer = () => {
                   <div
                     className="flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:ml-24 xl:flex-row xl:justify-start xl:ml-0 xl:mt-3">
                       <div
-                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16">
-                          <div className="block text-white font-extrabold text-2xl">
+                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+                          <a href="/girls">
+                            <div className="block text-white font-extrabold text-2xl">
                               11 243
-                          </div>
-                          <div className="flex text-white text-xl">
+                            </div>
+                            <div className="flex text-white text-xl">
                               <div className="w-9 border-t border-yellow mr-3 mt-3" />
                               {t('common.girls')}
-                          </div>
+                            </div>
+                            </a>
                       </div>
                       <div
-                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16">
-                          <div className="block text-white font-extrabold text-2xl">
+                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+                            <a href="/clubs">
+                            <div className="block text-white font-extrabold text-2xl">
                               350
-                          </div>
-                          <div className="flex text-white text-xl">
+                            </div>
+                            <div className="flex text-white text-xl">
                               <div className="w-9 border-t border-yellow mr-3 mt-3" />
                               {t('common.clubs')}
-                          </div>
+                            </div>
+                            </a>
                       </div>
                       <div
-                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16">
-                          <div className="block text-white font-extrabold text-2xl">23</div>
-                          <div className="flex text-white text-xl">
-                              <div className="w-9 border-t border-yellow mr-3 mt-3" />
-                              {t('common.events')} {t('common.today')}
-                          </div>
+                        className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+                            <a href="/events">
+                                <div className="block text-white font-extrabold text-2xl">23</div>
+                                <div className="flex text-white text-xl">
+                                  <div className="w-9 border-t border-yellow mr-3 mt-3" />
+                                  {t('common.events')} {t('common.today')}
+                                </div>
+                            </a>
                       </div>
                   </div>
               </div>
@@ -117,7 +123,7 @@ const Index = ({ user }) => {
                           {t('common.girls')}
                       </div>
                       <Link href="/girls">
-                          <a className="block text-sm whitespace-no-wrap transition ml-4">
+                          <a className="block text-sm whitespace-no-wrap transition ml-4 hover:text-red">
                               <ArrowNextSvg stroke="#fff">
                                   <span className="mr-1">{t('common.all_girls')}</span>
                               </ArrowNextSvg>
