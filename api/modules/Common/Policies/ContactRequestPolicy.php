@@ -13,7 +13,7 @@ class ContactRequestPolicy
 
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 

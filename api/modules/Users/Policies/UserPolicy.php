@@ -16,7 +16,7 @@ class UserPolicy
      */
     public function update(User $authUser, User $user): bool
     {
-        if ($authUser->hasRole('admin')) {
+        if ($authUser->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 

@@ -75,6 +75,11 @@ const Header = ({employee}) => {
                         <Button className="px-3 mb-3" level="primary" outline size="xxs">
                             <span className="text-black">{t('account.deactivate')}</span>
                         </Button>
+                        {employee.isVip && (
+                            <Button className="px-3 mb-3" level="primary" outline size="xxs">
+                                <span className="text-black">{t('account.in_general')}</span>
+                            </Button>
+                        )}
 
                         <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
                             <div className="pt-6">

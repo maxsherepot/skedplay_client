@@ -23,7 +23,7 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER) ) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 
