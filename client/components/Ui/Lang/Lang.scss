@@ -10,4 +10,7 @@
   .lang-text {
     @apply text-black;
   }
+  .menu__item a:hover {
+    color: #FF3366;
+  }
 }

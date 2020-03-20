@@ -152,71 +152,71 @@ main {
   }
 }
 
-.c-account {
-  &__avatar {
-    border-radius: 50%;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+  .c-account {
+    &__avatar {
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
 
-    &-wrap:hover, &--empty {
-      .c-account__avatar-plus {
-        display: block;
+      &-wrap:hover, &--empty {
+        .c-account__avatar-plus {
+          display: block;
+        }
+      }
+
+      &-wrap {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #dfdfdf;
+      }
+
+      &-input {
+        display: none;
+      }
+
+      &-plus {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        cursor: pointer;
       }
     }
-
-    &-wrap {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background-color: #dfdfdf;
-    }
-
-    &-input {
-      display: none;
-    }
-
-    &-plus {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: none;
-      cursor: pointer;
-    }
   }
-}
 
-@import "components/Ui/AnimationBackground/AnimationBackground";
-@import "components/Ui/Button/Button";
-@import "components/Ui/Header/Header";
-@import "components/Ui/Footer/Footer";
-@import "components/Ui/Pagination/Pagination";
-@import "components/Ui/HorizontalScroll/HorizontalScroll";
-@import "components/Ui/Modal/Modal";
-@import "components/Ui/Nav/Nav";
-@import "components/Ui/Dropdown/Dropdown";
-@import "components/Ui/Lang/Lang";
-@import "components/Ui/Loader/Loader";
+  @import "components/Ui/AnimationBackground/AnimationBackground";
+  @import "components/Ui/Button/Button";
+  @import "components/Ui/Header/Header";
+  @import "components/Ui/Footer/Footer";
+  @import "components/Ui/Pagination/Pagination";
+  @import "components/Ui/HorizontalScroll/HorizontalScroll";
+  @import "components/Ui/Modal/Modal";
+  @import "components/Ui/Nav/Nav";
+  @import "components/Ui/Dropdown/Dropdown";
+  @import "components/Ui/Lang/Lang";
+  @import "components/Ui/Loader/Loader";
 
-@import "components/Ui/Forms/Checkbox/Checkbox";
-@import "components/Ui/Forms/FormGroup/FormGroup";
-@import "components/Ui/Forms/GroupRadio/GroupRadio";
-@import "components/Ui/Forms/RangeSlider/RangeSlider";
-@import "components/Ui/Forms/DateField/DateField";
-@import "components/Ui/Forms/ButtonGroupField/ButtonGroup";
-@import "components/Ui/Forms/SelectGroupField/SelectGroup";
-@import "components/Ui/Forms/Label/Label";
-@import "components/Ui/Forms/RadioField/RadioField";
-@import "components/Ui/Forms/LocationSearchInput/LocationSearchInput";
-@import "components/Ui/Forms/EventEmployeesField/EventEmployeesField";
+  @import "components/Ui/Forms/Checkbox/Checkbox";
+  @import "components/Ui/Forms/FormGroup/FormGroup";
+  @import "components/Ui/Forms/GroupRadio/GroupRadio";
+  @import "components/Ui/Forms/RangeSlider/RangeSlider";
+  @import "components/Ui/Forms/DateField/DateField";
+  @import "components/Ui/Forms/ButtonGroupField/ButtonGroup";
+  @import "components/Ui/Forms/SelectGroupField/SelectGroup";
+  @import "components/Ui/Forms/Label/Label";
+  @import "components/Ui/Forms/RadioField/RadioField";
+  @import "components/Ui/Forms/LocationSearchInput/LocationSearchInput";
+  @import "components/Ui/Forms/EventEmployeesField/EventEmployeesField";
 
-@import "components/Ui/PlanCard/PlanCard";
-@import "components/Ui/GirlCard/GirlCard";
-@import "components/Ui/EventsGallery/EventsGallery";
-@import "components/Ui/ChatList/ChatList";
-@import "components/Ui/Chat/Chat";
-@import "components/Ui/Filter/Filter";
+  @import "components/Ui/PlanCard/PlanCard";
+  @import "components/Ui/GirlCard/GirlCard";
+  @import "components/Ui/EventsGallery/EventsGallery";
+  @import "components/Ui/ChatList/ChatList";
+  @import "components/Ui/Chat/Chat";
+  @import "components/Ui/Filter/Filter";
 
 @import "components/about/style";
