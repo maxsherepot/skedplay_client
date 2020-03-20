@@ -33,7 +33,6 @@ class CreateEmployeesTable extends Migration
             $table->text('text')->nullable();
 
             $table->boolean('isVip')->default(false);
-            $table->boolean('inGeneral')->nullable();
 
             $table->json('languages')->nullable();
 
@@ -45,7 +44,6 @@ class CreateEmployeesTable extends Migration
                 ->references('id')
                 ->on('employee_race_types')
                 ->onDelete('SET null');
-
 
             $table->softDeletes();
             $table->timestamps();

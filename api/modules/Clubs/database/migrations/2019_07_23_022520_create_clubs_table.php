@@ -17,7 +17,6 @@ class CreateClubsTable extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('moderator_id')->nullable();
 
             $table->string('name');
@@ -31,7 +30,6 @@ class CreateClubsTable extends Migration
 
             $table->text('description')->nullable();
 
-            $table->string('comment')->nullable();
             $table->string('address')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
@@ -44,10 +42,6 @@ class CreateClubsTable extends Migration
                 ->onDelete('cascade');
 
             $table->foreign('moderator_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('manager_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
 
