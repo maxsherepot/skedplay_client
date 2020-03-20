@@ -2,8 +2,8 @@
   "common": {
     "of": "of",
     "girls": "girls",
-    "boys": "boys",
-    "couple": "couple",
+    "vip_escort": "vip escort",
+    "trans": "trans",
     "clubs": "clubs",
     "best_clubs": "Best clubs",
     "events": "events",
@@ -374,6 +374,7 @@
   },
   "account": {
     "my_account": "My account",
+    "in_general": "show to all",
     "messages_and_chats": "Messages and chats",
     "account_settings": "Account setting",
     "contact_information": "Contact Information",
