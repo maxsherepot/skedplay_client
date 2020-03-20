@@ -140,12 +140,10 @@ export const GET_CLUB = gql`
             name
           }
         }
-        manager {
-          ... on Club {
-            id 
-            name
-          }
-        }
+      }
+      manager {
+          id
+          name
       }
     }
   }
