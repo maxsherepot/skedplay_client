@@ -72,6 +72,7 @@ function create(initialState, {
         type: 1,
         cantons: [],
         services: [],
+        inGeneral: true,
         gender: "",
         race_type_id: "",
         orderBy: [
@@ -88,8 +89,8 @@ function create(initialState, {
         },
         __typename: "GirlFilters"
       },
-      boys: {
-        type: 2,
+      vip_escort: {
+        isVip: true,
         cantons: [],
         services: [],
         gender: "",
@@ -108,8 +109,9 @@ function create(initialState, {
         },
         __typename: "BoyFilters"
       },
-      couple: {
-        type: 3,
+      trans: {
+        type: 2,
+        inGeneral: true,
         cantons: [],
         services: [],
         gender: "",

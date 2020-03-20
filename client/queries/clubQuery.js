@@ -53,6 +53,7 @@ export const GET_CLUB = gql`
       lat
       lng
       email
+      comment
       website
       phones
       favorited {
@@ -125,6 +126,7 @@ export const GET_CLUB = gql`
         address
         isVip
         isNew
+        inGeneral
         favorited {
           id
         }
@@ -135,6 +137,12 @@ export const GET_CLUB = gql`
         owner {
           ... on Club {
             id
+            name
+          }
+        }
+        manager {
+          ... on Club {
+            id 
             name
           }
         }

@@ -1,18 +1,21 @@
 type Club {
   id: ID!
   name: String!
-  type: ClubType @hasOne
+  type: ClubType @belongsTo
   email: String
   website: String
   phones: String
   description: String
   address: String
   index: String
+  comment: String
   city_id: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: Float
   lng: Float
   owner: User @belongsTo
+  manager: User @belongsTo
+  managers: User @belongsToMany
   admin: User @belongsTo
   city: City @belongsTo
   employees: [Employee] @morphMany
@@ -36,6 +39,7 @@ input ClubInput {
   phone: String
   phones: String
   description: String!
+  comment: String
   address: String!
   index: String
   city_id: Int

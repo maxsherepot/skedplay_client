@@ -64,13 +64,13 @@ function Nav({ user, className }) {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/boys">
-                      <a>{t('common.boys')}</a>
+                    <Link href="/vip-escort">
+                      <a>{t('common.vip_escort')}</a>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/couple">
-                      <a>{t('common.couple')}</a>
+                    <Link href="/trans">
+                      <a>{t('common.trans')}</a>
                     </Link>
                   </li>
                 </ul>
@@ -251,13 +251,13 @@ function Nav({ user, className }) {
               </Link>
             </li>
             <li>
-              <Link href="/boys">
-                <a>{t('common.boys')}</a>
+              <Link href="/vip-escort">
+                <a>{t('common.vip_escort')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/couple">
-                <a>{t('common.couple')}</a>
+              <Link href="/trans">
+                <a>{t('common.trans')}</a>
               </Link>
             </li>
             <li>

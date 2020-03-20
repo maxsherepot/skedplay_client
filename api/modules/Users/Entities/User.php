@@ -48,11 +48,14 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     const ACCOUNT_CLIENT = Role::CLIENT;
     const ACCOUNT_EMPLOYEE = Role::EMPLOYEE_OWNER;
     const ACCOUNT_CLUB_OWNER = Role::CLUB_OWNER;
+    const ACCOUNT_MANAGER = Role::MANAGER;
+    const ACCOUNT_ADMIN = Role::ADMIN;
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,
         self::ACCOUNT_EMPLOYEE,
-        self::ACCOUNT_CLUB_OWNER
+        self::ACCOUNT_CLUB_OWNER,
+        self::ACCOUNT_MANAGER
     ];
 
     const GENDER_MALE = 1;
@@ -92,6 +95,8 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         'is_client',
         'is_club_owner',
         'is_employee',
+        'is_manager',
+        'is_admin',
         'employees_photos',
         'employees_videos',
         'employees_events',
@@ -163,6 +168,19 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     public function getIsEmployeeAttribute(): bool
     {
         return $this->hasRole(self::ACCOUNT_EMPLOYEE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsManagerAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_MANAGER);
+    }
+
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_ADMIN);
     }
 
     /**
@@ -324,5 +342,15 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     public function isEmployee(): bool
     {
         return $this->hasRole('employee');
+    }
+
+    public function isManager(): bool
+    {
+        return $this->hasRole('manager');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_ADMIN);
     }
 }

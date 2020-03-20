@@ -74,10 +74,12 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
     },
   ];
 
+  const filterName = entityName.replace('_', ' ');
+
   return (
     <>
       <Filter
-        name={entityName}
+        name={filterName}
         inititalState={filters[entityName]}
         filters={filteredFilters}
         fields={fields}

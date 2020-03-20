@@ -63,6 +63,7 @@ export const GET_EMPLOYEE = gql `
       description
       isVip
       isNew
+      inGeneral
       website
       lat
       lng

@@ -19,9 +19,9 @@ export const GET_FILTERS_STATE = gql`
           order
         }
       }
-      boys {
+      vip_escort {
 #        location
-        type
+        isVip
         services
         cantons
         gender
@@ -35,7 +35,7 @@ export const GET_FILTERS_STATE = gql`
             order
         }
       }
-      couple {
+      trans {
 #        location
         type
         services

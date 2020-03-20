@@ -7,7 +7,7 @@ import { geolocated } from "react-geolocated";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 const GirlsSearch = ({isGeolocationEnabled}) => {
-    const ENTITY_NAME = "couple";
+    const ENTITY_NAME = "trans";
     const {t, i18n} = useTranslation();
 
     const { loading, data: { services, employee_race_types } = {} } = useQuery(

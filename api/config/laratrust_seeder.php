@@ -43,6 +43,14 @@ return [
             'services'  => 'c,r,u,d',
             'prices'    => 'c,r,u,d',
         ],
+        'manager' => [
+            'users'     => 'r',
+            'clubs'     => 'r,u',
+            'employees' => 'r',
+            'events'    => 'r',
+            'services'  => 'r',
+            'prices'    => 'r',
+        ],
     ],
     'permission_structure' => [
 //        'cru_user' => [

@@ -23,7 +23,7 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 
@@ -38,7 +38,7 @@ class ClubPolicy
     public function update(User $user, Club $club): bool
     {
         if ($user->hasRole('admin')) {
-            return false;
+            return true;
         }
 
         return $user->owns($club, 'id') || $user->hasPermission(Permission::UPDATE_CLUBS);

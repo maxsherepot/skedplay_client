@@ -10,6 +10,7 @@ use Modules\Common\Entities\ClubScheduleWork;
 use Modules\Common\Traits\Mediable;
 use Modules\Users\Entities\User;
 use Modules\Users\Entities\Role;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClubRepository implements HasMediable
 {
@@ -35,6 +36,10 @@ class ClubRepository implements HasMediable
 
         /** @var Club $club */
         $club = $user->clubs()->create($inputs);
+
+        if ($user->hasRole(User::ACCOUNT_MANAGER)) {
+            $club->manager_id = $user->id;
+        }
 
         $moderator = $this->createModerator($collection);
         $club->admin()->associate($moderator);

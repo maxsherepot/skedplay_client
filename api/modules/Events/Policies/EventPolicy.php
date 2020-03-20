@@ -22,7 +22,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 
@@ -36,7 +36,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 
@@ -51,7 +51,7 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return false;
         }
 

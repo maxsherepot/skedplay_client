@@ -10,6 +10,7 @@ export const GET_ME = gql`
             is_client
             is_club_owner
             is_employee
+            is_manager
             favorites_count
             employees_photos
             employees_videos

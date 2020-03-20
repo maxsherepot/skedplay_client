@@ -41,6 +41,7 @@ class RegistrationRequest extends GraphQLFormRequest
                 break;
             case User::ACCOUNT_CLIENT:
             case User::ACCOUNT_EMPLOYEE:
+            case User::ACCOUNT_MANAGER:
                 $root = array_merge($root, [
                     // 'gender'   => 'required|numeric|in:' . implode(',', User::REGISTER_GENDERS),
                     'lat' => 'nullable|string',
