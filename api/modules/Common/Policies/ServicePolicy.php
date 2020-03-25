@@ -3,12 +3,18 @@
 namespace Modules\Common\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Modules\Common\Entities\Service;
 use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\User;
 
 class ServicePolicy
 {
     use HandlesAuthorization;
+
+    public function view()
+    {
+        return true;
+    }
 
     /**
      * @param User $user
@@ -17,5 +23,19 @@ class ServicePolicy
     public function create(User $user): bool
     {
         return $user->hasPermission(Permission::CREATE_SERVICES);
+    }
+
+    /**
+     * @param User $user
+     * @param Service $service
+     * @return bool
+     */
+    public function update(User $user, Service $service): bool
+    {
+        if (!$user->hasRole('admin')) {
+            return false;
+        }
+
+        return $user->hasPermission(Permission::UPDATE_SERVICES);
     }
 }

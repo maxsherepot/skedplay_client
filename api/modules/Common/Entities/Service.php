@@ -3,7 +3,7 @@
 namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Modules\Common\Entities\Traits\NameSlugable;
@@ -22,10 +22,10 @@ class Service extends Model
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function group(): HasOne
+    public function group(): BelongsTo
     {
-        return $this->hasOne(GroupService::class, 'id', 'group_id');
+        return $this->belongsTo(GroupService::class,  'group_id');
     }
 }

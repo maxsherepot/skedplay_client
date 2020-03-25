@@ -2,14 +2,11 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 
 class Service extends Resource
 {
@@ -36,12 +33,6 @@ class Service extends Resource
         'id', 'name'
     ];
 
-    public function getGroup()
-    {
-        $collection = \Modules\Common\Entities\GroupService::all();
-        return $collection->name;
-    }
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -57,7 +48,7 @@ class Service extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Select::make('Group')->options(\Modules\Common\Entities\GroupService::all()),
+            BelongsTo::make('Group', 'group', GroupService::class)->sortable(),
 
             MorphToMany::make('Employees')
                 ->fields(function() {

@@ -3,7 +3,12 @@ type Service {
     name: String!
     pivot: ServicePivot
     group_id: Int
-    groupService: GroupService @hasOne
+    groupService: GroupService @belongsTo
+}
+
+type GroupService {
+    id: ID!
+    name: String
 }
 
 type ServicePivot {
