@@ -56,16 +56,11 @@ function Nav({ user, className }) {
               </a>
             </Link>
             <ul className="menu">
-              <li className="menu__item menu__item_dropdown pl-7">
+              <li className="menu__item menu__item_dropdown">
                 <ul>
                   <li>
                     <Link href="/girls">
                       <a>{t('common.girls')}</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/vip-escort">
-                      <a>{t('common.vip_escort')}</a>
                     </Link>
                   </li>
                   <li>
@@ -82,7 +77,7 @@ function Nav({ user, className }) {
                     <img src="/static/img/arrow-down.svg"/>
                   </span>
                   <svg
-                    className="inline-block strokeWhite ml-1"
+                    className="inline-block strokeWhite"
                     width="15"
                     height="8"
                     viewBox="0 0 15 8"
@@ -106,6 +101,11 @@ function Nav({ user, className }) {
               <li className="menu__item">
                 <Link href="/events">
                   <a>{t('common.events')}</a>
+                </Link>
+              </li>
+              <li className="menu__item">
+                <Link href="/vip-escort">
+                  <a className="vip">{t('common.vip')}</a>
                 </Link>
               </li>
             </ul>
@@ -254,11 +254,6 @@ function Nav({ user, className }) {
               </Link>
             </li>
             <li>
-              <Link href="/vip-escort">
-                <a>{t('common.vip_escort')}</a>
-              </Link>
-            </li>
-            <li>
               <Link href="/trans">
                 <a>{t('common.trans')}</a>
               </Link>
@@ -271,6 +266,11 @@ function Nav({ user, className }) {
             <li>
               <Link href="/events">
                 <a>{t('common.events')}</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/vip-escort">
+                <a>{t('common.vip')}</a>
               </Link>
             </li>
           </ul>
