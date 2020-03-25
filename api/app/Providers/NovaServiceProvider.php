@@ -14,6 +14,7 @@ use App\Nova\HelpCenterTopic;
 use App\Nova\Language;
 use App\Nova\Photo;
 use App\Nova\Race;
+use App\Nova\Role;
 use App\Nova\Service;
 use App\Nova\UiTranslate;
 use App\Nova\User;
@@ -119,6 +120,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::resources([
             User::class,
             Employee::class,
+            Role::class,
 
             Club::class,
             ClubType::class,

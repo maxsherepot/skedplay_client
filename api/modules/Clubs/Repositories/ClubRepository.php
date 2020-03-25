@@ -109,7 +109,7 @@ class ClubRepository implements HasMediable
     {
         $data = $collection->get('moderator');
         $data['name'] = $data['first_name']." ".$data['last_name'];
-        $data['password'] = bcrypt(\Str::random(6));
+        $data['password'] = \Hash::make('password');
         $data['status'] = User::STATUS_AWAITING_CONFIRMATION;
 
         /** @var User $moderator */

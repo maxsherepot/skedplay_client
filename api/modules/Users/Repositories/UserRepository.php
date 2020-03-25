@@ -19,6 +19,8 @@ class UserRepository implements HasMediable
      */
     public function store(Collection $collection): User
     {
+        $collection['password'] = \Hash::make($collection['password']);
+
         return User::create($collection->toArray());
     }
 
@@ -37,7 +39,7 @@ class UserRepository implements HasMediable
         } catch (\Exception $e) {
             $collection['birthday'] = null;
         }
-
+        $collection['password'] = \Hash::make($collection['password']);
         $user->update($collection->toArray());
 
         return $user;

@@ -12,6 +12,7 @@ type User {
     is_manager: Boolean
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
+    roles: Role @belongsToMany
     avatar: Media @hasOne
     employees: [Employee] @morphMany
     employee: Employee
@@ -23,6 +24,14 @@ type User {
     status: Int!
     rejected_reason: String
     employees_club_owners: [Employee] @hasMany
+}
+
+type Role {
+    id: ID!
+    name: String
+    display_name: String
+    description: String
+    users: User @belongsToMany
 }
 
 input UserInput {

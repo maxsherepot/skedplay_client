@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -28,7 +29,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name',
     ];
 
 //    public static function indexQuery(NovaRequest $request, $query)
@@ -52,6 +53,17 @@ class Role extends Resource
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            Text::make('Description'),
+
+            BelongsToMany::make('Users')
+                ->fields(function () {
+                    return [
+                        Text::make('user_type')
+                            ->hideWhenCreating(),
+                    ];
+                }
+            ),
         ];
     }
 
