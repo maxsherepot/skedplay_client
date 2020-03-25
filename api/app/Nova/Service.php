@@ -49,15 +49,6 @@ class Service extends Resource
                 ->rules('required', 'max:255'),
 
             BelongsTo::make('Group', 'group', GroupService::class)->sortable(),
-
-            MorphToMany::make('Employees')
-                ->fields(function() {
-                    return [
-                        Text::make('Price', 'price')->displayUsing(function($price) {
-                            return $price . '$';
-                        }),
-                    ];
-                })
         ];
     }
 
