@@ -5,12 +5,11 @@ import Link from "next/link";
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
-import GoogleMap from "components/GoogleMap";
 import { MapSvg, CloseSvg } from "icons";
 import Distance from "components/distance";
-import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
+import * as moment from "moment";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
@@ -31,6 +30,42 @@ function DistanceView({distanceKm}) {
   );
 }
 
+function renderToday(start_date, end_date) {
+  const { t } = useTranslation();
+
+  if (!start_date || !end_date) {
+    return '';
+  }
+
+  const today = moment().unix();
+  const start = moment(start_date).unix();
+  const end = moment(end_date).unix();
+
+  if (start > today || end < today) {
+    return '';
+  }
+
+  return (
+      <div className="px-3">
+        <Button
+            className="text-xs px-2 lg:px-4"
+            weight="normal"
+            size="xxs"
+        >
+          {t('index.today')}
+        </Button>
+      </div>
+  )
+}
+
+function renderTime() {
+  return (
+      <div className="px-3 c-events-time">
+       10:00-19:00
+      </div>
+  )
+}
+
 function EventCard({
   className,
   id,
@@ -43,7 +78,9 @@ function EventCard({
   height,
   lat,
   lng,
-  address
+  address,
+  start_date,
+  end_date
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -65,7 +102,7 @@ function EventCard({
       key={id}
     >
       <div
-        className="relative overflow-hidden rounded-t-lg"
+        className="relative overflow-hidden rounded-t-lg c-events-card"
         style={{
           backgroundImage: `url(${thumb && thumb.url || '/static/img/event-none.png'})`,
           backgroundSize: "cover",
@@ -99,17 +136,10 @@ function EventCard({
           {!isMap && (
             <div className="flex flex-wrap -mx-3">
               <div className="px-3">
-                <Button
-                  className="text-xs px-2 lg:px-4"
-                  weight="normal"
-                  size="xxs"
-                >
-                  {t('index.today')}
-                </Button>
-              </div>
-              <div className="px-3">
                 <EventLabel type={type} />
               </div>
+              {renderToday(start_date, end_date)}
+              {renderTime()}
             </div>
           )}
           {/* {title} */}
@@ -175,6 +205,8 @@ EventCard.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
+  start_date: PropTypes.string,
+  end_date: PropTypes.string,
   club: PropTypes.object,
   photos: PropTypes.array
 };

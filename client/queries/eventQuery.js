@@ -10,6 +10,8 @@ export const ALL_EVENTS = gql`
                 lat
                 lng
                 price
+                start_date
+                end_date
                 favorited {
                     id
                 }
