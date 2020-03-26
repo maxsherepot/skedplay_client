@@ -116,7 +116,7 @@ function Nav({ user, className }) {
                   <a>{t('common.events')}</a>
                 </Link>
               </li>
-              <li className="menu__item">
+              <li className="menu__item shadow bg-white">
                 <Link href="/vip-escort">
                   <a className="vip">{t('common.vip')}</a>
                 </Link>

@@ -13,8 +13,13 @@
   .menu__item a:hover {
     color: #FF3366;
   }
+}
 
-    .vip {
+nav {
+  li.menu__item {
+    a.vip {
       color: #FF3366!important;
     }
+  }
 }
+
