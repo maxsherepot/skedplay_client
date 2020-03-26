@@ -22,7 +22,10 @@ export const ALL_CLUBS = gql`
           name
         }
         logo {
+          id
+          name
           url
+          thumb_url
         }
         photos {
           url
@@ -65,7 +68,10 @@ export const GET_CLUB = gql`
       }
       description
       logo {
+        id
+        name
         url
+        thumb_url
       }
       photos {
         id
@@ -94,6 +100,7 @@ export const GET_CLUB = gql`
       events {
         id
         title
+          price
         favorited {
           id
         }
@@ -182,6 +189,8 @@ export const CREATE_CLUB = gql`
       }
       description
       logo {
+        id
+        name
         url
         thumb_url
       }

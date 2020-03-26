@@ -152,6 +152,13 @@ main {
   }
 }
 
+  .logo-small {
+    &__div {
+      position: relative;
+      width: 70px;
+      height: 70px;
+    }
+  }
   .c-account {
     &__avatar {
       border-radius: 50%;
@@ -186,6 +193,15 @@ main {
         cursor: pointer;
       }
     }
+  }
+
+  .c-events-time {
+    opacity: 0;
+  }
+
+  .c-events-card:hover .c-events-time {
+    opacity: 1;
+    transition: opacity .2s;
   }
 
   @import "components/Ui/AnimationBackground/AnimationBackground";
