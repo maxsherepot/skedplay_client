@@ -2,6 +2,8 @@ import script from './script';
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 import { Trans } from 'react-i18next';
+import React from "react";
+import Lang from "UI/Lang";
 
 const About = ({user}) => {
   const { t, i18n } = useTranslation();
@@ -13,7 +15,9 @@ const About = ({user}) => {
       <div className="q-sections-panel">
         <div className="q-inner">
           <div className="q-sections-panel__inner js-sections-panel">
-            <img src="/static/img/logo_sm.svg" alt="" className="q-sections-panel__logo"/>
+            <a href="/" className="hover:cursor-pointer">
+              <img src="/static/img/logo_sm.svg" alt="" className="q-sections-panel__logo"/>
+            </a>
             <span className="q-sections-panel__text">
               <a href="#about" className="q-sections-panel__title _white js-sections-panel-title">Skedplay &nbsp;-&nbsp; <Trans i18nKey="about.for_pleasure"/></a>
               <a href="#clubs" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clubs"/></a>
@@ -21,7 +25,12 @@ const About = ({user}) => {
                  className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_employees"/></a>
               <a href="#clients" className="q-sections-panel__title js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
               <a href="#final" className="q-sections-panel__title _white js-sections-panel-title"><Trans i18nKey="about.for_clients"/></a>
-			      </span>
+            </span>
+            <div className="menu-icons flex ml-auto">
+              <span className="menu-icons__item hidden md:block">
+                <Lang/>
+              </span>
+            </div>
           </div>
         </div>
       </div>
