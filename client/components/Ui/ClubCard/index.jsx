@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
-import { WebsiteSvg, FavoriteSvg, MapSvg, CloseSvg } from "icons";
+import { WebsiteSvg, FavoriteSvg, MapSvg, CloseSvg, RatingSvg } from "icons";
 import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
@@ -24,7 +24,7 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng }) {
+function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo }) {
   let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -32,7 +32,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
   const [thumb] = photos;
 
   const phonesList = JSON.parse(phones);
-
+  console.log(logo);
   if (phonesList.length) {
     const [number] = phonesList;
     phone = number
@@ -121,6 +121,15 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 )}
               </div>)}
             </div>
+          </div>
+            <div className="flex flex-col relative items-center">
+            <div className="flex mt-10 ml-2">
+              <RatingSvg className="mx-1"/>
+              <RatingSvg className="mx-1"/>
+              <RatingSvg className="mx-1"/>
+              <RatingSvg className="mx-1"/>
+            </div>
+            <div className="ml-2">(23 {t('about.clubs.reviews')})</div>
           </div>
           <div className="flex flex-col justify-end">
             <img src="/static/img/club-logo.png" alt="" />
