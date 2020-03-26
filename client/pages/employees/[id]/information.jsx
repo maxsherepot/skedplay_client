@@ -72,7 +72,7 @@ const EmployeeInformation = ({ user }) => {
           <FavoriteButton
             variables={{ model_id: employee.id, model_type: "employee" }}
             favorited={employee.favorited}
-            large={true}
+            large={false}
           />
         }
         large
@@ -241,9 +241,14 @@ console.log(employee.isVip);
 EmployeeInformation.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
-  if (!user && checkIsEmployeeVip) {
-    redirect(ctx, "/login");
+  /*if (!user && checkIsEmployeeVip) {
+    return redirect(ctx, "/login");
   }
+
+  if (!user && checkIsEmployeeVip === false) {
+    return {}
+  }*/
+
   return { user };
 };
 
