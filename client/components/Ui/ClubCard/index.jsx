@@ -90,7 +90,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       <div className="bg-white p-5 rounded-b-lg">
         <div className="flex justify-between text-xs cursor-pointer">
           <div className="flex flex-col pr-4">
-            <p className="py-1 font-bold" onClick={() => setEventMapId(id)}>
+            <p className="py-1 font-bold ml-2" onClick={() => setEventMapId(id)}>
               {city_name}
             </p>
             {(lat && lng) &&
@@ -101,7 +101,6 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 <DistanceView/>
               </Distance>
             }
-
             <div className="flex">
               {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
                 <span
@@ -121,15 +120,15 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 )}
               </div>)}
             </div>
-          </div>
-            <div className="flex flex-col relative items-center">
-            <div className="flex mt-10 ml-2">
-              <RatingSvg className="mx-1"/>
-              <RatingSvg className="mx-1"/>
-              <RatingSvg className="mx-1"/>
-              <RatingSvg className="mx-1"/>
+            <div className="flex flex-col relative mt-3">
+              <div className="flex">
+                <RatingSvg className="mx-1"/>
+                <RatingSvg className="mx-1"/>
+                <RatingSvg className="mx-1"/>
+                <RatingSvg className="mx-1"/>
+              </div>
+              <div className="ml-2">(23 {t('about.clubs.reviews')})</div>
             </div>
-            <div className="ml-2">(23 {t('about.clubs.reviews')})</div>
           </div>
           <div className="flex flex-col justify-end">
             <img src="/static/img/club-logo.png" alt="" />
