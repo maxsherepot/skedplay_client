@@ -27,6 +27,7 @@ const CreateEventBox = ({ initialValues, onSubmit}) => {
                           .filter(day => day !== null),
                         employees_ids: values.employees_ids,
                         event_type_id: values.event_type_id,
+                        price: values.price,
                         photos: values.photos instanceof FileList ? values.photos : [],
                         club_id: cid,
                     }

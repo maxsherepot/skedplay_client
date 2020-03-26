@@ -9,6 +9,7 @@ type Event {
     address: String
     lat: Float,
     lng: Float,
+    price: Float,
     type: EventType! @belongsTo
     mode: Int!
     club: Club @belongsTo
@@ -28,6 +29,7 @@ input EventInput {
     club_id: Int
     mode: Int!
     address: String
+    price: Float,
     start_date: String,
     end_date: String,
     photos: [Upload]
@@ -40,6 +42,7 @@ input EventUpdateInput {
     description: String
     event_type_id: Int
     club_id: Int
+    price: Float,
     mode: Int!
     address: String
     photos: [Upload]

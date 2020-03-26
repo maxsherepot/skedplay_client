@@ -9,6 +9,7 @@ export const ALL_EVENTS = gql`
                 address
                 lat
                 lng
+                price
                 favorited {
                     id
                 }
@@ -55,6 +56,7 @@ export const EVENTS_BY_OWNER = gql`
             address
             lat
             lng
+            price
             favorited {
                 id
             }
@@ -92,6 +94,7 @@ export const GET_EVENT = gql`
             address
             lat
             lng
+            price
             employees {
                 id
                 name

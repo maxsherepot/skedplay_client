@@ -39,6 +39,7 @@ class Event extends Model implements HasMedia
         'event_type_id',
         'club_id',
         'address',
+        'price',
         'lat',
         'lng',
         'mode',

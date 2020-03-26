@@ -42,6 +42,7 @@ const AccountClubEventsCreate = () => {
         days: [],
         employees_ids: [],
         club_id: null,
+        price: null,
         photos: [],
       }}
       onSubmit={onSubmit}

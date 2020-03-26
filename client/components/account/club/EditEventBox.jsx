@@ -29,6 +29,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
                         description: values.description,
                         mode: values.mode,
                         address: values.address,
+                        price: values.price,
                         start_date: values.start_date,
                         end_date: values.end_date,
                         days: (values.days || [])

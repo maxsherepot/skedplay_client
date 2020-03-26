@@ -69,6 +69,7 @@ const AccountEventsCreate = ({user}) => {
           employees_ids: [],
           club_id: null,
           photos: [],
+          price: null,
         }}
         onSubmit={handleSubmits}
       />

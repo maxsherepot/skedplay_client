@@ -75,6 +75,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               placeholder=""
             />
 
+            <TextField label={t('steps.price')} name="price"/>
+
             <RadioField
               items={[
                 {
