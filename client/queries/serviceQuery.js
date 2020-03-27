@@ -19,6 +19,10 @@ export const GET_SERVICES = gql`
     services {
       id
       name
+      groupService {
+          id 
+          name
+      }
     }
   }
 `;

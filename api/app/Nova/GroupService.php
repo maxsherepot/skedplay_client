@@ -2,20 +2,19 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Service extends Resource
+class GroupService extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Modules\Common\Entities\Service';
+    public static $model = 'Modules\Common\Entities\GroupService';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -30,7 +29,7 @@ class Service extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id, name',
     ];
 
     /**
@@ -45,10 +44,8 @@ class Service extends Resource
             ID::make()->sortable(),
 
             Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-            BelongsTo::make('Group', 'group', GroupService::class)->sortable(),
+            ->sortable()
+            ->rules('required', 'max:255'),
         ];
     }
 
