@@ -14,7 +14,7 @@ class AddDefaultUserTypeToRoleUserTable extends Migration
     public function up()
     {
         Schema::table('role_user', function (Blueprint $table) {
-            $table->string('user_type')->default('user')->change();;
+            $table->string('user_type')->default('user')->change();
         });
     }
 

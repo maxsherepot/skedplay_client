@@ -241,9 +241,10 @@ console.log(employee.isVip);
 EmployeeInformation.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
-  if (!user && checkIsEmployeeVip) {
-    redirect(ctx, "/login");
+  if (!user) {
+    return {};
   }
+
   return { user };
 };
 
