@@ -151,7 +151,18 @@ main {
     }
   }
 }
+@media (max-width: 479px) {
+  .company-item__div-name {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    margin-right: 8px;
+  }
 
+  .company-item__div-ellipse {
+    font-size: 1.8rem;
+    width: 10px;
+  }
+}
   .c-account {
     &__avatar {
       border-radius: 50%;
