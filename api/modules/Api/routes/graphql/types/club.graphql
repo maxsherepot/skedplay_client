@@ -13,6 +13,8 @@ type Club {
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: Float
   lng: Float
+  start_time: String
+  end_time: String
   owner: User @belongsTo
   manager: User @belongsTo
   managers: User @belongsToMany
@@ -34,6 +36,8 @@ type Club {
 input ClubInput {
   name: String!
   club_type_id: Int!
+  start_time: String
+  end_time: String
   email: String!
   website: String
   phone: String

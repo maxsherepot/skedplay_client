@@ -39,12 +39,14 @@ class Event extends Model implements HasMedia
         'event_type_id',
         'club_id',
         'address',
+        'price',
         'lat',
         'lng',
         'mode',
         'days', //  days from 0(sunday) to 6(saturday)
         'start_date',
         'end_date',
+        'start_time',
     ];
 
     protected $casts = [

@@ -5,12 +5,11 @@ import Link from "next/link";
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
-import GoogleMap from "components/GoogleMap";
 import { MapSvg, CloseSvg } from "icons";
 import Distance from "components/distance";
-import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
+import * as moment from "moment";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
@@ -31,6 +30,49 @@ function DistanceView({distanceKm}) {
   );
 }
 
+function renderToday(start_date, end_date, mode) {
+  const { t } = useTranslation();
+
+  if ((!start_date || !end_date) && mode === 2) {
+    return '';
+  }
+
+  const today = moment().unix();
+  const start = moment(start_date).set({hour:0, minute:0, second:0, millisecond:0}).unix();
+  const end = moment(end_date).set({hour:23, minute:59, second:59, millisecond:0}).unix();
+
+  if (start > today || end < today) {
+    return '';
+  }
+
+  return (
+      <div className="px-3">
+        <Button
+            className="text-xs px-2 lg:px-4"
+            weight="normal"
+            size="xxs"
+        >
+          {t('index.today')}
+        </Button>
+      </div>
+  )
+}
+
+function renderTime(start_time) {
+
+  if (!start_time) {
+    return '';
+  }
+
+  const time = start_time.substring(0,5);
+
+  return (
+      <div className="px-3 c-events-time">
+        {time}
+      </div>
+  )
+}
+
 function EventCard({
   className,
   id,
@@ -43,7 +85,13 @@ function EventCard({
   height,
   lat,
   lng,
-  address
+  address,
+  start_date,
+  end_date,
+  price,
+  mode,
+  start_time,
+  employees
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -65,7 +113,7 @@ function EventCard({
       key={id}
     >
       <div
-        className="relative overflow-hidden rounded-t-lg"
+        className="relative overflow-hidden rounded-t-lg c-events-card"
         style={{
           backgroundImage: `url(${thumb && thumb.url || '/static/img/event-none.png'})`,
           backgroundSize: "cover",
@@ -99,17 +147,12 @@ function EventCard({
           {!isMap && (
             <div className="flex flex-wrap -mx-3">
               <div className="px-3">
-                <Button
-                  className="text-xs px-2 lg:px-4"
-                  weight="normal"
-                  size="xxs"
-                >
-                  {t('index.today')}
-                </Button>
-              </div>
-              <div className="px-3">
                 <EventLabel type={type} />
               </div>
+              {renderToday(start_date, end_date, mode)}
+              {renderTime(start_time)}
+              {price ? <div className="px-3 c-events-time">{price}$</div> : ''}
+
             </div>
           )}
           {/* {title} */}
@@ -175,8 +218,12 @@ EventCard.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
+  start_date: PropTypes.string,
+  end_date: PropTypes.string,
+  start_time: PropTypes.string,
   club: PropTypes.object,
-  photos: PropTypes.array
+  photos: PropTypes.array,
+  mode: PropTypes.string,
 };
 
 export default EventCard;

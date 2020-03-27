@@ -94,7 +94,7 @@ class ClubController extends Controller
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function uploadFiles(FileUploadRequest $request, Club $club)
+    public function uploadFiles(FileUploadRequest $request, Club $club): array
     {
         $this->authorize('update', $club);
 

@@ -9,6 +9,7 @@ type Event {
     address: String
     lat: Float,
     lng: Float,
+    price: Float,
     type: EventType! @belongsTo
     mode: Int!
     club: Club @belongsTo
@@ -17,6 +18,7 @@ type Event {
     employees: [Employee] @belongsToMany @with(relation: "employeesRelation")
     start_date: Date,
     end_date: Date,
+    start_time: String
     days: [Int!],
     days_for_checkboxes: String,
 }
@@ -28,8 +30,10 @@ input EventInput {
     club_id: Int
     mode: Int!
     address: String
+    price: Float,
     start_date: String,
     end_date: String,
+    start_time: String,
     photos: [Upload]
     days: [Int!]
     employees_ids: [Int!]
@@ -40,11 +44,13 @@ input EventUpdateInput {
     description: String
     event_type_id: Int
     club_id: Int
+    price: Float,
     mode: Int!
     address: String
     photos: [Upload]
     start_date: String,
     end_date: String,
+    start_time: String,
     days: [Int!]
     employees_ids: [Int!]
 }

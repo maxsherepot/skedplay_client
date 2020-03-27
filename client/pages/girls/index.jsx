@@ -154,9 +154,6 @@ let geoLocatedPage = geolocated()(GirlsSearch);
 geoLocatedPage.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
-  if (!user) {
-    return {};
-  }
   return { user };
 };
 

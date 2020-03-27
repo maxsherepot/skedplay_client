@@ -67,6 +67,8 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'user_id',
         'manager_id',
         'moderator_id',
+        'start_time',
+        'end_time',
     ];
 
     protected $casts = [
@@ -143,7 +145,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::LOGO_COLLECTION)->singleFile();
+        $this->addMediaCollection(self::LOGO_COLLECTION)->singleFile()->useDisk('media');
         $this->addMediaCollection(self::PHOTO_COLLECTION);
         $this->addMediaCollection(self::VIDEO_COLLECTION);
     }
@@ -155,6 +157,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_COLLECTION);
+        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::LOGO_COLLECTION);
     }
 
     /**
@@ -178,7 +181,10 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function logo(): HasOne
     {
-        return $this->hasOne(Media::class, 'model_id', 'id')->where('collection_name', self::LOGO_COLLECTION);
+        return $this
+            ->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::LOGO_COLLECTION)
+        ;
     }
 
     public function getCreatedAtDiffAttribute(): string

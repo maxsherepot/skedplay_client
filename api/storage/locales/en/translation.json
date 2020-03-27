@@ -84,7 +84,10 @@
     "answer": "Answer",
     "ignore": "Ignore",
     "report_abuse": "Report abuse",
-    "to": "to"
+    "to": "to",
+    "date": "Date",
+    "select_date": "Select date",
+    "": ""
   },
   "layout": {
     "view_my_account": "View my account",
@@ -123,6 +126,11 @@
   },
   "favorite": {
     "clubs": "Clubs",
+    "": ""
+  },
+  "events": {
+    "event_type": "Event type",
+    "select_event_type": "Select event type",
     "": ""
   },
   "index": {

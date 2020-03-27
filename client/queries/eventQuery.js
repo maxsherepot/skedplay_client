@@ -9,6 +9,11 @@ export const ALL_EVENTS = gql`
                 address
                 lat
                 lng
+                price
+                start_date
+                end_date
+                start_time
+                mode
                 favorited {
                     id
                 }
@@ -55,6 +60,7 @@ export const EVENTS_BY_OWNER = gql`
             address
             lat
             lng
+            price
             favorited {
                 id
             }
@@ -92,6 +98,7 @@ export const GET_EVENT = gql`
             address
             lat
             lng
+            price
             employees {
                 id
                 name
@@ -104,6 +111,7 @@ export const GET_EVENT = gql`
             days
             start_date
             end_date
+            start_time
             favorited {
                 id
             }
