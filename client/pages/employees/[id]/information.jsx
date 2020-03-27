@@ -72,7 +72,7 @@ const EmployeeInformation = ({ user }) => {
           <FavoriteButton
             variables={{ model_id: employee.id, model_type: "employee" }}
             favorited={employee.favorited}
-            large={true}
+            large={false}
           />
         }
         large

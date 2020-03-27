@@ -2,7 +2,7 @@
   "common": {
     "of": "of",
     "girls": "girls",
-    "vip_escort": "vip escort",
+    "vip": "vip",
     "trans": "trans",
     "clubs": "clubs",
     "best_clubs": "Best clubs",
@@ -12,7 +12,7 @@
     "all_clubs": "All clubs",
     "today": "today",
     "add_new_ad": "Add new ad",
-    "login": "login",
+    "login": "Login",
     "sign_up": "Sign up",
     "my_account": "My account",
     "plan": "Plan",

@@ -32,16 +32,16 @@ const EventsContainer = () => {
               <div className="flex flex-col md:flex-row xl:flex-col">
                   <div className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 xl:pl-0 xl:pt-1">
                       <div
-                        className="block relative z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
-                          <div className="block">{t('index.intimate')}</div>
-                          <div className="block ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-8 xl:-mt-10">
+                        className="block relative -mt-4 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
+                          <div className="block company-item__div-name">{t('index.intimate')}</div>
+                          <div className="block company-item__div-name ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-8 xl:-mt-10">
                               {t('index.services')}
                           </div>
                       </div>
                       <div
                         className="flex items-center font-medium tracking-tighter whitespace-no-wrap text-4xl -mt-6 sm:text-5xl sm:-mt-8 md:text-5-5xl md:-mt-8 xl:text-6xl xl:-mt-10">
-                          <div className="block mr-5 md:mr-6">{t('index.of_switzerland')}</div>
-                          <div className="block header-red-ellipse md:-mt-1">№1</div>
+                          <div className="block company-item__div-name mr-5 md:mr-6">{t('index.of_switzerland')}</div>
+                          <div className="block company-item__div-ellipse header-red-ellipse md:-mt-1">№1</div>
                       </div>
                   </div>
                   <div
@@ -82,7 +82,7 @@ const EventsContainer = () => {
                       </div>
                   </div>
               </div>
-              <div className="relative md:mt-2 xl:flex xl:self-end xl:mb-6 xl:mt-6 xl:flex-col xl:ml-10 hd:ml-42">
+              <div className="relative md:mt-2 xl:flex xl:self-end xl:mb-6 xl:mt-2 xl:flex-col xl:ml-10 hd:ml-42">
                   <div className="flex text-white items-end leading-none">
                       <div className="text-4xl font-extrabold tracking-tighter">
                           {t('index.fresh_events')}
@@ -115,7 +115,7 @@ const Index = ({ user }) => {
             animation={<Animation/>}
             hero={<EventsContainer/>}
           />
-          <main className="relative z-10 mt-12 xl:mt-22-5">
+          <main className="relative z-10 mt-10 xl:mt-12-5">
               <div className="index-bg-bottom"/>
               <div className="container">
                   <div className="flex text-black items-end leading-none text-black md:text-white">

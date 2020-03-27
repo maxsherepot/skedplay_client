@@ -5,8 +5,11 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import { AnimationBackground, Modal, Logo, ArrowBack, LangSelector } from "UI";
 import { RegisterBox } from "components/register";
+import {useTranslation} from "react-i18next";
 
 function Register() {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <AnimationBackground />
@@ -15,7 +18,7 @@ function Register() {
           maxWidth: '410px'
         }}
         logo={<Logo />}
-        title="Sing up"
+        title={t('common.sign_up')}
         left={<ArrowBack href="/" />}
         right={<LangSelector />}
         modalDialogStyle={{height: '650px'}}
