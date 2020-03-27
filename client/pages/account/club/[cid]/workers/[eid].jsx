@@ -8,16 +8,19 @@ import {Button, DeletePopup, Loader} from "UI";
 import {
     GET_EMPLOYEE,
     DELETE_EMPLOYEE,
+    UPDATE_EMPLOYEE,
 } from "queries";
 import StepBox from "components/StepBox";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {getLayout} from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
+import {getErrors} from "utils/index";
 
 
 const Header = ({employee}) => {
     const router = useRouter();
     const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
+    const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
     const [photo] = employee.photos;
     const {t, i18n} = useTranslation();
 
@@ -34,6 +37,39 @@ const Header = ({employee}) => {
             return {
                 status: false,
                 message: t('errors.server_error')
+            };
+        }
+    };
+
+    const handleAddToGeneral = async () => {
+        try {
+            const {
+                data: {
+                    updateEmployee: {status, message}
+                }
+            } = await updateEmployee( {
+                variables: {
+                    employee: employee.id,
+                    input: {
+                        inGeneral: !employee.inGeneral,
+                    }
+                }
+            });
+
+            if (status) {
+                router.reload();
+            }
+            return {
+                status,
+                message
+            };
+        } catch (e) {
+            const errors = getErrors(e);
+
+            return {
+                status: false,
+                message: "Server error",
+                errors
             };
         }
     };
@@ -76,8 +112,16 @@ const Header = ({employee}) => {
                             <span className="text-black">{t('account.deactivate')}</span>
                         </Button>
                         {employee.isVip && (
-                            <Button className="px-3 mb-3" level="primary" outline size="xxs">
-                                <span className="text-black">{t('account.in_general')}</span>
+                            <Button onClick={handleAddToGeneral} className="px-3 mb-3" level="primary" outline size="xxs">
+                                {employee.inGeneral ? (
+                                    <span className="text-black">
+                                        {t('account.only_for_exist_user')}
+                                    </span>
+                                ) : (
+                                    <span className="text-black">
+                                        {t('account.available_for_all')}
+                                    </span>
+                                )}
                             </Button>
                         )}
 

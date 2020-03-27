@@ -3,6 +3,7 @@
 namespace Modules\Users\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -34,6 +35,8 @@ use Firebase\JWT\JWT;
  * @property int id
  * @property int status
  * @property string rejected_reason
+ * @property int age
+ * @property string password
  */
 class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia
 {
@@ -137,16 +140,6 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     }
 
     /**
-     * This mutator automatically hashes the password.
-     *
-     * @var string
-     */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = \Hash::make($value);
-    }
-
-    /**
      * @return bool
      */
     public function getIsClientAttribute(): bool
@@ -190,7 +183,6 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     {
         return $this->hasMany(Club::class);
     }
-
     /**
      * @return MorphMany
      */
@@ -207,9 +199,22 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->morphOne(Employee::class, 'user', 'owner_type', 'owner_id');
     }
 
+    /**
+     * @return BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withPivot('user_type','user_id');
+    }
+
+    /**
+     * @return Role|null|object
+     */
     public function getTypeAttribute(): Role
     {
-        return $this->roles->first();
+        return $this->roles->first() ?? Role::query()
+                ->where('name', '=', 'manager')
+                ->getModel();
     }
 
     /**
@@ -321,6 +326,9 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return self::STATUSES[$status];
     }
 
+    /**
+     * @return int|null
+     */
     public function getAgeAttribute(): ?int
     {
         if ($this->attributes['age'] ?? false) {

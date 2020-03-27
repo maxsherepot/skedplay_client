@@ -69,11 +69,11 @@ class Club extends Resource
             return $this->getTableFields();
         }
 
-        if ($request->user()->is_admin) {
+        if ($request->user()->hasRole('admin')) {
             return $this->getAdminTabs();
         }
 
-        if ($request->user()->is_manager) {
+        if ($request->user()->hasRole('manager')) {
             return $this->getManagerTabs();
         }
 
@@ -200,7 +200,7 @@ class Club extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if ($request->user()->is_manager) {
+        if ($request->user()->hasRole('manager')) {
             $query
                 ->where('manager_id', '=', $request->user()->id)
                 ->orWhere('status', '=',\Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION)

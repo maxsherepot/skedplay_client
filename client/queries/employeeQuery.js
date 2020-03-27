@@ -11,6 +11,7 @@ export const ALL_EMPLOYEES = gql `
         index
         isVip
         isNew
+        inGeneral
         soon
         website
         email
@@ -163,7 +164,7 @@ export const DELETE_EMPLOYEE = gql `
 `;
 
 export const UPDATE_EMPLOYEE = gql `
-  mutation updateEmployee($employee: ID!, $input: EmployeeInput!) {
+  mutation updateEmployee($employee: ID!, $input: EmployeeInput) {
     updateEmployee(employee: $employee, input: $input) {
       status
       message

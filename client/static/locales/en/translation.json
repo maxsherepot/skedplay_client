@@ -374,7 +374,8 @@
   },
   "account": {
     "my_account": "My account",
-    "in_general": "show to all",
+    "available_for_all": "Make available for all",
+    "only_for_exist_user": "Show only for exists",
     "messages_and_chats": "Messages and chats",
     "account_settings": "Account setting",
     "contact_information": "Contact Information",

@@ -22,6 +22,13 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
+/**
+ * Class Employee
+ * @package Modules\Employees\Entities
+ *
+ * @property int id
+ * @property int inGeneral
+ */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
     use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
