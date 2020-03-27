@@ -58,10 +58,17 @@ function renderToday(start_date, end_date) {
   )
 }
 
-function renderTime() {
+function renderTime(start_time) {
+
+  if (!start_time) {
+    return '';
+  }
+
+  const time = start_time.substring(0,5);
+
   return (
       <div className="px-3 c-events-time">
-       10:00-19:00
+        {time}
       </div>
   )
 }
@@ -80,7 +87,9 @@ function EventCard({
   lng,
   address,
   start_date,
-  end_date
+  end_date,
+  price,
+  start_time
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -139,7 +148,8 @@ function EventCard({
                 <EventLabel type={type} />
               </div>
               {renderToday(start_date, end_date)}
-              {renderTime()}
+              {renderTime(start_time)}
+              {price ? <div className="px-3 c-events-time">{price}$</div> : ''}
             </div>
           )}
           {/* {title} */}
@@ -207,6 +217,7 @@ EventCard.propTypes = {
   title: PropTypes.string,
   start_date: PropTypes.string,
   end_date: PropTypes.string,
+  start_time: PropTypes.string,
   club: PropTypes.object,
   photos: PropTypes.array
 };

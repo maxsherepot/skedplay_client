@@ -65,6 +65,7 @@ const AccountEventsCreate = ({user}) => {
           address: "",
           start_date: "",
           end_date: "",
+          start_time: "",
           days: [],
           employees_ids: [],
           club_id: null,

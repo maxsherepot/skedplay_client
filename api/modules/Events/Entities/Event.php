@@ -46,6 +46,7 @@ class Event extends Model implements HasMedia
         'days', //  days from 0(sunday) to 6(saturday)
         'start_date',
         'end_date',
+        'start_time',
     ];
 
     protected $casts = [

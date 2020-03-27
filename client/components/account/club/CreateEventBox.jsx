@@ -22,6 +22,7 @@ const CreateEventBox = ({ initialValues, onSubmit}) => {
                         address: values.address,
                         start_date: values.start_date,
                         end_date: values.end_date,
+                        start_time: values.start_time,
                         days: (values.days || [])
                           .map((checked, day) => checked ? day : null)
                           .filter(day => day !== null),

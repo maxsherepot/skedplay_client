@@ -18,6 +18,7 @@ type Event {
     employees: [Employee] @belongsToMany @with(relation: "employeesRelation")
     start_date: Date,
     end_date: Date,
+    start_time: String
     days: [Int!],
     days_for_checkboxes: String,
 }
@@ -32,6 +33,7 @@ input EventInput {
     price: Float,
     start_date: String,
     end_date: String,
+    start_time: String,
     photos: [Upload]
     days: [Int!]
     employees_ids: [Int!]
@@ -48,6 +50,7 @@ input EventUpdateInput {
     photos: [Upload]
     start_date: String,
     end_date: String,
+    start_time: String,
     days: [Int!]
     employees_ids: [Int!]
 }

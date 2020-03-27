@@ -12,6 +12,7 @@ export const ALL_EVENTS = gql`
                 price
                 start_date
                 end_date
+                start_time
                 favorited {
                     id
                 }
@@ -109,6 +110,7 @@ export const GET_EVENT = gql`
             days
             start_date
             end_date
+            start_time
             favorited {
                 id
             }

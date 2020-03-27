@@ -128,6 +128,12 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 </div>
               }
             </div>
+            
+            <TextField
+              type="time"
+              name="start_time"
+              label="Start time"
+              />
 
             <TextAreaField rows={6} label={t('account.events_actions.desc')} name="description"/>
 
