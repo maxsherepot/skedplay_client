@@ -106,6 +106,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
               0 workers
             </div>
           )}
+
         </div>
         <div className="absolute bottom-0 left-0 p-4 mt-2 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
           <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
