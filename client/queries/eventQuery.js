@@ -13,6 +13,7 @@ export const ALL_EVENTS = gql`
                 start_date
                 end_date
                 start_time
+                mode
                 favorited {
                     id
                 }

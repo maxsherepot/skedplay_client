@@ -30,16 +30,16 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function renderToday(start_date, end_date) {
+function renderToday(start_date, end_date, mode) {
   const { t } = useTranslation();
 
-  if (!start_date || !end_date) {
+  if ((!start_date || !end_date) && mode === 2) {
     return '';
   }
 
   const today = moment().unix();
-  const start = moment(start_date).unix();
-  const end = moment(end_date).unix();
+  const start = moment(start_date).set({hour:0, minute:0, second:0, millisecond:0}).unix();
+  const end = moment(end_date).set({hour:23, minute:59, second:59, millisecond:0}).unix();
 
   if (start > today || end < today) {
     return '';
@@ -89,7 +89,9 @@ function EventCard({
   start_date,
   end_date,
   price,
-  start_time
+  mode,
+  start_time,
+  employees
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -147,9 +149,10 @@ function EventCard({
               <div className="px-3">
                 <EventLabel type={type} />
               </div>
-              {renderToday(start_date, end_date)}
+              {renderToday(start_date, end_date, mode)}
               {renderTime(start_time)}
               {price ? <div className="px-3 c-events-time">{price}$</div> : ''}
+
             </div>
           )}
           {/* {title} */}
@@ -219,7 +222,8 @@ EventCard.propTypes = {
   end_date: PropTypes.string,
   start_time: PropTypes.string,
   club: PropTypes.object,
-  photos: PropTypes.array
+  photos: PropTypes.array,
+  mode: PropTypes.string,
 };
 
 export default EventCard;
