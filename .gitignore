@@ -7,3 +7,5 @@ node_modules
 .docker/mysql/.env
 .docker/centrifugo/config.json
 .DS_Store
+/yarn.lock
+/package.json
