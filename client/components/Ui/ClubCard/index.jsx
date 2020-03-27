@@ -24,7 +24,7 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo}) {
+function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo, start_time, end_time, employees}) {
   let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -42,6 +42,21 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
   const city_name = (city !== null) ? city['name'] : "";
   const {t, i18n} = useTranslation();
 
+  function renderTime(start_time, end_time) {
+
+    if (!start_time || !end_time) {
+      return '';
+    }
+
+    const start = start_time ? start_time.substring(0,5) : "";
+    const end = end_time ? end_time.substring(0,5) : "";
+
+    return (
+      <div className="px-3 c-events-time inline-block">
+        {start} - {end}
+      </div>
+    )
+  }
   return (
     <div
       className={cx([
@@ -51,7 +66,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       key={id}
     >
       <div
-        className="relative overflow-hidden rounded-t-lg"
+        className="relative overflow-hidden rounded-t-lg c-events-card"
         style={{
           backgroundImage: `url(${thumb && thumb.url || '/static/img/club-none.png'})`,
           backgroundSize: "cover",
@@ -80,8 +95,11 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
             />
           </div>
         )}
-
-        <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
+        <div className="absolute bottom-0 mb-10 font-black text-white">
+          {renderTime(start_time, end_time)}
+          <div className="px-3 inline-block mb-2 c-events-time">{employees.length || 0} workers</div>
+        </div>
+        <div className="absolute bottom-0 left-0 p-4 mt-2 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
           <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
             <a>{name}</a>
           </Link>
@@ -162,6 +180,8 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
 ClubCard.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
+  start_time: PropTypes.string,
+  end_time: PropTypes.string,
   // gridClasses: PropTypes.boolean,
   photos: PropTypes.array
 };

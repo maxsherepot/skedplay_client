@@ -10,9 +10,15 @@ export const ALL_CLUBS = gql`
         phones
         lat
         lng
+        start_time
+        end_time
         city {
           id
           name
+        }
+        employees {
+          id
+          first_name
         }
         favorited {
           id
@@ -59,6 +65,8 @@ export const GET_CLUB = gql`
       comment
       website
       phones
+      start_time
+      end_time
       favorited {
         id
       }
@@ -180,6 +188,8 @@ export const CREATE_CLUB = gql`
       name
       address
       phones
+      start_time
+      end_time
       favorited {
         id
       }

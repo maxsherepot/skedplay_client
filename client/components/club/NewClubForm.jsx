@@ -60,6 +60,9 @@ function NewClubForm({ onSubmit }) {
         address: "",
         phone: "",
         email: "",
+        start_time: "",
+        end_time: "",
+        employees: {first_name:""},
         website: "",
         logotype: null,
         // access_phone_edit: false,
@@ -121,6 +124,18 @@ function NewClubForm({ onSubmit }) {
                 ]}
                 placeholder=""
               />
+                <TextField
+                    type="time"
+                    name="start_time"
+                    label="From"
+                    className="mr-2"
+                />
+
+                <TextField
+                    type="time"
+                    name="end_time"
+                    label="To"
+                />
             </div>
 
             <div className="flex w-full -mx-3">
@@ -278,6 +293,7 @@ function NewClubForm({ onSubmit }) {
 
 NewClubForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
+
 };
 
 export default NewClubForm;
