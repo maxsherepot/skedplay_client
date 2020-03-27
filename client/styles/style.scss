@@ -151,6 +151,15 @@ main {
     }
   }
 }
+.services-select__div {
+  .dropdown__content.open {
+    width: 500px;
+    > div {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+    }
+  }
+}
 
 .c-account {
   &__avatar {
