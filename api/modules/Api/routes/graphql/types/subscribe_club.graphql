@@ -1,0 +1,11 @@
+type SubscribeClub {
+    id: ID!
+    email: String!
+    club_id: Int!
+    club: Club @belongsTo
+}
+
+extend type Mutation {
+    createSubscribeClub(email: String!, club_id: Int!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\CommonController@createSubscribeClub")
+}

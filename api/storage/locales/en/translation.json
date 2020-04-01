@@ -216,6 +216,8 @@
   "clubs": {
     "event_type": "Club type",
     "select_event_type": "Select club type",
+    "subscribe": "Subscribe",
+    "subscribe_to_club_news": "Subscribe to the club's news",
     "perimeter": "Perimeter",
     "select_perimeter": "Select perimeter",
     "add_club": "Adding a new Club",
