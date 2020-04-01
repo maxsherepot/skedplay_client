@@ -223,7 +223,7 @@ EventCard.propTypes = {
   start_time: PropTypes.string,
   club: PropTypes.object,
   photos: PropTypes.array,
-  mode: PropTypes.string,
+
 };
 
 export default EventCard;
