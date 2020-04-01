@@ -3,9 +3,9 @@ import cx from "classnames";
 
 const EventLabel = ({ type: { name = "" } = {} }) => {
   const colorsMap = {
-    "special_day": "bg-yellow text-black",
-    "parties_and_shows": "bg-light-blue text-black",
-    discount: "bg-red"
+    "Special day": "bg-yellow text-black",
+    "Parties and Shows": "bg-light-blue text-black",
+    "Discount": "bg-white text-black",
   };
 
   return (
@@ -15,7 +15,7 @@ const EventLabel = ({ type: { name = "" } = {} }) => {
         colorsMap[name]
       )}
     >
-      {name.replace(/-/g, " ")}
+      {name}
     </button>
   );
 };
