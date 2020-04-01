@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { useQuery } from "@apollo/react-hooks";
 import { usePagination } from "hooks";
 import { ALL_CLUBS } from "queries/clubQuery";

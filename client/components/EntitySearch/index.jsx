@@ -46,7 +46,28 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
     refetch();
   }
 
-  // const sorts = [];
+  const sorts = [
+    {
+      id: 1,
+      label: 'start early',
+      orderBy: [
+        {
+          field: "start_time",
+          order: 'ASC',
+        }
+      ],
+    },
+    {
+      id: 2,
+      label: "start later",
+      orderBy: [
+        {
+          field: "start_time",
+          order: 'DESC'
+        }
+      ],
+    },
+  ];
 
   return (
     <>
@@ -60,7 +81,7 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
         bgClass={entityName + '-search'}
       />
       <Box
-        // sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
+        sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
         loading={entitiesLoading}
         error={entitiesError}
         page={page}

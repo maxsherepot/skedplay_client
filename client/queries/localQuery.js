@@ -54,6 +54,11 @@ export const GET_FILTERS_STATE = gql`
       clubs {
         cantons
         club_type
+        start_time
+        orderBy {
+           field
+           order
+        }
 #        perimeter
       }
       events {
