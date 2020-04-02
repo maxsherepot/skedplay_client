@@ -52,9 +52,9 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
     const end = end_time ? end_time.substring(0,5) : "";
 
     return (
-      <div className="px-3 c-events-time inline-block">
+      <span className="px-3 font-black text-white c-events-time">
         {start} - {end}
-      </div>
+      </span>
     )
   }
   return (
@@ -95,23 +95,24 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
             />
           </div>
         )}
-        <div className="absolute bottom-0 mb-10 font-black text-white">
-          {renderTime(start_time, end_time)}
-          {employees && employees.length ? (
-            <div className="px-3 inline-block mb-2 c-events-time">
-            {employees.length} workers
-            </div>
-          ) : (
-            <div className="px-3 inline-block mb-2 c-events-time">
-              0 workers
-            </div>
-          )}
-
-        </div>
         <div className="absolute bottom-0 left-0 p-4 mt-2 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
-          <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
-            <a>{name}</a>
-          </Link>
+          <div>
+            {renderTime(start_time, end_time)}
+            {employees && employees.length ? (
+                <span className="px-3 font-black text-white c-events-time">
+                  {employees.length} workers
+                </span>
+            ) : (
+                <span className="px-3 font-black text-white c-events-time">
+                  0 workers
+                </span>
+            )}
+             </div>
+          <div>
+            <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
+              <a>{name}</a>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="bg-white p-5 rounded-b-lg">

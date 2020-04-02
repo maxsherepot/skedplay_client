@@ -18,6 +18,21 @@ const GET_CLUBS = gql`
                 lat
                 lng
                 phones
+                employees {
+                    id
+                    name
+                    isNew
+                    inGeneral
+                    favorited {
+                        id
+                    }
+                    owner {
+                        ... on Club {
+                            id
+                            name
+                        }
+                    }
+                }
                 favorited {
                     id
                 }

@@ -18,7 +18,7 @@ export const ALL_CLUBS = gql`
         }
         employees {
           id
-          first_name
+          name
         }
         favorited {
           id
