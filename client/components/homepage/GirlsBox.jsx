@@ -12,6 +12,7 @@ const GET_GIRLS = gql`
         address
         isVip
         isNew
+        inGeneral
         index
         city {
           id

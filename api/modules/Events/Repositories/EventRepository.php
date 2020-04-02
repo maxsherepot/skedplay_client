@@ -11,6 +11,7 @@ use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Clubs\Entities\Club;
+use Modules\Users\Entities\User;
 
 class EventRepository implements HasMediable
 {
@@ -90,5 +91,15 @@ class EventRepository implements HasMediable
         $collection['start_date'] = $startDate;
         $collection['end_date'] = $endDate;
         return $collection;
+    }
+
+    public function getEventsToNotification(): \Generator
+    {
+        return Event::query()
+            ->where([
+                ['status', '=', User::STATUS_CONFIRMED],
+                ['isSent', '=', false]
+            ])
+            ->cursor();
     }
 }

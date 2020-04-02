@@ -7,6 +7,7 @@ type Event {
     description: String!
     favorited: Favorite @morphOne @with(relation: "favoriteRelation")
     address: String
+    isSent: Boolean
     lat: Float,
     lng: Float,
     price: Float,

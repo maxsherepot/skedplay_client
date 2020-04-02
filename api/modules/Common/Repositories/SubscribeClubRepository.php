@@ -24,4 +24,12 @@ class SubscribeClubRepository
 
         return $subscription;
     }
+
+    public function getSubscribersByClubId(int $club_id)
+    {
+        return SubscribeClub::query()
+            ->where('club_id', '=', $club_id)
+            ->cursor()
+        ;
+    }
 }
