@@ -64,9 +64,11 @@ function EventsGallery({ events }) {
                 src={event.photos[0].thumb_url}
               />
               <div className="shadow-down-gradient absolute w-full h-full z-10 top-0 left-0">
-                <div className="badge rounded-full uppercase font-medium text-xs pt-2 pb-2 px-4 leading-none gallery-accordion__item__badge mt-5 ml-5 absolute top-0 left-0 bg-yellow">
-                  {event.type.name}
-                </div>
+                  <div className="relative h-15 ml-12">
+                      <span className="badge rounded-full uppercase font-medium text-xs pt-2 pb-2 px-4 ml-12 leading-none gallery-accordion__item__badge mt-5 absolute top-0 left-0 bg-yellow">
+                          {event.type.name}
+                      </span>
+                  </div>
                 <div className="gallery-accordion__item__name">
                   {event.short_title}
                 </div>

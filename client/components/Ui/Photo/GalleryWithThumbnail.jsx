@@ -64,7 +64,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
             <img
               key={i}
               onClick={() => handleClick(i)}
-              className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-lg hd:h-gallery-hd"
+              className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
               src={image}
               alt=""
             />
@@ -105,8 +105,8 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           </div>
         </div>
 
-        <div className="flex justify-center absolute bottom-0 left-0 w-full z-10">
-          <div className="text-xl text-white mx-5 my-8 select-none">
+        <div className="flex justify-center lg:mb-12 sm:mb-2 absolute bottom-0 left-0 w-full z-10">
+          <div className="text-xl text-white mb-10 sm:mb-3 pb-10 mx-5 my-8 select-none">
             {index + 1} / {images.length}
           </div>
         </div>
