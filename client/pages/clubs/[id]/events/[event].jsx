@@ -53,7 +53,7 @@ const ClubEventShow = ({ user }) => {
         <div className="relative overflow-hidden">
           <img
             className="rounded-t-lg w-full object-cover h-80"
-            src={photo.url}
+            src={photo && photo.url || '/static/img/event-none.png'}
             alt=""
           />
           <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white z-30">

@@ -20,7 +20,7 @@ class SubscribersEventNotification extends Mailable
     public function __construct(Event $event)
     {
         $this->event = $event;
-        $this->link = rtrim(env('APP_URL'),'/').'/events/'.$this->event->id;
+        $this->link = rtrim(env('APP_URL'),'/').'/clubs/'.$this->event->club_id.'/events/'.$this->event->id;
     }
 
     /**
@@ -29,7 +29,6 @@ class SubscribersEventNotification extends Mailable
     public function build(): SubscribersEventNotification
     {
         return $this->view('mail.new-event')
-            ->from('admin@gmail.com')
             ->subject('New Event!')
             ->with([
                 'name' => $this->event->title,

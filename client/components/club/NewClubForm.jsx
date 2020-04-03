@@ -62,7 +62,6 @@ function NewClubForm({ onSubmit }) {
         email: "",
         start_time: "",
         end_time: "",
-        employees: {first_name:""},
         website: "",
         logotype: null,
         // access_phone_edit: false,
