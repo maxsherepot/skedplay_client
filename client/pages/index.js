@@ -1,12 +1,10 @@
 import React from "react";
 import Link from "next/link";
-
 import {Header, Footer} from "UI";
 import {ArrowNextSvg} from "icons";
 import GirlsBox from "components/homepage/GirlsBox";
 import EventsBox from "components/homepage/EventsBox";
 import ClubsBox from "components/homepage/ClubsBox";
-
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 
