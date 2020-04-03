@@ -215,6 +215,8 @@
   },
   "clubs": {
     "event_type": "Club type",
+    "subscribe": "Subscribe",
+    "subscribe_to_club_news": "Subscribe to the club's news",
     "select_event_type": "Select club type",
     "perimeter": "Perimeter",
     "select_perimeter": "Select perimeter",

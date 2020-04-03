@@ -133,6 +133,14 @@ function create(initialState, {
       clubs: {
         cantons: [],
         club_type: "",
+        start_time: "",
+        orderBy: [
+          {
+            field: "start_time",
+            order: 'ASC',
+            __typename: "orderBy3"
+          }
+        ],
         // perimeter: 10,
         __typename: "ClubFilters"
       },

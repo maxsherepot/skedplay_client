@@ -5,6 +5,7 @@ namespace Modules\Users\Http\Controllers\Auth;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Routing\Controller;
+use Modules\Api\Components\NotifyAdminTelegramComponent;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Billing\Entities\Plan;
 use Modules\Users\Entities\User;
@@ -61,6 +62,16 @@ class RegisterController extends Controller
         }
 
         event(new Registered($user));
+        if ($request->get('account_type') === User::ACCOUNT_EMPLOYEE) {
+            $message = 'A new employee had been registered for moderation '.rtrim(env('APP_URL'),'/').'/employees/'.$user->id
+            ;
+        } else {
+            $message = 'A new ' . $request->get('account_type') .
+                'had been registered for moderation by user id =' . $user->id
+            ;
+        }
+
+        (new NotifyAdminTelegramComponent)->sendNotification($message);
 
         return [
             'access_token' => $this->users->createToken($user),

@@ -54,6 +54,11 @@ const EmployeeInformation = ({ user }) => {
     toggleModalOpen(false);
   };
 
+
+  if ((employee.isVip === true) && !user) {
+    redirect({}, "/register");
+  }
+
   const [event] = events.data;
 
   const sidebarColumn = (
@@ -221,21 +226,6 @@ const EmployeeInformation = ({ user }) => {
       </div>
     </EmployeeBox>
   );
-};
-
-const checkIsEmployeeVip = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const { data: { employee } = {}, loading: employeeLoading } = useQuery(
-      GET_EMPLOYEE,
-      {
-        variables: {
-          id
-        }
-      }
-  );
-console.log(employee.isVip);
-  return employee.isVip;
 };
 
 EmployeeInformation.getInitialProps = async ctx => {

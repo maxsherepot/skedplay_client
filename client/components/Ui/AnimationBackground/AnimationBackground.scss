@@ -2,14 +2,17 @@
   z-index: -1;
   @apply fixed top-0 left-0 w-full h-screen;
   .animation-gradient {
-    height: 30%;
+    height: 50%;
 
-    @media (max-width: 880px) {
-      height: 26%;
+    @media (max-width: 1610px) {
+      height: 48%;
+    }
+    @media (max-width: 1270px) {
+      height: 45%;
     }
 
-    @media(max-width: 585px) {
-      height: 20%;
+    @media(max-width: 580px) {
+      height: 33%;
     }
 
     @apply block w-full relative;

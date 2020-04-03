@@ -11,6 +11,7 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 import EmployeeClientChat from "components/chat/EmployeeClientChat";
+import redirect from "lib/redirect";
 
 
 const ClientChatComponent = ({ user, type = 'client' }) => {
@@ -84,6 +85,10 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
 
 ClientChatComponent.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
+
+  if (!user) {
+      return redirect({}, "/login");
+  }
 
   return { user };
 };

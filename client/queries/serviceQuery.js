@@ -19,7 +19,7 @@ export const GET_SERVICES = gql`
     services {
       id
       name
-      groupService {
+      group {
           id 
           name
       }

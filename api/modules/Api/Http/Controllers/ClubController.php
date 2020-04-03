@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Modules\Api\Components\NotifyAdminTelegramComponent;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
 use Modules\Api\Http\Requests\Club\ClubUpdateRequest;
@@ -66,8 +67,12 @@ class ClubController extends Controller
     public function create(ClubCreateRequest $request)
     {
         $this->authorize('create', Club::class);
+        $club = $this->clubs->store($request->user('api'), collect($request->all()));
 
-        return $this->clubs->store($request->user('api'), collect($request->all()));
+        $message = 'A new club had been registered for moderation '.rtrim(env('APP_URL'),'/').'/clubs/'.$club->id;
+        (new NotifyAdminTelegramComponent)->sendNotification($message);
+
+        return $club;
     }
 
     /**
@@ -149,8 +154,12 @@ class ClubController extends Controller
     public function createEvent(Club $club, EventCreateRequest $request)
     {
         $this->authorize('create', Event::class);
+        $event = $this->events->store($club, collect($request->all()));
 
-        return $this->events->store($club, collect($request->all()));
+        $message = 'A new event had been registered for moderation '.rtrim(env('APP_URL'),'/').'/clubs/'.$event->club_id.'/events/'.$event->id;
+        (new NotifyAdminTelegramComponent)->sendNotification($message);
+
+        return $event;
     }
 
     /**

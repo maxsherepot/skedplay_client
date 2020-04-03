@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useRouter} from "next/router";
 import Link from "next/link";
 import cx from "classnames";
+import * as Yup from "yup";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {
     ArrowNextSvg,
@@ -12,14 +13,17 @@ import {
     MapSvg,
     MessageSvg
 } from "icons";
-import {Gallery, EventCard, Loader} from "UI";
+import {Gallery, EventCard, Loader, TextField} from "UI";
 import {GET_CLUB} from "queries";
-import {useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {ClubBox, ClubGirlsBox} from "components/club";
 import {ClubSchedule} from "components/schedule";
 import {useTranslation} from "react-i18next";
 import Distance from "components/distance";
 import EmployeeMaps from "components/employee/EmployeeMaps";
+import {Formik} from "formik";
+import {CREATE_SUBSCRIBE_CLUB} from "queries/subscribeClub";
+import {getErrors} from "utils/index";
 
 const DistanceView = ({ distanceKm }) => {
     if (!distanceKm) {
@@ -33,6 +37,79 @@ const DistanceView = ({ distanceKm }) => {
           <MapSvg/>
           <span className="ml-3 text-grey text-sm">{distanceKm} {t('index.km')} {t('clubs.from_me')}</span>
       </div>
+    )
+};
+
+const SubscribeClubForm = ({clubId}) => {
+    const [createSubscribeClub] = useMutation(CREATE_SUBSCRIBE_CLUB);
+    const { t } = useTranslation();
+    const router = useRouter();
+
+    const handleSubmits = async values => {
+        try {
+            const {
+                data: {
+                    createSubscribeClub: {status, message}
+                }
+            } = await createSubscribeClub({
+                variables: {
+                    email: values.email,
+                    club_id: clubId
+                }
+            });
+
+            if (status) {
+                router.reload();
+            }
+
+            return {
+                status,
+                message
+            };
+        } catch (e) {
+            const errors = getErrors(e);
+
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
+    return (
+        <Formik
+            initialValues={{
+                email: "",
+            }}
+            validationSchema={Yup.object().shape({
+                email: Yup.string().email().required(),
+            })}
+            onSubmit={handleSubmits}
+        >
+            {({ handleSubmit}) => (
+                <form onSubmit={handleSubmit}>
+            <div className="">
+                <div className="bg-white text-sm hd:text-base rounded-lg p-6 mt-2">
+                    <span className="text-xl font-medium mb-5">{t('clubs.subscribe_to_club_news')}</span>
+                    <TextField
+                        className="px-3 mt-3"
+                        label={t('clubs.mail')}
+                        name="email"
+                    />
+                    <div className="text-center">
+                        <button
+                            type="submit"
+                            className="btn btn-xs px-5 text-sm"
+                        >
+                            {t('clubs.subscribe')}
+                        </button>
+                    </div>
+                </div>
+            </div>
+                </form>
+                )}
+        </Formik>
     )
 };
 
@@ -296,6 +373,7 @@ const ClubInformation = ({user}) => {
                                         title={`${t('about.clubs.schedule_in')} ${club.name}`}
                                         club={club}
                                     />
+                                    <SubscribeClubForm clubId={id}/>
                                 </div>
                             </div>
                         </div>

@@ -46,7 +46,32 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
     refetch();
   }
 
-  // const sorts = [];
+  let sorts = [];
+
+  if (entityName === 'clubs') {
+    sorts = [
+      {
+        id: 1,
+        label: 'start early',
+        orderBy: [
+          {
+            field: "start_time",
+            order: 'ASC',
+          }
+        ],
+      },
+      {
+        id: 2,
+        label: "start later",
+        orderBy: [
+          {
+            field: "start_time",
+            order: 'DESC'
+          }
+        ],
+      },
+    ];
+  }
 
   return (
     <>
@@ -59,15 +84,27 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
         setFilters={setFilters}
         bgClass={entityName + '-search'}
       />
-      <Box
-        // sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
-        loading={entitiesLoading}
-        error={entitiesError}
-        page={page}
-        setPage={setPage}
-        entities={entities}
-        networkStatus={networkStatus}
-      />
+      {entityName === 'clubs' ? (
+          <Box
+              sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
+              loading={entitiesLoading}
+              error={entitiesError}
+              page={page}
+              setPage={setPage}
+              entities={entities}
+              networkStatus={networkStatus}
+          />
+      ) : (
+          <Box
+              loading={entitiesLoading}
+              error={entitiesError}
+              page={page}
+              setPage={setPage}
+              entities={entities}
+              networkStatus={networkStatus}
+          />
+      )}
+
     </>
   );
 };

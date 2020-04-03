@@ -6,6 +6,7 @@ use App\Console\Commands\BossCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Employees\Console\CheckEmployeesActivation;
+use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         InsertTranslates::class,
         RefreshTranslatesOnFront::class,
         CheckTranslatesConsistency::class,
+        CheckEventsNotification::class,
     ];
 
     /**
@@ -33,6 +35,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('events:check:notification')
+            ->everyMinute();
+
          $schedule->command('employees:check:activation')
                   ->daily();
     }

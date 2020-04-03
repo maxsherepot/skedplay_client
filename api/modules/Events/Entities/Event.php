@@ -47,6 +47,7 @@ class Event extends Model implements HasMedia
         'start_date',
         'end_date',
         'start_time',
+        'isSent',
     ];
 
     protected $casts = [
