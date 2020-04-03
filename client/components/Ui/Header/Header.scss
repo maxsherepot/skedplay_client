@@ -74,17 +74,25 @@ header {
   min-width: 78px;
   height: 78px;
   background-color: #e30b17;
+
+  @media (max-width: 480px) {
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
   @screen sm {
-    min-width: 100px;
-    height: 100px;
+    min-width: 70px;
+    height: 70px;
+    font-size: 2.0rem;
   }
   @screen md {
-    min-width: 110px;
-    height: 110px;
+    min-width: 90px;
+    height: 90px;
+    font-size: 2.5rem;
   }
   @screen xl {
-    min-width: 133px;
-    height: 133px;
+    min-width: 100px;
+    height: 100px;
   }
 }
 
