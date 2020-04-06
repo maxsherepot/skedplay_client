@@ -24,7 +24,7 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo, start_time, end_time, employees}) {
+function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo, start_time, end_time, employees, website}) {
   let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -37,7 +37,6 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
     const [number] = phonesList;
     phone = number
   }
-  const logo_url = (logo !== null) ? logo['url'] : "/static/img/club-logo.png";
   const isMap = eventMapId === id;
   const city_name = (city !== null) ? city['name'] : "";
   const {t, i18n} = useTranslation();
@@ -98,15 +97,6 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
         <div className="absolute bottom-0 left-0 p-4 mt-2 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
           <div>
             {renderTime(start_time, end_time)}
-            {employees && employees.length ? (
-                <span className="px-3 font-black text-white c-events-time">
-                  {employees.length} workers
-                </span>
-            ) : (
-                <span className="px-3 font-black text-white c-events-time">
-                  0 workers
-                </span>
-            )}
              </div>
           <div>
             <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
@@ -129,7 +119,6 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 <DistanceView/>
               </Distance>
             }
-
             <div className="flex">
               {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
                 <span
@@ -161,14 +150,31 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
           </div>
           <div className="flex flex-col justify-end">
             <div className="logo-small__div">
-              <img src={logo_url} alt="" />
+              {logo ? (
+                  <img src={logo['url']} alt="" />
+                  ) : (
+                  <div>No logo</div>
+              )}
+              {employees && employees.length ? (
+                  <span className="text-black mt-2">
+                  {employees.length} workers
+                </span>
+              ) : (
+                  <span className="text-black mt-2">
+                  0 workers
+                </span>
+              )}
             </div>
-            <div className="flex mt-2">
-              <WebsiteSvg></WebsiteSvg>
-              <span className="ml-1 whitespace-no-wrap text-grey">
-                {t('index.visit_site')}
-              </span>
-            </div>
+            {website && (
+              <div className="flex mt-2">
+                <a href={website}>
+                  <WebsiteSvg></WebsiteSvg>
+                  <span className="ml-1 whitespace-no-wrap text-grey">
+                    {t('index.visit_site')}
+                  </span>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>
