@@ -24,7 +24,7 @@ function DistanceView({distanceKm}) {
   );
 }
 
-function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo, start_time, end_time, employees, website}) {
+function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = true, lat, lng, logo, start_time, end_time, employees, website, type}) {
   let phone;
   const [showNumber, setToggleNumber] = useState(false);
   const [eventMapId, setEventMapId] = useState(null);
@@ -97,11 +97,14 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
         <div className="absolute bottom-0 left-0 p-4 mt-2 text-2xl font-black text-white hover:text-red cursor-pointer z-30">
           <div>
             {renderTime(start_time, end_time)}
-             </div>
+          </div>
           <div>
             <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
               <a>{name}</a>
             </Link>
+          </div>
+          <div>
+            <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">{type.name}</button>
           </div>
         </div>
       </div>
@@ -165,16 +168,16 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 </span>
               )}
             </div>
-            {website && (
               <div className="flex mt-2">
+                {website && (
                 <a href={website}>
                   <WebsiteSvg></WebsiteSvg>
                   <span className="ml-1 whitespace-no-wrap text-grey">
                     {t('index.visit_site')}
                   </span>
                 </a>
+                )}
               </div>
-            )}
           </div>
         </div>
       </div>
