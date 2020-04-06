@@ -63,11 +63,11 @@ class RegisterController extends Controller
 
         event(new Registered($user));
         if ($request->get('account_type') === User::ACCOUNT_EMPLOYEE) {
-            $message = 'A new employee had been registered for moderation '.rtrim(env('APP_URL'),'/').'/employees/'.$user->id
+            $message = 'A new employee had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/employees/'.$user->id
             ;
         } else {
             $message = 'A new ' . $request->get('account_type') .
-                'had been registered for moderation by user id =' . $user->id
+                'had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/users/'.$user->id
             ;
         }
 

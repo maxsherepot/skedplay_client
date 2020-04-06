@@ -69,7 +69,7 @@ class ClubController extends Controller
         $this->authorize('create', Club::class);
         $club = $this->clubs->store($request->user('api'), collect($request->all()));
 
-        $message = 'A new club had been registered for moderation '.rtrim(env('APP_URL'),'/').'/clubs/'.$club->id;
+        $message = 'A new club had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/clubs/'.$club->id;
         (new NotifyAdminTelegramComponent)->sendNotification($message);
 
         return $club;
@@ -156,7 +156,7 @@ class ClubController extends Controller
         $this->authorize('create', Event::class);
         $event = $this->events->store($club, collect($request->all()));
 
-        $message = 'A new event had been registered for moderation '.rtrim(env('APP_URL'),'/').'/clubs/'.$event->club_id.'/events/'.$event->id;
+        $message = 'A new event had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/events/'.$event->id;
         (new NotifyAdminTelegramComponent)->sendNotification($message);
 
         return $event;

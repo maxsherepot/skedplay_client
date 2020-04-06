@@ -55,7 +55,7 @@ const PrivateBox = ({ user }) => {
                     <div className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
                         <div className="flex flex-col justify-center h-full">
                             <div className="flex justify-between">
-                                <span className="text-2xl font-bold mb-6">{user.employees_events} {t('account.events')}</span>
+                                <span className="text-2xl font-bold mb-6">{user.employee.events_count} {t('account.events')}</span>
                                 <StarSvg />
                             </div>
                             <Button className="w-2/3" size="sm">
