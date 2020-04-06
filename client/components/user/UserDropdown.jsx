@@ -57,14 +57,14 @@ const UserDropdown = ({ user }) => {
               </div>
               <div className="ml-4">{user.phone}</div>
             </div>
-            <div className="flex items-center">
+            {/*<div className="flex items-center">
               <div className="mr-2">{t('common.plan')}: {t('common.free')}</div>
               <Link href="/plans">
                 <div className="bg-transparent hover:bg-pink hover:text-white border border-red rounded-full text-xs ml-4 px-2-5 leading-loose cursor-pointer">
                   {t('common.upgrade')}
                 </div>
               </Link>
-            </div>
+            </div>*/}
           </div>
         </div>
 

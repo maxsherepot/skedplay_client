@@ -1,19 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import Router, {useRouter} from "next/router";
-import {Avatar, Button, PageCard, FileField} from "UI";
-import { UPLOAD_USER_AVATAR} from "queries/userQuery";
-import { GET_ME } from "queries/userQuery";
-
+import {useRouter} from "next/router";
+import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
-import {getErrors, defaultSchedule} from "utils";
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useMutation, useQuery} from "@apollo/react-hooks";
+import {useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
-import AddPhotoSvg from "components/icons/AddPhotoSvg";
-import {Loader} from 'UI';
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
