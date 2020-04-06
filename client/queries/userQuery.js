@@ -7,6 +7,7 @@ export const GET_ME = gql`
             name
             phone
             email
+            age
             is_client
             is_club_owner
             is_employee

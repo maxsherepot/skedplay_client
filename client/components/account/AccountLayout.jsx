@@ -20,7 +20,15 @@ const ProfileHeader = ({user}) => (
         <div className="flex items-center lg:w-7/12 ml-8 py-8">
             <CheckAvatar />
             <div className="ml-4">
-                <span className="text-2xl font-medium capitalize">{user.name}</span>
+                {user && user.is_employee ? (
+                    <span className="text-2xl font-medium capitalize">
+                        {user.employee.name} {user.age ? `, ${user.age}` : ''}
+                    </span>
+                ):(
+                    <span className="text-2xl font-medium capitalize">
+                        {user.name} {user.age ? `, ${user.age}` : ''}
+                    </span>
+                )}
                 <div className="flex mt-4">
                     <AccountLabel {...user} />
                     <span className="sm:ml-2">{user.phone}</span>
