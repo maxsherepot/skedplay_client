@@ -368,6 +368,7 @@
     "chat_with": "Chat with",
     "chose_chat": "Select chat",
     "select_employee": "Select employee",
+    "chat_available_for_authorized": "Chat is available only for Registered users, please Sign up or Register",
     "": ""
   },
   "review": {

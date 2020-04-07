@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { ArrowPrevSvg, ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, Gallery, ChatList, ChatRoom, Loader } from "UI";
+import { Lightbox, Gallery, ChatList, Modal,  ChatRoom, Loader } from "UI";
 import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -11,8 +9,8 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 import EmployeeClientChat from "components/chat/EmployeeClientChat";
-import redirect from "lib/redirect";
-
+import {LoginBox} from "components/login";
+import LangSelector from "UI/LangSelector";
 
 const ClientChatComponent = ({ user, type = 'client' }) => {
   const router = useRouter();
@@ -20,6 +18,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const {t, i18n} = useTranslation();
+  const emptyUser = !Object.keys(user).length > 0;
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
@@ -74,10 +73,28 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
           <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
           {sidebarColumn}
         </div>
-
-        <div className="w-full xl:w-9/12">
-          <EmployeeClientChat user={user} employee={employee}/>
-        </div>
+          <div className="w-full xl:w-9/12">
+            {emptyUser ? (
+                <div>
+                    <div className="mt-7 mb-5 bg-red p-3 w-2/3 text-center mx-auto">
+                        <span className="text-white">
+                          {t('chat.chat_available_for_authorized')}
+                        </span>
+                    </div>
+                    <div className="mt-10 p-3">
+                        <Modal
+                            title={t('common.login')}
+                            right={<LangSelector />}
+                            modalDialogStyle={{height: '650px'}}
+                        >
+                            <LoginBox />
+                        </Modal>
+                    </div>
+                </div>
+            ) : (
+                <EmployeeClientChat user={user} employee={employee}/>
+            )}
+          </div>
       </div>
     </EmployeeBox>
   );
@@ -87,7 +104,7 @@ ClientChatComponent.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
   if (!user) {
-      return redirect({}, "/login");
+      return {};
   }
 
   return { user };
