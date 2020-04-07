@@ -20,7 +20,7 @@ function DistanceView({distanceKm}) {
   const {t, i18n} = useTranslation();
 
   return (
-    <p className="text-grey">{distanceKm} {t('index.km_from_me')}</p>
+      <span className="text-grey">~ {distanceKm} {t('index.km_from_me')}</span>
   );
 }
 
@@ -111,16 +111,24 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       <div className="bg-white p-5 rounded-b-lg">
         <div className="flex justify-between text-xs cursor-pointer">
           <div className="flex flex-col pr-4">
-            <p className="py-1 font-bold ml-2" onClick={() => setEventMapId(id)}>
-              {city_name}
-            </p>
-            {(lat && lng) &&
+            {(lat && lng) ? (
               <Distance
                 originByGeo={true}
                 destination={{lat, lng}}
               >
-                <DistanceView/>
+                <p className="py-1 font-bold ml-2 inline-block" onClick={() => setEventMapId(id)}>
+                  {city_name}, <DistanceView />
+                </p>
+                <div className="flex py-1 pr-1">
+                  <MapSvg />
+                  <span className="text-grey pl-2">Show me this place in Map</span>
+                </div>
               </Distance>
+              ) : (
+                <p className="py-1 font-bold ml-2 inline-block" onClick={() => setEventMapId(id)}>
+                  {city_name}
+                </p>
+              )
             }
             <div className="flex">
               {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">

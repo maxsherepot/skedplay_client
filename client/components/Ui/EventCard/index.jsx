@@ -5,17 +5,18 @@ import Link from "next/link";
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
-import { MapSvg, CloseSvg } from "icons";
+import { CloseSvg } from "icons";
 import Distance from "components/distance";
 import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
 import * as moment from "moment";
+import LocationSvg from "components/icons/LocationSvg";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
     return (
       <div className="flex py-1 pr-1">
-        <MapSvg />
+        <LocationSvg />
       </div>
     );
   }
@@ -24,7 +25,7 @@ function DistanceView({distanceKm}) {
 
   return (
     <div className="flex py-1 pr-1">
-      <MapSvg />
+      <LocationSvg />
       <span className="ml-1 whitespace-no-wrap">{distanceKm} {t('index.km')}</span>
     </div>
   );
