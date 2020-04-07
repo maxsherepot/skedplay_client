@@ -73,13 +73,6 @@ const UserDropdown = ({ user }) => {
         <div className="flex flex-wrap justify-between px-7 py-4">
           <div className="w-1/2">
             {(user.is_employee || user.is_club_owner) && (
-              <Link href="/account">
-                <a className="block text-red font-medium hover:text-pink cursor-pointer mb-2">
-                  {t('layout.view_my_account')}
-                </a>
-              </Link>
-            )}
-            {(user.is_employee || user.is_club_owner) && (
               <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
                 {t('common.bills_and_usage')}
               </div>
@@ -125,20 +118,34 @@ const UserDropdown = ({ user }) => {
             {/*  </Link>*/}
             {/*)}*/}
             {user.is_employee && (
-              <Link href="/account/events/create">
-                <a className="flex items-center">
-                  <AddSvg />
-                  <span className="ml-2">{t('common.add_new_event')}</span>
-                </a>
-              </Link>
+              <>
+                <Link href="/account">
+                  <a className="flex hover:text-red cursor-pointer mb-2">
+                    {t('layout.view_my_account')}
+                  </a>
+                </Link>
+                <Link href="/account/events/create">
+                  <a className="flex items-center">
+                    <AddSvg />
+                    <span className="ml-2">{t('common.add_new_event')}</span>
+                  </a>
+                </Link>
+              </>
             )}
             {user.is_club_owner && (
-              <Link href="/clubs/add">
-                <a className="flex items-center">
-                  <AddSvg />
-                  <span className="ml-2">{t('common.add_new_club')}</span>
-                </a>
-              </Link>
+                <>
+                  <Link href="/account">
+                    <a className="flex hover:text-red cursor-pointer mb-2">
+                      {t('layout.view_my_account')}
+                    </a>
+                  </Link>
+                  <Link href="/clubs/add">
+                    <a className="flex items-center">
+                      <AddSvg />
+                      <span className="ml-2">{t('common.add_new_club')}</span>
+                    </a>
+                  </Link>
+              </>
             )}
           </div>
         </div>
