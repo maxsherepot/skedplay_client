@@ -111,19 +111,26 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
     return (
       <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
           <div className="flex flex-col py-10 lg:pr-32">
-              {/*{is_employee && (
-                <div>
+              {is_employee && (
+                  <div>
                       <span
-                        className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
-                      >
-                        <Link href={employeeLink}>
-                          <a>
-                              {employeeButtonText}
-                          </a>
-                        </Link>
+                          className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                        {t('account.my_card')}
                       </span>
-                </div>
-              )}*/}
+                      <ul className="text-lg font-medium leading-loose ml-10 mt-4">
+                          <li>
+                              {employee.name}
+                          </li>
+                          <li>
+                              <Link href="/account/ad">
+                                  <a className="text-red">
+                                      {t('layout.edit_my_card')}
+                                  </a>
+                              </Link>
+                          </li>
+                      </ul>
+                  </div>
+              )}
 
               {is_employee && (
                 <div className="mt-5">
