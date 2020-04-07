@@ -116,10 +116,10 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 originByGeo={true}
                 destination={{lat, lng}}
               >
-                <p className="py-1 font-bold ml-2 inline-block" onClick={() => setEventMapId(id)}>
+                <p className="py-1 font-bold ml-2 inline-block">
                   {city_name}, <DistanceView />
                 </p>
-                <div className="flex py-1 pr-1">
+                <div className="flex py-1 pr-1" onClick={() => setEventMapId(id)}>
                   <MapSvg />
                   <span className="text-grey pl-2">Show me this place in Map</span>
                 </div>
