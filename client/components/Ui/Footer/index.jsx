@@ -114,14 +114,22 @@ function Footer({ user }) {
         </div>
       </div>
       <div className="border-dark-grey border-b"></div>
-      <div className="my-6">
+      <div className="row footer-sides__div">
+      <div className="my-11 mt-2 inline-block h-full ml-2">
+        <div className="text-grey text-sm">
+          <a href="https://skidplay.tk/helpcenter/terms-of-use">
+            {t('layout.terms_conditions')}
+          </a> &
+          <a href="https://skidplay.tk/helpcenter/private-policy">
+            {t('layout.privacy_policy')}
+          </a>
+        </div>
+        <div className="text-grey text-sm">
+          {t('layout.copyrights')}
+        </div>
+      </div>
+      <div className="my-6 inline-block">
         <div className="fluid-container flex flex-col-reverse lg:flex-row md:justify-between items-center text-center">
-          <div className="text-grey text-sm">
-            {t('layout.copyrights')}
-          </div>
-          <div className="text-grey text-sm my-4 md:my-0">
-            {t('layout.terms')}
-          </div>
           <div className="footer-icons">
             <MasterCardSvg></MasterCardSvg>
             <VisaSvg></VisaSvg>
@@ -131,6 +139,7 @@ function Footer({ user }) {
             <SmsSvg></SmsSvg>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

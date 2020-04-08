@@ -99,7 +99,8 @@
     "contacts": "Contacts",
     "help_center": "Help center",
     "copyrights": "Copyright © 2019 Skedplay. All rights reserved.",
-    "terms": "Terms and Conditions & Privacy Policy",
+    "terms_conditions": "Terms and Conditions",
+    "privacy_policy": "Privacy Policy",
     "add_new_card": "Add new card",
     "archive_sex_workers": "Archive Sex workers",
     "events": "Events",
@@ -335,7 +336,9 @@
     "first_young": "First: young",
     "first_old": "First: old",
     "adverts_found": "adverts found",
-    "event_found": "event found"
+    "event_found": "event found",
+    "available_only_for_authorized": "This part is available only for Registered users, please Sign up or Register",
+    "": ""
   },
   "titles": {
     "price_and_service": "Services and Pricing",

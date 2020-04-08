@@ -28,6 +28,11 @@ main {
   }
 }
 
+.footer-sides__div {
+  display: flex;
+  justify-content: space-between;
+}
+
 .contain-section {
   &__img-man {
     object-fit: fill;
