@@ -6,7 +6,6 @@ import { GET_EMPLOYEE, ALL_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
-import cx from "classnames";
 import {useTranslation} from "react-i18next";
 import EmployeeClientChat from "components/chat/EmployeeClientChat";
 import {LoginBox} from "components/login";
@@ -18,7 +17,6 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const {t, i18n} = useTranslation();
-  const emptyUser = !Object.keys(user).length > 0;
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
@@ -74,22 +72,20 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
           {sidebarColumn}
         </div>
           <div className="w-full xl:w-9/12">
-            {emptyUser ? (
-                <div>
-                    <div className="mt-7 mb-5 bg-red p-3 w-2/3 text-center mx-auto">
-                        <span className="text-white">
-                          {t('chat.chat_available_for_authorized')}
-                        </span>
-                    </div>
-                    <div className="mt-10 p-3">
-                        <Modal
-                            title={t('common.login')}
-                            right={<LangSelector />}
-                            modalDialogStyle={{height: '650px'}}
-                        >
-                            <LoginBox />
-                        </Modal>
-                    </div>
+            {!user ? (
+                <div className="mt-1">
+                    <Modal
+                        title={t('common.login')}
+                        right={<LangSelector />}
+                        modalDialogStyle={{height: '650px'}}
+                    >
+                        <div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
+                            <span className="text-white">
+                              {t('chat.chat_available_for_authorized')}
+                            </span>
+                        </div>
+                        <LoginBox />
+                    </Modal>
                 </div>
             ) : (
                 <EmployeeClientChat user={user} employee={employee}/>

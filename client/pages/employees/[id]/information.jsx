@@ -12,7 +12,9 @@ import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import {useTranslation} from "react-i18next";
 import EmployeeMaps from "components/employee/EmployeeMaps";
-import redirect from "lib/redirect";
+import LangSelector from "UI/LangSelector";
+import {LoginBox} from "components/login";
+import Modal from "UI/Modal";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -53,11 +55,6 @@ const EmployeeInformation = ({ user }) => {
     setLightboxIndex(null);
     toggleModalOpen(false);
   };
-
-
-  if ((employee.isVip === true) && !user) {
-    redirect({}, "/register");
-  }
 
   const [event] = events.data;
 
@@ -198,32 +195,51 @@ const EmployeeInformation = ({ user }) => {
 
   return (
     <EmployeeBox employee={employee} user={user}>
-      <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
-          {sidebarColumn}
-        </div>
-        <div className="w-full sm:w-1/3 px-3 block hd:hidden">
-          <AddressAndEvent />
-        </div>
-        <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
-      </div>
+      {!user && (employee.isVip === true) ? (
+          <div>
+              <Modal
+                  title={t('common.login')}
+                  right={<LangSelector />}
+                  modalDialogStyle={{height: '650px'}}
+              >
+                <div className="mt-3 bg-red p-3 w-2/3 text-center mx-auto">
+                  <span className="text-white">
+                    {t('employees.available_only_for_authorized')}
+                  </span>
+                </div>
+                <LoginBox />
+              </Modal>
+          </div>
+      ) : (
+          <>
+            <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
+              <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
+                <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+                {sidebarColumn}
+              </div>
+              <div className="w-full sm:w-1/3 px-3 block hd:hidden">
+                <AddressAndEvent />
+              </div>
+              <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
+            </div>
 
-      <div className="flex flex-wrap -mx-3">
-        <div className="w-full hd:w-2/5 px-3">
-          <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
-        </div>
-        <div className="w-full hd:w-2/5 px-3">
-          <EmployeeSchedule
-            title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
-            employee={employee}
-          />
-        </div>
-      </div>
+            <div className="flex flex-wrap -mx-3">
+              <div className="w-full hd:w-2/5 px-3">
+                <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
+              </div>
+              <div className="w-full hd:w-2/5 px-3">
+                <EmployeeSchedule
+                    title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
+                    employee={employee}
+                />
+              </div>
+            </div>
 
-      <div className="mt-6">
-        <EmployeeMaps employee={employee} goBtn={true}/>
-      </div>
+            <div className="mt-6">
+              <EmployeeMaps employee={employee} goBtn={true}/>
+            </div>
+          </>
+      )}
     </EmployeeBox>
   );
 };
