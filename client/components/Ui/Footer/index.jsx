@@ -20,6 +20,7 @@ import Content from "UI/Popup/Content";
 import {useQuery} from "@apollo/react-hooks";
 import Popup from "reactjs-popup";
 import {GET_ME} from "queries/userQuery";
+import * as moment from "moment";
 
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
@@ -56,6 +57,11 @@ function Footer({ user }) {
       });
     });
   }
+
+  const startYear = moment('2020').format( 'YYYY');
+  let currentYear = moment().format('YYYY');
+
+  let dateYear = currentYear > startYear ? startYear + " - " + currentYear : startYear;
 
   return (
     <div className="footer flex flex-col bg-black">
@@ -125,7 +131,7 @@ function Footer({ user }) {
           </a>
         </div>
         <div className="text-grey text-sm">
-          {t('layout.copyrights')}
+          {t('layout.copyright')} {dateYear} {t('layout.all_rights_reserved')}
         </div>
       </div>
       <div className="my-6 inline-block">
