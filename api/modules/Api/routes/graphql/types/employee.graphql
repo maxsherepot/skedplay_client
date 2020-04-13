@@ -75,6 +75,7 @@ input EmployeeInput {
   videos: [Upload]
   club_id: Int
   inGeneral: Boolean
+  isVip: Boolean
 }
 
 input EmployeeFilters {
