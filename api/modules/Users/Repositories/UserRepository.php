@@ -36,10 +36,12 @@ class UserRepository implements HasMediable
                 $collection['birthday'] = Carbon::parse($collection['birthday']);
                 $collection['age'] = Carbon::parse($collection['birthday'])->age;
             }
+            if ($collection['password']) {
+                $collection['password'] = \Hash::make($collection['password']);
+            }
         } catch (\Exception $e) {
             $collection['birthday'] = null;
         }
-        $collection['password'] = \Hash::make($collection['password']);
         $user->update($collection->toArray());
 
         return $user;

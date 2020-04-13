@@ -122,7 +122,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                               {employee.name}
                           </li>
                           <li>
-                              <Link href="/account/ad">
+                              <Link href={employeeLink}>
                                   <a className="text-red">
                                       {t('layout.edit_my_card')}
                                   </a>

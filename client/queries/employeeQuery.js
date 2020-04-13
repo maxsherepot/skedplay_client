@@ -146,7 +146,7 @@ export const GET_EMPLOYEE = gql `
 `;
 
 export const UPDATE_USER = gql `
-  mutation updateUser($user: ID!, $input: UserInput!) {
+  mutation updateUser($user: ID!, $input: UserInput) {
     updateUser(user: $user, input: $input) {
       status
       message
