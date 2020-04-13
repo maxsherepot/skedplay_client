@@ -74,6 +74,39 @@ const Header = ({employee}) => {
         }
     };
 
+    const handleIsVip = async () => {
+        try {
+            const {
+                data: {
+                    updateEmployee: {status, message}
+                }
+            } = await updateEmployee( {
+                variables: {
+                    employee: employee.id,
+                    input: {
+                        isVip: !employee.isVip,
+                    }
+                }
+            });
+
+            if (status) {
+                router.reload();
+            }
+            return {
+                status,
+                message
+            };
+        } catch (e) {
+            const errors = getErrors(e);
+
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
     return (
         <div className="flex items-center justify-between border border-divider p-3 mx-8 mt-6 rounded-lg">
             <div className="relative w-30 h-30 mr-4">
@@ -105,8 +138,12 @@ const Header = ({employee}) => {
                     </div>
 
                     <div className="flex justify-center flex-col h-full px-2">
-                        <Button className="px-3 mb-3" level="primary" outline size="xxs">
-                            <span className="text-black">{t('account.cancel_vip')}</span>
+                        <Button onClick={handleIsVip} className="px-3 mb-3" level="primary" outline size="xxs">
+                            {employee.isVip ? (
+                                <span className="text-black">{t('account.cancel_vip')}</span>
+                            ) : (
+                                <span className="text-black">{t('account.make_vip')}</span>
+                            )}
                         </Button>
                         <Button className="px-3 mb-3" level="primary" outline size="xxs">
                             <span className="text-black">{t('account.deactivate')}</span>
