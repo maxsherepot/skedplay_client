@@ -184,11 +184,11 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                 <div className="text-2xl font-extrabold px-5 mt-5">{t('layout.menu')}</div>
               )}
 
-              <div className="mt-4">
+              {/*<div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
                   {t('layout.bills_and_usage')}
                 </span>
-              </div>
+              </div>*/}
 
               <div className="mt-4">
                 <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
