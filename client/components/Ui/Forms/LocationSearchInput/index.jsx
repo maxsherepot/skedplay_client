@@ -42,6 +42,7 @@ function LocationSearchInput({initAddress, className, inputClassName}) {
               inputClassName,
             ])}
             label={t('index.address')}
+            placeholder="Example: street name, city"
             name="address"
             {...getInputProps({
               className: 'location-search-input',

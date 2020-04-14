@@ -132,7 +132,7 @@ const AdInformationStep = () => {
         </div>
       </div>
 
-      <div className="text-4xl font-extrabold my-5">{t('contacts_popup.title')}</div>
+      <div className="text-4xl font-extrabold my-5">{t('contacts_popup.your_working_location')}</div>
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">

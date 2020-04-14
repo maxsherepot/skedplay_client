@@ -594,6 +594,7 @@
   },
   "contacts_popup": {
     "title": "Contacts",
+    "your_working_location": "Your working Location",
     "theme": "Theme",
     "theme_placeholder": " ",
     "name": "Your name",
