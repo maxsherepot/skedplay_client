@@ -16,7 +16,8 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::CREATE_USERS);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+            && $user->hasPermission(Permission::CREATE_USERS);
     }
 
     /**
@@ -25,8 +26,9 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR) || $user->hasRole(\Modules\Users\Entities\User::ACCOUNT_EMPLOYEE))
-            && $user->hasPermission(Permission::UPDATE_USERS);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
+                || $user->hasRole(User::ACCOUNT_EMPLOYEE) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+                && $user->hasPermission(Permission::UPDATE_USERS);
     }
 
     /**

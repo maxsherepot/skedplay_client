@@ -25,7 +25,8 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::CREATE_CLUBS)
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+            && $user->hasPermission(Permission::CREATE_CLUBS)
             && $user->hasPermissionPlan(PermissionPlan::MAX_CLUB);
     }
 
@@ -37,7 +38,7 @@ class ClubPolicy
     public function update(User $user, Club $club): bool
     {
         if ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
-            || $user->hasRole(User::ACCOUNT_MANAGER)) {
+            || $user->hasRole(User::ACCOUNT_MANAGER) || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) {
             return true;
         }
 
@@ -50,6 +51,6 @@ class ClubPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN);
+        return $user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER);
     }
 }

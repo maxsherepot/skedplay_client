@@ -17,7 +17,8 @@ class EmployeePolicy
      */
     public function create(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::CREATE_EMPLOYEES);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+            && $user->hasPermission(Permission::CREATE_EMPLOYEES);
     }
 
     public function view(User $user): bool
