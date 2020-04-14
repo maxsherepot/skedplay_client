@@ -51,7 +51,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
                 return { label: s.name, value: s.id };
             })
         },
-        {
+        /*{
             component: "multi-select",
             showCheckboxes: true,
             name: "genders",
@@ -67,7 +67,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
                     value: 1
                 }
             ]
-        },
+        },*/
         {
             component: "multi-select",
             showCheckboxes: true,
