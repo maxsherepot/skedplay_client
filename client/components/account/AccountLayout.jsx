@@ -148,7 +148,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                         <li>
                             <Link href="/account/events">
                                 <a>
-                                  {t('layout.active_events')}
+                                  {t('layout.events_archive')}
                                     {(!userCountsLoading && userCounts) &&
                                       <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
                                           {userCounts.employees_events}
@@ -157,7 +157,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                                 </a>
                             </Link>
                         </li>
-                        <li>{t('layout.archive')}</li>
+                        {/*<li>{t('layout.archive')}</li>*/}
                     </ul>
                 </div>
               )}
