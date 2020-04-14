@@ -53,6 +53,8 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     const ACCOUNT_CLUB_OWNER = Role::CLUB_OWNER;
     const ACCOUNT_MANAGER = Role::MANAGER;
     const ACCOUNT_ADMIN = Role::ADMIN;
+    const ACCOUNT_MODERATOR = Role::MODERATOR;
+
 
     const REGISTER_TYPES = [
         self::ACCOUNT_CLIENT,

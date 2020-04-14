@@ -33,6 +33,18 @@ class Club extends Resource
     ];
 
     /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER);
+    }
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -69,11 +81,12 @@ class Club extends Resource
             return $this->getTableFields();
         }
 
-        if ($request->user()->hasRole('admin')) {
+        if ($request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR)) {
             return $this->getAdminTabs();
         }
 
-        if ($request->user()->hasRole('manager')) {
+        if ($request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER)) {
             return $this->getManagerTabs();
         }
 

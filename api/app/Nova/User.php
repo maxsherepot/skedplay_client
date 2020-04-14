@@ -36,6 +36,16 @@ class User extends Resource
     ];
 
     /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR);
+    }
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string

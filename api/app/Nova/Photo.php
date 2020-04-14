@@ -39,6 +39,16 @@ class Photo extends Resource
         'id',
     ];
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR);
+    }
+
     public static function indexQuery(NovaRequest $request, $query)
     {
         return $query->where('collection_name', 'like', '%photo%');

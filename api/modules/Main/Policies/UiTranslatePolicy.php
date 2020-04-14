@@ -19,28 +19,39 @@ class UiTranslatePolicy
         //
     }
 
-    public function create()
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
     {
-        return false;
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 
-    public function delete(User $user)
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function view(User $user): bool
     {
-        return false;
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 
-    public function viewAny(User $user)
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function update(User $user): bool
     {
-        return true;
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 
-    public function view(User $user)
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function delete(User $user): bool
     {
-        return true;
-    }
-
-    public function update(User $user)
-    {
-        return true;
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 }

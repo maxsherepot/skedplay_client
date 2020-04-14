@@ -11,9 +11,10 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
-    public function view()
+    public function view(User $user): bool
     {
-        return true;
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR))
+            && $user->hasPermission(Permission::READ_EVENTS);
     }
 
     /**
@@ -22,11 +23,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
-            return false;
-        }
-
-        return $user->hasPermission(Permission::CREATE_EVENTS);
+        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::CREATE_EVENTS);
     }
 
     /**
@@ -36,11 +33,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
-            return false;
-        }
-
-        return $this->checkUserCan($user, $event)
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR))
             && $user->hasPermission(Permission::UPDATE_EVENTS);
     }
 
@@ -51,12 +44,7 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
-            return false;
-        }
-
-        return $this->checkUserCan($user, $event)
-            && $user->hasPermission(Permission::DELETE_EVENTS);
+        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::DELETE_EVENTS);
     }
 
     private function checkUserCan(User $user, Event $event): bool

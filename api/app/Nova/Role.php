@@ -32,6 +32,15 @@ class Role extends Resource
         'id', 'name',
     ];
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN);
+    }
+
 //    public static function indexQuery(NovaRequest $request, $query)
 //    {
 //        return $query->whereDoesntHave('roles', function($query) {

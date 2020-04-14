@@ -11,12 +11,39 @@ class ContactRequestPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
-            return false;
-        }
+        return $user->hasRole(User::ACCOUNT_ADMIN);
+    }
 
-        return $user->hasPermission(Permission::CREATE_SERVICES);
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function view(User $user): bool
+    {
+        return $user->hasRole(User::ACCOUNT_ADMIN);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function update(User $user): bool
+    {
+        return $user->hasRole(User::ACCOUNT_ADMIN);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function delete(User $user): bool
+    {
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 }

@@ -127,7 +127,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function schedule(): HasMany
     {
@@ -135,7 +135,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @returnBelongsTo
      */
     public function race_type(): BelongsTo
     {
@@ -151,7 +151,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
     public function reviews()
     {

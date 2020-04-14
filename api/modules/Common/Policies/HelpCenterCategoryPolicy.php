@@ -1,24 +1,13 @@
 <?php
 
-namespace Modules\Main\Policies;
+namespace Modules\Common\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Modules\Main\Entities\Language;
 use Modules\Users\Entities\User;
 
-class LanguagePolicy
+class HelpCenterCategoryPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * @param User $user
@@ -49,12 +38,10 @@ class LanguagePolicy
 
     /**
      * @param User $user
-     * @param Language $language
      * @return bool
      */
-    public function delete(User $user, Language $language)
+    public function delete(User $user): bool
     {
-        return  $user->hasRole(User::ACCOUNT_ADMIN) && $language->id !== 1;
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
-
 }

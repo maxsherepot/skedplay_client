@@ -12,9 +12,11 @@ class ClubPolicy
 {
     use HandlesAuthorization;
 
-    public function view()
+    public function view(User $user): bool
     {
-        return true;
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
+            || $user->hasRole(User::ACCOUNT_CLUB_OWNER) || $user->hasRole(User::ACCOUNT_MANAGER))
+            && $user->hasPermission(Permission::READ_CLUBS);
     }
 
     /**
@@ -23,11 +25,8 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole('admin') || $user->hasRole(User::ACCOUNT_MANAGER)) {
-            return false;
-        }
-
-        return $user->hasPermissionPlan(PermissionPlan::MAX_CLUB) && $user->hasPermission(Permission::CREATE_CLUBS);
+        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::CREATE_CLUBS)
+            && $user->hasPermissionPlan(PermissionPlan::MAX_CLUB);
     }
 
     /**
@@ -37,10 +36,20 @@ class ClubPolicy
      */
     public function update(User $user, Club $club): bool
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
+            || $user->hasRole(User::ACCOUNT_MANAGER)) {
             return true;
         }
 
         return $user->owns($club, 'id') || $user->hasPermission(Permission::UPDATE_CLUBS);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function delete(User $user): bool
+    {
+        return $user->hasRole(User::ACCOUNT_ADMIN);
     }
 }

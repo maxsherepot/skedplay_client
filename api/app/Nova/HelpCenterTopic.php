@@ -37,6 +37,15 @@ class HelpCenterTopic extends Resource
     ];
 
     /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN);
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request

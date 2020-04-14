@@ -4,12 +4,8 @@ namespace App\Nova;
 
 use App\Nova\Filters\EmployeeTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
-use App\Nova\Filters\UserRoleFilter;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Eminiarts\Tabs\Tabs;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\KeyValue;
@@ -31,6 +27,17 @@ class Employee extends Resource
 
     public static $with = [
     ];
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public static function availableForNavigation(Request $request): bool
+    {
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER);
+    }
 
     /**
      * The single value that should be used to represent the resource when being displayed.
