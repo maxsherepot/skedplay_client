@@ -194,6 +194,15 @@ export const GET_EMPLOYEE_SCHEDULE = gql `
   }
 `;
 
+export const GET_RACE_TYPES = gql`
+  query employeeRaceTypes {
+    employee_race_types {
+      id
+      name
+    }
+  }
+`;
+
 export const ALL_REVIEWS = gql `
   query reviews($first: Int!, $page: Int, $reviewable_id: ID!) {
     reviews(first: $first, page: $page, reviewable_id: $reviewable_id) {

@@ -3,6 +3,7 @@ import { GET_EMPLOYEE_PARAMETERS, CITIES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
 import {useTranslation} from "react-i18next";
+import {GET_RACE_TYPES} from "queries/employeeQuery";
 
 const AdInformationStep = () => {
   const {t, i18n} = useTranslation();
@@ -11,11 +12,13 @@ const AdInformationStep = () => {
     GET_EMPLOYEE_PARAMETERS
   );
 
+  const { data: { employee_race_types: raceTypes } = {}, racesTypeLoading } = useQuery(GET_RACE_TYPES);
+
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(
     CITIES
   );
 
-  if (citiesLoading) {
+  if (citiesLoading || racesTypeLoading) {
     return <Loader/>;
   }
 
@@ -104,22 +107,9 @@ const AdInformationStep = () => {
           <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label={t('common.nationality')}
+            label={t('common.race_nationality')}
             name="race_type_id"
-            options={[
-                {
-                    label: t('nationality.european'),
-                    value: 1
-                },
-                {
-                    label: t('nationality.asian'),
-                    value: 2
-                },
-                {
-                    label: t('nationality.african'),
-                    value: 3
-                },
-            ]}
+            options={(raceTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
             placeholder=""
           />
 

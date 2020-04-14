@@ -74,6 +74,7 @@
     "name": "Name",
     "title": "Title",
     "nationality": "Nationality",
+    "race_nationality": "Race/Nationality",
     "from_device": "from device",
     "prev": "Prev",
     "off": "Off",

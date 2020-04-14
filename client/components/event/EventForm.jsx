@@ -65,15 +65,17 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 {status}
               </div>
             )}
+            <div className="row">
+              <TextField label={t('account.events_actions.title')} name="title" className="w-2/3 inline-block"/>
 
-            <TextField label={t('account.events_actions.title')} name="title"/>
-
-            <SelectField
-              label={t('account.events_actions.type')}
-              name="event_type_id"
-              options={(eventTypes || []).map(e => ({label: e.display_name, value: parseInt(e.id)}))}
-              placeholder=""
-            />
+              <SelectField
+                  label={t('account.events_actions.type')}
+                  name="event_type_id"
+                  options={(eventTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
+                  placeholder=""
+                  className="w-1/5 ml-3 inline-block"
+              />
+            </div>
 
             {/*<TextField label={t('steps.price')} name="price"/>*/}
 
