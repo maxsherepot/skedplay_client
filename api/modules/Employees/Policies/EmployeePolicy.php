@@ -49,18 +49,18 @@ class EmployeePolicy
     public function update(User $user, Employee $employee): bool
     {
         return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
-            || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::UPDATE_EMPLOYEES);
+            || $user->employees_club_owners->contains($employee->id) || $user->owns($employee, 'owner_id'))
+            && $user->hasPermission(Permission::UPDATE_EMPLOYEES);
 
-        /*return ($user->employees_club_owners->contains($employee->id) || $user->owns($employee, 'owner_id'))
-            && $user->hasPermission(Permission::UPDATE_EMPLOYEES);*/
     }
 
     /**
      * @param User $user
+     * @param Employee $employee
      * @return bool
      */
-    public function delete(User $user): bool
+    public function delete(User $user, Employee $employee): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::DELETE_EMPLOYEES);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->employees_club_owners->contains($employee->id)) && $user->hasPermission(Permission::DELETE_EMPLOYEES);
     }
 }

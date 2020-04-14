@@ -23,7 +23,8 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::CREATE_EVENTS);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_EMPLOYEE)
+                || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::CREATE_EVENTS);
     }
 
     /**
@@ -33,7 +34,8 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR))
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
+                || $user->hasRole(User::ACCOUNT_EMPLOYEE) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
             && $user->hasPermission(Permission::UPDATE_EVENTS);
     }
 
@@ -44,7 +46,8 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::DELETE_EVENTS);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+            && $user->hasPermission(Permission::DELETE_EVENTS);
     }
 
     private function checkUserCan(User $user, Event $event): bool

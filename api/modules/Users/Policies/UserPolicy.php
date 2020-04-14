@@ -25,7 +25,7 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR))
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR) || $user->hasRole(\Modules\Users\Entities\User::ACCOUNT_EMPLOYEE))
             && $user->hasPermission(Permission::UPDATE_USERS);
     }
 
