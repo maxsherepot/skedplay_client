@@ -44,27 +44,34 @@ function Lang({ mobile, black, className }) {
         )
       }
     >
-      {i18n.options.allLanguages.reverse().map((lang, index) => (
-        <Fragment key={index}>
-          <input
-            id={'lang_' + lang}
-            type="radio"
-            value={lang}
-            checked={lang === i18n.language}
-            name={lang}
-            onChange={() => i18n.changeLanguage(lang)}
-          />
-          <label
-            className={cx(
-              "block cursor-pointer leading-loose hover:text-red select-none uppercase",
-              lang === i18n.language ? "text-red" : "text-black"
-            )}
-            htmlFor={'lang_' + lang}
-          >
-            {lang}
-          </label>
-        </Fragment>
-      ))}
+      {({close}) => (
+        <>
+          {i18n.options.allLanguages.reverse().map((lang, index) => (
+            <Fragment key={index}>
+              <input
+                id={'lang_' + lang}
+                type="radio"
+                value={lang}
+                checked={lang === i18n.language}
+                name={lang}
+                onChange={() => {
+                  close();
+                  i18n.changeLanguage(lang)
+                }}
+              />
+              <label
+                className={cx(
+                  "block cursor-pointer leading-loose hover:text-red select-none uppercase",
+                  lang === i18n.language ? "text-red" : "text-black"
+                )}
+                htmlFor={'lang_' + lang}
+              >
+                {lang}
+              </label>
+            </Fragment>
+          ))}
+        </>
+      )}
     </Dropdown>
   );
 }

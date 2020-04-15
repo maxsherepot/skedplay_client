@@ -12,15 +12,36 @@ import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
 
-function DistanceView({distanceKm}) {
-  if (!distanceKm) {
+function DistanceView({distanceKm, setEventMapId, id, city_name}) {
+  const {t, i18n} = useTranslation();
+
+  if (!city_name && !distanceKm) {
     return '';
   }
 
-  const {t, i18n} = useTranslation();
+
+  let distanceBlock;
+
+  if (distanceKm) {
+    distanceBlock = (
+      <>
+        {city_name ? ',' : ''} <span className="text-grey">~ {distanceKm} {t('index.km_from_me')}</span>
+      </>
+    );
+  } else {
+    distanceBlock = '';
+  }
 
   return (
-      <span className="text-grey">~ {distanceKm} {t('index.km_from_me')}</span>
+    <>
+      <p className="py-1 font-bold inline-block">
+        {city_name}{distanceBlock}
+      </p>
+      <div className="flex py-1 pr-1" onClick={() => setEventMapId(id)}>
+        <MapSvg />
+        <span className="text-grey pl-2">Show me this place in Map</span>
+      </div>
+    </>
   );
 }
 
@@ -116,13 +137,11 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 originByGeo={true}
                 destination={{lat, lng}}
               >
-                <p className="py-1 font-bold ml-2 inline-block">
-                  {city_name}, <DistanceView />
-                </p>
-                <div className="flex py-1 pr-1" onClick={() => setEventMapId(id)}>
-                  <MapSvg />
-                  <span className="text-grey pl-2">Show me this place in Map</span>
-                </div>
+                <DistanceView
+                  city_name={city_name}
+                  setEventMapId={setEventMapId}
+                  id={id}
+                />
               </Distance>
               ) : (
                 <p className="py-1 font-bold ml-2 inline-block" onClick={() => setEventMapId(id)}>

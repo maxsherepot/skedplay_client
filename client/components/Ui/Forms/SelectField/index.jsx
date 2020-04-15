@@ -60,29 +60,37 @@ function SelectField({
               )
             }
           >
-            {options &&
-              options.map((option, index) => (
-                <Fragment key={index}>
-                  <input
-                    id={`${name}-${option.value}`}
-                    type="radio"
-                    value={option.value || ""}
-                    checked={value === option.value}
-                    name={name}
-                    {...rest}
-                  />
-                  <label
-                    className={cx(
-                      "cursor-pointer leading-loose hover:text-red select-none",
-                      value === option.value ? "text-red" : "text-black"
-                    )}
-                    htmlFor={`${name}-${option.value}`}
-                    onClick={() => handleSelect(name, option.value)}
-                  >
-                    {option.label}
-                  </label>
-                </Fragment>
-              ))}
+            {({close}) => (
+              <div>
+                {options &&
+                options.map((option, index) => (
+                  <Fragment key={index}>
+                    <input
+                      id={`${name}-${option.value}`}
+                      type="radio"
+                      value={option.value || ""}
+                      checked={value === option.value}
+                      name={name}
+                      {...rest}
+                    />
+                    <label
+                      className={cx(
+                        "cursor-pointer leading-loose hover:text-red select-none",
+                        value === option.value ? "text-red" : "text-black"
+                      )}
+                      htmlFor={`${name}-${option.value}`}
+                      onClick={() => {
+                        close();
+                        handleSelect(name, option.value);
+                      }}
+                    >
+                      {option.label}
+                    </label>
+                  </Fragment>
+                ))
+                }
+              </div>
+            )}
           </Dropdown>
         )}
       </Field>
