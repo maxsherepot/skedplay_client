@@ -35,6 +35,29 @@ const AdInformationStep = () => {
             name="name"
           />
 
+          <SelectField
+            className="w-full sm:w-1/2 lg:w-1/3 px-2"
+            inputClassName="w-full md:w-1/3"
+            label={t('employees.gender_type')}
+            name="type"
+            options={[
+                {
+                    label: t('steps.gender_type_ts'),
+                    value: 1
+                }
+            ]}
+            placeholder=""
+          />
+
+          <SelectField
+            className="w-full sm:w-1/2 lg:w-1/3 px-2"
+            inputClassName="w-full md:w-1/3"
+            label={t('common.race_nationality')}
+            name="race_type_id"
+            options={(raceTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
+            placeholder=""
+          />
+
           {/*<TextField*/}
           {/*  className="w-full sm:w-1/3 px-2"*/}
           {/*  inputClassName="w-1/3"*/}
@@ -43,12 +66,12 @@ const AdInformationStep = () => {
           {/*  placeholder="21 jule 1989"*/}
           {/*/>*/}
 
-          <DateRawField
+          {/*<DateRawField
             className="w-full sm:w-1/3 px-2"
             inputClassName="w-1/3"
             label={t('register.birth')}
             name="birthday"
-          />
+          />*/}
 
           {/* <GroupCheckbox
             className="w-full sm:w-1/3 px-2"
@@ -72,46 +95,23 @@ const AdInformationStep = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          <SelectField
-            className="w-full sm:w-1/2 lg:w-1/3 px-2"
-            inputClassName="w-full md:w-1/3"
-            label={t('common.gender')}
-            name="gender"
-            options={[
-              {
-                label: t('common.male'),
-                value: 1
-              },
-              {
-                label: t('common.female'),
-                value: 2
-              }
-            ]}
-            placeholder=""
-          />
-
-          <SelectField
-            className="w-full sm:w-1/2 lg:w-1/3 px-2"
-            inputClassName="w-full md:w-1/3"
-            label={t('employees.gender_type')}
-            name="type"
-            options={[
-              {
-                label: t('steps.gender_type_ts'),
-                value: 1
-              }
-            ]}
-            placeholder=""
-          />
-
-          <SelectField
-            className="w-full sm:w-1/2 lg:w-1/3 px-2"
-            inputClassName="w-full md:w-1/3"
-            label={t('common.race_nationality')}
-            name="race_type_id"
-            options={(raceTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
-            placeholder=""
-          />
+          {/*<SelectField*/}
+          {/*  className="w-full sm:w-1/2 lg:w-1/3 px-2"*/}
+          {/*  inputClassName="w-full md:w-1/3"*/}
+          {/*  label={t('common.gender')}*/}
+          {/*  name="gender"*/}
+          {/*  options={[*/}
+          {/*    {*/}
+          {/*      label: t('common.male'),*/}
+          {/*      value: 1*/}
+          {/*    },*/}
+          {/*    {*/}
+          {/*      label: t('common.female'),*/}
+          {/*      value: 2*/}
+          {/*    }*/}
+          {/*  ]}*/}
+          {/*  placeholder=""*/}
+          {/*/>*/}
 
           <TextAreaField
             className="w-full px-2"
@@ -160,20 +160,20 @@ const AdInformationStep = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          <PhoneField
-            className="w-full md:w-1/3 px-2"
-            inputClassName="w-full md:w-1/3"
-            label={t('clubs.phone_exampl')}
-            name="phone"
-            placeholder="+41 79"
-          />
+          {/*<PhoneField*/}
+          {/*  className="w-full md:w-1/3 px-2"*/}
+          {/*  inputClassName="w-full md:w-1/3"*/}
+          {/*  label={t('clubs.phone_exampl')}*/}
+          {/*  name="phone"*/}
+          {/*  placeholder="+41 79"*/}
+          {/*/>*/}
 
-          <TextField
-            className="w-full md:w-1/3 px-2"
-            inputClassName="w-full md:w-1/3"
-            label={t('clubs.mail')}
-            name="email"
-          />
+          {/*<TextField*/}
+          {/*  className="w-full md:w-1/3 px-2"*/}
+          {/*  inputClassName="w-full md:w-1/3"*/}
+          {/*  label={t('clubs.mail')}*/}
+          {/*  name="email"*/}
+          {/*/>*/}
 
           <TextField
             className="w-full md:w-1/3 px-2"

@@ -23,8 +23,7 @@ class EmployeePolicy
 
     public function view(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
-            || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::READ_EMPLOYEES);
+        return $user->hasPermission(Permission::READ_EMPLOYEES);
     }
 
     public function attachService()
@@ -62,6 +61,8 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->employees_club_owners->contains($employee->id)) && $user->hasPermission(Permission::DELETE_EMPLOYEES);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->employees_club_owners->contains($employee->id)
+            || $user->owns($employee, 'owner_id'))
+            && $user->hasPermission(Permission::DELETE_EMPLOYEES);
     }
 }

@@ -11,11 +11,11 @@ import { getErrors } from "utils";
 import { employeeRules } from "rules";
 import { NewAdForm } from "components/ad";
 import {
-  AdInformationStep,
   AdServicesAndPricesStep,
   AdMediaStep,
   AdScheduleStep,
 } from "components/steps";
+import AdInformationCreateStep from "components/steps/AdInformationCreateStep";
 
 const NewAdBox = ({clubId}) => {
   const [employeeId, setEmployeeId] = useState(null);
@@ -195,7 +195,7 @@ const NewAdBox = ({clubId}) => {
         validationSchema={employeeRules}
         onStepSubmit={onSubmitInfo}
       >
-        <AdInformationStep />
+        <AdInformationCreateStep />
       </NewAdForm.Step>
 
       <NewAdForm.Step onStepSubmit={onSubmitPricesAndServices}>

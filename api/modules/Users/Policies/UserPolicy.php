@@ -16,8 +16,10 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
-            && $user->hasPermission(Permission::CREATE_USERS);
+        if ($user->hasRole(User::ACCOUNT_MODERATOR)) {
+            return false;
+        }
+        return $user->hasPermission(Permission::CREATE_USERS);
     }
 
     /**
@@ -26,9 +28,11 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
-                || $user->hasRole(User::ACCOUNT_EMPLOYEE) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
-                && $user->hasPermission(Permission::UPDATE_USERS);
+        if ($user->hasRole(User::ACCOUNT_MANAGER)) {
+            return false;
+        }
+
+        return $user->hasPermission(Permission::UPDATE_USERS);
     }
 
     /**
@@ -37,8 +41,7 @@ class UserPolicy
      */
     public function view(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR))
-            && $user->hasPermission(Permission::READ_USERS);
+        return $user->hasPermission(Permission::READ_USERS);
     }
 
     /**
@@ -47,6 +50,10 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->hasRole(User::ACCOUNT_ADMIN) && $user->hasPermission(Permission::DELETE_USERS);
+        if ($user->hasRole(User::ACCOUNT_CLUB_OWNER) || $user->hasRole(User::ACCOUNT_EMPLOYEE)) {
+            return false;
+        }
+
+        return $user->hasPermission(Permission::DELETE_USERS);
     }
 }
