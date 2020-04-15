@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\User;
 
 class LaratrustSeeder extends Seeder
@@ -29,49 +30,50 @@ class LaratrustSeeder extends Seeder
     public function run()
     {
         $this->command->info('Truncating User, Role and Permission tables');
-        $this->truncateLaratrustTables();
+        //$this->truncateLaratrustTables();
 
         $config = config('laratrust_seeder.role_structure');
         $userPermission = config('laratrust_seeder.permission_structure');
         $mapPermission = collect(config('laratrust_seeder.permissions_map'));
 
         foreach ($config as $key => $modules) {
-            // Create a new role
-            $role = \Modules\Users\Entities\Role::create([
-                'name'         => $key,
-                'display_name' => ucwords(str_replace('_', ' ', $key)),
-                'description'  => ucwords(str_replace('_', ' ', $key))
-            ]);
-            $permissions = [];
+           if (!\Modules\Users\Entities\Role::query()->where('name', '=', $key)->exists()) {
+                // Create a new role
+                $role = \Modules\Users\Entities\Role::query()->create([
+                    'name' => $key,
+                    'display_name' => ucwords(str_replace('_', ' ', $key)),
+                    'description' => ucwords(str_replace('_', ' ', $key))
+                ]);
+                $permissions = [];
 
-            $this->command->info('Creating Role ' . strtoupper($key));
+                $this->command->info('Creating Role ' . strtoupper($key));
 
-            // Reading role permission modules
-            foreach ($modules as $module => $value) {
+                // Reading role permission modules
+                foreach ($modules as $module => $value) {
 
-                foreach (explode(',', $value) as $p => $perm) {
+                    foreach (explode(',', $value) as $p => $perm) {
 
-                    $permissionValue = $mapPermission->get($perm);
+                        $permissionValue = $mapPermission->get($perm);
 
-                    $permissions[] = \Modules\Users\Entities\Permission::firstOrCreate([
-                        'name'         => $permissionValue . '-' . $module,
-                        'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                        'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                    ])->id;
+                        $permissions[] = \Modules\Users\Entities\Permission::query()->firstOrCreate([
+                            'name' => $permissionValue . '-' . $module,
+                            'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                            'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                        ])->id;
 
-                    $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
+                        $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
+                    }
                 }
-            }
+                // Attach all permissions to the role
+                $role->permissions()->sync($permissions);
 
-            // Attach all permissions to the role
-            $role->permissions()->sync($permissions);
+                $this->command->info("Creating '{$key}' user");
 
-            $this->command->info("Creating '{$key}' user");
+                // Create default user for each role
+                //$user = $this->storeUser($key);
 
-            // Create default user for each role
-            $user = $this->storeUser($key);
-
-            $user->attachRole($role);
+                //$user->attachRole($role);
+           }
         }
 
         // Creating user with permissions
@@ -80,23 +82,24 @@ class LaratrustSeeder extends Seeder
             foreach ($userPermission as $key => $modules) {
 
                 foreach ($modules as $module => $value) {
+                    //if (!User::query()->where('name', '=', $key)->exists()) {
+                        // Create default user for each permission set
+                        $user = $this->storeUser($key);
+                        $permissions = [];
 
-                    // Create default user for each permission set
-                    $user = $this->storeUser($key);
-                    $permissions = [];
+                        foreach (explode(',', $value) as $p => $perm) {
 
-                    foreach (explode(',', $value) as $p => $perm) {
+                            $permissionValue = $mapPermission->get($perm);
 
-                        $permissionValue = $mapPermission->get($perm);
+                            $permissions[] = \Modules\Users\Entities\Permission::firstOrCreate([
+                                'name'         => $permissionValue . '-' . $module,
+                                'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                                'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                            ])->id;
 
-                        $permissions[] = \Modules\Users\Entities\Permission::firstOrCreate([
-                            'name'         => $permissionValue . '-' . $module,
-                            'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                            'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                        ])->id;
-
-                        $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
-                    }
+                            $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
+                        }
+                    //}
                 }
 
                 // Attach all permissions to the user
@@ -107,13 +110,17 @@ class LaratrustSeeder extends Seeder
 
     protected function storeUser($key)
     {
+        if (User::query()->where('name', '=', $key)->exists()) {
+            return User::query()->where('name', '=', $key)->get();
+        }
+
         return User::create([
             'name'     => $key,
             'gender'   => $this->faker->randomElement(User::REGISTER_GENDERS),
             'birthday' => $this->faker->date($format = 'Y-m-d', $max = '2003-05-05'),
             'email'    => $key . '@site.com',
             'phone'    => $this->faker->unique()->phoneNumber,
-            'password' => 'password',
+            'password' => \Hash::make('password'),
         ]);
     }
 

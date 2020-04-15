@@ -38,10 +38,11 @@ class Club extends Resource
      */
     public static function availableForNavigation(Request $request): bool
     {
-        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+        return ($request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
             $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR) ||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER) ||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER);
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER)||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER))
+        ;
     }
 
     /**
