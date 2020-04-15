@@ -14,9 +14,7 @@ class ClubPolicy
 
     public function view(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_MODERATOR)
-            || $user->hasRole(User::ACCOUNT_CLUB_OWNER) || $user->hasRole(User::ACCOUNT_MANAGER))
-            && $user->hasPermission(Permission::READ_CLUBS);
+        return true;
     }
 
     /**
