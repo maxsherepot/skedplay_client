@@ -1,10 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef, Children} from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
 function Dropdown({ trigger, triggerClassName, disabled, children, transparent, lang }) {
   const node = useRef();
   const [open, setOpen] = useState(false);
+
+  const close = () => setOpen(false);
+
+  const childrenArray = React.Children.map(children, child => {
+    return React.cloneElement(child, {
+      close
+    });
+  });
+
+  const Children = children;
 
   useEffect(() => {
     if (open) {
@@ -39,7 +49,7 @@ function Dropdown({ trigger, triggerClassName, disabled, children, transparent, 
         {trigger}
       </div>
       <div className={cx("dropdown__content", { open, hidden: disabled || !open })}>
-        {children}
+        {typeof children === 'function' ? <Children close={close} /> : childrenArray}
       </div>
     </div>
   );
