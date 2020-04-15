@@ -57,7 +57,7 @@ function Dropdown({ trigger, triggerClassName, disabled, children, transparent, 
 
 Dropdown.propTypes = {
   trigger: PropTypes.node.isRequired,
-  children: PropTypes.node
+  // children: PropTypes.node
 };
 
 export default Dropdown;
