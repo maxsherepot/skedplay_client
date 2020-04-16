@@ -66,13 +66,17 @@ const AdInformationCreateStep = () => {
           <SelectField
             className="w-full sm:w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
-            label={t('employees.gender_type')}
+            label={t('steps.category')}
             name="type"
             options={[
-              {
-                label: t('steps.gender_type_ts'),
-                value: 1
-              }
+                {
+                    label: t('layout.girls'),
+                    value: 1
+                },
+                {
+                    label: t('steps.gender_type_trans'),
+                    value: 2
+                },
             ]}
             placeholder=""
           />
