@@ -97,6 +97,9 @@ const AccountEventsIndex = ({user}) => {
                     <div className="truncate">
                         {event.title}
                     </div>
+                    <div className="capitalize text-grey">
+                        {event.type && event.type.name}
+                    </div>
 
                     <div className="flex flex-wrap justify-end -mx-2">
                         <div className="px-2">
@@ -122,10 +125,28 @@ const AccountEventsIndex = ({user}) => {
     };
 
     const EventList = ({events}) => {
+        const {t, i18n} = useTranslation();
+
         return (
             <>
-                <div className="flex flex-wrap -mx-3">
-                    {events.map(e => <EventCard key={e.id} event={e}/>)}
+                <Link href={`/account/events/create`}>
+                    <a>
+                        <Button
+                            className="px-3"
+                            level="primary-black"
+                            outline
+                            size="sm"
+                            type="button"
+                        >
+                            {t('layout.add_new_event')}
+                        </Button>
+                    </a>
+                </Link>
+
+                <div className="flex flex-wrap mt-5 -mx-3">
+                    {events.map(e =>
+                        <EventCard
+                        key={e.id} event={e}/>)}
                 </div>
             </>
         )

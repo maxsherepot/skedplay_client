@@ -47,7 +47,7 @@ const EditEmployeeBox = ({ employee }) => {
     index: employee.index,
     city_id: employee.city_id,
     address: employee.address,
-    phone: employee.phone,
+    //phone: employee.phone,
     email: employee.email,
     website: employee.website,
     prices,
@@ -81,20 +81,20 @@ const EditEmployeeBox = ({ employee }) => {
         }
       });
 
-      const {
-        data: {
-          updateUser: {}
-        }
-      } = await updateUser({
-        variables: {
-          user: employee.owner.id,
-          input: {
-            phone: values.phone,
-            birthday: values.birthday,
-            email: values.email,
-          }
-        }
-      });
+      // const {
+      //   data: {
+      //     updateUser: {}
+      //   }
+      // } = await updateUser({
+      //   variables: {
+      //     user: employee.owner.id,
+      //     input: {
+      //       phone: values.phone,
+      //       birthday: values.birthday,
+      //       email: values.email,
+      //     }
+      //   }
+      // });
 
       return {
         status,

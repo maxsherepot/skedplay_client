@@ -81,7 +81,7 @@ const EventCard = ({event, removeEvent}) => {
                     {event.title}
                 </div>
                 <div className="capitalize text-grey">
-                    {event.type && event.type.display_name}
+                    {event.type && event.type.name}
                 </div>
 
                 <div className="flex flex-wrap justify-end -mx-2">
