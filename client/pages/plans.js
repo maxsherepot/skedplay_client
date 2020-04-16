@@ -11,6 +11,9 @@ import {
 } from "UI";
 import PlansBox from "components/plans/PlansBox";
 import {useTranslation} from "react-i18next";
+import {GET_ME} from "queries/userQuery";
+import {useQuery} from "@apollo/react-hooks";
+import Loader from "UI/Loader";
 
 const Plans = ({user}) => {
     const periods = [
@@ -27,10 +30,18 @@ const Plans = ({user}) => {
             value: "12"
         }
     ];
+    const {
+        data: { me } = {},
+        loading
+    } = useQuery(GET_ME);
 
     const [period, setPeriod] = useState(periods[0].value);
 
     const {t, i18n} = useTranslation();
+
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <>
@@ -49,7 +60,58 @@ const Plans = ({user}) => {
                             </div>
                             <LangSelector className="text-white"/>
                         </div>
-                        <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+
+                        {(me && me.is_club_owner) && (
+                            <div>
+                                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                                    Welcome to our portal {me.name} do you want edit your Profile and Photos now?
+                                    <div className="row mt-5">
+                                        <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/clubs/add">Yes</a>
+                                        </div>
+                                        <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/account">No</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {(me && me.is_employee && me.employee) && (
+                            <div>
+                                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                                    Welcome to our portal {me.employee.name} do you want edit your Profile and Photos now?
+                                    <div className="row mt-5">
+                                        <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/account/ad">Yes</a>
+                                        </div>
+                                        <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/account">No</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+
+                        {(me && me.is_client) && (
+                            <div>
+                                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                                    Welcome to our portal {me.name} do you want to show your Profile ?
+                                    <div className="row mt-5">
+                                        <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/account">Yes</a>
+                                        </div>
+                                        <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
+                                            <a href="/">No</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/*temporary hide section plans*/}
+                        {/*<div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
                             {t('plans.choose_plan')}
                         </div>
 
@@ -60,11 +122,11 @@ const Plans = ({user}) => {
                                 defaultValue={period}
                                 handleChange={e => setPeriod(e.target.value)}
                             />
-                        </div>
+                        </div>*/}
                     </div>
-                    <div className="container mt-8 mb-20">
+                    {/*<div className="container mt-8 mb-20">
                         <PlansBox user={user}/>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </>
