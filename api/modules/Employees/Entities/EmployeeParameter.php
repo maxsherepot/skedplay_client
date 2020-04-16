@@ -2,33 +2,26 @@
 
 namespace Modules\Employees\Entities;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
-use Modules\Employees\Services\ParameterOption;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class EmployeeParameter extends Pivot
+class EmployeeParameter extends Model
 {
     public $timestamps = false;
 
     protected $fillable = [
         'employee_id',
         'parameter_id',
-        'value',
+        'parameter_option_id',
     ];
 
-    protected $appends = [
-        'display_value',
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parameter()
+    public function parameter(): BelongsTo
     {
         return $this->belongsTo(Parameter::class);
     }
 
-    public function getDisplayValueAttribute()
+    public function parameterOption(): BelongsTo
     {
-        return (new ParameterOption())->getTranslation($this->parameter->name, $this->attributes['value']);
+        return $this->belongsTo(ParameterOption::class);
     }
 }

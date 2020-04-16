@@ -5,9 +5,8 @@ export const GET_EMPLOYEE_PARAMETERS = gql`
     parameters {
       id
       name
-      display_name
       options {
-        label
+        id
         value
       }
     }

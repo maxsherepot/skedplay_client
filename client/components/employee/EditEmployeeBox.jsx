@@ -26,7 +26,7 @@ const EditEmployeeBox = ({ employee }) => {
   let parameters = {};
   let services = {};
   let prices = {};
-  employee.parameters.forEach(s => parameters[s.id] = s.pivot.value);
+  employee.parameters.forEach(s => parameters[s.parameter.id] = s.parameter_option.id);
 
   employee.services.forEach(s => {
     services[s.id] = {
@@ -81,20 +81,20 @@ const EditEmployeeBox = ({ employee }) => {
         }
       });
 
-      const {
-        data: {
-          updateUser: {}
-        }
-      } = await updateUser({
-        variables: {
-          user: employee.owner.id,
-          input: {
-            phone: values.phone,
-            birthday: values.birthday,
-            email: values.email,
-          }
-        }
-      });
+      // const {
+      //   data: {
+      //     updateUser: {}
+      //   }
+      // } = await updateUser({
+      //   variables: {
+      //     user: employee.owner.id,
+      //     input: {
+      //       phone: values.phone,
+      //       birthday: values.birthday,
+      //       email: values.email,
+      //     }
+      //   }
+      // });
 
       return {
         status,

@@ -1,19 +1,18 @@
+type EmployeeParameter {
+    id: ID!
+    parameter: Parameter! @belongsTo
+    parameter_option: ParameterOption! @belongsTo(relation: "parameterOption")
+}
+
 type Parameter {
     id: ID!
-    name: String!
-    display_name: String!
-    options: [ParameterOption!]!
-    pivot: ParameterPivot
+    name: JSON!
+    options: [ParameterOption!]! @hasMany
 }
 
 type ParameterOption {
-    label: String!
-    value: String!
-}
-
-type ParameterPivot {
-    value: String!
-    display_value: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\ParameterType@display_value")
+    id: ID!
+    value: JSON!
 }
 
 extend type Query {

@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
 import {useTranslation} from "react-i18next";
 import {GET_RACE_TYPES} from "queries/employeeQuery";
+import translation from "services/translation";
 
 const AdInformationStep = () => {
   const {t, i18n} = useTranslation();
@@ -194,15 +195,15 @@ const AdInformationStep = () => {
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           {parameters &&
-            parameters.map(({ id, display_name, options }) => (
+            parameters.map(({ id, name, options }) => (
               <SelectField
                 key={id}
                 className="w-full sm:w-1/3 md:w-1/6 px-2"
                 inputClassName="w-full md:w-1/3"
-                label={display_name}
+                label={translation.getLangField(name, i18n.language)}
                 name={`parameters.${id}`}
                 value=""
-                options={options}
+                options={options.map(o => ({value: o.id, label: translation.getLangField(o.value, i18n.language)}))}
                 placeholder=""
               />
             ))}

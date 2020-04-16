@@ -3,24 +3,26 @@
 namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Common\Entities\Traits\NameSlugable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Translatable\HasTranslations;
 
 class Parameter extends Model
 {
-    use NameSlugable;
+    use HasTranslations;
 
-    public $timestamps = false;
-
-    protected $fillable = [
-        'display_name',
-        'options',
+    public $translatable = [
+        'name',
     ];
 
-    const HAIR_BLACK = 1;
-    const HAIR_WHITE = 2;
+    protected $fillable = [
+        'name',
+    ];
 
-    const EYE_GREEN = 1;
-    const EYE_BLUE = 2;
+    const HAIR_BLACK = 'Black';
+    const HAIR_WHITE = 'White';
+
+    const EYE_GREEN = 'Green';
+    const EYE_BLUE = 'Blue';
 
     const GROWTH_120 = 120;
     const GROWTH_130 = 130;
@@ -40,7 +42,7 @@ class Parameter extends Model
     const BREAST_SIZE_4 = 4;
     const BREAST_SIZE_5 = 5;
 
-    const BODY_FITNESS = 1;
+    const BODY_FITNESS = 'Fitness';
 
     const HAIR_OPTIONS = [
         self::HAIR_BLACK,
@@ -80,11 +82,17 @@ class Parameter extends Model
         self::BODY_FITNESS,
     ];
 
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'display_name' => 'string',
-        'options'      => 'array',
-    ];
+    public function options(): HasMany
+    {
+        return $this->hasMany(ParameterOption::class);
+    }
+
+    public function getAttributeValue($key)
+    {
+        if (! $this->isTranslatableAttribute($key)) {
+            return parent::getAttributeValue($key);
+        }
+
+        return $this->getTranslations($key);
+    }
 }

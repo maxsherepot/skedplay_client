@@ -1,24 +1,14 @@
 import React, {useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
 import {Loader, PageCard} from "UI";
-import {getLayout as getMainLayout} from 'layouts'
-import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";
 import {HELP_CENTER_CATEGORIES} from 'queries';
 import {useTranslation} from "react-i18next";
 import cx from 'classnames';
+import translation from "services/translation";
 
-function getLangField(field, lang) {
-  field = JSON.parse(field);
-
-  if (!field[lang]) {
-    return field.en;
-  }
-
-  return field[lang];
-}
+const getLangField = translation.getLangField;
 
 const CategoryItem = ({category, topicSlug, first}) => {
   function isHasTopic() {

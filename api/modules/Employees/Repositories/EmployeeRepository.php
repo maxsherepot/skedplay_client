@@ -45,17 +45,7 @@ class EmployeeRepository implements HasMediable
         /** @var Employee $employee */
         $employee = $this->store($employeeOwner, $data);
 
-        if ($parameters = $data->get('parameters')) {
-            $mapped = [];
-
-            foreach ($parameters as $key => $value) {
-                $mapped[$key] = [
-                    'value' => $value
-                ];
-            }
-
-            $employee->parameters()->sync($mapped);
-        }
+        $this->storeParameters($employee, $data);
 
         return $employee->toArray();
     }
@@ -102,17 +92,7 @@ class EmployeeRepository implements HasMediable
 
         $employee->update($collection->toArray());
 
-        if ($parameters = $collection->get('parameters')) {
-            $mapped = [];
-
-            foreach ($parameters as $key => $value) {
-                $mapped[$key] = [
-                    'value' => $value
-                ];
-            }
-
-            $employee->parameters()->sync($mapped);
-        }
+        $this->storeParameters($employee, $collection);
 
         return $employee;
     }
@@ -198,5 +178,39 @@ class EmployeeRepository implements HasMediable
         $collection->put('user_id', $userId);
 
         return $employee->reviews()->create($collection->toArray());
+    }
+
+    private function storeParameters(Employee $employee, Collection $collection): void
+    {
+        $parameters = (array) $collection->get('parameters');
+
+        if (!$parameters) {
+            return;
+        }
+
+        $parametersKeys = collect($parameters)
+            ->keys()
+            ->map(function($param) {
+                return intval($param);
+            })
+            ->toArray();
+
+        $deleteParamsIds = $employee->parameters()
+            ->pluck('parameter_id')
+            ->filter(function($parameterId) use ($parametersKeys) {
+                return !in_array($parameterId, $parametersKeys, true);
+            });
+
+        if ($deleteParamsIds->count()) {
+            $employee->parameters()->whereIn('parameter_id', $deleteParamsIds)->delete();
+        }
+
+        foreach ($parameters as $key => $value) {
+            $employee->parameters()->updateOrCreate([
+                'parameter_id' => $key,
+            ], [
+                'parameter_option_id' => $value,
+            ]);
+        }
     }
 }

@@ -13,13 +13,13 @@ class CreateParametersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('employee_parameters');
+        Schema::dropIfExists('parameters');
+
         Schema::create('parameters', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->string('name')->unique();
-            $table->string('display_name');
-
-            $table->json('options')->nullable();
+            $table->json('name');
 
             $table->timestamps();
         });
