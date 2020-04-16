@@ -354,7 +354,10 @@
   },
   "language": {
     "russian": "Russian",
-    "english": "English"
+    "english": "English",
+    "en": "English",
+    "de": "German",
+    "fr": "French"
   },
   "ad": {
     "delete_language": "Delete language",

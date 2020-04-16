@@ -2,43 +2,41 @@ import React, { useState } from "react";
 
 import { SelectField } from "UI";
 import { FieldArray, useFormikContext } from "formik";
-import { RatingSvg, TrashSvg } from "icons";
+import { ratingvg, TrashSvg } from "icons";
 import {useTranslation} from "react-i18next";
+import AddSvg from "components/icons/AddSvg";
+import {i18n} from "lib/i18n";
 
 const LangSelector = () => {
   const [langs, setlangs] = useState([
     {
-      ratings: 2
+      rating: 2
     },
     {
-      ratings: 3
+      rating: 3
     }
   ]);
 
   const { values } = useFormikContext();
   const {t, i18n} = useTranslation();
 
-  const languages = [
-    {
-      label: t('language.english'),
-      value: "english"
-    },
-    {
-      label: t('language.russian'),
-      value: "russian"
-    }
-  ];
+  const languages = i18n.options.allLanguages.map(lang => {
+    return {
+      label: t('language.' + lang),
+      value: lang
+    };
+  });
 
-  const RatingField = ({ ratings }) => {
+  const RatingField = ({ rating }) => {
     let stars = [];
 
     for (let i = 0; i < 3; i++) {
       stars[i] = (
-        <RatingSvg
+        <ratingvg
           key={i}
           width={20}
           height={20}
-          checked={i < ratings}
+          checked={i < rating}
           className={i % 2 === 0 ? "" : "mx-3"}
         />
       );
@@ -72,7 +70,7 @@ const LangSelector = () => {
       <FieldArray
         name="language"
         render={arrayHelpers => (
-          <div className="w-full sm:w-1/3 px-2">
+          <div className="w-full px-2">
             {values.language && values.language.length > 0 ? (
               values.language.map((friend, index) => (
                 <div className="flex flex-wrap items-center w-full" key={index}>
@@ -83,18 +81,22 @@ const LangSelector = () => {
                     name={`language.${index}`}
                     options={languages}
                   />
-                  {/* <button
-                    type="button"
-                    onClick={() => arrayHelpers.remove(index)}
-                  >
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => arrayHelpers.insert(index, "")}
-                  >
-                    +
-                  </button> */}
+                  {/*<button*/}
+                  {/*  type="button"*/}
+                  {/*  onClick={() => arrayHelpers.remove(index)}*/}
+                  {/*>*/}
+                  {/*  -*/}
+                  {/*</button>*/}
+                  {/*<button*/}
+                  {/*  type="button"*/}
+                  {/*  onClick={() => arrayHelpers.insert(index, "")}*/}
+                  {/*>*/}
+                  {/*  +*/}
+                  {/*</button>*/}
+
+                  <RatingField rating={2}/>
+
+                  <FieldControl index={index}/>
                 </div>
               ))
             ) : (
@@ -103,19 +105,19 @@ const LangSelector = () => {
                   {t('ad.add_friend')}
               </button>
               )}
-            <div>
-              <button type="submit">{t('common.submit')}</button>
-            </div>
+            {/*<div>*/}
+            {/*  <button type="submit">{t('common.submit')}</button>*/}
+            {/*</div>*/}
           </div>
         )}
       />
 
-      {/* <div
+      <div
         className="w-full flex items-center sm:w-1/3 px-2 cursor-pointer"
-        onClick={() => setlangs([...langs, { ratings: 0 }])}
+        onClick={() => setlangs([...langs, { rating: 0 }])}
       >
         <AddSvg /> <div className="ml-2">Add language</div>
-      </div> */}
+      </div>
     </div>
   );
 };

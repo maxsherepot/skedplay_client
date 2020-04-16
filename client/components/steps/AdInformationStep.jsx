@@ -5,6 +5,7 @@ import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, Locati
 import {useTranslation} from "react-i18next";
 import {GET_RACE_TYPES} from "queries/employeeQuery";
 import translation from "services/translation";
+import LangSelector from "components/ad/LangSelector";
 
 const AdInformationStep = () => {
   const {t, i18n} = useTranslation();
@@ -213,7 +214,7 @@ const AdInformationStep = () => {
             ))}
         </div>
 
-        {/* <LangSelector /> */}
+         {/*<LangSelector />*/}
       </div>
     </>
   );
