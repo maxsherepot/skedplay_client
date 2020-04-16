@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import redirect from "lib/redirect";
 import cookie from "cookie";
@@ -61,7 +61,7 @@ const RegisterBox = () => {
     }
   };
 
-  const onSubmitCkeckCode = async ({ phone, code }) => {
+  const onSubmitCheckCode = async ({ phone, code }) => {
     try {
       const {
         data: {
@@ -100,7 +100,7 @@ const RegisterBox = () => {
 
       <RegisterForm.Step
         validationSchema={CheckCodeStep.validationSchema}
-        onStepSubmit={onSubmitCkeckCode}
+        onStepSubmit={onSubmitCheckCode}
       >
         <CheckCodeStep phone={phone} />
       </RegisterForm.Step>

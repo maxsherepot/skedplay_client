@@ -31,7 +31,6 @@
     "back": "Back",
     "step": "Step",
     "next_step": "Next step",
-    "create_account": "Create account",
     "gender": "Gender",
     "male": "Male",
     "female": "Female",
@@ -284,6 +283,8 @@
   },
   "steps": {
     "gender_type_ts": "TS",
+    "category": "Category",
+    "gender_type_trans": "Trans",
     "about_yourself": "About yourself",
     "personal_info": "Personal info",
     "optional": "Optional",

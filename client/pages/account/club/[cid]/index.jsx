@@ -50,10 +50,11 @@ const AccountClubIndex = ({ user }) => {
     const {t, i18n} = useTranslation();
 
     let phone = null;
-    const { query: {cid} } = useRouter();
+    const router = useRouter();
+    const { cid } = router.query;
 
     const getClubs = (clubs, id) => {
-        if (id && clubs.length) {
+        if (id && (clubs && clubs.length > 0)) {
             const index = clubs.map(c => c.id).indexOf(id);
 
             if (index !== -1) return clubs[index]
