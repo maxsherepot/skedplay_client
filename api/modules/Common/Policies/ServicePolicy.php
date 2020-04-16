@@ -26,7 +26,8 @@ class ServicePolicy
      */
     public function create(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_EMPLOYEE)) && $user->hasPermission(Permission::CREATE_SERVICES);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_EMPLOYEE)
+                || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::CREATE_SERVICES);
     }
 
     /**
@@ -35,7 +36,8 @@ class ServicePolicy
      */
     public function update(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_EMPLOYEE) || $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::UPDATE_SERVICES);
+        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_EMPLOYEE) ||
+                $user->hasRole(User::ACCOUNT_CLUB_OWNER)) && $user->hasPermission(Permission::UPDATE_SERVICES);
     }
 
     /**
