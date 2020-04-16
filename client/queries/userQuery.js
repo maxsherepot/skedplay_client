@@ -12,6 +12,8 @@ export const GET_ME = gql`
             is_club_owner
             is_employee
             is_manager
+            is_admin
+            is_client_chat_member
             favorites_count
             employees_photos
             employees_videos

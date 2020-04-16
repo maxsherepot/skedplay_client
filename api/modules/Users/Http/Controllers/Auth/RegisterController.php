@@ -11,6 +11,7 @@ use Modules\Billing\Entities\Plan;
 use Modules\Users\Entities\User;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;
+use Modules\Users\Services\AdminMessagesGenerate;
 use Modules\Users\Services\Verification\Verification;
 
 class RegisterController extends Controller
@@ -35,11 +36,7 @@ class RegisterController extends Controller
         $this->verification = $verification;
     }
 
-    /**
-     * @param RegistrationRequest $request
-     * @return array
-     */
-    public function register(RegistrationRequest $request): array
+    public function register(RegistrationRequest $request, AdminMessagesGenerate $adminMessagesGenerate): array
     {
         $this->verification->checkStatus($request->get('phone'));
 
@@ -47,6 +44,10 @@ class RegisterController extends Controller
 
         $user = $this->users->store($data);
         $user->attachRole($request->get('account_type'));
+
+        if ($request->get('account_type') === 'employee') {
+            $adminMessagesGenerate->execute();
+        }
 
         $user->newSubscription(
             'main',

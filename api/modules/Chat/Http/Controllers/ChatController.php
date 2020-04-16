@@ -40,7 +40,7 @@ class ChatController extends Controller
             ->with(['employee', 'client'])
             ->withCount([
                 'messages' => function($query) use ($user) {
-                    $query->whereSeen(0)->whereFromClient($user->is_client ? 0 : 1);
+                    $query->whereSeen(0)->whereFromClient($user->is_client_chat_member ? 0 : 1);
                 }
             ])
             ->get()
@@ -61,7 +61,7 @@ class ChatController extends Controller
 
         $user = auth()->user();
 
-        if ($user->is_client) {
+        if ($user->is_client_chat_member) {
             $chatMemberId = $user->id;
         } elseif ($user->is_employee) {
             $chatMemberId = $user->employee->id;
@@ -73,14 +73,14 @@ class ChatController extends Controller
             }
         }
 
-        $idField = $user->is_client ? 'client_id' : 'employee_id';
+        $idField = $user->is_client_chat_member ? 'client_id' : 'employee_id';
 
         if ($chat->$idField !== $chatMemberId) {
             return $this->fail('chat not found');
         }
 
         $chat->messages()
-            ->whereFromClient($user->is_client ? 0 : 1)
+            ->whereFromClient($user->is_client_chat_member ? 0 : 1)
             ->update(['seen' => 1]);
 
         return $this->chatService->formatChatRoom($chat);

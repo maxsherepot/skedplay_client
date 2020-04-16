@@ -41,7 +41,7 @@ const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
     }
 
     const chat = chats.find(c => parseInt(c.id) === chatId);
-    console.log(chats, chat);
+
     if (chat) {
       setSelectedChat(chat);
     }

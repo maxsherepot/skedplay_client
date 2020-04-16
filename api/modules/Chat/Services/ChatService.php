@@ -52,7 +52,7 @@ class ChatService
 
     public function getChatReceiver($chat)
     {
-        if (!auth()->user()->is_client) {
+        if (!auth()->user()->is_client_chat_member) {
             return $chat->client;
         }
 

@@ -31,7 +31,6 @@
     "back": "Back",
     "step": "Step",
     "next_step": "Next step",
-    "create_account": "Create account",
     "gender": "Gender",
     "male": "Male",
     "female": "Female",
@@ -220,9 +219,9 @@
   },
   "clubs": {
     "event_type": "Club type",
-    "select_event_type": "Select club type",
     "subscribe": "Subscribe",
     "subscribe_to_club_news": "Subscribe to the club's news",
+    "select_event_type": "Select club type",
     "perimeter": "Perimeter",
     "select_perimeter": "Select perimeter",
     "add_club": "Adding a new Club",
@@ -241,7 +240,7 @@
     "event_in": "Event in {{name}}",
     "all_club": "All club events",
     "information": "Information",
-    "club_name" : "Club name",
+    "club_name": "Club name",
     "type": "Type",
     "sauna_club": "Sauna club",
     "night_club": "Night club",
@@ -361,7 +360,7 @@
     "save": "Save ad",
     "new": "New ad"
   },
-  "status" : {
+  "status": {
     "vip": "VIP",
     "new": "NEW",
     "": ""
@@ -609,5 +608,8 @@
   },
   "cookies": {
     "text": "This site uses cookies to offer you a better browsing experience. Find out more on <1>how we use cookies</1> and <3>how you can change your settings</3>."
+  },
+  "admin": {
+    "start_message": "Greetings! I would like to wish our members and their families a spectacular."
   }
 }
