@@ -32,18 +32,18 @@ class Club extends Resource
     public static $with = [
     ];
 
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    public static function availableForNavigation(Request $request): bool
-    {
-        return ($request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR) ||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER)||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER))
-        ;
-    }
+//    /**
+//     * @param Request $request
+//     * @return bool
+//     */
+//    public static function availableForNavigation(Request $request): bool
+//    {
+//        return ($request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+//            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR) ||
+//            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_CLUB_OWNER)||
+//            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MANAGER))
+//        ;
+//    }
 
     /**
      * The single value that should be used to represent the resource when being displayed.
