@@ -15,6 +15,7 @@ import EmployeeMaps from "components/employee/EmployeeMaps";
 import LangSelector from "UI/LangSelector";
 import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
+import translation from "services/translation";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -139,9 +140,9 @@ const EmployeeInformation = ({ user }) => {
 
               {employee.parameters.map(p => (
                   <section className="my-3" key={p.id}>
-                    <div className="text-grey">{p.display_name}</div>
+                    <div className="text-grey">{translation.getLangField(p.parameter.name, i18n.language)}</div>
                     <div className="line" />
-                    <div className="w-32">{p.pivot.display_value}</div>
+                    <div className="w-32">{translation.getLangField(p.parameter_option.value, i18n.language)}</div>
                   </section>
               ))}
 

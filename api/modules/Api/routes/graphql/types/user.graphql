@@ -10,6 +10,8 @@ type User {
     is_club_owner: Boolean
     is_employee: Boolean
     is_manager: Boolean
+    is_admin: Boolean
+    is_client_chat_member: Boolean
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
     roles: Role @belongsToMany

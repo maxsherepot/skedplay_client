@@ -194,14 +194,9 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
             ->where('collection_name', self::VIDEO_COLLECTION);
     }
 
-    /**
-     * @return BelongsToMany
-     */
-    public function parameters(): BelongsToMany
+    public function parameters(): HasMany
     {
-        return $this->belongsToMany(Parameter::class, 'employee_parameters')
-            ->using(EmployeeParameter::class)
-            ->withPivot('value');
+        return $this->hasMany(EmployeeParameter::class);
     }
 
     public function unreadMessagesCount(): int

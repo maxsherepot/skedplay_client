@@ -34,7 +34,7 @@ class ChatRepository
 
     public function getChatQueryByChatMember(User $user, int $receiverId): Builder
     {
-        if ($user->is_client) {
+        if ($user->is_client_chat_member) {
             return Chat::query()->whereClientId($user->id)->whereEmployeeId($receiverId);
         }
 
@@ -67,12 +67,12 @@ class ChatRepository
             return $query->whereEmployeeId($employeeId);
         }
 
-        $chatMemberId = $user->is_client
+        $chatMemberId = $user->is_client_chat_member
             ? $user->id
             : $user->employee->id;
 
         return $query
-            ->when($user->is_client, function($query) use ($chatMemberId) {
+            ->when($user->is_client_chat_member, function($query) use ($chatMemberId) {
                 $query->whereClientId($chatMemberId);
             })
             ->when($user->is_employee, function($query) use ($chatMemberId) {

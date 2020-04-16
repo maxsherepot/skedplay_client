@@ -18,5 +18,6 @@ class EmployeesDatabaseSeeder extends Seeder
 
         $this->call(EmployeeTypeTableSeeder::class);
         $this->call(EmployeeTableSeeder::class);
+        $this->call(ParametersTableSeeder::class);
     }
 }

@@ -26,7 +26,7 @@ const EditEmployeeBox = ({ employee }) => {
   let parameters = {};
   let services = {};
   let prices = {};
-  employee.parameters.forEach(s => parameters[s.id] = s.pivot.value);
+  employee.parameters.forEach(s => parameters[s.parameter.id] = s.parameter_option.id);
 
   employee.services.forEach(s => {
     services[s.id] = {

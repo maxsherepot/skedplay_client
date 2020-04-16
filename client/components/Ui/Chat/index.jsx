@@ -23,6 +23,8 @@ function ChatRoom({
   const fileInputRef = useRef(null);
   const {t, i18n} = useTranslation();
 
+  const checkHasTranslation = key => t(key) !== key;
+
   const scrollToBottom = () => {
     if (!messagesEndRef || !messagesEndRef.current) {
       return;
@@ -172,6 +174,12 @@ function ChatRoom({
       }
     } else {
       message.avatar_block = avatarBlock;
+    }
+
+    if (checkHasTranslation(message.text)) {
+      message.text = (
+        <span className="font-bold">{t(message.text)}</span>
+      );
     }
 
     return message;

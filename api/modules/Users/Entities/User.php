@@ -149,6 +149,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->hasRole(self::ACCOUNT_CLIENT);
     }
 
+    public function getIsClientChatMemberAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_CLIENT) || $this->hasRole(self::ACCOUNT_ADMIN);
+    }
+
     /**
      * @return bool
      */

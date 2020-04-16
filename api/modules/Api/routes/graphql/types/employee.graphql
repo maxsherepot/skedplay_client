@@ -34,7 +34,7 @@ type Employee {
   #
   owner: Owner @belongsTo
   race_type: [EmployeeRaceType] @belongsTo
-  parameters: [Parameter] @belongsToMany
+  parameters: [EmployeeParameter] @hasMany
   schedule: [EmployeeSchedule] @hasMany
   events: [Event] @belongsToMany
   prices: [Price] @belongsToMany

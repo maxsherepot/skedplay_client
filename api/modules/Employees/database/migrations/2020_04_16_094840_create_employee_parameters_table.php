@@ -13,23 +13,29 @@ class CreateEmployeeParametersTable extends Migration
      */
     public function up()
     {
+
         Schema::create('employee_parameters', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('parameter_id');
+            $table->unsignedBigInteger('parameter_option_id');
 
-            $table->unsignedBigInteger('employee_id')->nullable();
-            $table->unsignedInteger('parameter_id')->nullable();
-
-            $table->string('value');
+            $table->index(['employee_id', 'parameter_id']);
 
             $table->foreign('employee_id')
                 ->references('id')
                 ->on('employees')
-                ->onDelete('SET null');
+                ->onDelete('cascade');
 
             $table->foreign('parameter_id')
                 ->references('id')
                 ->on('parameters')
-                ->onDelete('SET null');
+                ->onDelete('cascade');
+
+            $table->foreign('parameter_option_id')
+                ->references('id')
+                ->on('parameter_options')
+                ->onDelete('cascade');
         });
     }
 
@@ -40,6 +46,6 @@ class CreateEmployeeParametersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_parameters');
+        Schema::dropIfExists('employee_parameter');
     }
 }

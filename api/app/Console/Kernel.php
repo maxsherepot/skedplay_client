@@ -10,6 +10,7 @@ use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
+use Modules\Users\Console\AddAdminMessageToChats;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
         RefreshTranslatesOnFront::class,
         CheckTranslatesConsistency::class,
         CheckEventsNotification::class,
+        AddAdminMessageToChats::class,
     ];
 
     /**

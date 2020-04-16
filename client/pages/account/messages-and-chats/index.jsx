@@ -11,7 +11,9 @@ import moment from "moment-timezone";
 import Link from "next/link";
 
 const ChatCard = ({chat}) => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+
+  const checkHasTranslation = key => t(key) !== key;
 
   const date = moment.utc(chat.last_message.created_at).local().fromNow();
 
@@ -63,7 +65,16 @@ const ChatCard = ({chat}) => {
           top: '-9px'
         }} />
         <div>
-          {chat.last_message.text}
+          {checkHasTranslation(chat.last_message.text) ?
+            <span className="font-bold">
+              {t(chat.last_message.text)}
+            </span>
+            :
+            <span>
+              {chat.last_message.text}
+            </span>
+          }
+
         </div>
         <div className="flex justify-between mt-3 items-center">
           <div className="flex items-center">

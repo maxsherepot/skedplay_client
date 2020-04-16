@@ -104,11 +104,13 @@ export const GET_EMPLOYEE = gql `
       }
       parameters {
         id
-        name
-        display_name
-        pivot {
-          value
-          display_value
+        parameter {
+            id
+            name
+        }
+        parameter_option {
+            id
+            value
         }
       }
       services {

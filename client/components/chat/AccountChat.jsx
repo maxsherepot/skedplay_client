@@ -33,7 +33,7 @@ const Breadcrumbs = () => {
 const AccountChat = ({ user, selectedEmployeeId = null, selectedChatId = null }) => {
   const {t, i18n} = useTranslation();
 
-  if (user.is_employee || user.is_client) {
+  if (user.is_employee || user.is_client_chat_member) {
     return (
       <>
         <Breadcrumbs/>
