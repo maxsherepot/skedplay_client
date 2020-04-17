@@ -8,7 +8,7 @@ import { FormGroup } from "UI";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
 
-function FileField({ className, labelClassName, preview, label, name, ...inputProps }) {
+function FileField({ className, labelClassName, preview, label, name, secondLabel, ...inputProps }) {
   const [filePreview, setFilePreview] = useState(null);
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
@@ -54,7 +54,7 @@ function FileField({ className, labelClassName, preview, label, name, ...inputPr
             <div className="border border-light-grey border-dashed rounded-lg py-7">
               <div className="flex flex-col items-center">
                 <AddPhotoSvg />
-                <span className="mt-4 font-medium text-lg">{t('index.add_logo')}</span>
+                <span className="mt-4 font-medium text-lg">{secondLabel ? secondLabel : `${t('index.add_logo')}`}</span>
               </div>
               <input
                 className="absolute inset-0 opacity-0 w-full"

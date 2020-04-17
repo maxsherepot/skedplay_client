@@ -20,7 +20,7 @@ class EventRepository implements HasMediable
     /**
      * @param Model $model
      * @param Collection $collection
-     * @return Model
+     * @return \Modules\Clubs\Entities\Club|\Modules\Employees\Entities\Employee|\Illuminate\Database\Eloquent\Model
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
@@ -32,8 +32,12 @@ class EventRepository implements HasMediable
         /** @var Club|Employee $model */
         $event = $model->events()->create($collection->toArray());
 
-        if ($photos = $collection->get('photos')) {
+        /*if ($photos = $collection->get('photos')) {
             $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
+        }*/
+
+        if ($mainPhoto = $collection->get('mainPhoto')) {
+            $event->addMedia($mainPhoto)->toMediaCollection(Event::MAIN_PHOTO_COLLECTION);
         }
 
         return $event;
@@ -49,15 +53,19 @@ class EventRepository implements HasMediable
      */
     public function update(Event $event, Collection $collection): bool
     {
+        //DB::beginTransaction();
         $collection = $this->handleInput($collection);
 
-        $response = $event->update($collection->toArray());
-
-        if ($photos = $collection->get('photos')) {
+        /*if ($photos = $collection->get('photos')) {
             $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
-        }
+        }*/
 
-        return $response;
+        if ($mainPhoto = $collection->get('mainPhoto')) {
+            $event->addMedia($mainPhoto)->toMediaCollection(Event::MAIN_PHOTO_COLLECTION);
+        }
+        //DB::commit();
+
+        return $event->update($collection->toArray());
     }
 
     /**

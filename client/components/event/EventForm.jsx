@@ -18,12 +18,21 @@ import {
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/react-hooks";
 import {EVENT_TYPES} from 'queries';
+import {GET_EVENT} from "queries/eventQuery";
+import FileField from "UI/Forms/FileField";
+import {useRouter} from "next/router";
 
 const EventForm = ({initialValues, onSubmit, update}) => {
   const {t} = useTranslation();
   const [mode, setMode] = useState(initialValues.mode || "1");
-
+  const {query: {eid}} = useRouter();
   const {data: {event_types: eventTypes} = {}, eventTypesLoading} = useQuery(EVENT_TYPES);
+
+  const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
+    variables: {
+      id: eid
+    }
+  });
 
   if (eventTypesLoading) {
     return <Loader/>
@@ -137,7 +146,23 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               label="Start time"
               />
 
-            <TextAreaField rows={6} label={t('account.events_actions.desc')} name="description"/>
+            <div className="flex w-full -mx-3">
+              <TextAreaField
+                  rows={6}
+                  label={t('account.events_actions.desc')}
+                  name="description"
+                  className="relative px-3 w-2/3"
+                  placeholder=""
+                  textLength={255}
+              />
+              <FileField
+                  className="px-3 w-1/3"
+                  label="Photo for your Event"
+                  name="mainPhoto"
+                  preview={event && event.mainPhoto && event.mainPhoto.url}
+                  secondLabel="  "
+              />
+            </div>
 
             <LocationSearchInput
               className="w-full"
@@ -147,7 +172,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               <EventEmployeesField clubEmployees={initialValues.club.employees} eventEmployees={initialValues.employees}/>
             }
 
-            <div className="flex flex-wrap mb-4 mt-4">
+            {/*<div className="flex flex-wrap mb-4 mt-4">
               <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
                 <Button
                   className="px-3"
@@ -162,11 +187,11 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                   </div>
                 </Button>
               </MultiPhotoField>
-            </div>
+            </div>*/}
 
             <Button
               type="submit"
-              className="px-8"
+              className="px-8 mt-4"
               size="sm"
               disabled={isSubmitting}
             >

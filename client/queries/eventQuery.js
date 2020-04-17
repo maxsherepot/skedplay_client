@@ -14,6 +14,12 @@ export const ALL_EVENTS = gql`
                 end_date
                 start_time
                 mode
+                mainPhoto {
+                    id
+                    name
+                    url
+                    thumb_url  
+                }
                 favorited {
                     id
                 }
@@ -99,6 +105,12 @@ export const GET_EVENT = gql`
             lat
             lng
             price
+            mainPhoto {
+                id
+                name
+                url
+                thumb_url
+            }
             employees {
                 id
                 name

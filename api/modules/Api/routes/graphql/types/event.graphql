@@ -15,6 +15,7 @@ type Event {
     mode: Int!
     club: Club @belongsTo
     owner: Owner @belongsTo
+    mainPhoto: Media @hasOne
     photos: [Media] @hasMany
     employees: [Employee] @belongsToMany @with(relation: "employeesRelation")
     start_date: Date,
@@ -35,6 +36,7 @@ input EventInput {
     start_date: String,
     end_date: String,
     start_time: String,
+    mainPhoto: Upload
     photos: [Upload]
     days: [Int!]
     employees_ids: [Int!]
@@ -52,6 +54,7 @@ input EventUpdateInput {
     start_date: String,
     end_date: String,
     start_time: String,
+    mainPhoto: Upload
     days: [Int!]
     employees_ids: [Int!]
 }

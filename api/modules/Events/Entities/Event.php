@@ -98,7 +98,7 @@ class Event extends Model implements HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION);
+        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION)->singleFile()->useDisk('media');;
     }
 
     /**
@@ -119,6 +119,17 @@ class Event extends Model implements HasMedia
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
             ->where('collection_name', self::MAIN_PHOTO_COLLECTION);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mainPhoto(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this
+            ->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::MAIN_PHOTO_COLLECTION)
+        ;
     }
 
     public function employeesRelation(): BelongsToMany

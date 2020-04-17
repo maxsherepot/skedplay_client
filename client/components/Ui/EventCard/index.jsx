@@ -92,6 +92,7 @@ function EventCard({
   price,
   mode,
   start_time,
+  mainPhoto,
   employees
 }) {
   const [eventMapId, setEventMapId] = useState(null);
@@ -116,7 +117,7 @@ function EventCard({
       <div
         className="relative overflow-hidden rounded-t-lg c-events-card"
         style={{
-          backgroundImage: `url(${thumb && thumb.url || '/static/img/event-none.png'})`,
+          backgroundImage: `url(${mainPhoto && mainPhoto.url || '/static/img/event-none.png'})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           height
