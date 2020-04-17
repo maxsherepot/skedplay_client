@@ -64,6 +64,13 @@ export const EVENTS_BY_OWNER = gql`
             id
             title
             address
+            description
+            mainPhoto {
+                id
+                name
+                url
+                thumb_url  
+            }
             lat
             lng
             price

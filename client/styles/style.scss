@@ -45,6 +45,20 @@ main {
     height: 195px;
   }
 }
+
+
+
+.event-photo__div {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  &-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
 .contain-section {
   &__img-man {
     object-fit: fill;

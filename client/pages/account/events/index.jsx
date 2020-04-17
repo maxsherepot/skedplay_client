@@ -12,6 +12,7 @@ import {
 import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
+import EventLabel from "UI/EventCard/EventLabel";
 
 const AccountEventsIndex = ({user}) => {
     const {data: {eventsByOwner} = {}, loading} = useQuery(EVENTS_BY_OWNER, {
@@ -92,33 +93,52 @@ const AccountEventsIndex = ({user}) => {
         };
 
         return (
-            <div className="px-3 w-full md:w-1/2 mb-5">
-                <div className="p-5 border-light-grey border rounded-lg shadow h-full">
-                    <div className="truncate">
-                        {event.title}
+            <div className="px-3 w-full mb-5">
+                <div className="p-5 border-light-grey border rounded-lg shadow h-full row flex flex-wrap">
+                    <div className="relative inline-block">
+                        <div className="rounded-lg">
+                            <img className="event-photo__div" src={event.mainPhoto && event.mainPhoto.url || '/static/img/event-none.png'} alt=""/>
+                        </div>
+                        <div className="absolute bottom-0 left-0 p-4 text-2xl font-black text-white z-30">
+                            <div className="flex flex-wrap -mx-3">
+                                <div className="px-3">
+                                    <EventLabel type={event.type} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="capitalize text-grey">
-                        {event.type && event.type.name}
+                    <div className="relative inline-block ml-3 w-2/3 flex-column event-photo__div-info">
+                        <div className="mb-2">
+                            <div className="top-0 font-bold">
+                                {event.title}
+                            </div>
+                            <div className="mt-1">
+                                {event.description}
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap">
+                            <div className="px-2">
+                                <Link href="/account/events/[eid]" as={`/account/events/${event.id}`}>
+                                    <a>
+                                        <Button className="px-2" level="secondary" outline size="xxs">
+                                            {t('common.edit')}
+                                        </Button>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div className="px-2">
+                                <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${event.title}?`}>
+                                    <div className="pt-6">
+                                        <p>{t('account.are_you_sure_delete_event')}</p>
+                                    </div>
+                                </DeletePopup>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="flex flex-wrap justify-end -mx-2">
-                        <div className="px-2">
-                            <Link href="/account/events/[eid]" as={`/account/events/${event.id}`}>
-                                <a>
-                                    <Button className="px-2" level="secondary" outline size="xxs">
-                                        {t('common.edit')}
-                                    </Button>
-                                </a>
-                            </Link>
-                        </div>
-                        <div className="px-2">
-                            <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${event.title}?`}>
-                                <div className="pt-6">
-                                    <p>{t('account.are_you_sure_delete_event')}</p>
-                                </div>
-                            </DeletePopup>
-                        </div>
-                    </div>
+                    {/*<div className="capitalize text-grey">*/}
+                    {/*    {event.type && event.type.name}*/}
+                    {/*</div>*/}
                 </div>
             </div>
         )
