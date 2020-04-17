@@ -70,6 +70,7 @@ export const GET_ME = gql`
                 photos_count
                 videos_count
                 address
+                website
                 reviews {
                     id
                 }

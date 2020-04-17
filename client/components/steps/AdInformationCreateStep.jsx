@@ -143,6 +143,7 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('layout.webpage')}
             name="website"
+            placeholder="www.example.com"
           />
         </div>
       </div>

@@ -19,6 +19,7 @@ class UserPolicy
         if ($user->hasRole(User::ACCOUNT_MODERATOR)) {
             return false;
         }
+
         return $user->hasPermission(Permission::CREATE_USERS);
     }
 

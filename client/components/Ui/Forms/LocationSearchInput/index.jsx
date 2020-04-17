@@ -42,7 +42,6 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
               inputClassName,
             ])}
             label={t('index.address')}
-            //value={defaultValue ? defaultValue : ""}
             defaultValue={defaultValue ? defaultValue : ""}
             placeholder="Example: street name, city"
             name="address"
