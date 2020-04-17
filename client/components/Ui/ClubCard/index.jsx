@@ -129,7 +129,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
           </div>
         </div>
       </div>
-      <div className="bg-white p-5 rounded-b-lg">
+      <div className="bg-white p-5 rounded-b-lg club-card__footer-div">
         <div className="flex justify-between text-xs cursor-pointer">
           <div className="flex flex-col pr-4">
             {(lat && lng) ? (

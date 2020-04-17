@@ -33,6 +33,18 @@ main {
   justify-content: space-between;
 }
 
+.club-card__footer-div {
+  height: 175px;
+  @media (max-width: 1780px) {
+    height: 195px;
+  }
+  @media (max-width: 1320px) {
+    height: 175px;
+  }
+  @media (max-width: 767px) {
+    height: 195px;
+  }
+}
 .contain-section {
   &__img-man {
     object-fit: fill;
