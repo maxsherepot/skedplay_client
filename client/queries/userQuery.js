@@ -69,6 +69,7 @@ export const GET_ME = gql`
                 events_count
                 photos_count
                 videos_count
+                address
                 reviews {
                     id
                 }

@@ -21,12 +21,17 @@ import {EVENT_TYPES} from 'queries';
 import {GET_EVENT} from "queries/eventQuery";
 import FileField from "UI/Forms/FileField";
 import {useRouter} from "next/router";
+import {GET_ME} from "queries/userQuery";
 
 const EventForm = ({initialValues, onSubmit, update}) => {
   const {t} = useTranslation();
   const [mode, setMode] = useState(initialValues.mode || "1");
   const {query: {eid}} = useRouter();
   const {data: {event_types: eventTypes} = {}, eventTypesLoading} = useQuery(EVENT_TYPES);
+  const {
+    data: { me } = {},
+    loadingMe
+  } = useQuery(GET_ME);
 
   const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
     variables: {
@@ -34,7 +39,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     }
   });
 
-  if (eventTypesLoading) {
+  if (eventTypesLoading || loadingMe) {
     return <Loader/>
   }
 
@@ -47,6 +52,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     {label: t('common.days_short.fri'), value: 5},
     {label: t('common.days_short.sat'), value: 6},
   ];
+
+  let defaultAddress = event ? event.address : (me && me.employee && me.employee.address);
 
   let days = [];
 
@@ -166,6 +173,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
 
             <LocationSearchInput
               className="w-full"
+              initAddress={defaultAddress}
+              defaultValue={defaultAddress}
             />
 
             {initialValues.club &&

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import cx from 'classnames';
 import {useTranslation} from "react-i18next";
 
-function LocationSearchInput({initAddress, className, inputClassName}) {
+function LocationSearchInput({initAddress, className, inputClassName, defaultValue}) {
   const [address, setAddress] = useState(initAddress);
   const { setFieldValue } = useFormikContext();
 
@@ -42,6 +42,8 @@ function LocationSearchInput({initAddress, className, inputClassName}) {
               inputClassName,
             ])}
             label={t('index.address')}
+            //value={defaultValue ? defaultValue : ""}
+            defaultValue={defaultValue ? defaultValue : ""}
             placeholder="Example: street name, city"
             name="address"
             {...getInputProps({
