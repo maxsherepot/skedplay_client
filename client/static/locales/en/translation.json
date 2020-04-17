@@ -394,6 +394,13 @@
     "view_phone": "View phone",
     "my_schedule_in": "My schedule in"
   },
+  "after_register": {
+    "welcome_to_portal": "Welcome to our portal",
+    "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
+    "you_want_to_show_profile": "do you want to show your Profile ?",
+    "yes": "Yes",
+    "no": "No"
+  },
   "account": {
     "my_account": "My account",
     "available_for_all": "Make available for all",

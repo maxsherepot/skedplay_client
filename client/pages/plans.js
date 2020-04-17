@@ -64,13 +64,13 @@ const Plans = ({user}) => {
                         {(me && me.is_club_owner) && (
                             <div>
                                 <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
-                                    Welcome to our portal {me.name} do you want edit your Profile and Photos now?
+                                    {t('after_register.welcome_to_portal')} {me.name} {t('after_register.you_want_to_edit_profile_or_photos')}
                                     <div className="row mt-5">
                                         <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/clubs/add">Yes</a>
+                                            <a href="/clubs/add">{t('after_register.yes')}</a>
                                         </div>
                                         <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/account">No</a>
+                                            <a href="/account">{t('after_register.no')}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -80,13 +80,13 @@ const Plans = ({user}) => {
                         {(me && me.is_employee && me.employee) && (
                             <div>
                                 <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
-                                    Welcome to our portal {me.employee.name} do you want edit your Profile and Photos now?
+                                    {t('after_register.welcome_to_portal')} {me.employee.name} {t('after_register.you_want_to_edit_profile_or_photos')}
                                     <div className="row mt-5">
                                         <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/account/ad">Yes</a>
+                                            <a href="/account/ad">{t('after_register.yes')}</a>
                                         </div>
                                         <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/account">No</a>
+                                            <a href="/account">{t('after_register.no')}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -97,13 +97,13 @@ const Plans = ({user}) => {
                         {(me && me.is_client) && (
                             <div>
                                 <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
-                                    Welcome to our portal {me.name} do you want to show your Profile ?
+                                    {t('after_register.welcome_to_portal')} {me.name} {t('after_register.you_want_to_show_profile')}
                                     <div className="row mt-5">
                                         <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/account">Yes</a>
+                                            <a href="/account">{t('after_register.yes')}</a>
                                         </div>
                                         <div className="ml-8 text-white inline-block uppercase font-extrabold text-2xl text-center">
-                                            <a href="/">No</a>
+                                            <a href="/">{t('after_register.no')}</a>
                                         </div>
                                     </div>
                                 </div>
