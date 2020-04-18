@@ -51,7 +51,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
           />
           {!!suggestions.length &&
           <div className="autocomplete-dropdown-container">
-            {suggestions.map(suggestion => {
+            {suggestions.filter(suggestion => suggestion.description.endsWith(', Switzerland')).map(suggestion => {
               const className = suggestion.active
                 ? 'suggestion-item--active'
                 : 'suggestion-item';
