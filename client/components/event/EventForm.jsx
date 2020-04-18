@@ -55,6 +55,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
 
   let defaultAddress = event ? event.address : (me && me.employee && me.employee.address);
 
+  let setDefaultAddress = defaultAddress.endsWith(', Switzerland') ? defaultAddress : '';
+
   let days = [];
 
   for (let i in dayCheckboxes) {
@@ -173,8 +175,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
 
             <LocationSearchInput
               className="w-full"
-              initAddress={defaultAddress}
-              defaultValue={defaultAddress}
+              initAddress={setDefaultAddress}
+              defaultValue={setDefaultAddress}
             />
 
             {initialValues.club &&
