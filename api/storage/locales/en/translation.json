@@ -180,7 +180,7 @@
   },
   "plans": {
     "choose_plan": "Choose a plan and duration",
-    "select_payment_method": "Select Payment Method",
+    "select_payment_method": "Select Payment Method"
   },
   "forgot": {
     "password_recovery": "Password recovery",
