@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
-import { TextField } from "UI/Forms";
+import {TextField} from "UI/Forms";
 import {useFormikContext} from "formik";
 import PropTypes from "prop-types";
 import cx from 'classnames';
@@ -26,11 +23,17 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
     setFieldValue('address', address);
   };
 
+  const searchOptions = {
+    location: new google.maps.LatLng(46.962083, 8.251796),
+    radius: 100000,
+  };
+
   return (
     <PlacesAutocomplete
       value={address}
       onChange={handleChange}
       onSelect={handleSelect}
+      searchOptions={searchOptions}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div className={cx([
@@ -51,7 +54,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
           />
           {!!suggestions.length &&
           <div className="autocomplete-dropdown-container">
-            {suggestions.filter(suggestion => suggestion.description.endsWith(', Switzerland')).map(suggestion => {
+            {suggestions.map(suggestion => {
               const className = suggestion.active
                 ? 'suggestion-item--active'
                 : 'suggestion-item';
