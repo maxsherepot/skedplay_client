@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 
-import { SelectField } from "UI";
+import { SelectField, TextField } from "UI";
 import { FieldArray, useFormikContext } from "formik";
-import { ratingvg, TrashSvg } from "icons";
+import { RatingSvg, TrashSvg } from "icons";
 import {useTranslation} from "react-i18next";
 import AddSvg from "components/icons/AddSvg";
-import {i18n} from "lib/i18n";
+import dot from "dot-object";
 
 const LangSelector = () => {
-  const [langs, setlangs] = useState([
-    {
-      rating: 2
-    },
-    {
-      rating: 3
-    }
-  ]);
-
-  const { values } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
   const {t, i18n} = useTranslation();
 
   const languages = i18n.options.allLanguages.map(lang => {
@@ -27,97 +18,97 @@ const LangSelector = () => {
     };
   });
 
-  const RatingField = ({ rating }) => {
+  const RatingField = ({ name }) => {
+    const { values, setFieldValue } = useFormikContext();
+    const value = dot.pick(name, values) || values[name] || 0;
+
+    const setStars = (stars) => {
+      setFieldValue(name, stars);
+    };
+
     let stars = [];
 
     for (let i = 0; i < 3; i++) {
       stars[i] = (
-        <ratingvg
+        <div
           key={i}
-          width={20}
-          height={20}
-          checked={i < rating}
-          className={i % 2 === 0 ? "" : "mx-3"}
-        />
+          className="cursor-pointer mr-2"
+          onClick={() => setStars(+i + 1)}
+        >
+          <RatingSvg
+            width={29}
+            height={27}
+            checked={i < value}
+          />
+        </div>
       );
     }
 
     return (
-      <div className="flex flex-wrap w-full md:w-1/6 px-2 mb-4">{stars}</div>
+      <div className="flex flex-wrap w-full md:w-2/6 px-2 mb-4">
+        {stars}
+        <input type="hidden" name={name} value={value}/>
+      </div>
     );
   };
 
-  const FieldControl = ({ index }) => (
+  const FieldControl = ({ arrayHelpers, index }) => (
     <div
       className="flex flex-wrap w-full md:w-2/6 px-2 mb-4 cursor-pointer"
-      onClick={() => deleteRow(index)}
+      onClick={() => deleteRow(arrayHelpers, index)}
     >
       <TrashSvg />
       <div className="ml-2">{t('ad.delete_language')}</div>
     </div>
   );
 
-  const deleteRow = index => {
-    langs.splice(index, 1);
-    setlangs([...langs]);
+  const deleteRow = (arrayHelpers, index) => {
+    arrayHelpers.remove(index);
+    let valuesLanguages = [...values.languages];
+    valuesLanguages.splice(index, 1);
+
+    setFieldValue('languages', valuesLanguages);
   };
 
-  console.log(langs);
+  const addLanguage = (arrayHelpers) => {
+    setFieldValue('languages', [...values.languages, {language: '', stars: 0}]);
+    arrayHelpers.push("");
+  };
+
+  console.log(values.languages);
 
   return (
     <div className="flex flex-wrap items-center -mx-4">
-      {/* <label className="text-grey ml-2">Language</label> */}
+      <label className="text-grey ml-2 mb-3">Language</label>
       <FieldArray
         name="language"
         render={arrayHelpers => (
-          <div className="w-full px-2">
-            {values.language && values.language.length > 0 ? (
-              values.language.map((friend, index) => (
-                <div className="flex flex-wrap items-center w-full" key={index}>
-                  <SelectField
-                    className="w-full sm:w-1/3 px-2"
-                    label=""
-                    placeholder=""
-                    name={`language.${index}`}
-                    options={languages}
-                  />
-                  {/*<button*/}
-                  {/*  type="button"*/}
-                  {/*  onClick={() => arrayHelpers.remove(index)}*/}
-                  {/*>*/}
-                  {/*  -*/}
-                  {/*</button>*/}
-                  {/*<button*/}
-                  {/*  type="button"*/}
-                  {/*  onClick={() => arrayHelpers.insert(index, "")}*/}
-                  {/*>*/}
-                  {/*  +*/}
-                  {/*</button>*/}
+          <div className="w-full">
+            {(values.languages || []).map((language, index) => (
+              <div className="flex flex-wrap items-center w-full" key={index}>
+                <SelectField
+                  className="w-full sm:w-1/3 px-2"
+                  label=""
+                  placeholder=""
+                  name={`languages.${index}.code`}
+                  options={languages}
+                />
 
-                  <RatingField rating={2}/>
+                <RatingField name={`languages.${index}.stars`}/>
 
-                  <FieldControl index={index}/>
-                </div>
-              ))
-            ) : (
-                <button type="button" onClick={() => arrayHelpers.push("")}>
-                  {/* show this when user has removed all language from the list */}
-                  {t('ad.add_friend')}
-              </button>
-              )}
-            {/*<div>*/}
-            {/*  <button type="submit">{t('common.submit')}</button>*/}
-            {/*</div>*/}
+                <FieldControl arrayHelpers={arrayHelpers} index={index}/>
+              </div>
+            ))}
+
+            <div
+              className="w-full flex items-center sm:w-1/3 px-2 cursor-pointer"
+              onClick={() => addLanguage(arrayHelpers)}
+            >
+              <AddSvg /> <div className="ml-2">Add language</div>
+            </div>
           </div>
         )}
       />
-
-      <div
-        className="w-full flex items-center sm:w-1/3 px-2 cursor-pointer"
-        onClick={() => setlangs([...langs, { rating: 0 }])}
-      >
-        <AddSvg /> <div className="ml-2">Add language</div>
-      </div>
     </div>
   );
 };

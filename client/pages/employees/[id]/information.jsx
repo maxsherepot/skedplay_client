@@ -109,6 +109,15 @@ const EmployeeInformation = ({ user }) => {
     </>
   );
 
+  const getStars = starsCount => {
+    let stars = [];
+    for (let i = 1; i <= 3; i++) {
+      stars.push(<RatingSvg key={i} checked={i <= starsCount} />);
+    }
+
+    return stars;
+  };
+
   const contentColumn = (
     <>
       <div className="flex -mx-3">
@@ -146,29 +155,24 @@ const EmployeeInformation = ({ user }) => {
                   </section>
               ))}
 
-              <section className="mt-6 mb-3">
-                <div className="text-grey">{t('employees.languages')}</div>
-                <div className="line" />
-                <div className="w-32">
-                  <div className="flex items-center justify-between mb-2">
-                    {t('language.russian')}
-                    <span className="flex justify-between w-16">
-                      <div className="flex ml-2">
-                        <RatingSvg /> <RatingSvg /> <RatingSvg />
+              {!!employee.languages.length &&
+                <section className="mt-6 mb-3">
+                  <div className="text-grey">{t('employees.languages')}</div>
+                  <div className="line" />
+                  <div className="w-32">
+                    {(employee.languages || []).map(lang => (
+                      <div className="flex items-center justify-between mb-2" key={lang.id}>
+                        {t('language.' + lang.code)}
+                        <span className="flex justify-between w-16">
+                        <div className="flex ml-2">
+                          {getStars(lang.pivot.stars)}
+                        </div>
+                      </span>
                       </div>
-                    </span>
+                    ))}
                   </div>
-                  <div className="flex items-center justify-between mb-2">
-                    {t('language.english')}
-                    <span className="flex justify-between w-16">
-                      <div className="flex ml-2">
-                        <RatingSvg /> <RatingSvg />
-                        <RatingSvg checked={false} />
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </section>
+                </section>
+              }
             </div>
             <div className="w-full sm:w-2/5">
               <div className="flex sm:flex-col items-end">

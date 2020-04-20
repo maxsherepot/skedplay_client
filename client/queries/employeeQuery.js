@@ -102,6 +102,14 @@ export const GET_EMPLOYEE = gql `
           order
           available
       }
+      languages {
+        id
+        name
+        code
+        pivot {
+          stars
+        }
+      }
       parameters {
         id
         parameter {

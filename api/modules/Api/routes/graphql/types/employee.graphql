@@ -39,6 +39,7 @@ type Employee {
   events: [Event] @belongsToMany
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
+  languages: [EmployeeLanguage] @belongsToMany(relation: "languages")
   photos: [Media] @hasMany
   videos: [Media] @hasMany
   reviews: [Review] @hasMany
@@ -71,6 +72,7 @@ input EmployeeInput {
   prices: JSON
   services: JSON
   parameters: JSON
+  languages: JSON
   photos: [Upload]
   videos: [Upload]
   club_id: Int

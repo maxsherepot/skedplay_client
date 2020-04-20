@@ -9,6 +9,7 @@ use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
+use Modules\Main\Entities\Language;
 
 class EmployeeRepository implements HasMediable
 {
@@ -46,6 +47,7 @@ class EmployeeRepository implements HasMediable
         $employee = $this->store($employeeOwner, $data);
 
         $this->storeParameters($employee, $data);
+        $this->storeLanguages($employee, $data);
 
         return $employee->toArray();
     }
@@ -93,6 +95,7 @@ class EmployeeRepository implements HasMediable
         $employee->update($collection->toArray());
 
         $this->storeParameters($employee, $collection);
+        $this->storeLanguages($employee, $collection);
 
         return $employee;
     }
@@ -212,5 +215,43 @@ class EmployeeRepository implements HasMediable
                 'parameter_option_id' => $value,
             ]);
         }
+    }
+
+    private function storeLanguages(Employee $employee, Collection $data): void
+    {
+        $languages = (array) $data->get('languages');
+
+        if (!$languages) {
+            return;
+        }
+
+        $languages = collect($languages);
+
+        $languagesModels = Language::whereIn('code', $languages->pluck('code'))->get()->keyBy('code');
+
+        $languagesForSync = $languages
+            ->mapWithKeys(function($lang) use ($languagesModels) {
+                $lang = (array) $lang;
+
+                if (!isset($lang['stars']) || $lang['stars'] === '' || $lang['stars'] === null) {
+                    return null;
+                }
+
+                $model = $languagesModels[$lang['code']] ?? null;
+
+                if (!$model) {
+                    return null;
+                }
+
+                return [
+                    $model->id => [
+                        'stars' => $lang['stars'],
+                    ],
+                ];
+            })
+            ->filter()
+            ->toArray();
+
+        $employee->languages()->sync($languagesForSync);
     }
 }

@@ -1,0 +1,20 @@
+type Language {
+    id: Int!
+    name: String!
+    code: String!
+}
+
+type EmployeeLanguage {
+    id: Int!
+    name: String!
+    code: String!
+    pivot: EmployeeLanguagePivot!
+}
+
+type EmployeeLanguagePivot {
+    stars: Int!
+}
+
+extend type Query {
+    languages: [Language!]! @all
+}

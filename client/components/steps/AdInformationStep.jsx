@@ -215,7 +215,7 @@ const AdInformationStep = () => {
             ))}
         </div>
 
-         {/*<LangSelector />*/}
+         <LangSelector />
       </div>
     </>
   );

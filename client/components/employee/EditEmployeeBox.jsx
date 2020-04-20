@@ -53,12 +53,14 @@ const EditEmployeeBox = ({ employee }) => {
     prices,
     services,
     parameters,
+    languages: (employee.languages || []).map(l => ({code: l.code, stars: l.pivot.stars})),
     schedule: defaultSchedule(employee.schedule),
     photos: [],
     videos: []
   };
 
   const onSubmitInfo = async values => {
+    delete values.language;
     try {
       const [first_name, last_name] = values.name.split(' ');
 
@@ -76,7 +78,8 @@ const EditEmployeeBox = ({ employee }) => {
             schedule: JSON.stringify(values.schedule),
             prices: JSON.stringify(values.prices),
             services: JSON.stringify(values.services),
-            parameters: JSON.stringify(values.parameters)
+            parameters: JSON.stringify(values.parameters),
+            languages: JSON.stringify(values.languages),
           }
         }
       });

@@ -18,6 +18,7 @@ use Modules\Common\Entities\Traits\Serviceable;
 use Modules\Common\Services\Location\HasLocation;
 use Modules\Common\Services\Location\Locationable;
 use Modules\Events\Entities\Event;
+use Modules\Main\Entities\Language;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -197,6 +198,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function parameters(): HasMany
     {
         return $this->hasMany(EmployeeParameter::class);
+    }
+
+    public function languages(): BelongsToMany
+    {
+        return $this->belongsToMany(Language::class)->withPivot('stars');
     }
 
     public function unreadMessagesCount(): int

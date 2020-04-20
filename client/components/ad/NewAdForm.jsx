@@ -92,6 +92,7 @@ function NewAdForm({ children, clubId }) {
         prices: {},
         services: {},
         parameters: {},
+        languages: [],
         schedule: [
           {
             day: 0,

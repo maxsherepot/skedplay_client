@@ -30,6 +30,8 @@ const NewAdBox = ({clubId}) => {
       values.club_id = clubId;
     }
 
+    delete values.language;
+
     try {
       const {
         data: {
@@ -42,7 +44,8 @@ const NewAdBox = ({clubId}) => {
             schedule: JSON.stringify(values.schedule),
             prices: JSON.stringify(values.prices),
             services: JSON.stringify(values.services),
-            parameters: JSON.stringify(values.parameters)
+            parameters: JSON.stringify(values.parameters),
+            languages: JSON.stringify(values.languages),
           }
         }
       });
