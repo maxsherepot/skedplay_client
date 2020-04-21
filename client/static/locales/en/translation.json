@@ -399,7 +399,8 @@
     "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
     "you_want_to_show_profile": "do you want to show your Profile ?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "welcome_for_club_owner": "Welcome to our portal {{name}} do you want edit your Profile and Photos now? 2"
   },
   "account": {
     "my_account": "My account",

@@ -64,7 +64,7 @@ const Plans = ({user}) => {
                         {(me && me.is_club_owner) && (
                             <div>
                                 <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
-                                    {t('after_register.welcome_to_portal')} {me.name} {t('after_register.you_want_to_edit_profile_or_photos')}
+                                    {t('after_register.welcome_for_club_owner', {name: `${me.name}`})}
                                     <div className="row mt-5">
                                         <div className="mt-3 text-white inline-block uppercase font-extrabold text-2xl text-center">
                                             <a href="/clubs/add">{t('after_register.yes')}</a>
