@@ -101,7 +101,7 @@ const AccountClubIndex = ({ user }) => {
                         ))}
                     </div>
                     <div className="flex flex-col w-1/2">
-                        <span className="text-xl font-medium">{t('account.another')}</span>
+                        <span className="text-xl font-medium">{t('account.workers_in_club')}</span>
 
                         <GirlRow soon />
                         <GirlRow active />

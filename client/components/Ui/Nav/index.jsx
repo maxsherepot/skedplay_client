@@ -128,11 +128,11 @@ function Nav({ user, className }) {
               <Lang/>
             </span>
 
-            {(user && user.is_club_owner) &&
-              <Link href="/clubs/add">
+            {(user && user.is_club_owner && user.clubs.length > 0) &&
+              <Link href="/account">
                 <a className="menu-icons__item hidden sm:block">
                   <button className="bg-red text-white px-5 py-2 rounded-full">
-                    {t('common.add_new_club')}
+                    {t('layout.edit_my_clubs')}
                   </button>
                 </a>
               </Link>
