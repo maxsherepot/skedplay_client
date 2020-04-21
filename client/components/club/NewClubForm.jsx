@@ -19,6 +19,7 @@ import {
 } from "UI";
 import { getErrors } from "utils";
 import {useQuery} from "@apollo/react-hooks";
+import {ALL_CLUB_TYPES} from "queries/clubQuery";
 
 function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
@@ -28,7 +29,9 @@ function NewClubForm({ onSubmit }) {
     CITIES
   );
 
-  if (citiesLoading) {
+  const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
+
+  if (citiesLoading || loadingClubTypes) {
     return <Loader/>;
   }
 
@@ -117,10 +120,7 @@ function NewClubForm({ onSubmit }) {
                 inputClassName="w-1/3"
                 label={t('clubs.type')}
                 name="club_type_id"
-                options={[
-                  { label: "Sauna club", value: 1 },
-                  { label: "Night club", value: 2 }
-                ]}
+                options={(club_types || []).map(c => ({value: parseInt(c.id), label: c.name}))}
                 placeholder=""
               />
                 <TextField
@@ -158,6 +158,8 @@ function NewClubForm({ onSubmit }) {
             </div>
 
             <div className="flex w-full -mx-3">
+              <LocationSearchInput/>
+
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
@@ -190,9 +192,6 @@ function NewClubForm({ onSubmit }) {
               {/*  name="address"*/}
               {/*  placeholder=""*/}
               {/*/>*/}
-
-
-              <LocationSearchInput/>
             </div>
 
             <div className="flex w-full -mx-3">

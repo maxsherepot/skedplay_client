@@ -45,6 +45,20 @@ export const GET_ME = gql`
                         url
                     }
                 }
+                photos {
+                    id
+                    url
+                    thumb_url
+                }
+                schedule {
+                    id
+                    day
+                    day_name
+                    start
+                    end
+                    order
+                    available
+                }
                 type {
                     id
                     name

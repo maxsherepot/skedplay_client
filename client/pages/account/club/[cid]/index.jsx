@@ -83,8 +83,8 @@ const AccountClubIndex = ({ user }) => {
                 </div>
             </div>
             <div className="flex items-center my-3">
-                {phone && (<div className="mr-4">{phone}</div>)}
-                {admin && (<div>Admin: {admin.name}</div>)}
+                {phone && (<div className="mr-4 text-grey text-xs">{phone}</div>)}
+                {admin && (<div className="text-grey text-xs">Admin: {admin.name}</div>)}
             </div>
             <div className="relative flex flex-col hd:w-2/3 border border-divider rounded-lg p-5">
                 <div className="absolute inset-0 flex justify-end m-10">
@@ -112,14 +112,19 @@ const AccountClubIndex = ({ user }) => {
                     <Link href={`/account/club/${cid}/workers/add`}>
                         <a>
                             <Button className="px-12 mr-4" size="sm">
-                                {t('account.another')}
+                                {t('common.add_new')}
                             </Button>
                         </a>
                     </Link>
-
-                    <Button className="px-12" size="sm" outline style={{ color: "#000" }}>
-                        {t('common.edit')}
-                    </Button>
+                    {(club.employees.length > 0) && (
+                        <Link href={`/account/club/${cid}/workers`}>
+                            <a>
+                                <Button className="px-12" size="sm" outline style={{ color: "#000" }}>
+                                    {t('common.edit')}
+                                </Button>
+                            </a>
+                        </Link>
+                    )}
                 </div>
             </div>
 
@@ -134,7 +139,7 @@ const AccountClubIndex = ({ user }) => {
                             <Link href={`/account/club/${club.id}/events/create`}>
                                 <a>
                                     <Button className="w-2/3" size="sm">
-                                        {t('navigation.add_new')}
+                                        {t('common.add_new_event')}
                                     </Button>
                                 </a>
                             </Link>

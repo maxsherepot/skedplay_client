@@ -9,7 +9,7 @@ export const employeeRules = Yup.object().shape({
     description: Yup.string().required().nullable(),
     index: Yup.string().nullable(),
     city: Yup.string().nullable(),
-    address: Yup.string().nullable(),
+    address: Yup.string().required(),
     phone: Yup.string().nullable(),
     email: Yup.string().nullable(),
     website: Yup.string().nullable()

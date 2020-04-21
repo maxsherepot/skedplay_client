@@ -7,7 +7,6 @@ import {
   TextField,
   SelectField,
   TextAreaField,
-  MultiPhotoField,
   RadioField,
   CheckboxField,
   DateField,
@@ -53,9 +52,9 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     {label: t('common.days_short.sat'), value: 6},
   ];
 
-  let defaultAddress = event ? event.address : (me && me.employee && me.employee.address);
+  let defaultAddress = event && event.address ? event.address : (me && me.employee && me.employee.address || '');
 
-  let setDefaultAddress = defaultAddress.endsWith(', Switzerland') ? defaultAddress : '';
+  //let setDefaultAddress = defaultAddress.endsWith(', Switzerland') ? defaultAddress : '';
 
   let days = [];
 
@@ -175,8 +174,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
 
             <LocationSearchInput
               className="w-full"
-              initAddress={setDefaultAddress}
-              defaultValue={setDefaultAddress}
+              initAddress={defaultAddress}
+              defaultValue={defaultAddress}
             />
 
             {initialValues.club &&

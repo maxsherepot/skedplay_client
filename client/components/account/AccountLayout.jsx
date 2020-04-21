@@ -71,9 +71,9 @@ const ClubMenu = ({clubs}) => {
                                 <span className="ml-2">{t('layout.add_new_card')}</span>
                             </a>
                         </Link>
-                        <div className="text-red p-1 cursor-pointer">
+                        {/*<div className="text-red p-1 cursor-pointer">
                             {t('layout.archive_sex_workers')}
-                        </div>
+                        </div>*/}
                         <div className="text-red p-1 cursor-pointer">
                             <Link href={`${path}/events`} as={`${asPath}/events`}>
                                 <a>
