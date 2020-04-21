@@ -607,6 +607,7 @@
   },
   "contacts_popup": {
     "title": "Contacts",
+    "text": "Some text",
     "your_working_location": "Your working Location",
     "theme": "Theme",
     "theme_placeholder": " ",

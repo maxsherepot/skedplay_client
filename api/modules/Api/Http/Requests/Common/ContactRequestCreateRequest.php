@@ -3,6 +3,7 @@
 namespace Modules\Api\Http\Requests\Common;
 
 use \Modules\Api\Extensions\GraphQLFormRequest;
+use Modules\Users\Rules\CaptchaRule;
 
 class ContactRequestCreateRequest extends GraphQLFormRequest
 {
@@ -13,12 +14,18 @@ class ContactRequestCreateRequest extends GraphQLFormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
             'theme' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:3000'],
         ];
+
+        if (!auth('api')->check()) {
+            $rules['recaptcha'] = ['bail', 'required', 'string', new CaptchaRule];
+        }
+
+        return $rules;
     }
 
     /**

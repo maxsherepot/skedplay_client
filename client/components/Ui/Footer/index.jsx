@@ -11,6 +11,7 @@ import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import React, {useState} from "react";
 import ContactsPopup from "components/popups/ContactsPupup";
+import ContactsCallbackSuccessPopup from "components/popups/ContactsCallbackSuccessPopup";
 import { setCookie } from "utils";
 import {CookiesBlock} from 'UI';
 import redirect from "lib/redirect";
@@ -30,6 +31,7 @@ function Footer({ user }) {
     loading
   } = useQuery(GET_ME);
   const [banPopupShow, setBanPopupShow] = useState(false);
+  const [contactsSuccessOpen, setContactsSuccessOpen] = useState(false);
 
   const signOut = () => {
     setCookie("token", "", {
@@ -62,6 +64,10 @@ function Footer({ user }) {
   let currentYear = moment().format('YYYY');
 
   let dateYear = currentYear > startYear ? startYear + " - " + currentYear : startYear;
+
+  const onSuccessContacts = () => {
+    setContactsSuccessOpen(true);
+  };
 
   return (
     <div className="footer flex flex-col bg-black">
@@ -107,7 +113,8 @@ function Footer({ user }) {
             </li>
             {/* Only odd */}
 
-            <ContactsPopup/>
+            <ContactsPopup user={user} onSuccess={onSuccessContacts}/>
+            <ContactsCallbackSuccessPopup user={user} open={contactsSuccessOpen} setOpen={setContactsSuccessOpen}/>
 
             <li>
               <Link href={`/helpcenter`}>

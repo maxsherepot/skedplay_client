@@ -25,7 +25,7 @@ function Label({
       {errorText ? errorText : label}
       {showTooltip &&
         <Popover
-          containerStyle={{zIndex: 111}}
+          containerStyle={{zIndex: 1111}}
           isOpen={isPopoverOpen}
           position={'top'} // preferred position
           content={(

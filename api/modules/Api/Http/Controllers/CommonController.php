@@ -35,6 +35,13 @@ class CommonController extends Controller
 
     public function contactRequestCreate(ContactRequestCreateRequest $request)
     {
-        return ContactRequest::create($request->validated());
+        $data = $request->validated();
+
+        if (auth('api')->check()) {
+            $data['name'] = auth('api')->user()->name;
+            $data['email'] = auth('api')->user()->email;
+        }
+
+        return ContactRequest::create($data);
     }
 }

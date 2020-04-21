@@ -8,9 +8,10 @@ type ContactRequest {
 
 input ContactRequestInput {
     theme: String!
-    email: String!
-    name: String!
+    email: String
+    name: String
     message: String!
+    recaptcha: String
 }
 
 extend type Mutation {

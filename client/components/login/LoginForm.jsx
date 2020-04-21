@@ -83,7 +83,7 @@ const LoginForm = ({ onSubmit }) => {
           </div>
 
           {/*<div className="flex justify-center my-5">*/}
-            {/*<Field name="recaptcha" as={Captcha} />*/}
+          {/*  <Field name="recaptcha" as={Captcha} />*/}
           {/*</div>*/}
 
           <Button

@@ -2,6 +2,7 @@
   position: fixed;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
+  z-index: 9999999;
 }
 
 .lds-ring {

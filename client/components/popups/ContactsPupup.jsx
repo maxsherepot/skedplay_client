@@ -1,11 +1,12 @@
 import {Popup} from 'UI';
 import {useTranslation} from "react-i18next";
 import * as Yup from "yup";
-import {Formik, useFormikContext} from "formik";
+import {Field, Formik, useFormikContext} from "formik";
 import React, {useState} from "react";
 import { CONTACT_PHONES, CREATE_CONTACT_REQUEST } from "queries";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {Loader, TextField, TextAreaField, Button} from 'UI';
+import Captcha from "components/Captcha";
 
 const Phones = () => {
   const { loading, data: { contactPhones } = {} } = useQuery(
@@ -33,9 +34,8 @@ const Phones = () => {
   );
 };
 
-const ContactsPopup =  ({trigger, title}) => {
+const ContactsPopup = ({user, trigger, title, onSuccess}) => {
   const { t, i18n } = useTranslation();
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const defaultTrigger = (
     <li className="mx-8 cursor-pointer">
@@ -58,10 +58,26 @@ const ContactsPopup =  ({trigger, title}) => {
       }
     });
 
-    setShowSuccess(true);
+    document.querySelector('.popup-overlay').click();
 
-    setTimeout(() => setShowSuccess(false), 10000);
+    if (onSuccess) {
+      onSuccess();
+    }
   };
+
+  let validationSchema = {
+    theme: Yup.string().required(),
+    message: Yup.string().required(),
+  };
+
+  if (!user) {
+    validationSchema = {
+      ...validationSchema,
+      name: Yup.string().required(),
+      email: Yup.string().required(),
+      recaptcha: Yup.string().required(),
+    };
+  }
 
   return (
     <Popup
@@ -72,6 +88,10 @@ const ContactsPopup =  ({trigger, title}) => {
         maxWidth: "600px",
       }}
     >
+      <h3 className="mb-2 text-black">{t('contacts_popup.text')}</h3>
+
+      <Phones/>
+
       <div className="text-left mb-5">
         <Formik
           initialValues={{
@@ -79,12 +99,10 @@ const ContactsPopup =  ({trigger, title}) => {
             name: '',
             email: '',
             message: '',
+            recaptcha: '',
           }}
           validationSchema={Yup.object().shape({
-            theme: Yup.string().required(),
-            name: Yup.string().required(),
-            email: Yup.string().required(),
-            message: Yup.string().required(),
+            ...validationSchema
           })}
           onSubmit={onSubmit}
         >
@@ -97,18 +115,22 @@ const ContactsPopup =  ({trigger, title}) => {
                   placeholder={t('contacts_popup.theme_placeholder')}
                 />
 
-                <TextField
-                  label={t('contacts_popup.name')}
-                  name="name"
-                  placeholder={t('contacts_popup.name_placeholder')}
-                />
+                {!user &&
+                  <>
+                    <TextField
+                      label={t('contacts_popup.name')}
+                      name="name"
+                      placeholder={t('contacts_popup.name_placeholder')}
+                    />
 
-                <TextField
-                  label={t('contacts_popup.email')}
-                  name="email"
-                  type="email"
-                  placeholder={t('contacts_popup.email_placeholder')}
-                />
+                    <TextField
+                      label={t('contacts_popup.email')}
+                      name="email"
+                      type="email"
+                      placeholder={t('contacts_popup.email_placeholder')}
+                    />
+                  </>
+                }
 
                 <TextAreaField
                   label={t('contacts_popup.message')}
@@ -118,9 +140,9 @@ const ContactsPopup =  ({trigger, title}) => {
                   rows={4}
                 />
 
-                {showSuccess &&
-                  <div className="text-xl font-bold text-center">
-                    {t('contacts_popup.success')}
+                {!user &&
+                  <div className="flex justify-center my-5">
+                    <Field name="recaptcha" as={Captcha} />
                   </div>
                 }
 
@@ -136,8 +158,6 @@ const ContactsPopup =  ({trigger, title}) => {
           )}
         </Formik>
       </div>
-
-      <Phones/>
     </Popup>
   );
 };

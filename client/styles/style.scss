@@ -46,7 +46,15 @@ main {
   }
 }
 
+.popup-content {
+  max-height: 100%;
+  overflow-y: scroll;
 
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 .event-photo__div {
   position: relative;
