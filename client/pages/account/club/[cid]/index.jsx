@@ -101,7 +101,7 @@ const AccountClubIndex = ({ user }) => {
                         ))}
                     </div>
                     <div className="flex flex-col w-1/2">
-                        <span className="text-xl font-medium">{t('account.workers_in_club')}</span>
+                        <span className="text-xl font-medium">{t('account.another')}</span>
 
                         <GirlRow soon />
                         <GirlRow active />
@@ -112,7 +112,7 @@ const AccountClubIndex = ({ user }) => {
                     <Link href={`/account/club/${cid}/workers/add`}>
                         <a>
                             <Button className="px-12 mr-4" size="sm">
-                                {t('account.another')}
+                                {t('common.add_new')}
                             </Button>
                         </a>
                     </Link>
