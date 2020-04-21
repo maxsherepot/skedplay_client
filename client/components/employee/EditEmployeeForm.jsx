@@ -9,19 +9,10 @@ import {useTranslation} from "react-i18next";
 
 function EditEmployeeForm({ initialValues, children }) {
   const { step, setStep } = useSteps();
+
   const {t, i18n} = useTranslation();
 
-  const activeStep = React.Children.toArray(children)[step];
-  const isLastStep = step === React.Children.count(children) - 1;
-
-  const prev = () => {
-    let currentStep = step <= 0 ? 0 : step - 1;
-    setStep(currentStep);
-  };
-
-  const next = () => {
-    setStep(Math.min(step + 1, children.length - 1));
-  };
+  const activeStep = React.Children.toArray(children)[step].props.children;
 
   const validate = values => {
     if (activeStep.props.validationSchema) {
@@ -54,22 +45,21 @@ function EditEmployeeForm({ initialValues, children }) {
         setStatus(message);
       }
 
-      if (status) {
-       next();
-      }
+      // if (status) {
+      // }
     }
 
-    if (isLastStep) {
-      try {
-        setStep(0);
-        Router.back();
-      } catch (e) {
-        if (getErrors(e) instanceof Object) {
-          setErrors(getErrors(e));
-        }
-      }
-      return;
-    }
+    // if (isLastStep) {
+    //   try {
+    //     setStep(0);
+    //     Router.back();
+    //   } catch (e) {
+    //     if (getErrors(e) instanceof Object) {
+    //       setErrors(getErrors(e));
+    //     }
+    //   }
+    //   return;
+    // }
   };
 
   return (
@@ -97,20 +87,11 @@ function EditEmployeeForm({ initialValues, children }) {
           <div className="flex flex-col items-start mx-auto hd:w-7/12">
             <div className="w-full p-8 hd:px-0">
               <Button
-                level={step <= 0 ? "grey" : "primary"}
-                className="text-xl px-16 mb-4 md:mb-0 sm:mr-4"
-                onClick={() => prev()}
-                type="button"
-                disabled={isSubmitting}
-              >
-                {t('common.back')}
-              </Button>
-              <Button
                 type="submit"
                 className="text-xl px-16"
                 disabled={isSubmitting}
               >
-                {isLastStep ? t('common.save') : t('common.next')}
+                {t('common.save')}
               </Button>
             </div>
           </div>
