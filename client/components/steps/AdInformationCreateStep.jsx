@@ -104,6 +104,8 @@ const AdInformationCreateStep = () => {
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
+          <LocationSearchInput/>
+
           <TextField
             className="w-1/2 md:w-1/6 px-2"
             inputClassName="w-1/2 md:w-1/6"
@@ -119,8 +121,6 @@ const AdInformationCreateStep = () => {
             options={cities.map(c => ({value: c.id, label: c.name}))}
             placeholder=""
           />
-
-          <LocationSearchInput/>
         </div>
 
         <div className="flex flex-wrap -mx-4">

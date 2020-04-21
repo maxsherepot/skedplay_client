@@ -158,6 +158,8 @@ function NewClubForm({ onSubmit }) {
             </div>
 
             <div className="flex w-full -mx-3">
+              <LocationSearchInput/>
+
               <TextField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
@@ -190,9 +192,6 @@ function NewClubForm({ onSubmit }) {
               {/*  name="address"*/}
               {/*  placeholder=""*/}
               {/*/>*/}
-
-
-              <LocationSearchInput/>
             </div>
 
             <div className="flex w-full -mx-3">
