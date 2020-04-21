@@ -331,3 +331,12 @@ export const UPDATE_CLUB_SCHEDULE = gql `
     }
   }
 `;
+
+export const ALL_CLUB_TYPES = gql`
+  query allClubTypes {
+    club_types {
+      id
+      name
+    }
+  }
+`;

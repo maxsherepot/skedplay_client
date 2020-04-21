@@ -4,14 +4,18 @@ import { TextField, SelectField, FileField, TextAreaField, ArrayField, LocationS
 import {useQuery} from "@apollo/react-hooks";
 import { CITIES } from "queries";
 import {useTranslation} from "react-i18next";
+import {ALL_CLUB_TYPES} from "queries/clubQuery";
 
 const InformationStep = ({ club }) => {
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(
     CITIES
   );
+
+  const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
+
   const {t, i18n} = useTranslation();
 
-  if (citiesLoading) {
+  if (citiesLoading || loadingClubTypes) {
     return <Loader/>;
   }
 
@@ -32,10 +36,7 @@ const InformationStep = ({ club }) => {
           inputClassName="w-1/3"
           label={t('clubs.type')}
           name="club_type_id"
-          options={[
-            { label: t('clubs.sauna_club'), value: 1 },
-            { label: t('clubs.night_club'), value: 2 }
-          ]}
+          options={(club_types || []).map(c => ({value: parseInt(c.id), label: c.name}))}
           placeholder=""
         />
       </div>
