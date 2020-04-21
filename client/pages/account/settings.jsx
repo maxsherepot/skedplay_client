@@ -25,6 +25,7 @@ const AccountSettings = ({ user }) => {
   if (loading) {
     return <Loader/>
   }
+
   const Breadcrumbs = () => (
     <div className="fluid-container">
       <div className="flex items-center py-4">
@@ -44,7 +45,7 @@ const AccountSettings = ({ user }) => {
     <>
       <div className="fluid-container">
         {user.employee ? (
-            <div className="bg-white shadow rounded-lg p-8">
+            <div className="">
               <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
                 {t('account.contact_information')}
               </div>
@@ -59,7 +60,7 @@ const AccountSettings = ({ user }) => {
               </div>
             </div>
         ) : (
-            <div className="bg-white shadow rounded-lg p-8">
+            <div className="">
               <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
                 {t('account.contact_information')}
               </div>

@@ -9,13 +9,21 @@ import {
   UPDATE_USER,
   UPLOAD_EMPLOYEE_FILES,
 } from "queries";
+import {Tab, Panel} from "UI";
+import {Tabs} from "@bumaga/tabs";
+import { useSteps } from "hooks";
 
 import {defaultSchedule, getErrors} from "utils";
 import {employeeRules} from "rules";
 import {EditEmployeeForm} from "components/employee";
 import {AdInformationStep, AdMediaStep, AdScheduleStep, AdServicesAndPricesStep,} from 'components/steps';
+import StepBox from "components/StepBox";
+import {useTranslation} from "react-i18next";
 
 const EditEmployeeBox = ({ employee }) => {
+  const {t, i18n} = useTranslation();
+  const { step, setStep } = useSteps();
+
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
   const [syncEmployeePrices] = useMutation(SYNC_EMPLOYEE_PRICES);
   const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
@@ -237,27 +245,60 @@ const EditEmployeeBox = ({ employee }) => {
     }
   };
 
+  const links = [
+    t('account.card_information'),
+    t('account.services_and_price'),
+    t('account.photos_and_videos'),
+    t('account.schedule_and_activation')
+  ];
+
   return (
-      <EditEmployeeForm initialValues={initialValues}>
-        <EditEmployeeForm.Step
-            validationSchema={employeeRules}
-            onStepSubmit={onSubmitInfo}
-        >
-          <AdInformationStep />
-        </EditEmployeeForm.Step>
+      <>
+        <Tabs>
+          <div className="px-8 pt-12">
+            {links.map((link, index) => (
+              <Tab onClick={() => setStep(index)} key={index}>{link}</Tab>
+            ))}
+          </div>
 
-        <EditEmployeeForm.Step onStepSubmit={onSubmitPricesAndServices}>
-          <AdServicesAndPricesStep/>
-        </EditEmployeeForm.Step>
+          <div className="border-t border-divider"/>
 
-        <EditEmployeeForm.Step onStepSubmit={onSubmitMedia}>
-          <AdMediaStep photos={employee.photos} videos={employee.videos} />
-        </EditEmployeeForm.Step>
+          <EditEmployeeForm
+            initialValues={initialValues}
+          >
+            <Panel>
+              <EditEmployeeForm.Step
+                validationSchema={employeeRules}
+                onStepSubmit={onSubmitInfo}
+              >
+                <AdInformationStep />
+              </EditEmployeeForm.Step>
+            </Panel>
 
-        <EditEmployeeForm.Step onStepSubmit={onSubmitSchedule}>
-          <AdScheduleStep />
-        </EditEmployeeForm.Step>
-      </EditEmployeeForm>
+            <Panel>
+              <EditEmployeeForm.Step onStepSubmit={onSubmitPricesAndServices}>
+                <AdServicesAndPricesStep/>
+              </EditEmployeeForm.Step>
+            </Panel>
+
+            <Panel>
+              <EditEmployeeForm.Step onStepSubmit={onSubmitMedia}>
+                <AdMediaStep photos={employee.photos} videos={employee.videos} />
+              </EditEmployeeForm.Step>
+            </Panel>
+
+            <Panel>
+              <EditEmployeeForm.Step onStepSubmit={onSubmitSchedule}>
+                <AdScheduleStep />
+              </EditEmployeeForm.Step>
+            </Panel>
+          </EditEmployeeForm>
+        </Tabs>
+
+
+
+        {/*<div className="border-b border-divider" />*/}
+      </>
   );
 };
 

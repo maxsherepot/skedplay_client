@@ -22,6 +22,7 @@ const Header = ({employee}) => {
     const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
     const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
     const [photo] = employee.photos;
+
     const {t, i18n} = useTranslation();
 
     const handleDelete = () => {
@@ -108,18 +109,21 @@ const Header = ({employee}) => {
     };
 
     return (
-        <div className="flex items-center justify-between border border-divider p-3 mx-8 mt-6 rounded-lg">
-            <div className="relative w-30 h-30 mr-4">
-                <img className="w-30 h-30 rounded-full object-cover" src={photo && photo.thumb_url}
-                     alt={employee.name}/>
-                {employee.isVip && (
-                    <div className="absolute bottom-0 left-0 w-full">
-                        <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">{t('status.vip')}</div>
-                    </div>
-                )}
+        <div className="flex items-center flex-wrap justify-center xl:flex-no-wrap  xl:justify-between border border-divider p-3 mx-8 mt-6 rounded-lg">
+            <div className="relative">
+                <img
+                  className="w-30 h-30 rounded-full object-cover"
+                  src={photo && photo.thumb_url}
+                  alt={employee.name}
+                />
+                    {employee.isVip && (
+                        <div className="absolute bottom-0 left-0 w-full">
+                            <div className="-mb-0-35 mx-auto bg-red rounded-full w-12 text-center text-white">{t('status.vip')}</div>
+                        </div>
+                    )}
             </div>
 
-            <div className="flex flex-1 px-2">
+            <div className="flex">
                 <div className="flex w-full items-end -mx-2">
                     <div className="flex flex-col flex-1 px-2">
                         <div className="text-4xl font-extrabold whitespace-no-wrap">{employee.name}</div>
@@ -195,11 +199,6 @@ const AccountClubWorkersIndex = ({user}) => {
     return employee && (
         <>
             <Header employee={employee}/>
-            <div className="flex flex-col lg:flex-row justify-between">
-                <StepBox links={links}/>
-            </div>
-
-            <div className="border-b border-divider"/>
 
             <EditEmployeeBox employee={employee}/>
         </>

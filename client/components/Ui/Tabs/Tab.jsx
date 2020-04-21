@@ -1,11 +1,17 @@
 import cx from "classnames";
 import { useTabState } from "@bumaga/tabs";
 
-export default ({ children }) => {
-    const { isActive, onClick } = useTabState();
+export default ({ children, onClick }) => {
+    const { isActive, onClick: onClickTab } = useTabState();
+    const handleClick = () => {
+        onClickTab();
+        if (onClick) {
+            onClick();
+        }
+    };
 
     return <button className={cx("py-3 mr-6", {
         "text-black border-red border-b-2": isActive,
         "text-grey": !isActive,
-    })} onClick={onClick} style={{outline: 0}}>{children}</button>;
+    })} onClick={handleClick} style={{outline: 0}}>{children}</button>;
 };

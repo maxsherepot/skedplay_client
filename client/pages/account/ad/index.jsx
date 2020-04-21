@@ -11,6 +11,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { getLayout } from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
+import Link from "next/link";
+import { ArrowBack } from "UI";
 
 const AccountAdEdit = ({user}) => {
   const {t, i18n} = useTranslation();
@@ -23,29 +25,37 @@ const AccountAdEdit = ({user}) => {
     }
   });
 
-  const links = [
-    t('account.card_information'),
-    t('account.services_and_price'),
-    t('account.photos_and_videos'),
-    t('account.schedule_and_activation')
-  ];
+  const Breadcrumbs = () => (
+    <div className="fluid-container">
+      <div className="flex items-center py-4">
+        <ArrowBack back />
+        <div className="ml-10">
+          <Link href="/account">
+            <a className="text-red hover:text-pink">{t('account.my_account')}</a>
+          </Link>
+          <span className="px-2 text-grey">/</span>
+          {t('account.my_card')}
+        </div>
+      </div>
+    </div>
+  );
 
   if (loading) {
     return <Loader/>;
   }
 
   return (
-    <>
-      <div className="flex flex-col lg:flex-row justify-between">
-        <StepBox links={links} />
+    <div className="fluid-container">
+      <Breadcrumbs/>
+
+      <div className="bg-white shadow rounded-lg p-8">
+        <EditEmployeeBox employee={employee} />
       </div>
-      <div className="border-b border-divider" />
-      <EditEmployeeBox employee={employee} />
-    </>
+    </div>
   );
 };
 
-AccountAdEdit.getLayout = getLayout;
+// AccountAdEdit.getLayout = getLayout;
 
 AccountAdEdit.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
