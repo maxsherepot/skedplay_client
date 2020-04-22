@@ -25,9 +25,7 @@ function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
   const {t, i18n} = useTranslation();
 
-  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
-    CITIES
-  );
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(CITIES);
 
   const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
 

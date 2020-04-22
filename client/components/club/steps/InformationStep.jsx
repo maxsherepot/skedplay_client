@@ -5,6 +5,7 @@ import {useQuery} from "@apollo/react-hooks";
 import { CITIES } from "queries";
 import {useTranslation} from "react-i18next";
 import {ALL_CLUB_TYPES} from "queries/clubQuery";
+import PhoneField from "UI/Forms/PhoneField";
 
 const InformationStep = ({ club }) => {
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(
@@ -54,7 +55,6 @@ const InformationStep = ({ club }) => {
           className="px-3 w-1/3"
           label={t('clubs.logotype')}
           name="logotype"
-          required
           preview={club.logo && club.logo.url}
         />
       </div>
@@ -74,14 +74,6 @@ const InformationStep = ({ club }) => {
           placeholder=""
         />
 
-        {/*<TextField*/}
-        {/*  className="px-3 w-1/3"*/}
-        {/*  inputClassName="w-1/3"*/}
-        {/*  label="City"*/}
-        {/*  name="city"*/}
-        {/*  placeholder=""*/}
-        {/*/>*/}
-
         <SelectField
           className="px-3 w-1/3"
           inputClassName="w-1/3"
@@ -90,19 +82,11 @@ const InformationStep = ({ club }) => {
           options={cities.map(c => ({value: c.id, label: c.name}))}
           placeholder=""
         />
-
-        {/*<TextField*/}
-        {/*  className="px-3 w-1/3"*/}
-        {/*  inputClassName="w-1/3"*/}
-        {/*  label="Adress"*/}
-        {/*  name="address"*/}
-        {/*  placeholder=""*/}
-        {/*/>*/}
       </div>
 
       <div className="flex w-full -mx-3">
         <TextField
-          className="px-3 w-1/3"
+          className="px-2 w-3/6"
           inputClassName="w-1/3"
           label={t('register.mail')}
           name="email"
@@ -110,21 +94,27 @@ const InformationStep = ({ club }) => {
         />
 
         <TextField
-          className="px-3 w-1/3"
+          className="px-3 w-2/3"
           inputClassName="w-1/3"
           label={t('layout.webpage')}
           name="website"
           placeholder=""
         />
       </div>
-
         <div className="flex w-full -mx-3">
-            <ArrayField
-                className="w-full"
+            {/*<ArrayField*/}
+            {/*    className="w-full"*/}
+            {/*    label={t('clubs.phone_exampl')}*/}
+            {/*    name="phones"*/}
+            {/*    placeholder="+4179"*/}
+            {/*    phones={true}*/}
+            {/*/>*/}
+            <PhoneField
+                className="px-3 w-3/6"
+                inputClassName="w-1/3"
                 label={t('clubs.phone_exampl')}
                 name="phones"
                 placeholder="+4179"
-                phones={true}
             />
         </div>
     </>
@@ -132,12 +122,14 @@ const InformationStep = ({ club }) => {
 };
 
 InformationStep.validationSchema = Yup.object().shape({
+  name: Yup.string().required(),
   description: Yup.string().required(),
-  index: Yup.string().nullable().required(),
-  city: Yup.string().nullable().required(),
+  index: Yup.string(),
+  city_id: Yup.number(),
   address: Yup.string().required(),
-  email: Yup.string().required(),
-  website: Yup.string().required()
+  phones: Yup.string(),
+  email: Yup.string().email().required(),
+  website: Yup.string().url()
 });
 
 export default InformationStep;
