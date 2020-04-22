@@ -34,6 +34,8 @@ function NewClubForm({ onSubmit }) {
     return <Loader/>;
   }
 
+  const [first_name, last_name] = me.name.split(' ');
+
   const handleSubmits = async (values, { setSubmitting, setErrors }) => {
     try {
       await onSubmit({
@@ -68,10 +70,10 @@ function NewClubForm({ onSubmit }) {
         logotype: null,
         // access_phone_edit: false,
         moderator: {
-          first_name: "",
-          last_name: "",
-          email: "",
-          phone: "",
+          first_name: first_name || "",
+          last_name: last_name || "",
+          email: me.email || "",
+          phone: me.phone || "",
         }
       }}
       validationSchema={Yup.object().shape({
@@ -251,7 +253,7 @@ function NewClubForm({ onSubmit }) {
               <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label={t('clubs.club_admin_phone_number')}
+                label={t('clubs.phone_exampl_insert', {phone: `${me.phone}`})}
                 name="moderator.phone"
                 placeholder="+4179"
               />
