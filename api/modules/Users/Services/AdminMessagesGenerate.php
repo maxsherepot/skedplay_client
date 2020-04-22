@@ -28,6 +28,10 @@ final class AdminMessagesGenerate
         $employeeUsers = User::whereRoleIs('employee')->get();
 
         foreach ($employeeUsers as $user) {
+            if (!$user->employee) {
+                continue;
+            }
+
             DB::beginTransaction();
 
             $chat = $this->repository->getOrCreateChat(

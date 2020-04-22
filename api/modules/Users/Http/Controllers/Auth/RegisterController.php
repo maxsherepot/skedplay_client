@@ -45,10 +45,6 @@ class RegisterController extends Controller
         $user = $this->users->store($data);
         $user->attachRole($request->get('account_type'));
 
-        if ($request->get('account_type') === 'employee') {
-            $adminMessagesGenerate->execute();
-        }
-
         $user->newSubscription(
             'main',
             $request->get('plan_id', Plan::where('name', 'start')->first()->id)
@@ -73,6 +69,10 @@ class RegisterController extends Controller
         }
 
         (new NotifyAdminTelegramComponent)->sendNotification($message);
+
+        if ($request->get('account_type') === 'employee') {
+            $adminMessagesGenerate->execute();
+        }
 
         return [
             'access_token' => $this->users->createToken($user),
