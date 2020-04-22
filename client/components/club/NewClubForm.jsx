@@ -165,14 +165,6 @@ function NewClubForm({ onSubmit }) {
                 placeholder=""
               />
 
-              {/*<TextField*/}
-              {/*  className="px-3 w-1/3"*/}
-              {/*  inputClassName="w-1/3"*/}
-              {/*  label="City"*/}
-              {/*  name="city"*/}
-              {/*  placeholder=""*/}
-              {/*/>*/}
-
               <SelectField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
@@ -181,14 +173,6 @@ function NewClubForm({ onSubmit }) {
                 options={cities.map(c => ({value: c.id, label: c.name}))}
                 placeholder=""
               />
-
-              {/*<TextField*/}
-              {/*  className="px-3 w-1/3"*/}
-              {/*  inputClassName="w-1/3"*/}
-              {/*  label="Adress"*/}
-              {/*  name="address"*/}
-              {/*  placeholder=""*/}
-              {/*/>*/}
             </div>
 
             <div className="flex w-full -mx-3">
