@@ -213,7 +213,7 @@ const EditEmployeeBox = ({ employee }) => {
           day,
           start: start === 0 ? null : start,
           end: start === 0 ? null : end,
-          available: start !== 0,
+          available: start !== 0 && start !== 'day_off',
           order,
           employee_id: parseInt(employee.id),
           club_id: club_id
