@@ -87,7 +87,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                 </div>
               ) : (
                   <>
-                    {s.available ? (
+                    {s.available && s.start && s.start !== 'day_off' ? (
                       <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
                         <div>{s.start} — {s.end}</div>
                       </div>

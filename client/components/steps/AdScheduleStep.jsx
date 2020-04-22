@@ -10,11 +10,10 @@ const AdScheduleStep = () => {
   let hours = [];
   let minutes = [
     "00",
-    "30",
   ];
   let timeOptions = [];
 
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < 25; i++) {
     let h;
     if (i < 10) {
       h = `0${i}`
@@ -73,7 +72,7 @@ const AdScheduleStep = () => {
     if (d && !d.available) return true;
 
     if (d) {
-      return d && d.start === 0
+      return d && (d.start === 0 || d.start === 'day_off')
     }
 
     return false
@@ -82,9 +81,8 @@ const AdScheduleStep = () => {
   let startOptions = timeOptions;
   startOptions.unshift({
     label: t('about.clubs.day_off'),
-    value: 0,
+    value: 'day_off',
   });
-
 
   return (
     <div className="px-2">

@@ -48,7 +48,7 @@ function setCookie(name, value, options = {}) {
 const defaultScheduleList = [
   {
     day: 0,
-    start: null,
+    start: 'day_off',
     end: null,
     available: true,
     order: 6,
@@ -57,8 +57,8 @@ const defaultScheduleList = [
   },
   {
     day: 1,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 0,
     employee_id: null,
@@ -66,8 +66,8 @@ const defaultScheduleList = [
   },
   {
     day: 2,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 1,
     employee_id: null,
@@ -75,8 +75,8 @@ const defaultScheduleList = [
   },
   {
     day: 3,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 2,
     employee_id: null,
@@ -84,8 +84,8 @@ const defaultScheduleList = [
   },
   {
     day: 4,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 3,
     employee_id: null,
@@ -93,8 +93,8 @@ const defaultScheduleList = [
   },
   {
     day: 5,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 4,
     employee_id: null,
@@ -102,8 +102,8 @@ const defaultScheduleList = [
   },
   {
     day: 6,
-    start: null,
-    end: null,
+    start: '00:00',
+    end: '24:00',
     available: true,
     order: 5,
     employee_id: null,

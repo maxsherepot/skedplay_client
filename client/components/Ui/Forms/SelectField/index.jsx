@@ -15,7 +15,7 @@ function SelectField({
   placeholder,
   options,
   disabled,
-  onSelect
+  onSelect,
 }) {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
@@ -55,7 +55,7 @@ function SelectField({
                     !value ? "text-grey" : "text-black"
                   )}
                 >
-                  {!value ? placeholder : getLabel(value)}
+                  {value === null || value === "" ? placeholder : getLabel(value)}
                 </div>
               )
             }
@@ -68,7 +68,7 @@ function SelectField({
                     <input
                       id={`${name}-${option.value}`}
                       type="radio"
-                      value={option.value || ""}
+                      value={option.value === null ? "" : option.value}
                       checked={value === option.value}
                       name={name}
                       {...rest}

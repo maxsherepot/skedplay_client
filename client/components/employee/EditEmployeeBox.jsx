@@ -63,6 +63,7 @@ const EditEmployeeBox = ({ employee }) => {
     parameters,
     languages: (employee.languages || []).map(l => ({code: l.code, stars: l.pivot.stars})),
     schedule: defaultSchedule(employee.schedule),
+    will_activate_at: employee.will_activate_at,
     photos: [],
     videos: []
   };
@@ -214,7 +215,7 @@ const EditEmployeeBox = ({ employee }) => {
           end: start === 0 ? null : end,
           available: start !== 0,
           order,
-          employee_id: employee.id,
+          employee_id: parseInt(employee.id),
           club_id: club_id
         }
 
@@ -226,7 +227,10 @@ const EditEmployeeBox = ({ employee }) => {
         }
       } = await updateEmployeeSchedule({
         variables: {
-          input: payload,
+          input: {
+            schedules: payload,
+            will_activate_at: values.will_activate_at || new Date(),
+          },
         }
       });
 
