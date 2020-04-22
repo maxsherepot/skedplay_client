@@ -16,7 +16,7 @@ class ClubCreateRequest extends GraphQLFormRequest
         return [
             'name'                    => 'required|string|max:255',
             'club_type_id'            => 'bail|required|integer|exists:club_types,id',
-            'email'                   => 'required|email',
+            'email'                   => 'nullable|email',
             'website'                 => 'nullable|string|max:255',
             'phones'                  => 'nullable',
             'phones.*'                => 'string',

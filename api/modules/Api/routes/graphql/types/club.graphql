@@ -38,7 +38,7 @@ input ClubInput {
   club_type_id: Int!
   start_time: String
   end_time: String
-  email: String!
+  email: String
   website: String
   phone: String
   phones: String

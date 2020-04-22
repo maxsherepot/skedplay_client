@@ -20,16 +20,17 @@ import {
 import { getErrors } from "utils";
 import {useQuery} from "@apollo/react-hooks";
 import {ALL_CLUB_TYPES} from "queries/clubQuery";
+import {GET_ME} from "queries/userQuery";
 
 function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
   const {t, i18n} = useTranslation();
-
+  const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(CITIES);
 
   const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
 
-  if (citiesLoading || loadingClubTypes) {
+  if (citiesLoading || loadingClubTypes || loadingMe) {
     return <Loader/>;
   }
 
@@ -59,8 +60,8 @@ function NewClubForm({ onSubmit }) {
         index: "",
         city_id: "",
         address: "",
-        phone: "",
-        email: "",
+        phone: me.phone || "",
+        email: me.email || "",
         start_time: "",
         end_time: "",
         website: "",
@@ -81,9 +82,7 @@ function NewClubForm({ onSubmit }) {
         city_id: Yup.number(),
         address: Yup.string().required(),
         phone: Yup.string().required(),
-        email: Yup.string()
-          .email()
-          .required(),
+        email: Yup.string().nullable().email(),
         website: Yup.string().url(),
         moderator: Yup.object().shape( {
           first_name: Yup.string().required(),
@@ -196,7 +195,7 @@ function NewClubForm({ onSubmit }) {
               <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label={t('clubs.phone_exampl')}
+                label={t('clubs.phone_exampl_insert', {phone: `${me.phone}`})}
                 name="phone"
                 placeholder="+4179"
               />
