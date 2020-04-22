@@ -24,7 +24,7 @@ class ClubCreateRequest extends GraphQLFormRequest
             'address'                 => 'nullable|string|max:255',
             'moderator.first_name'    => 'required|string|max:255',
             'moderator.last_name'     => 'nullable|string|max:255',
-            'moderator.email'         => 'bail|required|unique:users,email',
+            'moderator.email'         => 'bail|nullable|unique:users,email',
             'moderator.phone'         => 'bail|required|unique:users,phone',
             'lat'                     => 'nullable|string',
             'lng'                     => 'nullable|string',
