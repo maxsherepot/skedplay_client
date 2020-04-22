@@ -261,8 +261,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     {
         return $this
             ->hasOne(Media::class, 'model_id', 'id')
-            ->where('collection_name', self::PHOTO_AVATAR)
-        ;
+            ->where('collection_name', self::PHOTO_AVATAR);
     }
 
     public function employees_club_owners()

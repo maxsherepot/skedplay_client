@@ -40,6 +40,7 @@ type Employee {
   prices: [Price] @belongsToMany
   services: [Service] @belongsToMany
   languages: [EmployeeLanguage] @belongsToMany(relation: "languages")
+  avatar: Media @hasOne
   photos: [Media] @hasMany
   videos: [Media] @hasMany
   reviews: [Review] @hasMany

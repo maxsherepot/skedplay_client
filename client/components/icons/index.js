@@ -2,6 +2,7 @@ export { default as UserSvg } from "./UserSvg";
 export { default as ProfileSvg } from "./ProfileSvg";
 export { default as StarSvg } from "./StarSvg";
 export { default as PhotoSvg } from "./PhotoSvg";
+export { default as ChangePhotoSvg } from "./ChangePhotoSvg";
 export { default as VideoSvg } from "./VideoSvg";
 export { default as MapSvg } from "./MapSvg";
 export { default as PhoneSvg } from "./PhoneSvg";

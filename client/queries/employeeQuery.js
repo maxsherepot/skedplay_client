@@ -25,6 +25,12 @@ export const ALL_EMPLOYEES = gql `
         favorited {
           id
         }
+        avatar {
+          id
+          name
+          url
+          thumb_url
+        }
         photos {
           url
           thumb_url
@@ -138,6 +144,12 @@ export const GET_EMPLOYEE = gql `
       }
       reviews {
         id
+      }
+      avatar {
+          id
+          name
+          url
+          thumb_url
       }
       photos {
         id

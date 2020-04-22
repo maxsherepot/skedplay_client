@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Chat\Entities\ChatMember;
 use Modules\Chat\Entities\Message;
@@ -34,6 +35,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
     use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
 
+    const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';
     const VIDEO_COLLECTION = 'employee-video';
 
@@ -177,6 +179,13 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return $this->belongsTo(Club::class, 'owner_id');
     }
 
+    public function avatar(): HasOne
+    {
+        return $this
+            ->hasOne(Media::class, 'model_id', 'id')
+            ->where('collection_name', self::AVATAR_COLLECTION);
+    }
+
     /**
      * @return HasMany
      */
@@ -234,6 +243,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
 
     public function registerMediaCollections()
     {
+        $this->addMediaCollection(self::AVATAR_COLLECTION)->singleFile();
         $this->addMediaCollection(self::PHOTO_COLLECTION);
         $this->addMediaCollection(self::VIDEO_COLLECTION);
     }

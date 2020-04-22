@@ -8,6 +8,7 @@ import { Avatar, MenuDropdown, Button, FavoritesCount } from "UI";
 import { AccountLabel } from "components/account";
 import { setCookie } from "utils";
 import {useTranslation} from "react-i18next";
+import Cookies from 'js-cookie';
 
 const UserDropdown = ({ user }) => {
 
@@ -15,6 +16,8 @@ const UserDropdown = ({ user }) => {
   const [isUserMenu, toggleUserMenu] = useState(false);
 
   const signOut = () => {
+    Cookies.remove('token', { path: '' });
+
     setCookie("token", "", {
       "max-age": -1
     });
