@@ -15,7 +15,7 @@ const GirlRow = ({ employee, soon, active }) => {
       <div className="flex items-center my-2">
           <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
 
-          <div className="flex-col">
+          <div className="flex-col ml-2">
               <div className="font-medium">{employee && employee.name}</div>
               {!active ? (
                 <div className="flex items-center text-grey">
@@ -23,7 +23,7 @@ const GirlRow = ({ employee, soon, active }) => {
                       <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
                     )}
                     <div className="flex items-center">
-                        05.06-07.06
+                        {/*05.06-07.06*/}
                         {soon && (
                           <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
                               {t('common.coming_soon')}
@@ -103,8 +103,8 @@ const AccountClubIndex = ({ user }) => {
                     <div className="flex flex-col w-1/2">
                         <span className="text-xl font-medium">{t('account.another')}</span>
 
-                        <GirlRow soon />
-                        <GirlRow active />
+                        {/*<GirlRow soon />*/}
+                        {/*<GirlRow active />*/}
                     </div>
                 </div>
 
