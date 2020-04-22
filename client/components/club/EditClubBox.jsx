@@ -42,8 +42,7 @@ const EditClubBox = ({club, user}) => {
         index: club.index,
         city_id: club.city_id,
         address: club.address,
-        //phones: JSON.parse(club.phones),
-        phones: club.phones,
+        phones: JSON.parse(club.phones),
         email: club.email,
         website: club.website,
         prices,
@@ -64,7 +63,7 @@ const EditClubBox = ({club, user}) => {
                     club: club.id,
                     input: {
                         ...values,
-                        //phones: JSON.stringify(values.phones),
+                        phones: JSON.stringify(values.phones),
                         prices: JSON.stringify(values.prices),
                         services: JSON.stringify(values.services),
                         schedule: JSON.stringify(values.schedule),

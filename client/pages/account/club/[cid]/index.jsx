@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import redirect from "lib/redirect";
 import {useRouter} from "next/router";
-import { Avatar, Button } from "UI";
+import {Avatar, Button} from "UI";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { getLayout } from "components/account/AccountLayout";
-import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
+import {getLayout} from "components/account/AccountLayout";
+import {PhotoSvg, StarSvg, UserSvg, VideoSvg} from "icons";
 import {useTranslation} from "react-i18next";
 
 const GirlRow = ({ employee, soon, active }) => {
@@ -68,8 +68,7 @@ const AccountClubIndex = ({ user }) => {
     if (!club) return null;
 
     if (club && club.phones) {
-        const [number] = JSON.parse(club.phones);
-        phone = number
+        phone = JSON.parse(club.phones)
     }
 
     const { admin } = club;
