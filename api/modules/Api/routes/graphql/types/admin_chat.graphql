@@ -44,6 +44,7 @@ type AdminChatWithLastMessage {
 
 input AdminMessageInput {
     chat_id: Int
+#    user_id: Int!
     text: String!
     attachments: [Upload!]
 }

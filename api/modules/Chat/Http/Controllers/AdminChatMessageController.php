@@ -34,10 +34,10 @@ class AdminChatMessageController extends Controller
         $user = auth()->user();
 
         $chat = AdminChat::query()
-            ->when(!$user->is_admin, function(Builder $builder) use ($user) {
-                $builder->where('user_id', $user->id);
-            })
-            ->first();
+//            ->when(!$user->is_admin, function(Builder $builder) use ($user) {
+//                $builder->where('user_id', $user->id);
+//            })
+            ->find($request->get('chat_id'));
 
         DB::beginTransaction();
 

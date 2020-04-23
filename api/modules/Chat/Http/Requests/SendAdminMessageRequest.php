@@ -15,6 +15,7 @@ class SendAdminMessageRequest extends GraphQLFormRequest
     {
         return [
             'chat_id' => ['required', 'integer'],
+//            'user_id' => ['required', 'integer', 'exists:users,id'],
             'text' => ['nullable', 'max:1000'],
             'attachments' => ['array', 'max:10'],
             'attachments.*' => ['required', 'image', 'max:10240'],

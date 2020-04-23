@@ -237,6 +237,7 @@ function ChatRoom({
           input: {
             text: messageText,
             chat_id: chat.id,
+            // user_id: chat.user_id,
             attachments: fileInputRef.current.files,
           }
         }
