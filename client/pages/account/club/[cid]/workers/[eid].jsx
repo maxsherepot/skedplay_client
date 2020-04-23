@@ -10,11 +10,11 @@ import {
     DELETE_EMPLOYEE,
     UPDATE_EMPLOYEE,
 } from "queries";
-import StepBox from "components/StepBox";
 import {useMutation, useQuery} from "@apollo/react-hooks";
-import {getLayout} from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
 import {getErrors} from "utils/index";
+import Link from "next/link";
+import ArrowBack from "UI/ArrowBack";
 
 
 const Header = ({employee}) => {
@@ -109,7 +109,7 @@ const Header = ({employee}) => {
     };
 
     return (
-        <div className="flex items-center flex-wrap justify-center xl:flex-no-wrap  xl:justify-between border border-divider p-3 mx-8 mt-6 rounded-lg">
+        <div className="flex items-center flex-wrap justify-center w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg">
             <div className="relative">
                 <img
                   className="w-30 h-30 rounded-full object-cover"
@@ -194,13 +194,35 @@ const AccountClubWorkersIndex = ({user}) => {
         t('account.links.schedule_and_activation'),
     ];
 
+    const HeaderNavigation = () => (
+        <div className="fluid-container">
+            <div className="flex items-center py-4">
+                <ArrowBack back />
+                <div className="ml-10">
+                    <Link href="/account">
+                        <a className="text-red hover:text-pink">{t('account.my_account')}</a>
+                    </Link>
+                    <span className="px-2 text-grey">/</span>
+                    {t('common.edit')}
+                    <span className="px-2 text-grey">/</span>
+                    {employee.first_name} {employee.last_name}
+                </div>
+            </div>
+        </div>
+    );
+
     if (loading) return <Loader/>;
 
     return employee && (
         <>
-            <Header employee={employee}/>
+            <div className="fluid-container">
+                <HeaderNavigation/>
 
-            <EditEmployeeBox employee={employee}/>
+                <div className="bg-white shadow rounded-lg p-8">
+                    <Header employee={employee}/>
+                    <EditEmployeeBox employee={employee}/>
+                </div>
+            </div>
         </>
     );
 };
@@ -213,7 +235,5 @@ AccountClubWorkersIndex.getInitialProps = async ctx => {
 
     return {user};
 };
-
-AccountClubWorkersIndex.getLayout = getLayout;
 
 export default AccountClubWorkersIndex;
