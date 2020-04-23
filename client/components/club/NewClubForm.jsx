@@ -62,8 +62,6 @@ function NewClubForm({ onSubmit }) {
         address: "",
         phone: me.phone || "",
         email: me.email || "",
-        start_time: "",
-        end_time: "",
         website: "",
         logotype: null,
         // access_phone_edit: false,
@@ -120,18 +118,6 @@ function NewClubForm({ onSubmit }) {
                 options={(club_types || []).map(c => ({value: parseInt(c.id), label: c.name}))}
                 placeholder=""
               />
-                <TextField
-                    type="time"
-                    name="start_time"
-                    label="From"
-                    className="mr-2"
-                />
-
-                <TextField
-                    type="time"
-                    name="end_time"
-                    label="To"
-                />
             </div>
 
             <div className="flex w-full -mx-3">

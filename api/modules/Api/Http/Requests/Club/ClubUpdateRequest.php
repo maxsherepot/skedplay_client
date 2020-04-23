@@ -16,7 +16,7 @@ class ClubUpdateRequest extends GraphQLFormRequest
         return [
             'name'         => 'required|string|max:255',
             'club_type_id' => 'bail|integer|exists:club_types,id',
-            'email'        => 'email',
+            'email'        => 'email|nullable',
             'website'      => 'nullable|string|max:255',
             'phones'       => 'nullable',
             'phones.*'     => 'string',

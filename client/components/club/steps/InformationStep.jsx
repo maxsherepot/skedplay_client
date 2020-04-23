@@ -129,7 +129,7 @@ InformationStep.validationSchema = Yup.object().shape({
   address: Yup.string().required(),
   phones: Yup.string(),
   email: Yup.string().email().required(),
-  website: Yup.string().url()
+  website: Yup.string().url().nullable()
 });
 
 export default InformationStep;

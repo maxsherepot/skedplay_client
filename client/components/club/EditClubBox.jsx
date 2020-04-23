@@ -45,6 +45,8 @@ const EditClubBox = ({club, user}) => {
         phones: JSON.parse(club.phones),
         email: club.email,
         website: club.website,
+        //start_time: club.start_time,
+        //end_time: club.end_time,
         prices,
         services,
         photos: [],
@@ -192,6 +194,20 @@ const EditClubBox = ({club, user}) => {
                     input: payload,
                 }
             });
+
+            // const {
+            //     data: {
+            //         updateClub: {statusUpdateTime, messageUpdateTime}
+            //     }
+            // } = await updateClub({
+            //     variables: {
+            //         club: club.id,
+            //         input: {
+            //             start_time: values.start_time,
+            //             end_time: values.end_time,
+            //         }
+            //     }
+            // });
 
             return {
                 status,
