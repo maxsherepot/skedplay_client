@@ -178,7 +178,8 @@ class EmployeeController extends Controller
             $this->employees->saveAttachments(
                 $employee,
                 $request->allFiles(),
-                $request->get('collection')
+                $request->get('collection'),
+                $request->get('custom_properties')
             );
 
             return $this->success(

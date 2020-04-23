@@ -23,4 +23,13 @@ class MediaType
     {
         return $rootValue->getFullUrl();
     }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
+    function getCustomProperties(Media $rootValue)
+    {
+        return json_encode($rootValue->custom_properties);
+    }
 }

@@ -9,11 +9,26 @@ import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
 
-const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
+const DisplayPreviews = ({ photos, indexes, setPreviews, setMainImageIndex, selectable }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
   const {t, i18n} = useTranslation();
   const [hovered, setHovered] = useState(null);
-  const [index, setIndex] = useState(null);
+
+  const mainPhotoIndex = photos.findIndex(photo => {
+    const properties = JSON.parse(photo.custom_properties || '{}');
+
+    if (properties && properties.main_image) {
+      return true;
+    }
+
+    return false;
+  });
+
+  const [index, setIndex] = useState(mainPhotoIndex === -1 ? null : mainPhotoIndex);
+
+  const handleMainImageIndex = (index) => {
+    setMainImageIndex(index);
+  };
 
   const handleDelete = (i, id) => {
     if (id) {
@@ -61,8 +76,12 @@ const DisplayPreviews = ({ photos, indexes, setPreviews, selectable }) => {
                       <CheckboxField
                           className="text-white"
                           label={t('index.main_photo')}
-                          name={indexes[i]}
+                          name={'custom_properties.' + i + '.main_image'}
+                          checkedOnlyByProp={true}
                           checked={index === i}
+                          onChange={checked => {
+                            checked ? setIndex(i) : setIndex(null);
+                          }}
                       />
                     </div>
                 )}
