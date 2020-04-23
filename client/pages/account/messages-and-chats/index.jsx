@@ -9,13 +9,18 @@ import {useTranslation} from "react-i18next";
 import cx from 'classnames';
 import moment from "moment-timezone";
 import Link from "next/link";
+import {GET_ME} from "queries/userQuery";
 
 const ChatCard = ({chat}) => {
   const {t, i18n} = useTranslation();
 
   const checkHasTranslation = key => t(key) !== key;
-
+  const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
   const date = moment.utc(chat.last_message.created_at).local().fromNow();
+
+  if (loadingMe) {
+    return <Loader/>
+  }
 
   return (
     <div className="w-full flex flex-col pt-4 mb-5">
@@ -29,6 +34,7 @@ const ChatCard = ({chat}) => {
               <div className="bg-grey rounded-full" style={{
                 width: '40px',
                 height: '40px',
+                backgroundColor: '#dfdfdf'
               }}/>
             </div>
 
@@ -39,10 +45,13 @@ const ChatCard = ({chat}) => {
           </div>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              <div className="bg-grey rounded-full" style={{
-                width: '40px',
-                height: '40px',
-              }}/>
+              <img className="c-account__avatar bg-grey w-full h-full"
+                   style={{
+                     width: '40px',
+                     height: '40px',
+                     backgroundColor: '#dfdfdf',
+                   }}
+                   src={me.avatar.url || ''}/>
             </div>
 
             <div>

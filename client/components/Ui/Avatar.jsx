@@ -9,10 +9,7 @@ import AddPhotoSvg from "components/icons/AddPhotoSvg";
 
 function Avatar({ className, src }) {
   const [uploadUserAvatar] = useMutation(UPLOAD_USER_AVATAR);
-  const {
-    data: { me } = {},
-    loading
-  } = useQuery(GET_ME);
+  const { data: { me } = {},  loading } = useQuery(GET_ME);
 
   if (loading) {
     return <Loader/>;
@@ -44,7 +41,7 @@ function Avatar({ className, src }) {
   return (
       <>
         {src ? (
-            <div className="c-account__avatar-wrap">
+            <div className={classNames("c-account__avatar-wrap",className)}>
               <img className="c-account__avatar" src={src}/>
             </div>
         ) : (
