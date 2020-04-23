@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useRouter} from "next/router";
 import { getLayout } from "components/account/AccountLayout";
-import {MY_CHATS} from 'queries';
+import {MY_CHATS, MY_ADMIN_CHATS} from 'queries';
 import {useQuery} from "@apollo/react-hooks";
 import {Loader, Button} from 'UI';
 import {useTranslation} from "react-i18next";
@@ -10,19 +10,27 @@ import cx from 'classnames';
 import moment from "moment-timezone";
 import Link from "next/link";
 
-const ChatCard = ({chat}) => {
+const ChatCard = ({chat, type}) => {
   const {t, i18n} = useTranslation();
 
   const checkHasTranslation = key => t(key) !== key;
 
   const date = moment.utc(chat.last_message.created_at).local().fromNow();
 
+  let fromField;
+
+  if (type === 'simple') {
+    fromField = 'from_client';
+  } else if (type === 'admin') {
+    fromField = 'from_admin';
+  }
+
   return (
     <div className="w-full flex flex-col pt-4 mb-5">
       <div className="w-full flex justify-between items-center mb-4">
         <div className={cx([
           "flex",
-          chat.last_message.from_client ? "" : "flex-row-reverse"
+          chat.last_message[fromField] ? "" : "flex-row-reverse"
         ])}>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
@@ -33,8 +41,12 @@ const ChatCard = ({chat}) => {
             </div>
 
             <div>
-              <span className="text-grey capitalize">{t('common.client')},</span>&nbsp;
-              <span className="font-bold">{chat.client.name}</span>
+              {type === 'simple' &&
+                <>
+                  <span className="text-grey capitalize">{t('common.client')},</span>&nbsp;
+                </>
+              }
+              <span className="font-bold">{type === 'simple' ? chat.client.name : 'Administrator'}</span>
             </div>
           </div>
           <div className="mr-4 flex items-center">
@@ -46,10 +58,14 @@ const ChatCard = ({chat}) => {
             </div>
 
             <div>
-              <span className="text-grey capitalize">
-                {chat.last_message.from_client ? t('common.to') : t('common.from')},
-              </span>&nbsp;
-              <span className="font-bold">{chat.employee.name}</span>
+              {type === 'simple' &&
+                <>
+                  <span className="text-grey capitalize">
+                    {chat.last_message[fromField] ? t('common.to') : t('common.from')},
+                  </span>&nbsp;
+                </>
+              }
+              <span className="font-bold">{type === 'simple' ? chat.employee.name : chat.user.name}</span>
             </div>
           </div>
         </div>
@@ -78,7 +94,10 @@ const ChatCard = ({chat}) => {
         </div>
         <div className="flex justify-between mt-3 items-center">
           <div className="flex items-center">
-            <Link as={`/account/messages-and-chats/chat`} href={`/account/messages-and-chats/chat?cid=${chat.id}&eid=${chat.employee.id}`}>
+            <Link
+              as={`/account/messages-and-chats/chat`}
+              href={`/account/messages-and-chats/chat?ctype=${type}&cid=${chat.id}&eid=${type === 'simple' ? chat.employee.id : ''}`}
+            >
               <a>
                 <Button
                   className="px-3 mr-3"
@@ -94,8 +113,12 @@ const ChatCard = ({chat}) => {
               </a>
             </Link>
 
-            <span className="text-sm text-light-grey mr-3 cursor-pointer">{t('common.ignore')}</span>
-            <span className="text-sm text-red cursor-pointer">{t('common.report_abuse')}</span>
+            {type === 'simple' &&
+              <>
+                <span className="text-sm text-light-grey mr-3 cursor-pointer">{t('common.ignore')}</span>
+                <span className="text-sm text-red cursor-pointer">{t('common.report_abuse')}</span>
+              </>
+            }
           </div>
           <div className="text-grey">{date}</div>
         </div>
@@ -107,8 +130,9 @@ const ChatCard = ({chat}) => {
 const Chats = ({ user }) => {
   const {t} = useTranslation();
   const {data: {myChats} = {}, loading} = useQuery(MY_CHATS);
+  const {data: {myAdminChats} = {}, loading: loadingAdminChats} = useQuery(MY_ADMIN_CHATS);
 
-  if (loading) {
+  if (loading || loadingAdminChats) {
     return <Loader/>
   }
 
@@ -118,8 +142,12 @@ const Chats = ({ user }) => {
         {t('chat.header')}
       </h2>
 
+      {myAdminChats.map(chat => (
+        <ChatCard chat={chat} type="admin" key={chat.id}/>
+      ))}
+
       {myChats.map(chat => (
-        <ChatCard chat={chat} key={chat.id}/>
+        <ChatCard chat={chat} type="simple" key={chat.id}/>
       ))}
     </div>
   );

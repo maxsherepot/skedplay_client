@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import checkLoggedIn from "lib/checkLoggedIn";
-import { ArrowPrevSvg, ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, Gallery, ChatList, ChatRoom } from "UI";
-import { GET_EMPLOYEE, ALL_CHATS } from "queries";
+import { ArrowPrevSvg, } from "icons";
+import { ChatList, ChatRoom } from "UI";
+import { ALL_CHATS, ALL_ADMIN_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { FavoriteButton } from "components/favorite";
 import Centrifugo from "components/centrifuge";
-import { ArrowBack, Loader } from "UI";
+import { Loader } from "UI";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 
-const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
+const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employee }) => {
   let type = user.is_employee || user.is_club_owner ? 'employee' : 'client';
 
   const {t, i18n} = useTranslation();
 
   const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedChatType, setSelectedChatType] = useState(chatType || 'simple');
 
-  let { data: { chats } = [], loading: chatsLoading, refetch: refetchChats } = useQuery(
+  let { data: { chats: simpleChats } = [], loading: chatsLoading, refetch: refetchSimpleChats } = useQuery(
     ALL_CHATS,
     {
       fetchPolicy: 'no-cache',
@@ -29,26 +26,67 @@ const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
     }
   );
 
-  if (chatsLoading) {
+  let { data: { adminChats } = [], loading: adminChatsLoading, refetch: refetchAdminChats } = useQuery(
+    ALL_ADMIN_CHATS,
+    {
+      fetchPolicy: 'no-cache',
+    }
+  );
+
+  const refetchChats = () => {
+    refetchSimpleChats();
+    refetchAdminChats();
+  };
+
+  if (chatsLoading || adminChatsLoading) {
     return <Loader/>;
   }
 
-  const selectChat = function(chatId) {
+  let chats = [
+    ...simpleChats.map(c => ({...c, type: 'simple'})),
+    ...adminChats.map(c => ({...c, type: 'admin'})),
+  ]
+    .sort((chat1, chat2) => {
+      if (chat1.last_message_date > chat2.last_message_date) {
+        return -1;
+      }
+
+      if (chat1.last_message_date < chat2.last_message_date) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+  const selectChat = function(chatId, type = 'simple') {
     chatId = parseInt(chatId);
 
-    if (selectedChat && chatId === parseInt(selectedChat.id)) {
+    if (
+      selectedChat
+      && chatId === parseInt(selectedChat.id)
+      && selectedChatType === type
+    ) {
       return;
     }
 
-    const chat = chats.find(c => parseInt(c.id) === chatId);
+    let chatsStore;
+
+    if (type === "simple") {
+      chatsStore = chats;
+    } else {
+      chatsStore = adminChats;
+    }
+
+    const chat = chatsStore.find(c => parseInt(c.id) === chatId);
 
     if (chat) {
       setSelectedChat(chat);
+      setSelectedChatType(type);
     }
   }.bind(this);
 
   if (!!selectedChatId && !selectedChat) {
-    selectChat(selectedChatId)
+    selectChat(selectedChatId, chatType)
   }
 
   if (employee && type === 'client') {
@@ -74,22 +112,41 @@ const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
   }
 
   Centrifugo.init().then(centrifuge => {
-    let chatsChannel = type === 'client'
-      ? 'client_chats:' + user.id
-      : 'employee_chats:' + (employeeId || user.employee.id);
-
-    if (centrifuge.getSub(chatsChannel)) {
-      return;
-    }
-
-    centrifuge.subscribe(chatsChannel, data => {
+    const subscribe = (data, type) => {
       if (data.data.action === 'refresh') {
         console.log('refreshing chats');
-        refetchChats();
+
+        if (type === 'simple') {
+          refetchSimpleChats();
+        } else if (type === 'admin') {
+          refetchAdminChats();
+        }
       } else {
         console.log('not need to refresh chats');
       }
-    });
+    };
+
+    let chatsChannel = null;
+
+    if (type === 'client') {
+      chatsChannel = 'client_chats:' + user.id;
+    } else {
+      if (employeeId || user.employee) {
+        chatsChannel = 'employee_chats:' + (employeeId || user.employee.id);
+      }
+    }
+
+    const adminChatsChannel = user.is_admin
+      ? 'admin_chats'
+      : 'user_admin_chats:' + user.id;
+
+    if (chatsChannel && !centrifuge.getSub(chatsChannel)) {
+      centrifuge.subscribe(chatsChannel, data => subscribe(data, 'simple'));
+    }
+
+    if (!centrifuge.getSub(adminChatsChannel)) {
+      centrifuge.subscribe(adminChatsChannel, data => subscribe(data, 'admin'));
+    }
   });
 
   let mobileChoosedBlock = (
@@ -164,7 +221,7 @@ const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
         >
           <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
           <div>
-            <ChatRoom type={type} selectedChat={selectedChat} refetchChats={refetchChats}/>
+            <ChatRoom user={user} type={type} selectedChatType={selectedChatType} selectedChat={selectedChat} refetchChats={refetchChats}/>
           </div>
         </div>
       </>
@@ -181,7 +238,7 @@ const EmployeeClientChat = ({ user, employeeId, selectedChatId, employee }) => {
       >
         <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('layout.contacts')}</div>
         <div>
-          <ChatList type={type} chats={chats} selectedChat={selectedChat} selectChat={selectChat}/>
+          <ChatList type={type} chats={chats} selectedChatType={selectedChatType} selectedChat={selectedChat} selectChat={selectChat}/>
         </div>
       </div>
     </>

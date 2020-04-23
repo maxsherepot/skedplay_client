@@ -3,6 +3,8 @@
 namespace Modules\Users\Services;
 
 use Illuminate\Support\Facades\DB;
+use Modules\Chat\Entities\AdminChat;
+use Modules\Chat\Entities\AdminChatMessage;
 use Modules\Chat\Entities\Message;
 use Modules\Chat\Repositories\ChatRepository;
 use Modules\Users\Entities\User;
@@ -23,21 +25,18 @@ final class AdminMessagesGenerate
     {
         $startMessage = 'admin.start_message';
 
-        $admin = User::where('email', 'admin@site.com')->first();
+        $users = User::all();
 
-        $employeeUsers = User::whereRoleIs('employee')->get();
-
-        foreach ($employeeUsers as $user) {
-            if (!$user->employee) {
+        foreach ($users as $user) {
+            if ($user->isAdmin()) {
                 continue;
             }
 
             DB::beginTransaction();
 
-            $chat = $this->repository->getOrCreateChat(
-                $user->employee->id,
-                $admin->id
-            );
+            $chat = AdminChat::firstOrCreate([
+                'user_id' => $user->id,
+            ]);
 
             if ($chat->messages()->where('text', $startMessage)->first()) {
                 DB::rollBack();
@@ -45,10 +44,10 @@ final class AdminMessagesGenerate
             }
 
             /** @var Message $message */
-            $message = Message::create([
+            $message = AdminChatMessage::create([
                 'text' => $startMessage,
                 'chat_id' => $chat->id,
-                'from_client' => 1,
+                'from_admin' => 1,
             ]);
 
             $chat->last_message_id = $message->id;

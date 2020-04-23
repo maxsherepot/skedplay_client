@@ -1,8 +1,6 @@
 type Message {
     id: Int!
     chat_id: Int!
-#    employee_id: Int!
-#    client_id: Int!
     created_at: String!
     updated_at: String!
     from_client: Int!

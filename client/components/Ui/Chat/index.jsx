@@ -3,19 +3,18 @@ import moment from "moment-timezone";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import _ from "lodash";
-import Link from "next/link";
-import { Badge, Slick, Button, MultiPhotoField, MultiVideoField, Loader  } from "UI";
-import { FavoriteButton } from "components/favorite";
-import { MessageSvg, CocktailSvg } from "icons";
+import {  Loader  } from "UI";
 import {useQuery, useLazyQuery, useMutation} from "@apollo/react-hooks";
-import {CHAT_ROOM, SEND_MESSAGE} from "../../../queries/chatQuery";
+import {CHAT_ROOM, ADMIN_CHAT_ROOM, SEND_MESSAGE, SEND_ADMIN_MESSAGE} from "queries";
 import Centrifugo from "components/centrifuge";
 import { WhiteTrashSvg } from "icons";
 import {useTranslation} from "react-i18next";
 
 function ChatRoom({
+  user,
   chatId,
   selectedChat,
+  selectedChatType = 'simple',
   refetchChats,
   type = 'client',
 }) {
@@ -31,6 +30,10 @@ function ChatRoom({
     }
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   };
+
+  const chatChannel = selectedChatType === 'simple'
+    ? 'chat:' + selectedChat.id
+    : 'admin_chat:' + selectedChat.id;
 
   const [sending, setSending] = useState(false);
   const [messageText, setMessageText] = useState('');
@@ -65,7 +68,10 @@ function ChatRoom({
 
   const unsubscribeChat = () => {
     Centrifugo.init().then(centrifuge => {
-      centrifuge.unsubscribe('chat:' + selectedChat.id, (data) => console.log('unsubscribe chat ' + selectedChat.id, data));
+      centrifuge.unsubscribe(
+        chatChannel,
+        (data) => console.log('unsubscribe chat ' + chatChannel, data)
+      );
     });
   };
 
@@ -77,13 +83,14 @@ function ChatRoom({
   }, []);
 
   const [sendMessageMutation] = useMutation(SEND_MESSAGE);
+  const [sendAdminMessageMutation] = useMutation(SEND_ADMIN_MESSAGE);
 
   useEffect(scrollToBottom);
 
   let chat = selectedChat;
 
-  let { data: { chat: loadedChat } = selectedChat, loading: chatLoading, refetch: refetchChat, client } = useQuery(
-    CHAT_ROOM,
+  let { data, loading: chatLoading, refetch: refetchChat, client } = useQuery(
+    selectedChatType === 'simple' ? CHAT_ROOM : ADMIN_CHAT_ROOM,
     {
       fetchPolicy: 'no-cache',
       variables: {
@@ -92,20 +99,24 @@ function ChatRoom({
     }
   );
 
-  if (chatLoading && !selectedChat) {
+  if (chatLoading) {
     return <Loader/>;
   }
+
+  let loadedChat = data
+    ? data.chat || data.adminChat
+    : selectedChat;
 
   if (loadedChat) {
     chat = loadedChat;
   }
 
   Centrifugo.init().then(centrifuge => {
-    if (centrifuge.getSub('chat:' + selectedChat.id)) {
+    if (centrifuge.getSub(chatChannel)) {
       return;
     }
 
-    centrifuge.subscribe('chat:' + selectedChat.id, data => {
+    centrifuge.subscribe(chatChannel, data => {
       if (data.data.action === 'refresh') {
         refetchChat();
       } else if (data.data.action === 'add') {
@@ -120,10 +131,22 @@ function ChatRoom({
   }
 
   chat.messages = chat.messages.map((message, i) => {
-    if (type === "client") {
-      message.position = message.from_client ? "right" : "left";
+    const fromField = selectedChatType === 'simple'
+      ? 'from_client'
+      : 'from_admin';
+
+    if (selectedChatType === 'simple') {
+      if (type === "client") {
+        message.position = message[fromField] ? "right" : "left";
+      } else {
+        message.position = message[fromField]  ? "left" : "right";
+      }
     } else {
-      message.position = message.from_client  ? "left" : "right";
+      if (user.is_admin) {
+        message.position = message[fromField] ? "right" : "left";
+      } else {
+        message.position = message[fromField] ? "left" : "right";
+      }
     }
 
     message.time = moment.utc(message.created_at).local().format('HH:mm');
@@ -148,7 +171,7 @@ function ChatRoom({
     let prevMessage = chat.messages[i - 1];
 
     if (nextMessage) {
-      if (nextMessage.from_client !== message.from_client) {
+      if (nextMessage[fromField] !== message[fromField]) {
         message.time_block = timeBlock;
       }
 
@@ -166,7 +189,7 @@ function ChatRoom({
 
     if (prevMessage) {
       if (
-        prevMessage.from_client !== message.from_client
+        prevMessage[fromField] !== message[fromField]
         || prevMessage.time !== message.time
         || prevMessage.date !== message.date
       ) {
@@ -176,7 +199,7 @@ function ChatRoom({
       message.avatar_block = avatarBlock;
     }
 
-    if (checkHasTranslation(message.text)) {
+    if (checkHasTranslation(message.text) && typeof message.text !== 'object') {
       message.text = (
         <span className="font-bold">{t(message.text)}</span>
       );
@@ -194,17 +217,31 @@ function ChatRoom({
 
     setSending(true);
 
-    let sentData = await sendMessageMutation({
-      variables: {
-        input: {
-          text: messageText,
-          chat_id: chat.id,
-          client_id: selectedChat.client_id,
-          employee_id: selectedChat.employee_id,
-          attachments: fileInputRef.current.files,
+    let sentData
+
+    if (selectedChatType === 'simple') {
+      sentData = await sendMessageMutation({
+        variables: {
+          input: {
+            text: messageText,
+            chat_id: chat.id,
+            client_id: selectedChat.client_id,
+            employee_id: selectedChat.employee_id,
+            attachments: fileInputRef.current.files,
+          }
         }
-      }
-    });
+      });
+    } else {
+      sentData = await sendAdminMessageMutation({
+        variables: {
+          input: {
+            text: messageText,
+            chat_id: chat.id,
+            attachments: fileInputRef.current.files,
+          }
+        }
+      });
+    }
 
     if (!chat.id) {
       chat.id = sentData.data.sendMessage.chat_id;
@@ -214,7 +251,9 @@ function ChatRoom({
 
     setMessageText('');
     setAttachments({type: 'clear'});
-    fileInputRef.current.value = '';
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
 
     setSending(false);
   }

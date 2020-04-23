@@ -3,17 +3,13 @@ import moment from "moment-timezone";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
-import Link from "next/link";
-import { Badge, Slick } from "UI";
-import { FavoriteButton } from "components/favorite";
-import { MessageSvg, CocktailSvg } from "icons";
-import {useRouter} from "next/router";
 
 function ChatList({
   user,
   chats,
   selectChat,
   type = 'client',
+  selectedChatType = 'simple',
   selectedChat = null,
 }) {
   let now = moment.utc();
@@ -68,16 +64,18 @@ function ChatList({
             "cursor-pointer",
             chat.active ? "active" : ""
           )}
-          key={chat.id}
-          onClick={(e) => selectChat(chat.id)}
+          key={chat.id + chat.type}
+          onClick={(e) => selectChat(chat.id, chat.type)}
         >
-          <div className="avatar empty"></div>
+          <div className="avatar empty"/>
           <div className="flex flex-col">
             <div className="font-bold">{chat.receiver.name}</div>
-            <div className="text-sm text-grey">
-              <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
-              150 {t('index.km_from_me')}
-            </div>
+            {chat.type === 'simple' &&
+              <div className="text-sm text-grey">
+                <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"/>
+                150 {t('index.km_from_me')}
+              </div>
+            }
           </div>
           <div className="flex-grow text-right flex flex-col flex-grow">
             <div

@@ -27,17 +27,6 @@ class ChatService
     {
         $receiver = $this->getChatReceiver($chat);
 
-//        $messages = $chat->messages->map(function($message) {
-//            $message->attachments = $message->media->map(function($media) {
-//                return [
-//                    'id' => $media->id,
-//                    'url' => $media->getFullUrl(),
-//                ];
-//            });
-//
-//            return $message;
-//        });
-
         return [
             'client_id' => $chat->client_id,
             'employee_id' => $chat->employee_id,

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Extensions\GraphQLFormRequest;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\Chat;
@@ -79,22 +80,26 @@ class MessageController extends Controller
         $chatsTypeChannelClient = 'client_chats:' . $clientId;
         $chatsTypeChannelEmployee = 'employee_chats:' . $employeeId;
 
-        $this->centrifugeClient->publish($chatsTypeChannelClient, [
-            'action' => 'refresh',
-        ]);
-        $this->centrifugeClient->publish($chatsTypeChannelEmployee, [
-            'action' => 'refresh',
-        ]);
+        try {
+            $this->centrifugeClient->publish($chatsTypeChannelClient, [
+                'action' => 'refresh',
+            ]);
+            $this->centrifugeClient->publish($chatsTypeChannelEmployee, [
+                'action' => 'refresh',
+            ]);
 
-        $chatChannel = 'chat:' . $chat->id;
+            $chatChannel = 'chat:' . $chat->id;
 
 //        $message->__typename = 'Message';
 
-        $this->centrifugeClient->publish($chatChannel, [
+            $this->centrifugeClient->publish($chatChannel, [
 //            'action' => 'add',
-            'action' => 'refresh',
+                'action' => 'refresh',
 //            'message' => $message,
-        ]);
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
 
         return $message->toArray();
     }

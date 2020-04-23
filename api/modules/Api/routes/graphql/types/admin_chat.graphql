@@ -1,0 +1,68 @@
+type AdminMessage {
+    id: Int!
+    chat_id: Int!
+    user_id: Int!
+    created_at: String!
+    updated_at: String!
+    from_admin: Int!
+    text: String!
+    seen: Int!
+    attachments: [Media] @hasMany
+}
+
+type Attachment {
+    id: Int!
+    url: String!
+}
+
+type Receiver {
+    id: Int!
+    name: String!
+}
+
+type AdminChatRoom {
+    id: Int!
+    user_id: Int!
+    receiver: Receiver!
+    messages: [AdminMessage!]!
+}
+
+type AdminChat {
+    id: Int!
+    user_id: Int!
+    user: User!
+    receiver: Receiver!
+    last_message_date: String!
+    unread_messages_count: Int!
+}
+
+type AdminChatWithLastMessage {
+    id: Int!
+    user: User!
+    last_message: AdminMessage
+}
+
+input AdminMessageInput {
+    chat_id: Int
+    text: String!
+    attachments: [Upload!]
+}
+
+extend type Query @middleware(checks: ["auth:api"]) {
+    adminChat(chatId: Int!): AdminChatRoom!
+    @router(action: "Modules\\Chat\\Http\\Controllers\\AdminChatController@show")
+
+    adminChats: [AdminChat!]!
+    @router(action: "Modules\\Chat\\Http\\Controllers\\AdminChatController@index")
+
+    myAdminChats: [AdminChatWithLastMessage!]
+    @router(action: "Modules\\Chat\\Http\\Controllers\\AdminChatController@myChatsWithLastMessages")
+}
+
+ extend type Mutation @middleware(checks: ["auth:api"]) {
+     sendAdminMessage(input: AdminMessageInput! @spread) : AdminMessage!
+     @router(action : "Modules\\Chat\\Http\\Controllers\\AdminChatMessageController@store")
+
+#     delete(chat_id: Int!) : StatusPayload
+#     @router(action: "Modules\\Chat\\Http\\Controllers\\AdminChatMessageController@destroy")
+ }

@@ -61,7 +61,8 @@ class ChatRepository
 
         if ($user->is_club_owner) {
             if (!$employeeId) {
-                throw new \Exception('club owner must specify employee id');
+                return $query->whereEmployeeId(0);
+//                throw new \Exception('club owner must specify employee id');
             }
 
             return $query->whereEmployeeId($employeeId);

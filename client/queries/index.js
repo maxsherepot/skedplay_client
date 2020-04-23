@@ -14,6 +14,7 @@ export * from "queries/parameterQuery";
 export * from "queries/mediaQuery";
 export * from "queries/scheduleQuery";
 export * from "queries/chatQuery";
+export * from "queries/adminChatQuery";
 export * from "queries/cityQuery";
 export * from "queries/cantonQuery";
 export * from "queries/contactPhoneQuery";

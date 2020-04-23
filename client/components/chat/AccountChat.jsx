@@ -30,14 +30,14 @@ const Breadcrumbs = () => {
   );
 };
 
-const AccountChat = ({ user, selectedEmployeeId = null, selectedChatId = null }) => {
+const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId = null }) => {
   const {t, i18n} = useTranslation();
 
-  if (user.is_employee || user.is_client_chat_member) {
+  if (user.is_employee || user.is_client_chat_member || chatType === 'admin') {
     return (
       <>
         <Breadcrumbs/>
-        <EmployeeClientChat user={user} selectedChatId={selectedChatId}/>
+        <EmployeeClientChat user={user} chatType={chatType} selectedChatId={selectedChatId}/>
       </>
     )
   }
