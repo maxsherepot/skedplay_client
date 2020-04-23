@@ -7,7 +7,8 @@ import {Loader} from "UI";
 import {
     GET_EMPLOYEE,
 } from "queries";
-
+import Link from "next/link";
+import ArrowBack from "UI/ArrowBack";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
 import EditEmployeeHeader from 'components/employee/EditEmployeeHeader';
@@ -21,13 +22,35 @@ const AccountClubWorkersIndex = ({user}) => {
         }
     });
 
+    const HeaderNavigation = () => (
+        <div className="fluid-container">
+            <div className="flex items-center py-4">
+                <ArrowBack back />
+                <div className="ml-10">
+                    <Link href="/account">
+                        <a className="text-red hover:text-pink">{t('account.my_account')}</a>
+                    </Link>
+                    <span className="px-2 text-grey">/</span>
+                    {t('common.edit')}
+                    <span className="px-2 text-grey">/</span>
+                    {employee.first_name} {employee.last_name}
+                </div>
+            </div>
+        </div>
+    );
+
+    const classNames = 'flex items-center flex-wrap justify-center w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg';
     if (loading) return <Loader/>;
 
     return employee && (
         <>
-            <EditEmployeeHeader user={user} employee={employee} refetchEmployee={refetch}/>
-
-            <EditEmployeeBox employee={employee}/>
+            <div className="fluid-container">
+                <HeaderNavigation/>
+                <div className="bg-white shadow rounded-lg p-8">
+                    <EditEmployeeHeader user={user} employee={employee} refetchEmployee={refetch} classes={classNames}/>
+                    <EditEmployeeBox employee={employee}/>
+                </div>
+            </div>
         </>
     );
 };
