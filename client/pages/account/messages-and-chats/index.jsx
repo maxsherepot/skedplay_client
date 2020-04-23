@@ -31,13 +31,23 @@ const ChatCard = ({chat}) => {
         ])}>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              <div className="bg-grey rounded-full" style={{
-                width: '40px',
-                height: '40px',
-                backgroundColor: '#dfdfdf'
-              }}/>
+              {me && !me.employee && !me.clubs ? (
+                <img className="c-account__avatar bg-grey w-full h-full"
+                   style={{
+                     width: '40px',
+                     height: '40px',
+                     backgroundColor: '#dfdfdf',
+                   }}
+                   src={me.avatar && me.avatar.url || ''}
+                />
+              ) : (
+                <div className="bg-grey rounded-full" style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#dfdfdf'
+                }}/>
+              )}
             </div>
-
             <div>
               <span className="text-grey capitalize">{t('common.client')},</span>&nbsp;
               <span className="font-bold">{chat.client.name}</span>
@@ -45,13 +55,22 @@ const ChatCard = ({chat}) => {
           </div>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              <img className="c-account__avatar bg-grey w-full h-full"
-                   style={{
-                     width: '40px',
-                     height: '40px',
-                     backgroundColor: '#dfdfdf',
-                   }}
-                   src={me.avatar.url || ''}/>
+              { me && me.employee ? (
+                <img className="c-account__avatar bg-grey w-full h-full"
+                  style={{
+                   width: '40px',
+                   height: '40px',
+                   backgroundColor: '#dfdfdf',
+                  }}
+                  src={me.avatar && me.avatar.url || ''}
+                />
+              ) : (
+                <div className="bg-grey rounded-full" style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#dfdfdf'
+                }}/>
+              )}
             </div>
 
             <div>

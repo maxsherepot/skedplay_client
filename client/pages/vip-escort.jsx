@@ -48,6 +48,7 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
       label: t('common.services'),
       placeholder: t('common.select_services'),
       showCheckboxes: true,
+      className: "services-select__div w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2 ",
       options: services.map(s => {
         return { label: s.name, value: s.id };
       })
