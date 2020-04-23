@@ -9,7 +9,6 @@ import {
 } from "queries";
 
 import {useMutation, useQuery} from "@apollo/react-hooks";
-import {getLayout} from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
 import EditEmployeeHeader from 'components/employee/EditEmployeeHeader';
 
@@ -41,7 +40,5 @@ AccountClubWorkersIndex.getInitialProps = async ctx => {
 
     return {user};
 };
-
-AccountClubWorkersIndex.getLayout = getLayout;
 
 export default AccountClubWorkersIndex;

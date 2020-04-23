@@ -9,12 +9,13 @@ import {useTranslation} from "react-i18next";
 import cx from 'classnames';
 import moment from "moment-timezone";
 import Link from "next/link";
+import {GET_ME} from "queries/userQuery";
 
 const ChatCard = ({chat, type}) => {
   const {t, i18n} = useTranslation();
 
   const checkHasTranslation = key => t(key) !== key;
-
+  const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
   const date = moment.utc(chat.last_message.created_at).local().fromNow();
 
   let fromField;
@@ -23,6 +24,10 @@ const ChatCard = ({chat, type}) => {
     fromField = 'from_client';
   } else if (type === 'admin') {
     fromField = 'from_admin';
+  }
+
+  if (loadingMe) {
+    return <Loader/>
   }
 
   return (
@@ -34,10 +39,22 @@ const ChatCard = ({chat, type}) => {
         ])}>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              <div className="bg-grey rounded-full" style={{
-                width: '40px',
-                height: '40px',
-              }}/>
+              {me && !me.employee && !me.clubs ? (
+                <img className="c-account__avatar bg-grey w-full h-full"
+                   style={{
+                     width: '40px',
+                     height: '40px',
+                     backgroundColor: '#dfdfdf',
+                   }}
+                   src={me.avatar && me.avatar.url || ''}
+                />
+              ) : (
+                <div className="bg-grey rounded-full" style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#dfdfdf'
+                }}/>
+              )}
             </div>
 
             <div>
@@ -51,10 +68,22 @@ const ChatCard = ({chat, type}) => {
           </div>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              <div className="bg-grey rounded-full" style={{
-                width: '40px',
-                height: '40px',
-              }}/>
+              { me && me.employee ? (
+                <img className="c-account__avatar bg-grey w-full h-full"
+                  style={{
+                   width: '40px',
+                   height: '40px',
+                   backgroundColor: '#dfdfdf',
+                  }}
+                  src={me.avatar && me.avatar.url || ''}
+                />
+              ) : (
+                <div className="bg-grey rounded-full" style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#dfdfdf'
+                }}/>
+              )}
             </div>
 
             <div>

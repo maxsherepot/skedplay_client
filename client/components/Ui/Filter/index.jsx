@@ -29,7 +29,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
       >
         <div className="fluid-container w-full z-1">
           <div className="text-xl lg:text-3xl text-white font-black capitalize">
-            {name}
+            {name === 'vip escort' ? 'Vip' : name}
           </div>
           <Formik
             enableReinitialize

@@ -252,6 +252,7 @@
     "index": "Index",
     "city": "City",
     "phone_exampl": "Phone (example +4176 251-15-22)",
+    "phone_exampl_insert": "Phone (example {{phone}})",
     "video": "Video",
     "mail": "Mail",
     "set_admin_for_club": "Set administrator for your Club",

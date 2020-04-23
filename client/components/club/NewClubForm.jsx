@@ -20,18 +20,17 @@ import {
 import { getErrors } from "utils";
 import {useQuery} from "@apollo/react-hooks";
 import {ALL_CLUB_TYPES} from "queries/clubQuery";
+import {GET_ME} from "queries/userQuery";
 
 function NewClubForm({ onSubmit }) {
   const [error, setError] = useState(null);
   const {t, i18n} = useTranslation();
-
-  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
-    CITIES
-  );
+  const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(CITIES);
 
   const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
 
-  if (citiesLoading || loadingClubTypes) {
+  if (citiesLoading || loadingClubTypes || loadingMe) {
     return <Loader/>;
   }
 
@@ -61,10 +60,8 @@ function NewClubForm({ onSubmit }) {
         index: "",
         city_id: "",
         address: "",
-        phone: "",
-        email: "",
-        start_time: "",
-        end_time: "",
+        phone: me.phone || "",
+        email: me.email || "",
         website: "",
         logotype: null,
         // access_phone_edit: false,
@@ -83,14 +80,12 @@ function NewClubForm({ onSubmit }) {
         city_id: Yup.number(),
         address: Yup.string().required(),
         phone: Yup.string().required(),
-        email: Yup.string()
-          .email()
-          .required(),
+        email: Yup.string().nullable().email(),
         website: Yup.string().url(),
         moderator: Yup.object().shape( {
           first_name: Yup.string().required(),
           last_name: Yup.string().required(),
-          email: Yup.string().email().required(),
+          email: Yup.string().nullable().email(),
           phone: Yup.string().required(),
         })
       })}
@@ -123,18 +118,6 @@ function NewClubForm({ onSubmit }) {
                 options={(club_types || []).map(c => ({value: parseInt(c.id), label: c.name}))}
                 placeholder=""
               />
-                <TextField
-                    type="time"
-                    name="start_time"
-                    label="From"
-                    className="mr-2"
-                />
-
-                <TextField
-                    type="time"
-                    name="end_time"
-                    label="To"
-                />
             </div>
 
             <div className="flex w-full -mx-3">
@@ -168,14 +151,6 @@ function NewClubForm({ onSubmit }) {
                 placeholder=""
               />
 
-              {/*<TextField*/}
-              {/*  className="px-3 w-1/3"*/}
-              {/*  inputClassName="w-1/3"*/}
-              {/*  label="City"*/}
-              {/*  name="city"*/}
-              {/*  placeholder=""*/}
-              {/*/>*/}
-
               <SelectField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
@@ -184,21 +159,13 @@ function NewClubForm({ onSubmit }) {
                 options={cities.map(c => ({value: c.id, label: c.name}))}
                 placeholder=""
               />
-
-              {/*<TextField*/}
-              {/*  className="px-3 w-1/3"*/}
-              {/*  inputClassName="w-1/3"*/}
-              {/*  label="Adress"*/}
-              {/*  name="address"*/}
-              {/*  placeholder=""*/}
-              {/*/>*/}
             </div>
 
             <div className="flex w-full -mx-3">
               <PhoneField
                 className="px-3 w-1/3"
                 inputClassName="w-1/3"
-                label={t('clubs.phone_exampl')}
+                label={t('clubs.phone_exampl_insert', {phone: `${me.phone}`})}
                 name="phone"
                 placeholder="+4179"
               />

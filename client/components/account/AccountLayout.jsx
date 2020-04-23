@@ -49,7 +49,7 @@ const ClubMenu = ({clubs}) => {
                   {isActive ? <ChevronDownSvg/> : <ChevronRightSvg/>}
                     <Link href={path} as={asPath}>
                         <a>
-                            <span className="truncate ml-4">{name}</span>
+                            <span className="truncate ml-4 hover:text-black focus:text-black">{name}</span>
                         </a>
                     </Link>
                 </span>
@@ -58,7 +58,7 @@ const ClubMenu = ({clubs}) => {
                         {/* Add ActiveLink with special class! */}
 
                         <Link href={`${path}/workers`} as={`${asPath}/workers`}>
-                            <a className="text-red p-1 cursor-pointer">
+                            <a className="text-red p-1 cursor-pointer hover:text-black focus:text-black">
                                 {t('account.sex_workers_cards')}
                                 <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
                                   {(employees && employees.length) || 0}
@@ -66,7 +66,7 @@ const ClubMenu = ({clubs}) => {
                             </a>
                         </Link>
                         <Link href={`${path}/workers/add`} as={`${asPath}/workers/add`}>
-                            <a className="flex items-center text-black font-normal text-sm p-1 cursor-pointer">
+                            <a className="flex items-center text-red font-normal text-sm p-1 cursor-pointer hover:text-black focus:text-black">
                                 <AddSvg/>
                                 <span className="ml-2">{t('layout.add_new_card')}</span>
                             </a>
@@ -74,7 +74,7 @@ const ClubMenu = ({clubs}) => {
                         {/*<div className="text-red p-1 cursor-pointer">
                             {t('layout.archive_sex_workers')}
                         </div>*/}
-                        <div className="text-red p-1 cursor-pointer">
+                        <div className="text-red p-1 cursor-pointer  hover:text-black focus:text-black">
                             <Link href={`${path}/events`} as={`${asPath}/events`}>
                                 <a>
                                     {t('layout.events')}
@@ -86,7 +86,7 @@ const ClubMenu = ({clubs}) => {
                         </div>
                         <Link href={`${path}/edit`} as={`${asPath}/edit`}>
                             <a>
-                                <div className="text-red p-1 cursor-pointer">{t('layout.admin')} / {t('layout.edit')}</div>
+                                <div className="text-red p-1 cursor-pointer hover:text-black focus:text-black">{t('layout.admin')} / {t('layout.edit')}</div>
                             </a>
                         </Link>
                     </div>
@@ -123,7 +123,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                           </li>
                           <li>
                               <Link href={employeeLink}>
-                                  <a className="text-red">
+                                  <a className="text-red hover:text-black focus:text-black">
                                       {t('layout.edit_my_card')}
                                   </a>
                               </Link>
@@ -138,14 +138,14 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                       {t('layout.my_events')}
                   </span>
                     <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
-                        <li>
+                        <li className="hover:text-black focus:text-black">
                             <Link href="/account/events/create">
                                 <a>
                                     {t('layout.add_new_event')}
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className="hover:text-black focus:text-black">
                             <Link href="/account/events">
                                 <a>
                                   {t('layout.events_archive')}

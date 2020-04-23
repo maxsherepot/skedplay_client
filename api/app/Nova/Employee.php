@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Skidplay\UserTopInfo\UserTopInfo;
@@ -151,28 +152,33 @@ class Employee extends Resource
     private function getAboutTabFields(): array
     {
         return [
-            MorphTo::make('Owner'),
-            Text::make('Name'),
+            //MorphTo::make('Owner'),
+            //Text::make('Name'),
+            Text::make('First name', 'first_name'),
+            Text::make('Last name', 'last_name'),
             Text::make('Status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml(),
-            Text::make('Refuse reason', 'rejected_reason'),
             Date::make('Birthday')
                 ->format('DD.MM.YYYY'),
             Text::make('Age'),
-            Text::make('User type', 'readable_type'),
-            Text::make('Race type', 'race_type.name'),
+            //Text::make('User type', 'readable_type'),
+            //Text::make('Race type', 'race_type.name'),
             Text::make('Address', 'address'),
             Text::make('Description', 'description'),
             Text::make('Email', 'email'),
             Text::make('Phone', 'phone'),
             Text::make('Website', 'website'),
-            KeyValue::make('Prices', 'prices_list')
-                ->keyLabel('Time')
-                ->valueLabel('Price'),
+            Select::make('Is Vip', 'isVip')->options([
+                1 => 'Make Vip',
+                0 => 'Cancel Vip',
+            ])->onlyOnForms(),
+//           KeyValue::make('Prices', 'prices_list')
+//               ->keyLabel('Time')
+//                ->valueLabel('Price'),
         ];
     }
 

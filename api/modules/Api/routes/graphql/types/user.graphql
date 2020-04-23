@@ -2,7 +2,7 @@ type User {
     id: ID!
     name: String!
     phone: String!
-    email: String!
+    email: String
     gender: Int
     birthday: String
     age: Int

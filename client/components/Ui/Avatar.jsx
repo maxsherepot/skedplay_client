@@ -9,10 +9,7 @@ import AddPhotoSvg from "components/icons/AddPhotoSvg";
 
 function Avatar({ className, src }) {
   const [uploadUserAvatar] = useMutation(UPLOAD_USER_AVATAR);
-  const {
-    data: { me } = {},
-    loading
-  } = useQuery(GET_ME);
+  const { data: { me } = {},  loading } = useQuery(GET_ME);
 
   if (loading) {
     return <Loader/>;
@@ -43,13 +40,20 @@ function Avatar({ className, src }) {
 
   return (
       <>
-        <div className={`c-account__avatar-wrap ${me && me.avatar ? '' : 'c-account__avatar--empty'}`}>
-          {me && me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
-          <label htmlFor="fileUpload" className="c-account__avatar-plus">
-            <AddPhotoSvg/>
-          </label>
-          <input className="c-account__avatar-input" type="file" id="fileUpload" onChange={handleChange}/>
-        </div>
+        {src ? (
+            <div className={classNames("c-account__avatar-wrap",className)}>
+              <img className="c-account__avatar" src={src}/>
+            </div>
+        ) : (
+            <div className={`c-account__avatar-wrap ${me && me.avatar ? '' : 'c-account__avatar--empty'}`}>
+              {me && me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
+              <label htmlFor="fileUpload" className="c-account__avatar-plus">
+                <AddPhotoSvg/>
+              </label>
+              <input className="c-account__avatar-input" type="file" id="fileUpload" onChange={handleChange}/>
+            </div>
+        )}
+
       </>
   );
 };
