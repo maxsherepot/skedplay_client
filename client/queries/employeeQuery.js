@@ -16,6 +16,7 @@ export const ALL_EMPLOYEES = gql `
         website
         email
         phone
+        active
         will_activate_at
         city {
           id
@@ -75,6 +76,7 @@ export const GET_EMPLOYEE = gql `
       website
       lat
       lng
+      active
       will_activate_at
       favorited {
         id

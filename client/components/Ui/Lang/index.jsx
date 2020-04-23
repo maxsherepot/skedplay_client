@@ -33,8 +33,8 @@ function Lang({ mobile, black, className }) {
         (
           <div
             className={cx(
-              "flex items-center h-full text-xs lang-text hover:cursor-pointer",
-              !black ? "" : "text-white-important",
+              "flex items-center h-full text-xs hover:cursor-pointer",
+              !black ? "text-white" : "text-black",
               "uppercase",
               className
             )}

@@ -69,6 +69,7 @@ function create(initialState, {
     step: 0,
     filters: {
       girls: {
+        active: 1,
         type: 1,
         cantons: [],
         services: [],
@@ -90,6 +91,7 @@ function create(initialState, {
         __typename: "GirlFilters"
       },
       vip_escort: {
+        active: 1,
         isVip: true,
         cantons: [],
         services: [],
@@ -110,6 +112,7 @@ function create(initialState, {
         __typename: "BoyFilters"
       },
       trans: {
+        active: 1,
         type: 2,
         inGeneral: true,
         cantons: [],

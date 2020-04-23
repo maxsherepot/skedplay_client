@@ -8,10 +8,12 @@ import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
 import Cookies from "js-cookie";
+import {useRouter} from "next/router";
 
 const NAV_HEIGHT = 90;
 
 function Nav({ user, className }) {
+  const router = useRouter();
   const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
     throttle: 500
@@ -125,7 +127,7 @@ function Nav({ user, className }) {
           </div>
           <div className="menu-icons flex items-center justify-between">
             <span className="menu-icons__item hidden md:block">
-              <Lang/>
+              <Lang black={isInverse || router.pathname !== '/'}/>
             </span>
 
             {(user && user.is_club_owner && user.clubs.length > 0) &&

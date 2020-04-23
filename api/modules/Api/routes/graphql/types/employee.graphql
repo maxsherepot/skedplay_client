@@ -79,6 +79,7 @@ input EmployeeInput {
   club_id: Int
   inGeneral: Boolean
   isVip: Boolean
+  active: Int
 }
 
 input EmployeeFilters {
@@ -86,6 +87,7 @@ input EmployeeFilters {
 #  location: String @where
   ids: [Int] @in(key: "id")
   type: Int @where
+  active: Int @where
   isVip: Boolean @where
   inGeneral: Boolean @where
   orderBy: [OrderByClause!] @orderBy

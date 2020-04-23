@@ -138,6 +138,40 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
     }
   };
 
+  const handleToggleActive = async () => {
+    try {
+      const {
+        data: {
+          updateEmployee: {status, message}
+        }
+      } = await updateEmployee( {
+        variables: {
+          employee: employee.id,
+          input: {
+            active: !employee.active,
+          }
+        }
+      });
+
+      if (refetchEmployee) {
+        refetchEmployee();
+      }
+
+      return {
+        status,
+        message
+      };
+    } catch (e) {
+      const errors = getErrors(e);
+
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
+    }
+  };
+
   return (
     <div className={cx(classes)}>
       <div className="relative">
@@ -198,9 +232,18 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
                 )}
               </Button>
             }
-            <Button className="px-3 mb-3" level="primary" outline size="xxs">
-              <span className="text-black">{t('account.deactivate')}</span>
+            <Button
+              onClick={handleToggleActive}
+              className="px-3 mb-3"
+              level="primary"
+              outline
+              size="xxs"
+            >
+              <span className="text-black">
+                {employee.active ? t('account.deactivate') : t('account.activate')}
+              </span>
             </Button>
+
             {employee.isVip && (
               <Button onClick={handleAddToGeneral} className="px-3 mb-3" level="primary" outline size="xxs">
                 {employee.inGeneral ? (

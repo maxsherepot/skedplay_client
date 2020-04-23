@@ -6,6 +6,7 @@ export const GET_FILTERS_STATE = gql`
       girls {
 #        location
         type
+        active
         cantons
         services
         gender
@@ -21,6 +22,7 @@ export const GET_FILTERS_STATE = gql`
       }
       vip_escort {
 #        location
+        active
         isVip
         services
         cantons
@@ -38,6 +40,7 @@ export const GET_FILTERS_STATE = gql`
       trans {
 #        location
         type
+        active
         services
         cantons
         gender

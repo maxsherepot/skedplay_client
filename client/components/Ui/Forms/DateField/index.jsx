@@ -24,7 +24,7 @@ function DateField({
 
   const dateValue = formErrors.getFieldValue(values, name);
 
-  const dateInitialValue = !dateValue || !dateValue.length ? "" : new Date(dateValue);
+  const dateInitialValue = !dateValue || !dateValue.length ? new Date : new Date(dateValue);
 
   const [date, setDateState] = useState(dateInitialValue);
 
