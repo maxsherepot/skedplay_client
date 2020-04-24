@@ -37,7 +37,7 @@ class ChatController extends Controller
 
         $chats = $this->repository
             ->getChatsQuery($user, is_numeric($employee_id) ? (int) $employee_id : null)
-            ->with(['employee', 'client'])
+            ->with(['employee.avatar', 'client.avatar'])
             ->withCount([
                 'messages' => function($query) use ($user) {
                     $query->whereSeen(0)->whereFromClient($user->is_client_chat_member ? 0 : 1);
@@ -55,7 +55,7 @@ class ChatController extends Controller
 
     public function show($chat_id)
     {
-        $chat = Chat::with(['employee', 'client', 'messages' => function($query) {
+        $chat = Chat::with(['employee.avatar', 'client.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(Chat::MESSAGES_LIMIT);
         }])->findOrFail($chat_id);
 

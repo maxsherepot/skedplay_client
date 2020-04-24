@@ -94,6 +94,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         'gender',
         'email',
         'password',
+        'avatar',
     ];
 
     protected $appends = [

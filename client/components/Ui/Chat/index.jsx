@@ -135,6 +135,20 @@ function ChatRoom({
       ? 'from_client'
       : 'from_admin';
 
+    let avatar;
+
+    if (selectedChatType === 'simple') {
+      if (message[fromField]) {
+        avatar = chat.client_avatar;
+      } else {
+        avatar = chat.employee_avatar;
+      }
+    } else {
+      if (!message[fromField]) {
+        avatar = chat.user_avatar;
+      }
+    }
+
     if (selectedChatType === 'simple') {
       if (type === "client") {
         message.position = message[fromField] ? "right" : "left";
@@ -153,9 +167,6 @@ function ChatRoom({
     message.date = moment.utc(message.created_at).local().format('D MMM');
 
     message.time_block = "";
-    message.avatar_block = (
-      <div className="avatar empty transparent"/>
-    );
 
     let timeBlock = (
       <div className="message-time text-light-grey text-sm">
@@ -163,9 +174,10 @@ function ChatRoom({
       </div>
     );
 
-    let avatarBlock = (
+    let avatarBlock = !avatar ?
       <div className="avatar empty"/>
-    );
+      :
+      <img className="avatar" src={avatar.url} />;
 
     let nextMessage = chat.messages[i + 1];
     let prevMessage = chat.messages[i - 1];

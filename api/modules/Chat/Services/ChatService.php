@@ -4,11 +4,20 @@
 namespace Modules\Chat\Services;
 
 
+use Spatie\MediaLibrary\Models\Media;
+
 class ChatService
 {
     public function formatChat($chat)
     {
         $receiver = $this->getChatReceiver($chat);
+
+        $avatar = $receiver->avatar;
+
+        if (!$avatar) {
+            $avatar = $receiver->toArray()['avatar'] ?? null;
+            $avatar = Media::find($avatar['id']);
+        }
 
         return [
             'id' => $chat->id,
@@ -19,6 +28,7 @@ class ChatService
             'receiver' => [
                 'id' => $receiver->id,
                 'name' => $receiver->name,
+                'avatar' => $avatar,
             ]
         ];
     }
@@ -27,9 +37,13 @@ class ChatService
     {
         $receiver = $this->getChatReceiver($chat);
 
+        $clientAvatarId = $chat->client->toArray()['avatar']['id'] ?? null;
+
         return [
             'client_id' => $chat->client_id,
+            'client_avatar' => $clientAvatarId ? Media::find($clientAvatarId) : null,
             'employee_id' => $chat->employee_id,
+            'employee_avatar' => $chat->employee->avatar,
             'messages' => $chat->messages,
             'receiver' => [
                 'id' => $receiver->id,

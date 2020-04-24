@@ -18,11 +18,13 @@ type Attachment {
 type Receiver {
     id: Int!
     name: String!
+    avatar: Media
 }
 
 type AdminChatRoom {
     id: Int!
     user_id: Int!
+    user_avatar: Media
     receiver: Receiver!
     messages: [AdminMessage!]!
 }
