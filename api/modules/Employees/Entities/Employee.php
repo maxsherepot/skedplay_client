@@ -257,6 +257,12 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         $this->addMediaConversion('thumb')
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
+
+        $this->addMediaConversion('thumb')
+            ->width(687)
+            ->height(682)
+            ->extractVideoFrameAtSecond(1)
+            ->performOnCollections(self::VIDEO_COLLECTION);
     }
 
     public function isClient(): bool

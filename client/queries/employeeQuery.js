@@ -166,6 +166,7 @@ export const GET_EMPLOYEE = gql `
         id
         url
         thumb_url
+        mime_type
         custom_properties
       }
       unread_messages_count
