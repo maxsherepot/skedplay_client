@@ -17,12 +17,15 @@ type Attachment {
 type Receiver {
     id: Int!
     name: String!
+    avatar: Media
 }
 
 type ChatRoom {
     id: Int!
     employee_id: Int!
+    employee_avatar: Media
     client_id: Int!
+    client_avatar: Media
     receiver: Receiver!
     messages: [Message!]!
 }
@@ -30,7 +33,9 @@ type ChatRoom {
 type Chat {
     id: Int!
     employee_id: Int!
+    employee_avatar: Media
     client_id: Int!
+    client_avatar: Media
     receiver: Receiver!
     last_message_date: String!
     unread_messages_count: Int!

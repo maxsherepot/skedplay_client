@@ -7,6 +7,7 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\AdminChat;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
+use Spatie\MediaLibrary\Models\Media;
 
 class AdminChatController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminChatController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $chats = AdminChat::with('messages', 'user')
+        $chats = AdminChat::with('messages', 'user.avatar')
             ->select(['admin_chats.*', 'admin_chat_messages.updated_at as last_message_date'])
             ->leftJoin('admin_chat_messages', 'admin_chat_messages.chat_id', '=', 'admin_chats.id')
             ->withCount([
@@ -53,7 +54,7 @@ class AdminChatController extends Controller
 
     public function show($chat_id)
     {
-        $chat = AdminChat::with(['user', 'messages' => function($query) {
+        $chat = AdminChat::with(['user.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(AdminChat::MESSAGES_LIMIT);
         }])->findOrFail($chat_id);
 
@@ -64,9 +65,14 @@ class AdminChatController extends Controller
             ->whereFromAdmin($user->is_admin ? 0 : 1)
             ->update(['seen' => 1]);
 
+        $userAvatar = null;
+
+        $userAvatar = $this->getChatUserAvatar($chat);
+
         return [
             'id' => $chat->id,
             'user_id' => $chat->user_id,
+            'user_avatar' => $userAvatar,
             'messages' => $chat->messages,
             'receiver' => $this->getReceiver($user, $chat->user),
         ];
@@ -78,7 +84,7 @@ class AdminChatController extends Controller
         $user = auth()->user();
 
         return AdminChat::query()
-            ->with(['lastMessage.attachments', 'user'])
+            ->with(['lastMessage.attachments', 'user.avatar', 'user.employee.avatar'])
             ->when(!$user->is_admin, function(Builder $builder) use ($user) {
                 $builder->where('user_id', $user->id);
             })
@@ -87,21 +93,63 @@ class AdminChatController extends Controller
             ->map(function(AdminChat $chat) {
                 $chat->last_message = $chat->lastMessage;
 
+                $avatar = $chat->user->isEmployee()
+                    ? $chat->user->employee->avatar
+                    : $chat->user->avatar;
+
+                $chat->user->fucking_avatar = $avatar;
+
                 return $chat;
             });
     }
 
     private function getReceiver(User $user, User $chatUser): array
     {
+        $avatar = null;
+
+        if ($user->isAdmin()) {
+            $avatar = $chatUser->isEmployee()
+                ? $chatUser->employee->avatar
+                : $this->getUserAvatar($chatUser);
+        }
+
         return !$user->isAdmin() ?
             [
                 'id' => 0,
                 'name' => 'Administrator',
+                'avatar' => $avatar,
             ]
             :
             [
                 'id' => $chatUser->id,
                 'name' => $chatUser->name,
+                'avatar' => $avatar,
             ];
+    }
+
+    private function getChatUserAvatar($chat)
+    {
+        $chatUser = $chat->user;
+
+        return $this->getUserAvatar($chatUser);
+    }
+
+    private function getUserAvatar($chatUser)
+    {
+        if ($chatUser->isEmployee()) {
+            $userAvatar = $chatUser->employee->avatar;
+            if (!$userAvatar) {
+                $userAvatar = $chatUser->employee->toArray()['avatar'] ?? null;
+                $userAvatar = Media::find($userAvatar['id']);
+            }
+        } else {
+            $userAvatar = $chatUser->avatar;
+            if (!$userAvatar) {
+                $userAvatar = $chatUser->toArray()['avatar'] ?? null;
+                $userAvatar = Media::find($userAvatar['id']);
+            }
+        }
+
+        return $userAvatar;
     }
 }

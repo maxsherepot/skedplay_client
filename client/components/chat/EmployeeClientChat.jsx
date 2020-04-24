@@ -42,9 +42,11 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     return <Loader/>;
   }
 
+  const adminChatsHandled = !employeeId ? adminChats.map(c => ({...c, type: 'admin'})) : [];
+
   let chats = [
     ...simpleChats.map(c => ({...c, type: 'simple'})),
-    ...adminChats.map(c => ({...c, type: 'admin'})),
+    ...adminChatsHandled,
   ]
     .sort((chat1, chat2) => {
       if (chat1.last_message_date > chat2.last_message_date) {

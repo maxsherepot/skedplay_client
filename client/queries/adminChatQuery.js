@@ -11,6 +11,10 @@ export const ALL_ADMIN_CHATS = gql`
             receiver {
                 id
                 name
+                avatar {
+                    id
+                    url
+                }
             }
             unread_messages_count
             last_message_date
@@ -26,6 +30,14 @@ export const MY_ADMIN_CHATS = gql`
             user {
                 id
                 name
+                avatar {
+                    id
+                    url
+                }
+                fucking_avatar {
+                    id
+                    url
+                }
             }
             last_message {
                 id
@@ -46,6 +58,10 @@ export const ADMIN_CHAT_ROOM = gql`
         adminChat(chatId: $chatId) {
             id
             user_id
+            user_avatar {
+                id
+                url
+            }
             receiver {
                 id
                 name

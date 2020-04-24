@@ -15,19 +15,24 @@ const ChatCard = ({chat, type}) => {
   const {t, i18n} = useTranslation();
 
   const checkHasTranslation = key => t(key) !== key;
-  const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
   const date = moment.utc(chat.last_message.created_at).local().fromNow();
 
   let fromField;
+  let firstAvatar;
+  let secondAvatar;
 
   if (type === 'simple') {
     fromField = 'from_client';
+    firstAvatar = chat.client.avatar ? chat.client.avatar.url : null;
+    secondAvatar = chat.employee.avatar ? chat.employee.avatar.url : null;
   } else if (type === 'admin') {
     fromField = 'from_admin';
-  }
-
-  if (loadingMe) {
-    return <Loader/>
+    firstAvatar = null;
+    if (chat.user.fucking_avatar) {
+      secondAvatar = chat.user.fucking_avatar.url;
+    } else if (chat.user.avatar) {
+      secondAvatar = chat.user.avatar.url;
+    }
   }
 
   return (
@@ -39,14 +44,14 @@ const ChatCard = ({chat, type}) => {
         ])}>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              {me && !me.employee && !me.clubs ? (
-                <img className="c-account__avatar bg-grey w-full h-full"
+              {firstAvatar ? (
+                <img className="rounded-full"
                    style={{
                      width: '40px',
                      height: '40px',
                      backgroundColor: '#dfdfdf',
                    }}
-                   src={me.avatar && me.avatar.url || ''}
+                   src={firstAvatar}
                 />
               ) : (
                 <div className="bg-grey rounded-full" style={{
@@ -68,14 +73,14 @@ const ChatCard = ({chat, type}) => {
           </div>
           <div className="mr-4 flex items-center">
             <div className="mr-2">
-              { me && me.employee ? (
-                <img className="c-account__avatar bg-grey w-full h-full"
+              {secondAvatar ? (
+                <img className="rounded-full"
                   style={{
                    width: '40px',
                    height: '40px',
                    backgroundColor: '#dfdfdf',
                   }}
-                  src={me.avatar && me.avatar.url || ''}
+                  src={secondAvatar}
                 />
               ) : (
                 <div className="bg-grey rounded-full" style={{

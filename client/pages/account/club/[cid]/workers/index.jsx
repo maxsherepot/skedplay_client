@@ -28,7 +28,7 @@ const EmployeeCard = ({employee}) => {
                     <img className="w-30 h-30 rounded-full object-cover" src={photo && photo.thumb_url}
                          alt={employee.name}/>
                     <div className="absolute top-0 right-0">
-                        <Link href="/account/club/:cid/workers/eid"
+                        <Link href="/account/club/[:cid]/workers/[:eid]"
                               as={`/account/club/${cid}/workers/${employee.id}`}>
                             <a className="flex items-center justify-center bg-white rounded-full w-10 h-10 z-10 cursor-pointer">
                                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none"

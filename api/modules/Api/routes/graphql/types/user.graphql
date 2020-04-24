@@ -16,6 +16,7 @@ type User {
     clubs: [Club] @hasMany
     roles: Role @belongsToMany
     avatar: Media @hasOne
+    fucking_avatar: Media
     employees: [Employee] @morphMany
     employee: Employee
     # counters

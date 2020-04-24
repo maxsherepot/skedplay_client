@@ -84,7 +84,7 @@ class ChatRepository
     public function getUserChatsWithLastMessages(User $user): Collection
     {
         $query = Chat::query()
-            ->with(['lastMessage.attachments', 'client', 'employee'])
+            ->with(['lastMessage.attachments', 'client.avatar', 'employee.avatar'])
             ->orderBy('updated_at', 'desc');
 
         if ($user->is_club_owner) {

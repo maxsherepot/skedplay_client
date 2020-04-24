@@ -7,8 +7,12 @@ export const ALL_CHATS = gql `
       employee_id
       client_id
       receiver {
+        id
+        name
+        avatar {
           id
-          name
+          url
+        }
       }
       unread_messages_count
       last_message_date
@@ -23,10 +27,18 @@ export const MY_CHATS = gql `
       employee {
         id
         name
+        avatar {
+            id
+            url
+        }
       }
       client {
         id
         name
+        avatar {
+            id
+            url
+        }
       }
       last_message {
         id
@@ -47,7 +59,15 @@ export const CHAT_ROOM = gql `
         chat(chatId: $chatId) {
             id
             employee_id
+            employee_avatar {
+                id
+                url
+            }
             client_id
+            client_avatar {
+                id
+                url
+            }
             receiver {
                 id
                 name

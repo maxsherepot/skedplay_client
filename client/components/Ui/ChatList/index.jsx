@@ -67,7 +67,11 @@ function ChatList({
           key={chat.id + chat.type}
           onClick={(e) => selectChat(chat.id, chat.type)}
         >
-          <div className="avatar empty"/>
+          {chat.receiver.avatar ?
+            <img className="avatar" src={chat.receiver.avatar.url}/>
+            :
+            <div className="avatar empty"/>
+          }
           <div className="flex flex-col">
             <div className="font-bold">{chat.receiver.name}</div>
             {chat.type === 'simple' &&
