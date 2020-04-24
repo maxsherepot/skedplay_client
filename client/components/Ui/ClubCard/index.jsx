@@ -54,10 +54,10 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
 
   const phonesList = JSON.parse(phones);
 
-  if (phonesList.length) {
-    const [number] = phonesList;
-    phone = number
-  }
+  // if (phonesList.length) {
+  //   const [number] = phonesList;
+  //   phone = number
+  // }
   const isMap = eventMapId === id;
   const city_name = (city !== null) ? city['name'] : "";
   const {t, i18n} = useTranslation();
@@ -150,13 +150,13 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
               )
             }
             <div className="flex">
-              {phone && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
+              {phones.length && (<div className="flex bg-xs-grey px-3 py-1 mt-2 rounded-full">
                 <span
                   className={cx("block whitespace-no-wrap overflow-hidden", {
                     "w-8": !showNumber
                   })}
                 >
-                  {phone}
+                  {phonesList}
                 </span>
                 {!showNumber && (
                   <span

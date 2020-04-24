@@ -4,7 +4,7 @@ type Club {
   type: ClubType @belongsTo
   email: String
   website: String
-  phones: String
+  phones: JSON
   description: String
   address: String
   index: String
@@ -34,17 +34,17 @@ type Club {
 }
 
 input ClubInput {
-  name: String!
-  club_type_id: Int!
+  name: String
+  club_type_id: Int
   start_time: String
   end_time: String
   email: String
   website: String
   phone: String
   phones: String
-  description: String!
+  description: String
   comment: String
-  address: String!
+  address: String
   index: String
   city_id: Int
   moderator: ClubModeratorInput

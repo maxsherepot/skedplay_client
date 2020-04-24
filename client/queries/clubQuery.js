@@ -263,7 +263,7 @@ export const CREATE_CLUB = gql`
 `;
 
 export const UPDATE_CLUB = gql`
-  mutation updateClub($club: ID!, $input: ClubInput!) {
+  mutation updateClub($club: ID!, $input: ClubInput) {
     updateClub(club: $club, input: $input) {
         message
         status

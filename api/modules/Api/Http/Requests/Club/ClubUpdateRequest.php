@@ -14,12 +14,11 @@ class ClubUpdateRequest extends GraphQLFormRequest
     public function rules()
     {
         return [
-            'name'         => 'required|string|max:255',
+            'name'         => 'string|max:255',
             'club_type_id' => 'bail|integer|exists:club_types,id',
             'email'        => 'email|nullable',
             'website'      => 'nullable|string|max:255',
             'phones'       => 'nullable',
-            'phones.*'     => 'string',
             'description'  => 'string',
             'address'      => 'nullable|string|max:255',
             'lat'          => 'nullable|string',

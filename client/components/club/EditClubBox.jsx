@@ -45,8 +45,8 @@ const EditClubBox = ({club, user}) => {
         phones: JSON.parse(club.phones),
         email: club.email,
         website: club.website,
-        //start_time: club.start_time,
-        //end_time: club.end_time,
+        start_time: club.start_time,
+        end_time: club.end_time,
         prices,
         services,
         photos: [],
@@ -65,7 +65,7 @@ const EditClubBox = ({club, user}) => {
                     club: club.id,
                     input: {
                         ...values,
-                        phones: JSON.stringify(values.phones),
+                        phones: values.phones,
                         prices: JSON.stringify(values.prices),
                         services: JSON.stringify(values.services),
                         schedule: JSON.stringify(values.schedule),
@@ -195,23 +195,23 @@ const EditClubBox = ({club, user}) => {
                 }
             });
 
-            // const {
-            //     data: {
-            //         updateClub: {statusUpdateTime, messageUpdateTime}
-            //     }
-            // } = await updateClub({
-            //     variables: {
-            //         club: club.id,
-            //         input: {
-            //             start_time: values.start_time,
-            //             end_time: values.end_time,
-            //         }
-            //     }
-            // });
+            const {
+                data: {
+                    updateClub: {statusUpdateTime, messageUpdateTime}
+                }
+            } = await updateClub({
+                variables: {
+                    club: club.id,
+                    input: {
+                        start_time: values.start_time,
+                        end_time: values.end_time,
+                    }
+                }
+            });
 
             return {
-                status,
-                message
+                status: status && statusUpdateTime,
+                message: message || messageUpdateTime
             };
         } catch (e) {
             const errors = getErrors(e);
