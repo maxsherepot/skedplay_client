@@ -3,6 +3,7 @@
 namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
 class ParameterOption extends Model
@@ -17,6 +18,14 @@ class ParameterOption extends Model
         'parameter_id',
         'value',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function parameter(): BelongsTo
+    {
+        return $this->belongsTo(Parameter::class, 'parameter_id');
+    }
 
     public function getAttributeValue($key)
     {

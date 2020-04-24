@@ -13,6 +13,7 @@ type Parameter {
 type ParameterOption {
     id: ID!
     value: JSON!
+    parameter: Parameter @belongsTo
 }
 
 extend type Query {

@@ -13,6 +13,8 @@ use App\Nova\GroupService;
 use App\Nova\HelpCenterCategory;
 use App\Nova\HelpCenterTopic;
 use App\Nova\Language;
+use App\Nova\Parameter;
+use App\Nova\ParameterOption;
 use App\Nova\Photo;
 use App\Nova\Race;
 use App\Nova\Role;
@@ -127,6 +129,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ClubType::class,
             Event::class,
             EventType::class,
+
+            Parameter::class,
+            ParameterOption::class,
 
             Photo::class,
             Video::class,
