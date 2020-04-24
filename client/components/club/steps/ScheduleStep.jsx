@@ -88,21 +88,23 @@ const ScheduleStep = () => {
   return (
     <div className="px-2">
       <div className="flex flex-col -mx-4">
-        {/*<div>*/}
-        {/*  <span>Open Hour</span>*/}
-        {/*  <TextField*/}
-        {/*      type="time"*/}
-        {/*      name="start_time"*/}
-        {/*      label="From"*/}
-        {/*      className="mr-2"*/}
-        {/*  />*/}
+        <div className="mb-3">
+          <span>Open Hour</span>
+        </div>
+        <div className="flex flex-row items-start w-1">
+          <TextField
+              type="time"
+              name="start_time"
+              label="From"
+              className="mr-2"
+          />
 
-        {/*  <TextField*/}
-        {/*      type="time"*/}
-        {/*      name="end_time"*/}
-        {/*      label="To"*/}
-        {/*  />*/}
-        {/*</div>*/}
+          <TextField
+              type="time"
+              name="end_time"
+              label="To"
+          />
+        </div>
         {weeks.map(week => (
           <div className="flex items-center" key={week.day}>
             <div className="w-2/5 px-2">{week.name}</div>

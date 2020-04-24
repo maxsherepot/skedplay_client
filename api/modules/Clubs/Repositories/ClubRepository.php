@@ -64,6 +64,14 @@ class ClubRepository implements HasMediable
      */
     public function update(Club $club, Collection $collection): bool
     {
+        $inputs = $collection->toArray();
+
+        if ($collection->get('phones')) {
+            $inputs['phones'] = json_encode([
+                $inputs['phones'],
+            ]);
+        }
+
         DB::beginTransaction();
 
         $result = $club->update($collection->toArray());
