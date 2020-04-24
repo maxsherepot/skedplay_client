@@ -65,7 +65,8 @@ const EditEmployeeBox = ({ employee }) => {
     schedule: defaultSchedule(employee.schedule),
     will_activate_at: employee.will_activate_at,
     photos: [],
-    videos: []
+    videos: [],
+    custom_properties: [],
   };
 
   const onSubmitInfo = async values => {
@@ -175,7 +176,8 @@ const EditEmployeeBox = ({ employee }) => {
         variables: {
           employee: employee.id,
           collection: "employee-photo",
-          files: values.photos
+          files: values.photos,
+          custom_properties: JSON.stringify(values.custom_properties),
         }
       });
 
@@ -187,7 +189,7 @@ const EditEmployeeBox = ({ employee }) => {
         variables: {
           employee: employee.id,
           collection: "employee-video",
-          files: values.videos
+          files: values.videos,
         }
       });
 

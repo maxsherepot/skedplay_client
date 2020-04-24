@@ -25,6 +25,7 @@ use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
+use Spatie\MediaLibrary\Models\Media;
 
 class EmployeeController extends Controller
 {
@@ -174,18 +175,35 @@ class EmployeeController extends Controller
     {
         $this->authorize('update', $employee);
 
+        $customProperties = $request->get('custom_properties', []);
+
         try {
             $this->employees->saveAttachments(
                 $employee,
                 $request->allFiles(),
-                $request->get('collection'),
-                $request->get('custom_properties')
+                $request->get('collection')
             );
+
+            if (count($customProperties)) {
+                $media = $employee->getMedia($request->get('collection'));
+
+                /** @var Media $mediaItem */
+                foreach ($media as $k => $mediaItem) {
+
+                    if ($customProperties[$k] ?? false) {
+                        foreach ((array) $customProperties[$k] as $key => $value) {
+                            $mediaItem->setCustomProperty($key, $value);
+                            $mediaItem->save();
+                        }
+                    }
+                }
+            }
 
             return $this->success(
                 $this->employees::UPLOAD_FILE_SUCCESS
             );
         } catch (\Exception $exception) {
+            \Log::error($exception);
             return $this->fail(
                 $this->employees::UPLOAD_FILE_FAILED
             );

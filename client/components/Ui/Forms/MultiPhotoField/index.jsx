@@ -9,25 +9,17 @@ import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
 
-const DisplayPreviews = ({ photos, indexes, setPreviews, setMainImageIndex, selectable }) => {
+const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageIndex, selectable }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
   const {t, i18n} = useTranslation();
   const [hovered, setHovered] = useState(null);
 
-  const mainPhotoIndex = photos.findIndex(photo => {
-    const properties = JSON.parse(photo.custom_properties || '{}');
+  const handleMainImageIndex = (checked, index) => {
+    const i = checked ? index : null;
 
-    if (properties && properties.main_image) {
-      return true;
+    if (setMainImageIndex) {
+      setMainImageIndex(i);
     }
-
-    return false;
-  });
-
-  const [index, setIndex] = useState(mainPhotoIndex === -1 ? null : mainPhotoIndex);
-
-  const handleMainImageIndex = (index) => {
-    setMainImageIndex(index);
   };
 
   const handleDelete = (i, id) => {
@@ -78,10 +70,8 @@ const DisplayPreviews = ({ photos, indexes, setPreviews, setMainImageIndex, sele
                           label={t('index.main_photo')}
                           name={'custom_properties.' + i + '.main_image'}
                           checkedOnlyByProp={true}
-                          checked={index === i}
-                          onChange={checked => {
-                            checked ? setIndex(i) : setIndex(null);
-                          }}
+                          checked={mainImageIndex === i}
+                          onChange={checked => handleMainImageIndex(checked, i)}
                       />
                     </div>
                 )}
@@ -105,6 +95,20 @@ function MultiPhotoField({
 }) {
   const [previews, setPreviews] = useState(initialValues || []);
   const [indexes, setIndexes] = useState([]);
+
+  const mainImageIndexInit = initialValues.findIndex(photo => {
+    const properties = JSON.parse(photo.custom_properties || '{}');
+
+    if (properties && properties.main_image) {
+      return true;
+    }
+
+    return false;
+  });
+
+  const initIndex = mainImageIndexInit === -1 ? null : mainImageIndexInit;
+
+  const [mainImageIndex, setMainImageIndex] = useState(initIndex);
 
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
@@ -130,6 +134,24 @@ function MultiPhotoField({
     }
   };
 
+  const setMainImages = (index) => {
+    setMainImageIndex(index);
+
+    let customProperties = [];
+
+    for (let i in previews) {
+      if (parseInt(i) === index) {
+        customProperties.push({main_image: true});
+      } else {
+        customProperties.push({main_image: false});
+      }
+    }
+
+    console.log(index, customProperties);
+
+    setFieldValue('custom_properties', customProperties);
+  };
+
   return (
     <FormGroup
       className={cx(className, "relative")}
@@ -140,7 +162,7 @@ function MultiPhotoField({
       </label>
 
       <>
-        <DisplayPreviews photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
+        <DisplayPreviews mainImageIndex={mainImageIndex} setMainImageIndex={setMainImages} photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
 
         <label className="relative" style={{ paddingLeft: 0 }}>
           {children}

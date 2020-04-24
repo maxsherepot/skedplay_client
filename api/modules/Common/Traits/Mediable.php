@@ -24,10 +24,10 @@ trait Mediable
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
-    public function saveAttachments(Model $model, $files, $collection = 'photos', array $customProperties = [])
+    public function saveAttachments(Model $model, $files, $collection = 'photos', ?array $customProperties = [])
     {
         foreach ($files as $k => $file) {
-            $this->saveFile($model, $file, $collection, $customProperties[$k] ?? []);
+            $this->saveFile($model, $file, $collection, (array) ($customProperties[$k] ?? []));
         }
     }
 
