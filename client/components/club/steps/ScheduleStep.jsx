@@ -89,7 +89,7 @@ const ScheduleStep = () => {
     <div className="px-2">
       <div className="flex flex-col -mx-4">
         <div className="mb-3">
-          <span>Open Hour</span>
+          <span>{t('schedule.open_hours')}</span>
         </div>
         <div className="flex flex-row items-start w-1">
           <TextField

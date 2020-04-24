@@ -21,6 +21,7 @@ use App\Nova\Role;
 use App\Nova\Service;
 use App\Nova\UiTranslate;
 use App\Nova\User;
+use App\Nova\Verification;
 use App\Nova\Video;
 use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\Field;
@@ -148,6 +149,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             UiTranslate::class,
             Language::class,
+            Verification::class,
         ]);
     }
 }

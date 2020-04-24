@@ -2,21 +2,21 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Code;
+use App\Nova\Actions\Confirm;
+use App\Nova\Actions\Reject;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ParameterOption extends Resource
+class Verification extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Modules\Employees\Entities\ParameterOption';
+    public static $model = 'Modules\Users\Entities\User';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -40,7 +40,8 @@ class ParameterOption extends Resource
      */
     public static function availableForNavigation(Request $request): bool
     {
-        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN);
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
+            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR);
     }
 
     /**
@@ -54,17 +55,14 @@ class ParameterOption extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Parameter', 'parameter', Parameter::class)->sortable(),
-            //Text::make('parameter_id'),
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
 
-            Text::make('Value', 'value')
-                ->hideWhenUpdating()
-                ->hideFromDetail(),
-
-
-            Code::make('Value', 'value')->json()
-                ->hideFromIndex()
-                ->hideWhenCreating(),
+            Text::make('Refuse reason', 'rejected_reason'),
         ];
     }
 
@@ -109,6 +107,13 @@ class ParameterOption extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new Confirm())->canRun(function($request) {
+                return true;
+            }),
+            (new Reject())->canRun(function($request) {
+                return true;
+            }),
+        ];
     }
 }

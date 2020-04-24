@@ -395,7 +395,9 @@
   "schedule": {
     "view_for_month": "View for a month",
     "view_phone": "View phone",
-    "my_schedule_in": "My schedule in"
+    "my_schedule_in": "My schedule in",
+    "open_hours": "Open Hours",
+    "": ""
   },
   "after_register": {
     "welcome_to_portal": "Welcome to our portal",

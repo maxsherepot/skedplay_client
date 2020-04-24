@@ -39,8 +39,7 @@ class Parameter extends Resource
      */
     public static function availableForNavigation(Request $request): bool
     {
-        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN) ||
-            $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR);
+        return $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_ADMIN);
     }
 
     /**
