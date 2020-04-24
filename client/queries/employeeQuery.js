@@ -36,6 +36,7 @@ export const ALL_EMPLOYEES = gql `
         photos {
           url
           thumb_url
+          custom_properties
         }
       }
       paginatorInfo {
@@ -159,11 +160,14 @@ export const GET_EMPLOYEE = gql `
         id
         url
         thumb_url
+        custom_properties
       }
       videos {
         id
         url
         thumb_url
+        mime_type
+        custom_properties
       }
       unread_messages_count
       user_unread_messages_count

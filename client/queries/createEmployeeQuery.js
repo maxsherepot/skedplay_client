@@ -31,11 +31,13 @@ export const UPLOAD_EMPLOYEE_FILES = gql `
     $employee: ID!
     $collection: String!
     $files: [Upload!]
+    $custom_properties: JSON
   ) {
     uploadEmployeeFiles(
       employee: $employee
       collection: $collection
       files: $files
+      custom_properties: $custom_properties
     ) {
       status
       message

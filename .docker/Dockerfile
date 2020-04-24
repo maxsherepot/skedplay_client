@@ -4,7 +4,7 @@ RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.9/main > /etc/apk/repositorie
     echo http://mirror.yandex.ru/mirrors/alpine/v3.9/community >> /etc/apk/repositories
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache git
+    apk add --no-cache git ffmpeg
 
 #####################################
 # Exif:

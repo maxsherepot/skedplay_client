@@ -65,11 +65,17 @@ const EmployeeInformation = ({ user }) => {
         open={isModalOpen}
         index={lightboxIndex}
         onClose={onClose}
-        images={employee.photos}
+        images={[
+          ...employee.photos.map(p => ({...p, type: 'image'})),
+          ...employee.videos.map(v => ({...v, type: 'video'}))]
+        }
       />
 
       <GalleryWithThumbnail
-        photos={employee.photos}
+        photos={[
+          ...employee.photos.map(p => ({...p, type: 'image'})),
+          ...employee.videos.map(v => ({...v, url: v.thumb_url, type: 'video'}))
+        ]}
         handleClick={handleLightboxClick}
         favorite={
           <FavoriteButton

@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { Checkbox } from "UI";
 import { useFormikContext, useField } from "formik";
 
-function CheckboxField({ className, checkboxClass, label, labelStyle = {}, labelClass, name, ...rest }) {
+function CheckboxField({ className, checkboxClass, label, labelStyle = {}, labelClass, name, checked, checkedOnlyByProp, onChange, ...rest }) {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
 
   const handleChange = event => {
+    if (onChange) {
+      onChange(event.target.checked);
+    }
     setFieldValue(name, event.target.checked);
   };
 
@@ -16,7 +19,7 @@ function CheckboxField({ className, checkboxClass, label, labelStyle = {}, label
       <Checkbox
         checkboxClass={checkboxClass}
         name={name}
-        checked={field.value}
+        checked={checkedOnlyByProp ? checked : field.value || checked}
         value={field.value}
         onChange={handleChange}
       />

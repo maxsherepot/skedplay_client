@@ -5,6 +5,7 @@ import cx from "classnames";
 import Slider from "react-slick";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
+import {PolygonSvg} from 'icons';
 
 function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
   const [index, setIndex] = useState(0);
@@ -15,7 +16,11 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
   const [slider1, setSlider1] = useState(null);
   const [slider2, setSlider2] = useState(null);
 
-  const images = photos.map(photo => photo.url);
+  let clickRefs = {};
+
+  const setClickRef = (element, index) => {
+    clickRefs[index] = element;
+  };
 
   useEffect(() => {
     setMainNav(slider1);
@@ -38,16 +43,23 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           vertical
           verticalSwiping
         >
-          {images.map((image, i) => (
-            <img
-              key={i}
-              className={cx(
-                "thumb-slide object-cover rounded-lg h-36 outline-none cursor-pointer",
-                i % 2 !== 0 ? "my-2" : null
-              )}
-              src={image}
-              alt=""
-            />
+          {photos.map((photo, i) => (
+            <div className="relative"  key={i}>
+              {photo.type === 'video' &&
+                <div className="absolute cursor-pointer" style={{top:'50%',left:'53%', transform: 'translate(-50%, -50%)'}}>
+                  <PolygonSvg/>
+                </div>
+              }
+
+              <img
+                className={cx(
+                  "thumb-slide object-cover rounded-lg h-36 outline-none cursor-pointer",
+                  i % 2 !== 0 ? "my-2" : null
+                )}
+                src={photo.url}
+                alt=""
+              />
+            </div>
           ))}
         </Slider>
       </div>
@@ -60,14 +72,26 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           infinite={false}
           beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
         >
-          {images.map((image, i) => (
-            <img
-              key={i}
-              onClick={() => handleClick(i)}
-              className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
-              src={image}
-              alt=""
-            />
+          {photos.map((photo, i) => (
+            <div className="relative" key={i}>
+              {photo.type === 'video' &&
+                <div
+                  onClick={() => clickRefs[i].click()}
+                  className="absolute cursor-pointer"
+                  style={{top:'50%',left:'53%', transform: 'translate(-50%, -50%)'}}
+                >
+                  <PolygonSvg/>
+                </div>
+              }
+
+              <img
+                ref={element => setClickRef(element, i)}
+                onClick={() => handleClick(i)}
+                className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
+                src={photo.url}
+                alt=""
+              />
+            </div>
           ))}
         </Slider>
 
@@ -107,7 +131,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
 
         <div className="flex justify-center lg:mb-12 sm:mb-2 absolute bottom-0 left-0 w-full z-10">
           <div className="text-xl text-white mb-10 sm:mb-3 pb-10 mx-5 my-8 select-none">
-            {index + 1} / {images.length}
+            {index + 1} / {photos.length}
           </div>
         </div>
       </div>

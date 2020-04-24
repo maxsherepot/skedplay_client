@@ -3,6 +3,8 @@ type Media {
     name: String!
     url: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getUrl")
     thumb_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getThumbUrl")
+    mime_type: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getMimeType")
+    custom_properties: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCustomProperties")
 }
 
 extend type Mutation {

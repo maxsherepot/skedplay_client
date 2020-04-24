@@ -11,7 +11,6 @@ Homestead.yaml
 .phpstorm.meta.php
 .env
 _ide_helper.php
-composer.lock
 npm-debug.log
 .vscode
 # Version json
