@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
+use App\Nova\Filters\ModerationStatusFilter;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -16,7 +17,7 @@ class Verification extends Resource
      *
      * @var string
      */
-    public static $model = 'Modules\Users\Entities\User';
+    public static $model = 'Spatie\MediaLibrary\Models\Media';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -44,6 +45,11 @@ class Verification extends Resource
             $request->user()->hasRole(\Modules\Users\Entities\User::ACCOUNT_MODERATOR);
     }
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('collection_name', 'like', '%verify-photo%');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -54,6 +60,10 @@ class Verification extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            Text::make('Photo', function() {
+                return view('nova.photo', ['photo' => $this])->render();
+            })->asHtml(),
 
             Text::make('Status', function() {
                 return view(
@@ -85,7 +95,9 @@ class Verification extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new ModerationStatusFilter(),
+        ];
     }
 
     /**

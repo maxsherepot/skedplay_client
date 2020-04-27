@@ -69,4 +69,34 @@ class UserController extends Controller
             );
         }
     }
+
+    /**
+     * @param FileUploadRequest $request
+     * @param User $user
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function uploadVerifyPhoto(FileUploadRequest $request, User $user): array
+    {
+        $this->authorize('update', $user);
+
+        /** @var User $currentUser */
+        $currentUser = $request->user();
+
+        try {
+            $this->users->saveAttachments(
+                $currentUser,
+                $request->allFiles(),
+                $request->get('collection')
+            );
+
+            return $this->success(
+                $this->users::UPLOAD_FILE_SUCCESS
+            );
+        } catch (\Exception $exception) {
+            return $this->fail(
+                $this->users::UPLOAD_FILE_FAILED
+            );
+        }
+    }
 }

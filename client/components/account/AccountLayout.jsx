@@ -5,9 +5,11 @@ import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
+import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
+import {getErrors} from "utils/index";
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container">
@@ -29,8 +31,68 @@ const ProfileHeader = ({user}) => (
                 </div>
             </div>
         </div>
+        <div className="flex flex-row">
+            <VerifyMessage user={user} />
+        </div>
     </div>
 );
+
+const VerifyMessage = ({user}) => {
+    const [uploadVerifyPhoto] = useMutation(UPLOAD_VERIFY_PHOTO);
+
+    const handleSubmit = async verifyFile => {
+        try {
+            const [verify_photo] = verifyFile.target.files;
+
+            await uploadVerifyPhoto({
+                variables: {
+                    verify_photo: verify_photo,
+                    collection: 'verify-photo'
+                },
+            });
+        } catch (e) {
+            const errors = getErrors(e);
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
+    return (
+        <>
+            <div>
+                {user.status === 0 && (
+                    <>
+                        {user.verify_photo ? (
+                            <div>
+                                <span>
+                                    Please wait... Administrator pruf your Profile.
+                                </span>
+                            </div>
+                        ) : (
+                            <div>
+                                <span> To become a 100% verified member, and post your Profile at Skedplay you need to:
+                                    To upload the documents, please go to the My Home page (My account --> Settings)
+                                    and on the left hand side, click on the "Verification" tab and then on "Upload
+                                    Verify Photo" or Press this Button.
+                                </span>
+                                <input type="file" name="Upload Verify Photo" onChange={handleSubmit}/>
+                            </div>
+                        )}
+                    </>
+                )}
+                {user.status === 1 && (
+                    <div>
+                        <span>Your profile is confirmed</span>
+                    </div>
+                )}
+            </div>
+        </>
+    )
+
+};
 
 const ClubMenu = ({clubs}) => {
     const router = useRouter();
