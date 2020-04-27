@@ -4,6 +4,7 @@ namespace App\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\Action;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
@@ -34,7 +35,9 @@ class Confirm extends Action
     {
         foreach ($models as $model) {
             $model->status = User::STATUS_CONFIRMED;
+            $model->rejected_reason = '';
             $model->save();
+            DB::table('users')->where('id', '=', $model->model_id)->update(['status' => 1]);
         }
 
         return Action::message('Confirmed');

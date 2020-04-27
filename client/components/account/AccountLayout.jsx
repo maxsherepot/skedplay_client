@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
@@ -32,7 +32,9 @@ const ProfileHeader = ({user}) => (
             </div>
         </div>
         <div className="flex flex-row">
-            <VerifyMessage user={user} />
+            {user && (user.is_employee || user.is_club_owner ) && (
+                <VerifyMessage user={user} />
+            )}
         </div>
     </div>
 );
@@ -50,6 +52,9 @@ const VerifyMessage = ({user}) => {
                     collection: 'verify-photo'
                 },
             });
+
+            Router.reload();
+
         } catch (e) {
             const errors = getErrors(e);
             return {
