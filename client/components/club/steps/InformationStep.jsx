@@ -113,7 +113,7 @@ const InformationStep = ({ club }) => {
                 className="px-3 w-3/6"
                 inputClassName="w-1/3"
                 label={t('clubs.phone_exampl')}
-                name="phones"
+                name="phones.0"
                 placeholder="+4179"
             />
         </div>

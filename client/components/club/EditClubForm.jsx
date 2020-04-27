@@ -3,9 +3,10 @@ import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Router from "next/router";
 import { useSteps } from "hooks";
-import { Button, FormGroup } from "UI";
+import { Button, FormGroup, Loader } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
+import cx from "classnames";
 
 function EditClubForm({ initialValues, children }) {
   const { step, setStep } = useSteps();
@@ -54,22 +55,22 @@ function EditClubForm({ initialValues, children }) {
         setStatus(message);
       }
 
-      if (status) {
-       next();
-      }
+      // if (status) {
+      //  next();
+      // }
     }
 
-    if (isLastStep) {
-      try {
-        setStep(0);
-        Router.back();
-      } catch (e) {
-        if (getErrors(e) instanceof Object) {
-          setErrors(getErrors(e));
-        }
-      }
-      return;
-    }
+    // if (isLastStep) {
+    //   try {
+    //     setStep(0);
+    //     Router.back();
+    //   } catch (e) {
+    //     if (getErrors(e) instanceof Object) {
+    //       setErrors(getErrors(e));
+    //     }
+    //   }
+    //   return;
+    // }
   };
 
   return (
@@ -80,6 +81,8 @@ function EditClubForm({ initialValues, children }) {
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
+          {isSubmitting && <Loader/>}
+
           <div className="flex flex-col items-start mx-auto hd:w-7/12 my-5">
             <div className="w-full p-8 hd:p-0">
               {activeStep}
@@ -94,23 +97,19 @@ function EditClubForm({ initialValues, children }) {
 
           <div className="border-b border-divider" />
 
-          <div className="flex flex-col items-start mx-auto hd:w-7/12">
+          <div
+            className={cx([
+              "flex flex-col items-start mx-auto hd:w-7/12",
+              activeStep.props.showSubmit === false ? 'hidden' : '',
+            ])}
+          >
             <div className="w-full p-8 hd:px-0">
-              <Button
-                level={step <= 0 ? "grey" : "primary"}
-                className="text-xl px-16 mb-4 md:mb-0 sm:mr-4"
-                onClick={() => prev()}
-                type="button"
-                disabled={isSubmitting}
-              >
-                {t('common.back')}
-              </Button>
               <Button
                 type="submit"
                 className="text-xl px-16"
                 disabled={isSubmitting}
               >
-                {isLastStep ? t('common.save') : t('common.next')}
+                {t('common.save')}
               </Button>
             </div>
           </div>

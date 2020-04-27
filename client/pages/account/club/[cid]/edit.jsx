@@ -20,12 +20,7 @@ const AccountClubEdit = ({ user }) => {
         }
     });
     const {t, i18n} = useTranslation();
-    const links = [
-        t('account.links.information'),
-        t('account.links.services_and_prices'),
-        t('account.links.photos_and_videos'),
-        t('account.links.schedule_and_activation'),
-    ];
+
 
     if (loading) {
         return <Loader/>;
@@ -33,10 +28,6 @@ const AccountClubEdit = ({ user }) => {
 
     return (
         <>
-            <div className="flex flex-col lg:flex-row justify-between">
-                <StepBox links={links} />
-            </div>
-            <div className="border-b border-divider" />
             <EditClubBox club={club} user={user} />
         </>
     );

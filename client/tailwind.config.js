@@ -91,6 +91,7 @@ module.exports = {
         "38": "9.75rem",
         "102": "25.625rem",
         "70": "17.5rem",
+        "75": "19.44rem",
         "76": "19rem",
         "80": "20rem",
         "1218": "1218px",
@@ -114,8 +115,10 @@ module.exports = {
         "photo-md": "20.3125rem", // 325
         "photo-sm": "18.625rem", // 298
         photo: "24.8125rem", // 397
-        "e-photo-md": "14.8125rem", // 237
-        "e-photo-lg": "15.625rem", // 250
+        // "e-photo-md": "14.8125rem", // 237
+        "e-photo-md": "13.875rem", // 222
+        // "e-photo-lg": "15.625rem", // 250
+        "e-photo-lg": "13.875rem", // 222
         "e-photo-hd": "13.875rem", // 222
         // Gallery
         "gallery-hd": "47.5rem", // 760

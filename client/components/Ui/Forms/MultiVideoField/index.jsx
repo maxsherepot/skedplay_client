@@ -33,7 +33,7 @@ const DisplayPreviews = ({ videos, indexes, setPreviews }) => {
           onMouseLeave={() => setHovered(null)}
       >
         <div className="relative w-full mb-6">
-          <div className="w-full md:w-80">
+          <div className="w-full md:w-70">
             <video className="rounded-lg">
               <source src={preview && preview.url} type="video/mp4" />
             </video>
@@ -62,12 +62,13 @@ function MultiVideoField({
   accept,
   required,
   initialValues,
-  children
+  children,
+  submitOnChange
 }) {
   const [indexes, setIndexes] = useState([]);
   const [previews, setPreviews] = useState(initialValues || []);
 
-  const { touched, errors, setFieldValue } = useFormikContext();
+  const { touched, errors, setFieldValue, submitForm } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
 
   const handleChange = ({ target: { validity, files } }) => {
@@ -89,6 +90,10 @@ function MultiVideoField({
       setIndexes(Object.keys(files));
 
       setFieldValue(name, files);
+
+      if (submitOnChange) {
+        submitForm();
+      }
     }
   };
 

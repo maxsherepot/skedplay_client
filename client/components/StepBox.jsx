@@ -1,7 +1,7 @@
 import cx from "classnames";
 import { useSteps } from "hooks";
 
-const StepBox = ({ links }) => {
+const StepBox = ({ links, canSetStep }) => {
   const { step, setStep } = useSteps();
 
   // Todo: Add check step.
@@ -11,8 +11,9 @@ const StepBox = ({ links }) => {
     <div className="flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
       {links.map((name, i) => (
         <div
-          className="flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3"
+          className="flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3 cursor-pointer"
           key={i}
+          onClick={() => canSetStep ? setStep(i) : ''}
         >
           <div
             className={cx(

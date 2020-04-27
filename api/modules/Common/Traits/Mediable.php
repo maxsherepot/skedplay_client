@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Modules\Clubs\Entities\Club;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
+use Spatie\MediaLibrary\Models\Media;
 
 trait Mediable
 {
@@ -27,7 +28,23 @@ trait Mediable
     public function saveAttachments(Model $model, $files, $collection = 'photos', ?array $customProperties = [])
     {
         foreach ($files as $k => $file) {
-            $this->saveFile($model, $file, $collection, (array) ($customProperties[$k] ?? []));
+            $this->saveFile($model, $file, $collection);
+        }
+
+        $customProperties = $customProperties ?? [];
+
+        if (count($customProperties)) {
+            $media = $model->getMedia($collection);
+
+            /** @var Media $mediaItem */
+            foreach ($media as $k => $mediaItem) {
+                if ($customProperties[$k] ?? false) {
+                    foreach ((array) $customProperties[$k] as $key => $value) {
+                        $mediaItem->setCustomProperty($key, $value);
+                        $mediaItem->save();
+                    }
+                }
+            }
         }
     }
 
@@ -41,7 +58,7 @@ trait Mediable
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
-    public function saveFile(Model $model, UploadedFile $file, $collection, array $customProperties = [])
+    public function saveFile(Model $model, UploadedFile $file, $collection)
     {
         $fileName = $file->getClientOriginalName();
         $extension = Str::slug($file->getClientOriginalExtension());
@@ -50,7 +67,6 @@ trait Mediable
         /** @var Club|User|Event $model */
         $model->addMedia($file)
             ->usingName($storeName)
-            ->withCustomProperties($customProperties)
             ->toMediaCollection($collection, $this->diskName);
     }
 

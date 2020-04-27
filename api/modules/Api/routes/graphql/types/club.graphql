@@ -97,7 +97,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   updateClub(club: ID!, input: ClubInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@update")
 
-  uploadClubFiles(club: ID!, collection: String!, files: [Upload]!): StatusPayload
+  uploadClubFiles(club: ID!, collection: String!, files: [Upload]!, custom_properties: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\ClubController@uploadFiles")
 
   deleteClubFile(club: ID!, file_id: Int!): StatusPayload

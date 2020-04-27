@@ -36,6 +36,7 @@ export const ALL_CLUBS = gql`
         }
         photos {
           url
+          custom_properties
         }
       }
       paginatorInfo {
@@ -86,6 +87,7 @@ export const GET_CLUB = gql`
         id
         url
         thumb_url
+        custom_properties
       }
       videos {
         id
@@ -294,11 +296,13 @@ export const UPLOAD_CLUB_FILES = gql `
     $club: ID!
     $collection: String!
     $files: [Upload]!
+    $custom_properties: JSON
   ) {
   uploadClubFiles(
       club: $club
       collection: $collection
       files: $files
+      custom_properties: $custom_properties
     ) {
       status
       message

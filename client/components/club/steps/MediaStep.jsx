@@ -16,7 +16,7 @@ const MediaStep = ({ club }) => {
       </div>
 
       <div className="flex flex-wrap">
-        <MultiPhotoField name="photos" label="" required={false} initialValues={club.photos}>
+        <MultiPhotoField name="photos" label="" required={false} initialValues={club.photos} submitOnChange={true}>
           <Button
             className="px-3"
             level="primary-black"
@@ -46,6 +46,7 @@ const MediaStep = ({ club }) => {
           required={false}
           initialValues={club.videos}
           accept="video/mp4,video/x-m4v,video/*"
+          submitOnChange={true}
         >
           <div className="border border-light-grey border-dashed rounded-lg px-24 md:px-32 py-10 md:py-21 mb-6">
             <div className="flex flex-col items-center">

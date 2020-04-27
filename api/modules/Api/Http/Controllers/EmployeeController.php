@@ -181,23 +181,9 @@ class EmployeeController extends Controller
             $this->employees->saveAttachments(
                 $employee,
                 $request->allFiles(),
-                $request->get('collection')
+                $request->get('collection'),
+                $customProperties
             );
-
-            if (count($customProperties)) {
-                $media = $employee->getMedia($request->get('collection'));
-
-                /** @var Media $mediaItem */
-                foreach ($media as $k => $mediaItem) {
-
-                    if ($customProperties[$k] ?? false) {
-                        foreach ((array) $customProperties[$k] as $key => $value) {
-                            $mediaItem->setCustomProperty($key, $value);
-                            $mediaItem->save();
-                        }
-                    }
-                }
-            }
 
             return $this->success(
                 $this->employees::UPLOAD_FILE_SUCCESS

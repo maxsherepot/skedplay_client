@@ -99,25 +99,27 @@ const UserDropdown = ({ user }) => {
                 {t('common.reviews')}
               </div>
             )}
-            {user.is_club_owner && user.clubs && user.clubs.length > 0 ? (
-                <Link>
-                  <div>
-                    {user.clubs.map(club =>
-                      <Link href={`/account/club/${club.id}`}>
-                        <a className="hover:text-red flex m-1 hover:cursor-pointer">
-                          {club.name}
-                        </a>
-                      </Link>
-                    )}
-                  </div>
-                </Link>
-            ) : (
+
+            {user.is_club_owner &&
+            <>
+              {user.clubs && user.clubs.length > 0 ? (
+                <div>
+                  {user.clubs.map(club =>
+                    <Link href={`/account/club/[cid]`} as={`/account/club/${club.id}`} key={club.id}>
+                      <a className="hover:text-red flex m-1 hover:cursor-pointer">
+                        {club.name}
+                      </a>
+                    </Link>
+                  )}
+                </div>
+              ) : (
                 <div>
                   <span>
                     {t('account.add_your_first_club')}
                   </span>
                 </div>
-            )}
+              )}
+            </>}
           </div>
           <div className="w-1/2">
             {/*{user.is_club_owner && (*/}

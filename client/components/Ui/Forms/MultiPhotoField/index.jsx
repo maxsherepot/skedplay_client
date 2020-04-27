@@ -9,7 +9,7 @@ import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
 
-const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageIndex, selectable }) => {
+const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageIndex, selectable, submitOnChange }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
   const {t, i18n} = useTranslation();
   const [hovered, setHovered] = useState(null);
@@ -91,7 +91,8 @@ function MultiPhotoField({
   required,
   initialValues,
   selectable,
-  children
+  children,
+  submitOnChange
 }) {
   const [previews, setPreviews] = useState(initialValues || []);
   const [indexes, setIndexes] = useState([]);
@@ -110,7 +111,7 @@ function MultiPhotoField({
 
   const [mainImageIndex, setMainImageIndex] = useState(initIndex);
 
-  const { touched, errors, setFieldValue } = useFormikContext();
+  const { touched, errors, setFieldValue, submitForm, resetForm } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
 
   const handleChange = ({ target: { validity, files } }) => {
@@ -131,6 +132,10 @@ function MultiPhotoField({
       setIndexes(Object.keys(files));
 
       setFieldValue(name, files);
+
+      if (submitOnChange) {
+        submitForm().then(() =>  resetForm());
+      }
     }
   };
 
@@ -147,9 +152,11 @@ function MultiPhotoField({
       }
     }
 
-    console.log(index, customProperties);
-
     setFieldValue('custom_properties', customProperties);
+
+    if (submitOnChange) {
+      submitForm().then(() => resetForm());
+    }
   };
 
   return (

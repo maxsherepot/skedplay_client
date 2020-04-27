@@ -288,8 +288,8 @@ const EditEmployeeBox = ({ employee }) => {
             </Panel>
 
             <Panel>
-              <EditEmployeeForm.Step onStepSubmit={onSubmitMedia}>
-                <AdMediaStep photos={employee.photos} videos={employee.videos} />
+              <EditEmployeeForm.Step onStepSubmit={onSubmitMedia} showSubmit={false}>
+                <AdMediaStep photos={employee.photos} videos={employee.videos} onSubmitMedia={onSubmitMedia} />
               </EditEmployeeForm.Step>
             </Panel>
 

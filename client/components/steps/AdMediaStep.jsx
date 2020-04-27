@@ -17,7 +17,7 @@ const AdMediaStep = ({ photos, videos }) => {
       </div>
 
       <div className="flex flex-wrap">
-        <MultiPhotoField name="photos" label="" initialValues={photos}>
+        <MultiPhotoField name="photos" label="" initialValues={photos} submitOnChange={true}>
           <Button
             className="px-3"
             level="primary-black"
@@ -46,6 +46,7 @@ const AdMediaStep = ({ photos, videos }) => {
           label=""
           accept="video/mp4,video/x-m4v,video/*"
           initialValues={videos}
+          submitOnChange={true}
         >
           <div className="border border-light-grey border-dashed rounded-lg px-24 md:px-32 py-10 md:py-21">
             <div className="flex flex-col items-center">

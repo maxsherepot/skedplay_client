@@ -103,11 +103,14 @@ class ClubController extends Controller
     {
         $this->authorize('update', $club);
 
+        $customProperties = $request->get('custom_properties', []);
+
         try {
             $this->clubs->saveAttachments(
                 $club,
                 $request->allFiles(),
-                $request->get('collection')
+                $request->get('collection'),
+                $customProperties
             );
 
             return $this->success(
