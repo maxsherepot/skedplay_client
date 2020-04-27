@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
+import {Formik, useFormikContext} from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
 import { CITIES } from "queries";
@@ -27,7 +27,6 @@ function NewClubForm({ onSubmit }) {
   const {t, i18n} = useTranslation();
   const { data: { me } = {}, loadingMe } = useQuery(GET_ME);
   const { loading: citiesLoading, data: { cities } = {} } = useQuery(CITIES);
-
   const {loadingClubTypes, data: {club_types} = {}} = useQuery(ALL_CLUB_TYPES);
 
   if (citiesLoading || loadingClubTypes || loadingMe) {
@@ -49,6 +48,18 @@ function NewClubForm({ onSubmit }) {
       }
     }
     setSubmitting(false);
+  };
+
+  const getCreateButtonText = (values) => {
+    if (values.name && values.name.length) {
+      return t('common.create') + ' ' + values.name;
+    }
+
+    return t('common.create') + ' ' + t('common.club');
+  };
+
+  const getTermsText = (values) => {
+    return t('clubs.agree_terms_and_privacy_policy_new', {button: getCreateButtonText(values)});
   };
 
   return (
@@ -91,7 +102,7 @@ function NewClubForm({ onSubmit }) {
       })}
       onSubmit={handleSubmits}
     >
-      {({ handleSubmit, isSubmitting, status }) => (
+      {({ handleSubmit, isSubmitting, status, values }) => (
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
             {error && (
@@ -237,17 +248,17 @@ function NewClubForm({ onSubmit }) {
 
           <div className="border-b border-divider" />
 
-          <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
+          <div className="flex flex-col items-center mx-auto hd:w-7/12 p-10">
             <Button
               type="submit"
               className="text-xl px-12"
               disabled={isSubmitting}
             >
-              {t('clubs.create_club_account')}
+              {getCreateButtonText(values)}
             </Button>
 
             <p className="mt-8 text-sm">
-              {t('clubs.agree_terms_and_privacy_policy')}
+              {getTermsText(values)}
             </p>
           </div>
         </form>

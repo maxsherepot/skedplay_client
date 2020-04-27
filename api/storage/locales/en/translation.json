@@ -5,6 +5,7 @@
     "vip": "vip",
     "trans": "trans",
     "clubs": "clubs",
+    "club": "club",
     "best_clubs": "Best clubs",
     "events": "events",
     "all_events": "All events",
@@ -260,6 +261,7 @@
     "enable_edit_profiles": "Enable to edit Sex Workers profiles in my Club for this number",
     "create_club_account": "Create club account",
     "agree_terms_and_privacy_policy": "By clicking the \"Create Club Account\" button, i agree to the terms\n of servece and privacy policy",
+    "agree_terms_and_privacy_policy_new": "By clicking the \"{{button}}\" button, i agree to the terms of services and privacy policy",
     "time": "Time",
     "found": "clubs found"
   },
