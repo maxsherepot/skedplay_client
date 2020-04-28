@@ -2,9 +2,9 @@ import classNames from "classnames";
 import {Lang} from "UI";
 import PropTypes from "prop-types";
 
-function LangSelector({ className }) {
+function LangSelector({ className, black = true }) {
   return (
-    <Lang black={true} className={className} />
+    <Lang black={black} className={className} />
   );
 }
 
