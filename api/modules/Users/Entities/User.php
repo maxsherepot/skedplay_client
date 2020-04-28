@@ -65,6 +65,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
 
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
+    const GENDER_COUPLE = 3;
 
     const REGISTER_GENDERS = [
         self::GENDER_MALE,

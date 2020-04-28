@@ -93,6 +93,7 @@ function NewAdForm({ children, clubId }) {
         services: {},
         parameters: {},
         languages: [],
+        service_for: [],
         schedule: [
           {
             day: 0,

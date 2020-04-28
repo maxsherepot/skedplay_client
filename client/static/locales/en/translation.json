@@ -90,6 +90,10 @@
     "to": "to",
     "date": "Date",
     "select_date": "Select date",
+    "man": "Man",
+    "woman": "Woman",
+    "couple": "Couple",
+    "service_for": "Service for",
     "": ""
   },
   "layout": {
@@ -346,6 +350,7 @@
     "adverts_found": "adverts found",
     "event_found": "event found",
     "available_only_for_authorized": "This part is available only for Registered users, please Sign up or Register",
+    "do_service_for": "I do service for",
     "": ""
   },
   "titles": {

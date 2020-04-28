@@ -104,7 +104,7 @@ function MultiPhotoField({
   const [indexes, setIndexes] = useState([]);
   const [clearMediaCollection] = useMutation(CLEAR_MEDIA_COLLECTION);
 
-  const mainImageIndexInit = initialValues.findIndex(photo => {
+  const mainImageIndexInit = (initialValues || []).findIndex(photo => {
     const properties = JSON.parse(photo.custom_properties || '{}');
 
     if (properties && properties.main_image) {

@@ -49,6 +49,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
     name: `${employee.first_name} ${employee.last_name}`,
     birthday: moment(employee.birthday).format('DD.MM.YYYY'),
     gender: employee.gender,
+    service_for: employee.service_for || [],
     race_type_id: employee.race_type_id,
     type: employee.type,
     description: employee.description,
@@ -71,6 +72,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
   const onSubmitInfo = async values => {
     delete values.language;
+    delete values.undefined;
     try {
       delete values.will_activate_at;
       delete values.custom_properties;

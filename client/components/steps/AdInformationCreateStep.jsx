@@ -1,7 +1,7 @@
 import React from "react";
 import {GET_EMPLOYEE_PARAMETERS, CITIES} from "queries";
 import {useQuery} from "@apollo/react-hooks";
-import {TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader} from "UI";
+import {TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader, GroupCheckbox} from "UI";
 import {useTranslation} from "react-i18next";
 import {GET_RACE_TYPES} from "queries/employeeQuery";
 import translation from "services/translation";
@@ -42,6 +42,26 @@ const AdInformationCreateStep = () => {
             inputClassName="w-1/3"
             label={t('register.birth')}
             name="birthday"
+          />
+
+          <GroupCheckbox
+            className="w-full sm:w-1/3 px-2"
+            label={t('common.service_for')}
+            name="service_for"
+            items={[
+              {
+                name: t('common.man'),
+                value: 1
+              },
+              {
+                name: t('common.woman'),
+                value: 2
+              },
+              {
+                name: t('common.couple'),
+                value: 3
+              }
+            ]}
           />
         </div>
 

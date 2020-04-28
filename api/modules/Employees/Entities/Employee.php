@@ -77,6 +77,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'index',
         'email',
         'website',
+        'service_for',
     ];
 
     protected $dates = [
@@ -87,6 +88,10 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     protected $appends = [
         'readable_type',
         'name',
+    ];
+
+    protected $casts = [
+        'service_for' => 'array',
     ];
 
     public function getLanguagesAttribute($value)

@@ -124,6 +124,20 @@ const EmployeeInformation = ({ user }) => {
     return stars;
   };
 
+  const getServiceFor = (gender) => {
+    if (gender === 1) {
+      return t('common.man');
+    }
+
+    if (gender === 2) {
+      return t('common.woman');
+    }
+
+    if (gender === 3) {
+      return t('common.couple');
+    }
+  };
+
   const contentColumn = (
     <>
       <div className="flex -mx-3">
@@ -152,6 +166,21 @@ const EmployeeInformation = ({ user }) => {
                 <div className="line" />
                 <div className="w-32">{t('nationality.asian')}</div>
               </section>
+
+              {(employee.service_for || []).length > 0 &&
+                <section className="mt-3 mb-6">
+                  <div className="text-grey">{t('employees.do_service_for')}</div>
+                  <div className="line" />
+                  <div className="w-32">
+                    {employee.service_for.map((gender, i) => (
+                      <>
+                        {getServiceFor(gender)}{i < employee.service_for.length - 1 ? ', ' : ''}
+                      </>
+                    ))}
+
+                  </div>
+                </section>
+              }
 
               {employee.parameters.map(p => (
                   <section className="my-3" key={p.id}>

@@ -31,6 +31,7 @@ const NewAdBox = ({clubId}) => {
     }
 
     delete values.language;
+    delete values.undefined;
 
     try {
       const {
@@ -119,7 +120,8 @@ const NewAdBox = ({clubId}) => {
         variables: {
           employee: employeeId,
           collection: "employee-photo",
-          files: values.photos
+          files: values.photos,
+          custom_properties: JSON.stringify(values.custom_properties),
         }
       });
 
@@ -206,7 +208,7 @@ const NewAdBox = ({clubId}) => {
       </NewAdForm.Step>
 
       <NewAdForm.Step onStepSubmit={onSubmitMedia}>
-        <AdMediaStep />
+        <AdMediaStep submitOnChange={false}/>
       </NewAdForm.Step>
 
       <NewAdForm.Step onStepSubmit={onSubmitSchedule}>

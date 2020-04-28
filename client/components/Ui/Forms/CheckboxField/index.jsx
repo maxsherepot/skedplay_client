@@ -34,7 +34,7 @@ CheckboxField.propTypes = {
   labelStyle: PropTypes.object,
   className: PropTypes.string,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string
 };
 
 export default CheckboxField;

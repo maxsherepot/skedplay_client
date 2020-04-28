@@ -3,7 +3,7 @@ import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField, DeletePopup } from "UI";
 import {useTranslation} from "react-i18next";
 
-const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee }) => {
+const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChange = true }) => {
   const {t, i18n} = useTranslation();
 
   return (
@@ -12,7 +12,7 @@ const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee }) => {
         name="photos"
         label=""
         initialValues={photos}
-        submitOnChange={true}
+        submitOnChange={submitOnChange}
         refetchEntity={refetchEmployee}
         modelId={employeeId}
         modelType={'employee'}

@@ -16,6 +16,7 @@ type Employee {
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   club: Club @belongsTo @with
   gender: Int
+  service_for: [Int]
   birthday: Date
   age: Int
   type: Int
@@ -60,6 +61,7 @@ input EmployeeInput {
   last_name: String
   birthday: String
   gender: String
+  service_for: [Int!]
   race_type_id: String
   type: String
   description: String

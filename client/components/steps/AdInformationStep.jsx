@@ -1,7 +1,7 @@
 import React from "react";
 import { GET_EMPLOYEE_PARAMETERS, CITIES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
-import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
+import { TextField, GroupCheckbox, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader } from "UI";
 import {useTranslation} from "react-i18next";
 import {GET_RACE_TYPES} from "queries/employeeQuery";
 import translation from "services/translation";
@@ -79,25 +79,25 @@ const AdInformationStep = () => {
             name="birthday"
           />*/}
 
-          {/* <GroupCheckbox
+          <GroupCheckbox
             className="w-full sm:w-1/3 px-2"
-            label="Service for"
+            label={t('common.service_for')}
             name="service_for"
             items={[
               {
-                name: "Man",
-                value: "man"
+                name: t('common.man'),
+                value: 1
               },
               {
-                name: "Woman",
-                value: "woman"
+                name: t('common.woman'),
+                value: 2
               },
               {
-                name: "Couple",
-                value: "couple"
+                name: t('common.couple'),
+                value: 3
               }
             ]}
-          /> */}
+          />
         </div>
 
         <div className="flex flex-wrap -mx-4">

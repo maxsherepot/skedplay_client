@@ -63,6 +63,7 @@ export const GET_EMPLOYEE = gql `
       birthday
       age
       gender
+      service_for
       index
       email
       phone
