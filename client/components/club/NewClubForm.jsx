@@ -104,6 +104,8 @@ function NewClubForm({ onSubmit }) {
     >
       {({ handleSubmit, isSubmitting, status, values }) => (
         <form onSubmit={handleSubmit}>
+          {isSubmitting && <Loader/>}
+
           <div className="flex flex-col items-start mx-auto hd:w-7/12 p-10">
             {error && (
               <FormGroup className="error text-center">

@@ -38,7 +38,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     }
   });
 
-  if (eventTypesLoading || loadingMe) {
+  if (loading || eventTypesLoading || loadingMe) {
     return <Loader/>
   }
 
@@ -76,6 +76,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     >
       {({handleSubmit, isSubmitting, status, errors}) => (
         <form onSubmit={handleSubmit}>
+          {isSubmitting && <Loader/>}
+
           <div className="px-2">
             {status && (
               <div className="text-dark-green text-white px-1 mb-3">

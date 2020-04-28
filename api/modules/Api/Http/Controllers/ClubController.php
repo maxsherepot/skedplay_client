@@ -2,6 +2,7 @@
 
 namespace Modules\Api\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Modules\Api\Components\NotifyAdminTelegramComponent;
 use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Club\ClubCreateRequest;
@@ -160,7 +161,12 @@ class ClubController extends Controller
         $event = $this->events->store($club, collect($request->all()));
 
         $message = 'A new event had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/events/'.$event->id;
-        (new NotifyAdminTelegramComponent)->sendNotification($message);
+
+        try {
+            (new NotifyAdminTelegramComponent)->sendNotification($message);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [$e->getTrace()]);
+        }
 
         return $event;
     }

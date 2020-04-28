@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import redirect from "lib/redirect";
 import { useSteps } from "hooks";
-import { Button, FormGroup } from "UI";
+import { Button, FormGroup, Loader } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
 
@@ -166,6 +166,7 @@ function NewAdForm({ children, clubId }) {
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
+          {isSubmitting && <Loader/>}
           <div className="flex flex-col items-start mx-auto hd:w-7/12 my-5">
             <div className="w-full p-8 hd:p-0">
               {activeStep}
