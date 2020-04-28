@@ -139,12 +139,14 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                     label={t('account.events_actions.start_date.label')}
                     placeholder={t('account.events_actions.start_date.placeholder')}
                     className="mr-5"
+                    minDateTomorrow={true}
                   />
 
                   <DateField
                     name="end_date"
                     label={t('account.events_actions.end_date.label')}
                     placeholder={t('account.events_actions.end_date.placeholder')}
+                    minDateTomorrow={true}
                   />
                 </div>
               }

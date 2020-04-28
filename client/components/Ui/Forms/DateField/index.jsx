@@ -4,7 +4,6 @@ import cx from "classnames";
 import { Field, useFormikContext } from "formik";
 
 import { FormGroup, Dropdown } from "UI";
-import dot from "dot-object";
 
 import formErrors from "services/formErrors";
 
@@ -17,7 +16,8 @@ function DateField({
   label,
   name,
   placeholder,
-  disabled
+  disabled,
+  minDateTomorrow
 }) {
   const { values, touched, errors, setFieldValue } = useFormikContext();
   const error = formErrors.getErrorText(name, label, touched, errors);
@@ -31,6 +31,13 @@ function DateField({
   function setDate(date) {
     setDateState(date);
     setFieldValue(name, date, false);
+  }
+
+  function addDays(date, days) {
+    const copy = new Date(Number(date));
+    copy.setDate(date.getDate() + days);
+
+    return copy;
   }
 
   return (
@@ -51,6 +58,7 @@ function DateField({
               selected={date}
               onChange={date => setDate(date)}
               placeholderText={placeholder}
+              minDate={minDateTomorrow ? addDays(new Date, 1) : null}
             />
           </>
         )}
