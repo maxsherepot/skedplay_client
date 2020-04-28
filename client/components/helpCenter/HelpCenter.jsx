@@ -140,7 +140,7 @@ const HelpCenter = ({contentClass, user, className, topicSlug}) => {
   return (
     <>
       <PageCard className="my-10">
-        <div className="flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
             {selectedTopic ?

@@ -1,0 +1,44 @@
+.help-center {
+  .editor-js-content {
+    .editor-js-block {
+      ul {
+        margin: 1rem 0 1rem 1rem;
+
+        li {
+          margin: 1rem 0;
+          &::before {
+            @apply text-red;
+
+            content: "\2022";
+            font-weight: bold;
+            display: inline-block;
+            width: 1rem;
+            margin-left: -1.25rem;
+            font-size: 1.2rem;
+          }
+        }
+      }
+
+      ol {
+        margin: 1rem 0 1rem 1rem;
+        counter-reset: li;
+
+        li {
+          margin: 1rem 0;
+          counter-increment: li;
+          &::before {
+            @apply text-red text-lg;
+
+            content: counter(li);
+            display: inline-block;
+            width: .8em;
+            margin-left: -1em
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
