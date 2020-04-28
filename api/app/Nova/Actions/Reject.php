@@ -5,6 +5,7 @@ namespace App\Nova\Actions;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
@@ -35,6 +36,16 @@ class Reject extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
+            if ($model->collection_name === 'verify-photo') {
+                DB::table('users')
+                    ->where('id', '=', $model->model_id)
+                    ->update([
+                            'status' => 2,
+                            'rejected_reason' => $fields->get('rejected_reason')
+                    ])
+                ;
+            }
+
             $model->status = User::STATUS_REFUSED;
             $model->rejected_reason = $fields->get('rejected_reason');
             $model->save();

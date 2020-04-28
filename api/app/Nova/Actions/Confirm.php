@@ -34,10 +34,19 @@ class Confirm extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
+            if ($model->collection_name === 'verify-photo') {
+                DB::table('users')
+                    ->where('id', '=', $model->model_id)
+                    ->update([
+                        'status' => 1,
+                        'rejected_reason' => null,
+                    ])
+                ;
+            }
+
             $model->status = User::STATUS_CONFIRMED;
-            $model->rejected_reason = '';
+            $model->rejected_reason = null;
             $model->save();
-            DB::table('users')->where('id', '=', $model->model_id)->update(['status' => 1]);
         }
 
         return Action::message('Confirmed');

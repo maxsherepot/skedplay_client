@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\Confirm;
+use App\Nova\Actions\Reject;
 use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
@@ -208,7 +210,12 @@ class Club extends Resource
     public function actions(Request $request)
     {
         return [
-
+            (new Confirm())->canRun(function($request) {
+                return true;
+            }),
+            (new Reject())->canRun(function($request) {
+                return true;
+            }),
         ];
     }
 
