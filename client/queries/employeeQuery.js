@@ -161,6 +161,9 @@ export const GET_EMPLOYEE = gql `
         url
         thumb_url
         custom_properties
+        model_type
+        model_id
+        collection_name
       }
       videos {
         id

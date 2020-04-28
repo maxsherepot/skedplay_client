@@ -125,7 +125,11 @@ export const GET_CLUB = gql`
           display_name
         }
         photos {
+          id
           url
+          model_type
+          model_id
+          collection_name
         }
       }
       schedule {

@@ -14,7 +14,7 @@ import { Loader } from "UI";
 
 const AccountClubEdit = ({ user }) => {
     const { query: { cid } } = useRouter();
-    const { data: { club } = {}, loading} = useQuery(GET_CLUB, {
+    const { data: { club } = {}, loading, refetch} = useQuery(GET_CLUB, {
         variables: {
             id: cid
         }
@@ -28,7 +28,7 @@ const AccountClubEdit = ({ user }) => {
 
     return (
         <>
-            <EditClubBox club={club} user={user} />
+            <EditClubBox club={club} user={user} refetchClub={refetch} />
         </>
     );
 };

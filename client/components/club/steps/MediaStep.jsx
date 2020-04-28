@@ -3,20 +3,22 @@ import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField } from "UI";
 import {useTranslation} from "react-i18next";
 
-const MediaStep = ({ club }) => {
+const MediaStep = ({ club, refetchClub }) => {
   const {t, i18n} = useTranslation();
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-end mb-5">
-        <div className="text-4xl font-extrabold leading-none">{t('clubs.photos')}</div>
-        <span className="md:ml-6 text-xs md:text-lg">
-          {t('max_size_uploaded.photos')}
-        </span>
-      </div>
-
-      <div className="flex flex-wrap">
-        <MultiPhotoField name="photos" label="" required={false} initialValues={club.photos} submitOnChange={true}>
+      <MultiPhotoField
+        name="photos"
+        label=""
+        required={false}
+        initialValues={club.photos}
+        submitOnChange={true}
+        refetchEntity={refetchClub}
+        modelId={club.id}
+        modelType={'club'}
+        mediaCollection={'club-photo'}
+        trigger={
           <Button
             className="px-3"
             level="primary-black"
@@ -29,8 +31,8 @@ const MediaStep = ({ club }) => {
               <span className="ml-2">{t('account.from_device')}</span>
             </div>
           </Button>
-        </MultiPhotoField>
-      </div>
+        }
+      />
 
       <div className="flex flex-col md:flex-row md:items-end my-5">
         <div className="text-4xl font-extrabold leading-none">{t('clubs.video')}</div>

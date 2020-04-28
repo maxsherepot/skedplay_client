@@ -20,7 +20,7 @@ import {AdInformationStep, AdMediaStep, AdScheduleStep, AdServicesAndPricesStep,
 import StepBox from "components/StepBox";
 import {useTranslation} from "react-i18next";
 
-const EditEmployeeBox = ({ employee }) => {
+const EditEmployeeBox = ({ employee, refetchEmployee }) => {
   const {t, i18n} = useTranslation();
   const { step, setStep } = useSteps();
 
@@ -289,7 +289,7 @@ const EditEmployeeBox = ({ employee }) => {
 
             <Panel>
               <EditEmployeeForm.Step onStepSubmit={onSubmitMedia} showSubmit={false}>
-                <AdMediaStep photos={employee.photos} videos={employee.videos} onSubmitMedia={onSubmitMedia} />
+                <AdMediaStep employeeId={employee.id} photos={employee.photos} refetchEmployee={refetchEmployee} videos={employee.videos} onSubmitMedia={onSubmitMedia} />
               </EditEmployeeForm.Step>
             </Panel>
 

@@ -30,7 +30,7 @@ const YesButton = React.forwardRef(({...props}, ref) => {
     )
 });
 
-export default ({title, onEnter, children}) => {
+export default ({title, onEnter, children, deleteButton}) => {
     const handleClick = (onClose, onEnter) => {
         if (onEnter) {
             onEnter();
@@ -40,7 +40,7 @@ export default ({title, onEnter, children}) => {
     const {t, i18n} = useTranslation();
 
     return (
-        <Popup modal trigger={<DeleteButton/>} contentStyle={contentStyle}>
+        <Popup modal trigger={deleteButton || <DeleteButton/>} contentStyle={contentStyle}>
             {close => (
                 <Content title={title} close={close} footer={(
                     <div className="pt-6">

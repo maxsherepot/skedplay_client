@@ -525,6 +525,7 @@
   },
   "act": {
     "delete": "Delete",
+    "delete_all": "Delete all",
     "create": "Create",
     "choose": "Choose",
     "": ""
@@ -640,5 +641,8 @@
   },
   "admin": {
     "start_message": "Greetings! I would like to wish our members and their families a spectacular."
+  },
+  "questions": {
+    "sure_to_delete_all_photos": "Are you sure want to delete all photos?"
   }
 }

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { useFormikContext } from "formik";
-import { FormGroup, CheckboxField } from "UI";
-import { WhiteTrashSvg } from "icons";
-import { DELETE_MEDIA } from "queries";
+import { FormGroup, CheckboxField, DeletePopup } from "UI";
+import { WhiteTrashSvg, TrashSvg } from "icons";
+import { DELETE_MEDIA, CLEAR_MEDIA_COLLECTION } from "queries";
 import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
@@ -92,10 +92,17 @@ function MultiPhotoField({
   initialValues,
   selectable,
   children,
-  submitOnChange
+  submitOnChange,
+  trigger,
+  refetchEntity,
+  modelId,
+  modelType,
+  mediaCollection,
 }) {
+  const {t, i18n} = useTranslation();
   const [previews, setPreviews] = useState(initialValues || []);
   const [indexes, setIndexes] = useState([]);
+  const [clearMediaCollection] = useMutation(CLEAR_MEDIA_COLLECTION);
 
   const mainImageIndexInit = initialValues.findIndex(photo => {
     const properties = JSON.parse(photo.custom_properties || '{}');
@@ -134,7 +141,7 @@ function MultiPhotoField({
       setFieldValue(name, files);
 
       if (submitOnChange) {
-        submitForm().then(() =>  resetForm());
+        submitForm().then(() => resetForm());
       }
     }
   };
@@ -159,31 +166,79 @@ function MultiPhotoField({
     }
   };
 
+  const handleDeleteAll = () => {
+    clearMediaCollection({
+      variables: {
+        collection_name: mediaCollection,
+        model_type: modelType,
+        model_id: parseInt(modelId),
+      }
+    }).then(() => {
+      if (refetchEntity) {
+        refetchEntity();
+      }
+      setPreviews([]);
+      setMainImageIndex(null);
+    });
+  };
+
   return (
-    <FormGroup
-      className={cx(className, "relative")}
-      error={!!error}
-    >
-      <label className={labelClassName} htmlFor={name}>
-        {error ? error : label}
-      </label>
+    <>
+      <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row md:items-end mb-5">
+          <div className="text-4xl font-extrabold leading-none">{t('clubs.photos')}</div>
+          <span className="md:ml-6 text-xs md:text-lg">
+              {t('max_size_uploaded.photos')}
+            </span>
+        </div>
 
-      <>
-        <DisplayPreviews mainImageIndex={mainImageIndex} setMainImageIndex={setMainImages} photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
+        {previews.length > 0 &&
+          <DeletePopup
+            onEnter={handleDeleteAll}
+            title={`${t('act.delete_all')} ${t('account.photos')}?`}
+            deleteButton={
+              <div className="flex items-center mb-5 cursor-pointer">
+                <TrashSvg/>
+                <span className="font-bold ml-3">
+                    {t('act.delete_all')}
+                  </span>
+              </div>
+            }
+          >
+            <div className="pt-6">
+              <p>{t('questions.sure_to_delete_all_photos')}</p>
+            </div>
+          </DeletePopup>
+        }
+      </div>
 
-        <label className="relative" style={{ paddingLeft: 0 }}>
-          {children}
-          <input
-            className="absolute inset-0 opacity-0 w-full cursor-pointer z-20"
-            type="file"
-            accept={accept}
-            required={required}
-            multiple
-            onChange={handleChange}
-          />
-        </label>
-      </>
-    </FormGroup>
+      <div className="flex flex-wrap">
+        <FormGroup
+          className={cx(className, "relative")}
+          error={!!error}
+        >
+          <label className={labelClassName} htmlFor={name}>
+            {error ? error : label}
+          </label>
+
+          <>
+            <DisplayPreviews mainImageIndex={mainImageIndex} setMainImageIndex={setMainImages} photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
+
+            <label className="relative" style={{ paddingLeft: 0 }}>
+              {trigger}
+              <input
+                className="absolute inset-0 opacity-0 w-full cursor-pointer z-20"
+                type="file"
+                accept={accept}
+                required={required}
+                multiple
+                onChange={handleChange}
+              />
+            </label>
+          </>
+        </FormGroup>
+      </div>
+    </>
   );
 }
 

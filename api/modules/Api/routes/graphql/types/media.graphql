@@ -5,8 +5,13 @@ type Media {
     thumb_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getThumbUrl")
     mime_type: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getMimeType")
     custom_properties: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCustomProperties")
+    model_type: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getModelType")
+    model_id: Int! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getModelId")
+    collection_name: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCollectionName")
 }
 
 extend type Mutation {
     deleteMedia(id: ID!): String
+    deleteMediaMass(ids: [ID!]!): String
+    clearMediaCollection(collection_name: String!, model_type: String!, model_id: ID!): String
 }

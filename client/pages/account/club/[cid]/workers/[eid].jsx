@@ -48,7 +48,7 @@ const AccountClubWorkersIndex = ({user}) => {
                 <HeaderNavigation/>
                 <div className="bg-white shadow rounded-lg p-8">
                     <EditEmployeeHeader user={user} employee={employee} refetchEmployee={refetch} classes={classNames}/>
-                    <EditEmployeeBox employee={employee}/>
+                    <EditEmployeeBox employee={employee} refetchEmployee={refetch}/>
                 </div>
             </div>
         </>

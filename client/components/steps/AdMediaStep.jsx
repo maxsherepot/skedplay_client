@@ -1,23 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import { AddPhotoSvg, BlackPlusSvg } from "icons";
-import { Button, MultiPhotoField, MultiVideoField } from "UI";
+import { Button, MultiPhotoField, MultiVideoField, DeletePopup } from "UI";
 import {useTranslation} from "react-i18next";
 
-
-const AdMediaStep = ({ photos, videos }) => {
+const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee }) => {
   const {t, i18n} = useTranslation();
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-end mb-5">
-        <div className="text-4xl font-extrabold leading-none">{t('clubs.photos')}</div>
-        <span className="md:ml-6 text-xs md:text-lg">
-          {t('max_size_uploaded.photos')}
-        </span>
-      </div>
-
-      <div className="flex flex-wrap">
-        <MultiPhotoField name="photos" label="" initialValues={photos} submitOnChange={true}>
+      <MultiPhotoField
+        name="photos"
+        label=""
+        initialValues={photos}
+        submitOnChange={true}
+        refetchEntity={refetchEmployee}
+        modelId={employeeId}
+        modelType={'employee'}
+        mediaCollection={'employee-photo'}
+        trigger={
           <Button
             className="px-3"
             level="primary-black"
@@ -30,8 +30,8 @@ const AdMediaStep = ({ photos, videos }) => {
               <span className="ml-2">{t('account.from_device')}</span>
             </div>
           </Button>
-        </MultiPhotoField>
-      </div>
+        }
+      />
 
       <div className="flex flex-col md:flex-row md:items-end my-5">
         <div className="text-4xl font-extrabold leading-none">{t('clubs.video')}</div>

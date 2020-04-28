@@ -182,22 +182,29 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               <EventEmployeesField clubEmployees={initialValues.club.employees} eventEmployees={initialValues.employees}/>
             }
 
-            {/*<div className="flex flex-wrap mb-4 mt-4">
-              <MultiPhotoField name="photos" label="" initialValues={initialValues.photos} selectable={false}>
-                <Button
-                  className="px-3"
-                  level="primary-black"
-                  outline
-                  size="sm"
-                  type="button"
-                >
-                  <div className="flex items-center">
-                    <BlackPlusSvg/>
-                    <span className="ml-2">{t('common.from_device')}</span>
-                  </div>
-                </Button>
-              </MultiPhotoField>
-            </div>*/}
+            {/*<div className="flex flex-wrap mb-4 mt-4">*/}
+            {/*  <MultiPhotoField */}
+            {/*    name="photos" */}
+            {/*    label="" */}
+            {/*    initialValues={initialValues.photos} */}
+            {/*    selectable={false}*/}
+            {/*    trigger={*/}
+            {/*      <Button*/}
+            {/*        className="px-3"*/}
+            {/*        level="primary-black"*/}
+            {/*        outline*/}
+            {/*        size="sm"*/}
+            {/*        type="button"*/}
+            {/*      >*/}
+            {/*        <div className="flex items-center">*/}
+            {/*          <BlackPlusSvg/>*/}
+            {/*          <span className="ml-2">{t('common.from_device')}</span>*/}
+            {/*        </div>*/}
+            {/*      </Button>*/}
+            {/*    }*/}
+            {/*  >*/}
+            {/*  </MultiPhotoField>*/}
+            {/*</div>*/}
 
             <Button
               type="submit"

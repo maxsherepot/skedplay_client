@@ -41,4 +41,31 @@ class MediaType
     {
         return json_encode($rootValue->custom_properties);
     }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
+    function getModelType(Media $rootValue)
+    {
+        return $rootValue->model_type;
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return int
+     */
+    function getModelId(Media $rootValue)
+    {
+        return (int) $rootValue->model_id;
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return int
+     */
+    function getCollectionName(Media $rootValue)
+    {
+        return $rootValue->collection_name;
+    }
 }

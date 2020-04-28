@@ -18,7 +18,7 @@ import {
 import StepBox from "components/StepBox";
 import {useTranslation} from "react-i18next";
 
-const EditClubBox = ({club, user}) => {
+const EditClubBox = ({club, user, refetchClub}) => {
   const {t, i18n} = useTranslation();
 
   const [updateClub] = useMutation(UPDATE_CLUB);
@@ -258,7 +258,7 @@ const EditClubBox = ({club, user}) => {
         </EditClubForm.Step>
 
         <EditClubForm.Step onStepSubmit={onSubmitMedia} showSubmit={false}>
-          <MediaStep club={club}/>
+          <MediaStep club={club} refetchClub={refetchClub}/>
         </EditClubForm.Step>
 
         <EditClubForm.Step onStepSubmit={onSubmitSchedule}>
