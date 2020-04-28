@@ -44,7 +44,7 @@ const EditClubBox = ({club, user, refetchClub}) => {
     club_type_id: +club.type.id,
     description: club.description,
     index: club.index || "",
-    city_id: club.city_id || "",
+    // city_id: club.city_id || "",
     address: club.address,
     phones: JSON.parse(club.phones),
     email: club.email,
@@ -60,6 +60,8 @@ const EditClubBox = ({club, user, refetchClub}) => {
   };
 
   const onSubmitInfo = async values => {
+    delete values.custom_properties;
+
     try {
       const {
         data: {

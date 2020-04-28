@@ -74,14 +74,14 @@ const InformationStep = ({ club }) => {
           placeholder=""
         />
 
-        <SelectField
-          className="px-3 w-1/3"
-          inputClassName="w-1/3"
-          label={t('clubs.city')}
-          name="city_id"
-          options={cities.map(c => ({value: c.id, label: c.name}))}
-          placeholder=""
-        />
+        {/*<SelectField*/}
+        {/*  className="px-3 w-1/3"*/}
+        {/*  inputClassName="w-1/3"*/}
+        {/*  label={t('clubs.city')}*/}
+        {/*  name="city_id"*/}
+        {/*  options={cities.map(c => ({value: c.id, label: c.name}))}*/}
+        {/*  placeholder=""*/}
+        {/*/>*/}
       </div>
 
       <div className="flex w-full -mx-3">
@@ -125,7 +125,7 @@ InformationStep.validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
   index: Yup.string(),
-  city_id: Yup.number(),
+  // city_id: Yup.number(),
   address: Yup.string().required(),
   phones: Yup.string(),
   email: Yup.string().email().required(),

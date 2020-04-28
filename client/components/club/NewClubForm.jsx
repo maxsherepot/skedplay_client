@@ -69,7 +69,7 @@ function NewClubForm({ onSubmit }) {
         club_type_id: "",
         description: "",
         index: "",
-        city_id: "",
+        // city_id: "",
         address: "",
         phone: me.phone || "",
         email: me.email || "",
@@ -88,7 +88,7 @@ function NewClubForm({ onSubmit }) {
         club_type_id: Yup.number().required(),
         description: Yup.string().required(),
         index: Yup.string(),
-        city_id: Yup.number(),
+        // city_id: Yup.number(),
         address: Yup.string().required(),
         phone: Yup.string().required(),
         email: Yup.string().nullable().email(),
@@ -162,14 +162,14 @@ function NewClubForm({ onSubmit }) {
                 placeholder=""
               />
 
-              <SelectField
-                className="px-3 w-1/3"
-                inputClassName="w-1/3"
-                label={t('clubs.city')}
-                name="city_id"
-                options={cities.map(c => ({value: c.id, label: c.name}))}
-                placeholder=""
-              />
+              {/*<SelectField*/}
+              {/*  className="px-3 w-1/3"*/}
+              {/*  inputClassName="w-1/3"*/}
+              {/*  label={t('clubs.city')}*/}
+              {/*  name="city_id"*/}
+              {/*  options={cities.map(c => ({value: c.id, label: c.name}))}*/}
+              {/*  placeholder=""*/}
+              {/*/>*/}
             </div>
 
             <div className="flex w-full -mx-3">
