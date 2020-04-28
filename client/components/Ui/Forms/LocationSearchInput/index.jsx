@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import PlacesAutocomplete, {geocodeByAddress} from 'react-places-autocomplete';
 
 import {TextField} from "UI/Forms";
 import {useFormikContext} from "formik";
@@ -21,6 +21,32 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
   const handleSelect = address => {
     setAddress(address);
     setFieldValue('address', address);
+
+    if (address) {
+      geocodeByAddress(address)
+        .then(results => {
+          if (!results) {
+            return;
+          }
+
+          let index;
+
+          for (let i in results) {
+            for (let k in results[i].address_components) {
+              for (let j in results[i].address_components[k].types) {
+                if (results[i].address_components[k].types[j] === "postal_code") {
+                  index = results[i].address_components[k].long_name;
+                  break;
+                }
+              }
+            }
+          }
+
+          if (index) {
+            setFieldValue('index', index);
+          }
+        })
+    }
   };
 
   const searchOptions = {

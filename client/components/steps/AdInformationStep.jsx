@@ -148,14 +148,14 @@ const AdInformationStep = () => {
           {/*  name="city_id"*/}
           {/*/>*/}
 
-          <SelectField
-            className="w-1/2 md:w-2/6 px-2"
-            inputClassName="w-1/2 md:w-2/6"
-            label={t('clubs.city')}
-            name="city_id"
-            options={cities.map(c => ({value: c.id, label: c.name}))}
-            placeholder=""
-          />
+          {/*<SelectField*/}
+          {/*  className="w-1/2 md:w-2/6 px-2"*/}
+          {/*  inputClassName="w-1/2 md:w-2/6"*/}
+          {/*  label={t('clubs.city')}*/}
+          {/*  name="city_id"*/}
+          {/*  options={cities.map(c => ({value: c.id, label: c.name}))}*/}
+          {/*  placeholder=""*/}
+          {/*/>*/}
 
           {/*<TextField*/}
           {/*  className="w-full md:w-3/6 px-2"*/}

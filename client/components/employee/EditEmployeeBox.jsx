@@ -53,7 +53,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
     type: employee.type,
     description: employee.description,
     index: employee.index,
-    city_id: employee.city_id,
+    // city_id: employee.city_id,
     address: employee.address,
     //phone: employee.phone,
     email: employee.email,
@@ -72,6 +72,9 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
   const onSubmitInfo = async values => {
     delete values.language;
     try {
+      delete values.will_activate_at;
+      delete values.custom_properties;
+
       const [first_name, last_name] = values.name.split(' ');
 
       const {
