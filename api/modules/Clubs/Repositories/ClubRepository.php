@@ -86,6 +86,32 @@ class ClubRepository implements HasMediable
     }
 
     /**
+     * @param int $user_id
+     * @param int $status
+     */
+    public function updateUserStatusByUserId(int $user_id, int $status)
+    {
+        Club::query()
+            ->where('user_id', '=', $user_id)
+            ->update([
+                'user_status' => $status,
+            ])
+        ;
+    }
+
+    /**
+     * @param int $user_id
+     * @return Collection
+     */
+    public function getClubsIdByUserId(int $user_id): Collection
+    {
+        return Club::query()
+            ->where('user_id', '=', $user_id)
+            ->get('id')
+        ;
+    }
+
+    /**
      * @param Collection $collection
      * @return \Illuminate\Database\Eloquent\Model
      */

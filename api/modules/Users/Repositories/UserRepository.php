@@ -48,6 +48,42 @@ class UserRepository implements HasMediable
     }
 
     /**
+     * @param int $id
+     */
+    public function updateStatusConfirm(int $id): void
+    {
+        User::query()
+            ->where('id', '=', $id)
+            ->update([
+            'status' => User::STATUS_CONFIRMED,
+            'rejected_reason' => null,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @param string $reason
+     */
+    public function updateStatusReject(int $id, string $reason): void
+    {
+        User::query()
+            ->where('id', '=', $id)
+            ->update([
+                'status' => User::STATUS_REFUSED,
+                'rejected_reason' => $reason
+            ])
+        ;
+    }
+    /**
+     * @param int $id
+     * @return User|null|object
+     */
+    public function find(int $id): ?User
+    {
+        return User::query()->findOrFail($id);
+    }
+
+    /**
      * @param $phone
      * @return \Illuminate\Database\Eloquent\Model|null|object|static
      */

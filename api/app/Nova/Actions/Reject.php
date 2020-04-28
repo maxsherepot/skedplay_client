@@ -13,7 +13,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Nova\Actions\DestructiveAction;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Nova\Fields\Textarea;
+use Modules\Employees\Entities\Employee;
+use Modules\Employees\Repositories\EmployeeRepository;
+use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
+use Modules\Users\Repositories\ClubRepository;
+use Modules\Users\Repositories\UserRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Reject extends Action
 {
@@ -35,18 +41,49 @@ class Reject extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
+        /** @var UserRepository $userRepository */
+        $userRepository = new UserRepository();
+
+        /** @var ClubRepository $clubRepository */
+        $clubRepository = new ClubRepository();
+
+        /** @var EmployeeRepository $employeeRepository */
+        $employeeRepository = new EmployeeRepository();
+
+        /** @var EventRepository $eventRepository */
+        $eventRepository = new EventRepository();
+
+        $status = User::STATUS_REFUSED;
+
         foreach ($models as $model) {
             if ($model->collection_name === 'verify-photo') {
-                DB::table('users')
-                    ->where('id', '=', $model->model_id)
-                    ->update([
-                            'status' => 2,
-                            'rejected_reason' => $fields->get('rejected_reason')
-                    ])
-                ;
+                $user = $userRepository->find($model->model_id);
+
+                if ($user === null) {
+                    throw new NotFoundHttpException();
+                }
+
+                $reason = $fields->get('rejected_reason');
+                $userRepository->updateStatusReject($user->id, $reason);
+
+                if ($user->getIsClubOwnerAttribute()) {
+                    $clubRepository->updateUserStatusByUserId($user->id, $status);
+
+                    $clubsId = $clubRepository->getClubsIdByUserId($user->id);
+
+                    foreach ($clubsId as $club) {
+                        $employeeRepository->updateUserStatusByClubId($club->id, $status);
+
+                        $eventRepository->updateUserStatusByClubId($club->id, $status);
+                    }
+                }
+
+                if ($user->getIsEmployeeAttribute()) {
+                    $eventRepository->updateUserStatusByEmployeeId($user->id, $status);
+                }
             }
 
-            $model->status = User::STATUS_REFUSED;
+            $model->status = $status;
             $model->rejected_reason = $fields->get('rejected_reason');
             $model->save();
         }

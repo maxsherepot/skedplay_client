@@ -69,6 +69,40 @@ class EventRepository implements HasMediable
     }
 
     /**
+     * @param int $club_id
+     * @param int $status
+     */
+    public function updateUserStatusByClubId(int $club_id, int $status): void
+    {
+        Event::query()
+            ->where([
+                ['owner_type', '=','club'],
+                ['club_id', '=', $club_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
+    }
+
+    /**
+     * @param int $employee_id
+     * @param int $status
+     */
+    public function updateUserStatusByEmployeeId(int $employee_id, int $status): void
+    {
+        Event::query()
+            ->where([
+                ['owner_type', '=','user'],
+                ['owner_id', '=', $employee_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
+    }
+
+    /**
      * @param Event $event
      * @return bool
      * @throws \Exception

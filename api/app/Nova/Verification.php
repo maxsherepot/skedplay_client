@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -60,6 +61,8 @@ class Verification extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            BelongsTo::make('User', 'model', User::class),
 
             Text::make('Photo', function() {
                 return view('nova.photo', ['photo' => $this])->render();

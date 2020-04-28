@@ -20,6 +20,9 @@ type Employee {
   age: Int
   type: Int
   race_type_id: Int
+  status: Int
+  rejected_reason: String
+  user_status: Int
   lat: Float,
   lng: Float,
   email: String,

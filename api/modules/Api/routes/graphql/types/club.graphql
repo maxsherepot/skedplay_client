@@ -10,6 +10,7 @@ type Club {
   index: String
   comment: String
   city_id: Int
+  user_status: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: Float
   lng: Float
