@@ -16,6 +16,7 @@ type User {
     clubs: [Club] @hasMany
     roles: Role @belongsToMany
     avatar: Media @hasOne
+    verify_photo: Media @hasOne
     fucking_avatar: Media
     employees: [Employee] @morphMany
     employee: Employee
@@ -72,4 +73,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
     uploadUserAvatar(avatar: Upload!, collection: String!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadAvatar")
+
+    uploadUserVerifyPhoto(verify_photo: Upload!, collection: String!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\UserController@uploadVerifyPhoto")
 }

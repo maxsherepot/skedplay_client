@@ -32,6 +32,11 @@ class EventRepository implements HasMediable
         /** @var Club|Employee $model */
         $event = $model->events()->create($collection->toArray());
 
+        $event->status = User::STATUS_CONFIRMED;
+        $event->user_status = $model->user_status;
+
+        $event->save();
+
         /*if ($photos = $collection->get('photos')) {
             $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
         }*/
@@ -66,6 +71,40 @@ class EventRepository implements HasMediable
         //DB::commit();
 
         return $event->update($collection->toArray());
+    }
+
+    /**
+     * @param int $club_id
+     * @param int $status
+     */
+    public function updateUserStatusByClubId(int $club_id, int $status): void
+    {
+        Event::query()
+            ->where([
+                ['owner_type', '=','club'],
+                ['club_id', '=', $club_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
+    }
+
+    /**
+     * @param int $employee_id
+     * @param int $status
+     */
+    public function updateUserStatusByEmployeeId(int $employee_id, int $status): void
+    {
+        Event::query()
+            ->where([
+                ['owner_type', '=','user'],
+                ['owner_id', '=', $employee_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
     }
 
     /**

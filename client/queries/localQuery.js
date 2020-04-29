@@ -10,6 +10,8 @@ export const GET_FILTERS_STATE = gql`
         cantons
         services
         gender
+        user_status
+        status
         race_type_id
         age {
           from
@@ -27,6 +29,8 @@ export const GET_FILTERS_STATE = gql`
         services
         cantons
         gender
+        user_status
+        status
         race_type_id
         age {
             from
@@ -44,6 +48,8 @@ export const GET_FILTERS_STATE = gql`
         services
         cantons
         gender
+        user_status
+        status
         race_type_id
         age {
             from
@@ -58,6 +64,8 @@ export const GET_FILTERS_STATE = gql`
         cantons
         club_type
         start_time
+        user_status
+        status
         orderBy {
            field
            order
@@ -66,6 +74,8 @@ export const GET_FILTERS_STATE = gql`
       }
       events {
         cantons
+        user_status
+        status
         event_type
 #        perimeter
         date

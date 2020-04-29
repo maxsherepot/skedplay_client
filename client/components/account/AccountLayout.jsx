@@ -1,16 +1,20 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
+import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
+import {getErrors} from "utils/index";
+import * as moment from "moment";
+import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 
 const ProfileHeader = ({user}) => (
-    <div className="fluid-container">
+    <div className="fluid-container header-profile-div">
         <div className="flex items-center lg:w-7/12 ml-8 py-8">
             <Avatar />
             <div className="ml-4">
@@ -29,8 +33,90 @@ const ProfileHeader = ({user}) => (
                 </div>
             </div>
         </div>
+        {user && (user.is_employee || user.is_club_owner ) && user.status === 0 && (
+            <VerifyMessage user={user}/>
+        )}
     </div>
 );
+
+const VerifyMessage = ({user}) => {
+    const [uploadVerifyPhoto] = useMutation(UPLOAD_VERIFY_PHOTO);
+    let date, time;
+
+    if (user.verify_photo) {
+        let dateUploadPhoto = user.verify_photo['created_at'];
+
+        date = moment(dateUploadPhoto.slice(0, 10), 'YYYY-MM-DD').format('DD-MM-YYYY');
+        time = dateUploadPhoto.slice(11, 16);
+    }
+
+    const handleSubmit = async verifyFile => {
+        try {
+            const [verify_photo] = verifyFile.target.files;
+
+            await uploadVerifyPhoto({
+                variables: {
+                    verify_photo: verify_photo,
+                    collection: 'verify-photo'
+                },
+            });
+
+            Router.reload();
+
+        } catch (e) {
+            const errors = getErrors(e);
+            return {
+                status: false,
+                message: "Server error",
+                errors
+            };
+        }
+    };
+
+    return (
+        <>
+            <div className="w-full flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
+                {user.verify_photo ? (
+                    <div className="ml-3 py-2">
+                        <span className="font-bold flex flex-col">
+                            At {date} {time} you added verification photo.
+                              We prof it and after you can Activated your Profile.
+                        </span>
+                    </div>
+                ) : (
+                    <div className="ml-3 py-2">
+                        <div className="flex flex-col">
+                            <div className="row">
+                                <span className="inline-block mr-2">
+                                    <AlertTriangleSvg/>
+                                </span>
+                                <span className="font-bold inline-block">Verify your account</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span className="">Please add your Pass or Id Photo</span>
+                            <label htmlFor="verifyFile" className="inline-block">
+                                <span className="bg-white border border-xs border-red text-red text-xs rounded-full ml-3
+                                    px-3 py-2 hover:cursor-pointer hover:bg-red hover:text-white hover:border-white"
+                                >
+                                    Upload Verify Photo
+                                </span>
+                            </label>
+                            <input
+                                className="c-account__avatar-input"
+                                type="file"
+                                id="verifyFile"
+                                name="Upload Verify Photo"
+                                onChange={handleSubmit}
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+        </>
+    )
+
+};
 
 const ClubMenu = ({clubs}) => {
     const router = useRouter();

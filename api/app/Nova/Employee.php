@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\Confirm;
+use App\Nova\Actions\Reject;
 use App\Nova\Filters\EmployeeTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use Eminiarts\Tabs\Tabs;
@@ -145,7 +147,12 @@ class Employee extends Resource
     public function actions(Request $request)
     {
         return [
-
+            (new Confirm())->canRun(function($request) {
+                return true;
+            }),
+            (new Reject())->canRun(function($request) {
+                return true;
+            }),
         ];
     }
 

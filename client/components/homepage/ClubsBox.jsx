@@ -6,7 +6,7 @@ import React from "react";
 
 const GET_CLUBS = gql`
     {
-        clubs(first: 15) {
+        clubs(first: 15, filters: {status: 1, user_status: 1}) {
             data {
                 id
                 name
@@ -17,6 +17,8 @@ const GET_CLUBS = gql`
                 address
                 lat
                 lng
+                status
+                user_status
                 phones
                 employees {
                     id

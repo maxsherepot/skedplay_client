@@ -21,6 +21,9 @@ type Employee {
   age: Int
   type: Int
   race_type_id: Int
+  status: Int
+  rejected_reason: String
+  user_status: Int
   lat: Float,
   lng: Float,
   email: String,
@@ -95,6 +98,8 @@ input EmployeeFilters {
   orderBy: [OrderByClause!] @orderBy
   gender: String @where
   genders: [String] @in(key: "gender")
+  status: Int @where
+  user_status: Int @where
   services: [Int] @whereHas(key: "service_id", method: "whereIn")
   age: AgeRange @whereBetween
 #  race_type: String @whereHas(key: "race_type_id", method: "whereIn")

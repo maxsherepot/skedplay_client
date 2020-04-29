@@ -14,6 +14,8 @@ export const ALL_EVENTS = gql`
                 end_date
                 start_time
                 mode
+                status
+                user_status
                 mainPhoto {
                     id
                     name

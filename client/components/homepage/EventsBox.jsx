@@ -4,11 +4,13 @@ import { EventsGallery, Loader } from "UI";
 
 const GET_EVENTS = gql`
   {
-    events(first: 5) {
+    events(first: 5, filters: {status: 1, user_status: 1}) {
       data {
         id
         title
         short_title
+        status
+        user_status
         photos {
           id
           thumb_url
