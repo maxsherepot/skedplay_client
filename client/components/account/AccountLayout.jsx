@@ -40,6 +40,7 @@ const ProfileHeader = ({user}) => (
 );
 
 const VerifyMessage = ({user}) => {
+    const { t } = useTranslation();
     const [uploadVerifyPhoto] = useMutation(UPLOAD_VERIFY_PHOTO);
     let date, time;
 
@@ -79,8 +80,7 @@ const VerifyMessage = ({user}) => {
                 {user.verify_photo ? (
                     <div className="ml-3 py-2">
                         <span className="font-bold flex flex-col">
-                            At {date} {time} you added verification photo.
-                              We prof it and after you can Activated your Profile.
+                            {t('account.added_verify_photo', {date: `${date}`, time: `${time}`})}
                         </span>
                     </div>
                 ) : (
@@ -90,16 +90,16 @@ const VerifyMessage = ({user}) => {
                                 <span className="inline-block mr-2">
                                     <AlertTriangleSvg/>
                                 </span>
-                                <span className="font-bold inline-block">Verify your account</span>
+                                <span className="font-bold inline-block">{t('account.verify_your_account')}</span>
                             </div>
                         </div>
                         <div>
-                            <span className="">Please add your Pass or Id Photo</span>
+                            <span className="">{t('account.add_pass_or_photo')}</span>
                             <label htmlFor="verifyFile" className="inline-block">
                                 <span className="bg-white border border-xs border-red text-red text-xs rounded-full ml-3
                                     px-3 py-2 hover:cursor-pointer hover:bg-red hover:text-white hover:border-white"
                                 >
-                                    Upload Verify Photo
+                                    {t('account.upload_verify_photo')}
                                 </span>
                             </label>
                             <input
