@@ -30,6 +30,8 @@ use Spatie\MediaLibrary\Models\Media;
  *
  * @property int id
  * @property int inGeneral
+ * @property int status
+ * @property int user_status
  */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {

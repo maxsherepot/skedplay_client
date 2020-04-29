@@ -6,6 +6,7 @@ type Media {
     mime_type: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getMimeType")
     custom_properties: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCustomProperties")
     user_status: Int
+    created_at: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCreatedAtDateTime")
 }
 
 extend type Mutation {

@@ -32,6 +32,11 @@ class EventRepository implements HasMediable
         /** @var Club|Employee $model */
         $event = $model->events()->create($collection->toArray());
 
+        $event->status = User::STATUS_CONFIRMED;
+        $event->user_status = $model->user_status;
+
+        $event->save();
+
         /*if ($photos = $collection->get('photos')) {
             $this->saveAttachments($event, $photos, Event::MAIN_PHOTO_COLLECTION);
         }*/

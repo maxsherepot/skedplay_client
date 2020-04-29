@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusFieldsToEmployeesTable extends Migration
+class AddDefaultStatusToEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,8 @@ class AddStatusFieldsToEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->tinyInteger('rejected_reason')
-                ->nullable()
-                ->after('languages');
-            $table->tinyInteger('user_status')
-                ->default(\Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION)
+            $table->integer('status')
+                ->default(\Modules\Users\Entities\User::STATUS_CONFIRMED)
                 ->after('languages');
         });
     }
@@ -31,8 +28,7 @@ class AddStatusFieldsToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn('rejected_reason');
-            $table->dropColumn('user_status');
+            $table->dropColumn('status');
         });
     }
 }

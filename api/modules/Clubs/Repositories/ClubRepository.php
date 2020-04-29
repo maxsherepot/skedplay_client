@@ -41,6 +41,9 @@ class ClubRepository implements HasMediable
             $club->manager_id = $user->id;
         }
 
+        $club->status = User::STATUS_CONFIRMED;
+        $club->user_status = $user->status;
+
         $moderator = $this->createModerator($collection);
         $club->admin()->associate($moderator);
         $club->save();

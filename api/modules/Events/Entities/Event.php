@@ -19,6 +19,12 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
+/**
+ * Class Event
+ * @package Modules\Events\Entities
+ * @property int status
+ * @property int user_status
+ */
 class Event extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, Favoriteable, Locationable;

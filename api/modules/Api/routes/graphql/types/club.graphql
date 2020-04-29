@@ -11,6 +11,7 @@ type Club {
   comment: String
   city_id: Int
   user_status: Int
+  status: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: Float
   lng: Float
@@ -79,6 +80,8 @@ input ClubFilters {
   club_type_id: Int @where
   club_type_ids: [Int] @in(key: "club_type_id")
   start_time: String @where
+  status: Int @where
+  user_status: Int @where
   orderBy: [OrderByClause!] @orderBy
   close_to: Distance @scope(name: "closeTo")
   cantons: [Int] @scope(name: "hasCantons")
