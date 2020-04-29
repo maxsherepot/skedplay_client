@@ -12,11 +12,18 @@ class Distance extends Component {
       geoWatchId: null,
     };
 
-    this.state.destination = new google.maps.LatLng(props.destination.lat, props.destination.lng);
+    if (typeof document !== 'undefined') {
+      this.state.destination = new google.maps.LatLng(props.destination.lat, props.destination.lng);
+    }
+
     this.defaultCallback = this.defaultCallback.bind(this);
   }
 
   componentDidMount() {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
     if (this.props.originByGeo) {
       this.geoWatchId = navigator.geolocation.getCurrentPosition(position => {
         this.setState({
@@ -30,6 +37,10 @@ class Distance extends Component {
   }
 
   componentWillUnmount() {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
     if (this.state.geoWatchId) {
       navigator.geolocation.clearWatch(this.state.geoWatchId);
     }
@@ -43,6 +54,10 @@ class Distance extends Component {
     // if (!this.state.origin) {
     //   return '';
     // }
+
+    if (typeof document === 'undefined') {
+      return null;
+    }
 
     let distanceText = null;
     let distanceValue = null;
