@@ -9,6 +9,10 @@ const CookiesBlock = () => {
 
   const {t} = useTranslation();
 
+  if (typeof document === 'undefined') {
+    return '';
+  }
+
   const allowCookies = () => {
     setCookiesAllowed(true);
 

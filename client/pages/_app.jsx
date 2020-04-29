@@ -32,7 +32,7 @@ class MyApp extends App {
             id="script-loader"
             googleMapsApiKey={process.env.GOOGLE_MAP_KEY}
             libraries={['places']}
-            loadingElement={<Loader/>}
+            loadingElement={<div/>}
           >
             {getLayout(<Component {...pageProps} />, pageProps)}
           </LoadScriptNext>
