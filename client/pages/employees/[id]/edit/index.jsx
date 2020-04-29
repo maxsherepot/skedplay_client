@@ -12,7 +12,7 @@ const EmployeeEdit = ({loggedInUser}) => {
     const {id} = router.query;
     const {t, i18n} = useTranslation();
 
-    const {data: {employee} = {}, loading} = useQuery(GET_EMPLOYEE, {
+    const {data: {employee} = {}, loading, refetch} = useQuery(GET_EMPLOYEE, {
         variables: {
             id
         }
@@ -28,7 +28,7 @@ const EmployeeEdit = ({loggedInUser}) => {
                 <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
                     {t('employees.personal_information')}
                 </div>
-                <EditEmployeeBox initialValues={employee}/>
+                <EditEmployeeBox initialValues={employee} refetchEmployee={refetch}/>
             </div>
         </EmployeeBox>
     );

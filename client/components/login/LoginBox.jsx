@@ -5,14 +5,13 @@ import cookie from "cookie";
 import redirect from "lib/redirect";
 import { LOGIN_USER } from "queries";
 import { LoginForm } from "components/login";
+import Cookies from 'js-cookie';
 
 const LoginBox = () => {
   const client = useApolloClient();
 
   const onCompleted = ({ login: { access_token, user } }) => {
-    document.cookie = cookie.serialize("token", access_token, {
-      maxAge: 30 * 24 * 60 * 60 // 30 days
-    });
+    Cookies.set('token', access_token, {expires: 30});
     client.cache.reset().then(() => {
       client.writeData({
         data: {

@@ -57,7 +57,7 @@ const AccountAdEdit = ({user}) => {
           classes="flex items-center flex-wrap w-full md:w-6/12 justify-center xl:flex-no-wrap xl:justify-between border border-divider p-3 mx-8 mt-6 rounded-lg"
         />
 
-        <EditEmployeeBox employee={employee} />
+        <EditEmployeeBox employee={employee} refetchEmployee={refetch} />
       </div>
     </div>
   );

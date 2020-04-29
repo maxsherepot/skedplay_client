@@ -13,6 +13,10 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
 
   const {t, i18n} = useTranslation();
 
+  if (typeof document === 'undefined') {
+    return '';
+  }
+
   const handleChange = address => {
     setAddress(address);
     setFieldValue('address', address);

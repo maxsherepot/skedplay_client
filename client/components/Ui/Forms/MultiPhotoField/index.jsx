@@ -141,7 +141,13 @@ function MultiPhotoField({
       setFieldValue(name, files);
 
       if (submitOnChange) {
-        submitForm().then(() => resetForm());
+        submitForm().then(() => {
+          resetForm();
+
+          if (refetchEntity) {
+            refetchEntity();
+          }
+        });
       }
     }
   };
