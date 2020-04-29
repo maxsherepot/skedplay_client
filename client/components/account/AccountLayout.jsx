@@ -15,7 +15,7 @@ import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 
 const ProfileHeader = ({user}) => (
     <div className="fluid-container header-profile-div">
-        <div className="flex items-center lg:w-5/12 ml-8 py-8">
+        <div className="flex items-center lg:w-7/12 ml-8 py-8">
             <Avatar />
             <div className="ml-4">
                 {user && user.is_employee ? (
@@ -33,7 +33,7 @@ const ProfileHeader = ({user}) => (
                 </div>
             </div>
         </div>
-        {user && (user.is_employee || user.is_club_owner ) && user.status === 1 && (
+        {user && (user.is_employee || user.is_club_owner ) && user.status === 0 && (
             <VerifyMessage user={user}/>
         )}
     </div>
@@ -76,14 +76,14 @@ const VerifyMessage = ({user}) => {
     return (
         <>
             <div className="w-full flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
-                {/*{user.verify_photo ? (*/}
-                {/*    <div className="ml-3 py-2">*/}
-                {/*        <span className="font-bold flex flex-col">*/}
-                {/*            At {date} {time} you added verification photo.*/}
-                {/*              We prof it and after you can Activated your Profile.*/}
-                {/*        </span>*/}
-                {/*    </div>*/}
-                {/*) : (*/}
+                {user.verify_photo ? (
+                    <div className="ml-3 py-2">
+                        <span className="font-bold flex flex-col">
+                            At {date} {time} you added verification photo.
+                              We prof it and after you can Activated your Profile.
+                        </span>
+                    </div>
+                ) : (
                     <div className="ml-3 py-2">
                         <div className="flex flex-col">
                             <div className="row">
@@ -111,7 +111,7 @@ const VerifyMessage = ({user}) => {
                             />
                         </div>
                     </div>
-                {/*)}*/}
+                )}
             </div>
         </>
     )
