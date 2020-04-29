@@ -4,7 +4,7 @@ import { GirlCard, Loader } from "UI";
 
 const GET_GIRLS = gql`
   {
-    employees(first: 15) {
+    employees(first: 15, filters: {status: 1, user_status: 1}) {
       data {
         id
         name
@@ -13,6 +13,8 @@ const GET_GIRLS = gql`
         isVip
         isNew
         inGeneral
+        status
+        user_status
         index
         city {
           id

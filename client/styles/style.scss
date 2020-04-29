@@ -256,6 +256,17 @@ main {
     }
   }
 
+  .verify-message-div {
+    background-color: #b2ebf2;
+    height: content-box;
+  }
+
+  .header-profile-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .c-events-time {
     opacity: 0;
   }

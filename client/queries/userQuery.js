@@ -22,6 +22,7 @@ export const GET_ME = gql`
                 name
                 url
                 thumb_url
+                created_at
             }
             avatar {
                 id 

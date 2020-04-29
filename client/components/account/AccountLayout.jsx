@@ -10,10 +10,12 @@ import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
 import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
 import {getErrors} from "utils/index";
+import * as moment from "moment";
+import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 
 const ProfileHeader = ({user}) => (
-    <div className="fluid-container">
-        <div className="flex items-center lg:w-7/12 ml-8 py-8">
+    <div className="fluid-container header-profile-div">
+        <div className="flex items-center lg:w-5/12 ml-8 py-8">
             <Avatar />
             <div className="ml-4">
                 {user && user.is_employee ? (
@@ -31,16 +33,22 @@ const ProfileHeader = ({user}) => (
                 </div>
             </div>
         </div>
-        <div className="flex flex-row">
-            {user && (user.is_employee || user.is_club_owner ) && (
-                <VerifyMessage user={user} />
-            )}
-        </div>
+        {user && (user.is_employee || user.is_club_owner ) && user.status === 1 && (
+            <VerifyMessage user={user}/>
+        )}
     </div>
 );
 
 const VerifyMessage = ({user}) => {
     const [uploadVerifyPhoto] = useMutation(UPLOAD_VERIFY_PHOTO);
+    let date, time;
+
+    if (user.verify_photo) {
+        let dateUploadPhoto = user.verify_photo['created_at'];
+
+        date = moment(dateUploadPhoto.slice(0, 10), 'YYYY-MM-DD').format('DD-MM-YYYY');
+        time = dateUploadPhoto.slice(11, 16);
+    }
 
     const handleSubmit = async verifyFile => {
         try {
@@ -67,32 +75,43 @@ const VerifyMessage = ({user}) => {
 
     return (
         <>
-            <div>
-                {user.status === 0 && (
-                    <>
-                        {user.verify_photo ? (
-                            <div>
-                                <span>
-                                    Please wait... Administrator pruf your Profile.
+            <div className="w-full flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
+                {/*{user.verify_photo ? (*/}
+                {/*    <div className="ml-3 py-2">*/}
+                {/*        <span className="font-bold flex flex-col">*/}
+                {/*            At {date} {time} you added verification photo.*/}
+                {/*              We prof it and after you can Activated your Profile.*/}
+                {/*        </span>*/}
+                {/*    </div>*/}
+                {/*) : (*/}
+                    <div className="ml-3 py-2">
+                        <div className="flex flex-col">
+                            <div className="row">
+                                <span className="inline-block mr-2">
+                                    <AlertTriangleSvg/>
                                 </span>
+                                <span className="font-bold inline-block">Verify your account</span>
                             </div>
-                        ) : (
-                            <div>
-                                <span> To become a 100% verified member, and post your Profile at Skedplay you need to:
-                                    To upload the documents, please go to the My Home page (My account --> Settings)
-                                    and on the left hand side, click on the "Verification" tab and then on "Upload
-                                    Verify Photo" or Press this Button.
+                        </div>
+                        <div>
+                            <span className="">Please add your Pass or Id Photo</span>
+                            <label htmlFor="verifyFile" className="inline-block">
+                                <span className="bg-white border border-xs border-red text-red text-xs rounded-full ml-3
+                                    px-3 py-2 hover:cursor-pointer hover:bg-red hover:text-white hover:border-white"
+                                >
+                                    Upload Verify Photo
                                 </span>
-                                <input type="file" name="Upload Verify Photo" onChange={handleSubmit}/>
-                            </div>
-                        )}
-                    </>
-                )}
-                {user.status === 1 && (
-                    <div>
-                        <span>Your profile is confirmed</span>
+                            </label>
+                            <input
+                                className="c-account__avatar-input"
+                                type="file"
+                                id="verifyFile"
+                                name="Upload Verify Photo"
+                                onChange={handleSubmit}
+                            />
+                        </div>
                     </div>
-                )}
+                {/*)}*/}
             </div>
         </>
     )
