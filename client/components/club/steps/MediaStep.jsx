@@ -1,20 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import { AddPhotoSvg, BlackPlusSvg } from "icons";
 import { Button, MultiPhotoField, MultiVideoField } from "UI";
 import {useTranslation} from "react-i18next";
 
 const MediaStep = ({ club, refetchClub }) => {
   const {t, i18n} = useTranslation();
+  const [key, setKey] = useState(1);
+
+  const reset = () => {
+    if (refetchClub) {
+      refetchClub().then(() => {
+        setKey(+key + 1);
+      });
+    }
+  };
 
   return (
     <>
       <MultiPhotoField
+        key={key}
         name="photos"
         label=""
         required={false}
         initialValues={club.photos}
         submitOnChange={true}
-        refetchEntity={refetchClub}
+        refetchEntity={reset}
         modelId={club.id}
         modelType={'club'}
         mediaCollection={'club-photo'}

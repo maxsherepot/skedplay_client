@@ -5,15 +5,25 @@ import {useTranslation} from "react-i18next";
 
 const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChange = true }) => {
   const {t, i18n} = useTranslation();
+  const [key, setKey] = useState(1);
+
+  const reset = () => {
+    if (refetchEmployee) {
+      refetchEmployee().then(() => {
+        setKey(+key + 1);
+      });
+    }
+  };
 
   return (
     <>
       <MultiPhotoField
+        key={key}
         name="photos"
         label=""
         initialValues={photos}
         submitOnChange={submitOnChange}
-        refetchEntity={refetchEmployee}
+        refetchEntity={reset}
         modelId={employeeId}
         modelType={'employee'}
         mediaCollection={'employee-photo'}

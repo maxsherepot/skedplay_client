@@ -9,7 +9,7 @@ import { useMutation } from "@apollo/react-hooks";
 import formErrors from "services/formErrors";
 import {useTranslation} from "react-i18next";
 
-const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageIndex, selectable, submitOnChange }) => {
+const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageIndex, selectable, submitOnChange, refetchEntity }) => {
   const [deleteMedia] = useMutation(DELETE_MEDIA);
   const {t, i18n} = useTranslation();
   const [hovered, setHovered] = useState(null);
@@ -27,6 +27,10 @@ const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageInde
       deleteMedia({
         variables: {
           id
+        }
+      }).then(() => {
+        if (refetchEntity) {
+          refetchEntity();
         }
       })
     }
@@ -228,7 +232,15 @@ function MultiPhotoField({
           </label>
 
           <>
-            <DisplayPreviews mainImageIndex={mainImageIndex} setMainImageIndex={setMainImages} photos={previews} setPreviews={setPreviews} indexes={indexes} selectable={selectable} />
+            <DisplayPreviews
+              mainImageIndex={mainImageIndex}
+              setMainImageIndex={setMainImages}
+              photos={previews}
+              setPreviews={setPreviews}
+              indexes={indexes}
+              selectable={selectable}
+              refetchEntity={refetchEntity}
+            />
 
             <label className="relative" style={{ paddingLeft: 0 }}>
               {trigger}

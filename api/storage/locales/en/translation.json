@@ -298,6 +298,7 @@
     "personal_info": "Personal info",
     "optional": "Optional",
     "alone": "Alone",
+    "at_club": "At club",
     "activate_date": "Activate date",
     "price": "Price"
   },
@@ -404,6 +405,7 @@
     "view_phone": "View phone",
     "my_schedule_in": "My schedule in",
     "open_hours": "Open Hours",
+    "add_my_location": "Add my location",
     "": ""
   },
   "after_register": {
