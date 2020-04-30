@@ -53,6 +53,15 @@ export const ALL_CLUBS = gql`
   }
 `;
 
+export const CLUBS_SEARCH = gql`
+    query clubs($filters: ClubFilters) {
+        clubsSearch(filters: $filters) {
+            id
+            name
+        }
+    }
+`;
+
 export const GET_CLUB = gql`
   query getClub($id: ID!) {
     club(id: $id) {

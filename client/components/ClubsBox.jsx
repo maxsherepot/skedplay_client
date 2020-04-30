@@ -1,10 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { useQuery } from "@apollo/react-hooks";
-import { usePagination } from "hooks";
-import { ALL_CLUBS } from "queries/clubQuery";
-import { MapSvg } from "icons";
-import { ClubCard, Pagination, Sort, Button, Loader } from "UI";
+import { ClubCard, Pagination, Sort, Loader } from "UI";
 import {useTranslation} from "react-i18next";
 
 function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPage, sortComponent }) {

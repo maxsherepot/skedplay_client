@@ -113,6 +113,11 @@ export const GET_EMPLOYEE = gql `
           end
           order
           available
+          address
+          club {
+            id
+            name
+          }
       }
       languages {
         id

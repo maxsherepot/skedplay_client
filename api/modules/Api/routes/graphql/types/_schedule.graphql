@@ -29,6 +29,7 @@ type EmployeeSchedule implements Schedule {
   order: Int!
   employee: Employee! @belongsTo
   club: Club @belongsTo
+  address: String
 }
 
 type SchedulePeriod {
@@ -56,6 +57,7 @@ input EmployeeScheduleInput {
   order: Int!
   employee_id: Int!
   club_id: Int
+  address: String
 }
 
 input EmployeeSchedulesInput {

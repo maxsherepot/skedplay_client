@@ -9,6 +9,7 @@ import formErrors from "services/formErrors";
 
 function SelectField({
   className,
+  styles,
   labelClassName,
   label,
   name,
@@ -37,6 +38,7 @@ function SelectField({
   return (
     <FormGroup
       className={cx(className, "relative")}
+      style={styles}
       error={!!error}
     >
       <label className={labelClassName} htmlFor={name}>

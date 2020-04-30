@@ -81,12 +81,14 @@ input ClubFilters {
   orderBy: [OrderByClause!] @orderBy
   close_to: Distance @scope(name: "closeTo")
   cantons: [Int] @scope(name: "hasCantons")
+  search: String @where(operator: "like", key: "name")
   __typename: String
 }
 
 extend type Query {
   club_types: [ClubType!]! @all
   clubs(filters: ClubFilters @spread): [Club!]! @paginate
+  clubsSearch(filters: ClubFilters @spread): [Club!]! @all
   club(id: ID @eq): Club @find
 }
 

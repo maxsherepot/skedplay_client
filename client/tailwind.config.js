@@ -25,6 +25,11 @@ module.exports = {
     container: {
       center: true
     },
+    inset: {
+      '0': '0',
+      auto: 'auto',
+      '100': "100%"
+    },
     screens: {
       xs: "320px",
       sm: "480px",

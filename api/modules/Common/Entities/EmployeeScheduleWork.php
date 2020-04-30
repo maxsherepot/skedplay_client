@@ -14,7 +14,7 @@ class EmployeeScheduleWork extends Model
 
     protected $table = "employee_schedule_work";
 
-    protected $fillable = ['day', 'start', 'end', 'available', 'order', 'employee_id', 'club_id'];
+    protected $fillable = ['day', 'start', 'end', 'available', 'order', 'employee_id', 'club_id', 'address'];
 
     /**
      * @return BelongsTo
