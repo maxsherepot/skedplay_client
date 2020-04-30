@@ -92,7 +92,7 @@ class ClubRepository implements HasMediable
      * @param int $user_id
      * @param int $status
      */
-    public function updateUserStatusByUserId(int $user_id, int $status)
+    public function updateUserStatusByUserId(int $user_id, int $status): void
     {
         Club::query()
             ->where('user_id', '=', $user_id)
@@ -100,6 +100,11 @@ class ClubRepository implements HasMediable
                 'user_status' => $status,
             ])
         ;
+    }
+
+    public function updateAllStatusConfirm(): void
+    {
+        Club::query()->update(['status' => User::STATUS_CONFIRMED]);
     }
 
     /**

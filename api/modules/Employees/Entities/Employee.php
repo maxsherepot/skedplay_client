@@ -32,6 +32,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @property int inGeneral
  * @property int status
  * @property int user_status
+ * @property string rejected_reason
  */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {

@@ -11,6 +11,7 @@ use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
 use Modules\Users\Console\AddAdminMessageToChats;
+use Modules\Users\Console\SetDefaultStatus;
 
 class Kernel extends ConsoleKernel
 {
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
         CheckTranslatesConsistency::class,
         CheckEventsNotification::class,
         AddAdminMessageToChats::class,
+        SetDefaultStatus::class,
     ];
 
     /**
