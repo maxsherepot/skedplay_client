@@ -91,20 +91,26 @@ class EventRepository implements HasMediable
     }
 
     /**
-     * @param int $employee_id
+     * @param int $id
      * @param int $status
+     * @param string $type
      */
-    public function updateUserStatusByEmployeeId(int $employee_id, int $status): void
+    public function updateUserStatusByOwnerId(int $id, int $status, string $type): void
     {
         Event::query()
             ->where([
-                ['owner_type', '=','user'],
-                ['owner_id', '=', $employee_id],
+                ['owner_type', '=',$type],
+                ['owner_id', '=', $id],
             ])
             ->update(
                 ['user_status' => $status]
             )
         ;
+    }
+
+    public function updateAllStatusConfirm(): void
+    {
+        Event::query()->update(['status' => User::STATUS_CONFIRMED]);
     }
 
     /**

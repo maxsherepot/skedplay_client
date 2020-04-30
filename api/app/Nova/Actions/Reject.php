@@ -80,7 +80,14 @@ class Reject extends Action
 
                 if ($user->getIsEmployeeAttribute()) {
                     $employeeRepository->updateUserStatusByUserId($user->id, $status);
-                    $eventRepository->updateUserStatusByEmployeeId($user->id, $status);
+
+                    $employeeIds = $employeeRepository->getEmployeeIdByUserId($user->id);
+
+                    foreach ($employeeIds as $employee) {
+                        $eventRepository->updateUserStatusByOwnerId($employee->id, $status, 'employee');
+                    }
+
+                    $eventRepository->updateUserStatusByOwnerId($user->id, $status, 'user');
                 }
             }
 

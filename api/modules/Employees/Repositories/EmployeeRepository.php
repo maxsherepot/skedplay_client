@@ -69,6 +69,7 @@ class EmployeeRepository implements HasMediable
         }
 
         $employee = new Employee($data->toArray());
+        $employee->user_status = $owner->status;
         $employee->owner()->associate($owner);
 
         $employee->save();
@@ -117,6 +118,10 @@ class EmployeeRepository implements HasMediable
         ;
     }
 
+    /**
+     * @param int $user_id
+     * @param int $status
+     */
     public function updateUserStatusByUserId(int $user_id, int $status): void
     {
         Employee::query()
@@ -127,6 +132,18 @@ class EmployeeRepository implements HasMediable
             ->update(
                 ['user_status' => $status]
             )
+        ;
+    }
+
+    /**
+     * @param int $user_id
+     * @return Collection
+     */
+    public function getEmployeeIdByUserId(int $user_id): Collection
+    {
+        return Employee::query()
+            ->where('owner_id', '=', $user_id)
+            ->get('id')
         ;
     }
 

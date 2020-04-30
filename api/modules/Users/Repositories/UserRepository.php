@@ -80,7 +80,7 @@ class UserRepository implements HasMediable
      */
     public function find(int $id): ?User
     {
-        return User::query()->findOrFail($id);
+        return User::query()->find($id);
     }
 
     /**
