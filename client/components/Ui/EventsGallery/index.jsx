@@ -5,6 +5,11 @@ import Slider from "react-slick";
 
 function EventsGallery({ events }) {
   const [firstEvent] = events;
+
+  if (!firstEvent) {
+    return '';
+  }
+
   const [hoveredId, setHoveredId] = useState(firstEvent.id);
 
   const hovered = id => {
