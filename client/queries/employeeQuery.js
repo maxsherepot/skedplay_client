@@ -115,7 +115,9 @@ export const GET_EMPLOYEE = gql `
           end
           order
           available
+          at_address
           address
+          club_id
           club {
             id
             name

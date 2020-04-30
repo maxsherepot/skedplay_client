@@ -215,7 +215,9 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
   const onSubmitSchedule = async values => {
     try {
-      let payload = values.schedule.map(({ day, start, end, order, club_id, }) => {
+      let payload = values.schedule.map(({ day, start, end, order, club_id, address, at_address}) => {
+        const clubInt = parseInt(club_id);
+
         return {
           day,
           start: start === 0 ? null : start,
@@ -223,9 +225,10 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
           available: start !== 0 && start !== 'day_off',
           order,
           employee_id: parseInt(employee.id),
-          club_id: club_id
+          club_id: at_address ? null : clubInt,
+          address: at_address ? address : null,
+          at_address: !!at_address,
         }
-
       });
 
       const {

@@ -7,9 +7,11 @@ import PropTypes from "prop-types";
 import cx from 'classnames';
 import {useTranslation} from "react-i18next";
 
-function LocationSearchInput({initAddress, className, inputClassName, defaultValue}) {
+function LocationSearchInput({initAddress, className, inputClassName, defaultValue, name, styles}) {
   const [address, setAddress] = useState(initAddress);
   const { setFieldValue } = useFormikContext();
+
+  const fieldName = name || 'address';
 
   const {t, i18n} = useTranslation();
 
@@ -19,12 +21,12 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
 
   const handleChange = address => {
     setAddress(address);
-    setFieldValue('address', address);
+    setFieldValue(fieldName, address);
   };
 
   const handleSelect = address => {
     setAddress(address);
-    setFieldValue('address', address);
+    setFieldValue(fieldName, address);
 
     if (address) {
       geocodeByAddress(address)
@@ -66,10 +68,13 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
       searchOptions={searchOptions}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div className={cx([
-          className,
-          'relative',
-        ])}>
+        <div
+          className={cx([
+            className,
+            'relative',
+          ])}
+          style={styles}
+        >
           <TextField
             inputClassName={cx([
               inputClassName,
@@ -77,7 +82,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
             label={t('index.address')}
             defaultValue={defaultValue ? defaultValue : ""}
             placeholder="Example: street name, city"
-            name="address"
+            name={fieldName}
             {...getInputProps({
               className: 'location-search-input',
             })}

@@ -1,18 +1,27 @@
 import React, {useState} from "react";
-import {useField, useFormikContext} from "formik";
-import { SelectGroupField, SelectField, ToggleField, DateField, Loader } from "UI";
+import {Field, useField, useFormikContext} from "formik";
+import { SelectGroupField, SelectField, ToggleField, DateField, Loader, LocationSearchInput } from "UI";
 import {useTranslation} from "react-i18next";
 import {CLUBS_SEARCH} from "queries";
 import {useQuery} from "@apollo/react-hooks";
 
-const WeekRow = ({week, startOptions, timeOptions, isStartDisabled, clubs}) => {
+const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, clubs}) => {
+  const { values, setFieldValue } = useFormikContext();
   const {t, i18n} = useTranslation();
-  const [alone, setAlone] = useState(!week.club && (!week.address || !week.address.length));
+  const [alone, setAlone] = useState(!schedule.club && (!schedule.address || !schedule.address.length));
+  const setAtAddress = (value) => {
+    setFieldValue(`schedule.${week.day}.at_address`, value);
+  };
 
   return (
     <div className="flex items-center" key={week.day}>
-      <div className="w-1/6 px-2">{week.name}</div>
-      <div className="w-1/6 hd:w-2/6 px-2">
+      <div className="w-1/12 px-2">{week.name}</div>
+      <Field name="at_address">
+        {({ field: { value, ...rest } }) => (
+          <input type="hidden"/>
+        )}
+      </Field>
+      <div className="w-1/6 px-2">
         <ToggleField
           trueLabel={t('steps.alone')}
           falseLabel={t('steps.at_club')}
@@ -20,7 +29,7 @@ const WeekRow = ({week, startOptions, timeOptions, isStartDisabled, clubs}) => {
           onChange={(value) => setAlone(value)}
         />
       </div>
-      <div className="w-3/12 hd:w-3/5 px-2">
+      <div className="w-3/12 px-2">
         <SelectGroupField
           label={t('clubs.time')}
           name="time"
@@ -52,10 +61,22 @@ const WeekRow = ({week, startOptions, timeOptions, isStartDisabled, clubs}) => {
           }}
           className="w-3/12 px-2"
           inputClassName="w-full md:w-1/3"
-          label="Select available club"
+          label={t('schedule.select_available_club')}
           name={`schedule.${week.day}.club_id`}
           options={[{value: 0, label: t('schedule.add_my_location')}, ...clubs]}
           placeholder=""
+          intValues={true}
+          onSelect={value => setAtAddress(value === 0 ?  1 : 0)}
+        />
+      }
+      {(!alone && !!values['schedule'][week.day].at_address) &&
+        <LocationSearchInput
+          styles={{
+            marginBottom: '.7rem'
+          }}
+          className="w-3/12 px-2"
+          inputClassName=""
+          name={`schedule.${week.day}.address`}
         />
       }
     </div>
@@ -78,7 +99,9 @@ const AdScheduleStep = () => {
     return <Loader/>
   }
 
-  const clubs = data.clubsSearch.map(c => ({value: c.id, label: c.name}));
+  const schedule = values.schedule;
+
+  const clubs = data.clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
 
   let hours = [];
   let minutes = [
@@ -142,13 +165,13 @@ const AdScheduleStep = () => {
   const isStartDisabled = (day) => {
     let d = values.schedule[day];
 
-    if (d && !d.available) return true;
-
-    if (d) {
-      return d && (d.start === 0 || d.start === 'day_off')
+    if (d === null || d === undefined) {
+      return false;
     }
 
-    return false
+    // if (!d.available) return true;
+
+    return d.start === 0 || d.start === 'day_off';
   };
 
   let startOptions = timeOptions;
@@ -163,6 +186,7 @@ const AdScheduleStep = () => {
         {weeks.map(week => (
           <WeekRow
             week={week}
+            schedule={schedule.find(s => s.day === week.day)}
             key={week.day}
             startOptions={startOptions}
             timeOptions={timeOptions}

@@ -4,7 +4,7 @@ import cx from "classnames";
 import { Toggle } from "UI";
 
 function ToggleField({ className, trueLabel, falseLabel, initValue, onChange }) {
-  const [value, setValue] = useState(initValue || true);
+  const [value, setValue] = useState(initValue);
 
   const handleChange = event => {
     setValue(!value);

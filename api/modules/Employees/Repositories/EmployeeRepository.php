@@ -214,6 +214,7 @@ class EmployeeRepository implements HasMediable
             'available' => $schedule['available'],
             'order'     => $schedule['order'],
             'club_id'   => $schedule['club_id'] ?? null,
+            'at_address'   => $schedule['at_address'] ?? false,
             'address'   => $schedule['address'] ?? null,
         ]);
     }

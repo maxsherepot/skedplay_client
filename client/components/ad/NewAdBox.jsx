@@ -154,7 +154,9 @@ const NewAdBox = ({clubId}) => {
 
   const onSubmitSchedule = async values => {
     try {
-      let payload = values.schedule.map(({ day, start, end, available, order, club_id, }) => {
+      let payload = values.schedule.map(({ day, start, end, available, order, club_id, address}) => {
+        const clubInt = parseInt(club_id);
+
         return {
           day,
           start: start === 0 ? null : start,
@@ -162,7 +164,8 @@ const NewAdBox = ({clubId}) => {
           available: start !== 0,
           order,
           employee_id: employeeId,
-          club_id: club_id
+          club_id: clubInt,
+          address: clubInt === 0 ? address : null,
         }
 
       });

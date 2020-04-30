@@ -53,7 +53,9 @@ const defaultScheduleList = [
     available: true,
     order: 6,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 1,
@@ -62,7 +64,9 @@ const defaultScheduleList = [
     available: true,
     order: 0,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 2,
@@ -71,7 +75,9 @@ const defaultScheduleList = [
     available: true,
     order: 1,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 3,
@@ -80,7 +86,9 @@ const defaultScheduleList = [
     available: true,
     order: 2,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 4,
@@ -89,7 +97,9 @@ const defaultScheduleList = [
     available: true,
     order: 3,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 5,
@@ -98,7 +108,9 @@ const defaultScheduleList = [
     available: true,
     order: 4,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   },
   {
     day: 6,
@@ -107,7 +119,9 @@ const defaultScheduleList = [
     available: true,
     order: 5,
     employee_id: null,
-    club_id: null
+    club_id: null,
+    address: null,
+    at_address: 0,
   }
 ];
 
@@ -115,9 +129,13 @@ function defaultSchedule(schedule) {
   if (schedule && schedule.length !== 0) {
     return schedule.map(s => {
       return {
-        club_id: null,
         ...s,
-        start: s.start === null ? 0 : s.start
+        start: s.start === null ? 0 : s.start,
+        club_id: s.club_id
+          ? `${s.club_id}`
+          : s.at_address
+            ? 0
+            : null,
       }
     })
   }
