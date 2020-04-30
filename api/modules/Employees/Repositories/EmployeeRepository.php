@@ -101,6 +101,36 @@ class EmployeeRepository implements HasMediable
     }
 
     /**
+     * @param int $club_id
+     * @param int $status
+     */
+    public function updateUserStatusByClubId(int $club_id, int $status): void
+    {
+        Employee::query()
+            ->where([
+                ['owner_type', '=','club'],
+                ['owner_id', '=', $club_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
+    }
+
+    public function updateUserStatusByUserId(int $user_id, int $status): void
+    {
+        Employee::query()
+            ->where([
+                ['owner_type', '=', 'user'],
+                ['owner_id', '=', $user_id],
+            ])
+            ->update(
+                ['user_status' => $status]
+            )
+        ;
+    }
+
+    /**
      * @param Employee $employee
      * @return bool|null
      * @throws \Exception

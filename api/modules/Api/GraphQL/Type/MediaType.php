@@ -2,6 +2,7 @@
 
 namespace Modules\Api\GraphQL\Type;
 
+use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\Models\Media;
 
 class MediaType
@@ -67,5 +68,15 @@ class MediaType
     function getCollectionName(Media $rootValue)
     {
         return $rootValue->collection_name;
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return mixed
+     */
+    function getCreatedAtDateTime(Media $rootValue)
+    {
+        return DB::table('media')
+            ->find($rootValue->id)->created_at;
     }
 }

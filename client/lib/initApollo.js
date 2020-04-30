@@ -72,6 +72,8 @@ function create(initialState, {
         active: 1,
         type: 1,
         cantons: [],
+        user_status: 1,
+        status: 1,
         services: [],
         inGeneral: true,
         gender: "",
@@ -96,6 +98,8 @@ function create(initialState, {
         cantons: [],
         services: [],
         gender: "",
+        user_status: 1,
+        status: 1,
         race_type_id: "",
         orderBy: [
           {
@@ -117,6 +121,8 @@ function create(initialState, {
         inGeneral: true,
         cantons: [],
         services: [],
+        user_status: 1,
+        status: 1,
         gender: "",
         race_type_id: "",
         orderBy: [
@@ -137,6 +143,8 @@ function create(initialState, {
         cantons: [],
         club_type: "",
         start_time: "",
+        user_status: 1,
+        status: 1,
         orderBy: [
           {
             field: "start_time",
@@ -150,6 +158,8 @@ function create(initialState, {
       events: {
         cantons: [],
         event_type: "",
+        user_status: 1,
+        status: 1,
         // perimeter: 10,
         date: "",
         __typename: "EventFilters"

@@ -125,6 +125,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             User::class,
             Employee::class,
             Role::class,
+            Verification::class,
 
             Club::class,
             ClubType::class,
@@ -149,7 +150,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             UiTranslate::class,
             Language::class,
-            Verification::class,
         ]);
     }
 }

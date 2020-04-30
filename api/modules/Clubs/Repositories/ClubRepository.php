@@ -41,6 +41,9 @@ class ClubRepository implements HasMediable
             $club->manager_id = $user->id;
         }
 
+        $club->status = User::STATUS_CONFIRMED;
+        $club->user_status = $user->status;
+
         $moderator = $this->createModerator($collection);
         $club->admin()->associate($moderator);
         $club->save();
@@ -83,6 +86,32 @@ class ClubRepository implements HasMediable
         DB::commit();
 
         return $result;
+    }
+
+    /**
+     * @param int $user_id
+     * @param int $status
+     */
+    public function updateUserStatusByUserId(int $user_id, int $status)
+    {
+        Club::query()
+            ->where('user_id', '=', $user_id)
+            ->update([
+                'user_status' => $status,
+            ])
+        ;
+    }
+
+    /**
+     * @param int $user_id
+     * @return Collection
+     */
+    public function getClubsIdByUserId(int $user_id): Collection
+    {
+        return Club::query()
+            ->where('user_id', '=', $user_id)
+            ->get('id')
+        ;
     }
 
     /**

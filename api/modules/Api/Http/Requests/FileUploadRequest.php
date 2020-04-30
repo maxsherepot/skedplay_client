@@ -32,6 +32,7 @@ class FileUploadRequest extends GraphQLFormRequest
             case Employee::PHOTO_COLLECTION:
             case Employee::AVATAR_COLLECTION:
             case User::PHOTO_AVATAR:
+            case User::VERIFY_PHOTO:
             case Event::MAIN_PHOTO_COLLECTION:
                 $rules->push($photoRules);
                 break;

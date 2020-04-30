@@ -17,6 +17,8 @@ export const ALL_EMPLOYEES = gql `
         email
         phone
         active
+        status
+        user_status
         will_activate_at
         city {
           id

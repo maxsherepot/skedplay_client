@@ -11,6 +11,8 @@ export const ALL_CLUBS = gql`
         lat
         lng
         website
+        status
+        user_status
         start_time
         end_time
         city {

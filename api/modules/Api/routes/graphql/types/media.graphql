@@ -8,6 +8,8 @@ type Media {
     model_type: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getModelType")
     model_id: Int! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getModelId")
     collection_name: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCollectionName")
+    user_status: Int
+    created_at: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCreatedAtDateTime")
 }
 
 extend type Mutation {

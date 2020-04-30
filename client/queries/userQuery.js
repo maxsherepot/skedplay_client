@@ -17,6 +17,13 @@ export const GET_ME = gql`
             favorites_count
             employees_photos
             employees_videos
+            verify_photo {
+                id 
+                name
+                url
+                thumb_url
+                created_at
+            }
             avatar {
                 id 
                 name
@@ -102,6 +109,21 @@ export const UPLOAD_USER_AVATAR = gql `
             avatar: $avatar
             collection: $collection
         ) { 
+            status
+            message
+        }
+    }
+`;
+
+export const UPLOAD_VERIFY_PHOTO = gql `
+    mutation uploadUserVerifyPhoto(
+        $verify_photo: Upload!
+        $collection: String!
+    ) {
+        uploadUserVerifyPhoto(
+            verify_photo: $verify_photo
+            collection: $collection
+        ) {
             status
             message
         }
