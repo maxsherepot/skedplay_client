@@ -70,14 +70,12 @@ class ClubRepository implements HasMediable
         $inputs = $collection->toArray();
 
         if ($collection->get('phones')) {
-            $inputs['phones'] = json_encode([
-                $inputs['phones'],
-            ]);
+            $inputs['phones'] = json_decode($inputs['phones']);
         }
 
         DB::beginTransaction();
 
-        $result = $club->update($collection->toArray());
+        $result = $club->update($inputs);
 
         if ($logo = $collection->get('logotype')) {
             $club->addMedia($logo)->toMediaCollection(Club::LOGO_COLLECTION);

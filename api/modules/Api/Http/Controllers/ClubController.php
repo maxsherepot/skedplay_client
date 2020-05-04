@@ -71,7 +71,12 @@ class ClubController extends Controller
         $club = $this->clubs->store($request->user('api'), collect($request->all()));
 
         $message = 'A new club had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/clubs/'.$club->id;
-        (new NotifyAdminTelegramComponent)->sendNotification($message);
+
+        try {
+            (new NotifyAdminTelegramComponent)->sendNotification($message);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [$e->getTrace(), $e->getFile()]);
+        }
 
         return $club;
     }

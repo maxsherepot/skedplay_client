@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
 import { Loader } from "UI";
 import {useTranslation} from "react-i18next";
+import Link from "next/link";
 
 const EmployeeSchedule = ({ employee, ...rest }) => {
   const {
@@ -52,17 +53,23 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                 <span className="inline-block w-10 sm:mr-4">
                   {getPeriodDate(s.day)}
                 </span>
-                <span className="hidden sm:block">{s.day_name}</span>
+                <span className="hidden sm:block">
+                  {t('day.' + s.day_name.toLowerCase())}
+                </span>
                 <span className="block sm:hidden">
-                  {s.day_name.slice(0, 2)}
+                  {t('common.days_short.' + s.day_name.toLowerCase().slice(0, 3))}
                 </span>
               </div>
               <div className="line" />
               {s.club ? (
                 <div className="flex flex-col sm:flex-row w-3/6 sm:w-2/5 sm:w-7/12">
                   <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
-                    <span className="mr-3">{s.club.name}</span>
-                    <ArrowNextSvg />
+                    <Link as={`/clubs/${s.club.id}/information`} href={`/clubs/[id]/information`}>
+                      <a className="flex">
+                        <span className="mr-3">{s.club.name}</span>
+                        <ArrowNextSvg />
+                      </a>
+                    </Link>
                   </div>
                   <div className="w-full sm:w-1/2">
                     <div className="flex items-center justify-start lg:justify-end">
@@ -89,7 +96,11 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                   <>
                     {s.available && s.start && s.start !== 'day_off' ? (
                       <div className="flex w-3/6 sm:w-2/5 sm:w-7/12">
-                        <div>{s.start} — {s.end}</div>
+                        {s.at_address && s.address ? (
+                          <div>{s.address}</div>
+                        ) : (
+                          <div>{s.start} — {s.end}</div>
+                        )}
                       </div>
                     ) : (
                         <div className="flex w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">

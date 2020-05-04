@@ -228,6 +228,8 @@ export const GET_EMPLOYEE_SCHEDULE = gql `
       start
       end
       available
+      at_address
+      address
       club {
         id
         name
