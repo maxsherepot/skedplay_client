@@ -312,7 +312,7 @@ const AccountLayout = ({contentClass, user, className, children}) => {
         if (className) return className;
         if (contentClass) return contentClass;
 
-        return "lg:w-3/5 lg:ml-10 px-8 py-12";
+        return "lg:w-3/5 lg:ml-10 px-4 py-12";
     };
 
     return (

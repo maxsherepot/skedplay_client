@@ -84,6 +84,8 @@ class EmployeeRepository implements HasMediable
      */
     public function update(Employee $employee, Collection $collection): Employee
     {
+        $user = auth('api')->user();
+
         try {
             if ($collection['birthday']) {
                 $collection['birthday'] = Carbon::parse($collection['birthday']);
@@ -91,6 +93,12 @@ class EmployeeRepository implements HasMediable
             }
         } catch (\Exception $e) {
             $collection['birthday'] = null;
+        }
+
+        if ($collection->get('club_id')) {
+            if ($employee->owner_type === 'club' && $employee->owner_id === $employee->club->id) {
+                $collection['owner_id'] = $collection->get('club_id');
+            }
         }
 
         $employee->update($collection->toArray());

@@ -83,6 +83,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'service_for',
         'current_club_id',
         'current_address',
+        'owner_id',
     ];
 
     protected $dates = [
