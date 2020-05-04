@@ -176,7 +176,6 @@ AccountClubIndex.getInitialProps = async ctx => {
     return { user };
 };
 
-
 AccountClubIndex.getLayout = getLayout;
 
 export default AccountClubIndex;

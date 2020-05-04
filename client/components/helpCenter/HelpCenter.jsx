@@ -97,7 +97,6 @@ const CategoryItem = ({category, topicSlug, first}) => {
 const Sidebar = ({categories, topicSlug}) => {
   const {t, i18n} = useTranslation();
 
-
   return (
     <div className="flex lg:flex-1 justify-end w-auto border-divider border-b lg:border-r">
       <div className="flex flex-col py-10" style={{minWidth: '14rem'}}>
