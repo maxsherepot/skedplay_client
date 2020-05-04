@@ -184,6 +184,11 @@ export const GET_EMPLOYEE = gql `
       }
       unread_messages_count
       user_unread_messages_count
+      current_club {
+        id
+        name
+      }
+      current_address
     }
   }
 `;

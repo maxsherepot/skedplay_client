@@ -85,3 +85,18 @@ export const UPDATE_EMPLOYEE_SCHEDULE = gql `
     }
   }
 `;
+
+export const UPDATE_EMPLOYEE_CURRENT_POSITION = gql `
+    mutation updateEmployeeCurrentPosition(
+        $employee: ID!
+        $input: EmployeeCurrentPositionInput
+    ) {
+        updateEmployeeCurrentPosition(
+            input: $input,
+            employee: $employee
+        ) {
+            status
+            message
+        }
+    }
+`;

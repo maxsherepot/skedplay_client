@@ -49,6 +49,9 @@ type Employee {
   videos: [Media] @hasMany
   reviews: [Review] @hasMany
   #
+  current_club: Club @belongsTo @with
+  current_address: String
+  #
   unread_messages_count: Int! @method(name: "unreadMessagesCount")
   user_unread_messages_count: Int! @method(name: "userUnreadMessagesCount")
   will_activate_at: String
@@ -85,6 +88,12 @@ input EmployeeInput {
   inGeneral: Boolean
   isVip: Boolean
   active: Int
+}
+
+input EmployeeCurrentPositionInput {
+    club_id: Int
+    address: String
+    save_for_current_day: Boolean!
 }
 
 input EmployeeFilters {
@@ -145,4 +154,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
   syncEmployeePrices(employee: ID!, prices: JSON): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@syncPrices")
+
+  updateEmployeeCurrentPosition(employee: ID!, input: EmployeeCurrentPositionInput @spread): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@updateCurrentPosition")
 }

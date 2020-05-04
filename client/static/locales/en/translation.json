@@ -94,6 +94,10 @@
     "woman": "Woman",
     "couple": "Couple",
     "service_for": "Service for",
+    "cancel": "Cancel",
+    "change": "Change",
+    "or": "Or",
+    "not_selected": "Not selected",
     "": ""
   },
   "layout": {
@@ -407,6 +411,7 @@
     "open_hours": "Open Hours",
     "add_my_location": "Add my location",
     "select_available_club": "Select available club",
+    "save_position_for_current_day": "Save position for current day",
     "": ""
   },
   "after_register": {
@@ -533,6 +538,9 @@
     "events_in": "Events in",
     "account_rejected": "Your account was rejected",
     "reason": "Reason",
+    "from_schedule": "from schedule",
+    "your_current_position": "Your current position",
+    "from_address": "from address",
     "": ""
   },
   "act": {

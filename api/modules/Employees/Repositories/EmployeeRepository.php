@@ -232,6 +232,32 @@ class EmployeeRepository implements HasMediable
         return $employee->reviews()->create($collection->toArray());
     }
 
+    public function storeCurrentPosition(Employee $employee, Collection $data): void
+    {
+        $employee->current_club_id = $data->get('club_id');
+        $employee->current_address = $data->get('address');
+        $employee->save();
+
+        if (!$data->get('save_for_current_day')) {
+            return;
+        }
+
+        $day = now()->format('w');
+
+        /** @var EmployeeScheduleWork $schedule */
+        $schedule = $employee->schedule()->where('day', $day)->first();
+
+        if (!$schedule) {
+            return;
+        }
+
+        $schedule->available = 1;
+        $schedule->club_id = $employee->current_club_id;
+        $schedule->at_address = $employee->current_address ? 1 : 0;
+        $schedule->address = $employee->current_address;
+        $schedule->save();
+    }
+
     private function storeParameters(Employee $employee, Collection $collection): void
     {
         $parameters = (array) $collection->get('parameters');

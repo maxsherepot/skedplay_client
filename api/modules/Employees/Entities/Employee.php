@@ -81,6 +81,8 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'email',
         'website',
         'service_for',
+        'current_club_id',
+        'current_address',
     ];
 
     protected $dates = [
@@ -185,6 +187,16 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class, 'owner_id');
+    }
+
+    public function currentClub(): BelongsTo
+    {
+        return $this->belongsTo(Club::class, 'current_club_id');
+    }
+
+    public function current_club(): BelongsTo
+    {
+        return $this->currentClub();
     }
 
     public function avatar(): HasOne

@@ -8,6 +8,7 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Api\Http\Requests\Common\SyncPricesRequest;
 use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
+use Modules\Api\Http\Requests\Employee\EmployeeUpdateCurrentPositionRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Event\EventCreateRequest;
 use Modules\Api\Http\Requests\Event\EventUpdateRequest;
@@ -286,5 +287,14 @@ class EmployeeController extends Controller
     public function createReview(ReviewCreateRequest $request, Employee $employee)
     {
         return $this->employees->storeReview($employee, collect($request->all()));
+    }
+
+    public function updateCurrentPosition(EmployeeUpdateCurrentPositionRequest $request, Employee $employee)
+    {
+        $this->authorize('update', $employee);
+
+        $this->employees->storeCurrentPosition($employee, collect($request->validated()));
+
+        return $this->success();
     }
 }
