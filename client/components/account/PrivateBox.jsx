@@ -89,6 +89,10 @@ const CurrentPosition = ({user}) => {
   };
 
   const getCurrentPositionFromSchedule = () => {
+    if (!currentDaySchedule) {
+      return null;
+    }
+
     if (!currentDaySchedule.available) {
       return t('about.clubs.day_off');
     }

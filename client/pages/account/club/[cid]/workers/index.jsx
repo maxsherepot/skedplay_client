@@ -121,6 +121,7 @@ const AccountClubWorkersShow = ({user}) => {
       id: cid
     }
   });
+
   const {loadingClubs, data: {clubsSearch} = {}, refetch} = useQuery(CLUBS_SEARCH, {
     variables: {
       filters: {

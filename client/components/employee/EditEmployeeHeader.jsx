@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import {useMutation} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
 import React from "react";
 import {getErrors} from "utils/index";
@@ -8,8 +8,9 @@ import {
   DELETE_EMPLOYEE,
   UPDATE_EMPLOYEE,
   UPLOAD_EMPLOYEE_FILES,
+  CLUBS_SEARCH,
 } from "queries";
-import {Button, DeletePopup} from "UI";
+import {Button, DeletePopup, Loader} from "UI";
 import {ChangePhotoSvg} from 'icons';
 import cx from 'classnames';
 
@@ -20,7 +21,23 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
   const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
   const {t, i18n} = useTranslation();
 
+  const {loadingClubs, data: {clubsSearch} = {}, refetch} = useQuery(CLUBS_SEARCH, {
+    variables: {
+      filters: {
+        // search: '',
+      }
+    }
+  });
+
   const avatarRef = React.createRef();
+
+  if (loadingClubs) return <Loader/>;
+
+  if (!clubsSearch) {
+    return null;
+  }
+
+  const clubs = clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
 
   const handleUploadAvatar = async values => {
     try {
@@ -214,7 +231,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             </div>
 
             <div className="flex items-center">
-              <SelectClub className="w-40" owner={employee.owner}/>
+              <SelectClub className="w-40" owner={employee.owner} employee={employee} clubs={clubs}/>
 
               <div className="mx-4">{t('account.count_views', {count: 1234})}</div>
 
