@@ -15,6 +15,10 @@ import {
 } from "queries";
 import {useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
+import Content from "UI/Popup/Content";
+import Popup from "reactjs-popup";
+import ContactsPopup from "components/popups/ContactsPupup";
+import Calendar from "UI/Calendar";
 
 const EmployeeCard = ({employee}) => {
     const [photo] = employee.photos;
@@ -123,6 +127,18 @@ const AccountClubWorkersShow = ({user}) => {
     return (
         <>
             <div className="flex items-center justify-between px-8 py-12">
+                {/*<Popup*/}
+                {/*    modal*/}
+                {/*    closeOnDocumentClick*/}
+                {/*    open={true}*/}
+
+                {/*>*/}
+                {/*    <Content*/}
+                {/*        title='Calendar'>*/}
+                {/*        /!*<Calendar/>*!/*/}
+                {/*    </Content>*/}
+                {/*</Popup>*/}
+
                 <h1 className="text-4-65xl font-extrabold">
                     {t('account.workers_cards')}
                 </h1>

@@ -6,14 +6,12 @@ use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Carbon\Carbon;
 use Eminiarts\Tabs\Tabs;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\MorphMany;
-use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
@@ -307,6 +305,7 @@ class User extends Resource
         return [
             new Tabs('Tabs', [
                 'About' => $this->getManagerTabFields(),
+                HasOne::make('Verification', 'verify_photo', Verification::class),
             ]),
         ];
     }
@@ -317,6 +316,7 @@ class User extends Resource
             new Tabs('Tabs', [
                 'About' => array_merge($this->getAboutTabFields(), [
                     MorphMany::make('Clubs'),
+                    HasOne::make('Verification', 'verify_photo', Verification::class),
                 ]),
             ]),
         ];
