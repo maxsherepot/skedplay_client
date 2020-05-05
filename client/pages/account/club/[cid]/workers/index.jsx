@@ -18,8 +18,8 @@ import {useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
 import Content from "UI/Popup/Content";
 import Popup from "reactjs-popup";
-import ContactsPopup from "components/popups/ContactsPupup";
 import Calendar from "UI/Calendar";
+import {ArrowPrevSvg, ArrowNextSvg} from "components/icons";
 
 const EmployeeCard = ({employee, clubs}) => {
   const [photo] = employee.photos;
@@ -92,6 +92,9 @@ const CalendarWeek = () => {
   return (
     <div className="px-2 mt-4">
       <div className="flex items-center justify-around -mx-2">
+        <div className="text-left">
+          <ArrowPrevSvg/>
+        </div>
         {schedule_period.map((s, i) => (
           <div className={cx("flex w-20 h-24 px-2 flex-col border border-divider rounded-lg", {
             "bg-light-grey": s.today
@@ -107,8 +110,10 @@ const CalendarWeek = () => {
               {s.today && (<div className="text-sm">today</div>)}
             </div>
           </div>
-
         ))}
+        <div className="text-right">
+          <ArrowNextSvg/>
+        </div>
       </div>
     </div>
   )
@@ -135,7 +140,7 @@ const AccountClubWorkersShow = ({user}) => {
 
   if (loading || loadingClubs) return <Loader/>;
 
-  const clubs = clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
+  const clubs = clubsSearch.map(c => ({value: c.id, label: c.name}));
 
   const closeCalendar = () => {
     setCalendarStatus(false);
@@ -155,7 +160,7 @@ const AccountClubWorkersShow = ({user}) => {
           onClose={closeCalendar}
           contentStyle={{
             width: "100%",
-            maxWidth: "600px",
+            maxWidth: "800px",
             height: "100%",
             maxHeight: "750px"
           }}
@@ -163,7 +168,7 @@ const AccountClubWorkersShow = ({user}) => {
           <Content
               close={closeCalendar}
           >
-            <Calendar/>
+            <Calendar club={club}/>
           </Content>
         </Popup>
 

@@ -64,12 +64,6 @@
   transition: 0.5s ease-out;
 }
 
-.calendar .body .selected {
-  border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
-  border-image-slice: 1;
-}
-
 .calendar .body .row {
   border-bottom: 1px solid var(--border-color);
 }
@@ -91,8 +85,16 @@
   font-weight: 700;
 }
 
+.calendar .body .cell .describe {
+  position: absolute;
+  line-height: 1;
+  bottom: 0.5em;
+  left:0.5em;
+  font-weight: 700;
+  color: dimgray;
+}
+
 .calendar .body .disabled {
-  color: var(--text-color-light);
   pointer-events: none;
   color: grey;
 }
@@ -108,11 +110,6 @@
   right: -.05em;
   transition: .25s ease-out;
   letter-spacing: -.07em;
-}
-
-.calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
-  opacity: 0.05;
-  transition: .5s ease-in;
 }
 
 .calendar .body .col {
