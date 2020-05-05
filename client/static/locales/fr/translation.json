@@ -11,13 +11,13 @@
     "all_clubs": "All clubs",
     "today": "today",
     "add_new_ad": "Add new ad",
-    "login": "login",
-    "sign_up": "Register",
+    "login": "Sign in_fr",
+    "sign_up": "Register_fr",
     "my_account": "My account",
     "plan": "Plan",
     "free": "free",
     "upgrade": "Upgrade",
-    "bills_and_usage": "Bills and Usage",
+    "bills_and_usage": "Rechnungen und Nutzung",
     "my_favorites": "My Favorites",
     "messages_chats": "Messages / Chats",
     "reviews": "Reviews",
@@ -107,7 +107,7 @@
     "create_site": "Create site",
     "join_now": "Join now!",
     "about": "About",
-    "contacts": "Contacts_2",
+    "contacts": "Your Locaition_FR",
     "help_center": "Help center",
     "copyrights": "Copyright © 2020 Skedplay. All rights reserved.",
     "terms": "Terms and Conditions & Privacy Policy",
@@ -151,7 +151,7 @@
     "events_today": "events today",
     "all_clubs": "All clubs",
     "all_girls": "All girls",
-    "go": "Take me to this place ⤳",
+    "go": "Take me to this place →",
     "km_from_me": "km from me",
     "my_address": "Meine Adresse",
     "visit_site": "visit site",
@@ -177,8 +177,7 @@
     "password": "Password",
     "password_placeholder": "Your password",
     "password_lost": "Lost your password?",
-    "remember_me": "Remember me",
-    "": "Sign in"
+    "remember_me": "Remember me"
   },
   "register": {
     "agree": "By clicking the “Next step” button, I agree to the terms of service and personal data processing policy",
@@ -448,49 +447,49 @@
     "from_address": "from address"
   },
   "about": {
-    "for_pleasure": "for pleasure",
+    "for_pleasure": "pour le plaisir",
     "for_clubs": "Clubs",
-    "for_employees": "For sex-workers",
-    "for_clients": "For customers",
-    "header_1": "Sex-catalog and marketplace for organization of sex services in Switzerland N1",
-    "header_2": "Here customers are safe when choosing their favorite services, and sex workers and owners of sex clubs get everything they need to start, grow, and manage their online business.",
+    "for_employees": "Travailleurs du sexe",
+    "for_clients": "Pour les clients",
+    "header_1": "Catalogue et plate-forme de marché pour l’organisation des services sexuels en Suisse No.1",
+    "header_2": "Ici, les clients sont en sécurité lors du choix de leurs services préférés, et les travailleurs du sexe et les propriétaires de clubs sexuels obtenir tout ce dont ils ont besoin pour démarrer, croître et gérer leur entreprise en ligne.",
     "marketplace": {
-      "header_1": "Marketplace with “Sex” prefix",
-      "item_1": "Sex services to meet any taste",
-      "item_2": "Reliable authorization by phone number",
-      "item_3": "Verified profiles",
-      "item_4": "Online chats",
-      "item_5": "Ultimate security at reasonable price",
-      "item_6": "Announcements of your events, promotions, and special days",
-      "header_2": "Simple. Quick. Impressive.",
-      "desc": "Most of services of this kind are usually boring and complicated. That's why we worked hard to make Skedplay simple, vivid, and interactive. No more complicated forms, long registration processes, and tiresome  setups. All essential and ready-to-use tools for club owners of any type! Here and now."
+      "header_1": "Marché avec préfixe \"sexe\"",
+      "item_1": "Любые интимные развлечения по вкусу",
+      "item_2": "Надежная авторизация по номеру телефона",
+      "item_3": "Проверенные<br/>анкеты",
+      "item_4": "Онлайн-чаты",
+      "item_5": "Максимальная безопасность без лишних расходов",
+      "item_6": "Анонсы ваших мероприятий, акций и особых дней",
+      "header_2": "Simple. Rapide. Très impressionnant.",
+      "desc": "La plupart de ces services sont généralement ennuyeux et complexes. C’est pourquoi nous avons travaillé longtemps et dur pour rendre Skedplay simple, lumineux et interactif. Fini les formulaires compliqués, les longues inscriptions et les réglages fastidieux. Tous les outils prêts à l’emploi et nécessaires pour les propriétaires de club de tout type! Ici et maintenant."
     },
     "clubs": {
-      "header": "Just try it",
-      "desc": "Create your own sex club for rendering sex services in a couple of minutes and start your business from scratch. Manage your infrastructure in one place from anywhere in the world. Now you do not need to contact specialists, pay designers, programmers, content managers, and marketers to promote your business. Just subscribe, fill the club with content and profiles of your employees, and we will take care of the rest.",
+      "header": "Vous essayez juste",
+      "desc": "Créez votre propre sex club en quelques minutes et démarrez votre entreprise à partir de zéro. Gérer l’infrastructure et les questionnaires créés en un seul endroit de n’importe où dans le monde. Maintenant, vous n’avez pas besoin de vous tourner vers des spécialistes, des concepteurs de rémunération sans fin, des programmeurs, des gestionnaires de contenu et des spécialistes du marketing pour promouvoir.",
       "item_1": {
-        "header": "Your customers will always be up to date",
-        "desc": "Going to hold an event, announce a discount, or make a particular day special? Now you can easily notify your customers about it by creating an event. And if you have a database of standing customers, you can notify them via your own SMS-mailing."
+        "header": "Vos clients seront toujours à jour",
+        "desc": "Vous allez organiser un événement, annoncer un rabais ou faire une certaine journée spéciale, facilement et tout simplement informer les clients à ce sujet, la création d’un événement. Et si vous avez une base d’invités, vous pouvez les aviser par le biais de votre propre bulletin d’information par courriel."
       },
       "item_2": {
-        "header": "Choose ultimate security",
-        "desc": "We have developed our own closed source code system with state-of-the-art technologies and solutions, multiple servers and paid firewalls improve security of the visitors many times"
+        "header": "Choisissez absolute<br/>calm",
+        "desc": "Développé son propre système de source fermée, les technologies les plus avancées, plusieurs serveurs et les firewolves payants améliorer la protection de nos visiteurs à plusieurs reprises."
       },
       "item_3": {
-        "header": "DDoS secure",
-        "desc": "Uninterrupted work of your business"
+        "header": "DDoS Protection",
+        "desc": "Votre site fonctionne bien"
       },
       "item_4": {
-        "header": "Automatic backup",
-        "desc": "Restoring data hacking case"
+        "header": "Sauvegarde",
+        "desc": "Restaurer l’affaire de piratage de données"
       },
       "item_5": {
-        "header": "Technical support",
-        "desc": "The technical support service<br/> is always on-line 24/7"
+        "header": "Soutien",
+        "desc": "Nos spécialistes<br/> en communication 24h/24 et 7j/7"
       },
       "item_6": {
-        "header": "SSL-connection",
-        "desc": "Recovery of all data in case of system failure or hacking"
+        "header": "SSL Connexion",
+        "desc": "Un partage sécurisé d’informations entre les utilisateurs"
       },
       "from_me": "from me",
       "administrator": "Administrator",
@@ -500,38 +499,38 @@
       "day_off": "Day off"
     },
     "workers": {
-      "header_1": "A new level.",
-      "header_2": "New opportunities.",
-      "header_3": "Incredibly possible.",
-      "item_1": "Upload of photos and videos from any mobile device",
-      "item_2": "Diverse and convenient payment methods",
-      "item_3": "Automatic masking of face when uploading the photos",
-      "desc": "A whole sex industry in one convenient marketplace: you don't need anything else except Skedplay. Smart features and powerful technologies on one platform. On Skedplay.",
-      "header_4": "One month at our expense",
-      "desc_2": "Any undertaking is difficult. Therefore, we made subscription price for sex workers affordable and registration - free. Test our system - a month free of charge.",
-      "desc_3": "* If you subscribe, you'll get one month free of charge for every three months!",
-      "header_5": "你- “Hello!” in Chinese",
-      "desc_4": "The site speaks your language. We ensured that the site is available in the most common languages, so that your customer understands what you want.  Use the site in your own language, we will take care of the rest.",
-      "header_6": "An excellent choice for those who want more",
-      "desc_5": "If you want more than a regular account and feel confident in this business, go to Premium level. No additional costs, sign up for an all-inclusive subscription.",
-      "header_7": "Benefits of Premium Account:",
-      "item_4": "Free promotion and magic SEO",
-      "item_5": "Round-the-clock support by phone",
-      "item_6": "Up to 5 profiles per account"
+      "header_1": "Новый уровень.",
+      "header_2": "Новые возможности.",
+      "header_3": "Максимально просто.",
+      "item_1": "Загрузка фото и видео с любого мобильного устройства",
+      "item_2": "Различные и удобные способы оплаты",
+      "item_3": "Автоматическое скрытие лица при загрузки фотографии",
+      "desc": "Целая секс-индустрия в удобном маркетплэйсе: кроме Skedplay, Вам больше ничего не понадобиться. Интеллектуальные функции и мощные технологии и все это на одной платформе. На Skedplay.",
+      "header_4": "Один месяц за наш счёт",
+      "desc_2": "Любое начинание трудно. Поэтому сделали цены на подписку для секс-работников доступными, а регистрацию бесплатной. Потестируй нашу систему - целый месяц безвозмездно.",
+      "desc_3": "*При условии подписки, получай за каждые три месяца один - в подарок!",
+      "header_5": "你好 - “Привет”, по-китайски",
+      "desc_4": "Сайт говорит на Вашем языке. Мы позаботились о том, чтобы на сайте присутствовали самые основные языки, а Ваш клиент понимал, чего вы хотите.",
+      "header_6": "Отличный выбор для тех, кто любит побольше",
+      "desc_5": "Если вам мало обычного аккаунта, и Вы чувствуете себя уверенно в этом бизнесе, переходите на уровень Premium. Никаких дополнительных затрат, оформите подписку, где все включено.",
+      "header_7": "Приемущество премиум аккаунта",
+      "item_4": "Бесплатная раскрутка и волшебное SEO",
+      "item_5": "Поддержка по телефону",
+      "item_6": "До 5 профилей на одном аккаунте"
     },
     "clients": {
-      "header_1": "Entertainments starts here",
+      "header_1": "Début des divertissements",
       "item_1": "1200",
-      "item_2": "clubs",
+      "item_2": "Clubs",
       "item_3": "20 000",
-      "item_4": "sex-workers",
+      "item_4": "Travailleurs",
       "item_5": "30000",
-      "item_6": "customers",
-      "desc": "Sex services in Switzerland are legal, so there are more than 1100 salons, sauna clubs, and various kinds of contact bars here. Every day, there are more than 20,000 sex workers and 30,000 customers who want to take advantage of sex services, find a party, or a suitable club. Learn more about the service and we are sure everyone will find something suitable in it.",
-      "header_2": "Easy search.<br/> Dead on target.",
-      "desc_2": "Sometimes it's not easy to find what you need. Therefore, when searching for sex services, we determine geolocation and show the profiles or clubs that are located closer to you first. By the way, we don't like hundreds of useless filters and settings either. We help to find, first of all, what is next to you and matches your basic preferences. Create a request according to the most relevant criteria – no more hesitation, use the search now!",
-      "header_3": "Total anonymity,<br/> don't worry about anything",
-      "desc_3": "You don't need the registration to simply use the site. Open the site, add it to your favorites, browse the numbers with addresses, and move on for pleasure! Do you want more? To write comments, leave reviews, track the arrival of a sex worker, chat? Then register and do not worry about anything. We do not share personal data with the third parties and, if you want, your name will be hidden."
+      "item_6": "Clients",
+      "desc": "Les services d’intimité en Suisse sont légaux - il y a plus de 1100 salons, clubs de sauna et toutes sortes de bars de contact. Plus de 20 000 travailleuses du sexe et chaque jour 30 000 qui veulent utiliser les services sexuels trouvent une fête ou un club convenable. En savoir plus sur le service et nous sommes sûrs que tout le monde trouvera quelque chose pour eux-mêmes.",
+      "header_2": "Recherche pratique.<br/> Exactement sur la cible",
+      "desc_2": "Parfois, il n’est pas facile de trouver ce dont vous avez besoin. Skedplay déterminera votre géolocalisation et affichera d’abord les questionnaires ou les clubs qui sont plus proches de vous. Soit dit en passant, nous n’aimons pas non plus des centaines de filtres et de paramètres inutiles. Par conséquent, nous aidons à trouver, tout d’abord, ce qui est proche et les préférences les plus élémentaires. Formez une requête selon les critères les plus à jour - et suffisamment de retards, utilisez la recherche dès maintenant!",
+      "header_3": "Anonymat complet, <br/> ne vous inquiétez pas des bagatelles",
+      "desc_3": "Vous n’avez pas besoin de vous inscrire pour simplement utiliser le site. Ajoutez à vos favoris, parcourez les chiffres avec des adresses et allez-y pour le plaisir! Tu en veux plus ? Écrire des commentaires, laisser des commentaires, suivre l’arrivée d’une travailleuse du sexe, discuter? Alors inscrivez-vous et ne vous inquiétez de rien. Nous ne partageons pas de renseignements personnels avec des tiers et le nom sera caché si désiré."
     },
     "reg_as_club_owner": "Зарегистрироваться как владелец клуба",
     "reg_as_worker": "Зарегистрироваться как секс-работник",

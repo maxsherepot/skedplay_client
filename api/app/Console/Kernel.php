@@ -8,6 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
+use Modules\Main\Console\ExportTranslates;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
 use Modules\Users\Console\AddAdminMessageToChats;
@@ -24,6 +25,7 @@ class Kernel extends ConsoleKernel
         BossCommand::class,
         CheckEmployeesActivation::class,
         InsertTranslates::class,
+        ExportTranslates::class,
         RefreshTranslatesOnFront::class,
         CheckTranslatesConsistency::class,
         CheckEventsNotification::class,
