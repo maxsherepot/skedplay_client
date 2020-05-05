@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import redirect from "lib/redirect";
 import cx from "classnames";
 import Link from "next/link";
@@ -18,8 +18,8 @@ import {useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
 import Content from "UI/Popup/Content";
 import Popup from "reactjs-popup";
-import ContactsPopup from "components/popups/ContactsPupup";
 import Calendar from "UI/Calendar";
+import {ArrowPrevSvg, ArrowNextSvg} from "components/icons";
 
 const EmployeeCard = ({employee, clubs}) => {
   const [photo] = employee.photos;
@@ -92,6 +92,9 @@ const CalendarWeek = () => {
   return (
     <div className="px-2 mt-4">
       <div className="flex items-center justify-around -mx-2">
+        <div className="text-left">
+          <ArrowPrevSvg/>
+        </div>
         {schedule_period.map((s, i) => (
           <div className={cx("flex w-20 h-24 px-2 flex-col border border-divider rounded-lg", {
             "bg-light-grey": s.today
@@ -107,8 +110,10 @@ const CalendarWeek = () => {
               {s.today && (<div className="text-sm">today</div>)}
             </div>
           </div>
-
         ))}
+        <div className="text-right">
+          <ArrowNextSvg/>
+        </div>
       </div>
     </div>
   )
@@ -130,33 +135,48 @@ const AccountClubWorkersShow = ({user}) => {
     }
   });
 
+  const [calendarStatus, setCalendarStatus] = useState(false);
   const {t, i18n} = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
 
-  const clubs = clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
+  const clubs = clubsSearch.map(c => ({value: c.id, label: c.name}));
+
+  const closeCalendar = () => {
+    setCalendarStatus(false);
+  };
+
+  const openCalendar = () => {
+    setCalendarStatus(true);
+  };
 
   return (
     <>
       <div className="flex items-center justify-between px-4 py-12">
-
-        {/*<Popup*/}
-        {/*    modal*/}
-        {/*    closeOnDocumentClick*/}
-        {/*    open={true}*/}
-
-        {/*>*/}
-        {/*    <Content*/}
-        {/*        title='Calendar'>*/}
-        {/*        /!*<Calendar/>*!/*/}
-        {/*    </Content>*/}
-        {/*</Popup>*/}
+        <Popup
+          modal
+          closeOnDocumentClick
+          open={calendarStatus}
+          onClose={closeCalendar}
+          contentStyle={{
+            width: "100%",
+            maxWidth: "800px",
+            height: "100%",
+            maxHeight: "750px"
+          }}
+        >
+          <Content
+              close={closeCalendar}
+          >
+            <Calendar club={club}/>
+          </Content>
+        </Popup>
 
         <h1 className="text-4-65xl font-extrabold">
           {t('account.workers_cards')}
         </h1>
 
-        <Button className="px-4" level="primary" outline size="sm">
+        <Button className="px-4" level="primary" outline size="sm" onClick={openCalendar}>
           <div className="flex items-center">
             <CalendarSvg className="hover:text-white"/>
             <span className="text-black ml-2">{t('account.open_calendar')}</span>
