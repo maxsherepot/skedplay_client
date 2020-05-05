@@ -72,7 +72,7 @@ const CurrentPosition = ({user}) => {
     return <Loader/>
   }
 
-  const currentDaySchedule = employee_schedule.find(s => s.day === (new Date).getDay() + 1);
+  const currentDaySchedule = employee_schedule.find(s => s.day === (new Date).getDay());
 
   const getCurrentPosition = () => {
     const positionWasSet = !!employee.current_address || !!employee.current_club;
