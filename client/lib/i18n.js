@@ -43,7 +43,7 @@ if (process.env.LANG_FROM_BACKEND === 'true') {
 
 const NextI18NextInstance = new NextI18Next({
   use: use,
-  defaultLanguage: 'en',
+  defaultLanguage: 'de',
   fallbackLng: 'en',
   otherLanguages: languages,
   defaultNS: 'translation',
