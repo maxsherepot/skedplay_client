@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import redirect from "lib/redirect";
 import cx from "classnames";
 import Link from "next/link";
@@ -130,33 +130,48 @@ const AccountClubWorkersShow = ({user}) => {
     }
   });
 
+  const [calendarStatus, setCalendarStatus] = useState(false);
   const {t, i18n} = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
 
   const clubs = clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
 
+  const closeCalendar = () => {
+    setCalendarStatus(false);
+  };
+
+  const openCalendar = () => {
+    setCalendarStatus(true);
+  };
+
   return (
     <>
       <div className="flex items-center justify-between px-4 py-12">
-
-        {/*<Popup*/}
-        {/*    modal*/}
-        {/*    closeOnDocumentClick*/}
-        {/*    open={true}*/}
-
-        {/*>*/}
-        {/*    <Content*/}
-        {/*        title='Calendar'>*/}
-        {/*        /!*<Calendar/>*!/*/}
-        {/*    </Content>*/}
-        {/*</Popup>*/}
+        <Popup
+          modal
+          closeOnDocumentClick
+          open={calendarStatus}
+          onClose={closeCalendar}
+          contentStyle={{
+            width: "100%",
+            maxWidth: "600px",
+            height: "100%",
+            maxHeight: "750px"
+          }}
+        >
+          <Content
+              close={closeCalendar}
+          >
+            <Calendar/>
+          </Content>
+        </Popup>
 
         <h1 className="text-4-65xl font-extrabold">
           {t('account.workers_cards')}
         </h1>
 
-        <Button className="px-4" level="primary" outline size="sm">
+        <Button className="px-4" level="primary" outline size="sm" onClick={openCalendar}>
           <div className="flex items-center">
             <CalendarSvg className="hover:text-white"/>
             <span className="text-black ml-2">{t('account.open_calendar')}</span>
