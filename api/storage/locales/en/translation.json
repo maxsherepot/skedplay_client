@@ -99,7 +99,8 @@
     "cancel": "Cancel",
     "change": "Change",
     "or": "Or",
-    "not_selected": "Not selected"
+    "not_selected": "Not selected",
+    "workers": "workers"
   },
   "layout": {
     "view_my_account": "View my account",

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import * as dateFns from "date-fns";
 import {ArrowNextSvg, ArrowPrevSvg} from "components/icons";
+import {useTranslation} from "react-i18next";
 
 const Calendar = ({club}) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -56,6 +57,8 @@ const Calendar = ({club}) => {
         const startDate = dateFns.startOfWeek(monthStart);
         const endDate = dateFns.endOfWeek(monthEnd);
 
+        const {t} = useTranslation();
+
         const dateFormat = "d";
         const rows = [];
 
@@ -76,7 +79,7 @@ const Calendar = ({club}) => {
                     >
                         <span className="number">{formattedDate}</span>
                         {dateFns.isSameMonth(day, monthStart) && (
-                            <span className="describe">{workers[i]} workers</span>
+                            <span className="describe">{workers[i]} {t('common.workers')}</span>
                         )}
                     </div>
                 );
