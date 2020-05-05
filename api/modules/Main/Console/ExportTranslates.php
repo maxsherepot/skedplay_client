@@ -55,7 +55,7 @@ class ExportTranslates extends Command
             $translatesJson = json_encode($translatesFormatted, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
             $translatesJson = preg_replace('/^(  +?)\\1(?=[^ ])/m', '$1', $translatesJson);
 
-            Storage::put("export/translates/$lang->code.json", $translatesJson);
+            Storage::put("export/translates/$lang->code/translation.json", $translatesJson);
         }
     }
 

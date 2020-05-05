@@ -2,32 +2,28 @@
   "common": {
     "of": "of",
     "girls": "girls",
-    "vip": "vip",
-    "trans": "trans",
+    "boys": "boys",
+    "couple": "couple",
     "clubs": "clubs",
-    "club": "club",
-    "best_clubs": "Best clubs",
     "events": "events",
     "all_events": "All events",
     "all_girls": "All girls",
     "all_clubs": "All clubs",
     "today": "today",
     "add_new_ad": "Add new ad",
-    "login": "Login",
-    "sign_up": "Sign up",
+    "login": "login",
+    "sign_up": "Register",
     "my_account": "My account",
     "plan": "Plan",
     "free": "free",
     "upgrade": "Upgrade",
     "bills_and_usage": "Bills and Usage",
     "my_favorites": "My Favorites",
-    "favorites": "favorites",
     "messages_chats": "Messages / Chats",
     "reviews": "Reviews",
     "my_clubs": "My clubs",
     "add_new_club": "Add new Club",
     "add_new_event": "Add new Event",
-    "add_new": "Add new",
     "sign_out": "Sign out",
     "create_account": "Create account",
     "back": "Back",
@@ -50,13 +46,14 @@
     "select_location": "Select your location",
     "min": "min",
     "hour": "hour",
-    "hours": "hours",
     "night": "Night",
     "edit": "Edit",
     "not_active": "Not active",
     "active_now": "Active now",
+    "best_clubs": "Best clubs",
     "perimeter": "Perimeter",
     "all_switzerland": "All Switzerland",
+    "hours": "hours",
     "days_short": {
       "sun": "Sun",
       "mon": "Mon",
@@ -75,7 +72,6 @@
     "name": "Name",
     "title": "Title",
     "nationality": "Nationality",
-    "race_nationality": "Race/Nationality",
     "from_device": "from device",
     "prev": "Prev",
     "off": "Off",
@@ -88,17 +84,22 @@
     "ignore": "Ignore",
     "report_abuse": "Report abuse",
     "to": "to",
+    "vip_escort": "vip escort",
+    "trans": "trans",
+    "favorites": "favorites",
     "date": "Date",
     "select_date": "Select date",
+    "vip": "vip",
+    "race_nationality": "Race/Nationality",
+    "add_new": "Add new",
+    "club": "club",
     "man": "Man",
     "woman": "Woman",
-    "couple": "Couple",
     "service_for": "Service for",
     "cancel": "Cancel",
     "change": "Change",
     "or": "Or",
-    "not_selected": "Not selected",
-    "": ""
+    "not_selected": "Not selected"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -106,12 +107,10 @@
     "create_site": "Create site",
     "join_now": "Join now!",
     "about": "About",
-    "contacts": "Contacts",
+    "contacts": "Contacts_2",
     "help_center": "Help center",
-    "copyright": "Copyright © ",
-    "all_rights_reserved": " Skedplay. All rights reserved.",
-    "terms_conditions": "Terms and Conditions",
-    "privacy_policy": "Privacy Policy",
+    "copyrights": "Copyright © 2020 Skedplay. All rights reserved.",
+    "terms": "Terms and Conditions & Privacy Policy",
     "add_new_card": "Add new card",
     "archive_sex_workers": "Archive Sex workers",
     "events": "Events",
@@ -119,14 +118,12 @@
     "edit": "Edit",
     "webpage": "Webpage",
     "edit_ad": "Edit AD",
-    "edit_my_card": "Edit my card",
     "add_ed": "Add AD",
     "my_events": "My Events",
     "add_new_event": "Add new Event",
-    "events_archive": "Events archive",
+    "active_events": "Active Events",
     "archive": "Archive",
     "add_new_club": "Add new club",
-    "edit_my_clubs": "Edit my Clubs",
     "menu": "Menu",
     "bills_and_usage": "Bills and usage",
     "messages": "Messages",
@@ -137,16 +134,14 @@
     "card": "Card",
     "ad": "Ad",
     "girls": "Girls",
-    "favorites": "Favorites"
-  },
-  "favorite": {
-    "clubs": "Clubs",
-    "": ""
-  },
-  "events": {
-    "event_type": "Event type",
-    "select_event_type": "Select event type",
-    "": ""
+    "favorites": "Favorites",
+    "terms_conditions": "Terms and Conditions",
+    "privacy_policy": "Privacy Policy",
+    "edit_my_card": "Edit my card",
+    "copyright": "Copyright © ",
+    "all_rights_reserved": " Skedplay. All rights reserved.",
+    "events_archive": "Events archive",
+    "edit_my_clubs": "Edit my Clubs"
   },
   "index": {
     "intimate": "Intimate",
@@ -156,7 +151,7 @@
     "events_today": "events today",
     "all_clubs": "All clubs",
     "all_girls": "All girls",
-    "go": "GO",
+    "go": "Take me to this place ⤳",
     "km_from_me": "km from me",
     "my_address": "Meine Adresse",
     "visit_site": "visit site",
@@ -176,10 +171,6 @@
     "not_available": "not available",
     "popular": "popular"
   },
-  "answer": {
-    "yes_delete": "Yes, delete",
-    "no_close": "No, close"
-  },
   "login": {
     "phone_number": "Phone number",
     "phone_number_placeholder": "Your phone number",
@@ -187,24 +178,10 @@
     "password_placeholder": "Your password",
     "password_lost": "Lost your password?",
     "remember_me": "Remember me",
-    "": ""
-  },
-  "plans": {
-    "choose_plan": "Choose a plan and duration",
-    "select_payment_method": "Select Payment Method"
-  },
-  "forgot": {
-    "password_recovery": "Password recovery",
-    "password_recovery_successfully": "Password recovered successfully!",
-    "send_verification_code": "Send verification code",
-    "check_verification_code": "Check verification code",
-    "confirm": "Confirm",
-    "go_to_login_page": "Go to Login page",
-    "next_step": "Next step",
-    "": ""
+    "": "Sign in"
   },
   "register": {
-    "agree": "By clicking the “sing up” button, I agree to the terms of service and personal data processing policy",
+    "agree": "By clicking the “Next step” button, I agree to the terms of service and personal data processing policy",
     "already_have_account": "Already have an account",
     "phone_number": "Phone number",
     "verification_code_send": "A verification code has been sent your phone number",
@@ -228,10 +205,21 @@
     "small_age_title": "Warning",
     "small_age_text": "Registration available only after 18 years old"
   },
+  "plans": {
+    "choose_plan": "Choose a plan and duration",
+    "select_payment_method": "Select Payment Method"
+  },
+  "forgot": {
+    "password_recovery": "Password recovery",
+    "password_recovery_successfully": "Password recovered successfully!",
+    "send_verification_code": "Send verification code",
+    "check_verification_code": "Check verification code",
+    "confirm": "Confirm",
+    "go_to_login_page": "Go to Login page",
+    "next_step": "Next step"
+  },
   "clubs": {
     "event_type": "Club type",
-    "subscribe": "Subscribe",
-    "subscribe_to_club_news": "Subscribe to the club's news",
     "select_event_type": "Select club type",
     "perimeter": "Perimeter",
     "select_perimeter": "Select perimeter",
@@ -261,7 +249,6 @@
     "index": "Index",
     "city": "City",
     "phone_exampl": "Phone (example +4176 251-15-22)",
-    "phone_exampl_insert": "Phone (example {{phone}})",
     "video": "Video",
     "mail": "Mail",
     "set_admin_for_club": "Set administrator for your Club",
@@ -269,51 +256,26 @@
     "enable_edit_profiles": "Enable to edit Sex Workers profiles in my Club for this number",
     "create_club_account": "Create club account",
     "agree_terms_and_privacy_policy": "By clicking the \"Create Club Account\" button, i agree to the terms\n of servece and privacy policy",
-    "agree_terms_and_privacy_policy_new": "By clicking the \"{{button}}\" button, i agree to the terms of services and privacy policy",
     "time": "Time",
-    "found": "clubs found"
-  },
-  "max_size_uploaded": {
-    "photos": "Maximum size of photos that can be uploaded is 10mb.",
-    "video": "Maximum size of video that can be uploaded is 100mb."
+    "found": "clubs found",
+    "subscribe": "Subscribe",
+    "subscribe_to_club_news": "Subscribe to the club's news",
+    "phone_exampl_insert": "Phone (example {{phone}})",
+    "agree_terms_and_privacy_policy_new": "By clicking the \"{{button}}\" button, i agree to the terms of services and privacy policy"
   },
   "navigation": {
     "go_home": "Go home",
-    "add_new": "Add new",
-    "": ""
+    "add_new": "Add new"
   },
   "errors": {
     "error": "Error",
     "page_not_found": "PAGE NOT FOUND",
     "sorry_not_found": "We're sorry, the page you requested could not be found.",
     "error_occurred": "An error occurred on server",
-    "server_error": "Server error",
-    "": ""
+    "server_error": "Server error"
   },
   "invoices": {
-    "page": "Invoice page",
-    "": ""
-  },
-  "steps": {
-    "gender_type_ts": "TS",
-    "category": "Category",
-    "gender_type_trans": "Trans",
-    "about_yourself": "About yourself",
-    "personal_info": "Personal info",
-    "optional": "Optional",
-    "alone": "Alone",
-    "at_club": "At club",
-    "activate_date": "Activate date",
-    "price": "Price"
-  },
-  "day": {
-    "sunday": "Sunday",
-    "monday": "Monday",
-    "tuesday": "Tuesday",
-    "wednesday": "Wednesday",
-    "thursday": "Thursday",
-    "friday": "Friday",
-    "saturday": "Saturday"
+    "page": "Invoice page"
   },
   "favorites": {
     "page_clubs": "Favorite Clubs",
@@ -324,8 +286,7 @@
     "add_events": "You have no favorite events yet. Tap the heart on the event's card to add one.",
     "page_girls": "Favorite Girls",
     "not_girls": "No favorite girls found!",
-    "add_girls": "You have no favorite girls yet. Tap the heart on the girl's card to add one.",
-    "": ""
+    "add_girls": "You have no favorite girls yet. Tap the heart on the girl's card to add one."
   },
   "employees": {
     "reviews": "Reviews for {{first_name}{ {{last_name}}",
@@ -355,102 +316,32 @@
     "adverts_found": "adverts found",
     "event_found": "event found",
     "available_only_for_authorized": "This part is available only for Registered users, please Sign up or Register",
-    "do_service_for": "I do service for",
-    "": ""
-  },
-  "titles": {
-    "price_and_service": "Services and Pricing",
-    "": ""
-  },
-  "nationality": {
-    "asian": "Asian",
-    "european": "European",
-    "african": "African"
-  },
-  "language": {
-    "russian": "Russian",
-    "english": "English",
-    "en": "English",
-    "de": "German",
-    "fr": "French"
-  },
-  "ad": {
-    "delete_language": "Delete language",
-    "add_friend": "Add a friend",
-    "save": "Save ad",
-    "new": "New ad"
-  },
-  "status": {
-    "vip": "VIP",
-    "new": "NEW",
-    "": ""
+    "do_service_for": "I do service for"
   },
   "chat": {
-    "header": "Last messages",
     "large": "large",
     "all": "All chats",
     "chat_with": "Chat with",
-    "chose_chat": "Select chat",
+    "chose_chat": "Chose chat",
+    "header": "Last messages",
     "select_employee": "Select employee",
-    "chat_available_for_authorized": "Chat is available only for Registered users, please Sign up or Register",
-    "": ""
-  },
-  "review": {
-    "review_successfully_added": "Review successfully added",
-    "email": "Email",
-    "short_title": "Kurztitel",
-    "describe_your_impressions": "Beschreiben Sie Ihre Eindrücke",
-    "hide_my_name": "Hide my name",
-    "send": "Send",
-    "": ""
-  },
-  "schedule": {
-    "view_for_month": "View for a month",
-    "view_phone": "View phone",
-    "my_schedule_in": "My schedule in",
-    "open_hours": "Open Hours",
-    "add_my_location": "Add my location",
-    "select_available_club": "Select available club",
-    "save_position_for_current_day": "Save position for current day",
-    "": ""
-  },
-  "after_register": {
-    "welcome_to_portal": "Welcome to our portal",
-    "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
-    "you_want_to_show_profile": "do you want to show your Profile ?",
-    "yes": "Yes",
-    "no": "No",
-    "welcome_for_club_owner": "Welcome to our portal {{name}} do you want edit your Profile and Photos now? 2"
+    "chat_available_for_authorized": "Chat is available only for Registered users, please Sign up or Register"
   },
   "account": {
     "my_account": "My account",
-    "available_for_all": "Make available for all",
-    "only_for_exist_user": "Show only for exists",
-    "messages_and_chats": "Messages and chats",
     "account_settings": "Account setting",
     "contact_information": "Contact Information",
     "for_administration": "This information need only for site administrators, and account control.",
-    "change_info_by_contact_form": "These info you can change only by request of contact form",
     "change_password": "Change password",
     "notifications": "Notifications",
     "newsletter": "Newsletter",
-    "upload_verify_photo": "Upload Verify Photo",
-    "add_pass_or_photo": "Please add your Pass or Id Photo",
-    "verify_your_account": "Verify your account",
-    "added_verify_photo": "At {{date}} {{time}} you added verification photo. We prof it and after you can Activated your Profile.",
     "are_you_sure_delete_event": "Are you sure you want to delete this event?",
     "events": "Events",
     "event": "Event",
-    "add_your_first_club": "For start working you must add your first Club.",
     "create_event": "Create new event",
-    "update_event": "Update event",
     "sex_workers": "sex workers",
     "my_cards": "My Cards / AD",
-    "my_card": "My Card / AD",
     "another": "Another",
-    "workers_in_club": "Workers in Club",
-    "you_added_club_please_add": "You added {{name}}, please add ",
-    "do_it_now": "Do it now",
     "count_photos": "{{count}} photos",
     "count_videos": "{{count}} videos",
     "day_left": "{{days}} day left",
@@ -461,8 +352,6 @@
     "cooming_soon": "Cooming soon",
     "count_views": "{{count}} views",
     "cancel_vip": "Cancel VIP",
-    "make_vip": "Make VIP",
-    "activate": "Activate",
     "deactivate": "Deactivate",
     "sure_delete_card": "Are you sure you want to delete this card?",
     "chats": "Chats",
@@ -473,6 +362,7 @@
     "services_and_price": "Services and price",
     "photos_and_videos": "Photos and videos",
     "schedule_and_activation": "Schedule and activation",
+    "update_event": "Update event",
     "events_actions": {
       "title": "Title",
       "type": "Type",
@@ -480,8 +370,7 @@
       "regular": "Regular",
       "period_or_day": "Period or day",
       "start_date": {
-        "label": "Start date",
-        "placeholder": ""
+        "label": "Start date"
       },
       "end_date": {
         "label": "End date",
@@ -517,9 +406,6 @@
     "user_name": "User name",
     "contact_email": "Contact email",
     "photos": "photos",
-    "schedule": "schedule",
-    "your_workers": "your workers",
-    "in_club": "in club",
     "videos": "videos",
     "contact_phone_number": "Contact phone number",
     "service_news": "Service News",
@@ -538,105 +424,114 @@
     "events_in": "Events in",
     "account_rejected": "Your account was rejected",
     "reason": "Reason",
+    "messages_and_chats": "Messages and chats",
+    "in_general": "show to all",
+    "available_for_all": "Make available for all",
+    "only_for_exist_user": "Show only for exists",
+    "my_card": "My Card / AD",
+    "make_vip": "Make VIP",
+    "change_info_by_contact_form": "These info you can change only by request of contact form",
+    "workers_in_club": "Workers in Club",
+    "you_added_club_please_add": "You added {{name}}, please add",
+    "do_it_now": "Do it now",
+    "schedule": "schedule",
+    "your_workers": "your workers",
+    "in_club": "in club",
+    "activate": "Activate",
+    "add_your_first_club": "For start working you must add your first Club.",
+    "upload_verify_photo": "Upload Verify Photo",
+    "add_pass_or_photo": "Please add your Pass or Id Photo",
+    "verify_your_account": "Verify your account",
+    "added_verify_photo": "At {{date}} {{time}} you added verification photo. We prof it and after you can Activated your Profile.",
     "from_schedule": "from schedule",
     "your_current_position": "Your current position",
-    "from_address": "from address",
-    "": ""
-  },
-  "act": {
-    "delete": "Delete",
-    "delete_all": "Delete all",
-    "create": "Create",
-    "choose": "Choose",
-    "": ""
+    "from_address": "from address"
   },
   "about": {
-    "for_pleasure": "для удовольствия",
-    "for_clubs": "Клубам",
-    "for_employees": "Работникам секс-индустрии",
-    "for_clients": "Для клиентов",
-    "header_1": "Каталог и маркетплейс платформа для организации сервисов интим-услуг в Швейцарии №1",
-    "header_2": "Здесь клиенты находятся в безопасности при выборе любимых услуг, а секс-работники и владельцы интим-клубов получают всё необходимое для старта, роста и управления своим интернет-бизнесом.",
+    "for_pleasure": "for pleasure",
+    "for_clubs": "Clubs",
+    "for_employees": "For sex-workers",
+    "for_clients": "For customers",
+    "header_1": "Sex-catalog and marketplace for organization of sex services in Switzerland N1",
+    "header_2": "Here customers are safe when choosing their favorite services, and sex workers and owners of sex clubs get everything they need to start, grow, and manage their online business.",
     "marketplace": {
-      "header_1": "Маркетплейс с приставкой \"секс\"",
-      "item_1": "Любые интимные развлечения по вкусу",
-      "item_2": "Надежная авторизация по номеру телефона",
-      "item_3": "Проверенные<br/>анкеты",
-      "item_4": "Онлайн-чаты",
-      "item_5": "Максимальная безопасность без лишних расходов",
-      "item_6": "Анонсы ваших мероприятий, акций и особых дней",
-      "header_2": "Простой. Быстрый. Впечатляющий.",
-      "desc": "Большинство подобных сервисов обычно скучные и сложные. Именно поэтому мы долго и упорно работали, чтобы Skedplay был простым, ярким и интерактивным. Больше никаких сложных форм, долгих регистраций и утомительных настроек. Все готовые и нужные инструменты для владельцев клубов любого типа! Прямо здесь и сейчас."
+      "header_1": "Marketplace with “Sex” prefix",
+      "item_1": "Sex services to meet any taste",
+      "item_2": "Reliable authorization by phone number",
+      "item_3": "Verified profiles",
+      "item_4": "Online chats",
+      "item_5": "Ultimate security at reasonable price",
+      "item_6": "Announcements of your events, promotions, and special days",
+      "header_2": "Simple. Quick. Impressive.",
+      "desc": "Most of services of this kind are usually boring and complicated. That's why we worked hard to make Skedplay simple, vivid, and interactive. No more complicated forms, long registration processes, and tiresome  setups. All essential and ready-to-use tools for club owners of any type! Here and now."
     },
     "clubs": {
-      "header": "Вы только попробуйте",
-      "desc": "Создайте собственный клуб по оказанию интим-услуг за пару минут и начните свой бизнес с нуля. Управляйте созданной инфраструктурой и анкетами в одном месте из любой точки мира. Теперь Вам не нужно обращаться к специалистам, бесконечно платить дизайнерам, программистам, контент-менеджерам и маркетологам для продвижения.",
+      "header": "Just try it",
+      "desc": "Create your own sex club for rendering sex services in a couple of minutes and start your business from scratch. Manage your infrastructure in one place from anywhere in the world. Now you do not need to contact specialists, pay designers, programmers, content managers, and marketers to promote your business. Just subscribe, fill the club with content and profiles of your employees, and we will take care of the rest.",
       "item_1": {
-        "header": "Ваши клиенты всегда будут в курсе событий",
-        "desc": "Собираетесь провести мероприятие, объявить скидку или сделать определенный день особенным, легко и просто оповестите клиентов об этом, создав событие. А если у Вас есть база постояльцев, их можно уведомить через собственную E-mail-рассылку."
+        "header": "Your customers will always be up to date",
+        "desc": "Going to hold an event, announce a discount, or make a particular day special? Now you can easily notify your customers about it by creating an event. And if you have a database of standing customers, you can notify them via your own SMS-mailing."
       },
       "item_2": {
-        "header": "Выбирайте абсолютное<br/>спокойствие",
-        "desc": "Разработанная собственная система с закрытым исходным кодом, самые продвинутые технологии, несколько серверов и платные фаерволы улучшают защиту наших посетителей во много раз."
+        "header": "Choose ultimate security",
+        "desc": "We have developed our own closed source code system with state-of-the-art technologies and solutions, multiple servers and paid firewalls improve security of the visitors many times"
       },
       "item_3": {
-        "header": "DDoS защита",
-        "desc": "Бесперебойная работа вашего сайта"
+        "header": "DDoS secure",
+        "desc": "Uninterrupted work of your business"
       },
       "item_4": {
-        "header": "Резервное копирование",
-        "desc": "Восстановление данных случае взлома"
+        "header": "Automatic backup",
+        "desc": "Restoring data hacking case"
       },
       "item_5": {
-        "header": "Служба поддержки",
-        "desc": "Наши специалисты<br/>на связи 24/7"
+        "header": "Technical support",
+        "desc": "The technical support service<br/> is always on-line 24/7"
       },
       "item_6": {
-        "header": "SSL-соединение",
-        "desc": "Безопасный обмен информацией между пользователями"
+        "header": "SSL-connection",
+        "desc": "Recovery of all data in case of system failure or hacking"
       },
       "from_me": "from me",
       "administrator": "Administrator",
       "show_number": "Show number",
       "reviews": "reviews",
       "schedule_in": "Schedule in",
-      "day_off": "Day off",
-      "": ""
+      "day_off": "Day off"
     },
     "workers": {
-      "header_1": "Новый уровень.",
-      "header_2": "Новые возможности.",
-      "header_3": "Максимально просто.",
-      "item_1": "Загрузка фото и видео с любого мобильного устройства",
-      "item_2": "Различные и удобные способы оплаты",
-      "item_3": "Автоматическое скрытие лица при загрузки фотографии",
-      "desc": "Целая секс-индустрия в удобном маркетплэйсе: кроме Skedplay, Вам больше ничего не понадобиться. Интеллектуальные функции и мощные технологии и все это на одной платформе. На Skedplay.",
-      "header_4": "Один месяц за наш счёт",
-      "desc_2": "Любое начинание трудно. Поэтому сделали цены на подписку для секс-работников доступными, а регистрацию бесплатной. Потестируй нашу систему - целый месяц безвозмездно.",
-      "desc_3": "*При условии подписки, получай за каждые три месяца один - в подарок!",
-      "header_5": "你好 - “Привет”, по-китайски",
-      "desc_4": "Сайт говорит на Вашем языке. Мы позаботились о том, чтобы на сайте присутствовали самые основные языки, а Ваш клиент понимал, чего вы хотите.",
-      "header_6": "Отличный выбор для тех, кто любит побольше",
-      "desc_5": "Если вам мало обычного аккаунта, и Вы чувствуете себя уверенно в этом бизнесе, переходите на уровень Premium. Никаких дополнительных затрат, оформите подписку, где все включено.",
-      "header_7": "Приемущество премиум аккаунта",
-      "item_4": "Бесплатная раскрутка и волшебное SEO",
-      "item_5": "Поддержка по телефону",
-      "item_6": "До 5 профилей на одном аккаунте",
-      "": ""
+      "header_1": "A new level.",
+      "header_2": "New opportunities.",
+      "header_3": "Incredibly possible.",
+      "item_1": "Upload of photos and videos from any mobile device",
+      "item_2": "Diverse and convenient payment methods",
+      "item_3": "Automatic masking of face when uploading the photos",
+      "desc": "A whole sex industry in one convenient marketplace: you don't need anything else except Skedplay. Smart features and powerful technologies on one platform. On Skedplay.",
+      "header_4": "One month at our expense",
+      "desc_2": "Any undertaking is difficult. Therefore, we made subscription price for sex workers affordable and registration - free. Test our system - a month free of charge.",
+      "desc_3": "* If you subscribe, you'll get one month free of charge for every three months!",
+      "header_5": "你- “Hello!” in Chinese",
+      "desc_4": "The site speaks your language. We ensured that the site is available in the most common languages, so that your customer understands what you want.  Use the site in your own language, we will take care of the rest.",
+      "header_6": "An excellent choice for those who want more",
+      "desc_5": "If you want more than a regular account and feel confident in this business, go to Premium level. No additional costs, sign up for an all-inclusive subscription.",
+      "header_7": "Benefits of Premium Account:",
+      "item_4": "Free promotion and magic SEO",
+      "item_5": "Round-the-clock support by phone",
+      "item_6": "Up to 5 profiles per account"
     },
     "clients": {
-      "header_1": "Развлечения начинаются",
+      "header_1": "Entertainments starts here",
       "item_1": "1200",
-      "item_2": "клубов",
+      "item_2": "clubs",
       "item_3": "20 000",
-      "item_4": "работников",
+      "item_4": "sex-workers",
       "item_5": "30000",
-      "item_6": "клиентов",
-      "desc": "Интим-услуги в Швейцарии легальны - тут более 1100 салонов, сауна-клубов и всевозможных контакт-баров. Свыше 20 000 работников секс-индустрии и ежедневно 30 000 тех, кто хочет воспользоваться интим-услугами, найти вечеринку или подходящий для себя клуб. Изучайте сервис подробнее и мы уверены, тут каждый найдет что-то для себя.",
-      "header_2": "Удобный поиск.<br/> Точно в цель",
-      "desc_2": "Порой найти то, что нужно, не так-то просто. Skedplay по желанию определит Вашу геолокацию и покажет сначала те анкеты или клубы, которые ближе к Вам. Кстати, мы тоже не любим сотни бесполезных фильтров и настроек. Поэтому мы помогаем находить, в первую очередь, то, что рядом и по самым основным предпочтениям. Формируйте запрос по наиболее актуальным критериям - и хватит промедлений, воспользуйтесь поиском прямо сейчас!",
-      "header_3": "Полная анонимность,<br/> не переживайте по пустякам",
-      "desc_3": "Чтобы просто пользоваться сайтом, регистрация не нужна. Добавляйте в избранное, просматривайте номера с адресами и вперед за удовольствием! Хотите больше? Писать комментарии, оставлять отзывы, отслеживать прибытие секс-работника, общаться в чате? Тогда регистрируйтесь и ни о чем не беспокойтесь. Мы не передаем персональные данные третьим лицам, и при желании имя будет скрыто."
+      "item_6": "customers",
+      "desc": "Sex services in Switzerland are legal, so there are more than 1100 salons, sauna clubs, and various kinds of contact bars here. Every day, there are more than 20,000 sex workers and 30,000 customers who want to take advantage of sex services, find a party, or a suitable club. Learn more about the service and we are sure everyone will find something suitable in it.",
+      "header_2": "Easy search.<br/> Dead on target.",
+      "desc_2": "Sometimes it's not easy to find what you need. Therefore, when searching for sex services, we determine geolocation and show the profiles or clubs that are located closer to you first. By the way, we don't like hundreds of useless filters and settings either. We help to find, first of all, what is next to you and matches your basic preferences. Create a request according to the most relevant criteria – no more hesitation, use the search now!",
+      "header_3": "Total anonymity,<br/> don't worry about anything",
+      "desc_3": "You don't need the registration to simply use the site. Open the site, add it to your favorites, browse the numbers with addresses, and move on for pleasure! Do you want more? To write comments, leave reviews, track the arrival of a sex worker, chat? Then register and do not worry about anything. We do not share personal data with the third parties and, if you want, your name will be hidden."
     },
     "reg_as_club_owner": "Зарегистрироваться как владелец клуба",
     "reg_as_worker": "Зарегистрироваться как секс-работник",
@@ -644,8 +539,6 @@
   },
   "contacts_popup": {
     "title": "Contacts",
-    "text": "Some text",
-    "your_working_location": "Your working Location",
     "theme": "Theme",
     "theme_placeholder": " ",
     "name": "Your name",
@@ -654,13 +547,107 @@
     "email_placeholder": " ",
     "message": "Your message",
     "message_placeholder": "Describe you problem",
-    "success": "Your request was sent"
+    "success": "Your request was sent",
+    "your_working_location": "Your working Location",
+    "text": "Some text"
+  },
+  "favorite": {
+    "clubs": "Clubs"
+  },
+  "answer": {
+    "yes_delete": "Yes, delete",
+    "no_close": "No, close"
+  },
+  "max_size_uploaded": {
+    "photos": "Maximum size of photos that can be uploaded is 10mb.",
+    "video": "Maximum size of video that can be uploaded is 100mb."
+  },
+  "steps": {
+    "gender_type_ts": "TS",
+    "about_yourself": "About yourself",
+    "personal_info": "Personal info",
+    "optional": "Optional",
+    "alone": "Private",
+    "activate_date": "Activate date",
+    "price": "Price",
+    "category": "Category",
+    "gender_type_trans": "Trans",
+    "at_club": "At club"
+  },
+  "day": {
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
+  },
+  "titles": {
+    "price_and_service": "Services and Pricing"
+  },
+  "nationality": {
+    "asian": "Asian",
+    "european": "European",
+    "african": "African"
+  },
+  "language": {
+    "russian": "Russian",
+    "english": "English",
+    "en": "English",
+    "de": "German",
+    "fr": "French"
+  },
+  "ad": {
+    "delete_language": "Delete language",
+    "add_friend": "Add a friend",
+    "save": "Save ad",
+    "new": "New ad"
+  },
+  "status": {
+    "vip": "VIP",
+    "new": "NEW"
+  },
+  "review": {
+    "review_successfully_added": "Review successfully added",
+    "email": "Email",
+    "short_title": "Kurztitel",
+    "describe_your_impressions": "Beschreiben Sie Ihre Eindrücke",
+    "hide_my_name": "Hide my name",
+    "send": "Send"
+  },
+  "schedule": {
+    "view_for_month": "View for a month",
+    "view_phone": "View phone",
+    "my_schedule_in": "My schedule in",
+    "open_hours": "Open Hours",
+    "add_my_location": "Add my location",
+    "select_available_club": "Select available club",
+    "save_position_for_current_day": "Save position for current day"
+  },
+  "act": {
+    "delete": "Delete",
+    "create": "Create",
+    "choose": "Choose",
+    "delete_all": "Delete all"
   },
   "cookies": {
     "text": "This site uses cookies to offer you a better browsing experience. Find out more on <1>how we use cookies</1> and <3>how you can change your settings</3>."
   },
+  "events": {
+    "event_type": "Event type",
+    "select_event_type": "Select event type"
+  },
   "admin": {
     "start_message": "Greetings! I would like to wish our members and their families a spectacular."
+  },
+  "after_register": {
+    "welcome_to_portal": "Welcome to our portal",
+    "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
+    "you_want_to_show_profile": "do you want to show your Profile ?",
+    "yes": "Yes",
+    "no": "No",
+    "welcome_for_club_owner": "Welcome to our portal {{name}} do you want edit your Profile and Photos now? 2"
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"
