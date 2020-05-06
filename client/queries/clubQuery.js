@@ -164,6 +164,11 @@ export const GET_CLUB = gql`
         favorited {
           id
         }
+        schedule {
+          id
+          day
+          available
+        }
         photos {
           url
           thumb_url
