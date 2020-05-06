@@ -20,6 +20,7 @@ import Content from "UI/Popup/Content";
 import Popup from "reactjs-popup";
 import Calendar from "UI/Calendar";
 import {ArrowPrevSvg, ArrowNextSvg} from "components/icons";
+import * as dateFns from "date-fns";
 
 const EmployeeCard = ({employee, clubs}) => {
   const [photo] = employee.photos;
@@ -74,50 +75,18 @@ const EmployeeCard = ({employee, clubs}) => {
   )
 };
 
-const AvailableToday = ({employees, clubs}) => {
+const AvailableToday = ({employees, clubs, day}) => {
   const {t, i18n} = useTranslation();
+  console.log(day, employees);
   return (
     <>
       <div className="text-4xl font-extrabold mb-2">{t('account.available_today')}</div>
       <div className="flex flex-wrap -mx-2">
-        {employees.map((employee) => <EmployeeCard key={employee.id} employee={employee} clubs={clubs}/>)}
+        {employees.map(employee => (employee.schedule.find(s => (s.day === day) && (s.available === true)))
+          && (<EmployeeCard key={employee.id} employee={employee} clubs={clubs}/>)
+        )}
       </div>
     </>
-  )
-};
-
-const CalendarWeek = () => {
-  const {data: {schedule_period} = {}, loading} = useQuery(SCHEDULE_WEEK_PERIOD);
-
-  if (loading) return <Loader/>;
-
-  return (
-    <div className="px-2 mt-4">
-      <div className="flex items-center justify-around -mx-2">
-        <div className="text-left">
-          <ArrowPrevSvg/>
-        </div>
-        {schedule_period.map((s, i) => (
-          <div className={cx("flex w-20 h-24 px-2 flex-col border border-divider rounded-lg", {
-            "bg-light-grey": s.today
-          })} key={i}>
-            <div className="text-center">
-              <div className={cx("text-black text-lg mt-2", {
-                "text-light-grey": !s.today
-              })}>{s.date}</div>
-              <div className={cx("text-sm text-grey my-1", {
-                "text-light-grey": !s.today
-              })}>{s.display_name.slice(0, 2)} (11)
-              </div>
-              {s.today && (<div className="text-sm">today</div>)}
-            </div>
-          </div>
-        ))}
-        <div className="text-right">
-          <ArrowNextSvg/>
-        </div>
-      </div>
-    </div>
   )
 };
 
@@ -138,6 +107,8 @@ const AccountClubWorkersShow = ({user}) => {
   });
 
   const [calendarStatus, setCalendarStatus] = useState(false);
+  const [currentWeek, setCurrentWeek] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(new Date());
   const {t, i18n} = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
@@ -152,6 +123,75 @@ const AccountClubWorkersShow = ({user}) => {
 
   const openCalendar = () => {
     setCalendarStatus(true);
+  };
+
+  const CalendarWeek = () => {
+    let startDate = dateFns.startOfWeek(currentWeek);
+
+    const dateFormat = "dd.MM";
+    const dayFormat = "EEEEEE";
+
+    let days = [];
+    let day = startDate;
+    let formattedDate = "";
+    let formattedDay = "";
+
+    const prevWeek = () => {
+      setCurrentWeek(dateFns.subWeeks(currentWeek, 1));
+    };
+
+    const nextWeek = () => {
+      setCurrentWeek(dateFns.addWeeks(currentWeek, 1));
+    };
+
+    const onDayClick = (day) => {
+      setSelectedDay(day);
+    };
+    console.log(selectedDay);
+    console.log(club.employees);
+
+    for (let i = 0; i < 7; i++) {
+      formattedDate = dateFns.format(day, dateFormat);
+      formattedDay = dateFns.format(day, dayFormat);
+      const isToday = dateFns.isToday(day);
+      const cloneDay = day;
+      days.push(
+        <div className={cx("flex w-20 h-24 px-2 flex-col border border-divider rounded-lg hover:cursor-pointer", {
+          "bg-light-grey": ((isToday && dateFns.isSameDay(day, selectedDay)) || dateFns.isSameDay(day, selectedDay))
+        })} key={i} onClick={() => onDayClick(cloneDay)}>
+          <div className="text-center">
+            <div className={cx("text-black text-lg mt-2 hover:text-black", {
+              "text-grey": ((!isToday && !dateFns.isSameDay(day, selectedDay)) || !dateFns.isSameDay(day, selectedDay))
+            })}>
+              {formattedDate}
+            </div>
+            <div className={cx("text-sm text-grey my-1", {
+              "text-light-grey": ((!isToday && !dateFns.isSameDay(day, selectedDay)) || !dateFns.isSameDay(day, selectedDay))
+            })}>
+              {formattedDay} (11)
+            </div>
+            {isToday && (<div className={cx("text-sm", {"text-grey" : !dateFns.isSameDay(day, selectedDay)})}>
+              today
+            </div>)}
+          </div>
+        </div>
+      );
+      day = dateFns.addDays(day, 1);
+    }
+
+    return (
+      <div className="px-2 mt-4">
+        <div className="flex items-center justify-around -mx-2">
+          <div className="text-left" onClick={prevWeek}>
+            <ArrowPrevSvg/>
+          </div>
+          {days}
+          <div className="text-right" onClick={nextWeek}>
+            <ArrowNextSvg/>
+          </div>
+        </div>
+      </div>
+    )
   };
 
   return (
@@ -201,10 +241,10 @@ const AccountClubWorkersShow = ({user}) => {
         <div className="border-t border-divider"/>
 
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={dateFns.getDay(selectedDay)}/>
         </Panel>
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={dateFns.getDay(new Date())}/>
         </Panel>
         <Panel>
           <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>
