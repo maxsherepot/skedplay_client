@@ -43,7 +43,7 @@ const Calendar = ({club}) => {
         let startDate = dateFns.startOfWeek(currentMonth);
         for (let i = 0; i < 7; i++) {
             days.push(
-                <div className="col col-center" key={i}>
+                <div className="col col-center text-center" key={i}>
                     {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
                 </div>
             );
