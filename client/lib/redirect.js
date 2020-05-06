@@ -1,4 +1,5 @@
-import Router from 'next/router'
+// import Router from 'next/router'
+import { Router } from 'lib/i18n';
 
 export default (context, target) => {
   if (context && context.res) {

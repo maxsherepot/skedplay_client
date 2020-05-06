@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import Router, {useRouter} from "next/router";
 import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
@@ -123,8 +123,10 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
   const {t, i18n} = useTranslation();
   const router = useRouter();
 
-  const path = '/account/club/[cid]';
+  const path = `/account/club/cid`;
   const asPath = `/account/club/${id}`;
+
+  const clubQueryParams = `?cid=${id}`;
 
   const isActive = router.asPath.includes(asPath);
 
@@ -171,7 +173,7 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
           </Link>
           :
           <Link
-            href={path}
+            href={path + clubQueryParams}
             as={asPath}
             scroll={false}
           >
@@ -197,7 +199,7 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
       >
         {/* Add ActiveLink with special class! */}
 
-        <Link href={`${path}/workers`} as={`${asPath}/workers`}>
+        <Link href={`${path}/workers${clubQueryParams}`} as={`${asPath}/workers`}>
           <a className="text-red p-1 cursor-pointer hover:text-black focus:text-black">
             {t('account.sex_workers_cards')}
             <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
@@ -205,7 +207,7 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
                 </span>
           </a>
         </Link>
-        <Link href={`${path}/workers/add`} as={`${asPath}/workers/add`}>
+        <Link href={`${path}/workers/add${clubQueryParams}`} as={`${asPath}/workers/add`}>
           <a
             className="flex items-center text-red font-normal text-sm p-1 cursor-pointer hover:text-black focus:text-black">
             <AddSvg/>
@@ -216,7 +218,7 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
               {t('layout.archive_sex_workers')}
             </div>*/}
         <div className="text-red p-1 cursor-pointer  hover:text-black focus:text-black">
-          <Link href={`${path}/events`} as={`${asPath}/events`}>
+          <Link href={`${path}/events${clubQueryParams}`} as={`${asPath}/events`}>
             <a>
               {t('layout.events')}
               <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
@@ -225,7 +227,7 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
             </a>
           </Link>
         </div>
-        <Link href={`${path}/edit`} as={`${asPath}/edit`}>
+        <Link href={`${path}/edit${clubQueryParams}`} as={`${asPath}/edit`}>
           <a>
             <div
               className="text-red p-1 cursor-pointer hover:text-black focus:text-black">{t('layout.admin')} / {t('layout.edit')}</div>

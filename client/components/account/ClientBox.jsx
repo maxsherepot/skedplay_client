@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import { Button } from "UI";
 import { UserSvg, StarSvg, PhotoSvg, VideoSvg } from "icons";
 import {useTranslation} from "react-i18next";

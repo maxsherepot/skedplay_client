@@ -60,6 +60,7 @@ export const CLUBS_SEARCH = gql`
         clubsSearch(filters: $filters) {
             id
             name
+            user_id
         }
     }
 `;

@@ -8,7 +8,7 @@ import {
   SmsSvg
 } from "icons";
 import {useTranslation} from "react-i18next";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import React, {useState} from "react";
 import ContactsPopup from "components/popups/ContactsPupup";
 import ContactsCallbackSuccessPopup from "components/popups/ContactsCallbackSuccessPopup";

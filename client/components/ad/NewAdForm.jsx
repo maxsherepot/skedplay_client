@@ -62,7 +62,7 @@ function NewAdForm({ children, clubId }) {
       try {
         // setStep(0);
         if (clubId) {
-          document.location.href = `/account/club/${clubId}`;
+          redirect({}, `/account/club/${clubId}`);
         } else {
           redirect({}, "/girls");
         }

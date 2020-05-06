@@ -14,8 +14,6 @@ if (isNode) {
   apiUrl = process.env.API_URL;
 }
 
-// apiUrl = process.env.API_URL; // TODO remove on prod
-
 console.log(apiUrl);
 
 let languages, backend, use = [];
@@ -25,7 +23,7 @@ if (process.env.LANG_FROM_BACKEND === 'true') {
     languages = JSON.parse(request('GET', apiUrl + '/api/languages').getBody());
   } catch (e) {
     console.error(e);
-    languages = ['de', 'fr'];
+    languages = ['en', 'fr'];
   }
   backend = {
     ajax: function (url, options, callback, data) {
@@ -38,7 +36,7 @@ if (process.env.LANG_FROM_BACKEND === 'true') {
   };
   use.push(Backend);
 } else {
-  languages = ['de', 'fr'];
+  languages = ['en', 'fr'];
 }
 
 const NextI18NextInstance = new NextI18Next({
@@ -48,6 +46,11 @@ const NextI18NextInstance = new NextI18Next({
   otherLanguages: languages,
   defaultNS: 'translation',
   backend: backend,
+  localeSubpaths: {
+    // de: 'de',
+    en: 'en',
+    fr: 'fr',
+  }
 });
 
 export default NextI18NextInstance;
@@ -56,5 +59,7 @@ export const {
   config,
   i18n,
   appWithTranslation,
+  Link,
+  Router,
   withTranslation,
 } = NextI18NextInstance;

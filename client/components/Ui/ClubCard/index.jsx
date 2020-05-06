@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 
 import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
@@ -120,7 +120,10 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
             {renderTime(start_time, end_time)}
           </div>
           <div>
-            <Link href="/clubs/[id]/information" as={`/clubs/${id}/information`}>
+            <Link
+              href={`/clubs/id/information?id=${id}`}
+              as={`/clubs/${id}/information`}
+            >
               <a>{name}</a>
             </Link>
           </div>

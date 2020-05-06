@@ -27,7 +27,7 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/[id]/information`}
+              href={`/clubs/id/information?id=${club.id}`}
               as={`/clubs/${club.id}/information`}
             >
               <a>{t('clubs.information')}</a>
@@ -36,7 +36,7 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/[id]/girls`}
+              href={`/clubs/id/girls?id=${club.id}`}
               as={`/clubs/${club.id}/girls`}
             >
               <a>{t('common.our_girls')}</a>
@@ -45,7 +45,7 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/[id]/events`}
+              href={`/clubs/id/events?id=${club.id}`}
               as={`/clubs/${club.id}/events`}
             >
               <a>{t('layout.events')}</a>

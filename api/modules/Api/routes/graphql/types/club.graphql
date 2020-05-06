@@ -9,6 +9,7 @@ type Club {
   address: String
   index: String
   comment: String
+  user_id: Int
   city_id: Int
   user_status: Int
   status: Int

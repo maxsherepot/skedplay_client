@@ -10,7 +10,7 @@ import {
     GET_MY_EMPLOYEE_EVENTS_COUNT,
 } from "queries";
 import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import {useTranslation} from "react-i18next";
 import EventLabel from "UI/EventCard/EventLabel";
 
@@ -118,7 +118,7 @@ const AccountEventsIndex = ({user}) => {
                         </div>
                         <div className="flex flex-wrap">
                             <div className="px-2">
-                                <Link href="/account/events/[eid]" as={`/account/events/${event.id}`}>
+                                <Link href={`/account/events/eid?eid=${event.id}`} as={`/account/events/${event.id}`}>
                                     <a>
                                         <Button className="px-2" level="secondary" outline size="xxs">
                                             {t('common.edit')}

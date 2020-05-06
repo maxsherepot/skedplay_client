@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
 import { Loader } from "UI";
 import {useTranslation} from "react-i18next";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 
 const EmployeeSchedule = ({ employee, ...rest }) => {
   const {
@@ -64,7 +64,10 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
               {s.club ? (
                 <div className="flex flex-col sm:flex-row w-3/6 sm:w-2/5 sm:w-7/12">
                   <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
-                    <Link as={`/clubs/${s.club.id}/information`} href={`/clubs/[id]/information`}>
+                    <Link
+                      as={`/clubs/${s.club.id}/information`}
+                      href={`/clubs/id/information?id=${s.club.id}`}
+                    >
                       <a className="flex">
                         <span className="mr-3">{s.club.name}</span>
                         <ArrowNextSvg />

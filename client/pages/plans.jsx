@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {

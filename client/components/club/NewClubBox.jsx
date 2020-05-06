@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 
 const NewClubBox = () => {
   const onCompleted = () => {
-    document.location.href = '/account';
+    redirect({}, "/account");
   };
 
   const [createClub] = useMutation(CREATE_CLUB, {

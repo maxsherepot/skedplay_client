@@ -1,5 +1,5 @@
 import script from './script';
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import {useTranslation} from "react-i18next";
 import { Trans } from 'react-i18next';
 import React from "react";

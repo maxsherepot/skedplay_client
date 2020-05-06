@@ -11,7 +11,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { getLayout } from "components/account/AccountLayout";
 import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import { ArrowBack } from "UI";
 import EditEmployeeHeader from "components/employee/EditEmployeeHeader";
 
