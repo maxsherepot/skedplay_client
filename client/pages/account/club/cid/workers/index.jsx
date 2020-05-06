@@ -9,7 +9,6 @@ import SelectClub from "components/account/SelectClub";
 import {Button, Tab, Panel, Loader} from "UI";
 import {Tabs} from "@bumaga/tabs";
 import {CalendarSvg} from "icons";
-import {SCHEDULE_WEEK_PERIOD} from "queries";
 import {
   GET_CLUB,
   CLUBS_SEARCH,
@@ -25,7 +24,7 @@ import * as dateFns from "date-fns";
 const EmployeeCard = ({employee, clubs}) => {
   const [photo] = employee.photos;
   const {query: {cid}} = useRouter();
-  const {t, i18n} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="w-6/12 md:w-4/12 xl:w-3/12 px-2 mb-4">
@@ -76,8 +75,8 @@ const EmployeeCard = ({employee, clubs}) => {
 };
 
 const AvailableToday = ({employees, clubs, day}) => {
-  const {t, i18n} = useTranslation();
-  console.log(day, employees);
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="text-4xl font-extrabold mb-2">{t('account.available_today')}</div>
@@ -109,7 +108,7 @@ const AccountClubWorkersShow = ({user}) => {
   const [calendarStatus, setCalendarStatus] = useState(false);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
-  const {t, i18n} = useTranslation();
+  const { t } = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
 
@@ -124,6 +123,14 @@ const AccountClubWorkersShow = ({user}) => {
   const openCalendar = () => {
     setCalendarStatus(true);
   };
+
+  const workers = Array(7).fill(0);
+
+  for (let i = 0; i < 7; i++) {
+    club.employees.map(employee => {
+      employee.schedule.find(s => (s.day === i) && (s.available === true) && (workers[i] = workers[s.day] + 1))
+    });
+  }
 
   const CalendarWeek = () => {
     let startDate = dateFns.startOfWeek(currentWeek);
@@ -147,30 +154,31 @@ const AccountClubWorkersShow = ({user}) => {
     const onDayClick = (day) => {
       setSelectedDay(day);
     };
-    console.log(selectedDay);
-    console.log(club.employees);
 
     for (let i = 0; i < 7; i++) {
       formattedDate = dateFns.format(day, dateFormat);
       formattedDay = dateFns.format(day, dayFormat);
+
       const isToday = dateFns.isToday(day);
+      const isSelectedDay = dateFns.isSameDay(day, selectedDay);
       const cloneDay = day;
+
       days.push(
         <div className={cx("flex w-20 h-24 px-2 flex-col border border-divider rounded-lg hover:cursor-pointer", {
-          "bg-light-grey": ((isToday && dateFns.isSameDay(day, selectedDay)) || dateFns.isSameDay(day, selectedDay))
+          "bg-light-grey": ((isToday && isSelectedDay) || isSelectedDay)
         })} key={i} onClick={() => onDayClick(cloneDay)}>
           <div className="text-center">
             <div className={cx("text-black text-lg mt-2 hover:text-black", {
-              "text-grey": ((!isToday && !dateFns.isSameDay(day, selectedDay)) || !dateFns.isSameDay(day, selectedDay))
+              "text-grey": ((!isToday && !isSelectedDay) || !isSelectedDay)
             })}>
               {formattedDate}
             </div>
             <div className={cx("text-sm text-grey my-1", {
-              "text-light-grey": ((!isToday && !dateFns.isSameDay(day, selectedDay)) || !dateFns.isSameDay(day, selectedDay))
+              "text-light-grey": ((!isToday && !isSelectedDay) || !isSelectedDay)
             })}>
-              {formattedDay} (11)
+              {formattedDay} ({workers[i]})
             </div>
-            {isToday && (<div className={cx("text-sm", {"text-grey" : !dateFns.isSameDay(day, selectedDay)})}>
+            {isToday && (<div className={cx("text-sm", {"text-grey" : !isSelectedDay})}>
               today
             </div>)}
           </div>
@@ -212,7 +220,7 @@ const AccountClubWorkersShow = ({user}) => {
           <Content
             close={closeCalendar}
           >
-            <Calendar club={club}/>
+            <Calendar workers={workers}/>
           </Content>
         </Popup>
 
