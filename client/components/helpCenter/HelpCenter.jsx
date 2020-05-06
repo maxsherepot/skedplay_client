@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import {Loader, PageCard} from "UI";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";
@@ -82,7 +82,7 @@ const CategoryItem = ({category, topicSlug, first}) => {
                 -
               </span>
             }
-            <Link as={`/helpcenter/${topic.slug}`} href={`/helpcenter/[topic]`}>
+            <Link href={`/helpcenter/topic?topic=${topic.slug}`} as={`/helpcenter/${topic.slug}`}>
               <a>
                 {getLangField(topic.name, i18n.language)}
               </a>

@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import {useState} from "react";
 import {useTranslation, Trans} from "react-i18next";
 import {Button} from "UI";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 
 const CookiesBlock = () => {
   const [cookiesAllowed, setCookiesAllowed] = useState(Cookies.get('cookies_allowed') === 'true');

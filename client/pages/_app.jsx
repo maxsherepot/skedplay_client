@@ -7,7 +7,6 @@ import "styles/style.scss";
 import { appWithTranslation } from 'lib/i18n';
 import {LoadScriptNext} from "@react-google-maps/api";
 import { Loader } from "UI";
-import { withSSR } from 'react-i18next';
 
 class MyApp extends App {
   static displayName = "MyApp";

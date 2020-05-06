@@ -37,7 +37,9 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
     return null;
   }
 
-  const clubs = clubsSearch.map(c => ({value: `${c.id}`, label: c.name}));
+  const clubs = clubsSearch
+    .filter(c => user.is_employee || parseInt(c.user_id) === parseInt(user.id))
+    .map(c => ({value: `${c.id}`, label: c.name}));
 
   const handleUploadAvatar = async values => {
     try {
@@ -231,7 +233,9 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             </div>
 
             <div className="flex items-center">
-              <SelectClub className="w-40" owner={employee.owner} employee={employee} clubs={clubs}/>
+              {!user.is_employee &&
+                <SelectClub className="w-40" owner={employee.owner} employee={employee} clubs={clubs}/>
+              }
 
               <div className="mx-4">{t('account.count_views', {count: 1234})}</div>
 

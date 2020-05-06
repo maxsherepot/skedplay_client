@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import redirect from "lib/redirect";
 import { useApolloClient } from "@apollo/react-hooks";
 import { AddSvg, ProfileSvg } from "icons";
@@ -105,7 +105,7 @@ const UserDropdown = ({ user }) => {
               {user.clubs && user.clubs.length > 0 ? (
                 <div>
                   {user.clubs.map(club =>
-                    <Link href={`/account/club/[cid]`} as={`/account/club/${club.id}`} key={club.id}>
+                    <Link href={`/account/club/cid?cid=${club.id}`} as={`/account/club/${club.id}`} key={club.id}>
                       <a className="hover:text-red flex m-1 hover:cursor-pointer">
                         {club.name}
                       </a>

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
@@ -128,7 +128,7 @@ function GirlCard({
 
     return (
       <Link
-        href={girl.soon ? "" : "/employees/[id]/information"}
+        href={girl.soon ? "" : `/employees/id/information?id=${girl.id}`}
         as={girl.soon ? "" : `/employees/${girl.id}/information`}
       >
         <a className="text-sm font-medium leading-tight hover:text-red">
@@ -172,7 +172,7 @@ function GirlCard({
           labels={labels ? <Labels girl={girl} /> : null}
           slider={slider}
           available={available}
-          link="/employees/[id]/information"
+          link={`/employees/id/information?id=${girl.id}`}
           as={getLink(girl)}
         />
       )}

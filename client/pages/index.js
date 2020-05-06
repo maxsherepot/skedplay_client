@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import {Header, Footer} from "UI";
 import {ArrowNextSvg} from "icons";
 import GirlsBox from "components/homepage/GirlsBox";

@@ -28,6 +28,8 @@ const AccountEventsCreate = ({user}) => {
     values,
     {setSubmitting, setErrors}
   ) => {
+    delete values.index;
+
     values.days = (values.days || [])
       .map((checked, day) => checked ? day : null)
       .filter(day => day !== null);

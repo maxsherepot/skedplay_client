@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 
 import { TextField, PhoneField, CheckboxField, Button, FormGroup } from "UI";
 import { getErrors } from "utils";

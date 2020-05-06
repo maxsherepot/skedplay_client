@@ -8,7 +8,7 @@ import {Loader, Button} from 'UI';
 import {useTranslation} from "react-i18next";
 import cx from 'classnames';
 import moment from "moment-timezone";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import {GET_ME} from "queries/userQuery";
 
 const ChatCard = ({chat, type}) => {

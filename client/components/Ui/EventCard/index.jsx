@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";
@@ -92,6 +92,8 @@ function EventCard({
   price,
   mode,
   start_time,
+  as,
+  linkQueryParams,
   mainPhoto,
   employees
 }) {
@@ -159,7 +161,10 @@ function EventCard({
           )}
           {/* {title} */}
           {href ? (
-            <Link href={`${href}/[id]`} as={`${href}/${id}`}>
+            <Link
+              href={`${href}/event${linkQueryParams}&event=${id}`}
+              as={`${as}/${id}`}
+            >
               <a className="hover:text-red">{t('employees.ultra_party')}</a>
             </Link>
           ) : (

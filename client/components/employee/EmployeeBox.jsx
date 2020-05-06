@@ -56,7 +56,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/[id]/information`}
+              href={`/employees/id/information?id=${employee.id}`}
               as={`/employees/${employee.id}/information`}
             >
               <a>{t('account.links.information')}</a>
@@ -65,7 +65,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/[id]/events`}
+              href={`/employees/id/events?id=${employee.id}`}
               as={`/employees/${employee.id}/events`}
             >
               <a>{t('employees.events')}</a>
@@ -74,7 +74,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/[id]/reviews`}
+              href={`/employees/id/reviews?id=${employee.id}`}
               as={`/employees/${employee.id}/reviews`}
             >
               <a>{t('common.reviews')}</a>
@@ -87,7 +87,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
             <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
               <ActiveLink
                 activeClassName="text-red"
-                href={`/employees/[id]/chat`}
+                href={`/employees/id/chat?id=${employee.id}`}
                 as={`/employees/${employee.id}/chat`}
               >
                 <a>{t('employees.chat')}</a>

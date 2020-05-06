@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import Link from "next/link";
+import { Link } from 'lib/i18n'
 import Slider from "react-slick";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
