@@ -76,12 +76,15 @@ const EmployeeCard = ({employee, clubs}) => {
 
 const AvailableToday = ({employees, clubs, day}) => {
   const { t } = useTranslation();
-
+  const selectedDate = dateFns.format(day, "dd.MM");
+  const isToday = dateFns.isToday(day);
   return (
     <>
-      <div className="text-4xl font-extrabold mb-2">{t('account.available_today')}</div>
+      <div className="text-4xl font-extrabold mb-2">
+        {isToday ? `${t('account.available_today')}` : `${t('account.available_to', {date: selectedDate })}`}
+      </div>
       <div className="flex flex-wrap -mx-2">
-        {employees.map(employee => (employee.schedule.find(s => (s.day === day) && (s.available === true)))
+        {employees.map(employee => (employee.schedule.find(s => (s.day === dateFns.getDay(day)) && (s.available === true)))
           && (<EmployeeCard key={employee.id} employee={employee} clubs={clubs}/>)
         )}
       </div>
@@ -249,10 +252,10 @@ const AccountClubWorkersShow = ({user}) => {
         <div className="border-t border-divider"/>
 
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={dateFns.getDay(selectedDay)}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
         </Panel>
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={dateFns.getDay(new Date())}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={new Date()}/>
         </Panel>
         <Panel>
           <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>

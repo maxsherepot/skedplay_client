@@ -350,6 +350,7 @@
     "open_calendar": "Open calendar",
     "all_workers": "All workers",
     "available_today": "Available today",
+    "available_to": "Available to {{date}}",
     "cooming_soon": "Cooming soon",
     "count_views": "{{count}} views",
     "cancel_vip": "Cancel VIP",
