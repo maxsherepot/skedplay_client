@@ -143,10 +143,12 @@ class Club extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
-                ->sortable(),
+            Text::make('Name')->sortable(),
 
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+
+            Text::make('Address'),
+            Text::make('Phones'),
 
             BelongsTo::make('Manager', 'manager', User::class)->sortable(),
 
@@ -159,7 +161,7 @@ class Club extends Resource
                 )->render();
             })->asHtml(),
 
-            Text::make('In system', 'created_at_diff'),
+            Text::make('Comment'),
         ];
     }
 

@@ -16,7 +16,7 @@ import cx from "classnames";
 
 const ProfileHeader = ({user}) => (
   <div className="fluid-container header-profile-div">
-    <div className="flex items-center lg:w-7/12 ml-8 py-8">
+    <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
       <Avatar/>
       <div className="ml-4">
         {user && user.is_employee ? (
@@ -77,7 +77,7 @@ const VerifyMessage = ({user}) => {
 
   return (
     <>
-      <div className="w-full flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
+      <div className="w-5/12 flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
         {user.verify_photo ? (
           <div className="ml-3 py-2">
                         <span className="font-bold flex flex-col">
@@ -258,7 +258,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
 
   return (
     <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
-      <div className="flex flex-col py-10 lg:pr-24 xl:pr-32">
+      <div className="flex flex-col py-10 lg:pr-20 xl:pr-20">
         {is_employee && (
           <div>
             <span
