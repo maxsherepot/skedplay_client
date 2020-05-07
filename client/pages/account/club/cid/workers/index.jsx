@@ -261,7 +261,7 @@ const AccountClubWorkersShow = ({user}) => {
           <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>
         </Panel>
         <Panel>
-          <div className="text-4xl font-extrabold mb-2">{t('account.not_active')}</div>
+          <div className="text-4xl font-extrabold mb-2">{t('common.not_active')}</div>
         </Panel>
       </Tabs>
     </>)
