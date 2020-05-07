@@ -125,7 +125,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                   {dayCheckboxes.map((day, i) => (
                     <CheckboxField
                       key={day.value}
-                      className="text-lg mr-10"
+                      className="text-lg mr-8"
                       labelClass="inline-block mb-2"
                       label={day.label}
                       name={`days[${day.value}]`}
