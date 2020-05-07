@@ -24,6 +24,8 @@ function RegisterForm({ onSubmit, children }) {
   React.useEffect(() => {
     document.querySelector('.modal__content').style.maxWidth = isLastStep ? '700px' : '410px';
     document.querySelector('.modal__dialog').style.minWidth = '410px';
+    document.querySelector('.animation-arrow-left').style.display = isLastStep ? 'none' : 'inline';
+    document.querySelector('.modal__title').style.margin = isLastStep ? 'auto' : '';
   });
 
   const next = () => {
@@ -167,6 +169,15 @@ function RegisterForm({ onSubmit, children }) {
               </Link>
             )}
           </div>
+
+          {isLastStep && (
+              <div className="text-grey text-sm row">
+                {t('register.creating_account_you_agree')}
+                <a href="/helpcenter/terms-of-use" className="underline pr-1">{t('register.terms_conditions')}</a>
+                  {t('common.and')}
+                  <a href="/helpcenter/private-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
+              </div>
+          )}
         </form>
       )}
     </Formik>
