@@ -3,16 +3,8 @@ import * as dateFns from "date-fns";
 import {ArrowNextSvg, ArrowPrevSvg} from "components/icons";
 import {useTranslation} from "react-i18next";
 
-const Calendar = ({club}) => {
+const Calendar = ({workers}) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const employees = club.employees.map(e => ({id: e.id, schedule: e.schedule}));
-    const workers = Array(7).fill(0);
-
-    for (let i = 0; i < 7; i++) {
-        employees.map(employee => {
-            employee.schedule.find(s => (s.day === i) && (s.available === true) && (workers[i] = workers[s.day] + 1))
-        });
-    }
 
     const renderHeader = () => {
         const dateFormat = "MMMM yyyy";
@@ -43,7 +35,7 @@ const Calendar = ({club}) => {
         let startDate = dateFns.startOfWeek(currentMonth);
         for (let i = 0; i < 7; i++) {
             days.push(
-                <div className="col col-center" key={i}>
+                <div className="col col-center text-center" key={i}>
                     {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
                 </div>
             );
