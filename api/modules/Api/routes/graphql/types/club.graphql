@@ -85,6 +85,9 @@ input ClubFilters {
   user_status: Int @where
   orderBy: [OrderByClause!] @orderBy
   close_to: Distance @scope(name: "closeTo")
+  city_id: Int @where
+  cities: [Int] @in(key: "city_id")
+  canton_id: Int @scope(name: "hasCanton")
   cantons: [Int] @scope(name: "hasCantons")
   search: String @where(operator: "like", key: "name")
   __typename: String

@@ -56,7 +56,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
-                            ></SelectField>
+                            />
                           );
 
                         case "multi-select":
@@ -66,7 +66,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
-                            ></MultiSelectField>
+                            />
                           );
 
                         case "slider":
@@ -77,7 +77,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></Slider>
+                            />
                           );
 
                         case "distance-slider":
@@ -88,7 +88,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></DistanceSlider>
+                            />
                           );
 
                         case "range":
@@ -99,7 +99,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></RangeSlider>
+                            />
                           );
 
                         case "checkbox":
@@ -113,7 +113,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                                 }}
                                 {...rest}
                                 value={filters[rest.name]}
-                              ></CheckboxField>
+                              />
                             </div>
                           );
 

@@ -35,6 +35,17 @@ trait Locationable
         return $this->belongsTo(City::class);
     }
 
+    public function scopeHasCanton(Builder $query, ?string $canton = null): void
+    {
+        if (!$canton) {
+            return;
+        }
+
+        $query->whereHas('city', function(Builder $query) use ($canton) {
+            $query->where('canton_id', $canton);
+        });
+    }
+
     public function scopeHasCantons(Builder $query, ?array $cantons = null): void
     {
         if (!$cantons) {

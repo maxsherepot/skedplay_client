@@ -3,7 +3,11 @@ export default {
     const filteredFilters = {};
 
     Object.keys(filters).map(key => {
-      if (filters[key] === "") return;
+      if (filters[key] === "")  {
+        if (['canton_id', 'city_id'].indexOf(key) === -1) {
+          return;
+        }
+      }
 
       if (filters[key] === null) {
         return (filters[key] = "");

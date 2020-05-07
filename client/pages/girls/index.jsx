@@ -32,12 +32,13 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
 
   let fields = [
     {
-      component: "multi-select",
-      name: "cantons",
+      component: "select",
+      name: "canton_id",
       label: t('common.location'),
-      showCheckboxes: true,
+      // showCheckboxes: true,
       placeholder: t('common.all_switzerland'),
       options: [
+        {value: '', label: t('common.all_switzerland')},
         ...cantons.map(c => ({value: c.id, label: c.name})),
       ],
     },

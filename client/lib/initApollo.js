@@ -71,7 +71,8 @@ function create(initialState, {
       girls: {
         active: 1,
         type: 1,
-        cantons: [],
+        canton_id: "",
+        city_id: "",
         user_status: 1,
         status: 1,
         services: [],
@@ -95,7 +96,8 @@ function create(initialState, {
       vip_escort: {
         active: 1,
         isVip: true,
-        cantons: [],
+        canton_id: "",
+        city_id: "",
         services: [],
         gender: "",
         user_status: 1,
@@ -119,7 +121,8 @@ function create(initialState, {
         active: 1,
         type: 2,
         inGeneral: true,
-        cantons: [],
+        canton_id: "",
+        city_id: "",
         services: [],
         user_status: 1,
         status: 1,
@@ -140,7 +143,8 @@ function create(initialState, {
         __typename: "CoupleFilters"
       },
       clubs: {
-        cantons: [],
+        canton_id: "",
+        city_id: "",
         club_type: "",
         start_time: "",
         user_status: 1,
@@ -156,7 +160,8 @@ function create(initialState, {
         __typename: "ClubFilters"
       },
       events: {
-        cantons: [],
+        canton_id: "",
+        city_id: "",
         event_type: "",
         user_status: 1,
         status: 1,

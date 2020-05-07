@@ -32,7 +32,7 @@ function Events({ user, isGeolocationEnabled }) {
   const fields = [
     {
       component: "multi-select",
-      name: "cantons",
+      name: "canton_id",
       label: t('common.location'),
       showCheckboxes: true,
       placeholder: t('common.all_switzerland'),

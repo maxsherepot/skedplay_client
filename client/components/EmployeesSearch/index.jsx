@@ -14,7 +14,7 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState({});
   const {t, i18n} = useTranslation();
-
+  console.log(filters[entityName]);
   let stateFilters = filtersState;
 
   if (Object.keys(filtersState).length === 0) {
@@ -22,6 +22,8 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
   }
 
   let filteredFilters = stateFilters;
+
+  console.log(filteredFilters);
 
   let filtersForQuery = Object.assign({}, filteredFilters);
 
