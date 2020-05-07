@@ -77,7 +77,7 @@ const VerifyMessage = ({user}) => {
 
   return (
     <>
-      <div className="w-full flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
+      <div className="w-5/12 flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
         {user.verify_photo ? (
           <div className="ml-3 py-2">
                         <span className="font-bold flex flex-col">
