@@ -3,16 +3,23 @@ import PropTypes from "prop-types";
 import { FavoriteSvg } from "icons";
 import { useMutation } from "@apollo/react-hooks";
 import { FAVORITE, UNFAVORITE } from "queries";
-import Cookies from 'js-cookie'
-import checkLoggedIn from "lib/checkLoggedIn";
+import Cookies from 'js-cookie';
+import favorites from "services/favorites";
 
 const FavoriteButton = ({ variables, favorited, ...rest }) => {
-  const cookieKey = 'favorite_' + variables.model_type;
+  let { data: { favorites_count } = {}, client } = favorites.getFavoritesCount();
 
   const loadFromCookies = true; // !user
 
-  let favoritesIdsJson = Cookies.get(cookieKey) || '[]';
-  let favoritesIds = JSON.parse(favoritesIdsJson);
+  const cookieKey = 'favorite_' + variables.model_type;
+
+  const getFavoritesIds = () => {
+    let favoritesIdsJson = Cookies.get(cookieKey) || '[]';
+
+    return JSON.parse(favoritesIdsJson);
+  };
+
+  let favoritesIds = getFavoritesIds();
   let favoriteIndex = favoritesIds.findIndex(id => parseInt(variables.model_id) === parseInt(id));
 
   const [isFavorite, setFavorite] = useState(favorited !== null || favoriteIndex !== -1);
@@ -22,6 +29,7 @@ const FavoriteButton = ({ variables, favorited, ...rest }) => {
 
   const toggleFavorite = favorite => {
     setFavorite(favorite);
+
     if (!loadFromCookies) {
       if (favorite) {
         onFavorite({
@@ -32,19 +40,31 @@ const FavoriteButton = ({ variables, favorited, ...rest }) => {
           variables
         });
       }
-    } else {
-      if (favorite) {
-        if (favoriteIndex === -1) {
-          favoritesIds.push(variables.model_id);
-        }
-      } else {
-        if (favoriteIndex !== -1) {
-          favoritesIds.splice(favoriteIndex, 1);
-        }
-      }
 
-      Cookies.set(cookieKey, JSON.stringify(favoritesIds), { expires: 365 })
+      return;
     }
+
+    let favoritesIds = getFavoritesIds();
+    let favoriteIndex = favoritesIds.findIndex(id => parseInt(variables.model_id) === parseInt(id));
+
+    if (favorite) {
+      if (favoriteIndex === -1) {
+        favoritesIds.push(variables.model_id);
+        favorites_count++;
+      }
+    } else {
+      if (favoriteIndex !== -1) {
+        favoritesIds.splice(favoriteIndex, 1);
+        favorites_count--;
+      }
+    }
+
+    Cookies.set(cookieKey, JSON.stringify(favoritesIds), { expires: 365 });
+    client.writeData({
+      data: {
+        favorites_count
+      }
+    });
   };
 
   return (
@@ -61,15 +81,6 @@ FavoriteButton.defaultProps = {
 FavoriteButton.propTypes = {
   variables: PropTypes.object.isRequired,
   favorited: PropTypes.object
-};
-
-FavoriteButton.getInitialProps = async ctx => {
-  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
-  console.log('getInitialProps', user);
-  if (!user) {
-    return {};
-  }
-  return { user };
 };
 
 export default FavoriteButton;

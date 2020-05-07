@@ -1,24 +1,15 @@
 import Cookies from "js-cookie";
+import favorites from "services/favorites";
 
 export default ({user, loadFavoriteFromCookies = true}) => {
   let favoriteCount = 0;
 
+  const { data: { favorites_count } = {}, client } = favorites.getFavoritesCount();
+
   if (!loadFavoriteFromCookies && user) {
     favoriteCount = user.favorites_count;
   } else {
-    const entities = ['employee', 'club', 'event'];
-
-    let favoritesIds = [];
-
-    for (let i in entities) {
-      favoritesIds.push(
-        ...JSON.parse(
-          Cookies.get('favorite_' + entities[i]) || '[]'
-        )
-      );
-    }
-
-    favoriteCount = favoritesIds.length;
+    favoriteCount = favorites_count;
   }
 
   return (

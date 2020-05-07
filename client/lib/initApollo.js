@@ -13,6 +13,7 @@ import {
   IntrospectionFragmentMatcher
 } from "apollo-cache-inmemory";
 import introspectionQueryResultData from "./fragmentTypes.json";
+import favorites from "services/favorites";
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
@@ -65,8 +66,17 @@ function create(initialState, {
     resolvers: {}
   });
 
+  const getFavoritesCount = () => {
+    if (!isBrowser) {
+      return 0;
+    }
+
+    return favorites.getFavoritesCountFromCookies();
+  };
+
   const data = {
     step: 0,
+    favorites_count: getFavoritesCount(),
     filters: {
       girls: {
         active: 1,
