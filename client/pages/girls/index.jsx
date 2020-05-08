@@ -1,17 +1,23 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS } from "queries";
+import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS_AND_CITIES } from "queries";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
 import { geolocated } from "react-geolocated";
 import checkLoggedIn from "lib/checkLoggedIn";
+import helpers from "UI/Filter/helpers";
+import {useRouter} from "next/router";
+import {Router} from 'lib/i18n';
+import CommonGirlsFilterUrl from "services/CommonGirlsFilterUrl";
 
 const GirlsSearch = ({isGeolocationEnabled}) => {
   const ENTITY_NAME = "girls";
   const {t, i18n} = useTranslation();
 
-  const { loading: cantonsLoading, data: { cantons } = {} } = useQuery(
-    CANTONS
+  let {query} = useRouter();
+
+  const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
+    CANTONS_AND_CITIES
   );
 
   const { loading, data: { services, employee_race_types } = {} } = useQuery(
@@ -30,122 +36,40 @@ const GirlsSearch = ({isGeolocationEnabled}) => {
     return 'error';
   }
 
+  const commonGirlsFilterUrl = new CommonGirlsFilterUrl(
+    query,
+    {cantons, cities, services, races: employee_race_types},
+    'girls'
+  );
+
+  const initialFilters = JSON.parse(JSON.stringify(filters));
+  const workFilters = JSON.parse(JSON.stringify(filters));
+
+  if (commonGirlsFilterUrl.pageNotFound()) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
+  }
+
+  workFilters[ENTITY_NAME] = commonGirlsFilterUrl.setFilters(workFilters[ENTITY_NAME]);
+
   let fields = [
-    {
-      component: "select",
-      name: "canton_id",
-      label: t('common.location'),
-      // showCheckboxes: true,
-      placeholder: t('common.all_switzerland'),
-      options: [
-        {value: '', label: t('common.all_switzerland')},
-        ...cantons.map(c => ({value: c.id, label: c.name})),
-      ],
-    },
-    {
-      component: "multi-select",
-      name: "services",
-      label: t('common.services'),
-      placeholder: t('common.select_services'),
-      showCheckboxes: true,
-      className: "w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2 services-select__div",
-      options: services.map(s => {
-        return { label: s.name, value: s.id };
-      })
-    },
-    /*{
-      component: "multi-select",
-      showCheckboxes: true,
-      name: "genders",
-      label: t('common.gender'),
-      placeholder: t('common.all_gender'),
-      options: [
-        {
-          label: t('common.female'),
-          value: 2
-        },
-        {
-          label: t('common.male'),
-          value: 1
-        }
-      ]
-    },*/
-    {
-      component: "multi-select",
-      showCheckboxes: true,
-      name: "race_type_ids",
-      label: t('common.type'),
-      placeholder: t('common.select_type'),
-      options: employee_race_types.map(s => {
-        return { label: s.name, value: s.id };
-      })
-    },
-    {
-      component: "range",
-      name: "age",
-      label: t('common.age'),
-      from: 18,
-      to: 60,
-      labelResolver({from, to}) {
-        if (parseInt(from) === 18 && parseInt(to) === 60) {
-          return null;
-        }
-
-        return t('common.age_from_to', {from: from, to: to});
-      }
-    },
-    {
-      component: "distance-slider",
-      name: "close_to",
-      label: t('common.perimeter'),
-      initValue: 0,
-      valueResolver(value) {
-        if (!parseInt(value)) {
-          return t('common.off');
-        }
-
-        return value + 'km';
-      },
-      labelResolver(value) {
-        if (!value) {
-          return null;
-        }
-
-        if (!parseInt(value)) {
-          value = value.distanceKm;
-        }
-
-        if (!value) {
-          return null;
-        }
-
-        return t('common.perimeter') + ' ' + value + 'km';
-      }
-    },
-    {
-      component: "checkbox",
-      name: "show_level",
-      label: t('common.coming_soon'),
-      checked: false,
-      labelResolver(value) {
-        if (value) {
-          return this.label;
-        }
-
-        return null;
-      }
-    },
+    ...helpers.getGirlsFilters(cantons, cities, services, employee_race_types, t),
   ];
 
   if (!isGeolocationEnabled) {
     fields.splice(fields.length - 2, 1);
-  } else {
-    // fields.splice(0, 1);
   }
+
+  const redirectByFilters = (filters) => {
+    let {url, as} = commonGirlsFilterUrl.getRouterParams(filters);
+
+    Router.replace(url, as, {shallow: true});
+  };
 
   return (
     <>
-      <EmployeesSearch entityName={ENTITY_NAME} fields={fields} filters={filters} />
+      <EmployeesSearch entityName={ENTITY_NAME} fields={fields} initialFilters={initialFilters} filters={workFilters} redirectByFilters={redirectByFilters} />
     </>
   );
 };

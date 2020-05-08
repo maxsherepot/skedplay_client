@@ -56,8 +56,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
   };
 
   const searchOptions = {
-    location: new google.maps.LatLng(46.972892, 8.218029),
-    radius: 60000,
+    componentRestrictions: {country: ['ch']},
   };
 
   return (
@@ -89,14 +88,11 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
           />
           {!!suggestions.length &&
           <div className="autocomplete-dropdown-container">
-            {suggestions.filter(suggestion =>
-                ((suggestion.description.endsWith(', Switzerland'))
-                    || (suggestion.description.endsWith(', Швейцария'))))
-                .map(suggestion => {
+            {suggestions.map(suggestion => {
               const className = suggestion.active
                 ? 'suggestion-item--active'
                 : 'suggestion-item';
-              // inline style for demonstration purpose
+
               const style = suggestion.active
                 ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                 : { backgroundColor: '#ffffff', cursor: 'pointer' };

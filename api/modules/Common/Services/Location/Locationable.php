@@ -5,6 +5,7 @@ namespace Modules\Common\Services\Location;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Modules\Common\Entities\City;
 
 trait Locationable
@@ -33,6 +34,15 @@ trait Locationable
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function scopeHasCity(Builder $query, ?string $city = null): void
+    {
+        if (!$city) {
+            return;
+        }
+
+        $query->where('city_id', $city);
     }
 
     public function scopeHasCanton(Builder $query, ?string $canton = null): void
@@ -81,22 +91,25 @@ trait Locationable
 
     private static function setCityAndCoordinates(Model $model): void
     {
-        if (!is_null($model->lat) && !is_null($model->lng)) {
-            return;
-        }
-
-        if (!$model->address) {
-            return;
-        }
-
         try {
             [$city, $coordinates] = (new LocationCoordinatesAddressService())
                 ->getCityAndCoordinatesByAddress($model->address);
+
+            if (!$city) {
+                throw ValidationException::withMessages(['address' => ['wrong_address']]);
+            }
 
             $model->city_id = $city->id;
 
             $model->lat = $coordinates->getLat();
             $model->lng = $coordinates->getLng();
-        } catch (\Exception $e) {}
+        }
+        catch (\Exception $e) {
+            if ($e instanceof ValidationException) {
+                throw $e;
+            }
+
+            throw ValidationException::withMessages(['address' => [$e->getMessage()]]);
+        }
     }
 }

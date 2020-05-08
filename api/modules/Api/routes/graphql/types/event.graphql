@@ -67,7 +67,7 @@ input EventFilters {
     event_type_ids: [Int] @in(key: "event_type_id")
     status: Int @where
     user_status: Int @where
-    city_id: Int @where
+    city_id: Int @scope(name: "hasCity")
     cities: [Int] @in(key: "city_id")
     canton_id: Int @scope(name: "hasCanton")
     cantons: [Int] @scope(name: "hasCantons")

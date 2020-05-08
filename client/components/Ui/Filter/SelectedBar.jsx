@@ -7,7 +7,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
   const {t, i18n} = useTranslation();
 
   const getLabelFromOptions = (field, value) => {
-    if (!field) {
+    if (!field || !value) {
       return null;
     }
 
@@ -76,6 +76,9 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
     }
 
     setFilter(key, state);
+    if (key === 'canton_id') {
+      setFilter('city_id', '');
+    }
   };
 
   const clearAllValue = () => {

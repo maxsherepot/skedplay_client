@@ -9,23 +9,14 @@ import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
 import {useTranslation} from "react-i18next";
+import {Router} from 'lib/i18n';
 
-const GirlsSearch = ({ user, entityName, fields, filters }) => {
+const GirlsSearch = ({ user, entityName, fields, initialFilters, filters, redirectByFilters }) => {
   const [page, setPage] = usePagination();
-  const [filtersState, setFiltersState] = useState({});
+  const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
   const {t, i18n} = useTranslation();
-  console.log(filters[entityName]);
-  let stateFilters = filtersState;
 
-  if (Object.keys(filtersState).length === 0) {
-    stateFilters = filterHelpers.filterFilters(filters[entityName]);
-  }
-
-  let filteredFilters = stateFilters;
-
-  console.log(filteredFilters);
-
-  let filtersForQuery = Object.assign({}, filteredFilters);
+  let filtersForQuery = Object.assign({}, filtersState);
 
   // 1 - active, 2 - coming soon
   filtersForQuery.show_level = filtersForQuery.show_level ? [1, 2] : [1];
@@ -41,16 +32,17 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
   });
 
   function setFilter(key, value) {
-    filteredFilters[key] = value;
+    filtersState[key] = value;
 
-    setFiltersState(filterHelpers.filterFilters(filteredFilters));
+    setFiltersState(filterHelpers.filterFilters(filtersState));
 
-    refetch();
+    redirectByFilters(filterHelpers.filterFilters(filtersState));
   }
 
   function setFilters(filters) {
     setFiltersState(filterHelpers.filterFilters(filters));
-    refetch();
+
+    redirectByFilters(filterHelpers.filterFilters(filters));
   }
 
   const sorts = [
@@ -82,15 +74,15 @@ const GirlsSearch = ({ user, entityName, fields, filters }) => {
     <>
       <Filter
         name={filterName}
-        inititalState={filters[entityName]}
-        filters={filteredFilters}
+        inititalState={initialFilters[entityName]}
+        filters={filtersState}
         fields={fields}
         setFilter={setFilter}
         setFilters={setFilters}
         bgClass="employee-search"
       />
       <EmployeesBox
-        sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
+        sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filtersState.orderBy}/>}
         loading={employeesLoading}
         error={employeesError}
         page={page}
