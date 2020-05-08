@@ -128,10 +128,17 @@ class Club extends Resource
             Text::make('Email'),
             Text::make('Website'),
 
+            Text::make('Status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
             Select::make('Status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->displayUsingLabels(),
+            ])->displayUsingLabels()->onlyOnForms(),
 
             Text::make('Phones'),
             Text::make('Comment'),
@@ -147,10 +154,12 @@ class Club extends Resource
 
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
 
-            Text::make('Address'),
+            Text::make('Address')->hideFromIndex(),
             Text::make('Phones'),
 
-            BelongsTo::make('Manager', 'manager', User::class)->sortable(),
+            BelongsTo::make('Manager', 'manager', User::class)
+                ->sortable()
+                ->hideWhenCreating(),
 
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
@@ -161,7 +170,17 @@ class Club extends Resource
                 )->render();
             })->asHtml(),
 
-            Text::make('Comment'),
+            Text::make('User status', 'user_status', function() {
+                return ['user_status' => $this->status ?? 0];
+            })->onlyOnForms(),
+
+            Select::make('Status','status')->options([
+                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+            ])->displayUsingLabels()
+                ->onlyOnForms(),
+
+            Text::make('Comment')->hideFromIndex(),
         ];
     }
 
@@ -279,6 +298,7 @@ class Club extends Resource
     {
         return [
             new Tabs('Tabs', [
+                'About' => $this->getManagerTabFields(),
                 'Manager' => $this->getAdminTabFields(),
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
