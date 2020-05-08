@@ -102,7 +102,7 @@ function Nav({ user, className }) {
               </a>
             </Link>
             <ul className="menu">
-              <li className="menu__item menu__item_dropdown">
+              <li className="menu__item menu__item_dropdown select__section">
                 <ul>
                   <li>
                     <Link href="/girls">

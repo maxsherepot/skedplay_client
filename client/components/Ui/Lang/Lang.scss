@@ -20,6 +20,12 @@ nav {
     a.vip {
       color: #FF3366!important;
     }
+    &.select__section {
+      width: 5.5rem;
+    }
+    &.menu__item_dropdown .select__section {
+      width: 7rem;
+    }
   }
 }
 
