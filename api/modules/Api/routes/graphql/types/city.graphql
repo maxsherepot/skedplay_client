@@ -1,6 +1,8 @@
 type City {
     id: Int!
     name: String!
+    canton_id: Int
+    canton: Canton @belongsTo @with
 }
 
 extend type Query {

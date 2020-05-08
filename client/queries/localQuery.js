@@ -7,7 +7,8 @@ export const GET_FILTERS_STATE = gql`
 #        location
         type
         active
-        cantons
+        canton_id
+        city_id
         services
         gender
         user_status
@@ -27,7 +28,8 @@ export const GET_FILTERS_STATE = gql`
         active
         isVip
         services
-        cantons
+        canton_id
+        city_id
         gender
         user_status
         status
@@ -46,7 +48,8 @@ export const GET_FILTERS_STATE = gql`
         type
         active
         services
-        cantons
+        canton_id
+        city_id
         gender
         user_status
         status
@@ -61,7 +64,8 @@ export const GET_FILTERS_STATE = gql`
         }
       }
       clubs {
-        cantons
+        canton_id
+        city_id
         club_type
         start_time
         user_status
@@ -73,7 +77,8 @@ export const GET_FILTERS_STATE = gql`
 #        perimeter
       }
       events {
-        cantons
+        canton_id
+        city_id
         user_status
         status
         event_type

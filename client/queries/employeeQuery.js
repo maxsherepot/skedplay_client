@@ -7,6 +7,7 @@ export const ALL_EMPLOYEES = gql `
         id
         name
         age
+        type
         address
         index
         isVip
@@ -23,6 +24,10 @@ export const ALL_EMPLOYEES = gql `
         city {
           id
           name
+          canton {
+            id
+            name
+          }
         }
         lat
         lng
@@ -56,8 +61,8 @@ export const ALL_EMPLOYEES = gql `
 `;
 
 export const GET_EMPLOYEE = gql `
-  query getEmployee($id: ID!) {
-    employee(id: $id) {
+  query getEmployee($id: ID!, $canton_id: Int, $city_id: Int) {
+    employee(id: $id, canton_id: $canton_id, city_id: $city_id) {
       id
       first_name
       last_name
@@ -65,11 +70,20 @@ export const GET_EMPLOYEE = gql `
       birthday
       age
       gender
+      type
       service_for
       index
       email
       phone
       city_id
+      city {
+        id
+        name
+        canton {
+            id
+            name
+        }
+      }
       address
       type
       race_type_id

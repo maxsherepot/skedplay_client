@@ -4,7 +4,7 @@ import { Link } from 'lib/i18n'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader } from "UI";
-import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
+import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EVENTS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
@@ -16,20 +16,28 @@ import LangSelector from "UI/LangSelector";
 import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
+import slug from "slug";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, canton, city } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+
+  const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
+    CANTONS_AND_CITIES
+  );
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
     {
       variables: {
-        id
-      }
+        id,
+        canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
+        city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
+      },
+      skip: !!canton && cantonsLoading
     }
   );
 
@@ -45,6 +53,12 @@ const EmployeeInformation = ({ user }) => {
 
   if (employeeLoading || eventsLoading) {
     return <Loader/>;
+  }
+
+  if (!employee) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
   }
 
   const handleLightboxClick = index => {

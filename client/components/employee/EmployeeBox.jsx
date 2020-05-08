@@ -5,10 +5,31 @@ import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
+import slug from "slug";
 
 const EmployeeBox = ({ employee, user, viewed, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
+
+  const girlType = parseInt(employee.type) === 1
+    ? 'girls'
+    : 'trans';
+
+  const getHref = (page) => {
+    if (!employee.city || !employee.city.canton) {
+      return `/employees/id/information?id=${employee.id}`;
+    }
+
+    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`;
+  };
+
+  const getAs = (page) => {
+    if (!employee.city || !employee.city.canton) {
+      return `/employees/${employee.id}/information`;
+    }
+
+    return `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/${page}`;
+  };
 
   const leftInfo = (
     <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
@@ -56,8 +77,8 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/id/information?id=${employee.id}`}
-              as={`/employees/${employee.id}/information`}
+              href={getHref('information')}
+              as={getAs('information')}
             >
               <a>{t('account.links.information')}</a>
             </ActiveLink>
@@ -65,8 +86,8 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/id/events?id=${employee.id}`}
-              as={`/employees/${employee.id}/events`}
+              href={getHref('events')}
+              as={getAs('events')}
             >
               <a>{t('employees.events')}</a>
             </ActiveLink>
@@ -74,8 +95,8 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/employees/id/reviews?id=${employee.id}`}
-              as={`/employees/${employee.id}/reviews`}
+              href={getHref('reviews')}
+              as={getAs('reviews')}
             >
               <a>{t('common.reviews')}</a>
             </ActiveLink>
@@ -87,8 +108,8 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
             <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
               <ActiveLink
                 activeClassName="text-red"
-                href={`/employees/id/chat?id=${employee.id}`}
-                as={`/employees/${employee.id}/chat`}
+                href={getHref('chat')}
+                as={getAs('chat')}
               >
                 <a>{t('employees.chat')}</a>
               </ActiveLink>

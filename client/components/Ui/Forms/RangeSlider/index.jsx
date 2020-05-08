@@ -5,7 +5,7 @@ import { Field, useFormikContext } from "formik";
 import ReactSlider from 'react-slider';
 import { FormGroup } from "UI";
 
-const RangeSlider = ({ className, labelClassName, label, name, value: {from, to}, min = 18, max = 45 }) => {
+const RangeSlider = ({ className, labelClassName, label, name, value: {from = 18, to = 60} = {}, min = 18, max = 60 }) => {
   const { touched, errors, setFieldValue } = useFormikContext();
   const error = touched[name] && errors[name] ? errors[name] : null;
 
