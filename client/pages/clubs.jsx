@@ -37,7 +37,7 @@ function Clubs({user, isGeolocationEnabled}) {
   const clubsFilterUrl = new ClubsFilterUrl(
     query,
     {cantons, cities, types: club_types}
-    );
+  );
 
   if (clubsFilterUrl.pageNotFound()) {
     const err = new Error();

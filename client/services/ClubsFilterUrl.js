@@ -8,6 +8,7 @@ export default class ClubsFilterUrl {
   types = [];
   typeModels = [];
   urlPrefix = 'clubs';
+  typeKey = 'club_type_ids';
 
   constructor(input, models) {
     this.input = input;
@@ -39,7 +40,7 @@ export default class ClubsFilterUrl {
     filters = this.commonFilterUrl.setFilters(filters);
 
     if (this.typeModels && this.typeModels.length) {
-      filters.club_type_ids = this.typeModels.map(s => s.id);
+      filters[this.typeKey] = this.typeModels.map(s => s.id);
     }
 
     return filters;
@@ -53,15 +54,15 @@ export default class ClubsFilterUrl {
     as = `/${this.urlPrefix}${as}`;
     url = `/${this.urlPrefix}${url}`;
 
-    if (filters.club_type_ids && filters.club_type_ids.length) {
-      let typeModels = filters.club_type_ids.map(t => this.types.find(ct => parseInt(ct.id) === parseInt(t)));
+    if (filters[this.typeKey] && filters[this.typeKey].length) {
+      let typeModels = filters[this.typeKey].map(t => this.types.find(ct => parseInt(ct.id) === parseInt(t)));
       query.types = typeModels.map(s => slug(s.name)).sort();
       asQuery.types = query.types;
 
       if (canonical) {
         query.types = query.types[0];
         asQuery.types = asQuery.types[0];
-        needCanonical = filters.club_type_ids.length > 1;
+        needCanonical = filters[this.typeKey].length > 1;
       }
     }
 
