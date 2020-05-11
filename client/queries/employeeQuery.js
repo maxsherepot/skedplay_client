@@ -135,6 +135,14 @@ export const GET_EMPLOYEE = gql `
           club {
             id
             name
+            city {
+              id
+              name
+              canton {
+                id
+                name
+              }
+            }
           }
       }
       languages {

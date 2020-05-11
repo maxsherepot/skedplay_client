@@ -9,6 +9,7 @@ const GET_GIRLS = gql`
         id
         name
         age
+        type
         address
         isVip
         isNew
@@ -19,6 +20,10 @@ const GET_GIRLS = gql`
         city {
           id
           name
+          canton {
+            id
+            name
+          }
         }
         photos {
           id

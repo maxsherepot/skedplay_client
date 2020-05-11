@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import { ArrowNextSvg } from "icons";
 import { GirlCard } from "UI";
 import {useTranslation} from "react-i18next";
+import slug from "slug";
 
-const ClubGirlsBox = ({ employees }) => {
+const ClubGirlsBox = ({ employees, club }) => {
   const router = useRouter();
   const { id } = router.query;
   const {t, i18n} = useTranslation();
@@ -32,8 +33,8 @@ const ClubGirlsBox = ({ employees }) => {
           {t('common.our_girls')}
         </div>
         <Link
-          href={`/clubs/id/girls?id=${id}`}
-          as={`/clubs/${id}/girls`}
+          href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+          as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
         >
           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
             <ArrowNextSvg>

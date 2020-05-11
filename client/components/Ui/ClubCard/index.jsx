@@ -11,6 +11,7 @@ import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
+import slug from 'slug';
 
 function DistanceView({distanceKm, setEventMapId, id, city_name}) {
   const {t, i18n} = useTranslation();
@@ -121,8 +122,8 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
           </div>
           <div>
             <Link
-              href={`/clubs/id/information?id=${id}`}
-              as={`/clubs/${id}/information`}
+              href={`/clubs/canton/city/id/information?id=${id}&canton=${slug(city.canton.name)}&city=${slug(city.name)}`}
+              as={`/clubs/${slug(city.canton.name)}/${slug(city.name)}/${id}/information`}
             >
               <a>{name}</a>
             </Link>

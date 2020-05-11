@@ -8,6 +8,7 @@ import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
+import slug from "slug";
 
 const ClubEventShow = ({ user }) => {
   const router = useRouter();
@@ -42,8 +43,8 @@ const ClubEventShow = ({ user }) => {
             {t('clubs.event_in', {name: club.name})}
           </div>
           <Link
-            href={`/clubs/id/events?id=${club.id}`}
-            as={`/clubs/${club.id}/events`}
+            href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
           >
             <a className="block text-sm whitespace-no-wrap transition leading-loose hover:text-red ml-4">
               <ArrowNextSvg>

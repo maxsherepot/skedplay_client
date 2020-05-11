@@ -8,11 +8,16 @@ import {geolocated} from "react-geolocated";
 import EntitySearch from "components/EntitySearch";
 import ClubsBox from "components/ClubsBox";
 import helpers from "UI/Filter/helpers";
+import {useRouter} from "next/router";
+import ClubsFilterUrl from "../services/ClubsFilterUrl";
+import {Router} from "lib/i18n";
 
 const ENTITY_NAME = "clubs";
 
 function Clubs({user, isGeolocationEnabled}) {
   const {t, i18n} = useTranslation();
+
+  let {query} = useRouter();
 
   const {loading, data: {club_types} = {}} = useQuery(
     EVENTS_FILTER_OPTIONS
@@ -28,16 +33,40 @@ function Clubs({user, isGeolocationEnabled}) {
     return <Loader/>;
   }
 
+  const clubsFilterUrl = new ClubsFilterUrl(
+    query,
+    {cantons, cities, types: club_types}
+    );
+
+  if (clubsFilterUrl.pageNotFound()) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
+  }
+
+  const initialFilters = JSON.parse(JSON.stringify(filters));
+  const workFilters = JSON.parse(JSON.stringify(filters));
+
+  workFilters[ENTITY_NAME] = clubsFilterUrl.setFilters(workFilters[ENTITY_NAME]);
+
   const fields = helpers.getClubsFilters(cantons, cities, club_types, isGeolocationEnabled, t);
+
+  const redirectByFilters = (filters) => {
+    let {url, as} = clubsFilterUrl.getRouterParams(filters);
+
+    Router.replace(url, as, {shallow: true});
+  };
 
   return (
     <>
       <EntitySearch
         entityName={ENTITY_NAME}
         fields={fields}
-        filters={filters}
+        initialFilters={initialFilters}
+        filters={workFilters}
         Box={ClubsBox}
         entityQuery={ALL_CLUBS}
+        redirectByFilters={redirectByFilters}
       />
     </>
   );
