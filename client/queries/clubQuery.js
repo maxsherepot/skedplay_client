@@ -81,12 +81,12 @@ export const GET_CLUB = gql`
       index
       city_id
       city {
+        id
+        name
+        canton {
           id
           name
-          canton {
-              id
-              name
-          }
+        }
       }
       address
       lat
@@ -173,13 +173,14 @@ export const GET_CLUB = gql`
         id
         name
         age
+        type
         city {
+          id
+          name
+          canton {
             id
             name
-            canton {
-                id
-                name
-            }
+          }
         }
         address
         isVip

@@ -3,6 +3,10 @@ https://skidplay.tk {
     proxy / nextjs:3000
 }
 
+https://www.skidplay.tk {
+    redir https://skidplay.tk{uri} permanent
+}
+
 https://skidplay.tk:8080 {
     tls some@email.com
     root /app/public

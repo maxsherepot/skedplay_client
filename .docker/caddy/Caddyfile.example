@@ -2,6 +2,10 @@ http://demo.local {
     proxy / nextjs:3000
 }
 
+http://www.demo.local {
+    redir http://demo.local{uri} permanent
+}
+
 http://demo.local:8080 {
     tls off
     root /app/public

@@ -25,7 +25,18 @@ const handle = app.getRequestHandler();
     return handle(req, res);
   });
 
-  server.get('*', (req, res) => handle(req, res));
+  server.get('*', (req, res) => {
+    if (!/\/$/g.test(req.url)) {
+      return  res.redirect(301, req.url + '/');
+    }
+
+    req.url = req.url.replace(/\/$/, "");
+    if (req.url === "") {
+      req.url = "/"
+    }
+
+    return handle(req, res);
+  });
 
   await server.listen(port);
   console.log(`> Ready on http://localhost:${port}`); // eslint-disable-line no-console
