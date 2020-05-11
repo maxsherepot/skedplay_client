@@ -81,8 +81,9 @@ export default class CommonGirlsFilterUrl {
     return filters;
   }
 
-  getUrlParams(filters) {
+  getUrlParams(filters, canonical = false) {
     let {query, asQuery, as, url} = this.commonFilterUrl.getUrlParams(filters);
+    let needCanonical = false;
 
     as = `/${this.type}${as}`;
     url = `/${this.type}${url}`;
@@ -103,19 +104,31 @@ export default class CommonGirlsFilterUrl {
       let servicesModels = filters.services.map(s => this.services.find(sm => parseInt(sm.id) === parseInt(s)));
       query.services = servicesModels.map(s => slug(s.name)).sort();
       asQuery.services = query.services;
+
+      if (canonical) {
+        query.services = query.services[0];
+        asQuery.services = asQuery.services[0];
+        needCanonical = filters.services.length > 1;
+      }
     }
 
     if (filters.race_type_ids && filters.race_type_ids.length) {
       let raceTypeModels = filters.race_type_ids.map(t => this.races.find(et => parseInt(et.id) === parseInt(t)));
       query.races = raceTypeModels.map(s => slug(s.name)).sort();
       asQuery.races = query.races;
+
+      if (canonical) {
+        query.races = query.races[0];
+        asQuery.races = asQuery.races[0];
+        needCanonical = filters.race_type_ids.length > 1;
+      }
     }
 
-    return {query, asQuery, as, url};
+    return {query, asQuery, as, url, needCanonical};
   }
 
-  getRouterParams(filters) {
-    const {query, asQuery, as, url} = this.getUrlParams(filters);
+  getRouterParams(filters, canonical = false) {
+    const {query, asQuery, as, url, needCanonical} = this.getUrlParams(filters, canonical);
 
     let filterQueryString = queryString.stringify(query);
     if (filterQueryString) {
@@ -130,6 +143,7 @@ export default class CommonGirlsFilterUrl {
     return {
       url: url + filterQueryString,
       as: as + asQueryString,
+      needCanonical
     };
   }
 };

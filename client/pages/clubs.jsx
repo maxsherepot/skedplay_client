@@ -11,6 +11,7 @@ import helpers from "UI/Filter/helpers";
 import {useRouter} from "next/router";
 import ClubsFilterUrl from "../services/ClubsFilterUrl";
 import {Router} from "lib/i18n";
+import Head from "next/head";
 
 const ENTITY_NAME = "clubs";
 
@@ -57,8 +58,14 @@ function Clubs({user, isGeolocationEnabled}) {
     Router.replace(url, as, {shallow: true});
   };
 
+  const {as: canonical, needCanonical} = clubsFilterUrl.getRouterParams(workFilters[ENTITY_NAME], true);
+
   return (
     <>
+      <Head>
+        {needCanonical && <link rel="canonical" href={`${process.env.APP_URL}${canonical}`}/>}
+      </Head>
+
       <EntitySearch
         entityName={ENTITY_NAME}
         fields={fields}

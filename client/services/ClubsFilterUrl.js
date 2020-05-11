@@ -45,8 +45,10 @@ export default class ClubsFilterUrl {
     return filters;
   }
 
-  getUrlParams(filters) {
+  getUrlParams(filters, canonical = false) {
     let {query, asQuery, as, url} = this.commonFilterUrl.getUrlParams(filters);
+
+    let needCanonical = false;
 
     as = `/${this.urlPrefix}${as}`;
     url = `/${this.urlPrefix}${url}`;
@@ -55,13 +57,19 @@ export default class ClubsFilterUrl {
       let typeModels = filters.club_type_ids.map(t => this.types.find(ct => parseInt(ct.id) === parseInt(t)));
       query.types = typeModels.map(s => slug(s.name)).sort();
       asQuery.types = query.types;
+
+      if (canonical) {
+        query.types = query.types[0];
+        asQuery.types = asQuery.types[0];
+        needCanonical = filters.club_type_ids.length > 1;
+      }
     }
 
-    return {query, asQuery, as, url};
+    return {query, asQuery, as, url, needCanonical};
   }
 
-  getRouterParams(filters) {
-    const {query, asQuery, as, url} = this.getUrlParams(filters);
+  getRouterParams(filters, canonical = false) {
+    const {query, asQuery, as, url, needCanonical} = this.getUrlParams(filters, canonical);
 
     let filterQueryString = queryString.stringify(query);
     if (filterQueryString) {
@@ -76,6 +84,7 @@ export default class ClubsFilterUrl {
     return {
       url: url + filterQueryString,
       as: as + asQueryString,
+      needCanonical
     };
   }
 };

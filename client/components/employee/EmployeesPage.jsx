@@ -9,6 +9,7 @@ import helpers from "UI/Filter/helpers";
 import {useRouter} from "next/router";
 import {Router} from 'lib/i18n';
 import CommonGirlsFilterUrl from "services/CommonGirlsFilterUrl";
+import Head from 'next/head';
 
 const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
   const ENTITY_NAME = entityName;
@@ -61,6 +62,8 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
     fields.splice(fields.length - 2, 1);
   }
 
+  const {as: canonical, needCanonical} = commonGirlsFilterUrl.getRouterParams(workFilters[ENTITY_NAME], true);
+
   const redirectByFilters = (filters) => {
     let {url, as} = commonGirlsFilterUrl.getRouterParams(filters);
 
@@ -69,6 +72,10 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
 
   return (
     <>
+      <Head>
+        {needCanonical && <link rel="canonical" href={`${process.env.APP_URL}${canonical}`}/>}
+      </Head>
+
       <EmployeesSearch entityName={ENTITY_NAME} fields={fields} initialFilters={initialFilters} filters={workFilters} redirectByFilters={redirectByFilters} />
     </>
   );
