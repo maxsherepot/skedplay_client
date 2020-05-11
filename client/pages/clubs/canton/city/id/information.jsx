@@ -22,8 +22,9 @@ import {useTranslation} from "react-i18next";
 import Distance from "components/distance";
 import EmployeeMaps from "components/employee/EmployeeMaps";
 import {Formik} from "formik";
-import {CREATE_SUBSCRIBE_CLUB} from "queries/subscribeClub";
+import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES} from "queries";
 import {getErrors} from "utils/index";
+import slug from "slug";
 
 const DistanceView = ({ distanceKm }) => {
     if (!distanceKm) {
@@ -115,20 +116,35 @@ const SubscribeClubForm = ({clubId}) => {
 
 const ClubInformation = ({user}) => {
     const router = useRouter();
-    const {id} = router.query;
+    const {id, canton, city} = router.query;
 
     const [isShowPhone, toggleShowPhone] = useState(false);
 
+    const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
+      CANTONS_AND_CITIES
+    );
+
     const {data: {club} = {}, loading} = useQuery(GET_CLUB, {
         variables: {
-            id
-        }
+            id,
+            canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
+            city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
+        },
+        skip: !!canton && cantonsLoading
     });
+
     const {t, i18n} = useTranslation();
 
     if (loading) {
         return <Loader />;
     }
+
+    if (!club) {
+        const err = new Error();
+        err.code = 'ENOENT';
+        throw err;
+    }
+
     const logo_url = (club.logo !== null) ? club.logo['url'] : "/static/img/club-logo.png";
     const [event] = club.events;
     const [phone] = JSON.parse(club.phones);
@@ -234,7 +250,7 @@ const ClubInformation = ({user}) => {
 
             <div className="flex flex-wrap -mx-3">
                 <div className="w-full sm:w-8/12 lg:w-9/12 px-3">
-                    <ClubGirlsBox employees={club.employees}/>
+                    <ClubGirlsBox employees={club.employees} club={club}/>
                 </div>
                     {event && (
                         <>
@@ -250,8 +266,8 @@ const ClubInformation = ({user}) => {
                                 </div>
 
                                 <Link
-                                  href={`/clubs/id/events?id=${club.id}`}
-                                  as={`/clubs/${club.id}/events`}
+                                  href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+                                  as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
                                 >
                                     <a className="block text-sm whitespace-no-wrap transition hover:text-red">
                                         <ArrowNextSvg>

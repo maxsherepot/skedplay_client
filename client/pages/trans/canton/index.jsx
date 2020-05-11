@@ -1,3 +1,3 @@
-import Page from 'pages/girls/index';
+import Page from 'pages/trans/index';
 
 export default Page;

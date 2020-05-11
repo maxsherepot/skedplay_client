@@ -11,7 +11,7 @@ import filterHelpers from "UI/Filter/helpers";
 import {useTranslation} from "react-i18next";
 import {Router} from 'lib/i18n';
 
-const GirlsSearch = ({ user, entityName, fields, initialFilters, filters, redirectByFilters }) => {
+const GirlsSearch = ({ entityName, fields, initialFilters, filters, redirectByFilters }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
   const {t, i18n} = useTranslation();
@@ -92,14 +92,6 @@ const GirlsSearch = ({ user, entityName, fields, initialFilters, filters, redire
       />
     </>
   );
-};
-
-GirlsSearch.getInitialProps = async ctx => {
-  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
-  if (!user) {
-    return {};
-  }
-  return { user };
 };
 
 export default GirlsSearch;

@@ -9,6 +9,14 @@ const GET_EVENTS = gql`
         id
         title
         short_title
+        city {
+          id
+          name
+          canton {
+              id
+              name
+          }
+        }
         status
         user_status
         photos {
@@ -21,6 +29,14 @@ const GET_EVENTS = gql`
         }
         club {
           address
+          city {
+              id
+              name
+              canton {
+                  id
+                  name
+              }
+          }
         }
       }
     }

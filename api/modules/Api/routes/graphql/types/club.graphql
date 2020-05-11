@@ -97,7 +97,11 @@ extend type Query {
   club_types: [ClubType!]! @all
   clubs(filters: ClubFilters @spread): [Club!]! @paginate
   clubsSearch(filters: ClubFilters @spread): [Club!]! @all
-  club(id: ID @eq): Club @find
+  club(
+      id: ID @eq
+      canton_id: Int @scope(name: "hasCanton"),
+      city_id: Int @scope(name: "hasCity")
+  ): Club @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

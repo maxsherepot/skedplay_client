@@ -118,6 +118,26 @@ function GirlCard({
 
   const [photo] = girl.photos;
 
+  const girlType = parseInt(girl.type) === 1
+    ? 'girls'
+    : 'trans';
+
+  const getHref = () => {
+    if (!girl.city || !girl.city.canton) {
+      return `/employees/id/information?id=${girl.id}`;
+    }
+
+    return `/${girlType}/canton/city/id/information?id=${girl.id}&canton=${slug(girl.city.canton.name)}&city=${slug(girl.city.name)}`;
+  };
+
+  const getAs = () => {
+    if (!girl.city || !girl.city.canton) {
+      return `/employees/${girl.id}/information`;
+    }
+
+    return `/${girlType}/${slug(girl.city.canton.name)}/${slug(girl.city.name)}/${girl.id}/information`;
+  };
+
   const getLinkHtml = (girl) => {
     if (girl.soon) {
       return (
@@ -126,26 +146,6 @@ function GirlCard({
         </span>
       );
     }
-
-    const girlType = parseInt(girl.type) === 1
-      ? 'girls'
-      : 'trans';
-
-    const getHref = () => {
-      if (!girl.city || !girl.city.canton) {
-        return `/employees/id/information?id=${girl.id}`;
-      }
-
-      return `/${girlType}/canton/city/id/information?id=${girl.id}&canton=${slug(girl.city.canton.name)}&city=${slug(girl.city.name)}`;
-    };
-
-    const getAs = () => {
-      if (!girl.city || !girl.city.canton) {
-        return `/employees/${girl.id}/information`;
-      }
-
-      return `/${girlType}/${slug(girl.city.canton.name)}/${slug(girl.city.name)}/${girl.id}/information`;
-    };
 
     return (
       <Link
@@ -164,7 +164,7 @@ function GirlCard({
       return '';
     }
 
-    return `/employees/${girl.id}/information`;
+    return getAs();
   };
 
   return (

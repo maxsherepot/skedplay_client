@@ -6,6 +6,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { ClubBox } from "components/club";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
+import slug from "slug";
+import {Link} from "lib/i18n";
 
 const ClubEventsIndex = ({ user }) => {
   const router = useRouter();
@@ -35,9 +37,9 @@ const ClubEventsIndex = ({ user }) => {
               club.events.map(event => (
                 <EventCard
                   className="w-full md:w-1/2 lg:w-1/3"
-                  href={`/clubs/id/events`}
-                  as={`/clubs/${id}/events`}
-                  linkQueryParams={`?id=${id}`}
+                  href={`/clubs/canton/city/id/events`}
+                  as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
+                  linkQueryParams={`?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
                   key={event.id}
                   {...event}
                 />
