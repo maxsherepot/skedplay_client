@@ -103,6 +103,7 @@ export const GET_EMPLOYEE = gql `
        ... on User {
           id
           name
+          phone
         }
       ... on Club {
           id

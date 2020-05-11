@@ -61,27 +61,7 @@ export const {
   config,
   i18n,
   appWithTranslation,
-  // Link,
+  Link,
   Router,
   withTranslation,
 } = NextI18NextInstance;
-
-export const Link = ({as, href, ...rest}) => {
-  if (as && !/\/$/g.test(as)) {
-    as += '/';
-  }
-
-  if (typeof href === 'object') {
-    if (!/\/$/g.test(href.pathname)) {
-      href.pathname += '/';
-    }
-  } else {
-    if (!/\/$/g.test(href)) {
-      href += '/';
-    }
-  }
-
-  return (
-    <NextLink as={as} href={href} {...rest}/>
-  );
-};

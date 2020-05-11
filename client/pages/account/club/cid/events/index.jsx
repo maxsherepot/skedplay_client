@@ -6,7 +6,7 @@ import {getLayout} from "components/account/AccountLayout";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import {GET_CLUB, DELETE_EVENT} from "queries";
 import {Button, DeletePopup, Loader} from "UI";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {useTranslation} from "react-i18next";
 
 const EventCard = ({event, removeEvent}) => {

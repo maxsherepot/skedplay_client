@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import redirect from "lib/redirect";
 import {useRouter} from "next/router";
 import {Avatar, Button} from "UI";

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useRouter} from "next/router";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import cx from "classnames";
 import * as Yup from "yup";
 import checkLoggedIn from "lib/checkLoggedIn";

@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
 import { Loader } from "UI";
 import {useTranslation} from "react-i18next";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import slug from "slug";
 
 const EmployeeSchedule = ({ employee, ...rest }) => {

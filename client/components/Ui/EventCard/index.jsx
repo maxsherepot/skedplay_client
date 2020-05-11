@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { Button } from "UI";
 import EventLabel from "./EventLabel";
 import { FavoriteButton } from "components/favorite";

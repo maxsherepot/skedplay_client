@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { ArrowBack } from "UI";
 import redirect from "lib/redirect";
 import {UPDATE_USER} from "queries";

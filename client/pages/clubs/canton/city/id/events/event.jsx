@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { useQuery } from "@apollo/react-hooks";
 import { GET_CLUB, GET_EVENT } from "queries";
 import { Button, Gallery, EventLabel, Loader } from "UI";

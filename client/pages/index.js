@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {Header, Footer} from "UI";
 import {ArrowNextSvg} from "icons";
 import GirlsBox from "components/homepage/GirlsBox";

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import cx from "classnames";
 import moment from 'moment';
 

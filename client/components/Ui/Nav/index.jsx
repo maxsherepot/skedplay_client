@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 
 import { ProfileSvg } from "icons";
 import { Logo, Button, Lang, FavoritesCount } from "UI";

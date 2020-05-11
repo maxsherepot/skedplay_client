@@ -1,6 +1,6 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 
 const PrivateBox = ({ user }) => {
     const {t, i18n} = useTranslation();

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { ArrowNextSvg } from "icons";

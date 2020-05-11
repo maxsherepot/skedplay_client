@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
 import {Loader, SelectField, ArrowBack} from "UI";
 import {Formik} from "formik";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {useTranslation} from "react-i18next";
 
 const Breadcrumbs = () => {

@@ -26,16 +26,16 @@ export default class Centrifugo {
           user: user,
           timestamp: timestamp,
           token: token,
-          debug: true,
+          debug: false,
           sockjs: SockJS
         });
 
         centrifugeInstance.on('connect', function(context) {
-          console.log('connect', context);
+          // console.log('connect', context);
         });
 
         centrifugeInstance.on('disconnect', function(context) {
-          console.log('disconnect', context);
+          // console.log('disconnect', context);
         });
 
         centrifugeInstance.connect();
@@ -43,7 +43,7 @@ export default class Centrifugo {
         return centrifugeInstance;
       })
       .catch(res => {
-        console.log(res);
+        // console.log(res);
       });
 
     return this.instance;

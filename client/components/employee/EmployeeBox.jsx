@@ -6,8 +6,10 @@ import { SecondaryNav, Button, ActiveLink } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
+import {useQuery} from "@apollo/react-hooks";
+import { ALL_EMPLOYEES } from "queries";
 
-const EmployeeBox = ({ employee, user, viewed, children }) => {
+const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
 
@@ -49,15 +51,17 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
     </div>
   );
 
-  const rightInfo = (
+  const phone = employee.phone || employee.owner.phone;
+
+  const rightInfo = phone ? (
     <div className="flex items-center justify-center bg-red text-white px-8 py-3 rounded-full cursor-pointer">
-      <PhoneSvg></PhoneSvg>
+      <PhoneSvg/>
       <span
         className={cx("block ml-2 whitespace-no-wrap overflow-hidden", {
           "w-10": !showNumber
         })}
       >
-        +48715254152
+        {phone}
       </span>
       {!showNumber && (
         <span
@@ -68,7 +72,7 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
         </span>
       )}
     </div>
-  );
+  ) : null;
 
   return (
     <MainLayout user={user}>
@@ -124,7 +128,9 @@ const EmployeeBox = ({ employee, user, viewed, children }) => {
 
       <div className="fluid-container">
         {children}
-        {viewed && <GirlsViewedBox />}
+        {viewed &&
+          <GirlsViewedBox employees={employees}/>
+        }
       </div>
     </MainLayout>
   );

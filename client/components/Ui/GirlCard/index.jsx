@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
