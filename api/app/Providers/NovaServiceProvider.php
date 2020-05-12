@@ -18,6 +18,7 @@ use App\Nova\ParameterOption;
 use App\Nova\Photo;
 use App\Nova\Race;
 use App\Nova\Role;
+use App\Nova\RoleUser;
 use App\Nova\Service;
 use App\Nova\UiTranslate;
 use App\Nova\User;
@@ -125,6 +126,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             User::class,
             Employee::class,
             Role::class,
+            //RoleUser::class,
             Verification::class,
 
             Club::class,

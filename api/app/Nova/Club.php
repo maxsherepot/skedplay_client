@@ -140,7 +140,17 @@ class Club extends Resource
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->displayUsingLabels()->onlyOnForms(),
 
-            Text::make('Phones'),
+            Select::make('User status', 'user_status')->options([
+                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+            ])->onlyOnForms(),
+
+            Text::make('Phones')->withMeta([
+                'extraAttributes' => [
+                    'placeholder' => '+4171-111-11-11',
+                ],
+            ]),
+
             Text::make('Comment'),
         ];
     }
@@ -155,7 +165,11 @@ class Club extends Resource
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
 
             Text::make('Address')->hideFromIndex(),
-            Text::make('Phones'),
+            Text::make('Phones')->withMeta([
+                'extraAttributes' => [
+                    'placeholder' => '+4171-111-11-11',
+                ],
+            ]),
 
             BelongsTo::make('Manager', 'manager', User::class)
                 ->sortable()
@@ -170,9 +184,10 @@ class Club extends Resource
                 )->render();
             })->asHtml(),
 
-            Text::make('User status', 'user_status', function() {
-                return ['user_status' => $this->status ?? 0];
-            })->onlyOnForms(),
+            Select::make('User status', 'user_status')->options([
+                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+            ])->onlyOnForms(),
 
             Select::make('Status','status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
