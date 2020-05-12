@@ -7,7 +7,7 @@ import {Loader} from "UI";
 import {
     GET_EMPLOYEE,
 } from "queries";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import ArrowBack from "UI/ArrowBack";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";

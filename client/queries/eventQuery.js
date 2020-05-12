@@ -6,6 +6,14 @@ export const ALL_EVENTS = gql`
             data {
                 id
                 title
+                city {
+                    id
+                    name
+                    canton {
+                        id
+                        name
+                    }
+                }
                 address
                 lat
                 lng
@@ -27,6 +35,14 @@ export const ALL_EVENTS = gql`
                 }
                 club {
                     name
+                    city {
+                        id
+                        name
+                        canton {
+                            id
+                            name
+                        }
+                    }
                     address
                     lat
                     lng
@@ -65,6 +81,14 @@ export const EVENTS_BY_OWNER = gql`
         eventsByOwner(owner_id: $owner_id, owner_type: $owner_type) {
             id
             title
+            city {
+                id
+                name
+                canton {
+                    id
+                    name
+                }
+            }
             address
             description
             mainPhoto {
@@ -81,6 +105,14 @@ export const EVENTS_BY_OWNER = gql`
             }
             club {
                 name
+                city {
+                    id
+                    name
+                    canton {
+                        id
+                        name
+                    }
+                }
                 address
                 lat
                 lng
@@ -110,6 +142,14 @@ export const GET_EVENT = gql`
             title
             description
             mode
+            city {
+                id
+                name
+                canton {
+                    id
+                    name
+                }
+            }
             address
             lat
             lng
@@ -138,6 +178,14 @@ export const GET_EVENT = gql`
             }
             club {
                 name
+                city {
+                    id
+                    name
+                    canton {
+                        id
+                        name
+                    }
+                }
                 address
                 lat
                 lng

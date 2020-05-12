@@ -4,7 +4,7 @@ import cx from "classnames";
 import Slider from "react-slick";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 
 function PrevArrow({ className, currentSlide, onClick }) {
   const disabled = currentSlide <= 0;

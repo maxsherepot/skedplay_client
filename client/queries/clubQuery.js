@@ -7,6 +7,14 @@ export const ALL_CLUBS = gql`
         id
         name
         address
+        city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
         phones
         lat
         lng
@@ -66,12 +74,20 @@ export const CLUBS_SEARCH = gql`
 `;
 
 export const GET_CLUB = gql`
-  query getClub($id: ID!) {
-    club(id: $id) {
+  query getClub($id: ID!, $canton_id: Int, $city_id: Int) {
+    club(id: $id, canton_id: $canton_id, city_id: $city_id) {
       id
       name
       index
       city_id
+      city {
+        id
+        name
+        canton {
+          id
+          name
+        }
+      }
       address
       lat
       lng
@@ -157,6 +173,15 @@ export const GET_CLUB = gql`
         id
         name
         age
+        type
+        city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
         address
         isVip
         isNew

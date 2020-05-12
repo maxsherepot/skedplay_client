@@ -53,6 +53,8 @@ const NextI18NextInstance = new NextI18Next({
   }
 });
 
+const {Link: NextLink} = NextI18NextInstance;
+
 export default NextI18NextInstance;
 
 export const {

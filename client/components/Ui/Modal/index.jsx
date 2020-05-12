@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import PropTypes from "prop-types";
 
 function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle}) {

@@ -148,6 +148,14 @@ export const FAVORITE_EMPLOYEES = gql`
             index
             lat
             lng
+            city {
+                id
+                name
+                canton {
+                    id
+                    name
+                }
+            }
             address
             isVip
             isNew
@@ -167,6 +175,14 @@ export const FAVORITE_CLUBS = gql`
         favoriteClubs(id: $id) {
             id
             name
+            city {
+                id
+                name
+                canton {
+                    id
+                    name
+                }
+            }
             address
             lat
             lng
@@ -193,7 +209,23 @@ export const FAVORITE_EVENTS = gql`
             favorited {
                 id
             }
+            city {
+                id
+                name
+                canton {
+                    id
+                    name
+                }
+            }
             club {
+                city {
+                    id
+                    name
+                    canton {
+                        id
+                        name
+                    }
+                }
                 address
                 services {
                     id

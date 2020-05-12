@@ -3,6 +3,7 @@
 namespace Modules\Common\Services\Location;
 
 use GuzzleHttp\Client;
+use Modules\Common\Entities\Canton;
 use Modules\Common\Entities\City;
 
 class LocationCoordinatesAddressService
@@ -45,13 +46,30 @@ class LocationCoordinatesAddressService
 
         $addressComponents = collect($responseData['results'][0]['address_components']);
 
+        $countryComponent = $addressComponents->filter(function($addressComponent) {
+            return array_diff($addressComponent['types'], ["country", "political"]) === [];
+        })->first();
+
+        $country = $countryComponent['short_name'];
+
+        if ($country !== 'CH') {
+            throw new \Exception('wrong_country');
+        }
+
         $cityComponent = $addressComponents->filter(function($addressComponent) {
             return array_diff($addressComponent['types'], ["locality", "political"]) === [];
         })->first();
 
         $city = $cityComponent['long_name'];
 
-        $cityModel = City::query()->firstOrCreate(['name' => $city]);
+        $cantonComponent = $addressComponents->filter(function($addressComponent) {
+            return array_diff($addressComponent['types'], ["administrative_area_level_1", "political"]) === [];
+        })->first();
+
+        $canton = $cantonComponent['long_name'];
+
+        $cantonModel = Canton::query()->firstOrCreate(['name' => $canton]);
+        $cityModel = City::query()->firstOrCreate(['name' => $city, 'canton_id' => $cantonModel->id]);
 
         return [
             $cityModel,

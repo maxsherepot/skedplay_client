@@ -7,19 +7,11 @@ import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
 
-const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) => {
+const EntitySearch = ({ entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters }) => {
   const [page, setPage] = usePagination();
-  const [filtersState, setFiltersState] = useState({});
+  const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
 
-  let stateFilters = filtersState;
-
-  if (Object.keys(filtersState).length === 0) {
-    stateFilters = filterHelpers.filterFilters(filters[entityName]);
-  }
-
-  let filteredFilters = stateFilters;
-
-  let filtersForQuery = Object.assign({}, filteredFilters);
+  let filtersForQuery = Object.assign({}, filtersState);
 
   const { loading: entitiesLoading, error: entitiesError, data = {}, refetch, networkStatus } = useQuery(entityQuery, {
     variables: {
@@ -34,16 +26,17 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
   const entities = data[entityName];
 
   function setFilter(key, value) {
-    filteredFilters[key] = value;
+    filtersState[key] = value;
 
-    setFiltersState(filterHelpers.filterFilters(filteredFilters));
+    setFiltersState(filterHelpers.filterFilters(filtersState));
 
-    refetch();
+    redirectByFilters(filterHelpers.filterFilters(filtersState));
   }
 
   function setFilters(filters) {
     setFiltersState(filterHelpers.filterFilters(filters));
-    refetch();
+
+    redirectByFilters(filterHelpers.filterFilters(filters));
   }
 
   let sorts = [];
@@ -77,8 +70,8 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
     <>
       <Filter
         name={entityName}
-        inititalState={filters[entityName]}
-        filters={filteredFilters}
+        inititalState={initialFilters[entityName]}
+        filters={filtersState}
         fields={fields}
         setFilter={setFilter}
         setFilters={setFilters}
@@ -86,7 +79,7 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
       />
       {entityName === 'clubs' ? (
           <Box
-              sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filteredFilters.orderBy}/>}
+              sortComponent={<Sort sorts={sorts} setFilter={setFilter} orderBy={filtersState.orderBy}/>}
               loading={entitiesLoading}
               error={entitiesError}
               page={page}
@@ -107,14 +100,6 @@ const EntitySearch = ({ user, entityName, fields, filters, Box, entityQuery }) =
 
     </>
   );
-};
-
-EntitySearch.getInitialProps = async ctx => {
-  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
-  if (!user) {
-    return {};
-  }
-  return { user };
 };
 
 export default EntitySearch;

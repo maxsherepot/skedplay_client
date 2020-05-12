@@ -7,6 +7,7 @@ type Event {
     description: String!
     favorited: Favorite @morphOne @with(relation: "favoriteRelation")
     address: String
+    city: City @belongsTo
     user_status: Int
     status: Int
     isSent: Boolean
@@ -67,6 +68,9 @@ input EventFilters {
     event_type_ids: [Int] @in(key: "event_type_id")
     status: Int @where
     user_status: Int @where
+    city_id: Int @scope(name: "hasCity")
+    cities: [Int] @in(key: "city_id")
+    canton_id: Int @scope(name: "hasCanton")
     cantons: [Int] @scope(name: "hasCantons")
     close_to: Distance @scope(name: "closeTo")
     date: Date @scope(name: "ofDate")

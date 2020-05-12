@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import Router, {useRouter} from "next/router";
 import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';

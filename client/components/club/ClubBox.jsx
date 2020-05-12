@@ -2,6 +2,7 @@ import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink } from "UI";
 import {useTranslation} from "react-i18next";
+import slug from 'slug';
 
 const ClubBox = ({ club, user, children }) => {
   const {t, i18n} = useTranslation();
@@ -27,8 +28,8 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/id/information?id=${club.id}`}
-              as={`/clubs/${club.id}/information`}
+              href={`/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`}
             >
               <a>{t('clubs.information')}</a>
             </ActiveLink>
@@ -36,8 +37,8 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/id/girls?id=${club.id}`}
-              as={`/clubs/${club.id}/girls`}
+              href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
             >
               <a>{t('common.our_girls')}</a>
             </ActiveLink>
@@ -45,8 +46,8 @@ const ClubBox = ({ club, user, children }) => {
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
               activeClassName="text-red"
-              href={`/clubs/id/events?id=${club.id}`}
-              as={`/clubs/${club.id}/events`}
+              href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
             >
               <a>{t('layout.events')}</a>
             </ActiveLink>

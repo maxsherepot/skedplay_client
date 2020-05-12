@@ -60,7 +60,7 @@ class EmployeeTableSeeder extends Seeder
             'age'         => random_int(20, 50),
             'description' => $this->faker->text,
             'text'        => $this->faker->text(1000),
-            'type'        => random_int(1, 3),
+            'type'        => random_int(1, 2),
             'address'     => $this->faker->address,
             'lat'         => $this->faker->latitude,
             'lng'         => $this->faker->longitude,

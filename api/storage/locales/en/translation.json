@@ -101,7 +101,9 @@
     "change": "Change",
     "or": "Or",
     "not_selected": "Not selected",
-    "workers": "workers"
+    "workers": "workers",
+    "canton": "Canton",
+    "all": "All"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -276,7 +278,10 @@
     "page_not_found": "PAGE NOT FOUND",
     "sorry_not_found": "We're sorry, the page you requested could not be found.",
     "error_occurred": "An error occurred on server",
-    "server_error": "Server error"
+    "server_error": "Server error",
+    "google_map_api_request_fail": "Unknown address",
+    "wrong_address": "Wrong address",
+    "wrong_country": "Supports only Switzerland addresses"
   },
   "invoices": {
     "page": "Invoice page"

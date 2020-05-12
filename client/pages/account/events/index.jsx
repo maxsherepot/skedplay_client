@@ -10,7 +10,7 @@ import {
     GET_MY_EMPLOYEE_EVENTS_COUNT,
 } from "queries";
 import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {useTranslation} from "react-i18next";
 import EventLabel from "UI/EventCard/EventLabel";
 

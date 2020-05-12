@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import redirect from "lib/redirect";
 import cx from "classnames";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {getLayout} from "components/account/AccountLayout";

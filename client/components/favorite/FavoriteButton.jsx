@@ -62,7 +62,7 @@ const FavoriteButton = ({ variables, favorited, ...rest }) => {
     Cookies.set(cookieKey, JSON.stringify(favoritesIds), { expires: 365 });
     client.writeData({
       data: {
-        favorites_count
+        favorites_count: favorites_count || 0
       }
     });
   };

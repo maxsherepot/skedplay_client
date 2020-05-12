@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {Button, Loader, SelectField, LocationSearchInput, CheckboxField} from "UI";
 import {UserSvg, StarSvg, PhotoSvg, VideoSvg} from "icons";
 import {useTranslation} from "react-i18next";

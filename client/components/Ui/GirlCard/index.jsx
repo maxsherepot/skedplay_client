@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import { Badge, Slick } from "UI";
 import { FavoriteButton } from "components/favorite";
 import { MessageSvg, CocktailSvg } from "icons";
 import Distance from "components/distance";
 import {useTranslation} from "react-i18next";
 import MapSvg from "components/icons/MapSvg";
+import slug from "slug";
 
 function GirlCard({
   className,
@@ -117,6 +118,26 @@ function GirlCard({
 
   const [photo] = girl.photos;
 
+  const girlType = parseInt(girl.type) === 1
+    ? 'girls'
+    : 'trans';
+
+  const getHref = () => {
+    if (!girl.city || !girl.city.canton) {
+      return `/employees/id/information?id=${girl.id}`;
+    }
+
+    return `/${girlType}/canton/city/id/information?id=${girl.id}&canton=${slug(girl.city.canton.name)}&city=${slug(girl.city.name)}`;
+  };
+
+  const getAs = () => {
+    if (!girl.city || !girl.city.canton) {
+      return `/employees/${girl.id}/information`;
+    }
+
+    return `/${girlType}/${slug(girl.city.canton.name)}/${slug(girl.city.name)}/${girl.id}/information`;
+  };
+
   const getLinkHtml = (girl) => {
     if (girl.soon) {
       return (
@@ -128,8 +149,8 @@ function GirlCard({
 
     return (
       <Link
-        href={girl.soon ? "" : `/employees/id/information?id=${girl.id}`}
-        as={girl.soon ? "" : `/employees/${girl.id}/information`}
+        href={getHref()}
+        as={getAs()}
       >
         <a className="text-sm font-medium leading-tight hover:text-red">
           {girl.name}, {girl.age}
@@ -143,7 +164,7 @@ function GirlCard({
       return '';
     }
 
-    return `/employees/${girl.id}/information`;
+    return getAs();
   };
 
   return (

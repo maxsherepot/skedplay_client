@@ -85,6 +85,9 @@ input ClubFilters {
   user_status: Int @where
   orderBy: [OrderByClause!] @orderBy
   close_to: Distance @scope(name: "closeTo")
+  city_id: Int @scope(name: "hasCity")
+  cities: [Int] @in(key: "city_id")
+  canton_id: Int @scope(name: "hasCanton")
   cantons: [Int] @scope(name: "hasCantons")
   search: String @where(operator: "like", key: "name")
   __typename: String
@@ -94,7 +97,11 @@ extend type Query {
   club_types: [ClubType!]! @all
   clubs(filters: ClubFilters @spread): [Club!]! @paginate
   clubsSearch(filters: ClubFilters @spread): [Club!]! @all
-  club(id: ID @eq): Club @find
+  club(
+      id: ID @eq
+      canton_id: Int @scope(name: "hasCanton"),
+      city_id: Int @scope(name: "hasCity")
+  ): Club @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

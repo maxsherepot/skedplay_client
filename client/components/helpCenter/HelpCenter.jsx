@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import {Loader, PageCard} from "UI";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";

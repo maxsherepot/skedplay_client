@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Link } from 'lib/i18n'
+import {Link} from 'lib/i18n'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader } from "UI";
-import { GET_EMPLOYEE, ALL_EVENTS } from "queries";
+import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EVENTS, ALL_EMPLOYEES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
@@ -16,20 +16,29 @@ import LangSelector from "UI/LangSelector";
 import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
+import slug from "slug";
+import Head from "next/head";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, canton, city } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+
+  const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
+    CANTONS_AND_CITIES
+  );
 
   const { data: { employee } = {}, loading: employeeLoading } = useQuery(
     GET_EMPLOYEE,
     {
       variables: {
-        id
-      }
+        id,
+        canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
+        city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
+      },
+      skip: !!canton && cantonsLoading
     }
   );
 
@@ -43,9 +52,34 @@ const EmployeeInformation = ({ user }) => {
     }
   );
 
-  if (employeeLoading || eventsLoading) {
+  const { data: employeesData, loadingEmployees, error } = useQuery(ALL_EMPLOYEES, {
+    variables: {
+      first: 8,
+      page: 1
+    }
+  });
+
+  if (cantonsLoading || employeeLoading || eventsLoading || loadingEmployees) {
     return <Loader/>;
   }
+
+  const employees = employeesData.employees.data || [];
+
+  if (!employees) {
+    return <Loader/>;
+  }
+
+  if (!canton || !city || !employee) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
+  }
+
+  const girlType = parseInt(employee.type) === 1
+    ? 'girls'
+    : 'trans';
+
+  const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}${girlType}/${canton}/${city}/${employee.id}/information/`;
 
   const handleLightboxClick = index => {
     setLightboxIndex(index);
@@ -98,8 +132,8 @@ const EmployeeInformation = ({ user }) => {
           {t('employees.nachste_event')}
         </div>
         <Link
-          href={`/employees/id/events?id=${employee.id}`}
-          as={`/employees/${employee.id}/events`}
+          href={`/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
+          as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
         >
           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
             <ArrowNextSvg>
@@ -110,7 +144,12 @@ const EmployeeInformation = ({ user }) => {
       </div>
 
       <div className="-mx-3">
-        <EventCard href={`/employees/${id}/events`} {...event} />
+        <EventCard
+          href={`/${girlType}/canton/city/id/events`}
+          linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
+          as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+          {...event}
+        />
       </div>
     </>
   );
@@ -173,9 +212,9 @@ const EmployeeInformation = ({ user }) => {
                   <div className="line" />
                   <div className="w-32">
                     {employee.service_for.map((gender, i) => (
-                      <>
+                      <span key={i}>
                         {getServiceFor(gender)}{i < employee.service_for.length - 1 ? ', ' : ''}
-                      </>
+                      </span>
                     ))}
 
                   </div>
@@ -234,23 +273,28 @@ const EmployeeInformation = ({ user }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={user}>
-      {!user && (employee.isVip === true) ? (
+    <>
+      <Head>
+        <link rel="canonical" href={canonical}/>
+      </Head>
+
+      <EmployeeBox employee={employee} user={user} employees={employees}>
+        {!user && (employee.isVip === true) ? (
           <div>
-              <Modal
-                  title={t('common.login')}
-                  right={<LangSelector />}
-                  modalDialogStyle={{height: '650px'}}
-              >
-                <div className="mt-3 bg-red p-3 w-2/3 text-center mx-auto">
+            <Modal
+              title={t('common.login')}
+              right={<LangSelector />}
+              modalDialogStyle={{height: '650px'}}
+            >
+              <div className="mt-3 bg-red p-3 w-2/3 text-center mx-auto">
                   <span className="text-white">
                     {t('employees.available_only_for_authorized')}
                   </span>
-                </div>
-                <LoginBox />
-              </Modal>
+              </div>
+              <LoginBox />
+            </Modal>
           </div>
-      ) : (
+        ) : (
           <>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
               <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
@@ -269,8 +313,8 @@ const EmployeeInformation = ({ user }) => {
               </div>
               <div className="w-full hd:w-2/5 px-3">
                 <EmployeeSchedule
-                    title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
-                    employee={employee}
+                  title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
+                  employee={employee}
                 />
               </div>
             </div>
@@ -279,8 +323,9 @@ const EmployeeInformation = ({ user }) => {
               <EmployeeMaps employee={employee} goBtn={true}/>
             </div>
           </>
-      )}
-    </EmployeeBox>
+        )}
+      </EmployeeBox>
+    </>
   );
 };
 

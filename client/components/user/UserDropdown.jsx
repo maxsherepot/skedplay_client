@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import redirect from "lib/redirect";
 import { useApolloClient } from "@apollo/react-hooks";
 import { AddSvg, ProfileSvg } from "icons";

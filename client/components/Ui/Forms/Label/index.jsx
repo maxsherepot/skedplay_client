@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
 import Popover from 'react-tiny-popover'
+import {useTranslation} from "react-i18next";
 
 function Label({
   name,
@@ -14,9 +15,16 @@ function Label({
   let showTooltip = false;
 
   const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const {t} = useTranslation();
 
-  if (error ) {
+  const checkHasTranslation = key => t(key) !== key;
+
+  if (error) {
     errorText = label;
+    console.log(checkHasTranslation(`errors.${errorText}`));
+    if (checkHasTranslation(`errors.${errorText}`)) {
+      errorText = t(`errors.${errorText}`);
+    }
     showTooltip = true;
   }
 

@@ -13,6 +13,10 @@ const GET_CLUBS = gql`
                 city {
                     id
                     name
+                    canton {
+                        id
+                        name
+                    }
                 }
                 address
                 lat

@@ -9,6 +9,7 @@ use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\ExportTranslates;
+use Modules\Main\Console\GenerateEntitiesAddresses;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
 use Modules\Users\Console\AddAdminMessageToChats;
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
         CheckEventsNotification::class,
         AddAdminMessageToChats::class,
         SetDefaultStatus::class,
+        GenerateEntitiesAddresses::class,
     ];
 
     /**

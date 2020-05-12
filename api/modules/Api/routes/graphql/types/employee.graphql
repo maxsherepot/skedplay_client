@@ -7,7 +7,7 @@ type Employee {
   name: String!
   index: String
   city_id: Int
-  city: City @belongsTo
+  city: City @belongsTo @with
   address: String
   description: String
   isVip: Boolean
@@ -116,15 +116,20 @@ input EmployeeFilters {
   race_type_ids: [String] @in(key: "race_type_id")
   show_level: [Int] @in
   close_to: Distance @scope(name: "closeTo")
-  city_id: Int @where
+  city_id: Int @scope(name: "hasCity")
   cities: [Int] @in(key: "city_id")
+  canton_id: Int @scope(name: "hasCanton")
   cantons: [Int] @scope(name: "hasCantons")
   __typename: String
 }
 
 extend type Query {
   employees(filters: EmployeeFilters @spread): [Employee!]! @paginate
-  employee(id: ID @eq): Employee @find
+  employee(
+      id: ID! @eq,
+      canton_id: Int @scope(name: "hasCanton"),
+      city_id: Int @scope(name: "hasCity")
+  ): Employee @find
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {

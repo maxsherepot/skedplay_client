@@ -40,7 +40,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
               setFilters(values);
             }}
           >
-            {({ handleSubmit, isSubmitting }) => (
+            {({ handleSubmit, isSubmitting, values, setFieldValue }) => (
               <form
                 className="flex flex-col flex-wrap items-center justify-between lg:flex-row"
                 onSubmit={handleSubmit}
@@ -56,7 +56,10 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
-                            ></SelectField>
+                              placeholder={rest.handlePlaceholder ? rest.handlePlaceholder(values) : rest.placeholder}
+                              options={rest.filterOptions ? rest.filterOptions(rest.options, values) : rest.options}
+                              onSelect={value => rest.handleChange ? rest.handleChange(value, setFieldValue) : null}
+                            />
                           );
 
                         case "multi-select":
@@ -66,7 +69,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
-                            ></MultiSelectField>
+                            />
                           );
 
                         case "slider":
@@ -77,7 +80,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></Slider>
+                            />
                           );
 
                         case "distance-slider":
@@ -88,7 +91,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></DistanceSlider>
+                            />
                           );
 
                         case "range":
@@ -99,7 +102,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
-                            ></RangeSlider>
+                            />
                           );
 
                         case "checkbox":
@@ -113,7 +116,7 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
                                 }}
                                 {...rest}
                                 value={filters[rest.name]}
-                              ></CheckboxField>
+                              />
                             </div>
                           );
 
@@ -138,7 +141,14 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
         </div>
       </div>
 
-      <SelectedBar name={name} fields={fields} inititalState={inititalState} filters={filters} setFilter={setFilter} setFilters={setFilters} />
+      <SelectedBar
+        name={name}
+        fields={fields}
+        inititalState={inititalState}
+        filters={filters}
+        setFilter={setFilter}
+        setFilters={setFilters}
+      />
     </>
   );
 }

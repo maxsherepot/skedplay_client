@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Link } from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import Slider from "react-slick";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
@@ -9,19 +9,13 @@ import { ALL_EMPLOYEES } from "queries";
 import { ArrowNextSvg } from "icons";
 import { GirlCard, Loader } from "UI";
 
-const GirlsViewedBox = () => {
+const GirlsViewedBox = ({employees}) => {
   const [index, setIndex] = useState(0);
   const {t, i18n} = useTranslation();
 
-  const { data, loading, error } = useQuery(ALL_EMPLOYEES, {
-    variables: {
-      first: 8,
-      page: 1
-    }
-  });
-
-  if (loading) return <Loader/>;
-  if (error) return <div>{error.message}</div>;
+  if (!employees) {
+    employees = [];
+  }
 
   const appendDots = dots => (
     <ul
@@ -127,8 +121,8 @@ const GirlsViewedBox = () => {
         responsive={responsive}
         beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
       >
-        {data.employees &&
-          data.employees.data.map(employee => (
+        {employees &&
+          employees.map(employee => (
             <div
               key={employee.id}
               className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
@@ -139,11 +133,11 @@ const GirlsViewedBox = () => {
       </Slider>
 
       <div className="girls hidden lg:flex hd:hidden -mx-3">
-        {renderRows(data.employees.data, 5, "lg:flex-1")}
+        {renderRows(employees, 5, "lg:flex-1")}
       </div>
 
       <div className="girls hidden hd:flex justify-between -mx-3">
-        {renderRows(data.employees.data, 8, "w-38")}
+        {renderRows(employees, 8, "w-38")}
       </div>
     </>
   );
