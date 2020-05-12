@@ -193,7 +193,7 @@ function GirlCard({
           labels={labels ? <Labels girl={girl} /> : null}
           slider={slider}
           available={available}
-          link={`/employees/id/information?id=${girl.id}`}
+          link={getHref()}
           as={getLink(girl)}
         />
       )}

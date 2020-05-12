@@ -9,10 +9,11 @@ import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
+import Head from "next/head";
 
 const ClubEventShow = ({ user }) => {
   const router = useRouter();
-  const { id, event: eventId } = router.query;
+  const { id, event: eventId, canton, city } = router.query;
   const {t, i18n} = useTranslation();
 
   const { data: { club } = {}, loading: clubLoading } = useQuery(GET_CLUB, {
@@ -30,6 +31,14 @@ const ClubEventShow = ({ user }) => {
   if (clubLoading || eventLoading) {
     return <Loader/>;
   }
+
+  if (!club || !event || parseInt(event.owner_id) !== parseInt(club.id)) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
+  }
+
+  const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}clubs/${canton}/${city}/${club.id}/events/${event.id}/`;
 
   const [photo] = event && event.photos;
 
@@ -88,15 +97,21 @@ const ClubEventShow = ({ user }) => {
   );
 
   return (
-    <ClubBox club={club} user={user}>
-      <div className="flex flex-wrap -mx-3">
-        <div className="w-full lg:w-2/5 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
-          {sidebarColumn}
+    <>
+      <Head>
+        <link rel="canonical" href={canonical}/>
+      </Head>
+
+      <ClubBox club={club} user={user}>
+        <div className="flex flex-wrap -mx-3">
+          <div className="w-full lg:w-2/5 px-3">
+            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            {sidebarColumn}
+          </div>
+          <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
         </div>
-        <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>
-      </div>
-    </ClubBox>
+      </ClubBox>
+    </>
   );
 };
 

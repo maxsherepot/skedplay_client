@@ -152,7 +152,6 @@ const ClubInformation = ({user}) => {
 
   const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}clubs/${canton}/${city}/${club.id}/information/`;
 
-
   const Contacts = () => (
     <>
       <div className="text-2xl font-extrabold my-5">{t('clubs.address_and_contacts')}</div>

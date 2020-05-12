@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
 
-import { ALL_EMPLOYEES } from "queries";
 import { ArrowNextSvg } from "icons";
 import { GirlCard, Loader } from "UI";
 

@@ -121,6 +121,11 @@ export const GET_EMPLOYEE = gql `
           id
           name
         }
+        photos {
+          id
+          url
+          thumb_url
+        }
       }
       schedule {
           id
@@ -262,6 +267,14 @@ export const GET_EMPLOYEE_SCHEDULE = gql `
         id
         name
         phones
+        city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
       }
     }
   }

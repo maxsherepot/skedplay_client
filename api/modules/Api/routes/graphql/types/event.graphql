@@ -17,6 +17,7 @@ type Event {
     type: EventType! @belongsTo
     mode: Int!
     club: Club @belongsTo
+    owner_id: Int!
     owner: Owner @belongsTo
     mainPhoto: Media @hasOne
     photos: [Media] @hasMany
