@@ -252,10 +252,15 @@ const AccountClubWorkersShow = ({user}) => {
         <div className="border-t border-divider"/>
 
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
+          <div className="flex flex-wrap -mx-2">
+            {club.employees.map(employee => (
+                <EmployeeCard key={employee.id} employee={employee} clubs={clubs}/>
+                )
+            )}
+          </div>
         </Panel>
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={new Date()}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
         </Panel>
         <Panel>
           <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>
