@@ -29,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Common\Entities\GroupService::class            => \Modules\Common\Policies\GroupServicePolicy::class,
         \Modules\Employees\Entities\EmployeeRaceType::class     => \Modules\Employees\Policies\EmployeeRaceTypePolicy::class,
         \Modules\Common\Entities\ContactPhone::class            => \Modules\Common\Policies\ContactPhonePolicy::class,
+        \Modules\Main\Entities\Page::class                      => \Modules\Main\Policies\PagePolicy::class,
         \Modules\Common\Entities\HelpCenterCategory::class      => \Modules\Common\Policies\HelpCenterCategoryPolicy::class,
         \Modules\Common\Entities\HelpCenterTopic::class         => \Modules\Common\Policies\HelpCenterTopicPolicy::class,
 

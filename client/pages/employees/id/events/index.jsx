@@ -8,6 +8,7 @@ import {EventCard, Gallery, Pagination, AddressCard, Loader} from "UI";
 import {useTranslation} from "react-i18next";
 import React from "react";
 import slug from "slug";
+import {NextSeo} from "next-seo";
 
 
 const EmployeeEvents = ({user}) => {
@@ -80,21 +81,27 @@ const EmployeeEvents = ({user}) => {
           {/*/>*/}
         </>
       ) : (
-        <div><Loader/></div>
+        <div></div>
       )}
     </>
   );
 
   return (
-    <EmployeeBox employee={employee} user={user} employees={employees}>
-      <div className="flex flex-wrap -mx-3">
-        <div className="w-full lg:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
-          {sidebarColumn}
+    <>
+      <NextSeo
+        title={employee.name + ' ' + t('employees.events').toLowerCase()}
+      />
+
+      <EmployeeBox employee={employee} user={user} employees={employees}>
+        <div className="flex flex-wrap -mx-3">
+          <div className="w-full lg:w-3/12 px-3">
+            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            {sidebarColumn}
+          </div>
+          <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
         </div>
-        <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
-      </div>
-    </EmployeeBox>
+      </EmployeeBox>
+    </>
   );
 };
 

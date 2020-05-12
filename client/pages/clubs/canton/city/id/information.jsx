@@ -25,7 +25,7 @@ import {Formik} from "formik";
 import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES} from "queries";
 import {getErrors} from "utils/index";
 import slug from "slug";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const DistanceView = ({distanceKm}) => {
   if (!distanceKm) {
@@ -414,9 +414,10 @@ const ClubInformation = ({user}) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={club.name}
+        canonical={canonical}
+      />
 
       <ClubBox club={club} user={user}>
         {contentColumn}

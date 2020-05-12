@@ -11,7 +11,7 @@ import filterHelpers from "UI/Filter/helpers";
 import {useTranslation} from "react-i18next";
 import {Router} from 'lib/i18n';
 
-const GirlsSearch = ({ entityName, fields, initialFilters, filters, redirectByFilters }) => {
+const GirlsSearch = ({ entityName, header, fields, initialFilters, filters, redirectByFilters }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
   const {t, i18n} = useTranslation();
@@ -74,6 +74,7 @@ const GirlsSearch = ({ entityName, fields, initialFilters, filters, redirectByFi
     <>
       <Filter
         name={filterName}
+        header={header}
         inititalState={initialFilters[entityName]}
         filters={filtersState}
         fields={fields}

@@ -47,7 +47,6 @@ class AppServiceProvider extends ServiceProvider
             'user'              => User::class,
             'club'              => Club::class,
             'event'             => Event::class,
-            Page::MORPH_TYPE    => 'Modules\Main\Entities\Page',
             Faq::MORPH_TYPE     => 'Modules\Main\Entities\Faq',
             FaqItem::MORPH_TYPE => 'Modules\Main\Entities\FaqItem',
         ]);

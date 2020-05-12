@@ -41,7 +41,7 @@ const About = ({user}) => {
               <div className="q-section__inner">
                 <div className="q-section__main-info _center-text">
                   <img src="/static/img/about-logo.svg" alt="Skedplay" className="inline-block q-section__main-info--logo"/>
-                  <span className="q-section__main-info--title"><Trans i18nKey="about.header_1"/></span>
+                  <h1 className="q-section__main-info--title"><Trans i18nKey="about.header_1"/></h1>
                   <div className="q-section__main-info--text">
                     <p><Trans i18nKey="about.header_2"/></p>
                   </div>

@@ -17,7 +17,7 @@ import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
 import slug from "slug";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -266,9 +266,10 @@ const EmployeeInformation = ({ user }) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={employee.name}
+        canonical={canonical}
+      />
 
       <EmployeeBox employee={employee} user={user} employees={employees}>
         {!user && (employee.isVip === true) ? (

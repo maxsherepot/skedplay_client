@@ -36,9 +36,9 @@ const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
   const leftInfo = (
     <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
       {employee && (
-        <span className="text-3xl font-extrabold hd:text-white">
+        <h1 className="text-3xl font-extrabold hd:text-white">
           {employee.name} {employee.age}
-        </span>
+        </h1>
       )}
       <Button
         className="ml-4 uppercase"

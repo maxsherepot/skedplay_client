@@ -8,6 +8,7 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import {NewReviewForm} from "components/review";
 import {useTranslation} from "react-i18next";
 import React from "react";
+import {NextSeo} from "next-seo";
 
 const EmployeeReviews = ({user}) => {
   const {t, i18n} = useTranslation();
@@ -131,17 +132,23 @@ const EmployeeReviews = ({user}) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={user} employees={employees}>
-      <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full hd:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">
-            {t('employees.leave_comment')}
+    <>
+      <NextSeo
+        title={employee.name + ' ' + t('common.reviews').toLowerCase()}
+      />
+
+      <EmployeeBox employee={employee} user={user} employees={employees}>
+        <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
+          <div className="w-full hd:w-3/12 px-3">
+            <div className="text-2xl font-extrabold my-5">
+              {t('employees.leave_comment')}
+            </div>
+            {sidebarColumn}
           </div>
-          {sidebarColumn}
+          <div className="w-full hd:w-9/12 px-3">{contentColumn}</div>
         </div>
-        <div className="w-full hd:w-9/12 px-3">{contentColumn}</div>
-      </div>
-    </EmployeeBox>
+      </EmployeeBox>
+    </>
   );
 };
 

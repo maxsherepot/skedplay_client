@@ -22,3 +22,4 @@ export * from "queries/contactRequestQuery";
 export * from "queries/helpCenterTopicQuery";
 export * from "queries/helpCenterCategoryQuery";
 export * from "queries/subscribeClub";
+export * from "queries/pageQuery";

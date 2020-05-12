@@ -8,7 +8,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
 import {useTranslation} from "react-i18next";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const EmployeeEventShow = ({user}) => {
   const router = useRouter();
@@ -126,9 +126,10 @@ const EmployeeEventShow = ({user}) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={event.title}
+        canonical={canonical}
+      />
 
       <EmployeeBox employee={employee} user={user} employees={employees}>
         <div className="flex flex-wrap -mx-3">

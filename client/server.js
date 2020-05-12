@@ -26,8 +26,21 @@ const handle = app.getRequestHandler();
   });
 
   server.get('*', (req, res) => {
-    if (!/\/$/g.test(req.url)) {
-      return  res.redirect(301, req.url + '/');
+    if (req.url.indexOf('?') === -1) {
+      if (!/\/$/g.test(req.url)) {
+        return res.redirect(301, req.url + '/');
+      }
+    } else {
+      if (req.url.indexOf('/?') === -1) {
+        const askPosition = req.url.indexOf('?');
+
+        let urlArray = req.url.split('');
+        urlArray.splice(askPosition, 0, '/');
+
+        return res.redirect(301, urlArray.join(''));
+      }
+
+      req.url = req.url.replace('/?', "?");
     }
 
     req.url = req.url.replace(/\/$/, "");

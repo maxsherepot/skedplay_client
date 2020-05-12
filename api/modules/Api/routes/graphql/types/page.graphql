@@ -1,0 +1,13 @@
+type PageAllLangs {
+    id: Int!
+    key: String!
+    title: String!
+    header: String!
+    description: String
+    keywords: String
+}
+
+extend type Query {
+    pages: [PageAllLangs!]! @all
+    page(key: String! @eq): PageAllLangs @find
+}

@@ -9,7 +9,7 @@ import { ArrowNextSvg } from "icons";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const ClubEventShow = ({ user }) => {
   const router = useRouter();
@@ -98,9 +98,10 @@ const ClubEventShow = ({ user }) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={event.title}
+        canonical={canonical}
+      />
 
       <ClubBox club={club} user={user}>
         <div className="flex flex-wrap -mx-3">

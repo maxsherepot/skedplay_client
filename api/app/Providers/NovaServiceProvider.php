@@ -13,6 +13,7 @@ use App\Nova\GroupService;
 use App\Nova\HelpCenterCategory;
 use App\Nova\HelpCenterTopic;
 use App\Nova\Language;
+use App\Nova\Page;
 use App\Nova\Parameter;
 use App\Nova\ParameterOption;
 use App\Nova\Photo;
@@ -144,6 +145,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             ContactPhone::class,
             ContactRequest::class,
+
+            Page::class,
 
             HelpCenterCategory::class,
             HelpCenterTopic::class,

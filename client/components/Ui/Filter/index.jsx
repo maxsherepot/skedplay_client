@@ -15,7 +15,7 @@ import {
 import cx from 'classnames';
 import {useTranslation} from "react-i18next";
 
-function Filter({ name, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
+function Filter({ name, header, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
 
   const {t, i18n} = useTranslation();
 
@@ -28,9 +28,9 @@ function Filter({ name, fields, inititalState, filters, setFilters, setFilter, b
         ])}
       >
         <div className="fluid-container w-full z-1">
-          <div className="text-xl lg:text-3xl text-white font-black capitalize">
-            {name === 'vip escort' ? 'Vip' : name}
-          </div>
+          <h1 className="text-xl lg:text-3xl text-white font-black capitalize">
+            {header}
+          </h1>
           <Formik
             enableReinitialize
             initialValues={filters}

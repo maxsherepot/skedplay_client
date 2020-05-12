@@ -11,21 +11,21 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 
-class HelpCenterTopic extends Resource
+class Page extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Modules\Common\Entities\HelpCenterTopic';
+    public static $model = 'Modules\Main\Entities\Page';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'key';
 
     /**
      * The columns that should be searched.
@@ -33,7 +33,7 @@ class HelpCenterTopic extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name',
+        'id', 'key', 'title'
     ];
 
     /**
@@ -56,17 +56,17 @@ class HelpCenterTopic extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Category', 'category', HelpCenterCategory::class),
-            Boolean::make('Hyphen'),
-            Number::make('Sort order', 'sort_order'),
-
             Translatable::make([
-                Text::make('Name')
+                Text::make('Key')
                     ->sortable()
-                    ->rules('required', 'max:255'),
+                    ->hideWhenUpdating()
+                    ->hideWhenCreating(),
 
                 Text::make('Title')
-                    ->rules('max:255'),
+                    ->rules('required', 'max:255'),
+
+                Text::make('Header')
+                    ->rules('required', 'max:255'),
 
                 Text::make('Description')
                     ->rules('max:600'),
@@ -74,8 +74,6 @@ class HelpCenterTopic extends Resource
                 Text::make('Keywords')
                     ->rules('max:255'),
 
-                NovaEditorJs::make('Content')
-                    ->rules('required'),
             ])->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
         ];
     }

@@ -20,7 +20,7 @@ class HelpCenterTopic extends Model implements Sortable
 
     protected $guarded = [];
 
-    public $translatable = ['name', 'content'];
+    public $translatable = ['name', 'content', 'title', 'description', 'keywords'];
 
     protected $appends = [
         'content_html'

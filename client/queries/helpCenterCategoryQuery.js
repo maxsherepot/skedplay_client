@@ -12,6 +12,9 @@ export const HELP_CENTER_CATEGORIES = gql`
                 hyphen
                 content
                 content_html
+                title
+                description
+                keywords
             }
         }
     }
