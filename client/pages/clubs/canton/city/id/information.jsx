@@ -117,7 +117,10 @@ const SubscribeClubForm = ({clubId}) => {
 
 const ClubInformation = ({user}) => {
   const router = useRouter();
-  const {id, canton, city} = router.query;
+  let {id, canton, city} = router.query;
+
+  canton = canton.replace('/', '');
+  city = city.replace('/', '');
 
   const [isShowPhone, toggleShowPhone] = useState(false);
 
@@ -136,7 +139,7 @@ const ClubInformation = ({user}) => {
 
   const {t, i18n} = useTranslation();
 
-  if (loading) {
+  if (loading || cantonsLoading) {
     return <Loader/>;
   }
 
