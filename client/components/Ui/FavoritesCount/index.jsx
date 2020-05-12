@@ -14,7 +14,7 @@ export default ({user, loadFavoriteFromCookies = true}) => {
 
   return (
     <>
-      {favoriteCount}
+      {favoriteCount || 0}
     </>
   );
 };
