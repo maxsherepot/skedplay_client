@@ -1,0 +1,2 @@
+Allow:
+Sitemap: skedplay.ch:8080/sitemap.xml

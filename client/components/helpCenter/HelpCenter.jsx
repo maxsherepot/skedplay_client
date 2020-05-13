@@ -112,7 +112,7 @@ const Sidebar = ({categories, topicSlug}) => {
 const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
   const {t, i18n} = useTranslation();
 
-  topicSlug = topicSlug.replace(/\/$/, '');
+  topicSlug = topicSlug ? topicSlug.replace(/\/$/, '') : topicSlug;
 
   const getClass = () => {
     if (className) return className;
@@ -138,7 +138,7 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
       }
     }
   }
-  console.log(selectedTopic);
+
   return (
     <>
       {selectedTopic &&
