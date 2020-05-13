@@ -111,6 +111,7 @@ const AccountClubWorkersShow = ({user}) => {
   const [calendarStatus, setCalendarStatus] = useState(false);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
+
   const { t } = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
@@ -135,6 +136,16 @@ const AccountClubWorkersShow = ({user}) => {
     });
   }
 
+  const [panelStatus, setPanelStatus] = useState(false);
+
+  const onPanelStatus = () => {
+    setPanelStatus(true);
+  };
+
+  const offPanelStatus = () => {
+    setPanelStatus(false);
+  };
+
   const CalendarWeek = () => {
     let startDate = dateFns.startOfWeek(currentWeek);
 
@@ -155,6 +166,7 @@ const AccountClubWorkersShow = ({user}) => {
     };
 
     const onDayClick = (day) => {
+      setPanelStatus(true);
       setSelectedDay(day);
     };
 

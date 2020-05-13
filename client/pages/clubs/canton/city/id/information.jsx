@@ -253,7 +253,7 @@ const ClubInformation = ({user}) => {
       </div>
 
       <div className="flex flex-wrap -mx-3">
-        <div className="w-full sm:w-8/12 lg:w-9/12 px-3">
+        <div className="w-full sm:w-8/12 lg:w-9/12 px-3 girls-slider__section">
           <ClubGirlsBox employees={club.employees} club={club}/>
         </div>
         {event && (
