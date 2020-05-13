@@ -51,8 +51,8 @@ export default class ClubsFilterUrl {
 
     let needCanonical = false;
 
-    as = `/${this.urlPrefix}${as}`;
-    url = `/${this.urlPrefix}${url}`;
+    as = `/${this.urlPrefix}${as}/`;
+    url = `/${this.urlPrefix}${url}/`;
 
     if (filters[this.typeKey] && filters[this.typeKey].length) {
       let typeModels = filters[this.typeKey].map(t => this.types.find(ct => parseInt(ct.id) === parseInt(t)));

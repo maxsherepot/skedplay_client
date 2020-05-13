@@ -9,6 +9,8 @@ import favorites from "services/favorites";
 const FavoriteButton = ({ variables, favorited, ...rest }) => {
   let { data: { favorites_count } = {}, client } = favorites.getFavoritesCount();
 
+  favorites_count = favorites_count || 0;
+
   const loadFromCookies = true; // !user
 
   const cookieKey = 'favorite_' + variables.model_type;

@@ -85,8 +85,8 @@ export default class CommonGirlsFilterUrl {
     let {query, asQuery, as, url} = this.commonFilterUrl.getUrlParams(filters);
     let needCanonical = false;
 
-    as = `/${this.type}${as}`;
-    url = `/${this.type}${url}`;
+    as = `/${this.type}${as}/`;
+    url = `/${this.type}${url}/`;
 
     if (filters.age) {
       if (filters.age.from && parseInt(filters.age.from) !== 18) {

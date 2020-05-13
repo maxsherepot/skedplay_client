@@ -176,7 +176,9 @@ export const GET_EVENT = gql`
             favorited {
                 id
             }
+            owner_id
             club {
+                id
                 name
                 city {
                     id

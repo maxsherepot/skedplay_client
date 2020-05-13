@@ -7,6 +7,7 @@ import {HELP_CENTER_CATEGORIES} from 'queries';
 import {useTranslation} from "react-i18next";
 import cx from 'classnames';
 import translation from "services/translation";
+import {NextSeo} from "next-seo";
 
 const getLangField = translation.getLangField;
 
@@ -108,8 +109,10 @@ const Sidebar = ({categories, topicSlug}) => {
   );
 };
 
-const HelpCenter = ({contentClass, user, className, topicSlug}) => {
+const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
   const {t, i18n} = useTranslation();
+
+  topicSlug = topicSlug ? topicSlug.replace(/\/$/, '') : topicSlug;
 
   const getClass = () => {
     if (className) return className;
@@ -138,21 +141,32 @@ const HelpCenter = ({contentClass, user, className, topicSlug}) => {
 
   return (
     <>
+      {selectedTopic &&
+        <NextSeo
+          title={
+            translation.getLangField(selectedTopic.title, i18n.language)
+            || translation.getLangField(selectedTopic.name, i18n.language)
+          }
+          description={translation.getLangField(selectedTopic.description, i18n.language)}
+          keywords={translation.getLangField(selectedTopic.keywords, i18n.language)}
+        />
+      }
+
       <PageCard className="my-10">
         <div className="flex flex-col lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
             {selectedTopic ?
               <>
-                <div className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+                <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
                   {getLangField(selectedTopic.name, i18n.language)}
-                </div>
+                </h1>
                 <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
               </>
               :
-              <div className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+              <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
                 {t('layout.help_center')}
-              </div>
+              </h1>
             }
           </div>
         </div>

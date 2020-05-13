@@ -7,8 +7,6 @@ import {Router} from 'lib/i18n';
 const HelpCenterTopic = () => {
   const {query: {topic}} = useRouter();
 
-  console.log(topic, Router);
-
   return (
     <HelpCenter topicSlug={topic}/>
   );

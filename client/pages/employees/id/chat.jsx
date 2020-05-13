@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import EmployeeClientChat from "components/chat/EmployeeClientChat";
 import {LoginBox} from "components/login";
 import LangSelector from "UI/LangSelector";
+import {NextSeo} from "next-seo";
 
 const ClientChatComponent = ({ user, type = 'client' }) => {
   const router = useRouter();
@@ -65,34 +66,40 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
   );
 
   return (
-    <EmployeeBox employee={employee} user={user} viewed={false}>
-      <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="hidden w-full xl:block xl:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
-          {sidebarColumn}
-        </div>
+    <>
+      <NextSeo
+        title={employee.name + ' ' + t('employees.chat').toLowerCase()}
+      />
+
+      <EmployeeBox employee={employee} user={user} viewed={false}>
+        <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
+          <div className="hidden w-full xl:block xl:w-3/12 px-3">
+            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            {sidebarColumn}
+          </div>
           <div className="w-full xl:w-9/12">
             {!user ? (
-                <div className="mt-1">
-                    <Modal
-                        title={t('common.login')}
-                        right={<LangSelector />}
-                        modalDialogStyle={{height: '650px'}}
-                    >
-                        <div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
+              <div className="mt-1">
+                <Modal
+                  title={t('common.login')}
+                  right={<LangSelector />}
+                  modalDialogStyle={{height: '650px'}}
+                >
+                  <div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
                             <span className="text-white">
                               {t('chat.chat_available_for_authorized')}
                             </span>
-                        </div>
-                        <LoginBox />
-                    </Modal>
-                </div>
+                  </div>
+                  <LoginBox />
+                </Modal>
+              </div>
             ) : (
-                <EmployeeClientChat user={user} employee={employee}/>
+              <EmployeeClientChat user={user} employee={employee}/>
             )}
           </div>
-      </div>
-    </EmployeeBox>
+        </div>
+      </EmployeeBox>
+    </>
   );
 };
 

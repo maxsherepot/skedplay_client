@@ -45,7 +45,8 @@
         "spatie/nova-translatable": "^2.0",
         "stevebauman/location": "^3.0",
         "sudiptpa/paypal-ipn": "^2.0",
-        "tightenco/parental": "0.7"
+        "tightenco/parental": "0.7",
+        "laravelium/sitemap": "3.1.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",

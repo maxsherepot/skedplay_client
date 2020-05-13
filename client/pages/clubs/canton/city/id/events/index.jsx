@@ -8,6 +8,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
 import {Link} from "lib/i18n";
+import {NextSeo} from "next-seo";
 
 const ClubEventsIndex = ({ user }) => {
   const router = useRouter();
@@ -53,15 +54,21 @@ const ClubEventsIndex = ({ user }) => {
   );
 
   return (
-    <ClubBox club={club} user={user}>
-      <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-        <div className="w-full lg:w-3/12 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
-          {sidebarColumn}
+    <>
+      <NextSeo
+        title={club.name + ' ' + t('common.events').toLowerCase()}
+      />
+
+      <ClubBox club={club} user={user}>
+        <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
+          <div className="w-full lg:w-3/12 px-3">
+            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            {sidebarColumn}
+          </div>
+          <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
         </div>
-        <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
-      </div>
-    </ClubBox>
+      </ClubBox>
+    </>
   );
 };
 

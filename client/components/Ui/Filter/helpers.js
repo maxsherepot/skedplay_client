@@ -47,64 +47,72 @@ export default {
     return filteredFilters;
   },
   getLocationFilters(cantons, cities, t) {
-    return [
-      {
-        component: "select",
-        name: "canton_id",
-        label: t('common.canton'),
-        placeholder: t('common.all_switzerland'),
-        options: [
-          {value: '', label: t('common.all_switzerland')},
-          ...cantons.map(c => ({value: c.id, label: c.name})),
-        ],
-        handleChange(value, setFieldValue) {
-          setFieldValue('city_id', '');
-        },
+    const cantonFilter = {
+      component: "select",
+      name: "canton_id",
+      label: t('common.canton'),
+      placeholder: t('common.all_switzerland'),
+      options: [
+        {value: '', label: t('common.all_switzerland')},
+        ...cantons.map(c => ({value: c.id, label: c.name})),
+      ],
+      handleChange(value, setFieldValue) {
+        if (process.env.CITY_FILTER !== 'true') {
+          return;
+        }
+        setFieldValue('city_id', '');
       },
-      {
-        component: "select",
-        name: "city_id",
-        label: t('clubs.city'),
-        placeholder: t('common.all_switzerland'),
-        options: [
-          {value: '', label: t('common.all_switzerland')},
-          ...cities.map(c => ({value: c.id, label: c.name, canton_id: c.canton_id})),
-        ],
-        handleChange(value, setFieldValue) {
-          const city = cities.find(c => parseInt(c.id) === parseInt(value));
+    };
 
-          if (!city) {
-            return;
-          }
+    if (process.env.CITY_FILTER !== 'true') {
+      return [cantonFilter];
+    }
 
-          setFieldValue('canton_id', city.canton_id);
-        },
-        handlePlaceholder(values) {
-          const cantonId = values.canton_id;
+    const cityFilter = {
+      component: "select",
+      name: "city_id",
+      label: t('clubs.city'),
+      placeholder: t('common.all_switzerland'),
+      options: [
+        {value: '', label: t('common.all_switzerland')},
+        ...cities.map(c => ({value: c.id, label: c.name, canton_id: c.canton_id})),
+      ],
+      handleChange(value, setFieldValue) {
+        const city = cities.find(c => parseInt(c.id) === parseInt(value));
 
-          if (!cantonId) {
-            return t('common.all_switzerland');
-          }
+        if (!city) {
+          return;
+        }
 
-          const canton = cantons.find(c => parseInt(c.id) === parseInt(values.canton_id));
-
-          if (!canton) {
-            return t('common.all_switzerland');
-          }
-
-          return t('common.all') + ' ' + canton.name;
-        },
-        filterOptions(options, values) {
-          const cantonId = values.canton_id;
-
-          if (!cantonId) {
-            return options;
-          }
-
-          return options.filter(o => parseInt(o.canton_id) === parseInt(cantonId));
-        },
+        setFieldValue('canton_id', city.canton_id);
       },
-    ];
+      handlePlaceholder(values) {
+        const cantonId = values.canton_id;
+
+        if (!cantonId) {
+          return t('common.all_switzerland');
+        }
+
+        const canton = cantons.find(c => parseInt(c.id) === parseInt(values.canton_id));
+
+        if (!canton) {
+          return t('common.all_switzerland');
+        }
+
+        return t('common.all') + ' ' + canton.name;
+      },
+      filterOptions(options, values) {
+        const cantonId = values.canton_id;
+
+        if (!cantonId) {
+          return options;
+        }
+
+        return options.filter(o => parseInt(o.canton_id) === parseInt(cantonId));
+      },
+    };
+
+    return [cantonFilter, cityFilter];
   },
   getDistanceFilter(t) {
     return {

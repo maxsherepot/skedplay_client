@@ -4,7 +4,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Loader } from "UI";
 import EventsBox from "components/EventsBox";
-import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS, CANTONS_AND_CITIES, ALL_EVENTS } from "queries";
+import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS, CANTONS_AND_CITIES, ALL_EVENTS, GET_PAGE } from "queries";
 import {useTranslation} from "react-i18next";
 import { geolocated } from "react-geolocated";
 import EntitySearch from "components/EntitySearch";
@@ -13,12 +13,20 @@ import EventsFilterUrl from "services/EventsFilterUrl";
 import {useRouter} from "next/router";
 import {Router} from "lib/i18n";
 import Head from "next/head";
+import translation from "services/translation";
+import { NextSeo } from 'next-seo';
 
 const ENTITY_NAME = "events";
 
 function Events({ user, isGeolocationEnabled }) {
   const {t, i18n} = useTranslation();
   let {query} = useRouter();
+
+  const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
+    variables: {
+      key: 'events'
+    }
+  });
 
   const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
 
@@ -30,7 +38,7 @@ function Events({ user, isGeolocationEnabled }) {
     CANTONS_AND_CITIES
   );
 
-  if (loading || filtersLoading || cantonsLoading) {
+  if (pageLoading || loading || filtersLoading || cantonsLoading) {
     return <Loader/>;
   }
 
@@ -62,11 +70,15 @@ function Events({ user, isGeolocationEnabled }) {
 
   return (
     <>
-      <Head>
-        {needCanonical && <link rel="canonical" href={`${process.env.APP_URL}${canonical}`}/>}
-      </Head>
+      <NextSeo
+        title={translation.getLangField(page.title, i18n.language)}
+        description={translation.getLangField(page.description, i18n.language)}
+        keywords={translation.getLangField(page.keywords, i18n.language)}
+        canonical={needCanonical ? `${process.env.APP_URL}${canonical}` : null}
+      />
 
       <EntitySearch
+        header={translation.getLangField(page.header, i18n.language)}
         entityName={ENTITY_NAME}
         fields={fields}
         initialFilters={initialFilters}

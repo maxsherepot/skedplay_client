@@ -50,10 +50,9 @@ const NextI18NextInstance = new NextI18Next({
     // de: 'de',
     en: 'en',
     fr: 'fr',
-  }
+  },
+  serverLanguageDetection: false,
 });
-
-const {Link: NextLink} = NextI18NextInstance;
 
 export default NextI18NextInstance;
 

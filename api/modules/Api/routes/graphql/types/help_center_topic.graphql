@@ -5,6 +5,9 @@ type HelpCenterTopicAllLangs {
     hyphen: Int!
     content: String!
     content_html: JSON!
+    title: String
+    description: String
+    keywords: String
 }
 
 extend type Query {

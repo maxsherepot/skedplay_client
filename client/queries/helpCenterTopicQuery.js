@@ -6,6 +6,9 @@ export const HELP_CENTER_TOPICS = gql`
             id
             slug
             name
+            title
+            description
+            keywords
         }
     }
 `;
@@ -18,6 +21,9 @@ export const HELP_CENTER_TOPIC = gql`
             name
             content
             content_html
+            title
+            description
+            keywords
         }
     }
 

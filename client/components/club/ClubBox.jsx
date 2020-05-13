@@ -10,9 +10,9 @@ const ClubBox = ({ club, user, children }) => {
     <>
       {club && (
         <div className="flex items-center sm:flex-start mt-5 hd:mt-0">
-          <div className="text-3xl font-extrabold hd:text-white">
+          <h1 className="text-3xl font-extrabold hd:text-white">
             {club.name}
-          </div>
+          </h1>
           <div className="bg-black text-white text-xs rounded-full uppercase mt-1 ml-3 px-3 py-1">
             {club.type.name}
           </div>

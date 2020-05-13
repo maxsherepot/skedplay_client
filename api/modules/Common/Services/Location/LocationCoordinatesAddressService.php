@@ -69,7 +69,8 @@ class LocationCoordinatesAddressService
         $canton = $cantonComponent['long_name'];
 
         $cantonModel = Canton::query()->firstOrCreate(['name' => $canton]);
-        $cityModel = City::query()->where('name', $city)->first();
+
+        $cityModel = City::query()->where(['name' => $city])->first();
 
         if (!$cityModel) {
             $cityModel = City::create(['name' => $city, 'canton_id' => $cantonModel->id]);

@@ -17,7 +17,7 @@ import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
 import slug from "slug";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -42,24 +42,14 @@ const EmployeeInformation = ({ user }) => {
     }
   );
 
-  const { data: { events } = {}, loading: eventsLoading } = useQuery(
-    ALL_EVENTS,
-    {
-      variables: {
-        first: 1,
-        page: 1
-      }
-    }
-  );
-
-  const { data: employeesData, loadingEmployees, error } = useQuery(ALL_EMPLOYEES, {
+  const { data: employeesData, loading: loadingEmployees, error } = useQuery(ALL_EMPLOYEES, {
     variables: {
       first: 8,
       page: 1
     }
   });
 
-  if (cantonsLoading || employeeLoading || eventsLoading || loadingEmployees) {
+  if (cantonsLoading || employeeLoading || loadingEmployees) {
     return <Loader/>;
   }
 
@@ -91,7 +81,7 @@ const EmployeeInformation = ({ user }) => {
     toggleModalOpen(false);
   };
 
-  const [event] = events.data;
+  const [event] = employee.events;
 
   const sidebarColumn = (
     <>
@@ -143,14 +133,16 @@ const EmployeeInformation = ({ user }) => {
         </Link>
       </div>
 
-      <div className="-mx-3">
-        <EventCard
-          href={`/${girlType}/canton/city/id/events`}
-          linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-          as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
-          {...event}
-        />
-      </div>
+      {event &&
+        <div className="-mx-3">
+          <EventCard
+            href={`/${girlType}/canton/city/id/events`}
+            linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
+            as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+            {...event}
+          />
+        </div>
+      }
     </>
   );
 
@@ -274,9 +266,10 @@ const EmployeeInformation = ({ user }) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={employee.name}
+        canonical={canonical}
+      />
 
       <EmployeeBox employee={employee} user={user} employees={employees}>
         {!user && (employee.isVip === true) ? (

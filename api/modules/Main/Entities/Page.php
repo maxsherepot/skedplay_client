@@ -3,19 +3,15 @@
 namespace Modules\Main\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Main\Services\Translations\Translatable;
+use Spatie\Translatable\HasTranslations;
 
 class Page extends Model
 {
-    use Translatable, SoftDeletes;
+    use HasTranslations;
 
-    const MORPH_TYPE = 'page';
-
-    public $translatable = ['name', 'description'];
+    public $translatable = ['title', 'header', 'description', 'keywords'];
 
     protected $fillable = [
-        'name',
-        'description',
+        'key', 'title', 'header', 'description', 'keywords'
     ];
 }

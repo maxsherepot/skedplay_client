@@ -25,7 +25,7 @@ import {Formik} from "formik";
 import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES} from "queries";
 import {getErrors} from "utils/index";
 import slug from "slug";
-import Head from "next/head";
+import {NextSeo} from "next-seo";
 
 const DistanceView = ({distanceKm}) => {
   if (!distanceKm) {
@@ -117,7 +117,10 @@ const SubscribeClubForm = ({clubId}) => {
 
 const ClubInformation = ({user}) => {
   const router = useRouter();
-  const {id, canton, city} = router.query;
+  let {id, canton, city} = router.query;
+
+  canton = canton.replace('/', '');
+  city = city.replace('/', '');
 
   const [isShowPhone, toggleShowPhone] = useState(false);
 
@@ -136,7 +139,7 @@ const ClubInformation = ({user}) => {
 
   const {t, i18n} = useTranslation();
 
-  if (loading) {
+  if (loading || cantonsLoading) {
     return <Loader/>;
   }
 
@@ -151,7 +154,6 @@ const ClubInformation = ({user}) => {
   const [phone] = JSON.parse(club.phones);
 
   const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}clubs/${canton}/${city}/${club.id}/information/`;
-
 
   const Contacts = () => (
     <>
@@ -415,9 +417,10 @@ const ClubInformation = ({user}) => {
 
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonical}/>
-      </Head>
+      <NextSeo
+        title={club.name}
+        canonical={canonical}
+      />
 
       <ClubBox club={club} user={user}>
         {contentColumn}
