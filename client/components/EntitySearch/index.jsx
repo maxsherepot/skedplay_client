@@ -1,13 +1,13 @@
 import { useQuery } from "@apollo/react-hooks";
 import checkLoggedIn from "lib/checkLoggedIn";
-import { Filter } from "UI";
+import { Filter, Breadcrumbs } from "UI";
 import { usePagination } from "hooks";
 import {useState} from "react";
 import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
 
-const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters }) => {
+const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters, entityFilterUrl }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
 
@@ -39,6 +39,18 @@ const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box
     redirectByFilters(filterHelpers.filterFilters(filters));
   }
 
+  const breadcrumbs = [
+    {
+      as: `/${entityName}`,
+      href: `/${entityName}`,
+      label: header,
+      onClick: () => {
+        setFiltersState(filterHelpers.filterFilters(initialFilters[entityName]));
+      }
+    },
+    ...entityFilterUrl.getBreadcrumbs(),
+  ];
+
   let sorts = [];
 
   if (entityName === 'clubs') {
@@ -68,6 +80,10 @@ const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box
 
   return (
     <>
+      <Breadcrumbs
+        items={breadcrumbs}
+      />
+
       <Filter
         header={header}
         name={entityName}

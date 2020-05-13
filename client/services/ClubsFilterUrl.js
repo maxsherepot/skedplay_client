@@ -88,4 +88,30 @@ export default class ClubsFilterUrl {
       needCanonical
     };
   }
+
+  getBreadcrumbs() {
+    const breadcrumbs = [];
+
+    if (this.input.canton) {
+      const canton = this.commonFilterUrl.cantonModel;
+
+      breadcrumbs.push({
+        as: `/${this.urlPrefix}/${this.input.canton}`,
+        href: `/${this.urlPrefix}/canton`,
+        label: canton.name
+      });
+
+      if (this.input.city) {
+        const city = this.commonFilterUrl.cityModel;
+
+        breadcrumbs.push({
+          as: `/${this.urlPrefix}/${this.input.city}`,
+          href: `/${this.urlPrefix}/canton/city`,
+          label: city.name
+        });
+      }
+    }
+
+    return breadcrumbs;
+  }
 };

@@ -86,6 +86,7 @@ function Events({ user, isGeolocationEnabled }) {
         Box={EventsBox}
         entityQuery={ALL_EVENTS}
         redirectByFilters={redirectByFilters}
+        entityFilterUrl={eventsFilterUrl}
       />
     </>
   );

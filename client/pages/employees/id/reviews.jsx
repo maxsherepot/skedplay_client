@@ -131,13 +131,19 @@ const EmployeeReviews = ({user}) => {
     </>
   );
 
+  const lastBreadcrumbs = [
+    {
+      label: t('common.reviews'),
+    }
+  ];
+
   return (
     <>
       <NextSeo
         title={employee.name + ' ' + t('common.reviews').toLowerCase()}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees}>
+      <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
           <div className="w-full hd:w-3/12 px-3">
             <div className="text-2xl font-extrabold my-5">

@@ -13,6 +13,7 @@ export { default as SelectedBar } from "./Filter/SelectedBar";
 
 export { default as Nav } from "./Nav";
 export { default as SecondaryNav } from "./SecondaryNav";
+export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as EventsGallery } from "./EventsGallery";
 export { default as AnimationBackground } from "./AnimationBackground";
 export { default as ArrowBack } from "./ArrowBack";

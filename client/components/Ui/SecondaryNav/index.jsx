@@ -2,7 +2,7 @@ import React from "react";
 
 import { ArrowBack } from "UI";
 
-const SecondaryNav = ({ left, children, right }) => {
+const SecondaryNav = ({ left, children, right, breadcrumbs }) => {
   return (
     <>
       <div
@@ -25,6 +25,7 @@ const SecondaryNav = ({ left, children, right }) => {
           </div>
         </div>
       </div>
+      {breadcrumbs}
       <div className="fluid-container hd:hidden">
         {/* Add justify-between */}
         <div className="flex flex-col md:flex-row items-center justify-between">

@@ -93,6 +93,8 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
         initialFilters={initialFilters}
         filters={workFilters}
         redirectByFilters={redirectByFilters}
+        commonGirlsFilterUrl={commonGirlsFilterUrl}
+        entityUrl={entityUrl}
       />
     </>
   );

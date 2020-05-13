@@ -146,4 +146,30 @@ export default class CommonGirlsFilterUrl {
       needCanonical
     };
   }
+
+  getBreadcrumbs() {
+    const breadcrumbs = [];
+
+    if (this.input.canton) {
+      const canton = this.commonFilterUrl.cantonModel;
+
+      breadcrumbs.push({
+        as: `/${this.type}/${this.input.canton}`,
+        href: `/${this.type}/canton`,
+        label: canton.name
+      });
+
+      if (this.input.city) {
+        const city = this.commonFilterUrl.cityModel;
+
+        breadcrumbs.push({
+          as: `/${this.type}/${this.input.city}`,
+          href: `/${this.type}/canton/city`,
+          label: city.name
+        });
+      }
+    }
+
+    return breadcrumbs;
+  }
 };

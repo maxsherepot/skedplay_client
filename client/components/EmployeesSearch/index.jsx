@@ -1,17 +1,17 @@
 import { useQuery } from "@apollo/react-hooks";
-import checkLoggedIn from "lib/checkLoggedIn";
 import { Filter } from "UI";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, ALL_EMPLOYEES } from "queries";
+import { ALL_EMPLOYEES } from "queries";
 import EmployeesBox from "components/EmployeesBox";
 import { usePagination } from "hooks";
 import {useState} from "react";
-import {Sort} from "UI";
+import {Sort, Breadcrumbs} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
 import {useTranslation} from "react-i18next";
 import {Router} from 'lib/i18n';
+import translation from "services/translation";
 
-const GirlsSearch = ({ entityName, header, fields, initialFilters, filters, redirectByFilters }) => {
+const GirlsSearch = ({ entityName, entityUrl, header, fields, initialFilters, filters, redirectByFilters, commonGirlsFilterUrl }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
   const {t, i18n} = useTranslation();
@@ -30,6 +30,18 @@ const GirlsSearch = ({ entityName, header, fields, initialFilters, filters, redi
       }
     }
   });
+
+  const breadcrumbs = [
+    {
+      as: `/${entityUrl}`,
+      href: `/${entityUrl}`,
+      label: header,
+      onClick: () => {
+        setFiltersState(filterHelpers.filterFilters(initialFilters[entityName]));
+      }
+    },
+    ...commonGirlsFilterUrl.getBreadcrumbs(),
+  ];
 
   function setFilter(key, value) {
     filtersState[key] = value;
@@ -72,6 +84,10 @@ const GirlsSearch = ({ entityName, header, fields, initialFilters, filters, redi
 
   return (
     <>
+      <Breadcrumbs
+        items={breadcrumbs}
+      />
+
       <Filter
         name={filterName}
         header={header}

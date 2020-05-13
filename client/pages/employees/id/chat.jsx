@@ -65,13 +65,19 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
     </>
   );
 
+  const lastBreadcrumbs = [
+    {
+      label: t('employees.chat'),
+    }
+  ];
+
   return (
     <>
       <NextSeo
         title={employee.name + ' ' + t('employees.chat').toLowerCase()}
       />
 
-      <EmployeeBox employee={employee} user={user} viewed={false}>
+      <EmployeeBox employee={employee} user={user} viewed={false} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
           <div className="hidden w-full xl:block xl:w-3/12 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>

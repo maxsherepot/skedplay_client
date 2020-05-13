@@ -85,6 +85,7 @@ function Clubs({user, isGeolocationEnabled}) {
         Box={ClubsBox}
         entityQuery={ALL_CLUBS}
         redirectByFilters={redirectByFilters}
+        entityFilterUrl={clubsFilterUrl}
       />
     </>
   );

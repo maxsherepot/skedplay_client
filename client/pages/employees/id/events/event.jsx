@@ -9,6 +9,7 @@ import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
 import {useTranslation} from "react-i18next";
 import {NextSeo} from "next-seo";
+import slug from "slug";
 
 const EmployeeEventShow = ({user}) => {
   const router = useRouter();
@@ -124,6 +125,17 @@ const EmployeeEventShow = ({user}) => {
     </div>
   );
 
+  const lastBreadcrumbs = [
+    {
+      href: `/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+      as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`,
+      label: t('employees.events'),
+    },
+    {
+      label: event.title,
+    }
+  ];
+
   return (
     <>
       <NextSeo
@@ -131,7 +143,7 @@ const EmployeeEventShow = ({user}) => {
         canonical={canonical}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees}>
+      <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-3/12 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>

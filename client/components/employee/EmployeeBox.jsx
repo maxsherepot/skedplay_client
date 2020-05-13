@@ -2,20 +2,64 @@ import React, { useState } from "react";
 import cx from "classnames";
 import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
-import { SecondaryNav, Button, ActiveLink } from "UI";
+import { SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
 import {useQuery} from "@apollo/react-hooks";
-import { ALL_EMPLOYEES } from "queries";
+import {GET_PAGE} from 'queries';
+import translation from "services/translation";
 
-const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
+const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
 
   const girlType = parseInt(employee.type) === 1
     ? 'girls'
     : 'trans';
+
+  const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
+    variables: {
+      key: girlType
+    }
+  });
+
+  if (pageLoading) {
+    return <Loader/>
+  }
+
+  const cityFilter = process.env.CITY_FILTER !== 'true'
+    ? []
+    : [
+      {
+        as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}`,
+        href: `/${girlType}/canton/city?canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+        label: employee.city.name
+      }
+    ];
+
+  let breadcrumbs = [
+    {
+      as: `/${girlType}`,
+      href: `/${girlType}`,
+      label: translation.getLangField(page.header, i18n.language)
+    },
+    {
+      as: `/${girlType}/${slug(employee.city.canton.name)}`,
+      href: `/${girlType}/canton?&canton=${slug(employee.city.canton.name)}`,
+      label: employee.city.canton.name
+    },
+      ...cityFilter,
+    {
+      as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/information`,
+      href: `/${girlType}/canton/city/id/information?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+      label: employee.name
+    },
+  ];
+
+  if (lastBreadcrumbs) {
+    breadcrumbs = [...breadcrumbs, ...lastBreadcrumbs]
+  }
 
   const getHref = (page) => {
     if (!employee.city || !employee.city.canton) {
@@ -34,21 +78,23 @@ const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
   };
 
   const leftInfo = (
-    <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
-      {employee && (
-        <h1 className="text-3xl font-extrabold hd:text-white">
-          {employee.name} {employee.age}
-        </h1>
-      )}
-      <Button
-        className="ml-4 uppercase"
-        size="xxs"
-        level="success"
-        weight="normal"
-      >
-        {t('employees.available')}
-      </Button>
-    </div>
+    <>
+      <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
+        {employee && (
+          <h1 className="text-3xl font-extrabold hd:text-white">
+            {employee.name} {employee.age}
+          </h1>
+        )}
+        <Button
+          className="ml-4 uppercase"
+          size="xxs"
+          level="success"
+          weight="normal"
+        >
+          {t('employees.available')}
+        </Button>
+      </div>
+    </>
   );
 
   const phone = employee.phone || employee.owner.phone;
@@ -76,7 +122,15 @@ const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
 
   return (
     <MainLayout user={user}>
-      <SecondaryNav left={leftInfo} right={rightInfo}>
+      <SecondaryNav
+        left={leftInfo}
+        right={rightInfo}
+        breadcrumbs={
+          <Breadcrumbs
+            items={breadcrumbs}
+          />
+        }
+      >
         <ul className="flex -mx-4 text-white">
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
@@ -124,7 +178,8 @@ const EmployeeBox = ({ employee, employees, user, viewed, children }) => {
               }
             </li>
         </ul>
-      </SecondaryNav>
+      </SecondaryNav
+      >
 
       <div className="fluid-container">
         {children}

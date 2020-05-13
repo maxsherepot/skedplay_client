@@ -57,6 +57,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
     'front_url' => env('FRONT_URL', 'http://nextjs:3000'),
     'front_app_url' => env('FRONT_APP_URL', 'https://skidplay.tk'),
+    'city_filter' => env('CITY_FILTER', false),
 
     'asset_url' => env('ASSET_URL', null),
 

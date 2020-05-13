@@ -86,13 +86,19 @@ const EmployeeEvents = ({user}) => {
     </>
   );
 
+  const lastBreadcrumbs = [
+    {
+      label: t('employees.events'),
+    }
+  ];
+
   return (
     <>
       <NextSeo
         title={employee.name + ' ' + t('employees.events').toLowerCase()}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees}>
+      <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-3/12 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
