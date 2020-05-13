@@ -141,14 +141,14 @@
 		background: transparent;
 	}
 	.q-section._bg-with-logo {
-		background: url(/static/img/bg_final.jpg) top center no-repeat;
+		background: url(/static/img/bg_final.webp) top center no-repeat;
 		background-size: cover;
 		position: relative;
 	}
 	.q-section._bg-with-logo::before {
 		width: 100%;
 		height: 100%;
-		background: url(/static/img/bg_final_transparent.png) top center no-repeat;
+		background: url(/static/img/bg_final_transparent.webp) top center no-repeat;
 		background-size: cover;
 		background-attachment: fixed;
 		position: absolute;
@@ -494,7 +494,7 @@
 		left: 50%;
 	}
 	.q-free::before {
-		background-image: url(/static/img/girl.png);
+		background-image: url(/static/img/girl.webp);
 		z-index: 2;
 		bottom: 250px;
 		height: 912px;
@@ -503,7 +503,7 @@
 	}
 	.q-free::after {
 		bottom: 250px;
-		background-image: url(/static/img/diamonds.png);
+		background-image: url(/static/img/diamonds.webp);
 		z-index: 1;
 		width: 758px;
 		height: 796px;
@@ -570,7 +570,7 @@
 		content: '';
 		width: 940px;
 		height: 1011px;
-		background: url(/static/img/apple.png) no-repeat;
+		background: url(/static/img/apple.webp) no-repeat;
 		display: block;
 		position: absolute;
 		right: 50%;

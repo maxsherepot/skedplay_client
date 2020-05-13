@@ -157,7 +157,7 @@ const About = ({user}) => {
                     </div>
                   </div>
                   <div className="q-section__img-container _center-text">
-                    <img src="/static/img/img_section6.png" alt=""/>
+                    <img src="/static/img/img_section6.webp" alt=""/>
                   </div>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const About = ({user}) => {
                     </div>
                   </div>
                   <div className="q-section__img-container">
-                    <img src="/static/img/img_section7.png" alt=""/>
+                    <img src="/static/img/img_section7.webp" alt=""/>
                   </div>
                 </div>
                 <div className="q-servers-info _cols-paddings">
@@ -411,7 +411,7 @@ const About = ({user}) => {
                     </div>
                   </div>
                   <div className="q-benefits__image--container">
-                    <img src="/static/img/about-man.png" alt="" className="q-benefits__image"/>
+                    <img src="/static/img/about-man.webp" alt="" className="q-benefits__image"/>
                   </div>
                 </div>
               </div>

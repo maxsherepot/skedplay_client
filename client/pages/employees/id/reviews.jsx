@@ -99,7 +99,7 @@ const EmployeeReviews = ({user}) => {
                   <div className="flex items-center">
                     <Avatar
                       className="w-10 h-10 mr-4"
-                      src="/static/img/Avatar.png"
+                      src="/static/img/Avatar.webp"
                     />
                     <div>
                       <div className="text-lg font-medium">
