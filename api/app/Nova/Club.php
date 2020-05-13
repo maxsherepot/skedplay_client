@@ -118,44 +118,59 @@ class Club extends Resource
         return [
             ID::make()->sortable(),
 
+            Text::make('Name'),
+
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
-            Text::make('Name'),
             Text::make('Description'),
             Text::make('Address'),
 
             Text::make('Email'),
             Text::make('Website'),
 
-            Text::make('Status', function() {
+            Text::make('Club status', 'status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
-            })->asHtml(),
+            })->asHtml()->exceptOnForms(),
 
-            Select::make('Status')->options([
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['status' => $this->manager_status ?? 0]
+                )->render();
+            })->asHtml()->exceptOnForms(),
+
+            Select::make('Club status', 'status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->displayUsingLabels()->onlyOnForms(),
+            ])->onlyOnForms(),
 
             Select::make('User status', 'user_status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->onlyOnForms(),
 
+            Select::make('Manager status', 'manager_status')->options([
+                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
+            ])->displayUsingLabels()->onlyOnForms(),
+
             Text::make('Phones')->withMeta([
                 'extraAttributes' => [
                     'placeholder' => '+4171-111-11-11',
                 ],
-            ]),
+            ])->rules('required'),
 
             Text::make('Comment'),
         ];
     }
 
-    private function getTableFields(): array // info
+    private function getTableFields(): array // info main tables
     {
         return [
             ID::make()->sortable(),
@@ -177,10 +192,17 @@ class Club extends Resource
 
             BelongsTo::make('Owner', 'owner', User::class)->sortable(),
 
-            Text::make('Status', function() {
+            Text::make('Club status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['status' => $this->manager_status ?? 0]
                 )->render();
             })->asHtml(),
 
@@ -189,7 +211,7 @@ class Club extends Resource
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->onlyOnForms(),
 
-            Select::make('Status','status')->options([
+            Select::make('Club status','status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->displayUsingLabels()
@@ -260,7 +282,11 @@ class Club extends Resource
         if ($request->user()->hasRole('manager')) {
             $query
                 ->where('manager_id', '=', $request->user()->id)
-                ->orWhere('status', '=',\Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION)
+                ->orWhere([
+                    ['manager_status', '=',\Modules\Clubs\Entities\Club::STATUS_PENDING],
+                    ['manager_id', '=', null],
+                ])
+
             ;
         }
 
@@ -287,6 +313,13 @@ class Club extends Resource
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['manager_status' => $this->manager_status ?? 0]
                 )->render();
             })->asHtml(),
 
