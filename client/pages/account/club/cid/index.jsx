@@ -13,7 +13,7 @@ const GirlRow = ({ employee, soon, active }) => {
 
     return (
       <div className="flex items-center my-2">
-          <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.png" />
+          <Avatar className="w-10 h-10 mr-2" src="/static/img/Avatar.webp" />
 
           <div className="flex-col ml-2">
               <div className="font-medium">{employee && employee.name}</div>

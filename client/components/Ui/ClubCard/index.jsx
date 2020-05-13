@@ -89,7 +89,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       <div
         className="relative overflow-hidden rounded-t-lg c-events-card"
         style={{
-          backgroundImage: `url(${thumb && thumb.url || '/static/img/club-none.png'})`,
+          backgroundImage: `url(${thumb && thumb.url || '/static/img/club-none.webp'})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: 335

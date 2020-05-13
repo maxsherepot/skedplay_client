@@ -78,9 +78,9 @@ function Error({statusCode}) {
 
                 <div className="fluid-container">
                     <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 contain-section__img-man"
-                         src="/static/img/man.png" alt=""/>
+                         src="/static/img/man.webp" alt=""/>
                     <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 contain-section__img-woman"
-                         src="/static/img/woman.png" alt=""/>
+                         src="/static/img/woman.webp" alt=""/>
                 </div>
             </AnimationBackground>
         </>
