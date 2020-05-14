@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 import Link from 'components/SlashedLink'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function PrevArrow({ className, currentSlide, onClick }) {
   const disabled = currentSlide <= 0;
@@ -61,14 +62,27 @@ function Slick({ id, photos, labels, available, slider, className, link, as }) {
           fade={true}
           ref={slider => setSlider1(slider)}
         >
-          {images.map((image, i) => (
-            <img
-              key={i}
-              className={cx("object-cover", className)}
-              src={image}
-              alt=""
-            />
-          ))}
+          {images.map((image, i) => {
+            if (i === 0) {
+              return (
+                <img
+                  key={i}
+                  className={cx("object-cover", className)}
+                  src={image}
+                  alt=""
+                />
+              );
+            }
+
+            return (
+              <LazyLoadImage
+                key={i}
+                className={cx("object-cover", className)}
+                alt={``}
+                src={image}
+              />
+            );
+          })}
         </Slider>
 
         {labels && (
@@ -102,10 +116,10 @@ function Slick({ id, photos, labels, available, slider, className, link, as }) {
             >
               {images.map((image, i) => (
                 <div className="pr-1 outline-none" key={i}>
-                  <img
+                  <LazyLoadImage
                     className="object-cover rounded-lg h-15 outline-none cursor-pointer"
+                    alt={``}
                     src={image}
-                    alt=""
                     onMouseEnter={() => slider1.slickGoTo(i)}
                   />
                 </div>

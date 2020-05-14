@@ -15,6 +15,14 @@ https://skidplay.tk:8080 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+
+     header /media {
+        Cache-Control "public, max-age=31536000"
+     }
+
+     header /storage {
+        Cache-Control "public, max-age=31536000"
+     }
 }
 
 http://front.com:8081 {

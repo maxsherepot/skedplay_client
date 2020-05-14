@@ -61,6 +61,7 @@
     "react-i18next": "^11.2.7",
     "react-images": "^1.0.0",
     "react-input-mask": "^2.0.4",
+    "react-lazy-load-image-component": "^1.4.3",
     "react-maskinput": "^2.0.1",
     "react-multi-carousel": "^2.2.5",
     "react-paginate": "^6.3.0",
