@@ -6,8 +6,13 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Modules\Clubs\Entities\Club;
+use Modules\Clubs\Entities\ClubType;
+use Modules\Common\Entities\Canton;
 use Modules\Common\Entities\HelpCenterTopic;
+use Modules\Common\Entities\Service;
 use Modules\Employees\Entities\Employee;
+use Modules\Employees\Entities\EmployeeRaceType;
+use Modules\Events\Entities\EventType;
 use Modules\Main\Entities\Language;
 
 class SitemapController extends Controller
@@ -23,6 +28,11 @@ class SitemapController extends Controller
         }
 
         $languages = Language::where('active', 1)->get();
+        $cantons = Canton::with('cities')->get();
+        $services = Service::all();
+        $employeeRaceTypes = EmployeeRaceType::all();
+        $clubTypes = ClubType::all();
+        $eventTypes = EventType::all();
 
         foreach ($languages as $language) {
             $langPrefix = $language->code === 'de'
@@ -33,17 +43,25 @@ class SitemapController extends Controller
             $this->addEmployeesPages($sitemap, $langPrefix);
             $this->addClubsPages($sitemap, $langPrefix);
             $this->addHelpCenterPages($sitemap, $langPrefix);
+
+            $this->addEmployeesFilters($cantons, $sitemap, $langPrefix, $employeeRaceTypes, $services);
+            $this->addEntityFilters('clubs', $cantons, $sitemap, $langPrefix, $clubTypes);
+            $this->addEntityFilters('events', $cantons, $sitemap, $langPrefix, $eventTypes);
         }
 
         return $sitemap->render('xml');
     }
 
-    private function url(string $to, string $langPrefix): string
+    private function url(string $to, string $langPrefix, ?string $queryString = null): string
     {
         $url = config('app.front_app_url');
 
         if ($to === '') {
             return "$url$langPrefix$to";
+        }
+
+        if ($queryString) {
+            return "$url$langPrefix$to/?$queryString";
         }
 
         return "$url$langPrefix$to/";
@@ -146,4 +164,201 @@ class SitemapController extends Controller
             );
         }
     }
+
+    private function addEmployeesFilters(Collection $cantons, $sitemap, string $langPrefix, Collection $employeeRaceTypes, Collection $services): void
+    {
+        foreach (['girls', 'trans'] as $girlType) {
+            foreach ($cantons as $canton) {
+                $cantonSlug = Str::slug($canton->name);
+
+                $sitemap->add(
+                    $this->url("/$girlType/$cantonSlug", $langPrefix),
+                    now()->toIso8601String(),
+                    '1.0',
+                    'daily'
+                );
+
+                foreach ($employeeRaceTypes as $employeeRaceType) {
+                    $sitemap->add(
+                        $this->url(
+                            "/$girlType/$cantonSlug",
+                            $langPrefix,
+                            http_build_query([
+                                'types' => Str::slug($employeeRaceType->name)
+                            ])
+                        ),
+                        now()->toIso8601String(),
+                        '1.0',
+                        'daily'
+                    );
+                }
+
+                foreach ($services as $service) {
+                    $sitemap->add(
+                        $this->url(
+                            "/$girlType/$cantonSlug",
+                            $langPrefix,
+                            http_build_query([
+                                'services' => Str::slug($service->name)
+                            ])
+                        ),
+                        now()->toIso8601String(),
+                        '1.0',
+                        'daily'
+                    );
+                }
+
+                $ages = [
+                    [20],
+                    [30],
+                    [20, 30],
+                    [30, 40],
+                    [50],
+                ];
+
+                foreach ($ages as $age) {
+                    $ageParams = [];
+
+                    $ageParams['age_from'] = $age[0];
+
+                    if ($age[1] ?? false) {
+                        $ageParams['age_to'] = $age[1];
+                    }
+
+                    $sitemap->add(
+                        $this->url(
+                            "/$girlType/$cantonSlug",
+                            $langPrefix,
+                            http_build_query($ageParams)
+                        ),
+                        now()->toIso8601String(),
+                        '1.0',
+                        'daily'
+                    );
+                }
+
+                if (config('app.city_filter')) {
+                    foreach ($canton->cities as $city) {
+                        $citySlug = Str::slug($city->name);
+
+                        $sitemap->add(
+                            $this->url("/$girlType/$cantonSlug/$citySlug", $langPrefix),
+                            now()->toIso8601String(),
+                            '1.0',
+                            'daily'
+                        );
+
+                        foreach ($employeeRaceTypes as $employeeRaceType) {
+                            $sitemap->add(
+                                $this->url(
+                                    "/$girlType/$cantonSlug/$citySlug",
+                                    $langPrefix,
+                                    http_build_query([
+                                        'types' => Str::slug($employeeRaceType->name)
+                                    ])
+                                ),
+                                now()->toIso8601String(),
+                                '1.0',
+                                'daily'
+                            );
+                        }
+
+                        foreach ($services as $service) {
+                            $sitemap->add(
+                                $this->url(
+                                    "/$girlType/$cantonSlug/$citySlug",
+                                    $langPrefix,
+                                    http_build_query([
+                                        'services' => Str::slug($service->name)
+                                    ])
+                                ),
+                                now()->toIso8601String(),
+                                '1.0',
+                                'daily'
+                            );
+                        }
+
+                        foreach ($ages as $age) {
+                            $ageParams = [];
+
+                            $ageParams['age_from'] = $age[0];
+
+                            if ($age[1] ?? false) {
+                                $ageParams['age_to'] = $age[1];
+                            }
+
+                            $sitemap->add(
+                                $this->url(
+                                    "/$girlType/$cantonSlug/$citySlug",
+                                    $langPrefix,
+                                    http_build_query($ageParams)
+                                ),
+                                now()->toIso8601String(),
+                                '1.0',
+                                'daily'
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private function addEntityFilters(string $entity, Collection $cantons, $sitemap, string $langPrefix, Collection $types): void
+    {
+        foreach ($cantons as $canton) {
+            $cantonSlug = Str::slug($canton->name);
+
+            $sitemap->add(
+                $this->url("/clubs/$cantonSlug", $langPrefix),
+                now()->toIso8601String(),
+                '1.0',
+                'daily'
+            );
+
+            foreach ($types as $type) {
+                $sitemap->add(
+                    $this->url(
+                        "/$entity/$cantonSlug",
+                        $langPrefix,
+                        http_build_query([
+                            'types' => Str::slug($type->name)
+                        ])
+                    ),
+                    now()->toIso8601String(),
+                    '1.0',
+                    'daily'
+                );
+            }
+
+            if (config('app.city_filter')) {
+                foreach ($canton->cities as $city) {
+                    $citySlug = Str::slug($city->name);
+
+                    $sitemap->add(
+                        $this->url("/$entity/$cantonSlug/$citySlug", $langPrefix),
+                        now()->toIso8601String(),
+                        '1.0',
+                        'daily'
+                    );
+
+                    foreach ($types as $type) {
+                        $sitemap->add(
+                            $this->url(
+                                "/$entity/$cantonSlug/$citySlug",
+                                $langPrefix,
+                                http_build_query([
+                                    'types' => Str::slug($type->name)
+                                ])
+                            ),
+                            now()->toIso8601String(),
+                            '1.0',
+                            'daily'
+                        );
+                    }
+                }
+            }
+        }
+    }
+
 }
