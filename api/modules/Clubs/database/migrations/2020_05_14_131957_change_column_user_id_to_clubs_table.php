@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddManagerAssignmentDateToClubsTable extends Migration
+class ChangeColumnUserIdToClubsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,7 @@ class AddManagerAssignmentDateToClubsTable extends Migration
     public function up()
     {
         Schema::table('clubs', function (Blueprint $table) {
-            $table->dateTime('manager_assignment_at')
-                ->after('manager_status')
-                ->nullable();
-
-            $table->dateTime('comment_set_at')
-                ->after('comment')
-                ->nullable();
+            $table->unsignedBigInteger('user_id')->nullable()->change();
         });
     }
 
@@ -32,8 +26,7 @@ class AddManagerAssignmentDateToClubsTable extends Migration
     public function down()
     {
         Schema::table('clubs', function (Blueprint $table) {
-            $table->dropColumn('manager_assignment_at');
-            $table->dropColumn('comment_set_at');
+            $table->dropColumn('user_id');
         });
     }
 }

@@ -110,18 +110,29 @@ class Club extends Resource
             BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable()->exceptOnForms(),
 
             Select::make('Manager','manager_id')->options($userOptions)->onlyOnForms(),
+            DateTime::make('Set manager date','manager_assignment_at')->onlyOnDetail(),
         ];
     }
 
     private function getManagerTabFields(): array
     {
+        $userOptions = \Modules\Users\Entities\User::query()
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where('roles.name', '=', 'club_owner')
+            ->pluck('users.name','users.id')
+            ->toArray()
+        ;
+
         return [
             ID::make()->sortable(),
 
             Text::make('Name'),
 
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
-            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+            BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
+
+            Select::make('Owner', 'user_id')->options($userOptions)->onlyOnForms()->nullable(),
 
             Text::make('Description'),
             Text::make('Address'),
@@ -153,12 +164,15 @@ class Club extends Resource
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->onlyOnForms(),
 
+
             Select::make('Manager status', 'manager_status')->options([
                 \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
                 \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
                 \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
                 \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
             ])->displayUsingLabels()->onlyOnForms(),
+
+            DateTime::make('Manager set at','manager_assignment_at')->onlyOnDetail(),
 
             Text::make('Phones')->withMeta([
                 'extraAttributes' => [
@@ -167,11 +181,20 @@ class Club extends Resource
             ])->rules('required'),
 
             Text::make('Comment'),
+
+            DateTime::make('Date of comment', 'comment_set_at')->onlyOnDetail(),
         ];
     }
 
     private function getTableFields(): array // info main tables
     {
+        $userOptions = \Modules\Users\Entities\User::query()
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where('roles.name', '=', 'club_owner')
+            ->pluck('users.name','users.id')
+            ->toArray()
+        ;
         return [
             ID::make()->sortable(),
 
@@ -180,17 +203,24 @@ class Club extends Resource
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
 
             Text::make('Address')->hideFromIndex(),
-            Text::make('Phones')->withMeta([
+            Text::make('Phone', 'phones')->withMeta([
                 'extraAttributes' => [
                     'placeholder' => '+4171-111-11-11',
                 ],
             ]),
 
+            Text::make('Email')->onlyOnForms(),
+            Text::make('Website')->onlyOnForms(),
+
+            Text::make('Description')->onlyOnForms(),
+
             BelongsTo::make('Manager', 'manager', User::class)
                 ->sortable()
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+            BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
+
+            Select::make('Owner', 'user_id')->options($userOptions)->onlyOnForms()->nullable(),
 
             Text::make('Club status', function() {
                 return view(
@@ -204,18 +234,25 @@ class Club extends Resource
                     'nova.manager_status',
                     ['status' => $this->manager_status ?? 0]
                 )->render();
-            })->asHtml(),
+            })->asHtml()->exceptOnForms(),
+
+            Select::make('Manager status', 'manager_status')->options([
+                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
+            ])->displayUsingLabels()->onlyOnForms(),
 
             Select::make('User status', 'user_status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->onlyOnForms(),
+            ])->onlyOnForms()->hideWhenCreating(),
 
             Select::make('Club status','status')->options([
                 \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                 \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
             ])->displayUsingLabels()
-                ->onlyOnForms(),
+                ->onlyOnForms()->hideWhenCreating(),
 
             Text::make('Comment')->hideFromIndex(),
         ];

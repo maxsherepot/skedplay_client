@@ -118,6 +118,26 @@ class ClubRepository implements HasMediable
     }
 
     /**
+     * @param int $id
+     * @return Club|null|object
+     */
+    public function find(int $id): ?Club
+    {
+        return Club::query()->find($id);
+    }
+
+    /**
+     * @param int $id
+     * @return Collection
+     */
+    public function getManagerId(int $id): Collection
+    {
+        return Club::query()
+            ->where('id', '=', $id)
+            ->get('manager_id');
+    }
+
+    /**
      * @param Collection $collection
      * @return \Illuminate\Database\Eloquent\Model
      */

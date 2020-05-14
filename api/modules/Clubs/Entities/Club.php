@@ -45,7 +45,8 @@ use Spatie\MediaLibrary\Models\Media;
  * @property int user_status
  * @property int id
  * @property datetime manager_assignment_at
- *
+ * @property datetime comment_set_at
+ * @property string comment
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
@@ -85,11 +86,12 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'moderator_id',
         'start_time',
         'end_time',
-        'manager_assignment_at',
     ];
 
     protected $casts = [
         'phones' => 'array',
+        'comment_set_at' => 'datetime',
+        'manager_assignment_at' => 'datetime',
     ];
 
     protected $dates = [
