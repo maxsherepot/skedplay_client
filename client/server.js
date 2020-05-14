@@ -26,6 +26,10 @@ const handle = app.getRequestHandler();
   });
 
   server.get('*', (req, res) => {
+    if (/\..+$/g.test(req.url)) {
+      return handle(req, res);
+    }
+
     if (req.url.indexOf('?') === -1) {
       if (!/\/$/g.test(req.url)) {
         return res.redirect(301, req.url + '/');
