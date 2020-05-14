@@ -195,6 +195,7 @@ function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, g
 
   const options = {
     fullscreenControl: false,
+    disableDefaultUI: true,
   };
 
   // if (this.props.black) {

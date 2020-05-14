@@ -247,6 +247,7 @@ class MapDirection extends Component {
 
     const options = {
       fullscreenControl: false,
+      disableDefaultUI: true,
     };
 
     // if (this.props.black) {
@@ -288,6 +289,7 @@ class MapDirection extends Component {
             lat: 0,
             lng: -180
           }}
+          disableDefaultUI={true}
           options={options}
         >
           {

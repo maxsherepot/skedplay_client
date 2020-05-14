@@ -48,7 +48,7 @@ class EmployeeMaps extends Component {
         <MapDirection
           originByGeo={true}
           destination={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
-        ></MapDirection>
+        />
       );
     }
 
@@ -60,7 +60,7 @@ class EmployeeMaps extends Component {
         center={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
         destination={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
         mapContainerStyle={{width: '100%', height: '400px'}}
-      ></MapWithMarkers>
+      />
     );
   }
 }

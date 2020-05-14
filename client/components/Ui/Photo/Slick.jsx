@@ -35,7 +35,7 @@ function NextArrow({ className, currentSlide, onClick }) {
   );
 }
 
-function Slick({ id, photos, labels, available, slider, className, link, as }) {
+function Slick({ id, photos, labels, available, slider, className, link, as, noPhotoSrc }) {
   const [sliderCardId, setSliderCardId] = useState(null);
 
   const [mainNav, setMainNav] = useState(null);
@@ -52,38 +52,56 @@ function Slick({ id, photos, labels, available, slider, className, link, as }) {
   const images = photos.map(photo => photo.thumb_url);
   const isActiveSlider = sliderCardId === id && slider;
 
+  function getImagesBlock() {
+    if (images.length === 0) {
+      return (
+        <div className="relative block">
+          <img
+            className={cx("object-cover", className)}
+            src={noPhotoSrc}
+            alt=""
+          />
+        </div>
+      );
+    }
+
+    return (
+      <Slider
+        className="relative block"
+        asNavFor={secondNav}
+        arrows={false}
+        fade={true}
+        ref={slider => setSlider1(slider)}
+      >
+        {images.map((image, i) => {
+          if (i === 0) {
+            return (
+              <img
+                key={i}
+                className={cx("object-cover", className)}
+                src={image}
+                alt=""
+              />
+            );
+          }
+
+          return (
+            <LazyLoadImage
+              key={i}
+              className={cx("object-cover", className)}
+              alt={``}
+              src={image}
+            />
+          );
+        })}
+      </Slider>
+    );
+  }
+
   function getInnerBlock() {
     return (
       <>
-        <Slider
-          className="relative block"
-          asNavFor={secondNav}
-          arrows={false}
-          fade={true}
-          ref={slider => setSlider1(slider)}
-        >
-          {images.map((image, i) => {
-            if (i === 0) {
-              return (
-                <img
-                  key={i}
-                  className={cx("object-cover", className)}
-                  src={image}
-                  alt=""
-                />
-              );
-            }
-
-            return (
-              <LazyLoadImage
-                key={i}
-                className={cx("object-cover", className)}
-                alt={``}
-                src={image}
-              />
-            );
-          })}
-        </Slider>
+        {getImagesBlock()}
 
         {labels && (
           <div
@@ -91,42 +109,44 @@ function Slick({ id, photos, labels, available, slider, className, link, as }) {
               "absolute transition inset-0 flex flex-row justify-between items-end p-3",
             )}
             style={{
-              marginBottom: isActiveSlider ? "5.2rem" : 0,
+              marginBottom: isActiveSlider && images.length > 0 ? "5.2rem" : 0,
             }}
           >
             {labels}
           </div>
         )}
 
-        <div className={cx([
-          "flex w-full absolute transition bottom-0 flex-col lg:justify-end  overflow-hidden",
-          isActiveSlider ? "h-0 lg:h-24" : "h-0",
-        ])}>
-          <div className="slider px-6 pt-3">
-            <Slider
-              asNavFor={mainNav}
-              ref={slider => setSlider2(slider)}
-              slidesToShow={5}
-              infinite={false}
-              swipeToSlide={true}
-              focusOnSelect={true}
-              adaptiveHeight
-              nextArrow={<NextArrow className="prev-arrow" />}
-              prevArrow={<PrevArrow className="next-arrow" />}
-            >
-              {images.map((image, i) => (
-                <div className="pr-1 outline-none" key={i}>
-                  <LazyLoadImage
-                    className="object-cover rounded-lg h-15 outline-none cursor-pointer"
-                    alt={``}
-                    src={image}
-                    onMouseEnter={() => slider1.slickGoTo(i)}
-                  />
-                </div>
-              ))}
-            </Slider>
+        {images.length > 0 &&
+          <div className={cx([
+            "flex w-full absolute transition bottom-0 flex-col lg:justify-end  overflow-hidden",
+            isActiveSlider ? "h-0 lg:h-24" : "h-0",
+          ])}>
+            <div className="slider px-6 pt-3">
+              <Slider
+                asNavFor={mainNav}
+                ref={slider => setSlider2(slider)}
+                slidesToShow={5}
+                infinite={false}
+                swipeToSlide={true}
+                focusOnSelect={true}
+                adaptiveHeight
+                nextArrow={<NextArrow className="prev-arrow" />}
+                prevArrow={<PrevArrow className="next-arrow" />}
+              >
+                {images.map((image, i) => (
+                  <div className="pr-1 outline-none" key={i}>
+                    <LazyLoadImage
+                      className="object-cover rounded-lg h-15 outline-none cursor-pointer"
+                      alt={``}
+                      src={image}
+                      onMouseEnter={() => slider1.slickGoTo(i)}
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
           </div>
-        </div>
+        }
       </>
     );
   }

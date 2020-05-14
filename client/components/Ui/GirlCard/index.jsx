@@ -195,6 +195,7 @@ function GirlCard({
           available={available}
           link={getHref()}
           as={getLink(girl)}
+          noPhotoSrc={`/static/img/girl-no-photo.jpg`}
         />
       )}
 

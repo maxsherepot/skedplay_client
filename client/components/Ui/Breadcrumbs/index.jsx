@@ -6,6 +6,10 @@ import cx from 'classnames';
 const Breadcrubms = ({items}) => {
   const {t} = useTranslation();
 
+  if (process.env.BREADCRUMBS !== 'true') {
+    return null;
+  }
+
   const firstItem = {as: '/', href: '/', label: t('common.home')};
 
   items = [firstItem, ...items];
