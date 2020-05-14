@@ -103,7 +103,8 @@
     "not_selected": "Not selected",
     "workers": "workers",
     "canton": "Canton",
-    "all": "All"
+    "all": "All",
+    "home": "Home"
   },
   "layout": {
     "view_my_account": "View my account",
