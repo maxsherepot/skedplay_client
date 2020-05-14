@@ -134,14 +134,13 @@ const ClubInformation = ({user}) => {
       canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
       city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
     },
-    fetchPolicy: 'no-cache',
+    // fetchPolicy: 'no-cache',
     skip: !!canton && cantonsLoading
   });
 
   const {t, i18n} = useTranslation();
 
   if (loading || cantonsLoading) {
-    console.log(loading, cantonsLoading, club, !!canton && cantonsLoading);
     return <Loader/>;
   }
 

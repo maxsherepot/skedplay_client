@@ -1,10 +1,9 @@
 import React from "react";
-
 const { Component } = require('react');
 const { GoogleMap, DirectionsService, DirectionsRenderer } = require("@react-google-maps/api");
-
 import cx from 'classnames';
 import { Trans } from "react-i18next";
+import withGoogleMap from "hoc/withGoogleMap";
 
 class MapDirection extends Component {
   constructor (props) {
@@ -326,4 +325,4 @@ class MapDirection extends Component {
   }
 }
 
-export default MapDirection;
+export default withGoogleMap(MapDirection);

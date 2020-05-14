@@ -25,6 +25,7 @@ module.exports = withSass(withCss({
     config.resolve.alias["locales"] = path.join(__dirname, "locales");
     config.resolve.alias["services"] = path.join(__dirname, "services");
     config.resolve.alias["pages"] = path.join(__dirname, "pages");
+    config.resolve.alias["hoc"] = path.join(__dirname, "hoc");
 
     config.plugins = config.plugins || [];
 

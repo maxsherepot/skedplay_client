@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { GoogleMap, LoadScript, MarkerClusterer, Marker } from '@react-google-maps/api'
+import {GoogleMap, LoadScript, MarkerClusterer, Marker, useLoadScript} from '@react-google-maps/api'
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
+
+import withGoogleMap from "hoc/withGoogleMap";
 
 function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, goBtn, goBtnLeft, destination, height }) {
   const blackStyles = [
@@ -259,4 +261,4 @@ function MapWithMarkers({ markers, mapContainerStyle, zoom, center, showLabel, g
   )
 }
 
-export default MapWithMarkers;
+export default withGoogleMap(MapWithMarkers);

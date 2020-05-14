@@ -5,8 +5,6 @@ import withApollo from "lib/withApollo";
 import {MainLayout} from 'layouts'
 import "styles/style.scss";
 import { appWithTranslation } from 'lib/i18n';
-import {LoadScriptNext} from "@react-google-maps/api";
-import { Loader } from "UI";
 import slug from 'slug';
 
 slug.defaults.mode = 'rfc3986';
@@ -20,26 +18,11 @@ class MyApp extends App {
     const getLayout =
         Component.getLayout || (page => <MainLayout {...pageProps} children={page} />)
 
-    if (typeof document === 'undefined') {
       return (
         <ApolloProvider client={apolloClient}>
           {getLayout(<Component {...pageProps} />, pageProps)}
         </ApolloProvider>
       )
-    }
-
-    return (
-        <ApolloProvider client={apolloClient}>
-          <LoadScriptNext
-            id="script-loader"
-            googleMapsApiKey={process.env.GOOGLE_MAP_KEY}
-            libraries={['places']}
-            loadingElement={<div/>}
-          >
-            {getLayout(<Component {...pageProps} />, pageProps)}
-          </LoadScriptNext>
-        </ApolloProvider>
-    )
   }
 }
 

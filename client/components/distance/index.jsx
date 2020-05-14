@@ -1,5 +1,6 @@
-import {Children, Component} from "react";
-import { DistanceMatrixService } from '@react-google-maps/api';
+import React, {Children, Component} from "react";
+import {DistanceMatrixService, useLoadScript} from '@react-google-maps/api';
+import withGoogleMap from "hoc/withGoogleMap";
 
 class Distance extends Component {
   constructor(props) {
@@ -106,4 +107,4 @@ class Distance extends Component {
   }
 }
 
-export default Distance;
+export default withGoogleMap(Distance);

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import GoogleMapReact from "google-map-react";
+import withGoogleMap from "hoc/withGoogleMap";
 
 function GoogleMap({ className, key, center, zoom }) {
   const styles = [
@@ -206,7 +207,7 @@ function GoogleMap({ className, key, center, zoom }) {
         defaultCenter={center}
         defaultZoom={zoom}
         options={options}
-      ></GoogleMapReact>
+      />
     </div>
   );
 }
@@ -227,4 +228,4 @@ GoogleMap.propTypes = {
   zoom: PropTypes.number
 };
 
-export default GoogleMap;
+export default withGoogleMap(GoogleMap);
