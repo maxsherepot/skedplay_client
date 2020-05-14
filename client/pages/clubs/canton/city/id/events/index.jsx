@@ -53,13 +53,19 @@ const ClubEventsIndex = ({ user }) => {
     </>
   );
 
+  const lastBreadcrumbs = [
+    {
+      label: t('layout.events'),
+    }
+  ];
+
   return (
     <>
       <NextSeo
         title={club.name + ' ' + t('common.events').toLowerCase()}
       />
 
-      <ClubBox club={club} user={user}>
+      <ClubBox club={club} user={user} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
           <div className="w-full lg:w-3/12 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>

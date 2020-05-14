@@ -23,13 +23,19 @@ const ClubGirls = ({ user }) => {
     return <Loader />;
   }
 
+  const lastBreadcrumbs = [
+    {
+      label: t('common.our_girls'),
+    }
+  ];
+
   return (
     <>
       <NextSeo
         title={club.name + ' ' + t('common.girls').toLowerCase()}
       />
 
-      <ClubBox club={club} user={user}>
+      <ClubBox club={club} user={user} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
           {club.employees &&
           club.employees.map(girl => (

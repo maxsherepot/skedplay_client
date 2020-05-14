@@ -96,6 +96,17 @@ const ClubEventShow = ({ user }) => {
     </div>
   );
 
+  const lastBreadcrumbs = [
+    {
+      href: `/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`,
+      as: `/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`,
+      label: t('layout.events'),
+    },
+    {
+      label: event.title,
+    }
+  ];
+
   return (
     <>
       <NextSeo
@@ -103,7 +114,7 @@ const ClubEventShow = ({ user }) => {
         canonical={canonical}
       />
 
-      <ClubBox club={club} user={user}>
+      <ClubBox club={club} user={user} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-2/5 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>

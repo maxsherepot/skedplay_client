@@ -271,7 +271,7 @@ const EmployeeInformation = ({ user }) => {
         canonical={canonical}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees} page={`information`}>
+      <EmployeeBox employee={employee} user={user} employees={employees}>
         {!user && (employee.isVip === true) ? (
           <div>
             <Modal

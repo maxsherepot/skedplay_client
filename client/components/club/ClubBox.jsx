@@ -1,11 +1,60 @@
 import React from "react";
 import { MainLayout } from "layouts";
-import { SecondaryNav, ActiveLink } from "UI";
+import { SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
 import {useTranslation} from "react-i18next";
 import slug from 'slug';
+import {useQuery} from "@apollo/react-hooks";
+import {GET_PAGE} from 'queries';
+import translation from "services/translation";
 
-const ClubBox = ({ club, user, children }) => {
+const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
   const {t, i18n} = useTranslation();
+
+  const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
+    variables: {
+      key: 'clubs'
+    }
+  });
+
+  if (pageLoading) {
+    return <Loader/>
+  }
+
+  const cityFilter = process.env.CITY_FILTER !== 'true'
+    ? []
+    : [
+      {
+        as: `/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}`,
+        href: `/clubs/canton/city?canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`,
+        label: club.city.name
+      }
+    ];
+
+  let breadcrumbs = [
+    {
+      as: `/clubs`,
+      href: `/clubs`,
+      label: translation.getLangField(page.header, i18n.language)
+    },
+    {
+      as: `/clubs/${slug(club.city.canton.name)}`,
+      href: `/clubs/canton?&canton=${slug(club.city.canton.name)}`,
+      label: club.city.canton.name
+    },
+    ...cityFilter,
+    {
+      as: `/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`,
+      href: `/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`,
+      label: club.name
+    },
+  ];
+
+  if (lastBreadcrumbs) {
+    breadcrumbs = [...breadcrumbs, ...lastBreadcrumbs]
+  }
+
+
+
   const leftInfo = (
     <>
       {club && (
@@ -23,7 +72,14 @@ const ClubBox = ({ club, user, children }) => {
 
   return (
     <MainLayout user={user}>
-      <SecondaryNav left={leftInfo}>
+      <SecondaryNav
+        left={leftInfo}
+        breadcrumbs={
+          <Breadcrumbs
+            items={breadcrumbs}
+          />
+        }
+      >
         <ul className="flex -mx-4 text-white">
           <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
             <ActiveLink
