@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import Link from 'components/SlashedLink'
 
-import { ProfileSvg } from "icons";
+import { ProfileSvg, CrownSvg } from "icons";
 import { Logo, Button, Lang, FavoritesCount } from "UI";
 import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/router";
 import favorites from "services/favorites";
+import cx from 'classnames';
 
 const FavoriteBlock = () => {
   const { data: { favorites_count } = {}, client } = favorites.getFavoritesCount();
@@ -54,9 +55,56 @@ const FavoriteBlock = () => {
   );
 };
 
+const VipButton = ({whiteTheme}) => {
+  const { t, i18n } = useTranslation();
+  const [vipHover, setVipHover] = useState(false);
+
+  const getColor = () => {
+    if (!whiteTheme) {
+      return '#FFF'
+    }
+
+    return vipHover ? '#FFF' : '#FF3366';
+  };
+
+  const getTextClass = () => {
+    if (!whiteTheme) {
+      return '#FFF'
+    }
+
+    return vipHover ? 'text-white' : 'text-red'
+  };
+
+  return (
+    <Link href="/vip-escort">
+      <Button
+        size="xxs"
+        weight="normal"
+        level="primary"
+        className="flex items-center px-2 text-xs"
+        outline
+        onMouseEnter={() => setVipHover(true)}
+        onMouseLeave={() => setVipHover(false)}
+      >
+        <CrownSvg color={getColor()}/>
+        <span
+          className={cx(
+            "ml-1",
+            // vipHover ? 'text-white' : 'text-red',
+            getTextClass()
+          )}
+        >
+          {t('common.vip').toUpperCase()}
+        </span>
+      </Button>
+    </Link>
+  );
+};
+
 const NAV_HEIGHT = 90;
 
 function Nav({ user, className }) {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const [nav, toggleNav] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
@@ -80,7 +128,8 @@ function Nav({ user, className }) {
     toggleNav(!nav);
   };
 
-  const { t, i18n } = useTranslation();
+  // const whiteTheme = (className || '').indexOf('nav__theme_white') !== -1;
+  const whiteTheme = isInverse || router.pathname !== '/';
 
   return (
     <nav
@@ -149,10 +198,8 @@ function Nav({ user, className }) {
                   <a>{t('common.events')}</a>
                 </Link>
               </li>
-              <li className="menu__item bg-white">
-                <Link href="/vip-escort">
-                  <a className="vip">{t('common.vip')}</a>
-                </Link>
+              <li className="flex items-center">
+                <VipButton whiteTheme={whiteTheme}/>
               </li>
             </ul>
           </div>

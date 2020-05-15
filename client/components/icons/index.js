@@ -1,3 +1,4 @@
+export { default as CrownSvg } from "./CrownSvg";
 export { default as UserSvg } from "./UserSvg";
 export { default as ProfileSvg } from "./ProfileSvg";
 export { default as StarSvg } from "./StarSvg";
