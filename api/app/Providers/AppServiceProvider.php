@@ -8,6 +8,7 @@ use Laravel\Nova\Nova;
 use Laravel\Telescope\TelescopeServiceProvider;
 use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
+use Modules\Clubs\Observers\ClubObserver;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Faq;
@@ -57,5 +58,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         \Spatie\NovaTranslatable\Translatable::defaultLocales(['en', 'de', 'fr']);
+        Club::observe(ClubObserver::class);
     }
 }

@@ -111,6 +111,7 @@ const AccountClubWorkersShow = ({user}) => {
   const [calendarStatus, setCalendarStatus] = useState(false);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
+
   const { t } = useTranslation();
 
   if (loading || loadingClubs) return <Loader/>;
@@ -135,6 +136,16 @@ const AccountClubWorkersShow = ({user}) => {
     });
   }
 
+  const [panelStatus, setPanelStatus] = useState(false);
+
+  const onPanelStatus = () => {
+    setPanelStatus(true);
+  };
+
+  const offPanelStatus = () => {
+    setPanelStatus(false);
+  };
+
   const CalendarWeek = () => {
     let startDate = dateFns.startOfWeek(currentWeek);
 
@@ -155,6 +166,7 @@ const AccountClubWorkersShow = ({user}) => {
     };
 
     const onDayClick = (day) => {
+      setPanelStatus(true);
       setSelectedDay(day);
     };
 
@@ -252,10 +264,15 @@ const AccountClubWorkersShow = ({user}) => {
         <div className="border-t border-divider"/>
 
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
+          <div className="flex flex-wrap -mx-2">
+            {club.employees.map(employee => (
+                <EmployeeCard key={employee.id} employee={employee} clubs={clubs}/>
+                )
+            )}
+          </div>
         </Panel>
         <Panel>
-          <AvailableToday employees={club.employees} clubs={clubs} day={new Date()}/>
+          <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
         </Panel>
         <Panel>
           <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>

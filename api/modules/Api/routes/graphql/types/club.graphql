@@ -12,6 +12,9 @@ type Club {
   user_id: Int
   city_id: Int
   user_status: Int
+  manager_status: Int
+  manager_assignment_at: DateTime
+  comment_set_at: DateTime
   status: Int
   favorited: Favorite @morphOne @with(relation: "favoriteRelation")
   lat: Float

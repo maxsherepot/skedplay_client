@@ -19,6 +19,7 @@
         "doctrine/dbal": "^2.9",
         "ebess/advanced-nova-media-library": "^2.9",
         "eminiarts/nova-tabs": "^1.2",
+        "epartment/nova-dependency-container": "^1.2",
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laracomponents/centrifuge-broadcaster": "^1.0",
@@ -27,6 +28,7 @@
         "laravel/nova": "*",
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
+        "laravelium/sitemap": "3.1.*",
         "league/omnipay": "^3",
         "mll-lab/graphql-php-scalars": "^2.1",
         "mll-lab/laravel-graphql-playground": "^1.1",
@@ -45,8 +47,7 @@
         "spatie/nova-translatable": "^2.0",
         "stevebauman/location": "^3.0",
         "sudiptpa/paypal-ipn": "^2.0",
-        "tightenco/parental": "0.7",
-        "laravelium/sitemap": "3.1.*"
+        "tightenco/parental": "0.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",

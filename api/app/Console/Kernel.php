@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\BossCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Modules\Clubs\Console\CreatePossibleClub;
 use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
@@ -35,6 +36,7 @@ class Kernel extends ConsoleKernel
         SetDefaultStatus::class,
         GenerateEntitiesAddresses::class,
         InitPages::class,
+        CreatePossibleClub::class,
     ];
 
     /**
