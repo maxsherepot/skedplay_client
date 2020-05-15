@@ -8,6 +8,7 @@ use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
+use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
@@ -25,6 +26,8 @@ use Skidplay\UserTopInfo\UserTopInfo;
 
 class Club extends Resource
 {
+    use HasDependencies;
+
     /**
      * The model the resource corresponds to.
      *
@@ -97,34 +100,29 @@ class Club extends Resource
         return $this->getViewFields();
     }
 
-    private function getAdminTabFields(): array
+    private function getUserByRoleName(string $roleName): array
     {
-        $userOptions = \Modules\Users\Entities\User::query()
+        return \Modules\Users\Entities\User::query()
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->where('roles.name', '=', 'manager')
+            ->where('roles.name', '=', $roleName)
             ->pluck('users.name','users.id')
             ->toArray()
         ;
+    }
 
+    private function getAdminTabFields(): array
+    {
         return [
             BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable()->exceptOnForms(),
 
-            Select::make('Manager','manager_id')->options($userOptions)->onlyOnForms(),
+            Select::make('Manager','manager_id')->options($this->getUserByRoleName('manager'))->onlyOnForms(),
             DateTime::make('Set manager date','manager_assignment_at')->onlyOnDetail(),
         ];
     }
 
     private function getManagerTabFields(): array
     {
-        $userOptions = \Modules\Users\Entities\User::query()
-            ->join('role_user', 'role_user.user_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->where('roles.name', '=', 'club_owner')
-            ->pluck('users.name','users.id')
-            ->toArray()
-        ;
-
         return [
             ID::make()->sortable(),
 
@@ -133,7 +131,7 @@ class Club extends Resource
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
             BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
 
-            Select::make('Owner', 'user_id')->options($userOptions)->onlyOnForms()->nullable(),
+            Select::make('Owner', 'user_id')->options($this->getUserByRoleName('club_owner'))->onlyOnForms()->nullable(),
 
             Text::make('Description'),
             Text::make('Address'),
@@ -147,6 +145,13 @@ class Club extends Resource
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml()->exceptOnForms(),
+
+            Text::make('User status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->user_status ?? 0]
+                )->render();
+            })->asHtml(),
 
             Text::make('Manager status', 'manager_status', function() {
                 return view(
@@ -165,7 +170,7 @@ class Club extends Resource
                     \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
                     \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
                 ])->onlyOnForms(),
-            ])->dependsOnNotEmpty('user_id'),
+            ])->dependsOnNotEmpty('user_id')->onlyOnForms(),
 
             Select::make('Manager status', 'manager_status')->options([
                 \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
@@ -190,13 +195,6 @@ class Club extends Resource
 
     private function getTableFields(): array // info main tables
     {
-        $userOptions = \Modules\Users\Entities\User::query()
-            ->join('role_user', 'role_user.user_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->where('roles.name', '=', 'club_owner')
-            ->pluck('users.name','users.id')
-            ->toArray()
-        ;
         return [
             ID::make()->sortable(),
 
@@ -222,7 +220,7 @@ class Club extends Resource
 
             BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
 
-            Select::make('Owner', 'user_id')->options($userOptions)->onlyOnForms()->nullable(),
+            Select::make('Owner', 'user_id')->options($this->getUserByRoleName('club_owner'))->onlyOnForms()->nullable(),
 
             Text::make('Club status', function() {
                 return view(
@@ -349,7 +347,7 @@ class Club extends Resource
                 return json_decode($this->phones, true);
             })->asHtml(),
 
-            Text::make('Status', function() {
+            Text::make('Club status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]

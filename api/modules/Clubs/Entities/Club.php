@@ -86,6 +86,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'moderator_id',
         'start_time',
         'end_time',
+        'comment',
     ];
 
     protected $casts = [
