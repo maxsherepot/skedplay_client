@@ -8,6 +8,7 @@ use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
@@ -154,16 +155,17 @@ class Club extends Resource
                 )->render();
             })->asHtml()->exceptOnForms(),
 
-            Select::make('Club status', 'status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->onlyOnForms(),
+            NovaDependencyContainer::make([
+                Select::make('Club status', 'status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
 
-            Select::make('User status', 'user_status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->onlyOnForms(),
-
+                Select::make('User status', 'user_status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+            ])->dependsOnNotEmpty('user_id'),
 
             Select::make('Manager status', 'manager_status')->options([
                 \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
@@ -243,16 +245,17 @@ class Club extends Resource
                 \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
             ])->displayUsingLabels()->onlyOnForms(),
 
-            Select::make('User status', 'user_status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->onlyOnForms()->hideWhenCreating(),
+            NovaDependencyContainer::make([
+                Select::make('Club status', 'status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
 
-            Select::make('Club status','status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->displayUsingLabels()
-                ->onlyOnForms()->hideWhenCreating(),
+                Select::make('User status', 'user_status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+            ])->dependsOnNotEmpty('user_id'),
 
             Text::make('Comment')->hideFromIndex(),
         ];
