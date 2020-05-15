@@ -104,6 +104,7 @@ module.exports = {
         "user-dropdown": "29.5rem"
       },
       height: {
+        "2px": "2px",
         "2": "0.5rem",
         "7": "1.875rem",
         "10": "2.5rem",

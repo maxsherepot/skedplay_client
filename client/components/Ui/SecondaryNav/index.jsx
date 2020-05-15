@@ -2,21 +2,17 @@ import React from "react";
 
 import { ArrowBack } from "UI";
 
-const SecondaryNav = ({ left, children, right, breadcrumbs }) => {
+const SecondaryNav = ({ left, children, right, breadcrumbs, title }) => {
   return (
     <>
       <div
-        className="py-5"
-        style={{
-          background:
-            "linear-gradient(90deg, #9854a3, #5f3466,#241327, #010101)"
-        }}
+        className="bg-white border-b border-xs-grey"
       >
         <div className="fluid-container">
           <div className="flex items-center justify-around sm:justify-between">
             <div className="flex items-center -mx-4">
-              <ArrowBack className="px-4" color="white" back></ArrowBack>
-              <div className="hidden hd:flex items-center px-2">{left}</div>
+              <ArrowBack className="px-4" color="red" back/>
+              <div className="hidden xl:flex items-center px-2">{left}</div>
             </div>
 
             {children}
@@ -26,9 +22,8 @@ const SecondaryNav = ({ left, children, right, breadcrumbs }) => {
         </div>
       </div>
       {breadcrumbs}
-      <div className="fluid-container hd:hidden">
-        {/* Add justify-between */}
-        <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="fluid-container xl:hidden">
+        <div className="flex flex-col md:flex-row items-center justify-center">
           {left}
 
           <div className="w-full md:w-auto lg:hidden">{right}</div>

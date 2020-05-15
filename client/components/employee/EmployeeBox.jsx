@@ -79,9 +79,9 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const leftInfo = (
     <>
-      <div className="flex flex-col md:flex-row items-center mb-4 md:mt-4">
+      <div className="flex flex-col md:flex-row items-center mb-4 xl:mt-4">
         {employee && (
-          <h1 className="text-3xl font-extrabold hd:text-white">
+          <h1 className="text-2xl font-extrabold hd:text-white">
             {employee.name} {employee.age}
           </h1>
         )}
@@ -99,26 +99,28 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const phone = employee.phone || employee.owner.phone;
 
-  const rightInfo = phone ? (
-    <div className="flex items-center justify-center bg-red text-white px-8 py-3 rounded-full cursor-pointer">
-      <PhoneSvg/>
-      <span
-        className={cx("block ml-2 whitespace-no-wrap overflow-hidden", {
-          "w-10": !showNumber
-        })}
-      >
-        {phone}
-      </span>
-      {!showNumber && (
-        <span
-          className="ml-4 whitespace-no-wrap"
-          onClick={() => setToggleNumber(!showNumber)}
-        >
-            {t('employees.show_phone')}
-        </span>
-      )}
-    </div>
-  ) : null;
+  // const rightInfo = phone ? (
+  //   <div className="flex items-center justify-center bg-red text-white px-8 py-3 rounded-full cursor-pointer">
+  //     <PhoneSvg/>
+  //     <span
+  //       className={cx("block ml-2 whitespace-no-wrap overflow-hidden", {
+  //         "w-10": !showNumber
+  //       })}
+  //     >
+  //       {phone}
+  //     </span>
+  //     {!showNumber && (
+  //       <span
+  //         className="ml-4 whitespace-no-wrap"
+  //         onClick={() => setToggleNumber(!showNumber)}
+  //       >
+  //           {t('employees.show_phone')}
+  //       </span>
+  //     )}
+  //   </div>
+  // ) : null;
+
+  const rightInfo = null;
 
   return (
     <MainLayout user={user}>
@@ -132,51 +134,51 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         }
       >
         <ul className="flex -mx-4 text-white">
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={getHref('information')}
-              as={getAs('information')}
-            >
-              <a>{t('account.links.information')}</a>
-            </ActiveLink>
-          </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={getHref('events')}
-              as={getAs('events')}
-            >
-              <a>{t('employees.events')}</a>
-            </ActiveLink>
-          </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={getHref('reviews')}
-              as={getAs('reviews')}
-            >
-              <a>{t('common.reviews')}</a>
-            </ActiveLink>
+          <ActiveLink
+            activeClassName="text-black"
+            href={getHref('information')}
+            as={getAs('information')}
+          >
+            <a>{t('account.links.information')}</a>
+          </ActiveLink>
 
-            <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
-              {(employee.reviews && employee.reviews.length) || 0}
-            </span>
-          </li>
-            <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-              <ActiveLink
-                activeClassName="text-red"
-                href={getHref('chat')}
-                as={getAs('chat')}
-              >
-                <a>{t('employees.chat')}</a>
-              </ActiveLink>
-              {employee.user_unread_messages_count > 0 &&
-                <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-xs ml-1">
-                  +{employee.user_unread_messages_count}
+          <ActiveLink
+            activeClassName="text-black"
+            href={getHref('events')}
+            as={getAs('events')}
+          >
+            <a>{t('employees.events')}</a>
+          </ActiveLink>
+
+          <ActiveLink
+            activeClassName="text-black"
+            href={getHref('reviews')}
+            as={getAs('reviews')}
+            advancedBlock={
+              <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                  {(employee.reviews && employee.reviews.length) || 0}
                 </span>
-              }
-            </li>
+            }
+          >
+            <a>{t('common.reviews')}</a>
+          </ActiveLink>
+
+          <ActiveLink
+            activeClassName="text-black"
+            href={getHref('chat')}
+            as={getAs('chat')}
+            advancedBlock={
+              <>
+                {employee.user_unread_messages_count > 0 &&
+                <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                      +{employee.user_unread_messages_count}
+                    </span>
+                }
+              </>
+            }
+          >
+            <a>{t('employees.chat')}</a>
+          </ActiveLink>
         </ul>
       </SecondaryNav
       >

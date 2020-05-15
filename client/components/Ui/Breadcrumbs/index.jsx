@@ -6,17 +6,13 @@ import cx from 'classnames';
 const Breadcrubms = ({items}) => {
   const {t} = useTranslation();
 
-  if (process.env.BREADCRUMBS !== 'true') {
-    return null;
-  }
-
   const firstItem = {as: '/', href: '/', label: t('common.home')};
 
   items = [firstItem, ...items];
 
   return (
     <div className="fluid-container w-full">
-      <ol className="page-breadcrumbs flex flex-wrap my-4 justify-center md:justify-start" itemScope itemType="https://schema.org/BreadcrumbList">
+      <ol className="page-breadcrumbs flex flex-wrap my-4 justify-center xl:justify-start" itemScope itemType="https://schema.org/BreadcrumbList">
         {items.map((item, i) => {
           const lastItem = i === items.length - 1;
 

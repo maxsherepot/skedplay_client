@@ -53,13 +53,11 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
     breadcrumbs = [...breadcrumbs, ...lastBreadcrumbs]
   }
 
-
-
   const leftInfo = (
     <>
       {club && (
-        <div className="flex items-center sm:flex-start mt-5 hd:mt-0">
-          <h1 className="text-3xl font-extrabold hd:text-white">
+        <div className="flex items-center sm:flex-start hd:mt-0">
+          <h1 className="text-2xl font-extrabold hd:text-white">
             {club.name}
           </h1>
           <div className="bg-black text-white text-xs rounded-full uppercase mt-1 ml-3 px-3 py-1">
@@ -81,33 +79,29 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
         }
       >
         <ul className="flex -mx-4 text-white">
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={`/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`}
-            >
-              <a>{t('clubs.information')}</a>
-            </ActiveLink>
-          </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
-            >
-              <a>{t('common.our_girls')}</a>
-            </ActiveLink>
-          </li>
-          <li className="hover:text-red cursor-pointer text-xs sm:text-sm md:text-xl hd:text-2xl px-2 sm:px-5 hd:px-10">
-            <ActiveLink
-              activeClassName="text-red"
-              href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-              as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
-            >
-              <a>{t('layout.events')}</a>
-            </ActiveLink>
-          </li>
+          <ActiveLink
+            activeClassName="text-black"
+            href={`/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`}
+          >
+            <a>{t('clubs.information')}</a>
+          </ActiveLink>
+
+          <ActiveLink
+            activeClassName="text-black"
+            href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
+          >
+            <a>{t('common.our_girls')}</a>
+          </ActiveLink>
+
+          <ActiveLink
+            activeClassName="text-black"
+            href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
+            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
+          >
+            <a>{t('layout.events')}</a>
+          </ActiveLink>
         </ul>
       </SecondaryNav>
 
