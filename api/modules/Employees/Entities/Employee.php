@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Chat\Entities\ChatMember;
 use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\City;
 use Modules\Common\Entities\EmployeeScheduleWork;
 use Modules\Common\Entities\Review;
 use Modules\Common\Entities\Traits\Favoriteable;
@@ -56,6 +57,8 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     const SHOW_LEVEL_HIDDEN = 0;
     const SHOW_LEVEL_ACTIVE = 1;
     const SHOW_LEVEL_SOON = 2;
+
+    protected $withCurrentPosition = true;
 
     protected $fillable = [
         'first_name',
@@ -233,6 +236,16 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function languages(): BelongsToMany
     {
         return $this->belongsToMany(Language::class)->withPivot('stars');
+    }
+
+    public function currentCity(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'current_city_id');
+    }
+
+    public function current_city(): BelongsTo
+    {
+        return $this->currentCity();
     }
 
     public function unreadMessagesCount(): int

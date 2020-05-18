@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import {Link} from 'lib/i18n'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader } from "UI";
+import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader, Button } from "UI";
 import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EVENTS, ALL_EMPLOYEES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -18,6 +18,7 @@ import Modal from "UI/Modal";
 import translation from "services/translation";
 import slug from "slug";
 import {NextSeo} from "next-seo";
+import CurrentLocation from "components/employee/CurrentLocation";
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -25,6 +26,7 @@ const EmployeeInformation = ({ user }) => {
   const { id, canton, city } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+  const mapRef = React.useRef();
 
   const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
     CANTONS_AND_CITIES
@@ -115,7 +117,9 @@ const EmployeeInformation = ({ user }) => {
 
   const AddressAndEvent = () => (
     <>
-      <AddressCard addressable={employee} isAvailable={false} />
+      {/*<AddressCard addressable={employee} isAvailable={false} />*/}
+
+      <CurrentLocation employee={employee} mapRef={mapRef}/>
 
       <div className="flex items-end my-5">
         <div className="text-2xl font-extrabold tracking-tighter leading-none">
@@ -312,7 +316,7 @@ const EmployeeInformation = ({ user }) => {
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6" ref={mapRef}>
               <EmployeeMaps employee={employee} goBtn={true}/>
             </div>
           </>

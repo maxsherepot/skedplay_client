@@ -22,12 +22,23 @@ trait Locationable
         $this->fillable[] = 'lng';
         $this->fillable[] = 'address';
         $this->fillable[] = 'city_id';
+
+        if ($this->withCurrentPosition) {
+            $this->fillable[] = 'current_lat';
+            $this->fillable[] = 'current_lng';
+            $this->fillable[] = 'current_address';
+            $this->fillable[] = 'current_city_id';
+        }
     }
 
     public static function bootLocationable()
     {
         static::saving(function (Model $model) {
             static::setCityAndCoordinates($model);
+
+            if ($model->withCurrentPosition) {
+                static::setCityAndCoordinatesFromCurrentAddress($model);
+            }
         });
     }
 
@@ -43,6 +54,10 @@ trait Locationable
         }
 
         $query->where('city_id', $city);
+
+//        if ($this->withCurrentPosition) {
+//            $query->orWhere('current_city_id', $city);
+//        }
     }
 
     public function scopeHasCanton(Builder $query, ?string $canton = null): void
@@ -54,6 +69,12 @@ trait Locationable
         $query->whereHas('city', function(Builder $query) use ($canton) {
             $query->where('canton_id', $canton);
         });
+
+//        if ($this->withCurrentPosition) {
+//            $query->orWhereHas('currentCity', function(Builder $query) use ($canton) {
+//                $query->where('canton_id', $canton);
+//            });
+//        }
     }
 
     public function scopeHasCantons(Builder $query, ?array $cantons = null): void
@@ -65,6 +86,12 @@ trait Locationable
         $query->whereHas('city', function(Builder $query) use ($cantons) {
             $query->whereIn('canton_id', $cantons);
         });
+
+//        if ($this->withCurrentPosition) {
+//            $query->orWhereHas('currentCity', function(Builder $query) use ($cantons) {
+//                $query->whereIn('canton_id', $cantons);
+//            });
+//        }
     }
 
     public function scopeCloseTo(Builder $query, array $params): void
@@ -87,10 +114,27 @@ trait Locationable
             $params['lat'],
             $params['distanceKm'],
         ]);
+
+//        if ($this->withCurrentPosition) {
+//            $query->orWhereRaw("
+//               ST_Distance_Sphere(
+//                    point(current_lng, current_lat),
+//                    point(?, ?)
+//               ) / 1000 <= ?
+//            ", [
+//                $params['current_lng'],
+//                $params['current_lat'],
+//                $params['distanceKm'],
+//            ]);
+//        }
     }
 
     private static function setCityAndCoordinates(Model $model): void
     {
+        if (!$model->address) {
+            return;
+        }
+
         try {
             [$city, $coordinates] = (new LocationCoordinatesAddressService())
                 ->getCityAndCoordinatesByAddress($model->address);
@@ -110,6 +154,39 @@ trait Locationable
             }
 
             throw ValidationException::withMessages(['address' => [$e->getMessage()]]);
+        }
+    }
+
+    private static function setCityAndCoordinatesFromCurrentAddress(Model $model): void
+    {
+        if (!$model->current_address) {
+            $model->current_city_id = null;
+            $model->current_lat =  null;
+            $model->current_lng =  null;
+            return;
+        }
+
+        try {
+            [$city, $coordinates] = (new LocationCoordinatesAddressService())
+                ->getCityAndCoordinatesByAddress($model->current_address);
+
+            if (!$city) {
+                throw ValidationException::withMessages(['current_address' => ['wrong_address']]);
+            }
+
+            json_decode(str_replace(mb_substr(file_get_contents(storage_path('clubs.json')), 0, 1), '', file_get_contents(storage_path('clubs.json'))));
+
+            $model->current_city_id = $city->id;
+
+            $model->current_lat = $coordinates->getLat();
+            $model->current_lng = $coordinates->getLng();
+        }
+        catch (\Exception $e) {
+            if ($e instanceof ValidationException) {
+                throw $e;
+            }
+
+            throw ValidationException::withMessages(['current_address' => [$e->getMessage()]]);
         }
     }
 }

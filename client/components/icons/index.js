@@ -1,4 +1,8 @@
 export { default as CrownSvg } from "./CrownSvg";
+export { default as RoadSvg } from "./RoadSvg";
+export { default as Phone1Svg } from "./Phone1Svg";
+export { default as AttentionSvg } from "./AttentionSvg";
+export { default as LinkSvg } from "./LinkSvg";
 export { default as UserSvg } from "./UserSvg";
 export { default as ProfileSvg } from "./ProfileSvg";
 export { default as StarSvg } from "./StarSvg";

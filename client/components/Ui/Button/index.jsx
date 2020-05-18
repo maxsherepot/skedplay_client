@@ -29,6 +29,7 @@ Button.propTypes = {
     "secondary",
     "black",
     "grey",
+    "grey1",
     "success"
   ]),
   outline: PropTypes.bool,
