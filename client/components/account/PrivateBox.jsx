@@ -23,9 +23,9 @@ const CurrentPosition = ({user}) => {
   //   }
   // });
 
-  if (loading) {
-    return <Loader/>
-  }
+  // if (loading) {
+  //   return <Loader/>
+  // }
 
   const {data: {employee, employee_schedule, clubsSearch} = {}, loading, refetch} = useQuery(
     gql`

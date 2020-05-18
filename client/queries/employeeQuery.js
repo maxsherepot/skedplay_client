@@ -237,9 +237,26 @@ export const GET_EMPLOYEE = gql `
       current_club {
         id
         name
+        city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
         address
         lat
         lng
+        logo {
+          id
+          url
+          thumb_url
+        }
+        type {
+          id
+          name
+        }
       }
     }
   }

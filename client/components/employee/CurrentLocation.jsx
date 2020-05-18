@@ -3,8 +3,11 @@ import React, {useState} from "react";
 import Distance from "components/distance";
 import cx from "classnames";
 import { geolocated } from "react-geolocated";
-import { RoadSvg, Phone1Svg, LinkSvg } from "icons";
+import { RoadSvg, Phone1Svg, LinkSvg, AttentionSvg } from "icons";
 import { Button } from "UI";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import slug from "slug";
+import Link from 'components/SlashedLink'
 
 const DistanceView = ({ distanceValue }) => {
   if (!distanceValue) {
@@ -27,11 +30,25 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
   const [hover3, setHover3] = useState(false);
   const [hover4, setHover4] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
   const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-  const lat = employee.current_lat || employee.lat;
-  const lng = employee.current_lng || employee.lng;
+  const lat = (employee.current_club && employee.current_club.lat)
+    || employee.current_lat
+    || employee.lat;
+
+  const lng = (employee.current_club && employee.current_club.lng)
+    || employee.current_lng
+    || employee.lng;
+
+  const address = (employee.current_club && employee.current_club.address)
+    || employee.current_address
+    || employee.address;
 
   const getColor = (hover) => {
     return hover ? '#FFF' : '#FF3366';
@@ -45,11 +62,71 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
     return hover ? 'text-white' : 'text-black';
   };
 
+  const copy = () => {
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 5000);
+  };
+
   return (
     <div className="rounded-lg bg-white p-4">
       <div>
-        {employee.currentClub ?
-          ''
+        {employee.current_club ?
+          <div className="flex">
+            <div
+              className={cx([
+                employee.current_club.logo ? "" : "w-full"
+              ])}
+            >
+              <div className="text-grey">
+                Current location
+              </div>
+              <div className="mt-3">
+                <div>
+                  <Link
+                    href={`/clubs/canton/city/id/information?id=${employee.current_club.id}&canton=${slug(employee.current_club.city.canton.name)}&city=${slug(employee.current_club.city.name)}`}
+                    as={`/clubs/${slug(employee.current_club.city.canton.name)}/${slug(employee.current_club.city.name)}/${employee.current_club.id}/information`}
+                  >
+                    <a className="font-bold text-red text-lg">
+                      {employee.current_club.name}
+                    </a>
+                  </Link>
+                </div>
+
+                <div className="mt-1">
+                  <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">
+                    {employee.current_club.type.name}
+                  </button>
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="font-bold text-lg">
+                  {address}
+                </span>
+
+                <span className="ml-3 text-xs text-grey text-nowrap">
+                  {(!!lat && !!lng) &&
+                    <Distance
+                      originByGeo={true}
+                      destination={{lat, lng}}
+                    >
+                      <DistanceView/>
+                    </Distance>
+                  }
+                </span>
+              </div>
+            </div>
+
+            {employee.current_club.logo &&
+              <div className="flex-none">
+                <img
+                  className="rounded-full border border-light-grey w-100px mt-2"
+                  src={employee.current_club.logo.thumb_url}
+                  alt=""
+                />
+              </div>
+            }
+          </div>
           :
           <>
             <div className="text-grey">
@@ -57,7 +134,7 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
             </div>
             <div className="mt-3">
             <span className="font-bold text-lg">
-              {employee.current_address || employee.address}
+              {address}
             </span>
 
               <span className="ml-3 text-xs text-grey">
@@ -139,22 +216,54 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
           </Button>
         }
 
+        <CopyToClipboard
+          text={window.location.href}
+          onCopy={() => copy()}
+        >
+          <Button
+            className="px-4 w-full flex items-center mt-2"
+            size="sm"
+            level="grey1"
+            weight="normal"
+            onMouseEnter={() => setHover3(true)}
+            onMouseLeave={() => setHover3(false)}
+          >
+            <div className="w-12 h-8 flex justify-center items-center border-r border-light-grey mr-5 pr-3">
+              <LinkSvg color={getColor(hover3)}/>
+            </div>
+            <div className={cx(
+              getTextColorClass(hover3),
+              "font-bold text-lg"
+            )}>
+              Send link
+              {copied &&
+                <span className={cx(
+                  getTextColorClass(hover3),
+                  "font-bold text-sm ml-2"
+                )}>
+                  (Copied)
+                </span>
+              }
+            </div>
+          </Button>
+        </CopyToClipboard>
+
         <Button
           className="px-4 w-full flex items-center mt-2"
           size="sm"
           level="grey1"
           weight="normal"
-          onMouseEnter={() => setHover3(true)}
-          onMouseLeave={() => setHover3(false)}
+          onMouseEnter={() => setHover4(true)}
+          onMouseLeave={() => setHover4(false)}
         >
           <div className="w-12 h-8 flex justify-center items-center border-r border-light-grey mr-5 pr-3">
-            <LinkSvg color={getColor(hover3)}/>
+            <AttentionSvg color={getColor(hover4)}/>
           </div>
           <div className={cx(
-            getTextColorClass(hover3),
+            getTextColorClass(hover4),
             "font-bold text-lg"
           )}>
-            Send link
+            Submit a complaint
           </div>
         </Button>
       </div>

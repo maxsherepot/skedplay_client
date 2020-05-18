@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import {Link} from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader, Button } from "UI";

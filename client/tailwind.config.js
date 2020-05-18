@@ -101,7 +101,9 @@ module.exports = {
         "80": "20rem",
         "1218": "1218px",
         "header-plans": "37.125rem",
-        "user-dropdown": "29.5rem"
+        "user-dropdown": "29.5rem",
+        "80px": '80px',
+        "100px": '100px',
       },
       height: {
         "2px": "2px",
