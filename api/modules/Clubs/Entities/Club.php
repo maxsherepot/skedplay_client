@@ -2,6 +2,7 @@
 
 namespace Modules\Clubs\Entities;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,7 +44,9 @@ use Spatie\MediaLibrary\Models\Media;
  * @property int status
  * @property int user_status
  * @property int id
- *
+ * @property datetime manager_assignment_at
+ * @property datetime comment_set_at
+ * @property string comment
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
@@ -54,6 +57,18 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     const PHOTO_COLLECTION = 'club-photo';
 
     const VIDEO_COLLECTION = 'club-video';
+
+    const STATUS_PENDING = 0;
+    const STATUS_CONNECTED = 1;
+    const STATUS_REFUSED = 2;
+    const STATUS_PROCESSING = 3;
+
+    const STATUSES = [
+        self::STATUS_PENDING => 'Pending',
+        self::STATUS_CONNECTED => 'Connected',
+        self::STATUS_REFUSED => 'Refused',
+        self::STATUS_PROCESSING => 'Processing',
+    ];
 
     protected $fillable = [
         'name',
@@ -71,10 +86,13 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'moderator_id',
         'start_time',
         'end_time',
+        'comment',
     ];
 
     protected $casts = [
         'phones' => 'array',
+        'comment_set_at' => 'datetime',
+        'manager_assignment_at' => 'datetime',
     ];
 
     protected $dates = [

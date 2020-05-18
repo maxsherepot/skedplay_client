@@ -8,6 +8,8 @@ use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
+use Epartment\NovaDependencyContainer\HasDependencies;
+use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
@@ -24,6 +26,8 @@ use Skidplay\UserTopInfo\UserTopInfo;
 
 class Club extends Resource
 {
+    use HasDependencies;
+
     /**
      * The model the resource corresponds to.
      *
@@ -96,20 +100,24 @@ class Club extends Resource
         return $this->getViewFields();
     }
 
-    private function getAdminTabFields(): array
+    private function getUserByRoleName(string $roleName): array
     {
-        $userOptions = \Modules\Users\Entities\User::query()
+        return \Modules\Users\Entities\User::query()
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'role_user.role_id')
-            ->where('roles.name', '=', 'manager')
+            ->where('roles.name', '=', $roleName)
             ->pluck('users.name','users.id')
             ->toArray()
         ;
+    }
 
+    private function getAdminTabFields(): array
+    {
         return [
             BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable()->exceptOnForms(),
 
-            Select::make('Manager','manager_id')->options($userOptions)->onlyOnForms(),
+            Select::make('Manager','manager_id')->options($this->getUserByRoleName('manager'))->onlyOnForms(),
+            DateTime::make('Set manager date','manager_assignment_at')->onlyOnDetail(),
         ];
     }
 
@@ -118,34 +126,74 @@ class Club extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
-            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
-
             Text::make('Name'),
+
+            BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
+            BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
+
+            Select::make('Owner', 'user_id')->options($this->getUserByRoleName('club_owner'))->onlyOnForms()->nullable(),
+
             Text::make('Description'),
             Text::make('Address'),
 
             Text::make('Email'),
             Text::make('Website'),
 
-            Text::make('Status', function() {
+            Text::make('Club status', 'status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
+            })->asHtml()->exceptOnForms(),
+
+            Text::make('User status', function() {
+                return view(
+                    'nova.moderation_status',
+                    ['status' => $this->user_status ?? 0]
+                )->render();
             })->asHtml(),
 
-            Select::make('Status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['status' => $this->manager_status ?? 0]
+                )->render();
+            })->asHtml()->exceptOnForms(),
+
+            NovaDependencyContainer::make([
+                Select::make('Club status', 'status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+
+                Select::make('User status', 'user_status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+            ])->dependsOnNotEmpty('user_id')->onlyOnForms(),
+
+            Select::make('Manager status', 'manager_status')->options([
+                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
             ])->displayUsingLabels()->onlyOnForms(),
 
-            Text::make('Phones'),
+            DateTime::make('Manager set at','manager_assignment_at')->onlyOnDetail(),
+
+            Text::make('Phones')->withMeta([
+                'extraAttributes' => [
+                    'placeholder' => '+4171-111-11-11',
+                ],
+            ])->rules('required'),
+
             Text::make('Comment'),
+
+            DateTime::make('Date of comment', 'comment_set_at')->onlyOnDetail(),
         ];
     }
 
-    private function getTableFields(): array // info
+    private function getTableFields(): array // info main tables
     {
         return [
             ID::make()->sortable(),
@@ -155,30 +203,57 @@ class Club extends Resource
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
 
             Text::make('Address')->hideFromIndex(),
-            Text::make('Phones'),
+            Text::make('Phone', 'phones')->withMeta([
+                'extraAttributes' => [
+                    'placeholder' => '+4171-111-11-11',
+                ],
+            ]),
+
+            Text::make('Email')->onlyOnForms(),
+            Text::make('Website')->onlyOnForms(),
+
+            Text::make('Description')->onlyOnForms(),
 
             BelongsTo::make('Manager', 'manager', User::class)
                 ->sortable()
                 ->hideWhenCreating(),
 
-            BelongsTo::make('Owner', 'owner', User::class)->sortable(),
+            BelongsTo::make('Owner', 'owner', User::class)->exceptOnForms()->nullable()->sortable(),
 
-            Text::make('Status', function() {
+            Select::make('Owner', 'user_id')->options($this->getUserByRoleName('club_owner'))->onlyOnForms()->nullable(),
+
+            Text::make('Club status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml(),
 
-            Text::make('User status', 'user_status', function() {
-                return ['user_status' => $this->status ?? 0];
-            })->onlyOnForms(),
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['status' => $this->manager_status ?? 0]
+                )->render();
+            })->asHtml()->exceptOnForms(),
 
-            Select::make('Status','status')->options([
-                \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
-            ])->displayUsingLabels()
-                ->onlyOnForms(),
+            Select::make('Manager status', 'manager_status')->options([
+                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
+            ])->displayUsingLabels()->onlyOnForms(),
+
+            NovaDependencyContainer::make([
+                Select::make('Club status', 'status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+
+                Select::make('User status', 'user_status')->options([
+                    \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                ])->onlyOnForms(),
+            ])->dependsOnNotEmpty('user_id'),
 
             Text::make('Comment')->hideFromIndex(),
         ];
@@ -245,7 +320,11 @@ class Club extends Resource
         if ($request->user()->hasRole('manager')) {
             $query
                 ->where('manager_id', '=', $request->user()->id)
-                ->orWhere('status', '=',\Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION)
+                ->orWhere([
+                    ['manager_status', '=',\Modules\Clubs\Entities\Club::STATUS_PENDING],
+                    ['manager_id', '=', null],
+                ])
+
             ;
         }
 
@@ -268,10 +347,17 @@ class Club extends Resource
                 return json_decode($this->phones, true);
             })->asHtml(),
 
-            Text::make('Status', function() {
+            Text::make('Club status', function() {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
+                )->render();
+            })->asHtml(),
+
+            Text::make('Manager status', 'manager_status', function() {
+                return view(
+                    'nova.manager_status',
+                    ['manager_status' => $this->manager_status ?? 0]
                 )->render();
             })->asHtml(),
 

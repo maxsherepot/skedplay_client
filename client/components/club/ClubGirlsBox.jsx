@@ -19,7 +19,7 @@ const ClubGirlsBox = ({ employees, club }) => {
 
     if (employee) {
       rows.push(
-          <div className="sm:w-1/2 lg:w-1/4 px-3" key={employee.id}>
+          <div className="sm:w-1/2 lg:w-1/4" key={employee.id}>
             <GirlCard girl={employee} labels={false} slider={false} available />
           </div>
       );

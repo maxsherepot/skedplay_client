@@ -220,13 +220,13 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     }
 
     /**
-     * @return Role|null|object
+     * @return mixed
      */
-    public function getTypeAttribute(): Role
+    public function getTypeAttribute()
     {
         return $this->roles->first() ?? Role::query()
-                ->where('name', '=', 'manager')
-                ->getModel();
+            ->where('name', '=', 'manager')
+            ->getModel();
     }
 
     /**
