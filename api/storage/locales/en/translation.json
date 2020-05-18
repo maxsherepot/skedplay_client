@@ -104,7 +104,12 @@
     "workers": "workers",
     "canton": "Canton",
     "all": "All",
-    "home": "Home"
+    "home": "Home",
+    "current_location": "Current location",
+    "road_me": "Road me",
+    "send_link": "Send link",
+    "copied": "Copied",
+    "submit_complaint": "Submit a complaint"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -561,6 +566,18 @@
     "success": "Your request was sent",
     "your_working_location": "Your working Location",
     "text": "Some text"
+  },
+  "complaint_popup": {
+    "title": "Complaint",
+    "theme": "Theme",
+    "theme_placeholder": " ",
+    "name": "Your name",
+    "name_placeholder": " ",
+    "email": "Your email",
+    "email_placeholder": " ",
+    "message": "Your message",
+    "message_placeholder": "Describe your complaint",
+    "success": "Your complaint was sent"
   },
   "favorite": {
     "clubs": "Clubs"
