@@ -11,20 +11,48 @@
       height: 26px;
     }
 
+    &.viewed {
+      width: 280px;
+    }
+
     @screen sm {
-      width: 210px;
+      &.sized {
+        width: 210px;
+      }
+
+      &.viewed {
+        width: 210px;
+      }
     }
 
     @screen md {
-      width: 229px;
+      &.sized {
+        width: 229px;
+      }
+
+      &.viewed {
+        width: 167px;
+      }
     }
 
     @screen lg {
-      width: 306px;
+      &.sized {
+        width: 306px;
+      }
+
+      &.viewed {
+        width: 176px;
+      }
     }
 
     @screen xl {
-      width: 332px;
+      &.sized {
+        width: 332px;
+      }
+
+      &.viewed {
+        width: 242px;
+      }
 
       .show-on-hover {
         @apply transition;
@@ -48,6 +76,12 @@
           height: 0;
           opacity: 0;
         }
+      }
+    }
+
+    @screen hd {
+      &.viewed {
+        width: 332px;
       }
     }
   }

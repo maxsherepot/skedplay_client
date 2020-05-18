@@ -18,7 +18,9 @@ function GirlCard({
   labels,
   slider,
   available,
-  preview
+  preview,
+  sized,
+  viewed,
 }) {
   function DistanceView({distanceKm}) {
     if (!distanceKm) {
@@ -171,7 +173,9 @@ function GirlCard({
     <div className={cx(
       className,
       "girls__item bg-white border border-white",
-      girl.isVip ? "border border-red" : ""
+      girl.isVip ? "border border-red" : "",
+      sized ? "sized" : "",
+      viewed ? "viewed" : "",
     )}>
       <div className="absolute z-20 top-0 right-10 p-3-5">
         <FavoriteButton
@@ -220,12 +224,14 @@ function GirlCard({
 
 GirlCard.defaultProps = {
   previewClass:
-    "object-cover h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg hd:h-e-photo-hd",
+    "object-cover h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg xl:h-e-photo-xl hd:h-e-photo-hd",
   slickClass: "h-photo sm:h-photo-sm md:h-photo-md lg:h-photo-lg hd:h-photo-hd",
   preview: false,
   available: false,
   labels: true,
-  slider: true
+  slider: true,
+  sized: true,
+  viewed: false,
 };
 
 GirlCard.propTypes = {
@@ -235,7 +241,9 @@ GirlCard.propTypes = {
   preview: PropTypes.bool,
   girl: PropTypes.object.isRequired,
   labels: PropTypes.bool,
-  slider: PropTypes.bool
+  slider: PropTypes.bool,
+  sized: PropTypes.bool,
+  viewed: PropTypes.bool,
 };
 
 export default GirlCard;

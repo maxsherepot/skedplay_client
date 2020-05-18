@@ -19,9 +19,9 @@ const GirlsViewedBox = ({employees}) => {
   const appendDots = dots => (
     <ul
       style={{
-        margin: "0",
-        display: "flex",
-        justifyContent: "space-around"
+        // margin: "0",
+        // display: "flex",
+        // justifyContent: "space-around"
       }}
     >
       {dots}
@@ -38,12 +38,10 @@ const GirlsViewedBox = ({employees}) => {
 
   const responsive = [
     {
-      breakpoint: 1319,
+      breakpoint: 2800,
       settings: {
         slidesToShow: 5,
         slidesToScroll: 1,
-        infinite: false,
-        dots: false
       }
     },
     {
@@ -51,8 +49,6 @@ const GirlsViewedBox = ({employees}) => {
       settings: {
         slidesToShow: 4,
         slidesToScroll: 1,
-        infinite: false,
-        dots: false
       }
     },
     {
@@ -77,28 +73,6 @@ const GirlsViewedBox = ({employees}) => {
     }
   ];
 
-  const renderRows = (entities, length, rowClass) => {
-    const rows = [];
-
-    for (var i = 0; i < length; i++) {
-      const employee = entities[i];
-
-      rows.push(
-        <div key={employee.id} className="px-3">
-          <GirlCard
-            className={rowClass}
-            girl={employee}
-            labels={false}
-            slider={false}
-            preview
-          />
-        </div>
-      );
-    }
-
-    return rows;
-  };
-
   return (
     <>
       <div className="flex items-end my-5">
@@ -115,7 +89,7 @@ const GirlsViewedBox = ({employees}) => {
       </div>
 
       <Slider
-        className="-mx-2 lg:hidden"
+        className="-mx-2 mb-5"
         arrows={false}
         responsive={responsive}
         beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
@@ -124,20 +98,20 @@ const GirlsViewedBox = ({employees}) => {
           employees.map(employee => (
             <div
               key={employee.id}
-              className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
+              // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
             >
-              <GirlCard girl={employee} labels={false} slider={false} preview />
+              <GirlCard girl={employee} labels={false} slider={false} preview sized={false} viewed={true} />
             </div>
           ))}
       </Slider>
 
-      <div className="girls hidden lg:flex hd:hidden -mx-3">
-        {renderRows(employees, 5, "lg:flex-1")}
-      </div>
+      {/*<div className="girls hidden lg:flex hd:hidden -mx-3">*/}
+      {/*  {renderRows(employees, 5, "lg:flex-1")}*/}
+      {/*</div>*/}
 
-      <div className="girls hidden hd:flex justify-between -mx-3">
-        {renderRows(employees, 8, "w-38")}
-      </div>
+      {/*<div className="girls hidden hd:flex justify-between -mx-3">*/}
+      {/*  {renderRows(employees, 8, "w-38")}*/}
+      {/*</div>*/}
     </>
   );
 };
