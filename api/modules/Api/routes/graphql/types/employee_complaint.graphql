@@ -1,0 +1,31 @@
+type EmployeeComplaint {
+    id: Int!
+    theme_id: Int!
+    theme: EmployeeComplaintThemeAllLangs!
+    email: String!
+    name: String!
+    message: String!
+}
+
+type EmployeeComplaintThemeAllLangs {
+    id: Int!
+    name: String!
+}
+
+input EmployeeComplaintInput {
+    employee_id: Int!
+    theme_id: Int!
+    email: String
+    name: String
+    message: String!
+    recaptcha: String
+}
+
+extend type Query {
+    employeeComplaintThemes: [EmployeeComplaintThemeAllLangs!]! @all
+}
+
+extend type Mutation {
+    createEmployeeComplaint(input: EmployeeComplaintInput @spread): EmployeeComplaint
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@employeeComplaintCreate")
+}

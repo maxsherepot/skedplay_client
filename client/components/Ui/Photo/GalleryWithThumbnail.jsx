@@ -29,7 +29,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
 
   return (
     <div className="flex -mx-2">
-      <div className="hidden lg:block px-2">
+      <div className="hidden md:block">
         <Slider
           className="gallery w-33"
           asNavFor={mainNav}

@@ -8,6 +8,8 @@ import { Button } from "UI";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import slug from "slug";
 import Link from 'components/SlashedLink'
+import EmployeeComplaintPopup from "components/popups/EmployeeComplaintPopup";
+import EmployeeComplaintSuccessPopup from "components/popups/EmployeeComplaintSuccessPopup";
 
 const DistanceView = ({ distanceValue }) => {
   if (!distanceValue) {
@@ -23,7 +25,7 @@ const DistanceView = ({ distanceValue }) => {
   )
 };
 
-const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
+const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
   const {t, i18n} = useTranslation();
   const [hover1, setHover1] = useState(false);
   const [hover2, setHover2] = useState(false);
@@ -31,6 +33,7 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
   const [hover4, setHover4] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showComplaintSuccessPopup, setShowComplaintSuccessPopup] = useState(false);
 
   if (typeof window === 'undefined') {
     return null;
@@ -68,6 +71,10 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
     setTimeout(() => setCopied(false), 5000);
   };
 
+  const onSuccessComplaint = () => {
+    setShowComplaintSuccessPopup(true);
+  };
+
   return (
     <div className="rounded-lg bg-white p-4">
       <div>
@@ -79,7 +86,7 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
               ])}
             >
               <div className="text-grey">
-                Current location
+                {t('common.current_location')}
               </div>
               <div className="mt-3">
                 <div>
@@ -130,7 +137,7 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
           :
           <>
             <div className="text-grey">
-              Current location
+              {t('common.current_location')}
             </div>
             <div className="mt-3">
             <span className="font-bold text-lg">
@@ -177,7 +184,7 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
               getTextColorClass(hover1),
               "font-bold text-lg"
             )}>
-              Road me
+              {t('common.road_me')}
             </div>
           </Button>
         }
@@ -235,37 +242,46 @@ const CurrentLocation = ({employee, mapRef, isGeolocationEnabled}) => {
               getTextColorClass(hover3),
               "font-bold text-lg"
             )}>
-              Send link
+              {t('common.send_link')}
               {copied &&
                 <span className={cx(
                   getTextColorClass(hover3),
                   "font-bold text-sm ml-2"
                 )}>
-                  (Copied)
+                  ({t('common.copied')})
                 </span>
               }
             </div>
           </Button>
         </CopyToClipboard>
 
-        <Button
-          className="px-4 w-full flex items-center mt-2"
-          size="sm"
-          level="grey1"
-          weight="normal"
-          onMouseEnter={() => setHover4(true)}
-          onMouseLeave={() => setHover4(false)}
-        >
-          <div className="w-12 h-8 flex justify-center items-center border-r border-light-grey mr-5 pr-3">
-            <AttentionSvg color={getColor(hover4)}/>
-          </div>
-          <div className={cx(
-            getTextColorClass(hover4),
-            "font-bold text-lg"
-          )}>
-            Submit a complaint
-          </div>
-        </Button>
+        <EmployeeComplaintPopup
+          employeeId={employee.id}
+          user={user}
+          onSuccess={onSuccessComplaint}
+          trigger={
+            <Button
+              className="px-4 w-full flex items-center mt-2"
+              size="sm"
+              level="grey1"
+              weight="normal"
+              onMouseEnter={() => setHover4(true)}
+              onMouseLeave={() => setHover4(false)}
+            >
+              <div className="w-12 h-8 flex justify-center items-center border-r border-light-grey mr-5 pr-3">
+                <AttentionSvg color={getColor(hover4)}/>
+              </div>
+              <div className={cx(
+                getTextColorClass(hover4),
+                "font-bold text-lg"
+              )}>
+                {t('common.submit_complaint')}
+              </div>
+            </Button>
+          }
+        />
+
+        <EmployeeComplaintSuccessPopup user={user} open={showComplaintSuccessPopup} setOpen={setShowComplaintSuccessPopup}/>
       </div>
     </div>
   );

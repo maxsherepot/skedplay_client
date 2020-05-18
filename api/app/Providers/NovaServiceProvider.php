@@ -7,6 +7,8 @@ use App\Nova\ClubType;
 use App\Nova\ContactPhone;
 use App\Nova\ContactRequest;
 use App\Nova\Employee;
+use App\Nova\EmployeeComplaint;
+use App\Nova\EmployeeComplaintTheme;
 use App\Nova\Event;
 use App\Nova\EventType;
 use App\Nova\GroupService;
@@ -147,6 +149,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             ContactPhone::class,
             ContactRequest::class,
+
+            EmployeeComplaintTheme::class,
+            EmployeeComplaint::class,
 
             Page::class,
 
