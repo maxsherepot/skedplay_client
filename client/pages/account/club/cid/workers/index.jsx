@@ -111,6 +111,7 @@ const AccountClubWorkersShow = ({user}) => {
   const [calendarStatus, setCalendarStatus] = useState(false);
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(new Date());
+  const [index, setIndex] = useState(0);
 
   const { t } = useTranslation();
 
@@ -136,14 +137,8 @@ const AccountClubWorkersShow = ({user}) => {
     });
   }
 
-  const [panelStatus, setPanelStatus] = useState(false);
-
-  const onPanelStatus = () => {
-    setPanelStatus(true);
-  };
-
-  const offPanelStatus = () => {
-    setPanelStatus(false);
+  const setToday = () => {
+    setSelectedDay(new Date());
   };
 
   const CalendarWeek = () => {
@@ -166,7 +161,7 @@ const AccountClubWorkersShow = ({user}) => {
     };
 
     const onDayClick = (day) => {
-      setPanelStatus(true);
+      setIndex(1);
       setSelectedDay(day);
     };
 
@@ -217,6 +212,13 @@ const AccountClubWorkersShow = ({user}) => {
     )
   };
 
+  const tabTitles = [
+    t('account.all_workers'),
+    t('account.available_today'),
+    t('account.cooming_soon'),
+    t('common.not_active')
+  ];
+
   return (
     <>
       <div className="flex items-center justify-between px-4 py-12">
@@ -253,12 +255,11 @@ const AccountClubWorkersShow = ({user}) => {
 
       <CalendarWeek/>
 
-      <Tabs>
+      <Tabs state={[index, setIndex]}>
         <div className="px-4 pt-12">
-          <Tab>{t('account.all_workers')}</Tab>
-          <Tab>{t('account.available_today')}</Tab>
-          <Tab>{t('account.cooming_soon')}</Tab>
-          <Tab>{t('common.not_active')}</Tab>
+          {tabTitles.map((name, i) => (
+              <Tab onClick={setToday} key={i}>{name}</Tab>
+          ))}
         </div>
 
         <div className="border-t border-divider"/>
