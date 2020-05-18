@@ -21,6 +21,7 @@ import {NextSeo} from "next-seo";
 import CurrentLocation from "components/employee/CurrentLocation";
 import cx from 'classnames';
 import Slider from "react-slick";
+import Cookies from 'js-cookie';
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -46,18 +47,28 @@ const EmployeeInformation = ({ user }) => {
     }
   );
 
+  const viewedGirlsIds = JSON.parse(Cookies.get('girls_last_viewed') || '[]');
+
+  const queryIds = viewedGirlsIds.filter(gid => parseInt(gid) !== parseInt(id)).map(gid => parseInt(gid));
+
   const { data: employeesData, loading: loadingEmployees, error } = useQuery(ALL_EMPLOYEES, {
     variables: {
-      first: 8,
-      page: 1
-    }
+      first: 20,
+      page: 1,
+      status: 1,
+      user_status: 1,
+      filters: {
+        ids: queryIds,
+      },
+    },
+    skip: !viewedGirlsIds || !queryIds.length
   });
 
   if (cantonsLoading || employeeLoading || loadingEmployees) {
     return <Loader/>;
   }
 
-  const employees = employeesData.employees.data || [];
+  const employees = employeesData ? employeesData.employees.data || [] : [];
 
   if (!employees) {
     return <Loader/>;
@@ -68,6 +79,12 @@ const EmployeeInformation = ({ user }) => {
     err.code = 'ENOENT';
     throw err;
   }
+
+  if (viewedGirlsIds.indexOf(employee.id) === -1) {
+    viewedGirlsIds.unshift(employee.id);
+  }
+
+  Cookies.set('girls_last_viewed', JSON.stringify(viewedGirlsIds), { expires: 365 });
 
   const girlType = parseInt(employee.type) === 1
     ? 'girls'
@@ -372,7 +389,7 @@ const EmployeeInformation = ({ user }) => {
               </div>
             </div>
 
-            <div className="mt-6" ref={mapRef}>
+            <div className="mt-6 mb-6" ref={mapRef}>
               <EmployeeMaps employee={employee} goBtn={true}/>
             </div>
           </>

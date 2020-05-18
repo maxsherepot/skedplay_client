@@ -188,7 +188,7 @@ function GirlCard({
       </div>
 
       {preview ? (
-        <img className={previewClass} src={photo.thumb_url} />
+        <img className={previewClass} src={photo && photo.thumb_url || `/static/img/girl-no-photo.jpg`} />
       ) : (
         <Slick
           className={slickClass}

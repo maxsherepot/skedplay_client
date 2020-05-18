@@ -93,6 +93,7 @@ const GirlsViewedBox = ({employees}) => {
         arrows={false}
         responsive={responsive}
         beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
+        infinite={false}
       >
         {employees &&
           employees.map(employee => (

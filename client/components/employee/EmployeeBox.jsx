@@ -185,7 +185,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
       <div className="fluid-container">
         {children}
-        {viewed &&
+        {(viewed && employees.length > 0) &&
           <GirlsViewedBox employees={employees}/>
         }
       </div>
