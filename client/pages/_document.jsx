@@ -2,10 +2,10 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import Script from "lib/Script";
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
+  // static async getInitialProps(ctx) {
+  //   //   const initialProps = await Document.getInitialProps(ctx);
+  //   //   return { ...initialProps };
+  //   // }
 
   render() {
     return (
@@ -25,6 +25,37 @@ class MyDocument extends Document {
               })(document, "script");
             }}
           </Script>
+
+          {process.env.ANALYTICS_SCRIPTS === 'true' &&
+            <>
+              <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163899983-1"/>
+              <Script>
+                {() => {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+
+                  gtag('config', 'UA-163899983-1');
+                }}
+              </Script>
+
+              <Script>
+                {() => {
+                  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+                  ym(62055295, "init", {
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                  });
+                }}
+              </Script>
+              <noscript><div><img src="https://mc.yandex.ru/watch/62055295" style={{position: "absolute", left: "-9999px"}} alt="" /></div></noscript>
+            </>
+          }
         </body>
       </Html>
     );
