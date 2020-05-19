@@ -87,10 +87,10 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       key={id}
     >
       <div
-          className="cover club-card__img relative overflow-hidden rounded-t-lg c-events-card"
+          className="cover club-card__img w-full relative overflow-hidden rounded-t-lg c-events-card"
       >
         <LazyLoadImage
-          className="club-card__img relative cover overflow-hidden rounded-t-lg c-events-card object-cover"
+          className="club-card__img w-full relative cover overflow-hidden rounded-t-lg c-events-card object-cover"
           src={thumb && (thumb.url || thumb.thumb_url) || '/static/img/club-none.webp'}
           alt={``}
         />
