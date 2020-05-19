@@ -79,6 +79,27 @@
     }
   }
 
+  &-grey1 {
+    @apply border-none bg-transparent text-black font-normal;
+    &::before {
+      @apply bg-xs-grey;
+    }
+    &::after {
+      @apply bg-xs-grey;
+    }
+
+    &:hover {
+      @apply bg-red text-white;
+
+      &::before {
+        @apply bg-red text-white;
+      }
+      &::after {
+        @apply bg-red text-white;
+      }
+    }
+  }
+
   &-success {
     @apply text-white text-xs font-normal px-4;
     &::before {

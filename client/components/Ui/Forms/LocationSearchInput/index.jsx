@@ -6,6 +6,7 @@ import {useFormikContext} from "formik";
 import PropTypes from "prop-types";
 import cx from 'classnames';
 import {useTranslation} from "react-i18next";
+import withGoogleMap from "hoc/withGoogleMap";
 
 function LocationSearchInput({initAddress, className, inputClassName, defaultValue, name, styles}) {
   const [address, setAddress] = useState(initAddress);
@@ -127,4 +128,4 @@ LocationSearchInput.defaultProps = {
   inputClassName: 'w-full md:w-3/6',
 };
 
-export default LocationSearchInput;
+export default withGoogleMap(LocationSearchInput);

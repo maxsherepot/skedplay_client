@@ -31,12 +31,29 @@ module.exports = {
       '100': "100%"
     },
     screens: {
-      xs: "320px",
-      sm: "480px",
-      md: "768px",
-      lg: "1001px",
-      xl: "1320px",
-      hd: "1780px"
+      xs: {'raw': '(min-width: 320px)'},
+      sm: {'raw': '(min-width: 480px)'},
+      md: {'raw': '(min-width: 768px)'},
+      lg: {'raw': '(min-width: 1001px)'},
+      xl: {
+        'raw': '(min-width: 1320px) and (device-pixel-ratio: 1.9), ' +
+          '(min-width: 1320px) and (max-resolution: 191dpi), '
+          + '(min-width: 768px) and (device-pixel-ratio: 2), '
+          + '(min-width: 768px) and (min-resolution: 192dpi)'
+      },
+      hd: {
+        'raw': '(min-width: 1780px) and (device-pixel-ratio: 1.9), ' +
+          '(min-width: 1780px) and (max-resolution: 191dpi), '
+          + '(min-width: 768px) and (device-pixel-ratio: 2), '
+          + '(min-width: 768px) and (min-resolution: 192dpi)'
+      },
+
+      // xs: "320px",
+      // sm: "480px",
+      // md: "768px",
+      // lg: "1001px",
+      // xl: "1320px",
+      // hd: "1780px",
     },
     fluidContainer: {
       default: {
@@ -101,12 +118,17 @@ module.exports = {
         "80": "20rem",
         "1218": "1218px",
         "header-plans": "37.125rem",
-        "user-dropdown": "29.5rem"
+        "user-dropdown": "29.5rem",
+        "80px": '80px',
+        "100px": '100px',
+        "1/8": '12.5%',
+        '1/7': '14.2857143%',
       },
       height: {
         "2px": "2px",
         "2": "0.5rem",
         "7": "1.875rem",
+        "8": "2rem",
         "10": "2.5rem",
         "13": "3.125rem",
         "15": "3.75rem",
@@ -121,11 +143,13 @@ module.exports = {
         "photo-md": "20.3125rem", // 325
         "photo-sm": "18.625rem", // 298
         photo: "24.8125rem", // 397
-        // "e-photo-md": "14.8125rem", // 237
-        "e-photo-md": "13.875rem", // 222
-        // "e-photo-lg": "15.625rem", // 250
-        "e-photo-lg": "13.875rem", // 222
-        "e-photo-hd": "13.875rem", // 222
+        // "e-photo-md": "14.8125rem",
+        "e-photo-md": "13.875rem",
+        // "e-photo-lg": "15.625rem",
+        "e-photo-lg": "13.875rem",
+        "e-photo-xl": "19.585rem",
+        // "e-photo-hd": "13.875rem",
+        "e-photo-hd": "19.585rem",
         // Gallery
         "gallery-hd": "47.5rem", // 760
         "gallery-lg": "43.75rem", // 700

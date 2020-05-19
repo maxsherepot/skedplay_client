@@ -40,7 +40,7 @@ ArrowBack.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   back: PropTypes.bool,
-  color: PropTypes.oneOf(["white", "black"])
+  color: PropTypes.oneOf(["white", "black", "red"])
 };
 
 ArrowBack.defaultProps = {

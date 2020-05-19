@@ -29,7 +29,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
 
   return (
     <div className="flex -mx-2">
-      <div className="hidden lg:block px-2">
+      <div className="hidden md:block">
         <Slider
           className="gallery w-33"
           asNavFor={mainNav}
@@ -88,7 +88,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
                 ref={element => setClickRef(element, i)}
                 onClick={() => handleClick(i)}
                 className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
-                src={photo.url}
+                src={photo.big_thumb_url || photo.url}
                 alt=""
               />
             </div>

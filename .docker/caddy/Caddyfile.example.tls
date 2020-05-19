@@ -3,8 +3,8 @@ https://skidplay.tk {
     proxy / nextjs:3000
 }
 
-https://www.skidplay.tk {
-    redir https://skidplay.tk{uri} permanent
+http://skidplay.tk, http://www.skidplay.tk, https://www.skidplay.tk {
+    redir https://skidplay.tk{uri}
 }
 
 https://skidplay.tk:8080 {

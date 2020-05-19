@@ -9,6 +9,7 @@ export const ALL_EMPLOYEES = gql `
         age
         type
         address
+        current_address
         index
         isVip
         isNew
@@ -29,8 +30,18 @@ export const ALL_EMPLOYEES = gql `
             name
           }
         }
+        current_city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
         lat
         lng
+        current_lat
+        current_lng
         favorited {
           id
         }
@@ -84,7 +95,16 @@ export const GET_EMPLOYEE = gql `
             name
         }
       }
+      current_city {
+        id
+        name
+        canton {
+          id
+          name
+        }
+      }
       address
+      current_address
       type
       race_type_id
       description
@@ -94,6 +114,8 @@ export const GET_EMPLOYEE = gql `
       website
       lat
       lng
+      current_lat
+      current_lng
       active
       will_activate_at
       favorited {
@@ -198,6 +220,7 @@ export const GET_EMPLOYEE = gql `
         id
         url
         thumb_url
+        big_thumb_url
         custom_properties
         model_type
         model_id
@@ -215,8 +238,27 @@ export const GET_EMPLOYEE = gql `
       current_club {
         id
         name
+        city {
+          id
+          name
+          canton {
+            id
+            name
+          }
+        }
+        address
+        lat
+        lng
+        logo {
+          id
+          url
+          thumb_url
+        }
+        type {
+          id
+          name
+        }
       }
-      current_address
     }
   }
 `;

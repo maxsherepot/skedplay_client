@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import {Link} from 'lib/i18n'
+import Link from 'components/SlashedLink'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader } from "UI";
+import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader, Button } from "UI";
 import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EVENTS, ALL_EMPLOYEES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
@@ -18,6 +18,10 @@ import Modal from "UI/Modal";
 import translation from "services/translation";
 import slug from "slug";
 import {NextSeo} from "next-seo";
+import CurrentLocation from "components/employee/CurrentLocation";
+import cx from 'classnames';
+import Slider from "react-slick";
+import Cookies from 'js-cookie';
 
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
@@ -25,6 +29,7 @@ const EmployeeInformation = ({ user }) => {
   const { id, canton, city } = router.query;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
+  const mapRef = React.useRef();
 
   const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
     CANTONS_AND_CITIES
@@ -42,18 +47,28 @@ const EmployeeInformation = ({ user }) => {
     }
   );
 
+  const viewedGirlsIds = JSON.parse(Cookies.get('girls_last_viewed') || '[]');
+
+  const queryIds = viewedGirlsIds.filter(gid => parseInt(gid) !== parseInt(id)).map(gid => parseInt(gid));
+
   const { data: employeesData, loading: loadingEmployees, error } = useQuery(ALL_EMPLOYEES, {
     variables: {
-      first: 8,
-      page: 1
-    }
+      first: 20,
+      page: 1,
+      status: 1,
+      user_status: 1,
+      filters: {
+        ids: queryIds,
+      },
+    },
+    skip: !viewedGirlsIds || !queryIds.length
   });
 
   if (cantonsLoading || employeeLoading || loadingEmployees) {
     return <Loader/>;
   }
 
-  const employees = employeesData.employees.data || [];
+  const employees = employeesData ? employeesData.employees.data || [] : [];
 
   if (!employees) {
     return <Loader/>;
@@ -64,6 +79,12 @@ const EmployeeInformation = ({ user }) => {
     err.code = 'ENOENT';
     throw err;
   }
+
+  if (viewedGirlsIds.indexOf(employee.id) === -1) {
+    viewedGirlsIds.unshift(employee.id);
+  }
+
+  Cookies.set('girls_last_viewed', JSON.stringify(viewedGirlsIds), { expires: 365 });
 
   const girlType = parseInt(employee.type) === 1
     ? 'girls'
@@ -113,39 +134,6 @@ const EmployeeInformation = ({ user }) => {
     </>
   );
 
-  const AddressAndEvent = () => (
-    <>
-      <AddressCard addressable={employee} isAvailable={false} />
-
-      <div className="flex items-end my-5">
-        <div className="text-2xl font-extrabold tracking-tighter leading-none">
-          {t('employees.nachste_event')}
-        </div>
-        <Link
-          href={`/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-          as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
-        >
-          <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
-            <ArrowNextSvg>
-              <span className="mr-1">{t('employees.all_events')}</span>
-            </ArrowNextSvg>
-          </a>
-        </Link>
-      </div>
-
-      {event &&
-        <div className="-mx-3">
-          <EventCard
-            href={`/${girlType}/canton/city/id/events`}
-            linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-            as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
-            {...event}
-          />
-        </div>
-      }
-    </>
-  );
-
   const getStars = starsCount => {
     let stars = [];
     for (let i = 1; i <= 3; i++) {
@@ -173,7 +161,7 @@ const EmployeeInformation = ({ user }) => {
     <>
       <div className="flex -mx-3">
         <div className="w-full hd:w-2/3 px-3">
-          <div className="text-2xl font-extrabold my-5">{t('employees.description')}</div>
+          {/*<div className="text-2xl font-extrabold mb-5">{t('employees.description')}</div>*/}
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
             {employee.description}
           </div>
@@ -258,7 +246,7 @@ const EmployeeInformation = ({ user }) => {
           </div>
         </div>
         <div className="w-1/3 px-3 hidden hd:block">
-          <AddressAndEvent />
+          <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
         </div>
       </div>
     </>
@@ -290,29 +278,118 @@ const EmployeeInformation = ({ user }) => {
         ) : (
           <>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full sm:w-2/3 hd:w-2/5 px-3">
-                <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+              <div className="w-full lg:w-2/3 hd:w-2/5 px-3">
+                {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
                 {sidebarColumn}
               </div>
-              <div className="w-full sm:w-1/3 px-3 block hd:hidden">
-                <AddressAndEvent />
+              <div className="w-full lg:w-1/3 px-3 block sm:flex lg:block hd:hidden justify-center mb-5">
+                <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
               </div>
               <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
             </div>
 
             <div className="flex flex-wrap -mx-3">
               <div className="w-full hd:w-2/5 px-3">
-                <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
-              </div>
-              <div className="w-full hd:w-2/5 px-3">
                 <EmployeeSchedule
                   title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
                   employee={employee}
                 />
               </div>
+
+              <div className="w-full hd:w-2/5 px-3">
+                <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
+              </div>
+
+              <div className="w-full hd:w-1/5 px-3">
+                <div className="flex items-end my-5">
+                  <div className="text-2xl font-extrabold tracking-tighter leading-none">
+                    {t('employees.nachste_event')}
+                  </div>
+                  <Link
+                    href={`/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
+                    as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+                  >
+                    <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
+                      <ArrowNextSvg>
+                        <span className="mr-1">{t('employees.all_events')}</span>
+                      </ArrowNextSvg>
+                    </a>
+                  </Link>
+                </div>
+
+                {employee.events.length > 0 &&
+                  <div className="-mx-3">
+                    <Slider
+                      className="relative block"
+                      arrows={false}
+                      infinite={false}
+                      swipeToSlide={true}
+                      slidesToShow={1}
+                      // autoplay={true}
+                      // dots={true}
+                      // autoplaySpeed={5000}
+                      responsive={[
+                        {
+                          breakpoint: 2800,
+                          settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            // infinite: true,
+                          }
+                        },
+                        {
+                          breakpoint: 1779,
+                          settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1,
+                            // infinite: true,
+                          }
+                        },
+                        {
+                          breakpoint: 1320,
+                          settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            // infinite: true,
+                          }
+                        },
+                        {
+                          breakpoint: 768,
+                          settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            // infinite: true,
+                          }
+                        },
+                        {
+                          breakpoint: 480,
+                          settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            // infinite: true,
+                            dots: true
+                          }
+                        },
+                      ]}
+                    >
+                      {employee.events.map((event, index) => {
+                        return (
+                          <EventCard
+                            key={event.id}
+                            href={`/${girlType}/canton/city/id/events`}
+                            linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
+                            as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+                            {...event}
+                          />
+                        );
+                      })}
+                    </Slider>
+                  </div>
+                }
+              </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 mb-6" ref={mapRef}>
               <EmployeeMaps employee={employee} goBtn={true}/>
             </div>
           </>

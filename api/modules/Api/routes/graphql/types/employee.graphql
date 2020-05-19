@@ -26,6 +26,8 @@ type Employee {
   user_status: Int
   lat: Float,
   lng: Float,
+  current_lat: Float,
+  current_lng: Float,
   email: String,
   phone: String,
   website: String,
@@ -51,6 +53,8 @@ type Employee {
   #
   current_club: Club @belongsTo @with
   current_address: String
+  current_city_id: Int
+  current_city: City @belongsTo @with
   #
   unread_messages_count: Int! @method(name: "unreadMessagesCount")
   user_unread_messages_count: Int! @method(name: "userUnreadMessagesCount")

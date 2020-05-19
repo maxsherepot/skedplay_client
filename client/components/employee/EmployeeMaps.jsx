@@ -39,7 +39,15 @@ class EmployeeMaps extends Component {
       return '';
     }
 
-    if (this.props.employee.lat === null || this.props.employee.lng === null) {
+    const lat = (this.props.employee.current_club && this.props.employee.current_club.lat)
+      || this.props.employee.current_lat
+      || this.props.employee.lat;
+
+    const lng = (this.props.employee.current_club && this.props.employee.current_club.lng)
+      || this.props.employee.current_lng
+      || this.props.employee.lng;
+
+    if (!lat || !lng) {
       return '';
     }
 
@@ -47,7 +55,7 @@ class EmployeeMaps extends Component {
       return (
         <MapDirection
           originByGeo={true}
-          destination={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
+          destination={{lat, lng}}
         />
       );
     }
@@ -57,8 +65,8 @@ class EmployeeMaps extends Component {
         goBtn={this.props.goBtn}
         goBtnLeft={this.props.goBtnLeft || false}
         markers={[this.props.employee]}
-        center={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
-        destination={{lat: this.props.employee.lat, lng: this.props.employee.lng}}
+        center={{lat, lng}}
+        destination={{lat, lng}}
         mapContainerStyle={{width: '100%', height: '400px'}}
       />
     );
