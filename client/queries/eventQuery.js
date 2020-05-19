@@ -60,6 +60,7 @@ export const ALL_EVENTS = gql`
                 }
                 photos {
                     url
+                    thumb_url
                 }
             }
             paginatorInfo {
@@ -130,6 +131,7 @@ export const EVENTS_BY_OWNER = gql`
             }
             photos {
                 url
+                thumb_url
             }
         }
     }

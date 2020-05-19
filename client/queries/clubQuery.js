@@ -46,6 +46,7 @@ export const ALL_CLUBS = gql`
         }
         photos {
           url
+          thumb_url
           custom_properties
         }
       }
