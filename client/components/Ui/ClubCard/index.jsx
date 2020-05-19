@@ -91,7 +91,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       >
         <LazyLoadImage
           className="club-card__img w-full relative cover overflow-hidden rounded-t-lg c-events-card object-cover"
-          src={thumb && (thumb.url || thumb.thumb_url) || '/static/img/club-none.webp'}
+          src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/club-none.webp'}
           alt={``}
         />
         {/* Extract to component */}

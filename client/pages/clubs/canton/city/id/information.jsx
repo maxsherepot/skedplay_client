@@ -150,7 +150,7 @@ const ClubInformation = ({user}) => {
     throw err;
   }
 
-  const logo_url = (club.logo !== null) ? club.logo['url'] || club.logo['thumb_url'] : "/static/img/club-logo.png";
+  const logo_url = (club.logo !== null) ? club.logo['thumb_url'] || club.logo['url'] : "/static/img/club-logo.png";
   const [event] = club.events;
   const [phone] = JSON.parse(club.phones);
 
