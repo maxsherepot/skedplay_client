@@ -53,7 +53,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <SelectField
                               key={index}
-                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                               placeholder={rest.handlePlaceholder ? rest.handlePlaceholder(values) : rest.placeholder}
@@ -66,7 +66,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <MultiSelectField
                               key={index}
-                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                             />
@@ -76,7 +76,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <Slider
                               key={index}
-                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
@@ -87,7 +87,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <DistanceSlider
                               key={index}
-                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
@@ -98,7 +98,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <RangeSlider
                               key={index}
-                              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/6 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 xl:w-1/6 px-2"
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}
@@ -124,7 +124,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           break;
                       }
                     })}
-                  <FormGroup className="w-full mt-5 lg:mt-0 lg:w-1/6 px-2">
+                  <FormGroup className="w-full mt-5 md:mt-0 md:w-1/6 px-2">
                     <Button
                       className="w-full"
                       size="sm"
