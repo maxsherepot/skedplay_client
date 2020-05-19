@@ -30,6 +30,10 @@ export const ALL_CLUBS = gql`
         employees {
           id
           name
+          photos {
+            url
+            thumb_url
+          } 
         }
         favorited {
           id
@@ -156,6 +160,7 @@ export const GET_CLUB = gql`
         photos {
           id
           url
+          thumb_url
           model_type
           model_id
           collection_name
@@ -290,6 +295,7 @@ export const CREATE_CLUB = gql`
         }
         photos {
           url
+          thumb_url
         }
       }
       employees {

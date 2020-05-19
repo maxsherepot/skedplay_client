@@ -56,6 +56,15 @@ export const ALL_EMPLOYEES = gql `
           thumb_url
           custom_properties
         }
+        current_club {
+          id
+          name
+          photos {
+            id
+            url
+            thumb_url
+          }
+        }
       }
       paginatorInfo {
         count
@@ -250,6 +259,11 @@ export const GET_EMPLOYEE = gql `
         lat
         lng
         logo {
+          id
+          url
+          thumb_url
+        }
+        photos {
           id
           url
           thumb_url
