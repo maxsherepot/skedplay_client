@@ -228,6 +228,15 @@ main {
       height: 70px;
     }
   }
+
+  .logo-midd {
+    &__div {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+  }
+
   .c-account {
     &__avatar {
       border-radius: 50%;

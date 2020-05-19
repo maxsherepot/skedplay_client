@@ -191,7 +191,7 @@ function GirlCard({
       {preview ? (
         <LazyLoadImage
             className={previewClass}
-            src={photo && photo.thumb_url || '/static/img/girl-no-photo.jpg'}
+            src={photo && (photo.url || photo.thumb_url) || '/static/img/girl-no-photo.jpg'}
             alt={``}
         />
       ) : (

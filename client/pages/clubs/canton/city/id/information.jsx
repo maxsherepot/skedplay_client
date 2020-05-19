@@ -150,7 +150,7 @@ const ClubInformation = ({user}) => {
     throw err;
   }
 
-  const logo_url = (club.logo !== null) ? club.logo['url'] : "/static/img/club-logo.png";
+  const logo_url = (club.logo !== null) ? club.logo['url'] || club.logo['thumb_url'] : "/static/img/club-logo.png";
   const [event] = club.events;
   const [phone] = JSON.parse(club.phones);
 
@@ -207,7 +207,7 @@ const ClubInformation = ({user}) => {
 
   const ClubLogo = ({favorited}) => (
     <div className="flex items-center justify-center relative h-32 lg:h-full w-full">
-      <div className="logo-small__div">
+      <div className="logo-midd__div">
         <img src={logo_url} alt=""/>
       </div>
       <div className="mx-8 lg:mx-0"/>

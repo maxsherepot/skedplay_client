@@ -176,8 +176,8 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      */
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_COLLECTION);
-        $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::LOGO_COLLECTION);
+        $this->addMediaConversion('thumb')->height(340)->width(420)->performOnCollections(self::PHOTO_COLLECTION);
+        $this->addMediaConversion('thumb')->height(150)->width(150)->performOnCollections(self::LOGO_COLLECTION);
     }
 
     /**
