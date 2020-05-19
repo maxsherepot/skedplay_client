@@ -20,6 +20,15 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
+    function getBigThumbUrl(Media $rootValue)
+    {
+        return $rootValue->getFullUrl('big_thumb');
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
     function getUrl(Media $rootValue)
     {
         return $rootValue->getFullUrl();

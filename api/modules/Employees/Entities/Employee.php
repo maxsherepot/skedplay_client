@@ -292,6 +292,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
 
+        $this->addMediaConversion('big_thumb')
+            ->width(454)
+            ->height(682)
+            ->performOnCollections(self::PHOTO_COLLECTION);
+
         $this->addMediaConversion('thumb')
             ->width(687)
             ->height(682)

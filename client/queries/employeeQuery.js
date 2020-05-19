@@ -220,6 +220,7 @@ export const GET_EMPLOYEE = gql `
         id
         url
         thumb_url
+        big_thumb_url
         custom_properties
         model_type
         model_id
