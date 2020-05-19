@@ -11,6 +11,7 @@ import EntityMaps from "components/maps/EntityMaps";
 import {useTranslation} from "react-i18next";
 import * as moment from "moment";
 import LocationSvg from "components/icons/LocationSvg";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 function DistanceView({distanceKm}) {
   if (!distanceKm) {
@@ -117,14 +118,13 @@ function EventCard({
       key={id}
     >
       <div
-        className="relative overflow-hidden rounded-t-lg c-events-card"
-        style={{
-          backgroundImage: `url(${thumb && thumb.url || '/static/img/event-none.webp'})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height
-        }}
+        className="cover relative club-card__img overflow-hidden rounded-t-lg c-events-card"
       >
+        <LazyLoadImage
+            className="club-card__img cover relative overflow-hidden rounded-t-lg c-events-card"
+            src={thumb && thumb.url || '/static/img/event-none.webp'}
+            alt={``}
+        />
         {/* Extract to component */}
         {isMap ? (
           <div

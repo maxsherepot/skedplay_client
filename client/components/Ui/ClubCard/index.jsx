@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Link from 'components/SlashedLink'
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
@@ -87,14 +87,13 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
       key={id}
     >
       <div
-        className="relative overflow-hidden rounded-t-lg c-events-card"
-        style={{
-          backgroundImage: `url(${thumb && thumb.url || '/static/img/club-none.webp'})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: 335
-        }}
+          className="cover club-card__img relative overflow-hidden rounded-t-lg c-events-card"
       >
+        <LazyLoadImage
+          className="club-card__img relative cover overflow-hidden rounded-t-lg c-events-card object-cover"
+          src={thumb && thumb.url || '/static/img/club-none.webp'}
+          alt={``}
+        />
         {/* Extract to component */}
         {isMap ? (
           <div
@@ -185,7 +184,10 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
           <div className="flex flex-col justify-end">
             <div className="logo-small__div">
               {logo ? (
-                  <img src={logo['url']} alt="" />
+                  <LazyLoadImage
+                      src={logo['url']}
+                      alt={``}
+                  />
                   ) : (
                   <div>No logo</div>
               )}

@@ -8,6 +8,7 @@ import { MessageSvg, CocktailSvg } from "icons";
 import Distance from "components/distance";
 import {useTranslation} from "react-i18next";
 import MapSvg from "components/icons/MapSvg";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 import slug from "slug";
 
 function GirlCard({
@@ -184,7 +185,11 @@ function GirlCard({
       </div>
 
       {preview ? (
-        <img className={previewClass} src={photo.thumb_url} />
+        <LazyLoadImage
+            className={previewClass}
+            src={photo && photo.url || '/static/img/girl-no-photo.jpg'}
+            alt={``}
+        />
       ) : (
         <Slick
           className={slickClass}
