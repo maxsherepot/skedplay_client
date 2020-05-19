@@ -2,8 +2,8 @@ http://demo.local {
     proxy / nextjs:3000
 }
 
-http://www.demo.local {
-    redir http://demo.local{uri} permanent
+http://skidplay.tk, http://www.skidplay.tk, https://www.skidplay.tk {
+    redir https://skidplay.tk{uri}
 }
 
 http://demo.local:8080 {
