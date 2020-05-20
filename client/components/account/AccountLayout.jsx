@@ -15,6 +15,7 @@ import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 import cx from "classnames";
 import Cookies from "js-cookie";
 import redirect from "lib/redirect";
+import { setCookie } from "utils";
 
 const ProfileHeader = ({user}) => (
   <div className="fluid-container header-profile-div">
@@ -261,6 +262,10 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
 
   const signOut = () => {
     Cookies.remove('token', { path: '' });
+
+    setCookie("token", "", {
+      "max-age": -1
+    });
 
     client.clearStore().then(() => redirect({}, "/"));
   };
