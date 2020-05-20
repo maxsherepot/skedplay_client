@@ -81,7 +81,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     <>
       <div className="flex flex-col md:flex-row items-center mb-4 xl:mt-4">
         {employee && (
-          <h1 className="text-2xl font-extrabold hd:text-white">
+          <h1 className="text-2xl font-extrabold">
             {employee.name} {employee.age}
           </h1>
         )}

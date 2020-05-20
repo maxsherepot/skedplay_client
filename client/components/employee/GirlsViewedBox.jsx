@@ -37,13 +37,13 @@ const GirlsViewedBox = ({employees}) => {
   );
 
   const responsive = [
-    {
-      breakpoint: 2800,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 1,
-      }
-    },
+    // {
+    //   breakpoint: 2800,
+    //   settings: {
+    //     slidesToShow: 5,
+    //     slidesToScroll: 1,
+    //   }
+    // },
     {
       breakpoint: 999,
       settings: {

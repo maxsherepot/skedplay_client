@@ -31,29 +31,12 @@ module.exports = {
       '100': "100%"
     },
     screens: {
-      // xs: {'raw': '(min-width: 320px)'},
-      // sm: {'raw': '(min-width: 480px)'},
-      // md: {'raw': '(min-width: 768px)'},
-      // lg: {'raw': '(min-width: 1001px)'},
-      // xl: {
-      //   'raw': '(min-width: 1320px) and (device-pixel-ratio: 1.9), ' +
-      //     '(min-width: 1320px) and (max-resolution: 191dpi), '
-      //     + '(min-width: 768px) and (device-pixel-ratio: 2), '
-      //     + '(min-width: 768px) and (min-resolution: 192dpi)'
-      // },
-      // hd: {
-      //   'raw': '(min-width: 1780px) and (device-pixel-ratio: 1.9), ' +
-      //     '(min-width: 1780px) and (max-resolution: 191dpi), '
-      //     + '(min-width: 768px) and (device-pixel-ratio: 2), '
-      //     + '(min-width: 768px) and (min-resolution: 192dpi)'
-      // },
-
       xs: "320px",
       sm: "480px",
       md: "768px",
       lg: "1001px",
       xl: "1320px",
-      hd: "1780px",
+      hd: "1440px",
     },
     fluidContainer: {
       default: {
