@@ -5,7 +5,7 @@ import {Avatar, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
-import {useMutation, useQuery} from "@apollo/react-hooks";
+import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
 import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
 import {useTranslation} from "react-i18next";
 import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
@@ -13,6 +13,8 @@ import {getErrors} from "utils/index";
 import * as moment from "moment";
 import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 import cx from "classnames";
+import Cookies from "js-cookie";
+import redirect from "lib/redirect";
 
 const ProfileHeader = ({user}) => (
   <div className="fluid-container header-profile-div">
@@ -246,6 +248,7 @@ const ClubMenu = ({clubs}) => {
 
 const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees, employee}}) => {
   const {t, i18n} = useTranslation();
+  const client = useApolloClient();
   const employeeButtonText = employee
     ? t('layout.edit_ad')
     : t('layout.add_ad');
@@ -255,6 +258,12 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
     : '/girls/add';
 
   const {loading: userCountsLoading, error: userCountsError, data: {me: userCounts} = {}} = useQuery(GET_MY_EMPLOYEE_EVENTS_COUNT);
+
+  const signOut = () => {
+    Cookies.remove('token', { path: '' });
+
+    client.clearStore().then(() => redirect({}, "/"));
+  };
 
   return (
     <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
@@ -363,6 +372,15 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
               {t('layout.settings')}
             </a>
           </Link>
+        </div>
+
+        <div className="mt-4">
+            <span
+              className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
+              onClick={() => signOut()}
+            >
+              {t('common.sign_out')}
+            </span>
         </div>
       </div>
     </div>
