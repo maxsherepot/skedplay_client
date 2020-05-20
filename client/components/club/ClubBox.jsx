@@ -57,7 +57,7 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
     <>
       {club && (
         <div className="flex items-center sm:flex-start hd:mt-0">
-          <h1 className="text-2xl font-extrabold hd:text-white">
+          <h1 className="text-2xl font-extrabold">
             {club.name}
           </h1>
           <div className="bg-black text-white text-xs rounded-full uppercase mt-1 ml-3 px-3 py-1">
