@@ -269,7 +269,7 @@ const ClubInformation = ({user}) => {
               </div>
 
               <div className="-mx-3">
-                <EventCard href={`/clubs/${id}/events`} {...event} height={250}/>
+                <EventCard href={`/clubs/${id}/events`} inProfile={true} {...event} height={250}/>
               </div>
 
               <Link

@@ -96,7 +96,8 @@ function EventCard({
   as,
   linkQueryParams,
   mainPhoto,
-  employees
+  employees,
+  inProfile,
 }) {
   const [eventMapId, setEventMapId] = useState(null);
 
@@ -118,13 +119,21 @@ function EventCard({
       key={id}
     >
       <div
-        className="cover relative club-card__img overflow-hidden rounded-t-lg c-events-card"
+        className="cover relative overflow-hidden rounded-t-lg c-events-card"
       >
-        <LazyLoadImage
-            className="club-card__img cover relative overflow-hidden rounded-t-lg c-events-card"
-            src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
-            alt={``}
-        />
+        {inProfile ? (
+          <img
+              className=" cover relative overflow-hidden rounded-t-lg c-events-card"
+              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
+              alt={``}
+          />
+        ) : (
+          <LazyLoadImage
+              className="club-card__img cover relative overflow-hidden rounded-t-lg c-events-card"
+              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
+              alt={``}
+          />
+        )}
         {/* Extract to component */}
         {isMap ? (
           <div
@@ -218,7 +227,8 @@ function EventCard({
 }
 
 EventCard.defaultProps = {
-  height: 335
+  height: 335,
+  inProfile: false,
 };
 
 EventCard.propTypes = {
@@ -230,7 +240,7 @@ EventCard.propTypes = {
   start_time: PropTypes.string,
   club: PropTypes.object,
   photos: PropTypes.array,
-
+  inProfile: PropTypes.bool,
 };
 
 export default EventCard;
