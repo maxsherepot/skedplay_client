@@ -220,6 +220,16 @@ main {
     }
   }
 }
+
+.girl_card-club {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+}
   .logo-small {
     &__div {
       position: relative;

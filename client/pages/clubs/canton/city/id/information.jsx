@@ -237,10 +237,10 @@ const ClubInformation = ({user}) => {
 
           <div className="flex flex-col lg:flex-row flex-wrap bg-white rounded-t-lg">
             <div
-              className="w-full lg:w-2/12 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-divider">
+              className="w-full lg:w-3/12 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-divider">
               <ClubLogo favorited={club.favorited}/>
             </div>
-            <div className="flex flex-col justify-between lg:w-10/12 p-4 hd:p-8 lg:h-64">
+            <div className="flex flex-col justify-between lg:w-9/12 p-4 hd:p-8 lg:h-64">
               {club.description}
 
               <div className="flex items-center text-light-grey">
@@ -255,8 +255,8 @@ const ClubInformation = ({user}) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap -mx-3">
-        <div className="w-full sm:w-8/12 lg:w-9/12 px-3 girls-slider__section">
+      <div className="flex flex-wrap p-4 -mx-3">
+        <div className="w-full sm:w-8/12 lg:w-9/12 px-3">
           <ClubGirlsBox employees={club.employees} club={club}/>
         </div>
         {event && (
@@ -269,7 +269,7 @@ const ClubInformation = ({user}) => {
               </div>
 
               <div className="-mx-3">
-                <EventCard href={`/clubs/${id}/events`} {...event} height={250}/>
+                <EventCard href={`/clubs/${id}/events`} inProfile={true} {...event} height={250}/>
               </div>
 
               <Link

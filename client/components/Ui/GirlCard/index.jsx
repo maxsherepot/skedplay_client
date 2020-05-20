@@ -21,6 +21,7 @@ function GirlCard({
   available,
   preview,
   sized,
+  profileCard,
   viewed,
 }) {
   function DistanceView({distanceKm}) {
@@ -172,8 +173,8 @@ function GirlCard({
 
   return (
     <div className={cx(
-      className,
-      "girls__item bg-white border border-white",
+        profileCard ? 'girl_card-club' :'girls__item',
+      "bg-white border border-white",
       girl.isVip ? "border border-red" : "",
       sized ? "sized" : "",
       viewed ? "viewed" : "",
@@ -196,7 +197,10 @@ function GirlCard({
         />
       ) : (
         <Slick
-          className={slickClass}
+          className={cx(
+              profileCard ? 'w-full lg:h-photo-md' : 'lg:h-photo-lg',
+              slickClass
+          )}
           id={girl.id}
           photos={girl.photos}
           labels={labels ? <Labels girl={girl} /> : null}
@@ -230,12 +234,13 @@ function GirlCard({
 GirlCard.defaultProps = {
   previewClass:
     "object-cover h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg xl:h-e-photo-xl hd:h-e-photo-hd",
-  slickClass: "h-photo sm:h-photo-sm md:h-photo-md lg:h-photo-lg hd:h-photo-hd",
+  slickClass: "h-photo sm:h-photo-sm md:h-photo-md hd:h-photo-hd",
   preview: false,
   available: false,
   labels: true,
   slider: true,
   sized: true,
+  profileCard: false,
   viewed: false,
 };
 
@@ -248,6 +253,7 @@ GirlCard.propTypes = {
   labels: PropTypes.bool,
   slider: PropTypes.bool,
   sized: PropTypes.bool,
+  profileCard: PropTypes.bool,
   viewed: PropTypes.bool,
 };
 

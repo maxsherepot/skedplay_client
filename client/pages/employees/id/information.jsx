@@ -377,6 +377,7 @@ const EmployeeInformation = ({ user }) => {
                           <EventCard
                             key={event.id}
                             href={`/${girlType}/canton/city/id/events`}
+                            inProfile={true}
                             linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
                             as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
                             {...event}
