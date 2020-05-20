@@ -19,8 +19,8 @@ const ClubGirlsBox = ({ employees, club }) => {
 
     if (employee) {
       rows.push(
-          <div className="sm:w-1/2 lg:w-1/4" key={employee.id}>
-            <GirlCard girl={employee} labels={false} slider={false} available />
+          <div className="sm:w-5/6 lg:w-3/12 md:w-6/12 girl_card__div" key={employee.id}>
+            <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
           </div>
       );
     }
@@ -43,7 +43,7 @@ const ClubGirlsBox = ({ employees, club }) => {
           </a>
         </Link>
       </div>
-      <div className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap -mx-3">
+      <div className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap w-full -mx-3">
         {rows}
       </div>
     </>

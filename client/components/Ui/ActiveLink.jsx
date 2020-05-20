@@ -18,7 +18,7 @@ const ActiveLink = ({ children, wrapClass, activeClassName, advancedBlock, ...pr
   return (
     <li
       className={cx(
-        "relative py-5 text-grey hover:text-black cursor-pointer text-xs sm:text-sm md:text-xl hd:text-xl px-2 sm:px-5 hd:px-10",
+        "relative py-5 text-grey hover:text-black cursor-pointer text-xs sm:text-sm md:text-md hd:text-xl px-2 sm:px-5 hd:px-10",
         wrapClass,
       )}
     >
