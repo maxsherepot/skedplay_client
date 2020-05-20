@@ -32,11 +32,6 @@ main {
   height: 335px;
 }
 
-.footer-sides__div {
-  display: flex;
-  justify-content: space-between;
-}
-
 .club-card__footer-div {
   height: 175px;
   @media (max-width: 1780px) {
@@ -154,6 +149,10 @@ main {
 
 .container, .container-simple {
   padding: 0 20px;
+
+  &.without-p {
+    padding: 0!important;
+  }
 }
 
 // Center react-images photo

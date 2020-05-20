@@ -48,3 +48,12 @@ export { default as PostFinanceSvg } from "./PostFinanceSvg";
 export { default as TwintSvg } from "./TwintSvg";
 export { default as SmsSvg } from "./SmsSvg";
 export { default as InvoiceSvg } from "./InvoiceSvg";
+
+export { default as ApplePaySvg } from "./ApplePaySvg";
+export { default as CardsSvg } from "./CardsSvg";
+export { default as InstagramSvg } from "./InstagramSvg";
+export { default as PayPal1Svg } from "./PayPal1Svg";
+export { default as SmartphoneSvg } from "./SmartphoneSvg";
+export { default as SofortSvg } from "./SofortSvg";
+export { default as TwitterSvg } from "./TwitterSvg";
+export { default as YoutubeSvg } from "./YoutubeSvg";

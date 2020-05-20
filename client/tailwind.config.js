@@ -31,29 +31,29 @@ module.exports = {
       '100': "100%"
     },
     screens: {
-      xs: {'raw': '(min-width: 320px)'},
-      sm: {'raw': '(min-width: 480px)'},
-      md: {'raw': '(min-width: 768px)'},
-      lg: {'raw': '(min-width: 1001px)'},
-      xl: {
-        'raw': '(min-width: 1320px) and (device-pixel-ratio: 1.9), ' +
-          '(min-width: 1320px) and (max-resolution: 191dpi), '
-          + '(min-width: 768px) and (device-pixel-ratio: 2), '
-          + '(min-width: 768px) and (min-resolution: 192dpi)'
-      },
-      hd: {
-        'raw': '(min-width: 1780px) and (device-pixel-ratio: 1.9), ' +
-          '(min-width: 1780px) and (max-resolution: 191dpi), '
-          + '(min-width: 768px) and (device-pixel-ratio: 2), '
-          + '(min-width: 768px) and (min-resolution: 192dpi)'
-      },
+      // xs: {'raw': '(min-width: 320px)'},
+      // sm: {'raw': '(min-width: 480px)'},
+      // md: {'raw': '(min-width: 768px)'},
+      // lg: {'raw': '(min-width: 1001px)'},
+      // xl: {
+      //   'raw': '(min-width: 1320px) and (device-pixel-ratio: 1.9), ' +
+      //     '(min-width: 1320px) and (max-resolution: 191dpi), '
+      //     + '(min-width: 768px) and (device-pixel-ratio: 2), '
+      //     + '(min-width: 768px) and (min-resolution: 192dpi)'
+      // },
+      // hd: {
+      //   'raw': '(min-width: 1780px) and (device-pixel-ratio: 1.9), ' +
+      //     '(min-width: 1780px) and (max-resolution: 191dpi), '
+      //     + '(min-width: 768px) and (device-pixel-ratio: 2), '
+      //     + '(min-width: 768px) and (min-resolution: 192dpi)'
+      // },
 
-      // xs: "320px",
-      // sm: "480px",
-      // md: "768px",
-      // lg: "1001px",
-      // xl: "1320px",
-      // hd: "1780px",
+      xs: "320px",
+      sm: "480px",
+      md: "768px",
+      lg: "1001px",
+      xl: "1320px",
+      hd: "1780px",
     },
     fluidContainer: {
       default: {
@@ -123,6 +123,9 @@ module.exports = {
         "100px": '100px',
         "1/8": '12.5%',
         '1/7': '14.2857143%',
+      },
+      maxWidth: {
+        '3/4': '75%',
       },
       height: {
         "2px": "2px",

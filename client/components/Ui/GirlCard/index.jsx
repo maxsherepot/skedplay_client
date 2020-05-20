@@ -178,7 +178,7 @@ function GirlCard({
       sized ? "sized" : "",
       viewed ? "viewed" : "",
     )}>
-      <div className="absolute z-20 top-0 right-10 p-3-5">
+      <div className="absolute z-20 top-0 right-0 p-3-5">
         <FavoriteButton
           variables={{ model_id: girl.id, model_type: "employee" }}
           favorited={girl.favorited}
@@ -189,7 +189,7 @@ function GirlCard({
       </div>
 
       {preview ? (
-        <LazyLoadImage
+        <img
             className={previewClass}
             src={photo && (photo.thumb_url || photo.url) || '/static/img/girl-no-photo.jpg'}
             alt={``}

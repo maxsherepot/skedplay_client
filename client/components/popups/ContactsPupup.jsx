@@ -38,7 +38,7 @@ const ContactsPopup = ({user, trigger, title, onSuccess}) => {
   const { t, i18n } = useTranslation();
 
   const defaultTrigger = (
-    <li className="mx-8 cursor-pointer">
+    <li className="w-1/3 cursor-pointer">
       {t('layout.contacts')}
     </li>
   );

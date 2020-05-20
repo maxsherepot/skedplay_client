@@ -120,7 +120,7 @@ function EventCard({
       <div
         className="cover relative club-card__img overflow-hidden rounded-t-lg c-events-card"
       >
-        <LazyLoadImage
+        <img
             className="club-card__img cover relative overflow-hidden rounded-t-lg c-events-card"
             src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
             alt={``}
