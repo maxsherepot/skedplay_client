@@ -6,25 +6,92 @@ import { ArrowNextSvg } from "icons";
 import { GirlCard } from "UI";
 import {useTranslation} from "react-i18next";
 import slug from "slug";
+import Slider from "react-slick";
+import cx from "classnames";
 
 const ClubGirlsBox = ({ employees, club }) => {
   const router = useRouter();
   const { id } = router.query;
   const {t, i18n} = useTranslation();
 
-  const rows = [];
+  // const rows = [];
+  //
+  // for (let i = 0; i < 4; i++) {
+  //   const employee = employees[i];
+  //
+  //   if (employee) {
+  //     rows.push(
+  //         <div className="sm:w-5/6 lg:w-3/12 md:w-6/12 girl_card__div" key={employee.id}>
+  //           <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
+  //         </div>
+  //     );
+  //   }
+  // }
 
-  for (let i = 0; i < 4; i++) {
-    const employee = employees[i];
+  // const customPaging = i => (
+  //   <span
+  //     className={cx(
+  //       "block cursor-pointer rounded-full w-2 h-2",
+  //       index === i ? "bg-red" : "bg-divider"
+  //     )}
+  //   />
+  // );
 
-    if (employee) {
-      rows.push(
-          <div className="sm:w-5/6 lg:w-3/12 md:w-6/12 girl_card__div" key={employee.id}>
-            <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
-          </div>
-      );
+  const appendDots = dots => (
+    <ul
+      style={{
+        width: "100%",
+      }}
+    >
+      {dots}
+    </ul>
+  );
+
+  const responsive = [
+    {
+      breakpoint: 1780,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 1440,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 1001,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        dots: true,
+        appendDots,
+      }
+    },
+    {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        dots: true,
+        appendDots,
+        // customPaging
+      }
+    },
+    {
+      breakpoint: 479,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        appendDots,
+        // customPaging
+      }
     }
-  }
+  ];
 
   return (
     <>
@@ -43,9 +110,24 @@ const ClubGirlsBox = ({ employees, club }) => {
           </a>
         </Link>
       </div>
-      <div className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap w-full -mx-3">
-        {rows}
-      </div>
+      <Slider
+        className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap w-full -mx-3"
+        arrows={false}
+        slidesToShow={4}
+        responsive={responsive}
+        infinite={false}
+      >
+        {employees &&
+        employees.map(employee => (
+          <div
+            key={employee.id}
+            // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
+            className="px-2"
+          >
+            <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
+          </div>
+        ))}
+      </Slider>
     </>
   );
 };

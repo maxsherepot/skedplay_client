@@ -198,7 +198,7 @@ function GirlCard({
       ) : (
         <Slick
           className={cx(
-              profileCard ? 'w-full lg:h-photo-md' : 'lg:h-photo-lg',
+              profileCard ? 'w-full lg:h-photo-lg' : 'lg:h-photo-lg',
               slickClass
           )}
           id={girl.id}
