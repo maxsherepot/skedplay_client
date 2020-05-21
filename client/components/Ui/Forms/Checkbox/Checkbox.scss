@@ -22,6 +22,10 @@ input[type="checkbox"]+div>span {
   height: 26px;
   transition: all 250ms cubic-bezier(0.4, 0, 0.23, 1);
   margin-right: 9px;
+  @screen hd {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 input[type="checkbox"].white+div>span {
