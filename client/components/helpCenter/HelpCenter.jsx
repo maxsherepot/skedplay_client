@@ -156,18 +156,20 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
         <div className="flex flex-col lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
-            {selectedTopic ?
-              <>
+            <div className="xl:max-w-3/4">
+              {selectedTopic ?
+                <>
+                  <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+                    {getLangField(selectedTopic.name, i18n.language)}
+                  </h1>
+                  <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
+                </>
+                :
                 <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
-                  {getLangField(selectedTopic.name, i18n.language)}
+                  {t('layout.help_center')}
                 </h1>
-                <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
-              </>
-              :
-              <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
-                {t('layout.help_center')}
-              </h1>
-            }
+              }
+            </div>
           </div>
         </div>
       </PageCard>

@@ -153,6 +153,14 @@ main {
   &.without-p {
     padding: 0!important;
   }
+
+  @screen hd {
+    padding: 0 50px;
+  }
+
+  @screen 2hd {
+    padding: 0 20px;
+  }
 }
 
 // Center react-images photo

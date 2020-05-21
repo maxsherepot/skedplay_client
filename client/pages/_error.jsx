@@ -56,7 +56,7 @@ function Error({statusCode}) {
     );
 
     const Footer = () => (
-        <div className="fluid-container">
+        <div className="container">
             {{
                 404: (
                     <Display404/>
@@ -68,7 +68,7 @@ function Error({statusCode}) {
     return (
         <>
             <AnimationBackground invert footer={<Footer/>}>
-                <div className="absolute inset-0 fluid-container hd:w-7/12 mx-auto flex">
+                <div className="absolute inset-0 container hd:w-7/12 mx-auto flex">
                     <div className="z-10 h-20">
                         <a href="/">
                             <Logo className="text-white mx-auto mt-5" />
@@ -76,7 +76,7 @@ function Error({statusCode}) {
                     </div>
                 </div>
 
-                <div className="fluid-container">
+                <div className="container">
                     <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 contain-section__img-man"
                          src="/static/img/man.webp" alt=""/>
                     <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 contain-section__img-woman"

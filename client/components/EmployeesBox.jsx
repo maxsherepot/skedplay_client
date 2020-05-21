@@ -28,7 +28,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
         {sortComponent}
       </div>
 
-      {/*<div className="fluid-container">*/}
+      {/*<div className="container">*/}
       {/*  <MapWithMarkers*/}
       {/*    markers={employeesWithCoordinates}*/}
       {/*    mapContainerStyle={{width: '100%', height: '400px'}}*/}
@@ -41,7 +41,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
           {employees &&
             employees.data.map(girl => (
               <div
-                className="flex justify-center sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
+                className="flex justify-center sm:w-1/2 md:w-1/3 xl:w-1/4 1hd:w-1/5 px-2"
                 key={girl.id}
               >
                 <GirlCard girl={girl} href="/employee" />

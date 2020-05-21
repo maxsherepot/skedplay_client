@@ -160,7 +160,7 @@ const EmployeeInformation = ({ user }) => {
   const contentColumn = (
     <>
       <div className="flex -mx-3">
-        <div className="w-full hd:w-2/3 px-3">
+        <div className="w-full hd:w-3/5 px-3">
           {/*<div className="text-2xl font-extrabold mb-5">{t('employees.description')}</div>*/}
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
             {employee.description}
@@ -245,7 +245,7 @@ const EmployeeInformation = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="w-1/3 px-3 hidden hd:block">
+        <div className="w-2/5 px-3 hidden hd:block">
           <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
         </div>
       </div>
@@ -259,13 +259,19 @@ const EmployeeInformation = ({ user }) => {
         canonical={canonical}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees}>
+      <EmployeeBox employee={employee} user={user} employees={employees} showNavLinks={user || !employee.isVip}>
         {!user && (employee.isVip === true) ? (
           <div>
             <Modal
               title={t('common.login')}
-              right={<LangSelector />}
+              // right={<LangSelector />}
               modalDialogStyle={{height: '650px'}}
+              style={{
+                height: 'inherit',
+              }}
+              headerStyle={{
+                justifyContent: 'center',
+              }}
             >
               <div className="mt-3 bg-red p-3 w-2/3 text-center mx-auto">
                   <span className="text-white">
@@ -329,22 +335,22 @@ const EmployeeInformation = ({ user }) => {
                       // dots={true}
                       // autoplaySpeed={5000}
                       responsive={[
-                        {
-                          breakpoint: 2800,
-                          settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            // infinite: true,
-                          }
-                        },
-                        {
-                          breakpoint: 1779,
-                          settings: {
-                            slidesToShow: 4,
-                            slidesToScroll: 1,
-                            // infinite: true,
-                          }
-                        },
+                        // {
+                        //   breakpoint: 2800,
+                        //   settings: {
+                        //     slidesToShow: 1,
+                        //     slidesToScroll: 1,
+                        //     // infinite: true,
+                        //   }
+                        // },
+                        // {
+                        //   breakpoint: 1779,
+                        //   settings: {
+                        //     slidesToShow: 4,
+                        //     slidesToScroll: 1,
+                        //     // infinite: true,
+                        //   }
+                        // },
                         {
                           breakpoint: 1320,
                           settings: {

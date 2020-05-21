@@ -256,12 +256,12 @@ const ClubInformation = ({user}) => {
       </div>
 
       <div className="flex flex-wrap p-4 -mx-3">
-        <div className="w-full sm:w-8/12 lg:w-9/12 px-3">
+        <div className="w-full md:w-8/12 lg:w-9/12 px-3">
           <ClubGirlsBox employees={club.employees} club={club}/>
         </div>
         {event && (
           <>
-            <div className="w-full sm:w-4/12 lg:w-3/12 px-3 hidden sm:block">
+            <div className="w-full md:w-4/12 lg:w-3/12 px-3 hidden sm:block">
               <div className="flex items-end my-5">
                 <div className="text-2xl font-extrabold tracking-tighter leading-none">
                   {t('clubs.next_event', {name: club.name})}

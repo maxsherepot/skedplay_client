@@ -16,7 +16,7 @@ function EventsBox({ entities: events, loading, networkStatus, error, page, setP
 
   return (
     <>
-      <div className="fluid-container flex justify-between my-6">
+      <div className="container flex justify-between my-6">
         <div>
           {events && events.paginatorInfo ? events.paginatorInfo.total : 0}
           <span className="ml-1">{t('employees.event_found')}</span>
@@ -24,7 +24,7 @@ function EventsBox({ entities: events, loading, networkStatus, error, page, setP
         {sortComponent}
       </div>
 
-      <div className="fluid-container">
+      <div className="container">
         {events && events.data && !loading ? (
           <>
             <div className="flex flex-wrap -mx-3">

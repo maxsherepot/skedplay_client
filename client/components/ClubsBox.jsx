@@ -11,7 +11,7 @@ function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPag
 
   return (
     <>
-      <div className="fluid-container flex justify-between my-6">
+      <div className="container flex justify-between my-6">
         <div>
           {clubs && clubs.paginatorInfo ? clubs.paginatorInfo.total : 0}
           <span className="ml-1">{t('clubs.found')}</span>
@@ -19,7 +19,7 @@ function ClubsBox({ entities: clubs, loading, networkStatus, error, page, setPag
         {sortComponent}
       </div>
 
-      <div className="fluid-container">
+      <div className="container">
         {clubs && clubs.data && !loading ? (
           <>
             <div className="flex flex-wrap -mx-3">

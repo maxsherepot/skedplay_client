@@ -220,7 +220,7 @@ const AccountClubWorkersShow = ({user}) => {
   ];
 
   return (
-    <>
+    <div style={{maxWidth: '683px'}}>
       <div className="flex items-center justify-between px-4 py-12">
         <Popup
           modal
@@ -282,7 +282,8 @@ const AccountClubWorkersShow = ({user}) => {
           <div className="text-4xl font-extrabold mb-2">{t('common.not_active')}</div>
         </Panel>
       </Tabs>
-    </>)
+    </div>
+  )
 };
 
 AccountClubWorkersShow.getInitialProps = async ctx => {

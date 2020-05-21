@@ -13,7 +13,7 @@ const AccountPassword = ({user}) => {
     const {t, i18n} = useTranslation();
 
     const Breadcrumbs = () => (
-        <div className="fluid-container">
+        <div className="container">
             <div className="flex items-center py-4">
                 <ArrowBack back/>
                 <div className="ml-10">
@@ -31,7 +31,7 @@ const AccountPassword = ({user}) => {
         <>
             <Breadcrumbs/>
 
-            <div className="fluid-container">
+            <div className="container">
                 <div className="bg-white shadow rounded-lg p-8">
                     <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
                         {t('account.change_password')}

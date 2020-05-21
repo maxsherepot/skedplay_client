@@ -2,15 +2,17 @@ import React from "react";
 import Link from 'components/SlashedLink'
 import PropTypes from "prop-types";
 
-function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle}) {
+function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle, headerStyle}) {
   return (
     <div className="modal" style={style}>
       <div className="modal__dialog" style={modalDialogStyle}>
-        <Link href="/">
-          <a className="modal__logo block text-center">{logo}</a>
-        </Link>
+        {!!logo &&
+          <Link href="/">
+            <a className="modal__logo block text-center">{logo}</a>
+          </Link>
+        }
         <div className="modal__content" style={contentStyle}>
-          <div className="modal__content__header relative z-20">
+          <div className="modal__content__header relative z-20" style={headerStyle}>
             {left}
             <div className="modal__title text-4xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">
               {title}

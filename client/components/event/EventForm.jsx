@@ -92,7 +92,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                   name="event_type_id"
                   options={(eventTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
                   placeholder=""
-                  className="w-1/5 ml-3 inline-block"
+                  className="align-middle pb-4 w-1/5 ml-3 inline-block"
               />
             </div>
 

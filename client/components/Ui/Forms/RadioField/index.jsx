@@ -24,7 +24,7 @@ function RadioField({ className, name, items, handleChange, defaultValue }) {
 
         return (
           <label key={indexName} className={cx(item.class, "inline-block")} style={item.style}>
-            <div className="inline-block align-middle">
+            <div className="inline-block align-middle ">
               <input
                 type="radio"
                 name={name}

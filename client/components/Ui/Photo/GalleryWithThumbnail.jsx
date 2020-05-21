@@ -88,7 +88,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
                 ref={element => setClickRef(element, i)}
                 onClick={() => handleClick(i)}
                 className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
-                src={photo.big_thumb_url || photo.url}
+                src={photo.url}
                 alt=""
               />
             </div>

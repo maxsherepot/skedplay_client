@@ -10,7 +10,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
 import translation from "services/translation";
 
-const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs }) => {
+const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs, showNavLinks }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
 
@@ -97,7 +97,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     </>
   );
 
-  const phone = employee.phone || employee.owner.phone;
+  // const phone = employee.phone || employee.owner.phone;
 
   // const rightInfo = phone ? (
   //   <div className="flex items-center justify-center bg-red text-white px-8 py-3 rounded-full cursor-pointer">
@@ -133,57 +133,58 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
           />
         }
       >
-        <ul className="flex -mx-4 text-white">
-          <ActiveLink
-            activeClassName="text-black"
-            href={getHref('information')}
-            as={getAs('information')}
-          >
-            <a>{t('account.links.information')}</a>
-          </ActiveLink>
+        {showNavLinks &&
+          <ul className="flex -mx-4 text-white">
+            <ActiveLink
+              activeClassName="text-black"
+              href={getHref('information')}
+              as={getAs('information')}
+            >
+              <a>{t('account.links.information')}</a>
+            </ActiveLink>
 
-          <ActiveLink
-            activeClassName="text-black"
-            href={getHref('events')}
-            as={getAs('events')}
-          >
-            <a>{t('employees.events')}</a>
-          </ActiveLink>
+            <ActiveLink
+              activeClassName="text-black"
+              href={getHref('events')}
+              as={getAs('events')}
+            >
+              <a>{t('employees.events')}</a>
+            </ActiveLink>
 
-          <ActiveLink
-            activeClassName="text-black"
-            href={getHref('reviews')}
-            as={getAs('reviews')}
-            advancedBlock={
-              <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
-                  {(employee.reviews && employee.reviews.length) || 0}
-                </span>
-            }
-          >
-            <a>{t('common.reviews')}</a>
-          </ActiveLink>
-
-          <ActiveLink
-            activeClassName="text-black"
-            href={getHref('chat')}
-            as={getAs('chat')}
-            advancedBlock={
-              <>
-                {employee.user_unread_messages_count > 0 &&
+            <ActiveLink
+              activeClassName="text-black"
+              href={getHref('reviews')}
+              as={getAs('reviews')}
+              advancedBlock={
                 <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
-                      +{employee.user_unread_messages_count}
-                    </span>
-                }
-              </>
-            }
-          >
-            <a>{t('employees.chat')}</a>
-          </ActiveLink>
-        </ul>
-      </SecondaryNav
-      >
+                    {(employee.reviews && employee.reviews.length) || 0}
+                  </span>
+              }
+            >
+              <a>{t('common.reviews')}</a>
+            </ActiveLink>
 
-      <div className="fluid-container">
+            <ActiveLink
+              activeClassName="text-black"
+              href={getHref('chat')}
+              as={getAs('chat')}
+              advancedBlock={
+                <>
+                  {employee.user_unread_messages_count > 0 &&
+                  <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                        +{employee.user_unread_messages_count}
+                      </span>
+                  }
+                </>
+              }
+            >
+              <a>{t('employees.chat')}</a>
+            </ActiveLink>
+          </ul>
+        }
+      </SecondaryNav>
+
+      <div className="container">
         {children}
         {(viewed && employees.length > 0) &&
           <GirlsViewedBox employees={employees}/>
@@ -194,7 +195,8 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 };
 
 EmployeeBox.defaultProps = {
-  viewed: true
+  viewed: true,
+  showNavLinks: true,
 };
 
 export default EmployeeBox;

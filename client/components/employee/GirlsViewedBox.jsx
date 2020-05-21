@@ -38,9 +38,16 @@ const GirlsViewedBox = ({employees}) => {
 
   const responsive = [
     {
-      breakpoint: 2800,
+      breakpoint: 1780,
       settings: {
-        slidesToShow: 5,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 1440,
+      settings: {
+        slidesToShow: 4,
         slidesToScroll: 1,
       }
     },
@@ -91,6 +98,7 @@ const GirlsViewedBox = ({employees}) => {
       <Slider
         className="-mx-2 mb-5"
         arrows={false}
+        slidesToShow={5}
         responsive={responsive}
         beforeChange={(oldIndex, newIndex) => setIndex(newIndex)}
         infinite={false}

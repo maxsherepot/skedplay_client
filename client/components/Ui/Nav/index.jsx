@@ -142,7 +142,7 @@ function Nav({ user, className }) {
         className
       )}
     >
-      <div className="fluid-container mx-auto h-full">
+      <div className="container mx-auto h-full">
         <div className="flex justify-between h-full items-center">
           <div className="flex h-full items-center">
             <Link href="/">
@@ -270,7 +270,7 @@ function Nav({ user, className }) {
                 </Link>
 
                 <Link href="/register">
-                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
+                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block last">
                     {t('common.sign_up')}
                   </a>
                 </Link>

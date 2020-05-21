@@ -27,7 +27,7 @@ const AccountAdEdit = ({user}) => {
   });
 
   const Breadcrumbs = () => (
-    <div className="fluid-container">
+    <div className="container">
       <div className="flex items-center py-4">
         <ArrowBack back />
         <div className="ml-10">
@@ -46,7 +46,7 @@ const AccountAdEdit = ({user}) => {
   }
 
   return (
-    <div className="fluid-container">
+    <div className="container">
       <Breadcrumbs/>
 
       <div className="bg-white shadow rounded-lg p-8">

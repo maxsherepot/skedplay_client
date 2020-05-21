@@ -198,7 +198,7 @@ function GirlCard({
       ) : (
         <Slick
           className={cx(
-              profileCard ? 'w-full lg:h-photo-md' : 'lg:h-photo-lg',
+              profileCard ? 'w-full lg:h-photo-lg' : 'lg:h-photo-lg',
               slickClass
           )}
           id={girl.id}
@@ -233,8 +233,8 @@ function GirlCard({
 
 GirlCard.defaultProps = {
   previewClass:
-    "object-cover h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg xl:h-e-photo-xl hd:h-e-photo-hd",
-  slickClass: "h-photo sm:h-photo-sm md:h-photo-md hd:h-photo-hd",
+    "object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg xl:h-e-photo-xl hd:h-e-photo-hd",
+  slickClass: "h-photo sm:h-photo-sm md:h-photo-md hd:h-photo-hd lg:h-photo-lg",
   preview: false,
   available: false,
   labels: true,

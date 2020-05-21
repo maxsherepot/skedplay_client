@@ -11,7 +11,7 @@ const Breadcrubms = ({items}) => {
   items = [firstItem, ...items];
 
   return (
-    <div className="fluid-container w-full">
+    <div className="container w-full">
       <ol className="page-breadcrumbs flex flex-wrap my-4 justify-center xl:justify-start" itemScope itemType="https://schema.org/BreadcrumbList">
         {items.map((item, i) => {
           const lastItem = i === items.length - 1;

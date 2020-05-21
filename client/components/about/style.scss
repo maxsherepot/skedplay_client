@@ -838,6 +838,9 @@
 		.q-section-13 .q-section__inner {
 			padding-bottom: 150px;
 		}
+		.q-section__main-info--title {
+			font-size: 38px;
+		}
 		.q-section-8 .q-section__inner,
 		.q-section-11 .q-section__inner,
 		.q-section-13 .q-section__inner {
@@ -875,7 +878,9 @@
 		.q-sections-panel {
 			height: 60px;
 		}
-		.q-section__main-info--title,
+		.q-section__main-info--title {
+			font-size: 38px;
+		}
 		.q-section__title,
 		.q-free__text--title,
 		.q-hello__title,

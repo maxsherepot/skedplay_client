@@ -23,7 +23,7 @@ const AccountClubWorkersIndex = ({user}) => {
     });
 
     const HeaderNavigation = () => (
-        <div className="fluid-container">
+        <div className="container">
             <div className="flex items-center py-4">
                 <ArrowBack back />
                 <div className="ml-10">
@@ -39,12 +39,12 @@ const AccountClubWorkersIndex = ({user}) => {
         </div>
     );
 
-    const classNames = 'flex items-center flex-wrap justify-center w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg';
+    const classNames = 'flex items-center flex-wrap justify-center hd:justify-around w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg';
     if (loading) return <Loader/>;
 
     return employee && (
         <>
-            <div className="fluid-container">
+            <div className="container">
                 <HeaderNavigation/>
                 <div className="bg-white shadow rounded-lg p-8">
                     <EditEmployeeHeader user={user} employee={employee} refetchEmployee={refetch} classes={classNames}/>
