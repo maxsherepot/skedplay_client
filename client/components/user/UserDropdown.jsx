@@ -30,7 +30,7 @@ const UserDropdown = ({ user }) => {
   return (
     <>
       <a
-        className="menu-icons__item hovered menu-icons__item_last hidden sm:block cursor-pointer"
+        className="menu-icons__item hovered menu-icons__item_last last hidden sm:block cursor-pointer"
         onClick={() => toggleUserMenu(!isUserMenu)}
       >
         <ProfileSvg />
