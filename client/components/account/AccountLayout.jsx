@@ -18,7 +18,7 @@ import redirect from "lib/redirect";
 import { setCookie } from "utils";
 
 const ProfileHeader = ({user}) => (
-  <div className="fluid-container header-profile-div">
+  <div className="container header-profile-div">
     <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
       <Avatar/>
       <div className="ml-4">

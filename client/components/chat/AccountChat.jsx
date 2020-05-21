@@ -11,7 +11,7 @@ const Breadcrumbs = () => {
   const {t, i18n} = useTranslation();
 
   return (
-    <div className="fluid-container">
+    <div className="container">
       <div className="flex items-center py-4">
         <ArrowBack back />
         <div className="ml-10">

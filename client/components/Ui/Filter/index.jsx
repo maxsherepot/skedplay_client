@@ -27,7 +27,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
           bgClass
         ])}
       >
-        <div className="fluid-container w-full z-1">
+        <div className="container w-full z-1">
           <h1 className="text-xl lg:text-3xl text-white font-black capitalize">
             {header}
           </h1>

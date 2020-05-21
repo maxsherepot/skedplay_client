@@ -258,7 +258,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
 
   return (
     <>
-      <div className="fluid-container">
+      <div className="container">
         <div className="bg-white shadow rounded-lg p-8">
           <div className="flex flex-col sm:flex-row flex-wrap -mx-3 bg-xs-grey rounded-lg">
             {mobileChatBlock}

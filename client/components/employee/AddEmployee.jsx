@@ -23,7 +23,7 @@ const AddEmployee = ({clubId}) => {
 
   return (
     <>
-      <div className="fluid-container">
+      <div className="container">
         <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto py-8">
           <div className="text-4-65xl font-extrabold">{t('ad.new')}</div>
           <div

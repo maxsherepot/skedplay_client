@@ -100,7 +100,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
 
   return (
     <div className="border-b border-divider">
-      <div className="fluid-container p-5 flex items-center">
+      <div className="container p-5 flex items-center">
         <div className="hidden sm:block mr-2">{t('index.selected')}:</div>
         <div className="flex flex-wrap items-center -mb-4">
           {selected.map((s, i) => (

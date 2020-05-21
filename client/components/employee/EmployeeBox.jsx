@@ -184,7 +184,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         }
       </SecondaryNav>
 
-      <div className="fluid-container">
+      <div className="container">
         {children}
         {(viewed && employees.length > 0) &&
           <GirlsViewedBox employees={employees}/>

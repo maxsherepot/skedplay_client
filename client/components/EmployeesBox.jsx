@@ -28,7 +28,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
         {sortComponent}
       </div>
 
-      {/*<div className="fluid-container">*/}
+      {/*<div className="container">*/}
       {/*  <MapWithMarkers*/}
       {/*    markers={employeesWithCoordinates}*/}
       {/*    mapContainerStyle={{width: '100%', height: '400px'}}*/}

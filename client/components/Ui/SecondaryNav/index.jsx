@@ -8,7 +8,7 @@ const SecondaryNav = ({ left, children, right, breadcrumbs, title }) => {
       <div
         className="bg-white border-b border-xs-grey"
       >
-        <div className="fluid-container">
+        <div className="container">
           <div className="flex items-center justify-around sm:justify-between">
             <div className="flex items-center -mx-4">
               <ArrowBack className="px-4" color="red" back/>
@@ -22,7 +22,7 @@ const SecondaryNav = ({ left, children, right, breadcrumbs, title }) => {
         </div>
       </div>
       {breadcrumbs}
-      <div className="fluid-container xl:hidden">
+      <div className="container xl:hidden">
         <div className="flex flex-col md:flex-row items-center justify-center">
           {left}
 

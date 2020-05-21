@@ -27,7 +27,7 @@ const AccountSettings = ({ user }) => {
   }
 
   const Breadcrumbs = () => (
-    <div className="fluid-container">
+    <div className="container">
       <div className="flex items-center py-4">
         <ArrowBack back />
         <div className="ml-10">
@@ -43,7 +43,7 @@ const AccountSettings = ({ user }) => {
 
   return (
     <>
-      <div className="fluid-container">
+      <div className="container">
         {user.employee ? (
             <div className="">
               <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">

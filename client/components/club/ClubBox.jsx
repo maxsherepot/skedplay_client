@@ -105,7 +105,7 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
         </ul>
       </SecondaryNav>
 
-      <div className="fluid-container">{children}</div>
+      <div className="container">{children}</div>
     </MainLayout>
   );
 };

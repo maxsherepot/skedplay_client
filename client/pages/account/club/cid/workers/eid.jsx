@@ -23,7 +23,7 @@ const AccountClubWorkersIndex = ({user}) => {
     });
 
     const HeaderNavigation = () => (
-        <div className="fluid-container">
+        <div className="container">
             <div className="flex items-center py-4">
                 <ArrowBack back />
                 <div className="ml-10">
@@ -44,7 +44,7 @@ const AccountClubWorkersIndex = ({user}) => {
 
     return employee && (
         <>
-            <div className="fluid-container">
+            <div className="container">
                 <HeaderNavigation/>
                 <div className="bg-white shadow rounded-lg p-8">
                     <EditEmployeeHeader user={user} employee={employee} refetchEmployee={refetch} classes={classNames}/>
