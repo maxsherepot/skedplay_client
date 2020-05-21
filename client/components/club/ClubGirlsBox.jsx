@@ -111,7 +111,7 @@ const ClubGirlsBox = ({ employees, club }) => {
         </Link>
       </div>
       <Slider
-        className="girls flex flex-col sm:flex-row sm:justify-start sm:flex-wrap w-full -mx-3"
+        className="-mx-3"
         arrows={false}
         slidesToShow={4}
         responsive={responsive}
