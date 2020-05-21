@@ -167,8 +167,8 @@ header {
   @apply pt-1;
   &__item {
     @apply text-white text-sm transition whitespace-no-wrap pr-6;
-    &:last-child {
-      //padding-right: 0 !important;
+    &.last {
+      padding-right: 0 !important;
     }
     &:focus {
       @apply outline-none;
