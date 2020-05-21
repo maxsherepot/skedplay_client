@@ -44,13 +44,13 @@ const GirlsViewedBox = ({employees}) => {
         slidesToScroll: 1,
       }
     },
-    // {
-    //   breakpoint: 1440,
-    //   settings: {
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //   }
-    // },
+    {
+      breakpoint: 1440,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+      }
+    },
     {
       breakpoint: 999,
       settings: {
