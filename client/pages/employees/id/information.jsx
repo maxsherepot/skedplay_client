@@ -259,13 +259,19 @@ const EmployeeInformation = ({ user }) => {
         canonical={canonical}
       />
 
-      <EmployeeBox employee={employee} user={user} employees={employees}>
+      <EmployeeBox employee={employee} user={user} employees={employees} showNavLinks={user || !employee.isVip}>
         {!user && (employee.isVip === true) ? (
           <div>
             <Modal
               title={t('common.login')}
-              right={<LangSelector />}
+              // right={<LangSelector />}
               modalDialogStyle={{height: '650px'}}
+              style={{
+                height: 'inherit',
+              }}
+              headerStyle={{
+                justifyContent: 'center',
+              }}
             >
               <div className="mt-3 bg-red p-3 w-2/3 text-center mx-auto">
                   <span className="text-white">

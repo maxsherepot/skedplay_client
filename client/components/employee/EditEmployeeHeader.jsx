@@ -293,7 +293,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
 };
 
 EditEmployeeHeader.defaultProps = {
-  classes: "flex items-center flex-wrap justify-center xl:flex-no-wrap xl:justify-between border border-divider p-3 mx-8 mt-6 rounded-lg"
+  classes: "flex items-center flex-wrap justify-center xl:flex-no-wrap xl:justify-between hd:justify-around border border-divider p-3 mx-8 mt-6 rounded-lg"
 };
 
 export default EditEmployeeHeader;

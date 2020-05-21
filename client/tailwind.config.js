@@ -37,6 +37,8 @@ module.exports = {
       lg: "1001px",
       xl: "1320px",
       hd: "1440px",
+      '1hd': "1600px",
+      '2hd': "1780px",
     },
     fluidContainer: {
       default: {

@@ -39,7 +39,7 @@ const AccountClubWorkersIndex = ({user}) => {
         </div>
     );
 
-    const classNames = 'flex items-center flex-wrap justify-center w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg';
+    const classNames = 'flex items-center flex-wrap justify-center hd:justify-around w-3/6 text-center xl:flex-no-wrap border border-divider p-3 mx-auto mt-6 rounded-lg';
     if (loading) return <Loader/>;
 
     return employee && (
