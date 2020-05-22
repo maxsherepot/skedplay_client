@@ -10,7 +10,8 @@ import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
 
 const AccountClubEventsEdit = () => {
-    const {query: {eid}} = useRouter();
+    let {query: {eid}} = useRouter();
+    eid = eid.replace('/', '');
     const [updateEvent] = useMutation(UPDATE_CLUB_EVENT);
     const {t, i18n} = useTranslation();
 

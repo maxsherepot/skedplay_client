@@ -14,7 +14,8 @@ import {useTranslation} from "react-i18next";
 import EditEmployeeHeader from 'components/employee/EditEmployeeHeader';
 
 const AccountClubWorkersIndex = ({user}) => {
-    const {query: {eid}} = useRouter();
+    let {query: {eid}} = useRouter();
+    eid = eid.replace('/', '');
     const {t, i18n} = useTranslation();
     const {data: {employee} = {}, loading, refetch} = useQuery(GET_EMPLOYEE, {
         variables: {

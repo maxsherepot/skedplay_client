@@ -75,8 +75,6 @@ const LangSelector = () => {
     arrayHelpers.push("");
   };
 
-  console.log(values.languages);
-
   return (
     <div className="flex flex-wrap items-center -mx-4">
       <label className="text-grey ml-2 mb-3">Language</label>

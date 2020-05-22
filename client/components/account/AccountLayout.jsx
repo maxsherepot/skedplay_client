@@ -237,8 +237,8 @@ const ClubMenuItem = ({club: {id, name, employees, events}}) => {
             <a>
               {t('layout.events')}
               <span className="ml-3 py-1 px-3 bg-red text-white text-sm rounded-full">
-                    {(events && events.length) || 0}
-                  </span>
+                {(events && events.length) || 0}
+              </span>
             </a>
           </Link>
         </div>
@@ -259,7 +259,7 @@ const ClubMenu = ({clubs}) => {
   });
 };
 
-const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, employees, employee}}) => {
+const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events, employees, employee}}) => {
   const {t, i18n} = useTranslation();
   const client = useApolloClient();
   const employeeButtonText = employee
@@ -269,6 +269,10 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
   const employeeLink = employee
     ? '/account/ad'
     : '/girls/add';
+
+  if (is_moderator) {
+    clubs = moderated_clubs;
+  }
 
   const {loading: userCountsLoading, error: userCountsError, data: {me: userCounts} = {}} = useQuery(GET_MY_EMPLOYEE_EVENTS_COUNT);
 
@@ -336,7 +340,7 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
           </div>
         )}
 
-        {is_club_owner && (
+        {(is_club_owner || is_moderator) && (
           <>
             <div className="text-2xl font-extrabold px-5 mt-5">
               {t('layout.you_have')} {clubs.length} {t('layout.clubs')}
@@ -344,17 +348,19 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
 
             <ClubMenu clubs={clubs}/>
 
-            <Link href="/clubs/add">
-              <a className="ml-5 mt-5">
-                <Button className="px-8" size="sm">
-                  {t('layout.add_new_club')}
-                </Button>
-              </a>
-            </Link>
+            {!is_moderator &&
+              <Link href="/clubs/add">
+                <a className="ml-5 mt-5">
+                  <Button className="px-8" size="sm">
+                    {t('layout.add_new_club')}
+                  </Button>
+                </a>
+              </Link>
+            }
           </>
         )}
 
-        {is_club_owner && (
+        {(is_club_owner || is_moderator) && (
           <div className="text-2xl font-extrabold px-5 mt-5">{t('layout.menu')}</div>
         )}
 
@@ -364,16 +370,17 @@ const Sidebar = ({user: {is_club_owner, is_employee, clubs, employees_events, em
                 </span>
               </div>*/}
 
-        <div className="mt-4">
-        <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-
-          <Link href="/account/messages-and-chats">
-            <a>
-              {t('layout.messages')} / {t('layout.chats')}
-            </a>
-          </Link>
-        </span>
-        </div>
+        {!is_moderator &&
+          <div className="mt-4">
+            <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                <Link href="/account/messages-and-chats">
+                  <a>
+                    {t('layout.messages')} / {t('layout.chats')}
+                  </a>
+                </Link>
+            </span>
+          </div>
+        }
 
         {/*{employee && employee.reviews && employee.reviews.length !== 0 && (*/}
         {/*    <div className="mt-4">*/}

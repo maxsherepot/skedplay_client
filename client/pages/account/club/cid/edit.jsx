@@ -13,7 +13,8 @@ import {useTranslation} from "react-i18next";
 import { Loader } from "UI";
 
 const AccountClubEdit = ({ user }) => {
-    const { query: { cid } } = useRouter();
+    let { query: { cid } } = useRouter();
+    cid = cid.replace('/', '');
     const { data: { club } = {}, loading, refetch} = useQuery(GET_CLUB, {
         variables: {
             id: cid

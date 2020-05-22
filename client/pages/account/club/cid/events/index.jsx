@@ -10,7 +10,8 @@ import Link from 'components/SlashedLink'
 import {useTranslation} from "react-i18next";
 
 const EventCard = ({event, removeEvent}) => {
-    const {query: {cid}} = useRouter();
+    let {query: {cid}} = useRouter();
+    cid = cid.replace('/', '');
     const {t, i18n} = useTranslation();
     const [deleteEvent] = useMutation(DELETE_EVENT, {
         // update(

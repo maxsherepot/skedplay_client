@@ -51,7 +51,8 @@ const AccountClubIndex = ({ user }) => {
 
     let phone = null;
     const router = useRouter();
-    const { cid } = router.query;
+    let { cid } = router.query;
+    cid = cid.replace('/', '');
 
     const getClubs = (clubs, id) => {
         if (id && (clubs && clubs.length > 0)) {

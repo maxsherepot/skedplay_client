@@ -24,7 +24,7 @@ class EmployeeRepository implements HasMediable
     {
         $user = auth('api')->user();
 
-        if ($user->is_club_owner && $clubId = $data->get('club_id')) {
+        if (($user->is_club_owner || $user->is_moderator) && $clubId = $data->get('club_id')) {
             $employeeOwner = $user->clubs()->findOrFail($clubId);
         } else {
             $employeeOwner = $user;

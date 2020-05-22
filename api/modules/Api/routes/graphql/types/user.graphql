@@ -8,12 +8,14 @@ type User {
     age: Int
     is_client: Boolean
     is_club_owner: Boolean
+    is_moderator: Boolean
     is_employee: Boolean
     is_manager: Boolean
     is_admin: Boolean
     is_client_chat_member: Boolean
     favorites_count: Int @field(resolver: "Modules\\Api\\GraphQL\\Queries\\UserQuery@getFavoriteCount")
     clubs: [Club] @hasMany
+    moderated_clubs: [Club] @hasMany
     roles: Role @belongsToMany
     avatar: Media @hasOne
     verify_photo: Media @hasOne
