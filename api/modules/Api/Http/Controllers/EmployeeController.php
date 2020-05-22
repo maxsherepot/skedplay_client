@@ -194,7 +194,6 @@ class EmployeeController extends Controller
                 $this->employees::UPLOAD_FILE_SUCCESS
             );
         } catch (\Exception $exception) {
-            \Log::error($exception);
             return $this->fail(
                 $this->employees::UPLOAD_FILE_FAILED
             );

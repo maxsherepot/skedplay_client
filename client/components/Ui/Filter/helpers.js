@@ -20,7 +20,9 @@ export default {
       }
 
       if (key === 'orderBy') {
-        delete filter[0].__typename;
+        for (let i in filter) {
+          delete filter[i].__typename;
+        }
       }
 
       if (key === 'show_level') {
@@ -204,7 +206,7 @@ export default {
         component: "checkbox",
         name: "show_level",
         label: t('common.coming_soon'),
-        checked: false,
+        // checked: false,
         labelResolver(value) {
           if (value) {
             return this.label;

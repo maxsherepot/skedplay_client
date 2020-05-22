@@ -81,7 +81,12 @@ class SitemapController extends Controller
 
     private function addEmployeesPages($sitemap, string $langPrefix): void
     {
-        $employees = Employee::with('events', 'city.canton')->get();
+        $employees = Employee::with('events', 'city.canton')
+            ->where('show_level', Employee::SHOW_LEVEL_ACTIVE)
+            ->where('fake', 0)
+            ->where('status', 1)
+            ->where('user_status', 1)
+            ->get();
 
         foreach ($employees as $employee) {
             $employeeType = $employee->type === 1
@@ -107,6 +112,10 @@ class SitemapController extends Controller
             }
 
             foreach ($employee->events as $event) {
+                if ($event->status !== 1 || $event->user_status !== 1) {
+                    continue;
+                }
+
                 $sitemap->add(
                     $this->url("/$employeeType/$canton/$city/$employee->id/events/$event->id", $langPrefix),
                     now()->toIso8601String(),
@@ -119,7 +128,10 @@ class SitemapController extends Controller
 
     private function addClubsPages($sitemap, string $langPrefix): void
     {
-        $clubs = Club::with('events', 'city.canton')->get();
+        $clubs = Club::with('events', 'city.canton')
+            ->where('status', 1)
+            ->where('user_status', 1)
+            ->get();
 
         foreach ($clubs as $club) {
             $canton = Str::slug($club->city->canton->name);
@@ -141,6 +153,10 @@ class SitemapController extends Controller
             }
 
             foreach ($club->events as $event) {
+                if ($event->status !== 1 || $event->user_status !== 1) {
+                    continue;
+                }
+
                 $sitemap->add(
                     $this->url("/clubs/$canton/$city/$club->id/events/$event->id", $langPrefix),
                     now()->toIso8601String(),

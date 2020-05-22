@@ -6,7 +6,8 @@ export const GET_FILTERS_STATE = gql`
       girls {
 #        location
         type
-        active
+#        active
+        show_level
         canton_id
         city_id
         services
@@ -25,7 +26,8 @@ export const GET_FILTERS_STATE = gql`
       }
       vip_escort {
 #        location
-        active
+#        active
+        show_level
         isVip
         services
         canton_id
@@ -46,7 +48,8 @@ export const GET_FILTERS_STATE = gql`
       trans {
 #        location
         type
-        active
+#        active
+        show_level
         services
         canton_id
         city_id
