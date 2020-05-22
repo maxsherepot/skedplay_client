@@ -84,6 +84,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'user_id',
         'manager_id',
         'moderator_id',
+        'moderator_access',
         'start_time',
         'end_time',
         'comment',

@@ -163,6 +163,7 @@ class ClubController extends Controller
     public function createEvent(Club $club, EventCreateRequest $request)
     {
         $this->authorize('create', Event::class);
+
         $event = $this->events->store($club, collect($request->all()));
 
         $message = 'A new event had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/events/'.$event->id;
@@ -202,7 +203,9 @@ class ClubController extends Controller
      */
     public function syncServices(Club $club, SyncServicesRequest $request)
     {
-        $this->authorize('create', Service::class);
+//        $this->authorize('create', Service::class);
+
+        $this->authorize('update', $club);
 
         $this->services->sync($club, collect($request->all()));
 
@@ -217,7 +220,9 @@ class ClubController extends Controller
      */
     public function syncPrices(Club $club, SyncPricesRequest $request)
     {
-        $this->authorize('create', PriceType::class);
+//        $this->authorize('create', PriceType::class);
+
+        $this->authorize('update', $club);
 
         $this->prices->sync($club, collect($request->all()));
 

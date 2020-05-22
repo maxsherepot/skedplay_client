@@ -5,7 +5,8 @@ import {useRouter} from "next/router";
 import checkLoggedIn from "lib/checkLoggedIn";
 
 const ClubEmployeeAdd = () => {
-  const {query: {cid: clubId}} = useRouter();
+  let {query: {cid: clubId}} = useRouter();
+  clubId = clubId.replace('/', '');
 
   return <AddEmployee clubId={clubId} />;
 };

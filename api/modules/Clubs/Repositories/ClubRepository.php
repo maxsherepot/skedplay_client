@@ -28,9 +28,9 @@ class ClubRepository implements HasMediable
     {
         $inputs = $collection->toArray();
 
-        $inputs['phones'] = json_encode([
-            $inputs['phone'],
-        ]);
+        $inputs['phones'] = [$inputs['phone']];
+
+        $inputs['moderator_access'] = ($inputs['moderator']['access_phone_edit'] ?? false) ? 1 : 0;
 
         DB::beginTransaction();
 
@@ -168,9 +168,12 @@ class ClubRepository implements HasMediable
     public function createModerator(Collection $collection)
     {
         $data = $collection->get('moderator');
+
+        $password = $data['password'] ?? 'password';
+
         $data['name'] = $data['first_name']." ".$data['last_name'];
-        $data['password'] = \Hash::make('password');
-        $data['status'] = User::STATUS_AWAITING_CONFIRMATION;
+        $data['password'] = \Hash::make($password);
+        $data['status'] = User::STATUS_CONFIRMED;
 
         /** @var User $moderator */
         $moderator = User::create($data);

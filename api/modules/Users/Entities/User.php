@@ -102,6 +102,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     protected $appends = [
         'is_client',
         'is_club_owner',
+        'is_moderator',
         'is_employee',
         'is_manager',
         'is_admin',
@@ -167,6 +168,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->hasRole(self::ACCOUNT_CLUB_OWNER);
     }
 
+    public function getIsModeratorAttribute(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_MODERATOR);
+    }
+
     /**
      * @return bool
      */
@@ -195,6 +201,20 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     {
         return $this->hasMany(Club::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function moderatedClubs()
+    {
+        return $this->hasMany(Club::class, 'moderator_id');
+    }
+
+    public function moderated_clubs()
+    {
+        return $this->moderatedClubs();
+    }
+
     /**
      * @return MorphMany
      */
@@ -363,6 +383,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     public function isClient(): bool
     {
         return !$this->hasRole('employee');
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->hasRole(self::ACCOUNT_MODERATOR);
     }
 
     public function isEmployee(): bool

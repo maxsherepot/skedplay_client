@@ -75,12 +75,14 @@ function NewClubForm({ onSubmit }) {
         email: me.email || "",
         website: "",
         logotype: null,
-        // access_phone_edit: false,
         moderator: {
           first_name: "",
           last_name: "",
           email: "",
           phone: "",
+          access_phone_edit: false,
+          password: "",
+          password_confirmation: "",
         }
       }}
       validationSchema={Yup.object().shape({
@@ -98,6 +100,16 @@ function NewClubForm({ onSubmit }) {
           last_name: Yup.string().required(),
           email: Yup.string().nullable().email(),
           phone: Yup.string().required(),
+          password: Yup.string().when('access_phone_edit', {
+            is: true,
+            then: Yup.string().required(),
+            otherwise: null,
+          }),
+          password_confirmation: Yup.string().when('access_phone_edit', {
+            is: true,
+            then: Yup.string().required().oneOf([Yup.ref('password')], t('validation.password_confirmation')),
+            otherwise: null,
+          })
         })
       })}
       onSubmit={handleSubmits}
@@ -242,10 +254,33 @@ function NewClubForm({ onSubmit }) {
               <div className="px-3 w-2/3 flex items-center">
                 <CheckboxField
                   label={t('clubs.enable_edit_profiles')}
-                  name="access_phone_edit"
+                  name="moderator.access_phone_edit"
                 />
               </div>
             </div>
+
+
+            {values.moderator.access_phone_edit &&
+              <div className="flex w-full -mx-3">
+                <TextField
+                  className="sm:flex-1 sm:px-3"
+                  label={t('register.password')}
+                  type="password"
+                  name="moderator.password"
+                  autoComplete="new-password"
+                  placeholder={t('register.password_placeholder')}
+                />
+
+                <TextField
+                  className="sm:flex-1 sm:px-3"
+                  label={t('register.password_confirm')}
+                  type="password"
+                  autoComplete="new-password"
+                  name="moderator.password_confirmation"
+                  placeholder={t('register.password_confirm_placeholder')}
+                />
+              </div>
+            }
           </div>
 
           <div className="border-b border-divider" />

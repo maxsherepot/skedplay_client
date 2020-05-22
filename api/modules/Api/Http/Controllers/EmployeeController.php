@@ -148,7 +148,7 @@ class EmployeeController extends Controller
      */
     public function syncServices(Employee $employee, SyncServicesRequest $request)
     {
-        $this->authorize('create', Service::class);
+//        $this->authorize('create', Service::class);
 
         $this->services->sync($employee, collect($request->all()));
 
@@ -163,7 +163,7 @@ class EmployeeController extends Controller
      */
     public function syncPrices(Employee $employee, SyncPricesRequest $request)
     {
-        $this->authorize('create', PriceType::class);
+//        $this->authorize('create', PriceType::class);
 
         $this->prices->sync($employee, collect($request->all()));
 

@@ -406,6 +406,7 @@
     "label": {
       "visitor": "Visitor",
       "club_owner": "Club owner",
+      "moderator": "Club moderator",
       "private_account": "Private account"
     },
     "event_type": {
@@ -679,5 +680,8 @@
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"
+  },
+  "validation": {
+    "password_confirmation": "The password confirmation does not match."
   }
 }

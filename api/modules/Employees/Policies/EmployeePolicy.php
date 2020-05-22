@@ -17,9 +17,9 @@ class EmployeePolicy
      */
     public function create(User $user): bool
     {
-        if ($user->hasRole(User::ACCOUNT_MODERATOR)) {
-            return false;
-        }
+//        if ($user->hasRole(User::ACCOUNT_MODERATOR)) {
+//            return false;
+//        }
 
         return true;
     }
@@ -64,7 +64,10 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->employees_club_owners->contains($employee->id)
+        return (
+            $user->hasRole(User::ACCOUNT_ADMIN)
+            || $user->employees_club_owners->contains($employee->id)
+            || $user->hasRole(User::ACCOUNT_MODERATOR)
             || $user->owns($employee, 'owner_id'))
             && $user->hasPermission(Permission::DELETE_EMPLOYEES);
     }

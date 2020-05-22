@@ -23,7 +23,8 @@ import * as dateFns from "date-fns";
 
 const EmployeeCard = ({employee, clubs}) => {
   const [photo] = employee.photos;
-  const {query: {cid}} = useRouter();
+  let {query: {cid}} = useRouter();
+  cid = cid.replace('/', '');
   const { t } = useTranslation();
 
   return (

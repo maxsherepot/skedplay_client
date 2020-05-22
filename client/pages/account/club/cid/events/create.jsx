@@ -10,7 +10,8 @@ import {Loader} from 'UI';
 import {useRouter} from "next/router";
 
 const AccountClubEventsCreate = () => {
-  const {query: {cid}} = useRouter();
+  let {query: {cid}} = useRouter();
+  cid = cid.replace('/', '');
 
   const [createClubEvent] = useMutation(CREATE_CLUB_EVENT);
 

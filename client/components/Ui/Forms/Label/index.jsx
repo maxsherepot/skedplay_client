@@ -21,7 +21,7 @@ function Label({
 
   if (error) {
     errorText = label;
-    console.log(checkHasTranslation(`errors.${errorText}`));
+
     if (checkHasTranslation(`errors.${errorText}`)) {
       errorText = t(`errors.${errorText}`);
     }

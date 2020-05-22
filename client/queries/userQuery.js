@@ -10,6 +10,7 @@ export const GET_ME = gql`
             age
             is_client
             is_club_owner
+            is_moderator
             is_employee
             is_manager
             is_admin
@@ -35,6 +36,46 @@ export const GET_ME = gql`
             status
             rejected_reason
             clubs {
+                id
+                name
+                phones
+                admin {
+                    name
+                }
+                employees {
+                    id
+                    name
+                }
+                events {
+                    id
+                    title
+                    photos {
+                        url
+                    }
+                }
+                photos {
+                    id
+                    url
+                    thumb_url
+                }
+                schedule {
+                    id
+                    day
+                    day_name
+                    start
+                    end
+                    order
+                    available
+                }
+                type {
+                    id
+                    name
+                }
+                events_count
+                photos_count
+                videos_count
+            }
+            moderated_clubs {
                 id
                 name
                 phones

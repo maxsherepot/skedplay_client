@@ -23,7 +23,11 @@ class ClubPolicy
      */
     public function create(User $user): bool
     {
-        return ($user->hasRole(User::ACCOUNT_ADMIN) || $user->hasRole(User::ACCOUNT_CLUB_OWNER))
+        return (
+                $user->hasRole(User::ACCOUNT_ADMIN)
+                || $user->hasRole(User::ACCOUNT_CLUB_OWNER)
+                || $user->hasRole(User::ACCOUNT_MODERATOR)
+            )
             && $user->hasPermission(Permission::CREATE_CLUBS)
             && $user->hasPermissionPlan(PermissionPlan::MAX_CLUB);
     }
