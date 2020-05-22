@@ -19,7 +19,7 @@ import { setCookie } from "utils";
 
 const ProfileHeader = ({user}) => (
     <>
-      {user && (user.is_employee || user.is_club_owner) && user.status === 1 && (
+      {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
           <VerifyMessage user={user}/>
       )}
       <div className="container header-profile-div">
@@ -82,52 +82,53 @@ const VerifyMessage = ({user}) => {
 
   return (
     <>
-        {user.verify_photo ? (
-         <div className="flex flex-row pl-3 items-center verify-message-div__message">
+      {user.verify_photo ? (
+       <div className="flex flex-row pl-3 items-center verify-message-div__message">
          <div className="flex items-center justify-center md:pl-0 md:pr-0 lg:pr-0 lg:pl-0 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-full">
           <div className="ml-3 py-2">
             <span className="font-bold flex flex-col">
-                {t('account.added_verify_photo', {date: `${date}`, time: `${time}`})}
+              {t('account.added_verify_photo', {date: `${date}`, time: `${time}`})}
             </span>
           </div>
          </div>
-         </div>
-        ) : (
-        <div className="flex flex-row pl-3 items-center verify-message-div__add">
-         <div className="flex items-center justify-center md:pl-0 md:pr-20 lg:pr-0 lg:pl-10 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-7/12">
-          <div className="ml-3 py-2">
-            <div className="flex flex-row">
-              <div className="">
-                <div className="flex flex-col">
-                  <div className="row">
-                <span className="inline-block mr-2">
-                  <AlertTriangleSvg/>
-                </span>
-                    <span className="font-bold inline-block">{t('account.verify_your_account')}</span>
-                  </div>
-                </div>
-                  <span className="">{t('account.add_pass_or_photo')}</span>
+       </div>
+      ) : (
+      <div className="flex flex-row pl-3 items-center verify-message-div__add">
+       <div className="flex items-center justify-center md:pl-0 md:pr-20 lg:pr-0 lg:pl-0 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-8/12">
+        <div className="ml-3 py-2">
+          <div className="flex flex-row">
+            <div className="align-middle flex flex-row">
+              <div>
+                <span className="inline-block mr-2 py-2">
+                    <AlertTriangleSvg/>
+                  </span>
               </div>
-              <div className="mt-3">
-                <label htmlFor="verifyFile" className="inline-block">
-                <span className="bg-red border border-xs border-red text-white text-xxs rounded-full ml-3 sm:ml-1 sm:px-3 sm:py-2 px-6 py-3 hover:cursor-pointer"
-                >
-                {t('account.upload_verify_photo')}
-                </span>
-                </label>
-                <input
-                    className="c-account__avatar-input"
-                    type="file"
-                    id="verifyFile"
-                    name="Upload Verify Photo"
-                    onChange={handleSubmit}
-                />
+              <div className="flex flex-col">
+                <span className="font-bold inline-block">{t('account.verify_your_account')}</span>
+                <span className="">{t('account.add_pass_or_photo')}</span>
               </div>
             </div>
+            <div className="py-4">
+              <label htmlFor="verifyFile" className="inline-block">
+              <span
+                className="bg-red border border-xs border-red text-white text-xxs rounded-full md:ml-3 sm:ml-1
+                           sm:px-3 sm:py-2 md:px-6 md:py-3 hover:cursor-pointer">
+                {t('account.upload_verify_photo')}
+              </span>
+              </label>
+              <input
+                className="c-account__avatar-input"
+                type="file"
+                id="verifyFile"
+                name="Upload Verify Photo"
+                onChange={handleSubmit}
+              />
+            </div>
           </div>
-         </div>
         </div>
-        )}
+       </div>
+      </div>
+      )}
     </>
   )
 
