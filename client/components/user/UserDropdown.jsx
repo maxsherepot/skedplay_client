@@ -37,7 +37,7 @@ const UserDropdown = ({ user }) => {
         {user.name}
       </a>
       <MenuDropdown
-        className="w-user-dropdown m-5"
+        className="w-user-dropdown m-5 z-1"
         open={isUserMenu}
         toggle={toggleUserMenu}
       >
