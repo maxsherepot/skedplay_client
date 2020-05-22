@@ -49,6 +49,12 @@ class EmployeeRepository implements HasMediable
         $this->storeParameters($employee, $data);
         $this->storeLanguages($employee, $data);
 
+        $fakeEmployee = Employee::where('fake', 1)->first();
+
+        if ($fakeEmployee) {
+            $fakeEmployee->delete();
+        }
+
         return $employee->toArray();
     }
 

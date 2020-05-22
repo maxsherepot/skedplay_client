@@ -7,6 +7,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Clubs\Console\CreatePossibleClub;
 use Modules\Employees\Console\CheckEmployeesActivation;
+use Modules\Employees\Console\ImportFakeEmployees;
 use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\ExportTranslates;
@@ -37,6 +38,7 @@ class Kernel extends ConsoleKernel
         GenerateEntitiesAddresses::class,
         InitPages::class,
         CreatePossibleClub::class,
+        ImportFakeEmployees::class,
     ];
 
     /**

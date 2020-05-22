@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
 use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
@@ -78,6 +79,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'active',
         'soon',
         'show_level',
+        'fake',
         'phone',
         'birthday',
         'index',
@@ -122,6 +124,10 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
      */
     public function getNameAttribute()
     {
+        if (!$this->last_name) {
+            return $this->first_name;
+        }
+
         return implode(' ', [$this->first_name, $this->last_name]);
     }
 
@@ -246,6 +252,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function current_city(): BelongsTo
     {
         return $this->currentCity();
+    }
+
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class);
     }
 
     public function unreadMessagesCount(): int

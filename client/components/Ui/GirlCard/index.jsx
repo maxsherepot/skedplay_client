@@ -100,9 +100,11 @@ function GirlCard({
               )}
             </div>
             <div className="flex flex-wrap-reverse show-on-hover mt-2">
-              <div className="rounded-full bg-xs-grey text-xs xl:text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
-                +38 050 145 78 89
-              </div>
+              {girl.phone &&
+                <div className="rounded-full bg-xs-grey text-xs xl:text-sm px-2-5 leading-relaxed py-1 mr-2 mt-2">
+                  {girl.phone}
+                </div>
+              }
               <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
                 <MessageSvg />
               </button>

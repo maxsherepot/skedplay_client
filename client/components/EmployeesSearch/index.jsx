@@ -63,9 +63,13 @@ const GirlsSearch = ({ entityName, entityUrl, header, fields, initialFilters, fi
       label: t('employees.first_young'),
       orderBy: [
         {
+          field: "fake",
+          order: 'ASC',
+        },
+        {
           field: "age",
           order: 'ASC',
-        }
+        },
       ],
     },
     {
@@ -73,9 +77,13 @@ const GirlsSearch = ({ entityName, entityUrl, header, fields, initialFilters, fi
       label: t('employees.first_old'),
       orderBy: [
         {
+          field: "fake",
+          order: 'ASC',
+        },
+        {
           field: "age",
           order: 'DESC',
-        }
+        },
       ],
     },
   ];
