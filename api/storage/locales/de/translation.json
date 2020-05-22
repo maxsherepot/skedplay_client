@@ -99,7 +99,17 @@
     "cancel": "Cancel",
     "change": "Change",
     "or": "Or",
-    "not_selected": "Not selected"
+    "not_selected": "Not selected",
+    "workers": "workers",
+    "and": "and",
+    "canton": "Canton",
+    "all": "All",
+    "home": "Home",
+    "current_location": "Current location",
+    "road_me": "Road me",
+    "send_link": "Send link",
+    "copied": "Copied",
+    "submit_complaint": "Submit a complaint"
   },
   "layout": {
     "view_my_account": "View my account",
@@ -113,7 +123,7 @@
     "terms": "Terms and Conditions & Privacy Policy",
     "add_new_card": "Add new card",
     "archive_sex_workers": "Archive Sex workers",
-    "events": "Events",
+    "events": "Events1",
     "admin": "Admin",
     "edit": "Edit",
     "webpage": "Webpage",
@@ -202,7 +212,9 @@
     "date": "Date",
     "select_date": "Select date",
     "small_age_title": "Warning",
-    "small_age_text": "Registration available only after 18 years old"
+    "small_age_text": "Registration available only after 18 years old",
+    "creating_account_you_agree": "By creating an account, you agree to ERsoft IT ",
+    "terms_conditions": "Terms & Conditions"
   },
   "plans": {
     "choose_plan": "Choose a plan and duration",
@@ -271,7 +283,10 @@
     "page_not_found": "PAGE NOT FOUND",
     "sorry_not_found": "We're sorry, the page you requested could not be found.",
     "error_occurred": "An error occurred on server",
-    "server_error": "Server error"
+    "server_error": "Server error",
+    "google_map_api_request_fail": "Unknown address",
+    "wrong_address": "Wrong address",
+    "wrong_country": "Supports only Switzerland addresses"
   },
   "invoices": {
     "page": "Invoice page"
@@ -335,7 +350,7 @@
     "notifications": "Notifications",
     "newsletter": "Newsletter",
     "are_you_sure_delete_event": "Are you sure you want to delete this event?",
-    "events": "Events",
+    "events": "Events1",
     "event": "Event",
     "create_event": "Create new event",
     "sex_workers": "sex workers",
@@ -389,7 +404,8 @@
     "label": {
       "visitor": "Visitor",
       "club_owner": "Club owner",
-      "private_account": "Private account"
+      "private_account": "Private account",
+      "moderator": "Club moderator"
     },
     "event_type": {
       "special_day": "Special day",
@@ -444,59 +460,60 @@
     "added_verify_photo": "At {{date}} {{time}} you added verification photo. We prof it and after you can Activated your Profile.",
     "from_schedule": "from schedule",
     "your_current_position": "Your current position",
-    "from_address": "from address"
+    "from_address": "from address",
+    "available_to": "Available to {{date}}"
   },
   "about": {
-    "for_pleasure": "Zum Spaß",
-    "for_clubs": "Clubs",
-    "for_employees": "Sexarbeiter",
+    "for_pleasure": "Fürs Vergnügen",
+    "for_clubs": "Klubs",
+    "for_employees": "Für Sexarbeiter",
     "for_clients": "Für Kunden",
-    "header_1": "Katalog und Marktplatzplattform für die Organisation von Sexservices in der Schweiz Nr.1",
-    "header_2": "Hier sind die Kunden sicher bei der Auswahl ihrer Lieblingsdienste, wobei die Sexarbeiterinnen und die Besitzer von Sexclubs alles erhalten, was sie für den Start, das Wachstum und die Verwaltung ihres Online-Geschäfts benötigen.",
+    "header_1": "Sexkatalog und Marktplatz für die Organisation von Sexdiensten in der Schweiz N1",
+    "header_2": "Hier sind die Kunden sicher, wenn sie ihre bevorzugten Dienste auswählen, und Sexarbeiter und Besitzer von Sexclubs erhalten alles, was sie für den Start, das Wachstum und die Verwaltung ihres Online-Geschäfts benötigen.",
     "marketplace": {
-      "header_1": "Marktplatz mit Präfix \"Sex\"",
-      "item_1": "Jede intime Unterhaltung nach Geschmack",
+      "header_1": "Marktplatz mit \"Sex\" innen",
+      "item_1": "Sexdienste für jeden Geschmack",
       "item_2": "Zuverlässige Autorisierung",
       "item_3": "Überprüfte Profile",
       "item_4": "Online-Chats",
-      "item_5": "Äußerste Sicherheit ohne zusätzliche Kosten",
-      "item_6": "Vorankündigung Ihrer Events, Aktionen und Sondertage",
-      "header_2": "Einfach. Schnell. Beeindruckend.",
-      "desc": "Die meisten dieser Dienste sind in der Regel langweilig und kompliziert. Deshalb haben wir lange und gründlich daran gearbeitet, um Skedplay einfach, bunt und interaktiv zu gestalten. Keine komplizierten Formulare, lange Anmeldungsprozesse und lästige Einstellungen mehr. Alle fertigen und richtigen Werkzeuge für Besitzer der Clubs jeder Art! Hier und jetzt."
+      "item_5": "Ultimative Sicherheit zu vernünftigem Preis",
+      "item_6": "Ankündigungen Ihrer Events, Promotionen und Sondertage",
+      "header_2": "Einfach. Schnell. Eindrucksvoll.",
+      "desc": "Die meisten Dienste dieser Art sind in der Regel langweilig und kompliziert. Deshalb haben wir sehr intensiv daran gearbeitet, Skedplay einfach, lebensecht und interaktiv zu gestalten. Keine komplizierten Formulare, langen Registrierungsprozesse und mühsame Setups mehr. Alle wesentlichen und gebrauchsfertigen Tools für Clubbesitzer jeder Art! Hier und jetzt."
     },
     "clubs": {
-      "header": "Probieren Sie es einfach",
-      "desc": "Erstellen Sie Ihren eigenen Sex-Club in ein paar Minuten und starten Sie Ihr Unternehmen von Grund auf neu. Verwalten Sie die Infrastruktur und Fragebögen, die an einem Ort erstellt wurden, von überall auf der Welt aus. Jetzt müssen Sie sich nicht an Spezialisten wenden, endlos zahlen Designer, Programmierer, Content-Manager und Vermarkter zu fördern.",
+      "header": "Einfach probieren",
+      "desc": "Kreieren Sie in wenigen Minuten Ihren eigenen intimen Dienstleistungsklub und starten Sie Ihr Unternehmen von Grund auf neu. Managen Sie Ihre bestehende Infrastruktur und Fragebögen von jedem Ort der Welt aus. Jetzt brauchen Sie nicht mehr zu Spezialisten zu gehen, endlos Designer, Programmierer, Content-Manager und Vermarkter für die Werbung zu bezahlen.Einfach abonnieren, befüllen Sie den Club mit Inhalten und Profilen Ihrer Angestellten, und wir kümmern uns um den Rest.",
       "item_1": {
         "header": "Ihre Kunden sind immer auf dem Laufenden",
-        "desc": "Sie werden eine Veranstaltung abhalten, einen Rabatt ankündigen oder einen bestimmten Tag zu etwas Besonderem machen, einfach und einfach Kunden darüber informieren und eine Veranstaltung erstellen. Und wenn Sie eine Gästebasis haben, können Sie diese über Ihren eigenen E-Mail-Newsletter benachrichtigen."
+        "desc": "Wollen Sie eine Veranstaltung abhalten, einen Rabatt ankündigen oder einen bestimmten Tag zu einem besonderen Tag machen? Jetzt können Sie Ihre Kunden sehr einfach darüber informieren, indem Sie ein Event erstellen. Und wenn Sie über eine Datenbank mit Stammkunden verfügen, können Sie diese über Ihren eigenen SMS-Versand benachrichtigen."
       },
       "item_2": {
-        "header": "Wählen Sie absolute<br/>Sicherheit",
-        "desc": "Entwickelt ein eigenes Closed Source System, die fortschrittlichsten Technologien, mehrere Server und bezahlte Feuerwölfe verbessern den Schutz unserer Besucher um ein Vielfaches."
+        "header": "Wählen Sie absolute Sicherheit",
+        "desc": "Wir haben unser eigenes geschlossenes Quellcodesystem mit modernsten Technologien und Lösungen entwickelt, mehrere Server und kostenpflichtige Firewalls verbessern die Sicherheit der Besucher vielfach."
       },
       "item_3": {
-        "header": "DDoS Schutz",
-        "desc": "Ihre Website läuft reibungslos"
+        "header": "DDoS-Schutz",
+        "desc": "Unterbrechungsfreie Arbeit Ihres Unternehmens"
       },
       "item_4": {
-        "header": "Automatische Datensicherung und Wiederherstellung",
-        "desc": "Wiederherstellen von Daten-Hacking-Fall"
+        "header": "Automatische Backup-Funktion",
+        "desc": "Wiederherstellung von Daten nach einem Angriff"
       },
       "item_5": {
-        "header": "Unterstützung",
-        "desc": "Unsere Spezialisten<br/> in der Kommunikation 24/7"
+        "header": "Der technische Support-Service",
+        "desc": "Der technische Support-Service <br/> ist immer 24/7 online."
       },
       "item_6": {
         "header": "SSL-Verbindung",
-        "desc": "Sicherer Informationsaustausch zwischen Benutzern"
+        "desc": "Wiederherstellung aller Daten bei Systemausfall oder Hacking"
       },
-      "from_me": "from me",
+      "from_me": "von mir",
       "administrator": "Administrator",
-      "show_number": "Show number",
-      "reviews": "reviews",
-      "schedule_in": "Schedule in",
-      "day_off": "Day off"
+      "show_number": "Nummer anzeigen",
+      "reviews": "Rezensionen",
+      "schedule_in": "Terminplan für",
+      "day_off": "der freie Tag"
     },
     "workers": {
       "header_1": "Neues Niveau.",
@@ -519,22 +536,22 @@
       "item_6": "Eigene website"
     },
     "clients": {
-      "header_1": "Der Spaß beginnt",
+      "header_1": "Unterhaltung beginnt hier",
       "item_1": "1200",
-      "item_2": "Clubs",
+      "item_2": "Klubs",
       "item_3": "20 000",
-      "item_4": "Arbeitnehmer",
-      "item_5": "30000",
+      "item_4": "Sexarbeiter",
+      "item_5": "30 000",
       "item_6": "Kunden",
-      "desc": "Sexservices sind in der Schweiz gesetzlich erlaubt, und deshalb gibt es mehr als 1100 Salons, Sauna-Clubs und alle Arten von Kontaktbars. Mehr als 20.000 Sexarbeiterinnen und 30.000 Kunden pro Tag, die Sexservices nutzen, eine Party oder einen geeigneten Club finden wollen. Erkunden Sie unseren Service im Detail und wir sind uns sicher, dass jeder etwas für sich selbst hier findet.",
-      "header_2": "Einfache Suche.<br/> Genau ins Ziel",
-      "desc_2": "Manchmal ist es nicht einfach, das zu finden, was man braucht. Skedplay bestimmt Ihre Geolocation und zeigt zuerst die Fragebögen oder Clubs, die Näher an Ihnen sind. Übrigens mögen wir auch nicht Hunderte von nutzlosen Filtern und Einstellungen. Daher helfen wir, in erster Reihe zu finden, was nah und die grundlegendsten Präferenzen ist. Erstellen Sie eine Abfrage nach den aktuellsten Kriterien - und genügend Verzögerungen, nutzen Sie die Suche jetzt!",
-      "header_3": "Vollständige Anonymität, <br/> keine Sorge um Kleinigkeiten",
-      "desc_3": "Sie müssen sich nicht registrieren, um nur die Website zu nutzen. Fügen Sie zu Ihren Favoriten hinzu, durchsuchen Sie die Nummern mit Adressen und gehen Sie voran für Spaß! Möchten Sie mehr? Schreiben Sie Kommentare, hinterlassen Sie Bewertungen, verfolgen Sie die Ankunft einer Sex-Arbeiterin, chatten? Dann registrieren Sie sich und machen Sie sich keine Sorgen um irgendetwas. Wir geben keine personenbezogenen Daten an Dritte weiter und der Name wird auf Wunsch ausgeblendet."
+      "desc": "Intime Dienste sind in der Schweiz legal - es gibt über 1100 Salons, Sauna-Klubs und alle Arten von Kontakt-Bars. Jeden Tag gibt es mehr als 20.000 Sexarbeiter und 30.000 Kunden, die sexuelle Dienste in Anspruch nehmen, eine Party oder einen passenden Klub finden wollen. Erfahren Sie mehr über den Dienst, und wir sind sicher, dass jeder etwas Passendes darin finden wird.",
+      "header_2": "Einfache Suche.<br/> Genau getroffen.",
+      "desc_2": "Manchmal ist es nicht einfach, genau das zu finden, was man braucht. Deshalb bestimmen wir bei der Suche nach Sexdiensten die Geolokation und lassen zuerst die Profile oder Clubs anzeigen, die sich in Ihrer Nähe befinden.  Übrigens mögen wir auch keine Hunderte von nutzlosen Filtern und Einstellungen. Wir helfen Ihnen, zunächst einmal das zu finden, was neben Ihnen liegt und Ihren Präferenzen entspricht. Erstellen Sie eine Anfrage nach den wichtigsten Kriterien - kein Zögern mehr, nutzen Sie jetzt die Suche!",
+      "header_3": "Absolute Anonymität,<br/> machen Sie sich keine Sorgen.",
+      "desc_3": "Sie brauchen keine Registrierung, um die Website einfach zu nutzen. Öffnen Sie die Website, fügen Sie sie zu Ihren Favoriten hinzu, browsen Sie durch die Nummern mit den Adressen und weiter geht's zum Vergnügen! Wünschen Sie mehr? Möchten Sie Kommentare schreiben, Rezensionen hinterlassen, die Ankunft einer Sexarbeiterin verfolgen, chatten? Dann registrieren Sie sich und machen Sie sich keine Sorgen. Wir geben keine persönlichen Daten an Dritte Personen weiter, und falls Sie dies wünschen, wird Ihr Name versteckt."
     },
-    "reg_as_club_owner": "Зарегистрироваться как владелец клуба",
-    "reg_as_worker": "Зарегистрироваться как секс-работник",
-    "reg_as_client": "Зарегистрироваться как клиент"
+    "reg_as_club_owner": "Registrieren Sie sich als Klubbesitzer",
+    "reg_as_worker": "Registrieren Sie sich als Sexarbeiter",
+    "reg_as_client": "Registrieren Sie sich als Kunde"
   },
   "contacts_popup": {
     "title": "Contacts",
@@ -650,5 +667,20 @@
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"
+  },
+  "complaint_popup": {
+    "title": "Complaint",
+    "theme": "Theme",
+    "theme_placeholder": " ",
+    "name": "Your name",
+    "name_placeholder": " ",
+    "email": "Your email",
+    "email_placeholder": " ",
+    "message": "Your message",
+    "message_placeholder": "Describe your complaint",
+    "success": "Your complaint was sent"
+  },
+  "validation": {
+    "password_confirmation": "The password confirmation does not match."
   }
 }

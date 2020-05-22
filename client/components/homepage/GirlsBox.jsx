@@ -16,6 +16,7 @@ const GET_GIRLS = gql`
         inGeneral
         status
         user_status
+        soon
         index
         city {
           id

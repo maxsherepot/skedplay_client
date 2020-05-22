@@ -48,7 +48,6 @@
     "hour": "hour",
     "night": "Night",
     "edit": "Edit",
-    "and": "and",
     "not_active": "Not active",
     "active_now": "Active now",
     "best_clubs": "Best clubs",
@@ -102,6 +101,7 @@
     "or": "Or",
     "not_selected": "Not selected",
     "workers": "workers",
+    "and": "and",
     "canton": "Canton",
     "all": "All",
     "home": "Home",
@@ -163,7 +163,7 @@
     "all_girls": "All girls",
     "go": "Take me to this place ⤳",
     "km_from_me": "km from me",
-    "my_address": "Meine Adresse",
+    "my_address": "My Contacts",
     "visit_site": "visit site",
     "km": "km",
     "today": "TODAY",
@@ -196,8 +196,6 @@
     "phone_number": "Phone number",
     "verification_code_send": "A verification code has been sent your phone number",
     "confirmation_code": "Confirmation code",
-    "creating_account_you_agree": "By creating an account, you agree to ERsoft IT ",
-    "terms_conditions": "Terms & Conditions",
     "enter_code": "Enter code",
     "account_type": "What account type you need",
     "employee": "I provide sex services",
@@ -215,7 +213,9 @@
     "date": "Date",
     "select_date": "Select date",
     "small_age_title": "Warning",
-    "small_age_text": "Registration available only after 18 years old"
+    "small_age_text": "Registration available only after 18 years old",
+    "creating_account_you_agree": "By creating an account, you agree to ERsoft IT ",
+    "terms_conditions": "Terms & Conditions"
   },
   "plans": {
     "choose_plan": "Choose a plan and duration",
@@ -364,7 +364,6 @@
     "open_calendar": "Open calendar",
     "all_workers": "All workers",
     "available_today": "Available today",
-    "available_to": "Available to {{date}}",
     "cooming_soon": "Cooming soon",
     "count_views": "{{count}} views",
     "cancel_vip": "Cancel VIP",
@@ -406,8 +405,8 @@
     "label": {
       "visitor": "Visitor",
       "club_owner": "Club owner",
-      "moderator": "Club moderator",
-      "private_account": "Private account"
+      "private_account": "Private account",
+      "moderator": "Club moderator"
     },
     "event_type": {
       "special_day": "Special day",
@@ -462,17 +461,18 @@
     "added_verify_photo": "At {{date}} {{time}} you added verification photo. We prof it and after you can Activated your Profile.",
     "from_schedule": "from schedule",
     "your_current_position": "Your current position",
-    "from_address": "from address"
+    "from_address": "from address",
+    "available_to": "Available to {{date}}"
   },
   "about": {
-    "for_pleasure": "for pleasure",
+    "for_pleasure": "For pleasure",
     "for_clubs": "Clubs",
     "for_employees": "For sex-workers",
     "for_clients": "For customers",
-    "header_1": "Sex-catalog and marketplace for organization of sex services in Switzerland N1",
+    "header_1": "Sex catalog and marketplace for organizing sex services in Switzerland No. 1",
     "header_2": "Here customers are safe when choosing their favorite services, and sex workers and owners of sex clubs get everything they need to start, grow, and manage their online business.",
     "marketplace": {
-      "header_1": "Marketplace with “Sex” prefix",
+      "header_1": "Marketplace with “Sex” inside",
       "item_1": "Sex services to meet any taste",
       "item_2": "Reliable authorization by phone number",
       "item_3": "Verified profiles",
@@ -480,7 +480,7 @@
       "item_5": "Ultimate security at reasonable price",
       "item_6": "Announcements of your events, promotions, and special days",
       "header_2": "Simple. Quick. Impressive.",
-      "desc": "Most of services of this kind are usually boring and complicated. That's why we worked hard to make Skedplay simple, vivid, and interactive. No more complicated forms, long registration processes, and tiresome  setups. All essential and ready-to-use tools for club owners of any type! Here and now."
+      "desc": "Most services of this kind are usually boring and complicated. That's why we worked hard to make Skedplay simple, vivid, and interactive. No more complicated forms, long registration processes, and tiresome setups. All essential and ready-to-use tools for club owners of any type! Here and now."
     },
     "clubs": {
       "header": "Just try it",
@@ -499,20 +499,20 @@
       },
       "item_4": {
         "header": "Automatic backup",
-        "desc": "Restoring data hacking case"
+        "desc": "Restoring data after an attack"
       },
       "item_5": {
         "header": "Technical support",
-        "desc": "The technical support service<br/> is always on-line 24/7"
+        "desc": "The technical support service<br/> is always online 24/7"
       },
       "item_6": {
-        "header": "SSL-connection",
+        "header": "SSL connection",
         "desc": "Recovery of all data in case of system failure or hacking"
       },
       "from_me": "from me",
       "administrator": "Administrator",
       "show_number": "Show number",
-      "reviews": "reviews",
+      "reviews": "Reviews",
       "schedule_in": "Schedule in",
       "day_off": "Day off"
     },
@@ -538,21 +538,21 @@
     },
     "clients": {
       "header_1": "Entertainments starts here",
-      "item_1": "1200",
+      "item_1": "1,200",
       "item_2": "clubs",
-      "item_3": "20 000",
-      "item_4": "sex-workers",
-      "item_5": "30000",
+      "item_3": "20,000",
+      "item_4": "sex workers",
+      "item_5": "30,000",
       "item_6": "customers",
-      "desc": "Sex services in Switzerland are legal, so there are more than 1100 salons, sauna clubs, and various kinds of contact bars here. Every day, there are more than 20,000 sex workers and 30,000 customers who want to take advantage of sex services, find a party, or a suitable club. Learn more about the service and we are sure everyone will find something suitable in it.",
+      "desc": "Sex services in Switzerland are legal, so there are more than 1,100 salons, sauna clubs, and various kinds of contact bars here. Every day, there are more than 20,000 sex workers and 30,000 customers who want to take advantage of sex services, find a party, or a suitable club. Learn more about the service and we are sure everyone will find something suitable in it.",
       "header_2": "Easy search.<br/> Dead on target.",
       "desc_2": "Sometimes it's not easy to find what you need. Therefore, when searching for sex services, we determine geolocation and show the profiles or clubs that are located closer to you first. By the way, we don't like hundreds of useless filters and settings either. We help to find, first of all, what is next to you and matches your basic preferences. Create a request according to the most relevant criteria – no more hesitation, use the search now!",
       "header_3": "Total anonymity,<br/> don't worry about anything",
       "desc_3": "You don't need the registration to simply use the site. Open the site, add it to your favorites, browse the numbers with addresses, and move on for pleasure! Do you want more? To write comments, leave reviews, track the arrival of a sex worker, chat? Then register and do not worry about anything. We do not share personal data with the third parties and, if you want, your name will be hidden."
     },
-    "reg_as_club_owner": "Зарегистрироваться как владелец клуба",
-    "reg_as_worker": "Зарегистрироваться как секс-работник",
-    "reg_as_client": "Зарегистрироваться как клиент"
+    "reg_as_club_owner": "Sign up as a club owner",
+    "reg_as_worker": "Sign up as a sex worker",
+    "reg_as_client": "Sign up as a customer"
   },
   "contacts_popup": {
     "title": "Contacts",
@@ -567,18 +567,6 @@
     "success": "Your request was sent",
     "your_working_location": "Your working Location",
     "text": "Some text"
-  },
-  "complaint_popup": {
-    "title": "Complaint",
-    "theme": "Theme",
-    "theme_placeholder": " ",
-    "name": "Your name",
-    "name_placeholder": " ",
-    "email": "Your email",
-    "email_placeholder": " ",
-    "message": "Your message",
-    "message_placeholder": "Describe your complaint",
-    "success": "Your complaint was sent"
   },
   "favorite": {
     "clubs": "Clubs"
@@ -680,6 +668,18 @@
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"
+  },
+  "complaint_popup": {
+    "title": "Complaint",
+    "theme": "Theme",
+    "theme_placeholder": " ",
+    "name": "Your name",
+    "name_placeholder": " ",
+    "email": "Your email",
+    "email_placeholder": " ",
+    "message": "Your message",
+    "message_placeholder": "Describe your complaint",
+    "success": "Your complaint was sent"
   },
   "validation": {
     "password_confirmation": "The password confirmation does not match."
