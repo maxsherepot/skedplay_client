@@ -18,29 +18,31 @@ import redirect from "lib/redirect";
 import { setCookie } from "utils";
 
 const ProfileHeader = ({user}) => (
-  <div className="container header-profile-div">
-    <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
-      <Avatar/>
-      <div className="ml-4">
-        {user && user.is_employee ? (
-          <span className="text-2xl font-medium capitalize">
-            {user.employee.name} {user.age ? `, ${user.age}` : ''}
-          </span>
-        ) : (
-          <span className="text-2xl font-medium capitalize">
-            {user.name} {user.age ? `, ${user.age}` : ''}
-          </span>
-        )}
-        <div className="flex mt-4">
-          <AccountLabel {...user} />
-          <span className="sm:ml-2">{user.phone}</span>
+    <>
+      {user && (user.is_employee || user.is_club_owner) && user.status === 1 && (
+          <VerifyMessage user={user}/>
+      )}
+      <div className="container header-profile-div">
+        <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
+          <Avatar/>
+          <div className="ml-4">
+            {user && user.is_employee ? (
+              <span className="text-2xl font-medium capitalize">
+                {user.employee.name} {user.age ? `, ${user.age}` : ''}
+              </span>
+            ) : (
+              <span className="text-2xl font-medium capitalize">
+                {user.name} {user.age ? `, ${user.age}` : ''}
+              </span>
+            )}
+            <div className="flex mt-4">
+              <AccountLabel {...user} />
+              <span className="sm:ml-2">{user.phone}</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
-      <VerifyMessage user={user}/>
-    )}
-  </div>
+    </>
 );
 
 const VerifyMessage = ({user}) => {
@@ -80,43 +82,52 @@ const VerifyMessage = ({user}) => {
 
   return (
     <>
-      <div className="w-5/12 flex flex-row mt-5 h-30 pl-3 items-center verify-message-div">
         {user.verify_photo ? (
+         <div className="flex flex-row pl-3 items-center verify-message-div__message">
+         <div className="flex items-center justify-center md:pl-0 md:pr-0 lg:pr-0 lg:pl-0 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-full">
           <div className="ml-3 py-2">
-                        <span className="font-bold flex flex-col">
-                            {t('account.added_verify_photo', {date: `${date}`, time: `${time}`})}
-                        </span>
+            <span className="font-bold flex flex-col">
+                {t('account.added_verify_photo', {date: `${date}`, time: `${time}`})}
+            </span>
           </div>
+         </div>
+         </div>
         ) : (
+        <div className="flex flex-row pl-3 items-center verify-message-div__add">
+         <div className="flex items-center justify-center md:pl-0 md:pr-20 lg:pr-0 lg:pl-10 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-7/12">
           <div className="ml-3 py-2">
-            <div className="flex flex-col">
-              <div className="row">
+            <div className="flex flex-row">
+              <div className="">
+                <div className="flex flex-col">
+                  <div className="row">
                 <span className="inline-block mr-2">
                   <AlertTriangleSvg/>
                 </span>
-                <span className="font-bold inline-block">{t('account.verify_your_account')}</span>
+                    <span className="font-bold inline-block">{t('account.verify_your_account')}</span>
+                  </div>
+                </div>
+                  <span className="">{t('account.add_pass_or_photo')}</span>
+              </div>
+              <div className="mt-3">
+                <label htmlFor="verifyFile" className="inline-block">
+                <span className="bg-red border border-xs border-red text-white text-xxs rounded-full ml-3 sm:ml-1 sm:px-3 sm:py-2 px-6 py-3 hover:cursor-pointer"
+                >
+                {t('account.upload_verify_photo')}
+                </span>
+                </label>
+                <input
+                    className="c-account__avatar-input"
+                    type="file"
+                    id="verifyFile"
+                    name="Upload Verify Photo"
+                    onChange={handleSubmit}
+                />
               </div>
             </div>
-            <div>
-              <span className="">{t('account.add_pass_or_photo')}</span>
-              <label htmlFor="verifyFile" className="inline-block">
-              <span className="bg-white border border-xs border-red text-red text-xs rounded-full ml-3
-                  px-3 py-2 hover:cursor-pointer hover:bg-red hover:text-white hover:border-white"
-              >
-                {t('account.upload_verify_photo')}
-              </span>
-              </label>
-              <input
-                className="c-account__avatar-input"
-                type="file"
-                id="verifyFile"
-                name="Upload Verify Photo"
-                onChange={handleSubmit}
-              />
-            </div>
           </div>
+         </div>
+        </div>
         )}
-      </div>
     </>
   )
 

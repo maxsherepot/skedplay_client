@@ -290,9 +290,30 @@ main {
     }
   }
 
-  .verify-message-div {
-    background-color: #b2ebf2;
-    height: content-box;
+  .verify-message-div__add  {
+    background-color: #C7F0FF;
+    padding: 0 70px;
+      @screen sm {
+        height: 80px;
+        padding: 0 30px;
+      }
+      @screen md {
+        height: 100px;
+        padding: 0 100px;
+      }
+  }
+
+  .verify-message-div__message {
+    background-color: #C7F0FF;
+    padding: 0 70px;
+      @screen sm {
+        height: 80px;
+        padding: 0 20px;
+      }
+      @screen md {
+        height: 100px;
+        padding: 0 50px;
+      }
   }
 
   .header-profile-div {
