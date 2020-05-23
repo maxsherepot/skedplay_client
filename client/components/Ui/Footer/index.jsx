@@ -184,8 +184,6 @@ function Footer({ user }) {
         </Content>
       </Popup>
 
-      <CookiesBlock/>
-
       <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
         <div className="flex flex-col justify-center text-center md:w-1/2 lg:w-1/3 xl:w-1/4">
           <ul className="flex items-center justify-around leading-loose text-lg">
@@ -254,6 +252,8 @@ function Footer({ user }) {
           </div>
         </div>
       </div>
+
+      <CookiesBlock/>
     </div>
   );
 };
