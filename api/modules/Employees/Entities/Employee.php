@@ -136,6 +136,10 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
      */
     public function getIsNewAttribute()
     {
+        if ($this->soon) {
+            return false;
+        }
+
         return now()->subDays(self::IS_NEW_DAYS) < $this->created_at;
     }
 

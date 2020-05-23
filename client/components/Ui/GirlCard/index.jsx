@@ -49,7 +49,12 @@ function GirlCard({
   }
 
   const availableButtons = () => {
-    const type = Math.floor(Math.random() * Math.floor(4));
+    let type = Math.floor(Math.random() * Math.floor(4));
+
+    if (girl.soon) {
+      type = 0;
+    }
+
     const {t, i18n} = useTranslation();
     switch (type) {
       case 0:
@@ -89,14 +94,19 @@ function GirlCard({
           <div className="flex flex-col">
             <div className="flex flex-col -mb-2 hide-on-hover">
               {girl.isNew && (
-                  <div className="">
-                    <Badge className="bg-black">{t('status.new')}</Badge>
-                  </div>
+                <div className="">
+                  <Badge className="bg-black">{t('status.new')}</Badge>
+                </div>
+              )}
+              {!!girl.soon && (
+                <div className="">
+                  <Badge className="bg-black">{t('index.coming_soon')}</Badge>
+                </div>
               )}
               {girl.isVip && (
-                  <div className="mt-2">
-                    <Badge className="bg-red">{t('status.vip')}</Badge>
-                  </div>
+                <div className="mt-2">
+                  <Badge className="bg-red">{t('status.vip')}</Badge>
+                </div>
               )}
             </div>
             <div className="flex flex-wrap-reverse show-on-hover mt-2">

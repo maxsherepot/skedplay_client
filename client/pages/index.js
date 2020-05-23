@@ -84,23 +84,8 @@ const EventsContainer = () => {
             </div>
           </div>
         </div>
-        <div className="relative md:mt-2 xl:flex xl:self-end xl:mb-6 xl:mt-2 xl:flex-col xl:ml-10 hd:ml-42">
-          <div className="flex text-white items-end leading-none">
-            <div className="text-4xl font-extrabold tracking-tighter">
-              {t('index.fresh_events')}
-            </div>
-            <Link href="/events">
-              <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
-                <ArrowNextSvg>
-                  <span className="mr-1">{t('common.all_events')}</span>
-                </ArrowNextSvg>
-              </a>
-            </Link>
-          </div>
-          <div className="mt-7">
-            <EventsBox/>
-          </div>
-        </div>
+
+        <EventsBox/>
       </div>
     </div>
   );
