@@ -120,13 +120,8 @@ const ForgotBox = () => {
           {t('forgot.password_recovery_successfully')}
         </h1>
         <div className="text-center my-4">
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
           <p>
-            Illo nihil debitis, nostrum accusamus enim dolorum voluptas in quae.
-          </p>
-          <p>
-            Corporis inventore a, porro provident quidem quod laudantium
-            pariatur ipsam assumenda velit!
+            {t('forgot.msg_password_recovery')}
           </p>
         </div>
       </ForgotForm.Step>

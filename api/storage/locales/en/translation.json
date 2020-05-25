@@ -228,7 +228,8 @@
     "check_verification_code": "Check verification code",
     "confirm": "Confirm",
     "go_to_login_page": "Go to Login page",
-    "next_step": "Next step"
+    "next_step": "Next step",
+    "msg_password_recovery": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo nihil debitis, nostrum accusamus enim dolorum voluptas in quae."
   },
   "clubs": {
     "event_type": "Club type",

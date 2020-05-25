@@ -124,7 +124,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           break;
                       }
                     })}
-                  <FormGroup className="w-full mt-5 md:mt-0 md:w-1/6 xl:w-1/7 hd:w-1/8 px-2">
+                  <FormGroup className="w-full mt-5 md:mt-0 md:w-1/6 xl:w-1/7 hd:w-1/8 px-2 flex flex-row justify-center items-center ">
                     <Button
                       className="w-full"
                       size="sm"

@@ -319,6 +319,10 @@ main {
     }
   }
 
+  .selected-item__div :hover {
+    background-color: #FFF3F3;
+  }
+
   .header-profile-div {
     display: flex;
     flex-direction: row;
