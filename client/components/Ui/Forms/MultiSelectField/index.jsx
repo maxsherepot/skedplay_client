@@ -21,7 +21,7 @@ const MultiSelectField = ({
   const getInputWithCheckboxes = (arrayHelpers, category, isChecked) => {
     return (
       <div className="flex">
-        <div>
+        <div className="py-1">
           <input
             name={name}
             type="checkbox"
