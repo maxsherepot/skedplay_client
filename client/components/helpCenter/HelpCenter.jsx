@@ -100,7 +100,7 @@ const Sidebar = ({categories, topicSlug}) => {
 
   return (
     <div className="flex lg:flex-1 justify-end w-auto border-divider border-b lg:border-r">
-      <div className="flex flex-col py-10" style={{minWidth: '14rem'}}>
+      <div className="flex flex-col py-10 md:pl-15" style={{minWidth: '14rem'}}>
         {categories.map((category, i) => (
           <CategoryItem category={category} first={i === 0} key={category.id} topicSlug={topicSlug}/>
         ))}
@@ -152,8 +152,8 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
         />
       }
 
-      <PageCard className="my-10">
-        <div className="flex flex-col lg:flex-row justify-between help-center">
+      <PageCard fullScreen={true} className="my-10 pl-10 pr-10">
+        <div className="flex flex-col md:pl-25 lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
             <div className="xl:max-w-3/4">
