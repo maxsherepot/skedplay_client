@@ -76,6 +76,9 @@ class EmployeeRepository implements HasMediable
 
         $employee = new Employee($data->toArray());
         $employee->user_status = $owner->status ?? 0;
+        if (!$employee->type) {
+            $employee->type = 1;
+        }
         $employee->owner()->associate($owner);
 
         $employee->save();
