@@ -288,7 +288,7 @@ const PrivateBox = ({user}) => {
               </div>
               <Link href={employeeLink}>
                 <a>
-                  <Button className="w-2/3" size="sm">
+                  <Button className="px-4 btn-size__div" size="sm">
                     {employeeButtonText}
                   </Button>
                 </a>
@@ -305,9 +305,11 @@ const PrivateBox = ({user}) => {
                 <span className="text-2xl font-bold mb-6">{user.employee.events_count} {t('account.events')}</span>
                 <StarSvg/>
               </div>
-              <Button className="w-2/3" size="sm">
-                {t('navigation.add_new')}
-              </Button>
+                  <a href="/account/events/create/">
+                   <Button className="px-4 btn-size__div" size="sm">
+                     {t('navigation.add_new')}
+                   </Button>
+                  </a>
             </div>
           </div>
         </div>

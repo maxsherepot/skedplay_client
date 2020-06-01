@@ -53,7 +53,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <SelectField
                               key={index}
-                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/7 hd:w-1/8 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/7 hd:w-1/7 px-2"
                               labelClassName="text-white"
                               {...rest}
                               placeholder={rest.handlePlaceholder ? rest.handlePlaceholder(values) : rest.placeholder}
@@ -66,7 +66,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <MultiSelectField
                               key={index}
-                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/7 hd:w-1/8 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/7 hd:w-1/7 px-2"
                               labelClassName="text-white"
                               {...rest}
                             />
@@ -87,7 +87,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                           return (
                             <DistanceSlider
                               key={index}
-                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 xl:w-1/7 hd:w-1/8 px-2"
+                              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 xl:w-1/7 hd:w-1/7 px-2"
                               labelClassName="text-white"
                               {...rest}
                               value={filters[rest.name]}

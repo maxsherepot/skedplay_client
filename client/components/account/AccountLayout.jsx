@@ -94,10 +94,10 @@ const VerifyMessage = ({user}) => {
        </div>
       ) : (
       <div className="flex flex-row pl-3 items-center verify-message-div__add">
-       <div className="flex items-center justify-center md:pl-0 md:pr-20 lg:pr-0 lg:pl-0 xl:pl-15 sm:pl-0 xl:pr-15 lg:w-8/12">
-        <div className="ml-3 py-2">
-          <div className="flex flex-row">
-            <div className="align-middle flex flex-row">
+       <div className="flex items-center justify-center w-full xl:pl-15 xl:pr-15">
+        <div className="ml-3 py-2 w-full">
+          <div className="md:flex md:flex-row sm:column">
+            <div className="align-middle flex flex-row msg-verify__div hd:w-9/12 lg:w-8/12 md:w-7/12 sm:w-full">
               <div>
                 <span className="inline-block mr-2 py-2">
                     <AlertTriangleSvg/>
@@ -108,10 +108,10 @@ const VerifyMessage = ({user}) => {
                 <span className="">{t('account.add_pass_or_photo')}</span>
               </div>
             </div>
-            <div className="py-4">
+            <div className="py-4 my-auto w-full hd:w-3/12 lg:w-4/12 md:w-5/12 sm:w-full btn-verify__div">
               <label htmlFor="verifyFile" className="inline-block">
               <span
-                className="bg-red border border-xs border-red text-white text-xxs rounded-full md:ml-3 sm:ml-1
+                className="bg-red border border-xs border-red text-white text-xxs rounded-full px-4 py-2 md:ml-3 sm:ml-1
                            sm:px-3 sm:py-2 md:px-6 md:py-3 hover:cursor-pointer">
                 {t('account.upload_verify_photo')}
               </span>

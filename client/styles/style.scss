@@ -295,26 +295,24 @@ main {
 
   .verify-message-div__add  {
     background-color: #C7F0FF;
-    padding: 0 70px;
+    padding: 0 20px;
+    height: 100%;
     @screen sm {
-      height: 80px;
       padding: 0 10px;
     }
     @screen md {
-      height: 100px;
-      padding: 0 100px;
+      padding: 0 25px;
     }
   }
 
   .verify-message-div__message {
     background-color: #FFD683;
     padding: 0 70px;
+    height: 4rem;
     @screen sm {
-      height: 80px;
       padding: 0 20px;
     }
     @screen md {
-      height: 100px;
       padding: 0 50px;
     }
   }
@@ -327,6 +325,28 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .btn-verify__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .msg-verify__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    @screen sm {
+      justify-content: center;
+    }
+    @screen md {
+      justify-content: flex-end;
+    }
+  }
+
+  .btn-size__div {
+    min-width: 60%;
   }
 
   .c-events-time {
