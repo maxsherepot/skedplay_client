@@ -74,6 +74,17 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
         ref={slider => setSlider1(slider)}
       >
         {images.map((image, i) => {
+          if (i === 0) {
+            return (
+                <img
+                    key={i}
+                    className={cx("object-cover", className)}
+                    src={image}
+                    alt=""
+                />
+            );
+          }
+
           return (
             <LazyLoadImage
               key={i}
