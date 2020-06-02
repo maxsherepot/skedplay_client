@@ -19,7 +19,6 @@ import translation from "services/translation";
 import slug from "slug";
 import {NextSeo} from "next-seo";
 import CurrentLocation from "components/employee/CurrentLocation";
-import cx from 'classnames';
 import Slider from "react-slick";
 import Cookies from 'js-cookie';
 
@@ -74,7 +73,7 @@ const EmployeeInformation = ({ user }) => {
     return <Loader/>;
   }
 
-  if (!canton || !city || !employee) {
+  if (!canton || !city || !employee || employee.user_status === 2 || employee.status === 2) {
     const err = new Error();
     err.code = 'ENOENT';
     throw err;

@@ -32,6 +32,12 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
     return <Loader/>;
   }
 
+  if (employee.user_status === 2 || employee.status === 2) {
+    const err = new Error();
+    err.code = 'ENOENT';
+    throw err;
+  }
+
   const handleLightboxClick = index => {
     setLightboxIndex(index);
     toggleModalOpen(true);

@@ -90,6 +90,8 @@ export const GET_EMPLOYEE = gql `
       birthday
       age
       gender
+      status
+      user_status
       type
       service_for
       index

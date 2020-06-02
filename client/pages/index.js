@@ -34,7 +34,7 @@ const EventsContainer = () => {
         <div className="flex flex-col md:flex-row xl:flex-col">
           <div className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 xl:pl-0 xl:pt-1">
             <div
-              className="block relative -mt-4 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
+              className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
               <div className="block company-item__div-name ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-8 xl:-mt-10">
                 {t('index.services')}
