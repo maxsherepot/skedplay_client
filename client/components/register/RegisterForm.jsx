@@ -151,7 +151,7 @@ function RegisterForm({ onSubmit, children }) {
           ])}>
             <Button
               type="submit"
-              className="text-xl px-8 sm:px-25 mx-auto mb-3"
+              className="text-xl px-5 w-full sm ml-1 mr-1 mx-auto mb-3"
               disabled={isSubmitting}
             >
               {isLastStep ? `${t('common.create_account')}` : `${t('common.next_step')}`}
@@ -159,7 +159,7 @@ function RegisterForm({ onSubmit, children }) {
             {step === 0 && (
               <Link href="/login">
                 <Button
-                  className="text-xl px-8 sm:px-12 mb-3 ml-1"
+                  className="text-xl px-5 w-full sm mb-3 ml-1"
                   disabled={isSubmitting}
                   outline
                   level="primary-black"

@@ -349,8 +349,25 @@ main {
     min-width: 60%;
   }
 
+  .btn-footer__div {
+    min-width: 10rem;
+  }
+
   .c-events-time {
     opacity: 0;
+  }
+
+  .links-footer__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 55%;
+    &-full {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
   }
 
   .c-events-card:hover .c-events-time {

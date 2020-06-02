@@ -18,8 +18,8 @@ function Register() {
           maxWidth: '410px'
         }}
         logo={<Logo />}
-        title={t('common.sign_up')}
-        left={<ArrowBack href="/" />}
+        title={t('register.title')}
+        left={<ArrowBack href="/" onPopup={true} />}
         right={<LangSelector />}
         modalDialogStyle={{height: '650px'}}
       >

@@ -5,7 +5,7 @@ import cx from "classnames";
 import { ArrowPrevSvg } from "icons";
 import { useSteps } from "hooks";
 
-const ArrowBack = ({ className, href, title, color, back }) => {
+const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
   const { step, setStep } = useSteps();
 
   const handleBack = () => {
@@ -22,6 +22,7 @@ const ArrowBack = ({ className, href, title, color, back }) => {
   return (
     <a
       className={cx(
+          onPopup ? "w-3/12" : '',
         "animation-arrow-left text-sm cursor-pointer",
         `text-${color}`,
         className
@@ -40,6 +41,7 @@ ArrowBack.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   back: PropTypes.bool,
+  onPopup: PropTypes.bool,
   color: PropTypes.oneOf(["white", "black", "red"])
 };
 
@@ -47,7 +49,8 @@ ArrowBack.defaultProps = {
   href: "",
   back: false,
   title: "Back",
-  color: "black"
+  color: "black",
+  onPopup: false,
 };
 
 export default ArrowBack;

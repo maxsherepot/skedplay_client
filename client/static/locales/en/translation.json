@@ -215,7 +215,8 @@
     "small_age_title": "Warning",
     "small_age_text": "Registration available only after 18 years old",
     "creating_account_you_agree": "By creating an account, you agree to ERsoft IT ",
-    "terms_conditions": "Terms & Conditions"
+    "terms_conditions": "Terms & Conditions",
+    "title": "Register"
   },
   "plans": {
     "choose_plan": "Choose a plan and duration",

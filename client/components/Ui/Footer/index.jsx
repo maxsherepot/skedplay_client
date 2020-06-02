@@ -185,9 +185,9 @@ function Footer({ user }) {
       </Popup>
 
       <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
-        <div className="flex flex-col justify-center text-center md:w-1/2 lg:w-1/3 xl:w-1/4">
-          <ul className="flex items-center justify-around leading-loose text-lg">
-            <li className="w-1/3">
+        <div className="flex flex-col justify-center text-center links-footer__div">
+          <ul className="flex items-center justify-around leading-loose links-footer__div-full text-lg">
+            <li className="mr-8">
               <Link href='/about'>
                 <a className="text-white">
                   {t('layout.about')}
@@ -196,10 +196,10 @@ function Footer({ user }) {
             </li>
             {/* Only odd */}
 
-            <ContactsPopup user={user} onSuccess={onSuccessContacts}/>
+            <ContactsPopup className="mr-8" user={user} onSuccess={onSuccessContacts}/>
             <ContactsCallbackSuccessPopup user={user} open={contactsSuccessOpen} setOpen={setContactsSuccessOpen}/>
 
-            <li className="w-1/3">
+            <li className="">
               <Link href={`/helpcenter`}>
                 <a>
                   {t('layout.help_center')}
@@ -215,7 +215,7 @@ function Footer({ user }) {
           {/*</Button>*/}
           {!user &&
             <Link href="/register">
-              <Button size="xs" className="my-4 sm:w-40" outline>
+              <Button size="xs" className="my-4 px-4 btn-footer__div" outline>
                 {t('layout.join_now')}
               </Button>
             </Link>

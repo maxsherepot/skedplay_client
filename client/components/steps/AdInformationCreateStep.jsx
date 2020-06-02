@@ -6,6 +6,8 @@ import {useTranslation} from "react-i18next";
 import {GET_RACE_TYPES} from "queries/employeeQuery";
 import translation from "services/translation";
 import LangSelector from "components/ad/LangSelector";
+import {GET_CLUB} from "queries/clubQuery";
+import {useRouter} from "next/router";
 
 const AdInformationCreateStep = () => {
   const {t, i18n} = useTranslation();
@@ -15,12 +17,18 @@ const AdInformationCreateStep = () => {
   );
 
   const {data: {employee_race_types: raceTypes} = {}, racesTypeLoading} = useQuery(GET_RACE_TYPES);
+  const {query: {cid}} = useRouter();
+  const {data: {club} = {}, clubLoading} = useQuery(GET_CLUB, {
+        variables: {
+            id: cid
+        }
+  });
 
   const {loading: citiesLoading, data: {cities} = {}} = useQuery(
     CITIES
   );
 
-  if (citiesLoading || racesTypeLoading) {
+  if (citiesLoading || racesTypeLoading || clubLoading) {
     return <Loader/>;
   }
 
@@ -124,7 +132,9 @@ const AdInformationCreateStep = () => {
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
-          <LocationSearchInput/>
+          <LocationSearchInput
+              initAddress={club.address}
+          />
 
           <TextField
             className="w-1/2 md:w-1/6 px-2"
@@ -149,7 +159,8 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('clubs.phone_exampl')}
             name="phone"
-            placeholder="+41 79"
+            defaultValue={club.phones.slice( 2,17)}
+            placeholder={club.phones.slice(2,17)}
           />
 
           <TextField
@@ -157,6 +168,7 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('clubs.mail')}
             name="email"
+            value={club.email}
           />
 
           <TextField
@@ -165,6 +177,7 @@ const AdInformationCreateStep = () => {
             label={t('layout.webpage')}
             name="website"
             placeholder="www.example.com"
+            value={club.website}
           />
         </div>
       </div>

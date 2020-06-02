@@ -7,6 +7,7 @@ import { CONTACT_PHONES, CREATE_CONTACT_REQUEST } from "queries";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {Loader, TextField, TextAreaField, Button} from 'UI';
 import Captcha from "components/Captcha";
+import cx from "classnames";
 
 const Phones = () => {
   const { loading, data: { contactPhones } = {} } = useQuery(
@@ -34,11 +35,11 @@ const Phones = () => {
   );
 };
 
-const ContactsPopup = ({user, trigger, title, onSuccess}) => {
+const ContactsPopup = ({user, trigger, title, onSuccess, className}) => {
   const { t, i18n } = useTranslation();
 
   const defaultTrigger = (
-    <li className="w-1/3 cursor-pointer">
+    <li className={cx(className, "cursor-pointer")}>
       {t('layout.contacts')}
     </li>
   );

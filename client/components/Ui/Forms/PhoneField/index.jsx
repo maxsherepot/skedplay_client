@@ -17,11 +17,12 @@ function PhoneField({
   width,
   before,
   after,
+  defaultValue,
   ...rest
 }) {
   const { touched, errors, values } = useFormikContext();
 
-  const initialValue = dot.pick(name, values) || values[name];
+  const initialValue = defaultValue || dot.pick(name, values) || values[name];
 
   const error = formErrors.getErrorText(name, label, touched, errors);
 
