@@ -219,7 +219,14 @@ export default {
   },
   getClubsFilters(cantons, cities, club_types, isGeolocationEnabled, t) {
     let fields =  [
-      ...this.getLocationFilters(cantons, cities, t),
+      ...this.getLocationFilters(cantons, cities, t)
+    ];
+
+    if (isGeolocationEnabled) {
+      fields.push(this.getDistanceFilter(t));
+    }
+
+    fields.push(
       {
         component: "multi-select",
         showCheckboxes: true,
@@ -230,11 +237,7 @@ export default {
           return {label: s.name, value: s.id};
         })
       },
-    ];
-
-    if (isGeolocationEnabled) {
-      fields.push(this.getDistanceFilter(t));
-    }
+    );
 
     return fields;
   },
