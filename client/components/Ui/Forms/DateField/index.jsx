@@ -2,11 +2,8 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { Field, useFormikContext } from "formik";
-
 import { FormGroup, Dropdown } from "UI";
-
 import formErrors from "services/formErrors";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
