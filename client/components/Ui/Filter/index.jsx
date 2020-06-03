@@ -14,6 +14,8 @@ import {
 
 import cx from 'classnames';
 import {useTranslation} from "react-i18next";
+import DateField from "UI/Forms/DateField";
+import React from "react";
 
 function Filter({ name, header, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
 
@@ -120,6 +122,16 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                             </div>
                           );
 
+                        case "dateField":
+                          return (
+                            <div>
+                              <DateField
+                                  className=""
+                                  {...rest}
+                                  labelClassName="text-white"
+                              />
+                            </div>
+                          );
                         default:
                           break;
                       }

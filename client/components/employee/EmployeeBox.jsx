@@ -44,15 +44,21 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
       href: `/${girlType}`,
       label: translation.getLangField(page.header, i18n.language)
     },
+    employee.city && employee.canton ?
     {
       as: `/${girlType}/${slug(employee.city.canton.name)}`,
       href: `/${girlType}/canton?&canton=${slug(employee.city.canton.name)}`,
       label: employee.city.canton.name
-    },
-      ...cityFilter,
+    } : {},
+    ...cityFilter,
+    employee.city && employee.canton ?
     {
       as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/information`,
       href: `/${girlType}/canton/city/id/information?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+      label: employee.name
+    } : {
+      as: `/employees/${employee.id}/information`,
+      href: `/employees/id/information?id=${employee.id}`,
       label: employee.name
     },
   ];
@@ -63,7 +69,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const getHref = (page) => {
     if (!employee.city || !employee.city.canton) {
-      return `/employees/id/information?id=${employee.id}`;
+      return `/employees/id/${page}?id=${employee.id}`;
     }
 
     return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`;
@@ -71,7 +77,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const getAs = (page) => {
     if (!employee.city || !employee.city.canton) {
-      return `/employees/${employee.id}/information`;
+      return `/employees/${employee.id}/${page}`;
     }
 
     return `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/${page}`;

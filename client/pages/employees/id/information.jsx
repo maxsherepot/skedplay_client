@@ -73,7 +73,7 @@ const EmployeeInformation = ({ user }) => {
     return <Loader/>;
   }
 
-  if (!canton || !city || !employee || employee.user_status === 2 || employee.status === 2) {
+  if (!employee || employee.user_status === 2 || employee.status === 2) {
     const err = new Error();
     err.code = 'ENOENT';
     throw err;
@@ -89,7 +89,29 @@ const EmployeeInformation = ({ user }) => {
     ? 'girls'
     : 'trans';
 
-  const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}${girlType}/${canton}/${city}/${employee.id}/information/`;
+  const canonical = () => {
+    if (!city || !canton) {
+      return `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}employees/${employee.id}/information/`;
+    }
+
+    return `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}${girlType}/${canton}/${city}/${employee.id}/information/`;
+  };
+
+  const getHref = (page) => {
+    if (!city || !canton) {
+      return `/employees/id/${page}?id=${employee.id}`;
+    }
+
+    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`;
+  };
+
+  const getAs = (page) => {
+    if (!city || !canton) {
+      return `/employees/${employee.id}/${page}`;
+    }
+
+    return `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/${page}`;
+  };
 
   const handleLightboxClick = index => {
     setLightboxIndex(index);
@@ -311,8 +333,8 @@ const EmployeeInformation = ({ user }) => {
                     {t('employees.nachste_event')}
                   </div>
                   <Link
-                    href={`/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-                    as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+                    href={getHref('events')}
+                    as={getAs('events')}
                   >
                     <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
                       <ArrowNextSvg>

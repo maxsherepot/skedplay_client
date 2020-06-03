@@ -58,7 +58,7 @@ const Breadcrubms = ({items}) => {
 
               <meta itemProp="position" content={i + 1}/>
 
-              {!lastItem &&
+              {!lastItem && item.href &&
                 <span className="separator mx-2 text-grey">
                   &nbsp;/&nbsp;
                 </span>

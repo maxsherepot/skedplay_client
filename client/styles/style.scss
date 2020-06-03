@@ -331,6 +331,9 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    @screen md {
+      justify-content: start;
+    }
   }
 
   .msg-verify__div {
