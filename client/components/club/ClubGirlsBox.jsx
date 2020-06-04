@@ -122,7 +122,7 @@ const ClubGirlsBox = ({ employees, club }) => {
           <div
             key={employee.id}
             // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
-            className="px-2"
+            className="md:px-2 sm:px-0"
           >
             <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
           </div>

@@ -113,7 +113,7 @@ function EventCard({
   return (
     <div
       className={cx(
-        "relative overflow-hidden mb-6 px-3 rounded-t-lg",
+        "relative overflow-hidden mb-6 md:px-3 sm:px-0 rounded-t-lg",
         className
       )}
       key={id}

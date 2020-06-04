@@ -185,7 +185,7 @@ function GirlCard({
 
   return (
     <div className={cx(
-        profileCard ? 'girl_card-club' :'girls__item',
+        profileCard ? 'girl_card-club' :'girls__item w-full',
       "bg-white border border-white",
       girl.isVip ? "border border-red" : "",
       sized ? "sized" : "",
@@ -210,7 +210,7 @@ function GirlCard({
       ) : (
         <Slick
           className={cx(
-              profileCard ? 'w-full lg:h-photo-lg' : 'lg:h-photo-lg',
+              'lg:h-photo-lg w-full',
               slickClass
           )}
           id={girl.id}

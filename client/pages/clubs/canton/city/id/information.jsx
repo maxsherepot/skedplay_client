@@ -232,7 +232,7 @@ const ClubInformation = ({user}) => {
   const contentColumn = (
     <>
       <div className="flex flex-wrap -mx-3">
-        <div className="w-full sm:w-8/12 lg:w-9/12 px-3 lg:h-64">
+        <div className="w-full sm:w-8/12 lg:w-9/12 md:px-3 sm:px-0 lg:h-64">
           <div className="flex text-2xl font-extrabold my-5">{t('employees.description')}</div>
 
           <div className="flex flex-col lg:flex-row flex-wrap bg-white rounded-t-lg">
@@ -255,7 +255,7 @@ const ClubInformation = ({user}) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap p-4 -mx-3">
+      <div className="flex flex-wrap md:p-4 sm:p-0 -mx-3">
         <div className="w-full md:w-8/12 lg:w-9/12 px-3">
           <ClubGirlsBox employees={club.employees} club={club}/>
         </div>
@@ -288,7 +288,7 @@ const ClubInformation = ({user}) => {
       </div>
 
       <div className="flex flex-wrap -mx-3">
-        <div className="w-full hd:w-9/12 px-3">
+        <div className="w-full hd:w-9/12 md:px-3 sm:px-0">
           <div className="flex flex-col hd:flex-row -mx-3">
             <div className="w-full hd:w-1/2 px-3">
               <div className="text-2xl font-extrabold mb-5">{t('clubs.photos')}</div>

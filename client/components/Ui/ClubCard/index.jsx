@@ -81,7 +81,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
   return (
     <div
       className={cx([
-        "relative overflow-hidden mb-6 px-3 rounded-t-lg",
+        "relative overflow-hidden mb-6 md:px-3 sm:px-0 rounded-t-lg",
         gridClasses ? "w-full md:w-1/2 lg:w-1/3 hd:w-1/4" : "",
       ])}
       key={id}

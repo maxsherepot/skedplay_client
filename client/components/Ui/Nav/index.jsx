@@ -119,11 +119,11 @@ function Nav({ user, className }) {
   const isInverse = currentY < prevY && isYMoreNavHeight;
 
   const handleToggleNav = () => {
-    if (!nav) {
-      document.querySelector("body").classList.add("fixed");
-    } else {
-      document.querySelector("body").classList.remove("fixed");
-    }
+    // if (!nav) {
+    //   document.querySelector("body").classList.add("fixed");
+    // } else {
+    //   document.querySelector("body").classList.remove("fixed");
+    // }
 
     toggleNav(!nav);
   };
@@ -326,27 +326,27 @@ function Nav({ user, className }) {
       >
         <div className="container">
           <ul>
-            <li>
+            <li onClick={handleToggleNav}>
               <Link href="/girls">
                 <a>{t('common.girls')}</a>
               </Link>
             </li>
-            <li>
+            <li onClick={handleToggleNav}>
               <Link href="/trans">
                 <a>{t('common.trans')}</a>
               </Link>
             </li>
-            <li>
+            <li onClick={handleToggleNav}>
               <Link href="/clubs">
                 <a>{t('common.clubs')}</a>
               </Link>
             </li>
-            <li>
+            <li onClick={handleToggleNav}>
               <Link href="/events">
                 <a>{t('common.events')}</a>
               </Link>
             </li>
-            <li>
+            <li onClick={handleToggleNav}>
               <Link href="/vip-escort">
                 <a>{t('common.vip')}</a>
               </Link>
@@ -355,38 +355,38 @@ function Nav({ user, className }) {
           {(user && user.is_club_owner) &&
             <Link href="/clubs/add">
               <a>
-                <Button className="w-full text-2xl mt-1">{t('common.add_new_club')}</Button>
+                <Button className="w-full text-2xl mt-1" onClick={handleToggleNav}>{t('common.add_new_club')}</Button>
               </a>
             </Link>
           }
           {(user && user.is_employee && !user.employee) &&
             <Link href="/girls/add">
               <a>
-                <Button className="w-full text-2xl mt-1">{t('common.add_new_ad')}</Button>
+                <Button className="w-full text-2xl mt-1" onClick={handleToggleNav}>{t('common.add_new_ad')}</Button>
               </a>
             </Link>
           }
           {(user && user.is_employee && user.employee) &&
             <Link href="/account/ad">
               <a>
-                <Button className="w-full text-2xl mt-1">{t('layout.edit_ad')}</Button>
+                <Button className="w-full text-2xl mt-1" onClick={handleToggleNav}>{t('layout.edit_ad')}</Button>
               </a>
             </Link>
           }
           {user ? (
-            <Link href="/profile/[id]" as={`/profile/${user.id}`}>
+            <Link href="/account" as={`/account`} onClick={handleToggleNav}>
               <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                 {t('common.my_account')}
               </a>
             </Link>
           ) : (
             <>
-              <Link href="/login">
+              <Link href="/login" onClick={handleToggleNav}>
                 <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                   {t('common.login')}
                 </a>
               </Link>
-              <Link href="/register">
+              <Link href="/register" onClick={handleToggleNav}>
                 <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                   {t('common.sign_up')}
                 </a>
