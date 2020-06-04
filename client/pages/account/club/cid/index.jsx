@@ -23,7 +23,7 @@ const GirlRow = ({ employee, soon, active }) => {
                       <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full" />
                     )}
                     <div className="flex items-center">
-                        {/*05.06-07.06*/}
+                        05.06-07.06
                         {soon && (
                           <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
                               {t('common.coming_soon')}

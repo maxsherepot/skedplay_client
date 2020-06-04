@@ -143,6 +143,10 @@ function Footer({ user }) {
     Centrifugo.init().then(centrifuge => {
       const channel = 'user_status:' + user.id;
 
+      if (!centrifuge) {
+        return;
+      }
+
       if (centrifuge.getSub(channel)) {
         return;
       }

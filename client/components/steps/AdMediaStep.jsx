@@ -56,7 +56,7 @@ const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChan
           label=""
           accept="video/mp4,video/x-m4v,video/*"
           initialValues={videos}
-          submitOnChange={true}
+          submitOnChange={submitOnChange}
         >
           <div className="border border-light-grey border-dashed rounded-lg px-24 md:px-32 py-10 md:py-21">
             <div className="flex flex-col items-center">
