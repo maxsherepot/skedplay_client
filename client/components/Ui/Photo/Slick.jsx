@@ -136,7 +136,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 {images.map((image, i) => (
                   <div className="pr-1 outline-none" key={i}>
                     <LazyLoadImage
-                      className="object-cover rounded-lg h-15 outline-none cursor-pointer"
+                      className="object-cover rounded-lg h-15 outline-none cursor-pointer border border-white hover:border-red"
                       alt={``}
                       src={image}
                       onMouseEnter={() => slider1.slickGoTo(i)}

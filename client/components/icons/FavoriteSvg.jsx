@@ -11,14 +11,13 @@ const FavoriteSvg = ({ active, large, small, iconWidth, iconHeight }) => {
     sizeClass = "w-15 h-15";
   } else if (small) {
     sizeClass = "w-7 h-7";
-    className += " mt-1";
   } else {
     sizeClass = "w-10 h-10";
   }
 
   const btnClassName = cx(
     sizeClass,
-    "flex justify-center content-center rounded-full bg-white focus:outline-none"
+    "flex items-center justify-center rounded-full bg-white focus:outline-none"
   );
 
   return (

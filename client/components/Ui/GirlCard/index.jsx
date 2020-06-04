@@ -115,16 +115,16 @@ function GirlCard({
                   {girl.phone}
                 </div>
               }
-              <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
+              <button className="flex items-center justify-center rounded-full bg-xs-grey w-7 h-7">
                 <MessageSvg />
               </button>
             </div>
           </div>
           <div className="flex flex-wrap items-end justify-end flex-row show-on-hover">
-            <button className="flex justify-center content-center rounded-full bg-xs-grey w-7 h-7">
+            <button className="flex items-center justify-center rounded-full bg-xs-grey w-7 h-7">
               <CocktailSvg />
             </button>
-            <button className="flex justify-center content-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
+            <button className="flex items-center justify-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
               <span className="text-white font-bold text-2xs">100%</span>
             </button>
           </div>
