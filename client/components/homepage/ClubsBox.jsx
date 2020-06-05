@@ -86,9 +86,17 @@ function ClubsBox() {
           {
             breakpoint: 1320,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 3,
               // slidesToScroll: 2,
               dots: true,
+            }
+          },
+          {
+            breakpoint: 1001,
+            settings: {
+                slidesToShow: 2,
+                // slidesToScroll: 2,
+                dots: true,
             }
           },
           {

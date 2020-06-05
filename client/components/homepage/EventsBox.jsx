@@ -59,7 +59,7 @@ function EventsBox() {
   }
 
   return (
-    <div className="relative md:mt-2 xl:flex xl:self-end xl:mb-6 xl:mt-2 xl:flex-col xl:ml-10 hd:ml-42">
+    <div className="relative md:mt-2 lg:flex lg:self-end lg:mb-6 lg:mt-2 lg:flex-col lg:ml-10 hd:ml-42">
       <div className="flex text-white items-end leading-none">
         <div className="text-4xl font-extrabold tracking-tighter">
           {t('index.fresh_events')}

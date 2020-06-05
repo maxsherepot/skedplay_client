@@ -245,8 +245,8 @@ function GirlCard({
 
 GirlCard.defaultProps = {
   previewClass:
-    "object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg xl:h-e-photo-xl hd:h-e-photo-hd",
-  slickClass: "h-photo sm:h-photo-sm md:h-photo-md hd:h-photo-hd lg:h-photo-lg",
+    "object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-md xl:h-e-photo-xl hd:h-e-photo-hd",
+  slickClass: "h-photo sm:h-photo-sm md:h-photo-md hd:h-photo-hd lg:h-photo-md",
   preview: false,
   available: false,
   labels: true,

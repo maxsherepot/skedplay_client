@@ -30,9 +30,9 @@ const EventsContainer = () => {
 
   return (
     <div className="container mx-auto relative z-10 overflow-hidden">
-      <div className="flex flex-col xl:flex-row">
-        <div className="flex flex-col md:flex-row xl:flex-col">
-          <div className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 xl:pl-0 xl:pt-1">
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col md:flex-row lg:flex-col">
+          <div className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
               className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
@@ -47,9 +47,9 @@ const EventsContainer = () => {
             </div>
           </div>
           <div
-            className="flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:ml-24 xl:flex-row xl:justify-start xl:ml-0 xl:mt-3">
+            className="flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:flex-row lg:justify-start lh:ml-0 lg:mt-3">
             <div
-              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/girls">
                 <div className="block text-white font-extrabold text-2xl">
                   11 243
@@ -61,7 +61,7 @@ const EventsContainer = () => {
               </a>
             </div>
             <div
-              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/clubs">
                 <div className="block text-white font-extrabold text-2xl">
                   350
@@ -73,7 +73,7 @@ const EventsContainer = () => {
               </a>
             </div>
             <div
-              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full xl:w-auto xl:flex-initial xl:mr-16 hover:cursor-pointer">
+              className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/events">
                 <div className="block text-white font-extrabold text-2xl">23</div>
                 <div className="flex text-white text-xl">

@@ -48,15 +48,16 @@ const HoveredComponent = ({children}) => {
   );
 };
 
-const HoveredIcon = ({icon, text}) => {
+const HoveredIcon = ({icon, text, className}) => {
   const Icon = icon;
 
   return (
     <HoveredComponent>
       {({hovered}) => {
         return (
-          <div className="flex flex-col items-center justify-center">
-            <div style={{height: !!text ? '33px' : 'inherit'}} className="flex items-center justify-center">
+          <div className={cx("flex flex-col items-center justify-center", className)}>
+            <div style={{height: !!text ? '33px' : 'inherit'}}
+                 className="flex items-center justify-center">
               <Icon color={hovered ? '#FF3366' : '#909090'}/>
             </div>
 
@@ -90,7 +91,7 @@ const FooterLeftIcons = () => {
           key={i}
           className={cx(
             "block ",
-            i === 0 ? "xl:mr-5" : "xl:mx-5",
+            i === 0 ? "lg:mr-5" : "lg:mx-5",
           )}
           target="_blank"
         >
@@ -113,7 +114,7 @@ const FooterRightIcons = () => {
   return (
     <>
       {icons.map((icon, i) => (
-        <HoveredIcon key={i} icon={icon.icon} text={icon.text}/>
+        <HoveredIcon key={i} icon={icon.icon} text={icon.text} className="mr-2"/>
       ))}
     </>
   );
@@ -229,14 +230,14 @@ function Footer({ user }) {
 
       <div className="border-dark-grey border-b"/>
 
-      <div className="container">
+      <div className="w-full pl-10 pr-10">
         <div className="container without-p w-full md:max-w-3/4 flex flex-col justify-between items-center lg:flex-row lg:max-w-full">
 
-          <div className="w-full xl:w-1/4 flex justify-around xl:justify-start items-end my-6">
+          <div className="w-full lg:w-1/4 flex justify-around lg:justify-start items-end my-6">
             <FooterLeftIcons/>
           </div>
 
-          <div className="w-full xl:w-2/4 my-11 mt-2 inline-block h-full text-center">
+          <div className="w-full lg:w-2/4 my-11 mt-2 inline-block h-full text-center">
             <div className="text-grey text-sm">
               {t('layout.copyright')} {dateYear} {t('layout.all_rights_reserved')}
             </div>
@@ -251,7 +252,7 @@ function Footer({ user }) {
             </div>
           </div>
 
-          <div className="w-full xl:w-1/4 my-6 inline-block flex justify-around">
+          <div className="w-full lg:w-1/4 my-6 inline-block flex justify-around">
             <FooterRightIcons/>
           </div>
         </div>
