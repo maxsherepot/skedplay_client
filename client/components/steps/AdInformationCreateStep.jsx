@@ -133,7 +133,7 @@ const AdInformationCreateStep = () => {
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           <LocationSearchInput
-              initAddress={club.address}
+              initAddress={club && club.address || ''}
           />
 
           <TextField
@@ -159,8 +159,8 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('clubs.phone_exampl')}
             name="phone"
-            defaultValue={club.phones.slice( 2,17)}
-            placeholder={club.phones.slice(2,17)}
+            defaultValue={club && club.phones.slice(2,17) || ''}
+            placeholder={club && club.phones.slice(2,17) || ''}
           />
 
           <TextField
@@ -168,7 +168,7 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('clubs.mail')}
             name="email"
-            value={club.email}
+            value={club && club.email || ''}
           />
 
           <TextField
@@ -177,7 +177,7 @@ const AdInformationCreateStep = () => {
             label={t('layout.webpage')}
             name="website"
             placeholder="www.example.com"
-            value={club.website}
+            value={club && club.website || ''}
           />
         </div>
       </div>
