@@ -20,7 +20,7 @@ const LangSelector = () => {
 
   const RatingField = ({ name }) => {
     const { values, setFieldValue } = useFormikContext();
-    const value = dot.pick(name, values) || values[name] || 0;
+    const value = dot.pick(name, values) || values[name] || 1;
 
     const setStars = (stars) => {
       setFieldValue(name, stars);
@@ -75,6 +75,10 @@ const LangSelector = () => {
     arrayHelpers.push("");
   };
 
+  const checkLang = (id) => {
+    return id > 2;
+  };
+
   return (
     <div className="flex flex-wrap items-center -mx-4">
       <label className="text-grey ml-2 mb-3">Language</label>
@@ -89,7 +93,7 @@ const LangSelector = () => {
                   label=""
                   placeholder=""
                   name={`languages.${index}.code`}
-                  options={languages}
+                  options={languages.every(checkLang)}
                 />
 
                 <RatingField name={`languages.${index}.stars`}/>
