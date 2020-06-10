@@ -22,4 +22,5 @@ input ServiceInput {
 
 extend type Query {
     services: [Service!]! @all
+    groupServices: [GroupService!]! @all
 }

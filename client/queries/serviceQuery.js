@@ -15,16 +15,25 @@ export const GIRLS_FILTER_OPTIONS = gql`
 `;
 
 export const GET_SERVICES = gql`
-  query services {
-    services {
-      id
-      name
-      group {
-          id 
-          name
-      }
+    query services {
+        services {
+            id
+            name
+            group {
+                id
+                name
+            }
+        }
     }
-  }
+`;
+
+export const GET_GROUP_SERVICES = gql`
+    query groupServices {
+        groupServices {
+            id
+            name
+        }
+    }
 `;
 
 export const EVENTS_FILTER_OPTIONS = gql`
