@@ -277,7 +277,7 @@ const EmployeeInformation = ({ user }) => {
     <>
       <NextSeo
         title={employee.name}
-        canonical={canonical}
+        canonical={canonical()}
       />
 
       <EmployeeBox employee={employee} user={user} employees={employees} showNavLinks={user || !employee.isVip}>
