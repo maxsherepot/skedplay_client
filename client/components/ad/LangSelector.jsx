@@ -75,10 +75,6 @@ const LangSelector = () => {
     arrayHelpers.push("");
   };
 
-  const checkLang = (id) => {
-    return id > 2;
-  };
-
   return (
     <div className="flex flex-wrap items-center -mx-4">
       <label className="text-grey ml-2 mb-3">Language</label>
