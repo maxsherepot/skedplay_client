@@ -93,7 +93,7 @@ const LangSelector = () => {
                   label=""
                   placeholder=""
                   name={`languages.${index}.code`}
-                  options={languages.every(checkLang)}
+                  options={languages}
                 />
 
                 <RatingField name={`languages.${index}.stars`}/>
