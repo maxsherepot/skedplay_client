@@ -93,18 +93,24 @@ class SitemapController extends Controller
                 ? 'girls'
                 : 'trans';
 
-            $canton = Str::slug($employee->city->canton->name);
-            $city = Str::slug($employee->city->name);
-
             $employeePages = [
                 'information',
                 'reviews',
                 'events',
             ];
 
+            if (!$employee->city) {
+                $urlPrefix = "/employees/$employee->id";
+            } else {
+                $canton = Str::slug($employee->city->canton->name);
+                $city = Str::slug($employee->city->name);
+
+                $urlPrefix = "/$employeeType/$canton/$city/$employee->id";
+            }
+
             foreach ($employeePages as $employeePage) {
                 $sitemap->add(
-                    $this->url("/$employeeType/$canton/$city/$employee->id/$employeePage", $langPrefix),
+                    $this->url("$urlPrefix/$employeePage", $langPrefix),
                     now()->toIso8601String(),
                     '1.0',
                     'daily'
@@ -117,7 +123,7 @@ class SitemapController extends Controller
                 }
 
                 $sitemap->add(
-                    $this->url("/$employeeType/$canton/$city/$employee->id/events/$event->id", $langPrefix),
+                    $this->url("$urlPrefix/events/$event->id", $langPrefix),
                     now()->toIso8601String(),
                     '1.0',
                     'daily'
