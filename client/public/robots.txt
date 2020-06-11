@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /*.css
+Allow: /*.js
+Disallow: *?role=
+Disallow: /register
+Disallow: *?utm=
+Disallow: /register
+
+Sitemap: https://skedplay.ch/sitemap.xml
