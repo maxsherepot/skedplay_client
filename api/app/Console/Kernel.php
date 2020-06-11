@@ -13,6 +13,7 @@ use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\ExportTranslates;
 use Modules\Main\Console\GenerateEntitiesAddresses;
 use Modules\Main\Console\InitPages;
+use Modules\Main\Console\InitPatterns;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
 use Modules\Users\Console\AddAdminMessageToChats;
@@ -39,6 +40,7 @@ class Kernel extends ConsoleKernel
         InitPages::class,
         CreatePossibleClub::class,
         ImportFakeEmployees::class,
+        InitPatterns::class,
     ];
 
     /**

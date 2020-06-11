@@ -1,5 +1,31 @@
 import gql from "graphql-tag";
 
+export const EVENTS_PAGE_DATA = gql`
+    query eventsPageData($key: String!) {
+        page(key: $key) {
+            id
+            key
+            title
+            header
+            description
+            keywords
+        }
+        cantons {
+            id
+            name
+        }
+        cities {
+            id
+            name
+            canton_id
+        }
+        event_types {
+            id
+            name
+        }
+    }
+`;
+
 export const ALL_EVENTS = gql`
     query allEvents($first: Int!, $page: Int!, $filters: EventFilters) {
         events(first: $first, page: $page, filters: $filters) {

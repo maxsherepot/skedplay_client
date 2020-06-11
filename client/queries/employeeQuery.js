@@ -1,5 +1,35 @@
 import gql from "graphql-tag";
 
+export const EMPLOYEES_PAGE_DATA = gql`
+    query employesPageData($key: String!) {
+        page(key: $key) {
+            id
+            key
+            title
+            header
+            description
+            keywords
+        }
+        cantons {
+            id
+            name
+        }
+        cities {
+            id
+            name
+            canton_id
+        }
+        services {
+            id
+            name
+        }
+        employee_race_types {
+            id
+            name
+        }
+    }
+`;
+
 export const ALL_EMPLOYEES = gql `
   query allEmployees($first: Int!, $page: Int!, $filters: EmployeeFilters) {
     employees(first: $first, page: $page, filters: $filters) {

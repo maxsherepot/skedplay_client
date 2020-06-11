@@ -3,12 +3,15 @@
 namespace App\Providers;
 
 use App\Nova\Club;
+use App\Nova\ClubPattern;
 use App\Nova\ClubType;
 use App\Nova\ContactPhone;
 use App\Nova\ContactRequest;
 use App\Nova\Employee;
 use App\Nova\EmployeeComplaint;
 use App\Nova\EmployeeComplaintTheme;
+use App\Nova\EventPattern;
+use App\Nova\GirlPattern;
 use App\Nova\Event;
 use App\Nova\EventType;
 use App\Nova\GroupService;
@@ -23,10 +26,12 @@ use App\Nova\Race;
 use App\Nova\Role;
 use App\Nova\RoleUser;
 use App\Nova\Service;
+use App\Nova\TransPattern;
 use App\Nova\UiTranslate;
 use App\Nova\User;
 use App\Nova\Verification;
 use App\Nova\Video;
+use App\Nova\VipPattern;
 use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Nova;
@@ -154,6 +159,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             EmployeeComplaint::class,
 
             Page::class,
+            GirlPattern::class,
+            TransPattern::class,
+            VipPattern::class,
+            ClubPattern::class,
+            EventPattern::class,
 
             HelpCenterCategory::class,
             HelpCenterTopic::class,

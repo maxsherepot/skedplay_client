@@ -1,5 +1,31 @@
 import gql from "graphql-tag";
 
+export const CLUBS_PAGE_DATA = gql`
+    query clubsPageData($key: String!) {
+        page(key: $key) {
+            id
+            key
+            title
+            header
+            description
+            keywords
+        }
+        cantons {
+            id
+            name
+        }
+        cities {
+            id
+            name
+            canton_id
+        }
+        club_types {
+            id
+            name
+        }
+    }
+`;
+
 export const ALL_CLUBS = gql`
   query allClubs($first: Int!, $page: Int!, $filters: ClubFilters) {
     clubs(first: $first, page: $page, filters: $filters) {

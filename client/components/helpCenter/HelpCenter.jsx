@@ -148,7 +148,11 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
             || translation.getLangField(selectedTopic.name, i18n.language)
           }
           description={translation.getLangField(selectedTopic.description, i18n.language)}
-          keywords={translation.getLangField(selectedTopic.keywords, i18n.language)}
+
+          additionalMetaTags={[{
+            name: 'keywords',
+            content: translation.getLangField(selectedTopic.keywords, i18n.language)
+          }]}
         />
       }
 

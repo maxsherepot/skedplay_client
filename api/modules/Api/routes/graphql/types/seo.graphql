@@ -1,0 +1,32 @@
+type Seo {
+#    id: Int!
+    h1: String
+    title: String
+    description: String
+    keywords: String
+}
+
+input EmployeeSeoInput {
+    canton: String
+    city: String
+    services: [String]
+    employee_type: String!
+}
+
+input ClubSeoInput {
+    canton: String
+    city: String
+    types: [String]
+}
+
+input EventSeoInput {
+    canton: String
+    city: String
+    types: [String]
+}
+
+extend type Query {
+    employeesSeo(input: EmployeeSeoInput): Seo! @router(action: "Modules\\Main\\Http\\Controllers\\SeoController@employees")
+    clubsSeo(input: ClubSeoInput): Seo! @router(action: "Modules\\Main\\Http\\Controllers\\SeoController@clubs")
+    eventsSeo(input: EventSeoInput): Seo! @router(action: "Modules\\Main\\Http\\Controllers\\SeoController@events")
+}
