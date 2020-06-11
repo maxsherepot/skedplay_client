@@ -28,11 +28,16 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Events\Entities\EventType::class               => \Modules\Events\Policies\EventTypePolicy::class,
         \Modules\Common\Entities\GroupService::class            => \Modules\Common\Policies\GroupServicePolicy::class,
         \Modules\Employees\Entities\EmployeeRaceType::class     => \Modules\Employees\Policies\EmployeeRaceTypePolicy::class,
-        \Modules\Employees\Entities\EmployeeComplaint::class     => \Modules\Employees\Policies\EmployeeComplaintPolicy::class,
+        \Modules\Employees\Entities\EmployeeComplaint::class    => \Modules\Employees\Policies\EmployeeComplaintPolicy::class,
         \Modules\Common\Entities\ContactPhone::class            => \Modules\Common\Policies\ContactPhonePolicy::class,
         \Modules\Main\Entities\Page::class                      => \Modules\Main\Policies\PagePolicy::class,
         \Modules\Common\Entities\HelpCenterCategory::class      => \Modules\Common\Policies\HelpCenterCategoryPolicy::class,
         \Modules\Common\Entities\HelpCenterTopic::class         => \Modules\Common\Policies\HelpCenterTopicPolicy::class,
+        \Modules\Employees\Entities\GirlPattern::class          => \Modules\Employees\Policies\EmployeePatternPolicy::class,
+        \Modules\Employees\Entities\TransPattern::class         => \Modules\Employees\Policies\EmployeePatternPolicy::class,
+        \Modules\Employees\Entities\VipPattern::class           => \Modules\Employees\Policies\EmployeePatternPolicy::class,
+        \Modules\Clubs\Entities\ClubPattern::class              => \Modules\Clubs\Policies\ClubPatternPolicy::class,
+        \Modules\Events\Entities\EventPattern::class            => \Modules\Clubs\Policies\ClubPatternPolicy::class,
 
         Media::class                                            => \Modules\Main\Policies\MediaPolicy::class,
     ];

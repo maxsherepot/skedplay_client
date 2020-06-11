@@ -1,6 +1,6 @@
 import EmployeesSearch from "components/EmployeesSearch";
 import {useQuery} from "@apollo/react-hooks";
-import { GET_FILTERS_STATE, GIRLS_FILTER_OPTIONS, CANTONS_AND_CITIES, GET_PAGE } from "queries";
+import { GET_FILTERS_STATE, EMPLOYEES_PAGE_DATA, EMPLOYEES_SEO } from "queries";
 import {useTranslation} from "react-i18next";
 import {Loader} from "UI";
 import { geolocated } from "react-geolocated";
@@ -18,23 +18,29 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
 
   let {query} = useRouter();
 
-  const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
+  const { data: { page, cantons, cities, services, employee_race_types } = {}, loading} = useQuery(EMPLOYEES_PAGE_DATA, {
     variables: {
-      key: entityUrl
+      key: entityUrl,
     }
   });
 
-  const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
-    CANTONS_AND_CITIES
-  );
-
-  const { loading, data: { services, employee_race_types } = {} } = useQuery(
-    GIRLS_FILTER_OPTIONS
-  );
-
   const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
 
-  if (pageLoading || loading || cantonsLoading || filtersLoading) {
+  const { loading: seoLoading, data: { employeesSeo } = {}, refetch: refetchSeo } = useQuery(
+    EMPLOYEES_SEO,
+    {
+      variables: {
+        input: {
+          canton: query.canton || null,
+          city: query.city || null,
+          services: query.services || [],
+          employee_type: entityUrl
+        }
+      }
+    }
+  );
+
+  if (loading || seoLoading || filtersLoading) {
     return <Loader/>;
   }
 
@@ -77,17 +83,38 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
     Router.replace(url, as, {shallow: true});
   };
 
+  const title = entityUrl === 'girls'
+    ? employeesSeo.title || page.title
+    : page.title;
+
+  const description = entityUrl === 'girls'
+    ? employeesSeo.description || page.description
+    : page.description;
+
+  const keywords = entityUrl === 'girls'
+    ? employeesSeo.keywords || page.keywords
+    : page.keywords;
+
+  const header = entityUrl === 'girls'
+    ? employeesSeo.h1 || page.header
+    : page.header;
+
   return (
     <>
       <NextSeo
-        title={translation.getLangField(page.title, i18n.language)}
-        description={translation.getLangField(page.description, i18n.language)}
-        keywords={translation.getLangField(page.keywords, i18n.language)}
+        title={translation.getLangField(title, i18n.language)}
+        description={translation.getLangField(description, i18n.language)}
         canonical={needCanonical ? `${process.env.APP_URL}${canonical}` : null}
+
+        additionalMetaTags={[{
+          name: 'keywords',
+          content: translation.getLangField(keywords, i18n.language)
+        }]}
       />
 
       <EmployeesSearch
-        header={translation.getLangField(page.header, i18n.language)}
+        header={translation.getLangField(header, i18n.language)}
+        rootHeader={translation.getLangField(page.header, i18n.language)}
         entityName={ENTITY_NAME}
         fields={fields}
         initialFilters={initialFilters}

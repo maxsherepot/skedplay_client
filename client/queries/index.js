@@ -24,3 +24,4 @@ export * from "queries/helpCenterCategoryQuery";
 export * from "queries/subscribeClub";
 export * from "queries/pageQuery";
 export * from "queries/employeeComplaintQuery";
+export * from "queries/seoQuery";

@@ -7,7 +7,7 @@ import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
 
-const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters, entityFilterUrl }) => {
+const EntitySearch = ({ rootHeader, header, entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters, entityFilterUrl }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
 
@@ -43,7 +43,7 @@ const EntitySearch = ({ header, entityName, fields, initialFilters, filters, Box
     {
       as: `/${entityName}`,
       href: `/${entityName}`,
-      label: header,
+      label: rootHeader,
       onClick: () => {
         setFiltersState(filterHelpers.filterFilters(initialFilters[entityName]));
       }

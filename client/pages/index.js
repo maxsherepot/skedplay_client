@@ -109,7 +109,11 @@ const Index = ({user}) => {
       <NextSeo
         title={translation.getLangField(page.title, i18n.language)}
         description={translation.getLangField(page.description, i18n.language)}
-        keywords={translation.getLangField(page.keywords, i18n.language)}
+
+        additionalMetaTags={[{
+          name: 'keywords',
+          content: translation.getLangField(page.keywords, i18n.language)
+        }]}
       />
 
       <Header

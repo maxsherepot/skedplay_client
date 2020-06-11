@@ -8,6 +8,11 @@ use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 class GraphQLFormRequest extends BaseFormRequest
 {
+    public function rules()
+    {
+        return [];
+    }
+
     /**
      * Handle a failed validation attempt.
      *

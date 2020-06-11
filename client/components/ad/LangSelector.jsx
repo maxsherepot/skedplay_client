@@ -20,7 +20,7 @@ const LangSelector = () => {
 
   const RatingField = ({ name }) => {
     const { values, setFieldValue } = useFormikContext();
-    const value = dot.pick(name, values) || values[name] || 0;
+    const value = dot.pick(name, values) || values[name] || 1;
 
     const setStars = (stars) => {
       setFieldValue(name, stars);

@@ -4,7 +4,7 @@ import checkLoggedIn from "lib/checkLoggedIn";
 
 import { Loader } from "UI";
 import EventsBox from "components/EventsBox";
-import { GET_FILTERS_STATE, EVENTS_FILTER_OPTIONS, CANTONS_AND_CITIES, ALL_EVENTS, GET_PAGE } from "queries";
+import { GET_FILTERS_STATE, ALL_EVENTS, EVENTS_PAGE_DATA, EVENTS_SEO } from "queries";
 import {useTranslation} from "react-i18next";
 import { geolocated } from "react-geolocated";
 import EntitySearch from "components/EntitySearch";
@@ -22,23 +22,29 @@ function Events({ user, isGeolocationEnabled }) {
   const {t, i18n} = useTranslation();
   let {query} = useRouter();
 
-  const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
+  const { data: { page, cantons, cities, event_types } = {}, loading} = useQuery(EVENTS_PAGE_DATA, {
     variables: {
       key: 'events'
     }
   });
 
+  const { loading: seoLoading, data: { eventsSeo } = {} } = useQuery(
+    EVENTS_SEO,
+    {
+      variables: {
+        input: {
+          canton: query.canton || null,
+          city: query.city || null,
+          types: query.types || [],
+        }
+      }
+    }
+  );
+
   const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
 
-  const { loading, data: { event_types } = {} } = useQuery(
-    EVENTS_FILTER_OPTIONS
-  );
 
-  const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
-    CANTONS_AND_CITIES
-  );
-
-  if (pageLoading || loading || filtersLoading || cantonsLoading) {
+  if (loading || filtersLoading || seoLoading) {
     return <Loader/>;
   }
 
@@ -71,14 +77,19 @@ function Events({ user, isGeolocationEnabled }) {
   return (
     <>
       <NextSeo
-        title={translation.getLangField(page.title, i18n.language)}
-        description={translation.getLangField(page.description, i18n.language)}
-        keywords={translation.getLangField(page.keywords, i18n.language)}
+        title={translation.getLangField(/*eventsSeo.title || */page.title, i18n.language)}
+        description={translation.getLangField(/*eventsSeo.description || */page.description, i18n.language)}
         canonical={needCanonical ? `${process.env.APP_URL}${canonical}` : null}
+
+        additionalMetaTags={[{
+          name: 'keywords',
+          content: translation.getLangField(/*eventsSeo.keywords || */page.keywords, i18n.language)
+        }]}
       />
 
       <EntitySearch
-        header={translation.getLangField(page.header, i18n.language)}
+        header={translation.getLangField(/*eventsSeo.h1 || */page.header, i18n.language)}
+        rootHeader={translation.getLangField(page.header, i18n.language)}
         entityName={ENTITY_NAME}
         fields={fields}
         initialFilters={initialFilters}
