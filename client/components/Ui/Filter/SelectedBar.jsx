@@ -91,6 +91,10 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
       keys[key] = "";
     });
 
+    if (inititalState.show_level) {
+      inititalState.show_level = false;
+    }
+
     setFilters(inititalState);
   };
 
