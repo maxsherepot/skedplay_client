@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 const CreateEventBox = ({ initialValues, onSubmit}) => {
     const router = useRouter();
     const { query: {cid}} = useRouter();
+    const clubId = cid.replace('/', '');
 
     const handleSubmits = async (
         values,
@@ -30,7 +31,7 @@ const CreateEventBox = ({ initialValues, onSubmit}) => {
                         event_type_id: values.event_type_id,
                         price: values.price,
                         photos: values.photos instanceof FileList ? values.photos : [],
-                        club_id: cid,
+                        club_id: clubId,
                     }
                 }
             });
