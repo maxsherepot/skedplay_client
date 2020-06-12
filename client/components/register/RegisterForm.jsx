@@ -23,7 +23,7 @@ function RegisterForm({ onSubmit, children }) {
 
   React.useEffect(() => {
     document.querySelector('.modal__content').style.maxWidth = isLastStep ? '700px' : '410px';
-    document.querySelector('.modal__dialog').style.minWidth = '410px';
+    // document.querySelector('.modal__dialog').style.minWidth = '410px';
     document.querySelector('.animation-arrow-left').style.display = isLastStep ? 'none' : 'inline';
     document.querySelector('.modal__title').style.margin = isLastStep ? 'auto' : '';
   });

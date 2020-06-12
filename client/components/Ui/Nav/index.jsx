@@ -374,20 +374,20 @@ function Nav({ user, className }) {
             </Link>
           }
           {user ? (
-            <Link href="/account" as={`/account`} onClick={handleToggleNav}>
-              <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+            <Link href="/account" as={`/account`}>
+              <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                 {t('common.my_account')}
               </a>
             </Link>
           ) : (
             <>
-              <Link href="/login" onClick={handleToggleNav}>
-                <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+              <Link href="/login">
+                <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                   {t('common.login')}
                 </a>
               </Link>
-              <Link href="/register" onClick={handleToggleNav}>
-                <a className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+              <Link href="/register">
+                <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
                   {t('common.sign_up')}
                 </a>
               </Link>

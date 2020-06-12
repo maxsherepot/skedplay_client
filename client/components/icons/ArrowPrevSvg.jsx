@@ -3,7 +3,7 @@ import cx from "classnames";
 
 export default function ArrowPrevSvg({ className, children, disabled }) {
   return (
-    <div className="animation-arrow-left">
+    <div className="animation-arrow-left flex items-center">
       <svg
         className={cx("inline-block", className, {
           "stroke-light-grey": disabled
