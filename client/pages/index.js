@@ -8,7 +8,7 @@ import ClubsBox from "components/homepage/ClubsBox";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_PAGE} from 'queries';
+import {GET_PAGE, INDEX_PAGE_DATA} from 'queries';
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
 
@@ -25,7 +25,7 @@ const Animation = () => (
   </div>
 );
 
-const EventsContainer = () => {
+const EventsContainer = ({events}) => {
   const {t, i18n} = useTranslation();
 
   return (
@@ -85,7 +85,7 @@ const EventsContainer = () => {
           </div>
         </div>
 
-        <EventsBox/>
+        <EventsBox events={events}/>
       </div>
     </div>
   );
@@ -94,11 +94,7 @@ const EventsContainer = () => {
 const Index = ({user}) => {
   const {t, i18n} = useTranslation();
 
-  const { data: { page } = {}, loading} = useQuery(GET_PAGE, {
-    variables: {
-      key: 'index'
-    }
-  });
+  const { data: { page, events, clubs, employees } = {}, loading} = useQuery(INDEX_PAGE_DATA);
 
   if (loading) {
     return <Loader/>
@@ -119,7 +115,7 @@ const Index = ({user}) => {
       <Header
         user={user}
         animation={<Animation/>}
-        hero={<EventsContainer/>}
+        hero={<EventsContainer events={events}/>}
       />
       <main className="relative z-10 mt-10 xl:mt-12-5">
         <div className="index-bg-bottom"/>
@@ -136,7 +132,7 @@ const Index = ({user}) => {
               </a>
             </Link>
           </div>
-          <GirlsBox/>
+          <GirlsBox employees={employees}/>
 
           <div className="flex text-black items-end leading-none mt-8">
             <div className="text-4xl font-extrabold tracking-tighter">
@@ -150,7 +146,7 @@ const Index = ({user}) => {
               </a>
             </Link>
           </div>
-          <ClubsBox/>
+          <ClubsBox clubs={clubs}/>
         </div>
       </main>
 

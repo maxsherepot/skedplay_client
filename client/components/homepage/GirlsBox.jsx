@@ -1,45 +1,7 @@
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 import { GirlCard, Loader } from "UI";
+import React from "react";
 
-const GET_GIRLS = gql`
-  {
-    employees(first: 15, filters: {status: 1, user_status: 1}) {
-      data {
-        id
-        name
-        age
-        type
-        address
-        isVip
-        isNew
-        inGeneral
-        status
-        user_status
-        soon
-        index
-        city {
-          id
-          name
-          canton {
-            id
-            name
-          }
-        }
-        photos {
-          id
-          thumb_url
-        }
-      }
-    }
-  }
-`;
-
-function GirlsBox() {
-  const { loading, error, data: { employees } = {} } = useQuery(GET_GIRLS);
-
-  if (loading) return <Loader/>;
-  if (error) return <div>{error.message}</div>;
+function GirlsBox({employees}) {
 
   return (
     <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">
