@@ -55,9 +55,9 @@ class UserCard extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('User')->readonly(),
+            BelongsTo::make('User')->rules('required'),
 
-            BelongsTo::make('Ref user', 'refUser', User::class)->readonly(),
+            BelongsTo::make('Ref user', 'refUser', User::class)->nullable(),
 
             Select::make('Card type')
                 ->options(\Modules\Users\Entities\UserCard::CARD_TYPES)
