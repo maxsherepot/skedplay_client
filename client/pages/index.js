@@ -32,7 +32,7 @@ const EventsContainer = () => {
     <div className="container mx-auto relative z-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col md:flex-row lg:flex-col">
-          <div className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
+          <h1 className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
               className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
@@ -45,7 +45,7 @@ const EventsContainer = () => {
               <div className="block company-item__div-name mr-5 md:mr-6">{t('index.of_switzerland')}</div>
               <div className="block company-item__div-ellipse header-red-ellipse md:-mt-1">№1</div>
             </div>
-          </div>
+          </h1>
           <div
             className="flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:flex-row lg:justify-start lh:ml-0 lg:mt-3">
             <div
