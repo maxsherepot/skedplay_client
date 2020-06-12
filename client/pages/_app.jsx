@@ -9,8 +9,8 @@ import slug from 'slug';
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import { NextSeo } from 'next-seo';
-import TagManager from "react-gtm-module";
 import {YMInitializer} from "react-yandex-metrika";
+import Cookies from 'js-cookie';
 
 slug.defaults.mode = 'rfc3986';
 
@@ -60,6 +60,22 @@ const Analytics = () => {
   );
 };
 
+const RefHandler = () => {
+  const {query} = useRouter();
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  if (!query.ref_code) {
+    return null;
+  }
+
+  Cookies.set('ref_code', query.ref_code, { expires: 30 });
+
+  return null;
+};
+
 class MyApp extends App {
   static displayName = "MyApp";
 
@@ -72,6 +88,7 @@ class MyApp extends App {
       return (
         <ApolloProvider client={apolloClient}>
           <LangTags/>
+          <RefHandler/>
 
           {getLayout(<Component {...pageProps} />, pageProps)}
 

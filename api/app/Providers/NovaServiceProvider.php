@@ -29,6 +29,7 @@ use App\Nova\Service;
 use App\Nova\TransPattern;
 use App\Nova\UiTranslate;
 use App\Nova\User;
+use App\Nova\UserCard;
 use App\Nova\Verification;
 use App\Nova\Video;
 use App\Nova\VipPattern;
@@ -132,6 +133,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         Nova::resources([
             User::class,
+            UserCard::class,
             Employee::class,
             Role::class,
             //RoleUser::class,

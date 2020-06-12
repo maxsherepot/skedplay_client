@@ -10,6 +10,7 @@ import { Button, FormGroup, Popup } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/router";
+import Cookies from 'js-cookie';
 
 function RegisterForm({ onSubmit, children }) {
   const {query} = useRouter();
@@ -108,7 +109,8 @@ function RegisterForm({ onSubmit, children }) {
         password: "",
         password_confirmation: "",
         recaptcha: "",
-        code: ""
+        code: "",
+        ref_code: query.ref_code || Cookies.get('ref_code') || '',
       }}
       // validate={validate}
       validationSchema={activeStep.props.validationSchema || {}}

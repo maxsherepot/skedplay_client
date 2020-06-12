@@ -12,14 +12,17 @@ import { getErrors } from "utils";
 import { RegisterForm } from "components/register";
 import { SendCodeStep, CheckCodeStep, RegisterStep } from "components/steps";
 import ym from "react-yandex-metrika";
+import Cookies from "js-cookie";
 
 const RegisterBox = () => {
   const client = useApolloClient();
 
   const onCompleted = data => {
-    document.cookie = cookie.serialize("token", data.register.access_token, {
-      maxAge: 30 * 24 * 60 * 60 // 30 days
-    });
+    // document.cookie = cookie.serialize("token", data.register.access_token, {
+    //   maxAge: 30 * 24 * 60 * 60 // 30 days
+    // });
+
+    Cookies.set('token', data.register.access_token, { expires: 30 });
 
     if (process.env.ANALYTICS_SCRIPTS === 'true') {
       window.dataLayer = window.dataLayer || [];

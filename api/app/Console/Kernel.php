@@ -17,6 +17,7 @@ use Modules\Main\Console\InitPatterns;
 use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
 use Modules\Users\Console\AddAdminMessageToChats;
+use Modules\Users\Console\InitUsersCards;
 use Modules\Users\Console\SetDefaultStatus;
 
 class Kernel extends ConsoleKernel
@@ -41,6 +42,7 @@ class Kernel extends ConsoleKernel
         CreatePossibleClub::class,
         ImportFakeEmployees::class,
         InitPatterns::class,
+        InitUsersCards::class,
     ];
 
     /**
