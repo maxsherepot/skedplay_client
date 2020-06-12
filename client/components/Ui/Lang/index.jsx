@@ -4,14 +4,31 @@ import {Fragment, useState} from "react";
 import React from "react";
 import { Dropdown } from "UI";
 import { i18n } from 'lib/i18n';
+import {useRouter} from "next/router";
 
 function Lang({ mobile, black, className }) {
+  const {asPath} = useRouter();
+
+  const getLangUrl = (lang) => {
+    let path = asPath;
+
+    for (let i in i18n.options.otherLanguages) {
+      path = path.replace(`${i18n.options.otherLanguages[i]}/`, '/');
+    }
+
+    if (lang === 'de' && path === '/') {
+      path = '';
+    }
+
+    return `${process.env.APP_URL}${lang === 'de' ? '' : `/${lang}`}${path}`;
+  };
+
   if (mobile) {
     return (
       <div className="locales">
         {i18n.options.allLanguages.reverse().map((lang, index) => (
           <a
-            href="#"
+            href={getLangUrl(lang)}
             className={cx([
               lang === i18n.language ? "active" : "",
             ])}
@@ -47,7 +64,15 @@ function Lang({ mobile, black, className }) {
       {({close}) => (
         <>
           {i18n.options.allLanguages.reverse().map((lang, index) => (
-            <Fragment key={index}>
+            <a
+              key={index}
+              href={getLangUrl(lang)}
+              onClick={e => {
+                e.preventDefault();
+                close();
+                i18n.changeLanguage(lang);
+              }}
+            >
               <input
                 id={'lang_' + lang}
                 type="radio"
@@ -56,7 +81,7 @@ function Lang({ mobile, black, className }) {
                 name={lang}
                 onChange={() => {
                   close();
-                  i18n.changeLanguage(lang)
+                  i18n.changeLanguage(lang);
                 }}
               />
               <label
@@ -68,7 +93,7 @@ function Lang({ mobile, black, className }) {
               >
                 {lang}
               </label>
-            </Fragment>
+            </a>
           ))}
         </>
       )}
