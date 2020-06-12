@@ -11,6 +11,7 @@ import {
 import { getErrors } from "utils";
 import { RegisterForm } from "components/register";
 import { SendCodeStep, CheckCodeStep, RegisterStep } from "components/steps";
+import ym from "react-yandex-metrika";
 
 const RegisterBox = () => {
   const client = useApolloClient();
@@ -19,6 +20,14 @@ const RegisterBox = () => {
     document.cookie = cookie.serialize("token", data.register.access_token, {
       maxAge: 30 * 24 * 60 * 60 // 30 days
     });
+
+    if (process.env.ANALYTICS_SCRIPTS === 'true') {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('event', 'registration', {'event_category' : 'click'});
+      ym('reachGoal', 'registration');
+    }
 
     client.clearStore().then(() => redirect({}, "/plans"));
   };

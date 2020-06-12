@@ -9,6 +9,8 @@ import slug from 'slug';
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import { NextSeo } from 'next-seo';
+import TagManager from "react-gtm-module";
+import {YMInitializer} from "react-yandex-metrika";
 
 slug.defaults.mode = 'rfc3986';
 
@@ -40,6 +42,24 @@ const LangTags = () => {
   );
 };
 
+const Analytics = () => {
+  if (typeof document === 'undefined' || process.env.ANALYTICS_SCRIPTS !== 'true') {
+    return null;
+  }
+
+  return (
+    <YMInitializer
+      accounts={[62055295]}
+      options={{
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+      }}
+    />
+  );
+};
+
 class MyApp extends App {
   static displayName = "MyApp";
 
@@ -52,7 +72,10 @@ class MyApp extends App {
       return (
         <ApolloProvider client={apolloClient}>
           <LangTags/>
+
           {getLayout(<Component {...pageProps} />, pageProps)}
+
+          <Analytics/>
         </ApolloProvider>
       )
   }
