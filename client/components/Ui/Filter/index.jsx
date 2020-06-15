@@ -124,13 +124,11 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
 
                         case "dateField":
                           return (
-                            <div>
                               <DateField
-                                  className=""
+                                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 xl:w-1/7 hd:w-1/7 px-2"
                                   {...rest}
                                   labelClassName="text-white"
                               />
-                            </div>
                           );
                         default:
                           break;

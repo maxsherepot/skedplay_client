@@ -50,7 +50,7 @@ const AdServicesAndPricesStep = () => {
                         <div className="row text-center text-2xl">
                             <h2>{groupService.name}</h2>
                         </div>
-                        {services.map((service) => ( service.group && service.group.id === groupService.id && (
+                        {services.map((service) => (service.group && service.group.id === groupService.id && (
                             <div
                                 className="flex flex-row md:items-center justify-between w-full px-16 mb-6 sm:mb-2"
                                 key={service.id}
