@@ -10,6 +10,7 @@ import slug from "slug";
 import Link from 'components/SlashedLink'
 import EmployeeComplaintPopup from "components/popups/EmployeeComplaintPopup";
 import EmployeeComplaintSuccessPopup from "components/popups/EmployeeComplaintSuccessPopup";
+import ym from 'react-yandex-metrika';
 
 const DistanceView = ({ distanceValue }) => {
   if (!distanceValue) {
@@ -69,6 +70,22 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
     setCopied(true);
 
     setTimeout(() => setCopied(false), 5000);
+  };
+
+  const showMePhone = () => {
+    if (showPhone) {
+      return;
+    }
+
+    setShowPhone(true);
+
+    if (process.env.ANALYTICS_SCRIPTS === 'true') {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('event', 'show_phone', {'event_category' : 'click'});
+      ym('reachGoal', 'show_phone');
+    }
   };
 
   const onSuccessComplaint = () => {
@@ -197,7 +214,7 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
             weight="normal"
             onMouseEnter={() => setHover2(true)}
             onMouseLeave={() => setHover2(false)}
-            onClick={() => setShowPhone(true)}
+            onClick={() => showMePhone()}
           >
             <div className="w-12 h-8 flex justify-center items-center border-r border-light-grey mr-5 pr-3">
               <Phone1Svg color={getColor(hover2)}/>

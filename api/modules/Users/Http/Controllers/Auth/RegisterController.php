@@ -10,6 +10,7 @@ use Modules\Api\Components\NotifyAdminTelegramComponent;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Billing\Entities\Plan;
 use Modules\Users\Entities\User;
+use Modules\Users\Entities\UserCard;
 use Modules\Users\Http\Requests\Auth\RegistrationRequest;
 use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Services\AdminMessagesGenerate;
@@ -45,6 +46,8 @@ class RegisterController extends Controller
 
         $user = $this->users->store($data);
         $user->attachRole($request->get('account_type'));
+
+        $this->users->createCard($user, $request->get('ref_code'));
 
         $user->newSubscription(
             'main',

@@ -33,6 +33,7 @@ export const REGISTER_USER = gql`
     $password: String!
     $password_confirmation: String!
     $recaptcha: String
+    $ref_code: String
   ) {
     register(
       input: {
@@ -44,6 +45,7 @@ export const REGISTER_USER = gql`
         password: $password
         password_confirmation: $password_confirmation
         recaptcha: $recaptcha
+        ref_code: $ref_code
       }
     ) {
       access_token

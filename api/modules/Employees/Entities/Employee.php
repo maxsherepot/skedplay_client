@@ -304,6 +304,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
+            ->width(332)
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
 

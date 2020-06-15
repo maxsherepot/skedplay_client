@@ -171,6 +171,16 @@ main {
   }
 }
 
+.login-modal, .register-modal {
+  .modal__dialog {
+    min-width: 320px;
+
+    @screen sm {
+      min-width: 410px;
+    }
+  }
+}
+
 // Center react-images photo
 .react-images__view-image {
   margin: 0 auto;

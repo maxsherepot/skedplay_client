@@ -215,6 +215,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->moderatedClubs();
     }
 
+    public function card(): HasOne
+    {
+        return $this->hasOne(UserCard::class);
+    }
+
     /**
      * @return MorphMany
      */

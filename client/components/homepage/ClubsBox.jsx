@@ -1,67 +1,8 @@
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 import { ClubCard, Loader } from "UI";
 import Slider from "react-slick";
 import React from "react";
 
-const GET_CLUBS = gql`
-    {
-        clubs(first: 15, filters: {status: 1, user_status: 1}) {
-            data {
-                id
-                name
-                city {
-                    id
-                    name
-                    canton {
-                        id
-                        name
-                    }
-                }
-                address
-                lat
-                lng
-                status
-                user_status
-                phones
-                employees {
-                    id
-                    name
-                    isNew
-                    inGeneral
-                    favorited {
-                        id
-                    }
-                    owner {
-                        ... on Club {
-                            id
-                            name
-                        }
-                    }
-                }
-                favorited {
-                    id
-                }
-                type {
-                    id
-                    name
-                }
-                logo {
-                    url
-                }
-                photos {
-                    url
-                }
-            }
-        }
-    }
-`;
-
-function ClubsBox() {
-  const { loading, error, data: { clubs } = {} } = useQuery(GET_CLUBS);
-
-  if (loading) return <Loader/>;
-  if (error) return <div>{error.message}</div>;
+function ClubsBox({clubs}) {
 
   return (
     <div className="mt-7 -mx-4">

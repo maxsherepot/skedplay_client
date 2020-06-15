@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Traits\Mediable;
 use Modules\Users\Entities\User;
+use Modules\Users\Entities\UserCard;
 
 class UserRepository implements HasMediable
 {
@@ -116,5 +117,29 @@ class UserRepository implements HasMediable
     public function createToken(User $user): string
     {
         return $user->createToken('Laravel Password Grant Client')->accessToken;
+    }
+
+    public function createCard(User $user, string $refCode = null): void
+    {
+        if ($user->is_client) {
+            $userType = UserCard::USER_TYPE_CLIENT;
+        } elseif ($user->is_club_owner) {
+            $userType = UserCard::USER_TYPE_CLUB_OWNER;
+        } elseif ($user->isEmployee()) {
+            $userType = UserCard::USER_TYPE_EMPLOYEE;
+        } else {
+            return;
+        }
+
+        $refUserId = $refCode
+            ? optional(UserCard::where('full_code', $refCode)->first())->user_id
+            : null;
+
+        $user->card()->create([
+            'card_type' => 1,
+            'user_type' => $userType,
+            'code' => mt_rand(1000000, 9999999),
+            'ref_user_id' => $refUserId,
+        ]);
     }
 }

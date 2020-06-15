@@ -10,6 +10,7 @@ import { Button, FormGroup, Popup } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/router";
+import Cookies from 'js-cookie';
 
 function RegisterForm({ onSubmit, children }) {
   const {query} = useRouter();
@@ -23,7 +24,7 @@ function RegisterForm({ onSubmit, children }) {
 
   React.useEffect(() => {
     document.querySelector('.modal__content').style.maxWidth = isLastStep ? '700px' : '410px';
-    document.querySelector('.modal__dialog').style.minWidth = '410px';
+    // document.querySelector('.modal__dialog').style.minWidth = '410px';
     document.querySelector('.animation-arrow-left').style.display = isLastStep ? 'none' : 'inline';
     document.querySelector('.modal__title').style.margin = isLastStep ? 'auto' : '';
   });
@@ -108,7 +109,8 @@ function RegisterForm({ onSubmit, children }) {
         password: "",
         password_confirmation: "",
         recaptcha: "",
-        code: ""
+        code: "",
+        ref_code: query.ref_code || Cookies.get('ref_code') || '',
       }}
       // validate={validate}
       validationSchema={activeStep.props.validationSchema || {}}

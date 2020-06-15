@@ -13,8 +13,19 @@ class Language extends Model
         'active',
     ];
 
+    protected $appends = [
+        'url_prefix'
+    ];
+
     public function uiTranslates(): HasMany
     {
         return $this->hasMany(UiTranslate::class);
+    }
+
+    public function getUrlPrefixAttribute(): string
+    {
+        return $this->code === 'de'
+            ? ''
+            : '/' . $this->code;
     }
 }

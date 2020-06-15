@@ -14,6 +14,7 @@ function Login() {
     <>
       <AnimationBackground />
       <Modal
+        className={'login-modal'}
         logo={<Logo />}
         title={t('common.login')}
         left={<ArrowBack href="/" />}

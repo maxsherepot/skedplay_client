@@ -14,9 +14,7 @@ function Register() {
     <>
       <AnimationBackground />
       <Modal
-        contentStyle={{
-          maxWidth: '410px'
-        }}
+        className={'register-modal'}
         logo={<Logo />}
         title={t('register.title')}
         left={<ArrowBack href="/" onPopup={true} />}
@@ -33,7 +31,7 @@ Register.getInitialProps = async ctx => {
   const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 
   if (loggedInUser) {
-    redirect(ctx, "/");
+    // redirect(ctx, "/");
   }
 
   return {};

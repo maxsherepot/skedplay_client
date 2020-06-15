@@ -49,6 +49,7 @@ input UserInput {
     age: Int
     password: String
     password_confirmation: String
+    ref_code: String
 }
 
 type UserPayload implements Status {

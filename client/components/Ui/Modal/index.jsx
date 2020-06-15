@@ -1,10 +1,11 @@
 import React from "react";
 import Link from 'components/SlashedLink'
 import PropTypes from "prop-types";
+import cx from 'classnames';
 
-function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle, headerStyle}) {
+function Modal({ logo, title, left, right, children, style, modalDialogStyle, contentStyle, headerStyle, className}) {
   return (
-    <div className="modal" style={style}>
+    <div className={cx("modal", className)} style={style}>
       <div className="modal__dialog" style={modalDialogStyle}>
         {!!logo &&
           <Link href="/">
