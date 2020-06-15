@@ -7,7 +7,7 @@ import { CalendarSvg, ArrowNextSvg, PhoneSvg } from "icons";
 import { Loader } from "UI";
 import {useTranslation} from "react-i18next";
 import Link from 'components/SlashedLink'
-import slug from "slug";
+
 
 const EmployeeSchedule = ({ employee, ...rest }) => {
   const {
@@ -66,8 +66,8 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
                 <div className="flex flex-col sm:flex-row w-3/6 sm:w-2/5 sm:w-7/12">
                   <div className="flex w-1/2 text-red font-bold whitespace-no-wrap">
                     <Link
-                      href={`/clubs/canton/city/id/information?id=${s.club.id}&canton=${slug(s.club.city.canton.name)}&city=${slug(s.club.city.name)}`}
-                      as={`/clubs/${slug(s.club.city.canton.name)}/${slug(s.club.city.name)}/${s.club.id}/information`}
+                      href={`/clubs/canton/city/id/information?id=${s.club.id}&canton=${s.club.city.canton.slug}&city=${s.club.city.slug}`}
+                      as={`/clubs/${s.club.city.canton.slug}/${s.club.city.slug}/${s.club.id}/information`}
                     >
                       <a className="flex">
                         <span className="mr-3">{s.club.name}</span>

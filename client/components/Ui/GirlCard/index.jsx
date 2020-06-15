@@ -9,7 +9,7 @@ import Distance from "components/distance";
 import {useTranslation} from "react-i18next";
 import MapSvg from "components/icons/MapSvg";
 import {LazyLoadImage} from "react-lazy-load-image-component";
-import slug from "slug";
+
 
 function GirlCard({
   className,
@@ -143,7 +143,7 @@ function GirlCard({
       return `/employees/id/information?id=${girl.id}`;
     }
 
-    return `/${girlType}/canton/city/id/information?id=${girl.id}&canton=${slug(girl.city.canton.name)}&city=${slug(girl.city.name)}`;
+    return `/${girlType}/canton/city/id/information?id=${girl.id}&canton=${girl.city.canton.slug}&city=${girl.city.slug}`;
   };
 
   const getAs = () => {
@@ -151,7 +151,7 @@ function GirlCard({
       return `/employees/${girl.id}/information`;
     }
 
-    return `/${girlType}/${slug(girl.city.canton.name)}/${slug(girl.city.name)}/${girl.id}/information`;
+    return `/${girlType}/${girl.city.canton.slug}/${girl.city.slug}/${girl.id}/information`;
   };
 
   const getLinkHtml = (girl) => {

@@ -5,6 +5,7 @@ export const CITIES = gql `
     cities {
       id
       name
+      slug
     }
   }
 `;

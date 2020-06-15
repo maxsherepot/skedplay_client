@@ -24,7 +24,7 @@ import EmployeeMaps from "components/employee/EmployeeMaps";
 import {Formik} from "formik";
 import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES} from "queries";
 import {getErrors} from "utils/index";
-import slug from "slug";
+
 import {NextSeo} from "next-seo";
 
 const DistanceView = ({distanceKm}) => {
@@ -131,8 +131,8 @@ const ClubInformation = ({user}) => {
   const {data: {club} = {}, loading} = useQuery(GET_CLUB, {
     variables: {
       id,
-      canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
-      city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
+      canton_id: canton && cantons && (cantons.find(c => c.slug === canton) || {}).id,
+      city_id: city && cities && (cities.find(c => c.slug === city) || {}).id,
     },
     // fetchPolicy: 'no-cache',
     skip: !!canton && cantonsLoading
@@ -273,8 +273,8 @@ const ClubInformation = ({user}) => {
               </div>
 
               <Link
-                href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-                as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
+                href={`/clubs/canton/city/id/events?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+                as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/events`}
               >
                 <a className="block text-sm whitespace-no-wrap transition hover:text-red">
                   <ArrowNextSvg>

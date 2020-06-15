@@ -13,19 +13,23 @@ export const EMPLOYEES_PAGE_DATA = gql`
         cantons {
             id
             name
+            slug
         }
         cities {
             id
             name
+            slug
             canton_id
         }
         services {
             id
             name
+            slug
         }
         employee_race_types {
             id
             name
+            slug
         }
     }
 `;

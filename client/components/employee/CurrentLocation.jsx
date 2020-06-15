@@ -6,7 +6,7 @@ import { geolocated } from "react-geolocated";
 import { RoadSvg, Phone1Svg, LinkSvg, AttentionSvg } from "icons";
 import { Button } from "UI";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import slug from "slug";
+
 import Link from 'components/SlashedLink'
 import EmployeeComplaintPopup from "components/popups/EmployeeComplaintPopup";
 import EmployeeComplaintSuccessPopup from "components/popups/EmployeeComplaintSuccessPopup";
@@ -108,8 +108,8 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
               <div className="mt-3">
                 <div>
                   <Link
-                    href={`/clubs/canton/city/id/information?id=${employee.current_club.id}&canton=${slug(employee.current_club.city.canton.name)}&city=${slug(employee.current_club.city.name)}`}
-                    as={`/clubs/${slug(employee.current_club.city.canton.name)}/${slug(employee.current_club.city.name)}/${employee.current_club.id}/information`}
+                    href={`/clubs/canton/city/id/information?id=${employee.current_club.id}&canton=${employee.current_club.city.canton.slug}&city=${employee.current_club.city.slug}`}
+                    as={`/clubs/${employee.current_club.city.canton.slug}/${employee.current_club.city.slug}/${employee.current_club.id}/information`}
                   >
                     <a className="font-bold text-red text-lg">
                       {employee.current_club.name}

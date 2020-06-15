@@ -16,7 +16,7 @@ import LangSelector from "UI/LangSelector";
 import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
-import slug from "slug";
+
 import {NextSeo} from "next-seo";
 import CurrentLocation from "components/employee/CurrentLocation";
 import Slider from "react-slick";
@@ -39,8 +39,8 @@ const EmployeeInformation = ({ user }) => {
     {
       variables: {
         id,
-        canton_id: canton && cantons && (cantons.find(c => slug(c.name) === canton) || {}).id,
-        city_id: city && cities && (cities.find(c => slug(c.name) === city) || {}).id,
+        canton_id: canton && cantons && (cantons.find(c => c.slug === canton) || {}).id,
+        city_id: city && cities && (cities.find(c => c.slug === city) || {}).id,
       },
       skip: !!canton && cantonsLoading
     }
@@ -102,7 +102,7 @@ const EmployeeInformation = ({ user }) => {
       return `/employees/id/${page}?id=${employee.id}`;
     }
 
-    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`;
+    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`;
   };
 
   const getAs = (page) => {
@@ -110,7 +110,7 @@ const EmployeeInformation = ({ user }) => {
       return `/employees/${employee.id}/${page}`;
     }
 
-    return `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/${page}`;
+    return `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/${page}`;
   };
 
   const handleLightboxClick = index => {
@@ -405,8 +405,8 @@ const EmployeeInformation = ({ user }) => {
                             key={event.id}
                             href={`/${girlType}/canton/city/id/events`}
                             inProfile={true}
-                            linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-                            as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+                            linkQueryParams={`?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`}
+                            as={`/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/events`}
                             {...event}
                           />
                         );

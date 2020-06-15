@@ -1,16 +1,22 @@
+// const webpack = require('webpack');
+
 require("dotenv").config();
 
 const path = require("path");
 const withSass = require("@zeit/next-sass");
 const withCss = require("@zeit/next-css");
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
 
 const Dotenv = require("dotenv-webpack");
 
-module.exports = withSass(withCss({
+module.exports = withBundleAnalyzer(withSass(withCss({
   cssLoaderOptions: {
     url: false
   },
-  webpack(config, options) {
+  webpack(config, {webpack}) {
     config.resolve.alias["components"] = path.join(__dirname, "components");
     config.resolve.alias["UI"] = path.join(__dirname, "components/Ui");
     config.resolve.alias["lib"] = path.join(__dirname, "lib");
@@ -39,6 +45,12 @@ module.exports = withSass(withCss({
       })
     ];
 
+    config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
+    config.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|de|fr/));
+    config.plugins.push(new MomentTimezoneDataPlugin({
+      matchCountries: 'CH',
+    }));
+
     return config;
   }
-}));
+})));

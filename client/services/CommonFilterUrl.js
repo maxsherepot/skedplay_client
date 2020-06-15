@@ -1,5 +1,3 @@
-import slug from "slug";
-
 export default class CommonFilterUrl {
   input = {};
   cantons = [];
@@ -17,7 +15,7 @@ export default class CommonFilterUrl {
   }
 
   findModels() {
-    this.cantonModel = this.cantons.find(c => slug(c.name) === slug(this.input.canton || ''));
+    this.cantonModel = this.cantons.find(c => c.slug === this.input.canton || '');
 
     if (!this.cantonModel) {
       return;
@@ -25,7 +23,7 @@ export default class CommonFilterUrl {
 
     this.cityModel = this.cities.find(c => {
       return parseInt(c.canton_id) === parseInt(this.cantonModel.id)
-        && slug(c.name) === slug(this.input.city || '');
+        && c.slug === this.input.city || '';
     });
   }
 
@@ -65,13 +63,13 @@ export default class CommonFilterUrl {
     let url = "";
 
     if (canton) {
-      query.canton = slug(canton.name);
-      as += `/${slug(canton.name)}`;
+      query.canton = canton.slug;
+      as += `/${canton.slug}`;
       url += `/canton`;
 
       if (city) {
-        query.city = slug(city.name);
-        as += `/${slug(city.name)}`;
+        query.city = city.slug;
+        as += `/${city.slug}`;
         url += `/city`;
       }
     }

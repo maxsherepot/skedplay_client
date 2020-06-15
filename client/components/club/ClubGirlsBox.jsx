@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { ArrowNextSvg } from "icons";
 import { GirlCard } from "UI";
 import {useTranslation} from "react-i18next";
-import slug from "slug";
+
 import Slider from "react-slick";
 import cx from "classnames";
 
@@ -100,8 +100,8 @@ const ClubGirlsBox = ({ employees, club }) => {
           {t('common.our_girls')}
         </div>
         <Link
-          href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-          as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
+          href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+          as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`}
         >
           <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
             <ArrowNextSvg>

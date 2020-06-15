@@ -1,4 +1,3 @@
-import slug from "slug";
 const queryString = require('query-string');
 import CommonFilterUrl from "./CommonFilterUrl";
 
@@ -25,7 +24,7 @@ export default class ClubsFilterUrl {
   }
 
   findModels() {
-    this.typeModels = (this.input.types || []).map(t => this.types.find(tm => slug(tm.name) === slug(t)));
+    this.typeModels = (this.input.types || []).map(t => this.types.find(tm => tm.slug === t));
   }
 
   pageNotFound() {
@@ -56,7 +55,7 @@ export default class ClubsFilterUrl {
 
     if (filters[this.typeKey] && filters[this.typeKey].length) {
       let typeModels = filters[this.typeKey].map(t => this.types.find(ct => parseInt(ct.id) === parseInt(t)));
-      query.types = typeModels.map(s => slug(s.name)).sort();
+      query.types = typeModels.map(s => s.slug).sort();
       asQuery.types = query.types;
 
       if (canonical) {

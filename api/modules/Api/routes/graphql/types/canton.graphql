@@ -1,6 +1,7 @@
 type Canton {
     id: Int!
     name: String!
+    slug: String!
     cities: [City] @hasMany
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
 import {useTranslation} from "react-i18next";
-import slug from 'slug';
+// import slug from 'slug';
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
 import translation from "services/translation";
@@ -24,8 +24,8 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
     ? []
     : [
       {
-        as: `/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}`,
-        href: `/clubs/canton/city?canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`,
+        as: `/clubs/${club.city.canton.slug}/${club.city.slug}`,
+        href: `/clubs/canton/city?canton=${club.city.canton.slug}&city=${club.city.slug}`,
         label: club.city.name
       }
     ];
@@ -37,14 +37,14 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
       label: translation.getLangField(page.header, i18n.language)
     },
     {
-      as: `/clubs/${slug(club.city.canton.name)}`,
-      href: `/clubs/canton?&canton=${slug(club.city.canton.name)}`,
+      as: `/clubs/${club.city.canton.slug}`,
+      href: `/clubs/canton?&canton=${club.city.canton.slug}`,
       label: club.city.canton.name
     },
     ...cityFilter,
     {
-      as: `/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`,
-      href: `/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`,
+      as: `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`,
+      href: `/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`,
       label: club.name
     },
   ];
@@ -81,24 +81,24 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
         <ul className="flex -mx-4 text-white">
           <ActiveLink
             activeClassName="text-black"
-            href={`/clubs/canton/city/id/information?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/information`}
+            href={`/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`}
           >
             <a>{t('clubs.information')}</a>
           </ActiveLink>
 
           <ActiveLink
             activeClassName="text-black"
-            href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/girls`}
+            href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`}
           >
             <a>{t('common.our_girls')}</a>
           </ActiveLink>
 
           <ActiveLink
             activeClassName="text-black"
-            href={`/clubs/canton/city/id/events?id=${club.id}&canton=${slug(club.city.canton.name)}&city=${slug(club.city.name)}`}
-            as={`/clubs/${slug(club.city.canton.name)}/${slug(club.city.name)}/${club.id}/events`}
+            href={`/clubs/canton/city/id/events?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/events`}
           >
             <a>{t('layout.events')}</a>
           </ActiveLink>

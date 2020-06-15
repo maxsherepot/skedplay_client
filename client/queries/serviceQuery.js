@@ -5,11 +5,13 @@ export const GIRLS_FILTER_OPTIONS = gql`
     services {
       id
       name
+      slug
     }
 
     employee_race_types {
       id
       name
+      slug
     }
   }
 `;
@@ -19,6 +21,7 @@ export const GET_SERVICES = gql`
         services {
             id
             name
+            slug
             group {
                 id
                 name
@@ -41,10 +44,12 @@ export const EVENTS_FILTER_OPTIONS = gql`
     club_types {
         id
         name
+        slug
     }
     event_types {
       id
       name
+      slug
     }
   }
 `;

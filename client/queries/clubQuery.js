@@ -13,15 +13,18 @@ export const CLUBS_PAGE_DATA = gql`
         cantons {
             id
             name
+            slug
         }
         cities {
             id
             name
+            slug
             canton_id
         }
         club_types {
             id
             name
+            slug
         }
     }
 `;

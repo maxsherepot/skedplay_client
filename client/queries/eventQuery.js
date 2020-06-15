@@ -13,15 +13,18 @@ export const EVENTS_PAGE_DATA = gql`
         cantons {
             id
             name
+            slug
         }
         cities {
             id
             name
+            slug
             canton_id
         }
         event_types {
             id
             name
+            slug
         }
     }
 `;

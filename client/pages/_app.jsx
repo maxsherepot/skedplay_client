@@ -5,14 +5,11 @@ import withApollo from "lib/withApollo";
 import {MainLayout} from 'layouts'
 import "styles/style.scss";
 import { appWithTranslation } from 'lib/i18n';
-import slug from 'slug';
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import { NextSeo } from 'next-seo';
 import {YMInitializer} from "react-yandex-metrika";
 import Cookies from 'js-cookie';
-
-slug.defaults.mode = 'rfc3986';
 
 const LangTags = () => {
   const {asPath} = useRouter();

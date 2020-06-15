@@ -1,6 +1,7 @@
 type City {
     id: Int!
     name: String!
+    slug: String!
     canton_id: Int
     canton: Canton @belongsTo @with
 }

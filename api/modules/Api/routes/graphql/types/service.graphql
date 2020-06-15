@@ -1,6 +1,7 @@
 type Service {
     id: ID!
     name: String!
+    slug: String!
     pivot: ServicePivot
     group_id: Int
     group: GroupService @belongsTo
