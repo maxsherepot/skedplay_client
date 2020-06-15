@@ -71,7 +71,7 @@ const LangSelector = () => {
   };
 
   const addLanguage = (arrayHelpers) => {
-    setFieldValue('languages', [...values.languages, {language: '', stars: 0}]);
+    setFieldValue('languages', [...values.languages, {language: '', stars: 1}]);
     arrayHelpers.push("");
   };
 

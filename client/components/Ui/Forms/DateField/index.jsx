@@ -51,6 +51,7 @@ function DateField({
           <>
             <DatePicker
               name={name}
+              className={cx(className, "")}
               dateFormat="dd.MM.yyyy"
               selected={date}
               onChange={date => setDate(date)}
