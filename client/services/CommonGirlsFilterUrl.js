@@ -34,8 +34,6 @@ export default class CommonGirlsFilterUrl {
   findModels() {
     this.serviceModels = (this.input.services || []).map(s => this.services.find(sm => sm.slug === s));
     this.raceModels = (this.input.races || []).map(r => this.races.find(er => er.slug === r));
-
-    console.log(this.serviceModels, this.services);
   }
 
   pageNotFound() {
