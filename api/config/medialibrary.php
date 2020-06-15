@@ -112,6 +112,7 @@ return [
      * These generators will be used to create an image of media files.
      */
     'image_generators' => [
+//        \Modules\Main\Medialibrary\Webp::class,
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Image::class,
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Webp::class,
         Spatie\MediaLibrary\ImageGenerators\FileTypes\Pdf::class,

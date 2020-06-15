@@ -4,12 +4,16 @@ import Link from 'components/SlashedLink'
 
 import { ProfileSvg, CrownSvg } from "icons";
 import { Logo, Button, Lang, FavoritesCount } from "UI";
-import { UserDropdown } from "components/user";
+// import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
 import {useRouter} from "next/router";
 import favorites from "services/favorites";
 import cx from 'classnames';
+
+import dynamic from "next/dynamic";
+
+const UserDropdown = dynamic(import("components/user/UserDropdown"));
 
 const FavoriteBlock = () => {
   const { data: { favorites_count } = {}, client } = favorites.getFavoritesCount();

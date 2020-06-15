@@ -8,7 +8,7 @@ import ClubsBox from "components/homepage/ClubsBox";
 import checkLoggedIn from "lib/checkLoggedIn";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_PAGE, INDEX_PAGE_DATA} from 'queries';
+import {INDEX_PAGE_DATA} from 'queries';
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
 

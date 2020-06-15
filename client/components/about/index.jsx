@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import { Trans } from 'react-i18next';
 import React from "react";
 import Lang from "UI/Lang";
+import './style.scss';
 
 const About = ({user}) => {
   const { t, i18n } = useTranslation();

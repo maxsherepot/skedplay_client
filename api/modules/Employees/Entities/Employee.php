@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
 use Modules\Chat\Entities\Message;
@@ -22,6 +23,7 @@ use Modules\Common\Services\Location\HasLocation;
 use Modules\Common\Services\Location\Locationable;
 use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Language;
+use Modules\Main\Medialibrary\Webp;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -304,12 +306,14 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
-            ->width(332)
+//            ->format('webp')
+            ->width(333)
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
 
         $this->addMediaConversion('big_thumb')
-            ->width(454)
+//            ->format('webp')
+            ->width(455)
             ->height(682)
             ->performOnCollections(self::PHOTO_COLLECTION);
     }
