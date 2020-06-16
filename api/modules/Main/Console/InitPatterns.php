@@ -39,6 +39,51 @@ class InitPatterns extends Command
         ],
     ];
 
+
+    public const TRANS_PATTERNS = [
+        'h1' => [
+            'value_without_city' => '#services# Transgender sex and escort {in:canton} #canton#',
+            'value_with_city' => '#services# Transgender sex and escort {in:canton} #canton# #city# {city:city}',
+        ],
+
+        'title' => [
+            'value_without_city' => '#services# Transgender(trans) sex and escort {in:canton} #canton# -- catalog of trans 2020',
+            'value_with_city' => '#services# Transgender(trans) sex and escort {in:canton} #canton# #city# {city:city} -- catalog of trans 2020',
+        ],
+
+        'description' => [
+            'value_without_city' => 'Catalog of transgender for sex and escort {in:canton} #canton#. More than 3000 trans {for:services} #services# on site',
+            'value_with_city' => 'Catalog of transgender for sex and escort {in:canton} #canton# #city# {city:city}. More than 3000 trans {for:services} #services# on site',
+        ],
+
+        'keywords' => [
+            'value_without_city' => '{sex:canton} #canton#, {escort:canton} #canton#, {sex:services} [services: ], {escort:services} [services: ], transgender, skedplay',
+            'value_with_city' => '{sex:canton} #canton#, {escort:canton} #canton#, {sex:city} #city#, {escort:city} #city#, {sex:services} [services: ], {escort:services} [services: ], transgender, skedplay',
+        ],
+    ];
+
+    public const VIP_PATTERNS = [
+        'h1' => [
+            'value_without_city' => 'VIP #services# sex and escort {in:canton} #canton#',
+            'value_with_city' => 'VIP #services# sex and escort {in:canton} #canton# #city# {city:city}',
+        ],
+
+        'title' => [
+            'value_without_city' => 'Elite #services# sex and escort {in:canton} #canton# -- catalog of girls 2020',
+            'value_with_city' => 'Elite #services# sex and escort {in:canton} #canton# #city# {city:city} -- catalog of girls 2020',
+        ],
+
+        'description' => [
+            'value_without_city' => 'Catalog of elite girls for sex and escort {in:canton} #canton#. More than 3000 girls {for:services} #services# on site',
+            'value_with_city' => 'Catalog of elite girls for sex and escort {in:canton} #canton# #city# {city:city}. More than 3000 girls {for:services} #services# on site',
+        ],
+
+        'keywords' => [
+            'value_without_city' => '{sex:canton} #canton#, {escort:canton} #canton#, {sex:services} [services: ], {escort:services} [services: ], skedplay',
+            'value_with_city' => '{sex:canton} #canton#, {escort:canton} #canton#, {sex:city} #city#, {escort:city} #city#, {sex:services} [services: ], {escort:services} [services: ], skedplay',
+        ],
+    ];
+
     public const CLUB_PATTERNS = [
         'h1' => [
             'value_without_city' => 'Sex clubs {and:types} #types# {in:canton} #canton#',
@@ -63,23 +108,23 @@ class InitPatterns extends Command
 
     public const EVENT_PATTERNS = [
         'h1' => [
-            'value_without_city' => 'Sex events {and:types} #types# {in:canton} #canton#',
-            'value_with_city' => 'Sex events {and:types} #types# {in:canton} #canton# #city# {city:city}',
+            'value_without_city' => '[types:, :Events]',
+            'value_with_city' => '[types:, :Events]',
         ],
 
         'title' => [
-            'value_without_city' => 'Sex events {and:types} #types# {in:canton} #canton# -- full catalog of events',
-            'value_with_city' => 'Sex events {and:types} #types# {in:canton} #canton# #city# {city:city} -- full catalog of events',
+            'value_without_city' => '[types:, :Events] {in:canton} #canton#',
+            'value_with_city' => '[types:, :Events] {in:canton} #canton# #city# {city:city}',
         ],
 
         'description' => [
-            'value_without_city' => 'Catalog of events for sex and escort {in:canton} #canton#. More than 300 [types:, :events] on site',
-            'value_with_city' => 'Catalog of events for sex and escort {in:canton} #canton# #city# {city:city}. More than 300 [types:, :events] on site',
+            'value_without_city' => 'Visit [types:, :events] {in:canton} #canton# -- hot parties',
+            'value_with_city' => 'Visit [types:, :events] {in:canton} #canton# #city# {city:city} -- hot parties',
         ],
 
         'keywords' => [
             'value_without_city' => '{sex events:canton} #canton#, #types#, skedplay',
-            'value_with_city' => '{sex events:canton} #canton#, {sex events:city} #city#, #types#, skedplay',
+            'value_with_city' => '{sex:canton} #canton#, {escort:canton} #canton#, {sex:city} #city#, {escort:city} #city#, [types:, :events], skedplay',
         ],
     ];
 
@@ -100,7 +145,7 @@ class InitPatterns extends Command
             ]));
         }
 
-        foreach (self::GIRL_PATTERNS as $type => $pattern) {
+        foreach (self::TRANS_PATTERNS as $type => $pattern) {
             if (TransPattern::where('type', $type)->first()) {
                 continue;
             }
@@ -110,7 +155,7 @@ class InitPatterns extends Command
             ]));
         }
 
-        foreach (self::GIRL_PATTERNS as $type => $pattern) {
+        foreach (self::VIP_PATTERNS as $type => $pattern) {
             if (VipPattern::where('type', $type)->first()) {
                 continue;
             }

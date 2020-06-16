@@ -83,21 +83,13 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
     Router.replace(url, as, {shallow: true});
   };
 
-  const title = entityUrl === 'girls'
-    ? employeesSeo.title || page.title
-    : page.title;
+  const title = employeesSeo.title || page.title;
 
-  const description = entityUrl === 'girls'
-    ? employeesSeo.description || page.description
-    : page.description;
+  const description = employeesSeo.description || page.description;
 
-  const keywords = entityUrl === 'girls'
-    ? employeesSeo.keywords || page.keywords
-    : page.keywords;
+  const keywords = employeesSeo.keywords || page.keywords;
 
-  const header = entityUrl === 'girls'
-    ? employeesSeo.h1 || page.header
-    : page.header;
+  const header = employeesSeo.h1 || page.header;
 
   return (
     <>

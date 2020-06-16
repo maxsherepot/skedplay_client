@@ -77,18 +77,18 @@ function Events({ user, isGeolocationEnabled }) {
   return (
     <>
       <NextSeo
-        title={translation.getLangField(/*eventsSeo.title || */page.title, i18n.language)}
-        description={translation.getLangField(/*eventsSeo.description || */page.description, i18n.language)}
+        title={translation.getLangField(eventsSeo.title || page.title, i18n.language)}
+        description={translation.getLangField(eventsSeo.description || page.description, i18n.language)}
         canonical={needCanonical ? `${process.env.APP_URL}${canonical}` : null}
 
         additionalMetaTags={[{
           name: 'keywords',
-          content: translation.getLangField(/*eventsSeo.keywords || */page.keywords, i18n.language)
+          content: translation.getLangField(eventsSeo.keywords || page.keywords, i18n.language)
         }]}
       />
 
       <EntitySearch
-        header={translation.getLangField(/*eventsSeo.h1 || */page.header, i18n.language)}
+        header={translation.getLangField(eventsSeo.h1 || page.header, i18n.language)}
         rootHeader={translation.getLangField(page.header, i18n.language)}
         entityName={ENTITY_NAME}
         fields={fields}
