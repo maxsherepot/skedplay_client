@@ -38,9 +38,11 @@ export const ALL_EVENTS = gql`
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 address
@@ -68,9 +70,11 @@ export const ALL_EVENTS = gql`
                     city {
                         id
                         name
+                        slug
                         canton {
                             id
                             name
+                            slug
                         }
                     }
                     address
@@ -115,9 +119,11 @@ export const EVENTS_BY_OWNER = gql`
             city {
                 id
                 name
+                slug
                 canton {
                     id
                     name
+                    slug
                 }
             }
             address
@@ -139,9 +145,11 @@ export const EVENTS_BY_OWNER = gql`
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 address
@@ -177,9 +185,11 @@ export const GET_EVENT = gql`
             city {
                 id
                 name
+                slug
                 canton {
                     id
                     name
+                    slug
                 }
             }
             address
@@ -215,9 +225,11 @@ export const GET_EVENT = gql`
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 address

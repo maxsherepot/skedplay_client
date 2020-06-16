@@ -59,17 +59,21 @@ export const ALL_EMPLOYEES = gql `
         city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
         current_city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
         lat
@@ -135,17 +139,21 @@ export const GET_EMPLOYEE = gql `
       city {
         id
         name
+        slug
         canton {
             id
             name
+            slug
         }
       }
       current_city {
         id
         name
+        slug
         canton {
           id
           name
+          slug
         }
       }
       address
@@ -211,9 +219,11 @@ export const GET_EMPLOYEE = gql `
             city {
               id
               name
+              slug
               canton {
                 id
                 name
+                slug
               }
             }
           }
@@ -286,9 +296,11 @@ export const GET_EMPLOYEE = gql `
         city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
         address
@@ -362,9 +374,11 @@ export const GET_EMPLOYEE_SCHEDULE = gql `
         city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
       }

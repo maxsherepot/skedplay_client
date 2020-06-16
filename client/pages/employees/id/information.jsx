@@ -25,7 +25,9 @@ import Cookies from 'js-cookie';
 const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
   const router = useRouter();
-  const { id, canton, city } = router.query;
+  let { id, canton, city } = router.query;
+  canton = canton.replace('/', '');
+  city = city.replace('/', '');
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const mapRef = React.useRef();
