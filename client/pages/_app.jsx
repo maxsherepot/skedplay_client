@@ -80,19 +80,20 @@ class MyApp extends App {
   static async getInitialProps(appContext) {
     const appProps = await App.getInitialProps(appContext);
 
-    const manySlashes = appContext.ctx.req.originalUrl.includes('//');
-    const fakeUrlParams = appContext.ctx.req.originalUrl.includes('[canton]')
-      || appContext.ctx.req.originalUrl.includes('[city]')
-      || appContext.ctx.req.originalUrl.includes('[id]')
-      || appContext.ctx.req.originalUrl.includes('[eid]')
-      || appContext.ctx.req.originalUrl.includes('[cid]');
+    if (appContext.ctx && appContext.ctx.req && appContext.ctx.req.originalUrl) {
+      const manySlashes = appContext.ctx.req.originalUrl.includes('//');
+      const fakeUrlParams = appContext.ctx.req.originalUrl.includes('[canton]')
+        || appContext.ctx.req.originalUrl.includes('[city]')
+        || appContext.ctx.req.originalUrl.includes('[id]')
+        || appContext.ctx.req.originalUrl.includes('[eid]')
+        || appContext.ctx.req.originalUrl.includes('[cid]');
 
-    if (manySlashes || fakeUrlParams) {
-      appContext.ctx.res.statusCode = 404;
+      if (manySlashes || fakeUrlParams) {
+        appContext.ctx.res.statusCode = 404;
 
-      return { ...appProps, pageNotFound: true }
+        return { ...appProps, pageNotFound: true }
+      }
     }
-
 
     return { ...appProps }
   }
