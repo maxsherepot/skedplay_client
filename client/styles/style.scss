@@ -393,6 +393,12 @@ main {
     transition: opacity .2s;
   }
 
+  .center {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
   @import "components/Ui/AnimationBackground/AnimationBackground";
   @import "components/Ui/Button/Button";
   @import "components/Ui/Header/Header";

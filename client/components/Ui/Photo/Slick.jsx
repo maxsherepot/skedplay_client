@@ -6,6 +6,8 @@ import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 import Link from 'components/SlashedLink'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Badge } from "UI";
+import {useTranslation} from "react-i18next";
 
 function PrevArrow({ className, currentSlide, onClick }) {
   const disabled = currentSlide <= 0;
@@ -36,6 +38,7 @@ function NextArrow({ className, currentSlide, onClick }) {
 }
 
 function Slick({ id, photos, labels, available, slider, className, link, as, noPhotoSrc, user }) {
+  const {t} = useTranslation();
   const [sliderCardId, setSliderCardId] = useState(null);
 
   const [mainNav, setMainNav] = useState(null);
@@ -52,6 +55,8 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
   const getPhoto = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
       if (photo.thumb_blur_url) {
+        photo.vip = true;
+
         return photo.thumb_blur_url;
       }
     }
@@ -63,7 +68,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
     return photo.url;
   };
 
-  const images = photos.map(photo => getPhoto(photo));
+  const images = photos.map(photo => ({url: getPhoto(photo), vip: photo.vip}));
   const isActiveSlider = sliderCardId === id && slider;
 
   function getImagesBlock() {
@@ -100,13 +105,19 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
           // }
 
           return (
-            <LazyLoadImage
-              key={i}
-              className={cx("object-cover", className)}
-              alt={``}
-              src={image}
-              effect="blur"
-            />
+            <div className="relative">
+              {image.vip &&
+                <Badge className="center absolute top-0 left-0 bg-red">{t('common.vip_only')}</Badge>
+              }
+
+              <LazyLoadImage
+                key={i}
+                className={cx("object-cover", className)}
+                alt={``}
+                src={image.url}
+                effect="blur"
+              />
+            </div>
           );
         })}
       </Slider>
@@ -153,7 +164,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                     <LazyLoadImage
                       className="object-cover rounded-lg h-15 outline-none cursor-pointer border border-white hover:border-red"
                       alt={``}
-                      src={image}
+                      src={image.url}
                       onMouseEnter={() => slider1.slickGoTo(i)}
                     />
                   </div>

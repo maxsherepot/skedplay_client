@@ -1,11 +1,15 @@
 import React from "react";
 import Carousel, { Modal, ModalGateway } from "react-images";
+import { Badge } from "UI";
+import {useTranslation} from "react-i18next";
 
 function Lightbox({ open, index, images, onClose }) {
+  const {t} = useTranslation();
+
   const views = [];
 
   images.forEach(image => {
-    views.push({ src: image.url, type: image.type, mime_type: image.mime_type });
+    views.push({ src: image.url, type: image.type, mime_type: image.mime_type, vip: image.vip });
   });
 
   const customStyles = {
@@ -27,7 +31,11 @@ function Lightbox({ open, index, images, onClose }) {
     const { data } = props;
 
     return (
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center relative">
+        {data.vip &&
+          <Badge className="center absolute top-0 left-0 bg-red">{t('common.vip_only')}</Badge>
+        }
+
         {data.type === 'video' ?
           (
           <video

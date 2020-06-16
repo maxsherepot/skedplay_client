@@ -6,8 +6,11 @@ import Slider from "react-slick";
 import ArrowLeft from "./ArrowLeft";
 import ArrowRight from "./ArrowRight";
 import {PolygonSvg} from 'icons';
+import { Badge } from "UI";
+import {useTranslation} from "react-i18next";
 
 function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
+  const {t} = useTranslation();
   const [index, setIndex] = useState(0);
 
   const [mainNav, setMainNav] = useState(null);
@@ -82,6 +85,10 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
                 >
                   <PolygonSvg/>
                 </div>
+              }
+
+              {photo.vip &&
+                <Badge className="center absolute top-0 left-0 bg-red">{t('common.vip_only')}</Badge>
               }
 
               <img

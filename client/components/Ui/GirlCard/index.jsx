@@ -190,6 +190,7 @@ function GirlCard({
 
     if (JSON.parse(photo.custom_properties).porn && !user) {
       if (photo.thumb_blur_url) {
+        photo.vip = true;
         return photo.thumb_blur_url;
       }
     }

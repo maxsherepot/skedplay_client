@@ -127,6 +127,7 @@ const EmployeeInformation = ({ user }) => {
   const getBigThumbUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
       if (photo.big_thumb_blur_url) {
+        photo.vip = true;
         return photo.big_thumb_blur_url;
       }
     }
@@ -137,6 +138,7 @@ const EmployeeInformation = ({ user }) => {
   const getPhotoUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
       if (photo.blur_url) {
+        photo.vip = true;
         return photo.blur_url;
       }
     }

@@ -109,7 +109,8 @@
     "road_me": "Road me",
     "send_link": "Send link",
     "copied": "Copied",
-    "submit_complaint": "Submit a complaint"
+    "submit_complaint": "Submit a complaint",
+    "vip_only": "VIP only"
   },
   "layout": {
     "view_my_account": "View my account",
