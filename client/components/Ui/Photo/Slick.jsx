@@ -7,11 +7,11 @@ import ArrowRight from "./ArrowRight";
 import Link from 'components/SlashedLink'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function PrevArrow({ className, currentSlide, onClick }) {
+function PrevArrow({ className, currentSlide, onClick, onMouseOver}) {
   const disabled = currentSlide <= 0;
 
   return (
-    <div className={className} onClick={onClick}>
+    <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
       <ArrowLeft
         className={disabled ? "stroke-divider" : "stroke-red"}
         width="6"
@@ -132,7 +132,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 focusOnSelect={true}
                 adaptiveHeight
                 nextArrow={<NextArrow className="prev-arrow" />}
-                prevArrow={<PrevArrow className="next-arrow" />}
+                prevArrow={<PrevArrow className="next-arrow" onMouseOver={() => slider1.slickPrev()}/>}
               >
                 {images.map((image, i) => (
                   <div className="pr-1 outline-none" key={i}>
