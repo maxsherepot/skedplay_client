@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export default {
   filterFilters(filters) {
     const filteredFilters = {};
@@ -254,15 +256,30 @@ export default {
           return { label: s.name, value: s.id };
         })
       },
-      // {
-      //   component: "select",
-      //   name: "date",
-      //   label: t('common.date'),
-      //   placeholder: t('common.select_date'),
-      //   options: []
-      // }
     ];
 
+    const dateFilter = {
+          component: "dateField",
+          name: "date",
+          label: t('common.date'),
+          labelResolver(value) {
+            if (value) {
+              return moment(value).format('DD.MM.YYYY');
+            }
+
+            return null;
+          },
+          valueResolver(value) {
+            return moment(value).format('DD.MM.YYYY');
+            },
+          handleChange(value, setFieldValue) {
+            let dateField = moment(value).format('DD.MM.YYYY');
+
+            setFieldValue('date', dateField);
+          },
+        };
+
+    fields.push(dateFilter);
     if (isGeolocationEnabled) {
       fields.push(this.getDistanceFilter(t));
     }

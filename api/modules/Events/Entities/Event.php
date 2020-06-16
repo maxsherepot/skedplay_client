@@ -209,28 +209,19 @@ class Event extends Model implements HasMedia
         ");
     }
 
-    public function scopeOfDate(Builder $query, ?string $date = null): void
+    public function scopeOfDate(Builder $query, string $date): void
     {
         if (!$date) {
             return;
         }
+        $date = new Carbon($date);
 
-        try {
-            $date = Carbon::parse($date);
-        } catch (\Exception $e) {
-            return;
-        }
-
-        $query->whereDate('start_date', '=', $date)
-            ->orWhere(function(Builder $query) use ($date) {
-                $query->whereRaw("
-                    JSON_OVERLAPS(days, \"[$date->dayOfWeek]\") = 1
-                ");
-            })
-            ->orWhere(function(Builder $query) use ($date) {
-                $query->whereNotNull('end_date')
-                   ->whereDate('start_date', '<=', $date)
-                   ->whereDate('end_date', '>=', $date);
+        $query
+           ->whereNotNull('end_date')
+           ->whereDate('start_date', '<=', $date)
+           ->whereDate('end_date', '>=', $date)
+            ->orWhere(static function(Builder $query) use ($date) {
+                $query->whereRaw("JSON_OVERLAPS(days, \"[$date->dayOfWeek]\") = 1");
             });
     }
 }

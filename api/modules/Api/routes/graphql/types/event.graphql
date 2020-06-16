@@ -74,7 +74,7 @@ input EventFilters {
     canton_id: Int @scope(name: "hasCanton")
     cantons: [Int] @scope(name: "hasCantons")
     close_to: Distance @scope(name: "closeTo")
-    date: Date @scope(name: "ofDate")
+    date: String @scope(name: "ofDate")
     __typename: String
 }
 
