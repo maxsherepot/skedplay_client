@@ -193,7 +193,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
       <div className="container">
         {children}
         {(viewed && employees.length > 0) &&
-          <GirlsViewedBox employees={employees}/>
+          <GirlsViewedBox employees={employees} user={user}/>
         }
       </div>
     </MainLayout>

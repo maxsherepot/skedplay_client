@@ -2,8 +2,11 @@ type Media {
     id: ID!
     name: String!
     url: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getUrl")
+    blur_url: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getBlurUrl")
     thumb_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getThumbUrl")
     big_thumb_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getBigThumbUrl")
+    thumb_blur_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getThumbBlurUrl")
+    big_thumb_blur_url: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getBigThumbBlurUrl")
     mime_type: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getMimeType")
     custom_properties: String @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getCustomProperties")
     model_type: String! @field(resolver: "Modules\\Api\\GraphQL\\Type\\MediaType@getModelType")

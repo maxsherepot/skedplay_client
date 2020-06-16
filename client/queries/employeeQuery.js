@@ -92,6 +92,8 @@ export const ALL_EMPLOYEES = gql `
         photos {
           url
           thumb_url
+          thumb_blur_url
+          blur_url
           custom_properties
         }
         current_club {
@@ -275,7 +277,10 @@ export const GET_EMPLOYEE = gql `
         id
         url
         thumb_url
+        thumb_blur_url
         big_thumb_url
+        big_thumb_blur_url
+        blur_url
         custom_properties
         model_type
         model_id

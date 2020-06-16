@@ -132,7 +132,7 @@ const Index = ({user}) => {
               </a>
             </Link>
           </div>
-          <GirlsBox employees={employees}/>
+          <GirlsBox employees={employees} user={user}/>
 
           <div className="flex text-black items-end leading-none mt-8">
             <div className="text-4xl font-extrabold tracking-tighter">

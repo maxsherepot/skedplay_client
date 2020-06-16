@@ -1,9 +1,9 @@
 import EmployeesPage from "components/employee/EmployeesPage";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-const GirlsSearch = ({isGeolocationEnabled}) => {
+const GirlsSearch = ({user}) => {
   return (
-    <EmployeesPage entityName={`vip_escort`} entityUrl={`vip-escort`}/>
+    <EmployeesPage entityName={`vip_escort`} entityUrl={`vip-escort`} user={user}/>
   );
 };
 

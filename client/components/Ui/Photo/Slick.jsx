@@ -35,7 +35,7 @@ function NextArrow({ className, currentSlide, onClick }) {
   );
 }
 
-function Slick({ id, photos, labels, available, slider, className, link, as, noPhotoSrc }) {
+function Slick({ id, photos, labels, available, slider, className, link, as, noPhotoSrc, user }) {
   const [sliderCardId, setSliderCardId] = useState(null);
 
   const [mainNav, setMainNav] = useState(null);
@@ -49,7 +49,21 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
     setSecondNav(slider2);
   });
 
-  const images = photos.map(photo => photo.thumb_url);
+  const getPhoto = (photo) => {
+    if (JSON.parse(photo.custom_properties).porn && !user) {
+      if (photo.thumb_blur_url) {
+        return photo.thumb_blur_url;
+      }
+    }
+
+    if (photo.thumb_url) {
+      return photo.thumb_url;
+    }
+
+    return photo.url;
+  };
+
+  const images = photos.map(photo => getPhoto(photo));
   const isActiveSlider = sliderCardId === id && slider;
 
   function getImagesBlock() {

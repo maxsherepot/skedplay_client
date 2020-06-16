@@ -12,7 +12,7 @@ import React from "react";
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
 
-const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
+const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl, user}) => {
   const ENTITY_NAME = entityName;
   const {t, i18n} = useTranslation();
 
@@ -114,6 +114,7 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl}) => {
         redirectByFilters={redirectByFilters}
         commonGirlsFilterUrl={commonGirlsFilterUrl}
         entityUrl={entityUrl}
+        user={user}
       />
     </>
   );

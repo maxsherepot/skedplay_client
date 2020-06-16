@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 import {Router} from 'lib/i18n';
 import translation from "services/translation";
 
-const GirlsSearch = ({ entityName, entityUrl, rootHeader, header, fields, initialFilters, filters, redirectByFilters, commonGirlsFilterUrl }) => {
+const GirlsSearch = ({ entityName, entityUrl, rootHeader, header, fields, initialFilters, filters, redirectByFilters, commonGirlsFilterUrl, user }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
   const {t, i18n} = useTranslation();
@@ -114,6 +114,7 @@ const GirlsSearch = ({ entityName, entityUrl, rootHeader, header, fields, initia
         setPage={setPage}
         employees={employees}
         networkStatus={networkStatus}
+        user={user}
       />
     </>
   );

@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import { ArrowNextSvg } from "icons";
 import { GirlCard, Loader } from "UI";
 
-const GirlsViewedBox = ({employees}) => {
+const GirlsViewedBox = ({employees, user}) => {
   const [index, setIndex] = useState(0);
   const {t, i18n} = useTranslation();
 
@@ -109,7 +109,7 @@ const GirlsViewedBox = ({employees}) => {
               key={employee.id}
               // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
             >
-              <GirlCard girl={employee} labels={false} slider={false} preview sized={false} viewed={true} />
+              <GirlCard girl={employee} labels={false} slider={false} preview sized={false} viewed={true} user={user} />
             </div>
           ))}
       </Slider>
