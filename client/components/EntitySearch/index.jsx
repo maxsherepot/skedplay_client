@@ -6,12 +6,17 @@ import {useState} from "react";
 import {Sort} from "UI";
 import React from "react";
 import filterHelpers from "UI/Filter/helpers";
+import * as moment from 'moment';
 
 const EntitySearch = ({ rootHeader, header, entityName, fields, initialFilters, filters, Box, entityQuery, redirectByFilters, entityFilterUrl }) => {
   const [page, setPage] = usePagination();
   const [filtersState, setFiltersState] = useState(filterHelpers.filterFilters(filters[entityName]));
 
   let filtersForQuery = Object.assign({}, filtersState);
+
+  if (filtersForQuery.__typename === 'EventFilters' && filtersForQuery.date) {
+    filtersForQuery.date = moment(filtersForQuery.date).format('YYYY-MM-DD H:mm:ss')
+  }
 
   const { loading: entitiesLoading, error: entitiesError, data = {}, refetch, networkStatus } = useQuery(entityQuery, {
     variables: {
