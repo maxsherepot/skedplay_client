@@ -13,6 +13,7 @@ function DateField({
   label,
   name,
   placeholder,
+  isEmpty,
   disabled,
   minDateTomorrow
 }) {
@@ -23,7 +24,7 @@ function DateField({
 
   const dateInitialValue = !dateValue || !dateValue.length ? new Date : new Date(dateValue);
 
-  const [date, setDateState] = useState(dateInitialValue);
+  const [date, setDateState] = useState(isEmpty ? "" : dateInitialValue);
 
   function setDate(date) {
     setDateState(date);
