@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import { NextSeo } from 'next-seo';
 import {YMInitializer} from "react-yandex-metrika";
 import Cookies from 'js-cookie';
+import Error from './_error';
 
 const LangTags = () => {
   const {asPath} = useRouter();
@@ -76,8 +77,32 @@ const RefHandler = () => {
 class MyApp extends App {
   static displayName = "MyApp";
 
+  static async getInitialProps(appContext) {
+    const appProps = await App.getInitialProps(appContext);
+
+    const manySlashes = appContext.ctx.req.originalUrl.includes('//');
+    const fakeUrlParams = appContext.ctx.req.originalUrl.includes('[canton]')
+      || appContext.ctx.req.originalUrl.includes('[city]')
+      || appContext.ctx.req.originalUrl.includes('[id]')
+      || appContext.ctx.req.originalUrl.includes('[eid]')
+      || appContext.ctx.req.originalUrl.includes('[cid]');
+
+    if (manySlashes || fakeUrlParams) {
+      appContext.ctx.res.statusCode = 404;
+
+      return { ...appProps, pageNotFound: true }
+    }
+
+
+    return { ...appProps }
+  }
+
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apolloClient, pageNotFound } = this.props;
+
+    if (pageNotFound) {
+      return <Error statusCode={404}/>
+    }
 
     const getLayout =
         Component.getLayout || (page => <MainLayout {...pageProps} children={page} />)

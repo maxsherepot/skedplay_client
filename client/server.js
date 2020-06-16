@@ -26,20 +26,6 @@ const handle = app.getRequestHandler();
   });
 
   server.get('*', (req, res) => {
-    const manySlashes = req.url.includes('//');
-
-    const fakeUrlParams = req.url.includes('[canton]')
-      || req.url.includes('[city]')
-      || req.url.includes('[id]')
-      || req.url.includes('[eid]')
-      || req.url.includes('[cid]');
-
-    if (manySlashes || fakeUrlParams) {
-      res.statusCode = 404;
-      app.render(req, res, '/_error');
-      return handle(req, res);
-    }
-
     if (/\..+$/g.test(req.url)) {
       return handle(req, res);
     }
