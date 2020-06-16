@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-
-import { SelectField, TextField } from "UI";
-import { FieldArray, useFormikContext } from "formik";
-import { RatingSvg, TrashSvg } from "icons";
+import React, {useState} from "react";
+import {SelectField} from "UI";
+import {FieldArray, useFormikContext} from "formik";
+import {RatingSvg, TrashSvg} from "icons";
 import {useTranslation} from "react-i18next";
 import AddSvg from "components/icons/AddSvg";
 import dot from "dot-object";
@@ -17,6 +16,8 @@ const LangSelector = () => {
       value: lang
     };
   });
+
+  const [availableLang, setAvailableLang] = useState([]);
 
   const RatingField = ({ name }) => {
     const { values, setFieldValue } = useFormikContext();
@@ -63,16 +64,40 @@ const LangSelector = () => {
   );
 
   const deleteRow = (arrayHelpers, index) => {
+    const lang = values.languages[index];
     arrayHelpers.remove(index);
+
     let valuesLanguages = [...values.languages];
     valuesLanguages.splice(index, 1);
 
     setFieldValue('languages', valuesLanguages);
+
+    if (lang) {
+      const availableLangNew = [...availableLang].filter(foundLang => foundLang.code !== lang.code);
+      setAvailableLang(availableLangNew);
+    }
   };
 
   const addLanguage = (arrayHelpers) => {
     setFieldValue('languages', [...values.languages, {language: '', stars: 1}]);
     arrayHelpers.push("");
+  };
+
+  const setChangeField = (lang, index, code) => {
+    let availableLangNew = [...availableLang];
+
+    availableLangNew[index] = {
+      ...lang,
+      code
+    };
+
+    setAvailableLang(availableLangNew);
+  };
+
+  const langList = (selectLangCode) => {
+    const chosenLanguages = availableLang.map(chosenLang => chosenLang.code);
+
+    return [...languages].filter(lang => !chosenLanguages.includes(lang.value) || lang.value === selectLangCode);
   };
 
   return (
@@ -88,13 +113,14 @@ const LangSelector = () => {
                   className="w-full sm:w-1/3 px-2"
                   label=""
                   placeholder=""
+                  onSelect={e => setChangeField(language, index, e)}
                   name={`languages.${index}.code`}
-                  options={languages}
+                  options={langList(language.code)}
                 />
 
                 <RatingField name={`languages.${index}.stars`}/>
 
-                <FieldControl arrayHelpers={arrayHelpers} index={index}/>
+                <FieldControl  arrayHelpers={arrayHelpers} index={index}/>
               </div>
             ))}
 
