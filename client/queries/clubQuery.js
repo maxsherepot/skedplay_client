@@ -39,9 +39,11 @@ export const ALL_CLUBS = gql`
         city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
         phones
@@ -52,10 +54,6 @@ export const ALL_CLUBS = gql`
         user_status
         start_time
         end_time
-        city {
-          id
-          name
-        }
         employees {
           id
           name
@@ -117,9 +115,11 @@ export const GET_CLUB = gql`
       city {
         id
         name
+        slug
         canton {
           id
           name
+          slug
         }
       }
       address
@@ -212,9 +212,11 @@ export const GET_CLUB = gql`
         city {
           id
           name
+          slug
           canton {
             id
             name
+            slug
           }
         }
         address
