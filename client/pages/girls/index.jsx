@@ -1,9 +1,9 @@
 import EmployeesPage from "components/employee/EmployeesPage";
 import checkLoggedIn from "lib/checkLoggedIn";
 
-const GirlsSearch = () => {
+const GirlsSearch = ({user}) => {
   return (
-    <EmployeesPage entityName={`girls`} entityUrl={`girls`}/>
+    <EmployeesPage entityName={`girls`} entityUrl={`girls`} user={user}/>
   );
 };
 

@@ -10,7 +10,6 @@ import {useTranslation} from "react-i18next";
 import MapSvg from "components/icons/MapSvg";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 
-
 function GirlCard({
   className,
   previewClass,
@@ -23,6 +22,7 @@ function GirlCard({
   sized,
   profileCard,
   viewed,
+  user
 }) {
   function DistanceView({distanceKm}) {
     if (!distanceKm) {
@@ -183,6 +183,24 @@ function GirlCard({
     return getAs();
   };
 
+  const getPhoto = (photo) => {
+    if (!photo) {
+      return '/static/img/girl-no-photo.jpg';
+    }
+
+    if (JSON.parse(photo.custom_properties).porn && !user) {
+      if (photo.thumb_blur_url) {
+        return photo.thumb_blur_url;
+      }
+    }
+
+    if (photo.thumb_url) {
+      return photo.thumb_url;
+    }
+
+    return photo.url;
+  };
+
   return (
     <div className={cx(
         profileCard ? 'girl_card-club' :'girls__item w-full',
@@ -204,7 +222,7 @@ function GirlCard({
       {preview ? (
         <img
             className={previewClass}
-            src={photo && (photo.thumb_url || photo.url) || '/static/img/girl-no-photo.jpg'}
+            src={getPhoto(photo)}
             alt={``}
         />
       ) : (
@@ -221,6 +239,7 @@ function GirlCard({
           link={getHref()}
           as={getLink(girl)}
           noPhotoSrc={`/static/img/girl-no-photo.jpg`}
+          user={user}
         />
       )}
 

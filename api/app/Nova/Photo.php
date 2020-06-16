@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\Nova\Actions\Confirm;
+use App\Nova\Actions\MarkAsNoPorn;
+use App\Nova\Actions\MarkAsPorn;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
 use Laravel\Nova\Fields\Boolean;
@@ -13,6 +15,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\MediaLibrary\Models\Media;
 
 class Photo extends Resource
 {
@@ -77,6 +80,18 @@ class Photo extends Resource
             })->asHtml(),
 
             Text::make('Refuse reason', 'rejected_reason'),
+
+            Text::make('Porn', function() {
+                /** @var Media $media */
+                $media = $this;
+                $isPorn = $media->getCustomProperty('porn');
+
+                if ($isPorn) {
+                    return 'Porn';
+                }
+
+                return 'No porn';
+            })->asHtml(),
         ];
     }
 
@@ -128,6 +143,13 @@ class Photo extends Resource
                 return true;
             }),
             (new Reject())->canRun(function($request) {
+                return true;
+            }),
+
+            (new MarkAsPorn())->canRun(function($request) {
+                return true;
+            }),
+            (new MarkAsNoPorn())->canRun(function($request) {
                 return true;
             }),
         ];

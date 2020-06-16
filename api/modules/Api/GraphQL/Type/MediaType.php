@@ -20,6 +20,15 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
+    function getThumbBlurUrl(Media $rootValue)
+    {
+        return $rootValue->getFullUrl('thumb_blur');
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
     function getBigThumbUrl(Media $rootValue)
     {
         return $rootValue->getFullUrl('big_thumb');
@@ -29,9 +38,27 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
+    function getBigThumbBlurUrl(Media $rootValue)
+    {
+        return $rootValue->getFullUrl('big_thumb_blur');
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
     function getUrl(Media $rootValue)
     {
         return $rootValue->getFullUrl();
+    }
+
+    /**
+     * @param Media $rootValue
+     * @return string
+     */
+    function getBlurUrl(Media $rootValue)
+    {
+        return $rootValue->getFullUrl('blur');
     }
 
     /**

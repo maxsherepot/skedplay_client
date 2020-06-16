@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 import Slider from "react-slick";
 import cx from "classnames";
 
-const ClubGirlsBox = ({ employees, club }) => {
+const ClubGirlsBox = ({ employees, club, user }) => {
   const router = useRouter();
   const { id } = router.query;
   const {t, i18n} = useTranslation();
@@ -124,7 +124,7 @@ const ClubGirlsBox = ({ employees, club }) => {
             // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
             className="md:px-2 sm:px-0"
           >
-            <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available />
+            <GirlCard profileCard={true} girl={employee} labels={false} slider={false} available user={user} />
           </div>
         ))}
       </Slider>

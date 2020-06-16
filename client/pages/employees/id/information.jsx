@@ -12,7 +12,6 @@ import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import {useTranslation} from "react-i18next";
 import EmployeeMaps from "components/employee/EmployeeMaps";
-import LangSelector from "UI/LangSelector";
 import {LoginBox} from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
@@ -125,6 +124,26 @@ const EmployeeInformation = ({ user }) => {
     toggleModalOpen(false);
   };
 
+  const getBigThumbUrl = (photo) => {
+    if (JSON.parse(photo.custom_properties).porn && !user) {
+      if (photo.big_thumb_blur_url) {
+        return photo.big_thumb_blur_url;
+      }
+    }
+
+    return photo.big_thumb_url;
+  };
+
+  const getPhotoUrl = (photo) => {
+    if (JSON.parse(photo.custom_properties).porn && !user) {
+      if (photo.blur_url) {
+        return photo.blur_url;
+      }
+    }
+
+    return photo.url;
+  };
+
   const [event] = employee.events;
 
   const sidebarColumn = (
@@ -134,14 +153,14 @@ const EmployeeInformation = ({ user }) => {
         index={lightboxIndex}
         onClose={onClose}
         images={[
-          ...employee.photos.map(p => ({...p, type: 'image'})),
+          ...employee.photos.map(p => ({...p, type: 'image', url: getPhotoUrl(p)})),
           ...employee.videos.map(v => ({...v, type: 'video'}))]
         }
       />
 
       <GalleryWithThumbnail
         photos={[
-          ...employee.photos.map(p => ({...p, type: 'image'})),
+          ...employee.photos.map(p => ({...p, type: 'image', big_thumb_url: getBigThumbUrl(p)})),
           ...employee.videos.map(v => ({...v, url: v.thumb_url, type: 'video'}))
         ]}
         handleClick={handleLightboxClick}

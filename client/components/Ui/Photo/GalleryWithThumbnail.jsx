@@ -56,7 +56,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
                   "thumb-slide object-cover rounded-lg h-36 outline-none cursor-pointer",
                   i % 2 !== 0 ? "my-2" : null
                 )}
-                src={photo.url}
+                src={photo.big_thumb_url}
                 alt=""
               />
             </div>
@@ -88,7 +88,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
                 ref={element => setClickRef(element, i)}
                 onClick={() => handleClick(i)}
                 className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
-                src={photo.url}
+                src={photo.big_thumb_url}
                 alt=""
               />
             </div>

@@ -257,7 +257,7 @@ const ClubInformation = ({user}) => {
 
       <div className="flex flex-wrap md:p-4 sm:p-0 -mx-3">
         <div className="w-full md:w-8/12 lg:w-9/12 px-3">
-          <ClubGirlsBox employees={club.employees} club={club}/>
+          <ClubGirlsBox employees={club.employees} club={club} user={user}/>
         </div>
         {event && (
           <>

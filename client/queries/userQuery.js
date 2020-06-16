@@ -192,9 +192,11 @@ export const FAVORITE_EMPLOYEES = gql`
             city {
                 id
                 name
+                slug
                 canton {
                     id
                     name
+                    slug
                 }
             }
             address
@@ -219,9 +221,11 @@ export const FAVORITE_CLUBS = gql`
             city {
                 id
                 name
+                slug
                 canton {
                     id
                     name
+                    slug
                 }
             }
             address
@@ -253,18 +257,22 @@ export const FAVORITE_EVENTS = gql`
             city {
                 id
                 name
+                slug
                 canton {
                     id
                     name
+                    slug
                 }
             }
             club {
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 address

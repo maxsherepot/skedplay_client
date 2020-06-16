@@ -47,7 +47,7 @@ const FavoriteGirls = ({ user }) => {
               className="flex justify-center sm:w-1/2 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2"
               key={girl.id}
             >
-              <GirlCard girl={girl} href="/employee" />
+              <GirlCard girl={girl} href="/employee" user={user} />
             </div>
         ))}
       </div>

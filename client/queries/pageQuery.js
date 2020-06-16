@@ -19,9 +19,11 @@ export const INDEX_PAGE_DATA = gql `
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 status
@@ -39,9 +41,11 @@ export const INDEX_PAGE_DATA = gql `
                     city {
                         id
                         name
+                        slug
                         canton {
                             id
                             name
+                            slug
                         }
                     }
                 }
@@ -55,9 +59,11 @@ export const INDEX_PAGE_DATA = gql `
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 address
@@ -114,14 +120,18 @@ export const INDEX_PAGE_DATA = gql `
                 city {
                     id
                     name
+                    slug
                     canton {
                         id
                         name
+                        slug
                     }
                 }
                 photos {
                     id
+                    custom_properties
                     thumb_url
+                    thumb_blur_url
                 }
             }
         }
