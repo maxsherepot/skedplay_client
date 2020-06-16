@@ -157,10 +157,10 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
       }
 
       <PageCard fullScreen={true} className="my-10 pl-10 pr-10">
-        <div className="flex flex-col md:pl-25 lg:flex-row justify-between help-center">
+        <div className="flex flex-col pl-25 lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
-            <div className="xl:max-w-3/4">
+            <div className="xl:max-w-3/4 lg:max-w-3/4">
               {selectedTopic ?
                 <>
                   <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
@@ -169,9 +169,16 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
                 </>
                 :
+                  <>
                 <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
                   {t('layout.help_center')}
                 </h1>
+                    <div>hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf hudw wjndwnbdhwdjhb
+                      whwifwfwjf wihfwfiw   hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  wihfwfiw hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw
+                      hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb
+                      whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw
+                    </div>
+                </>
               }
             </div>
           </div>
