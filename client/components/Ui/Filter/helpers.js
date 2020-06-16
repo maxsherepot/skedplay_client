@@ -262,20 +262,14 @@ export default {
           component: "dateField",
           name: "date",
           label: t('common.date'),
+          placeholder: "Select date",
+          defaultValue: "",
           labelResolver(value) {
             if (value) {
               return moment(value).format('DD.MM.YYYY');
             }
 
             return null;
-          },
-          valueResolver(value) {
-            return moment(value).format('DD.MM.YYYY');
-            },
-          handleChange(value, setFieldValue) {
-            let dateField = moment(value).format('DD.MM.YYYY');
-
-            setFieldValue('date', dateField);
           },
         };
 

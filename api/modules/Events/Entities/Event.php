@@ -214,10 +214,15 @@ class Event extends Model implements HasMedia
         if (!$date) {
             return;
         }
-        $date = new Carbon($date);
+
+        try {
+            $date = Carbon::parse($date);
+        } catch (\Exception $e) {
+            return;
+        }
 
         $query
-           ->whereNotNull('end_date')
+           ->whereNotNull('start_date')
            ->whereDate('start_date', '<=', $date)
            ->whereDate('end_date', '>=', $date)
             ->orWhere(static function(Builder $query) use ($date) {
