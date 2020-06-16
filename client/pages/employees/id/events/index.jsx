@@ -7,7 +7,7 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import {EventCard, Gallery, Pagination, AddressCard, Loader} from "UI";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import slug from "slug";
+
 import {NextSeo} from "next-seo";
 
 
@@ -72,8 +72,8 @@ const EmployeeEvents = ({user}) => {
                 className="w-full md:w-1/2 lg:w-1/3"
                 key={event.id}
                 href={`/${girlType}/canton/city/id/events`}
-                linkQueryParams={`?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`}
-                as={`/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`}
+                linkQueryParams={`?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`}
+                as={`/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/events`}
 
                 {...event}
               />

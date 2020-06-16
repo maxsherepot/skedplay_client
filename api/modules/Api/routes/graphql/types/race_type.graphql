@@ -1,6 +1,7 @@
 type EmployeeRaceType {
     id: ID!
     name: String!
+    slug: String!
 }
 
 extend type Query {

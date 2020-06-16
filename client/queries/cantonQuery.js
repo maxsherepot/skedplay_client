@@ -5,6 +5,7 @@ export const CANTONS = gql `
       cantons {
       id
       name
+      slug
     }
   }
 `;
@@ -14,10 +15,12 @@ export const CANTONS_AND_CITIES = gql `
         cantons {
             id
             name
+            slug
         }
         cities {
             id
             name
+            slug
             canton_id
         }
     }
@@ -28,6 +31,7 @@ export const CANTONS_WITH_CITIES_IDS = gql `
       cantons {
       id
       name
+      slug
       cities {
         id
       }

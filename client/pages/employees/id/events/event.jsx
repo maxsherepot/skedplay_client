@@ -9,7 +9,7 @@ import GoogleMap from "components/GoogleMap";
 import EmployeeBox from "components/employee/EmployeeBox";
 import {useTranslation} from "react-i18next";
 import {NextSeo} from "next-seo";
-import slug from "slug";
+
 
 const EmployeeEventShow = ({user}) => {
   const router = useRouter();
@@ -127,8 +127,8 @@ const EmployeeEventShow = ({user}) => {
 
   const lastBreadcrumbs = [
     {
-      href: `/${girlType}/canton/city/id/events?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
-      as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/events`,
+      href: `/${girlType}/canton/city/id/events?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`,
+      as: `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/events`,
       label: t('employees.events'),
     },
     {

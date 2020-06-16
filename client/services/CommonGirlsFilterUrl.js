@@ -1,4 +1,3 @@
-import slug from "slug";
 const queryString = require('query-string');
 import CommonFilterUrl from "./CommonFilterUrl";
 
@@ -33,8 +32,8 @@ export default class CommonGirlsFilterUrl {
   }
 
   findModels() {
-    this.serviceModels = (this.input.services || []).map(s => this.services.find(sm => slug(sm.name) === slug(s)));
-    this.raceModels = (this.input.races || []).map(r => this.races.find(er => slug(er.name) === slug(r)));
+    this.serviceModels = (this.input.services || []).map(s => this.services.find(sm => sm.slug === s));
+    this.raceModels = (this.input.races || []).map(r => this.races.find(er => er.slug === r));
   }
 
   pageNotFound() {
@@ -102,7 +101,7 @@ export default class CommonGirlsFilterUrl {
 
     if (filters.services && filters.services.length) {
       let servicesModels = filters.services.map(s => this.services.find(sm => parseInt(sm.id) === parseInt(s)));
-      query.services = servicesModels.map(s => slug(s.name)).sort();
+      query.services = servicesModels.map(s => s.slug).sort();
       asQuery.services = query.services;
 
       if (canonical) {
@@ -114,7 +113,7 @@ export default class CommonGirlsFilterUrl {
 
     if (filters.race_type_ids && filters.race_type_ids.length) {
       let raceTypeModels = filters.race_type_ids.map(t => this.races.find(et => parseInt(et.id) === parseInt(t)));
-      query.races = raceTypeModels.map(s => slug(s.name)).sort();
+      query.races = raceTypeModels.map(s => s.slug).sort();
       asQuery.races = query.races;
 
       if (canonical) {

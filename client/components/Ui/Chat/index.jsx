@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useReducer, useState } from 'react';
 import moment from "moment-timezone";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import _ from "lodash";
+import {groupBy} from "lodash";
 import {  Loader  } from "UI";
 import {useQuery, useLazyQuery, useMutation} from "@apollo/react-hooks";
 import {CHAT_ROOM, ADMIN_CHAT_ROOM, SEND_MESSAGE, SEND_ADMIN_MESSAGE} from "queries";
@@ -220,7 +220,7 @@ function ChatRoom({
     return message;
   });
 
-  let messagesByDate = _.groupBy(chat.messages, 'date');
+  let messagesByDate = groupBy(chat.messages, 'date');
 
   async function sendMessage() {
     if (sending || (!messageText && fileInputRef.current.files.length === 0)) {

@@ -5,7 +5,7 @@ import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
-import slug from "slug";
+
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
 import translation from "services/translation";
@@ -32,8 +32,8 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     ? []
     : [
       {
-        as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}`,
-        href: `/${girlType}/canton/city?canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+        as: `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}`,
+        href: `/${girlType}/canton/city?canton=${employee.city.canton.slug}&city=${employee.city.slug}`,
         label: employee.city.name
       }
     ];
@@ -46,15 +46,15 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     },
     employee.city && employee.canton ?
     {
-      as: `/${girlType}/${slug(employee.city.canton.name)}`,
-      href: `/${girlType}/canton?&canton=${slug(employee.city.canton.name)}`,
+      as: `/${girlType}/${employee.city.canton.slug}`,
+      href: `/${girlType}/canton?&canton=${employee.city.canton.slug}`,
       label: employee.city.canton.name
     } : {},
     ...cityFilter,
     employee.city && employee.canton ?
     {
-      as: `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/information`,
-      href: `/${girlType}/canton/city/id/information?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`,
+      as: `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/information`,
+      href: `/${girlType}/canton/city/id/information?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`,
       label: employee.name
     } : {
       as: `/employees/${employee.id}/information`,
@@ -72,7 +72,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
       return `/employees/id/${page}?id=${employee.id}`;
     }
 
-    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${slug(employee.city.canton.name)}&city=${slug(employee.city.name)}`;
+    return `/${girlType}/canton/city/id/${page}?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`;
   };
 
   const getAs = (page) => {
@@ -80,7 +80,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
       return `/employees/${employee.id}/${page}`;
     }
 
-    return `/${girlType}/${slug(employee.city.canton.name)}/${slug(employee.city.name)}/${employee.id}/${page}`;
+    return `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/${page}`;
   };
 
   const leftInfo = (

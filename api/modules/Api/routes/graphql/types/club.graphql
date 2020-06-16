@@ -80,6 +80,7 @@ input ClubModeratorInput {
 type ClubType {
   id: ID!
   name: String!
+  slug: String!
 }
 
 input ClubFilters {

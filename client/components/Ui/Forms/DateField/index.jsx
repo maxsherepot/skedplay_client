@@ -5,7 +5,7 @@ import { Field, useFormikContext } from "formik";
 import { FormGroup, Dropdown } from "UI";
 import formErrors from "services/formErrors";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 function DateField({
   className,
