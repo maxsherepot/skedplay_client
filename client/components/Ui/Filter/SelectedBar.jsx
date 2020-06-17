@@ -76,8 +76,13 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
     }
 
     setFilter(key, state);
+
     if (key === 'canton_id') {
       setFilter('city_id', '');
+    }
+
+    if (key === 'date') {
+      setFilter('date', '');
     }
   };
 
@@ -93,6 +98,10 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
 
     if (inititalState.show_level) {
       inititalState.show_level = false;
+    }
+
+    if (inititalState.date) {
+      inititalState.date = "";
     }
 
     setFilters(inititalState);

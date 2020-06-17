@@ -222,11 +222,13 @@ class Event extends Model implements HasMedia
         }
 
         $query
-           ->whereNotNull('start_date')
-           ->whereDate('start_date', '<=', $date)
-           ->whereDate('end_date', '>=', $date)
-            ->orWhere(static function(Builder $query) use ($date) {
-                $query->whereRaw("JSON_OVERLAPS(days, \"[$date->dayOfWeek]\") = 1");
-            });
+           ->whereDate('start_date', '=', $date)
+           ->orWhere(static function(Builder $query) use ($date) {
+               $query->whereDate('start_date', '<=', $date)
+                     ->whereDate('end_date', '>=', $date);
+           })
+           ->orWhere(static function(Builder $query) use ($date) {
+               $query->whereRaw("JSON_OVERLAPS(days, \"[$date->dayOfWeek]\") = 1");
+           });
     }
 }

@@ -169,16 +169,9 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
                 </>
                 :
-                  <>
                 <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
                   {t('layout.help_center')}
                 </h1>
-                    <div>hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf hudw wjndwnbdhwdjhb
-                      whwifwfwjf wihfwfiw   hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  wihfwfiw hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw
-                      hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb
-                      whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw  hudw wjndwnbdhwdjhb whwifwfwjf wihfwfiw
-                    </div>
-                </>
               }
             </div>
           </div>
