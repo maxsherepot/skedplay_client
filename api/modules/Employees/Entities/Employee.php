@@ -15,6 +15,7 @@ use Modules\Chat\Entities\Message;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\City;
 use Modules\Common\Entities\EmployeeScheduleWork;
+use Modules\Common\Entities\EventCount;
 use Modules\Common\Entities\Review;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
@@ -169,6 +170,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function race_type(): BelongsTo
     {
         return $this->belongsTo(EmployeeRaceType::class, 'race_type_id');
+    }
+
+    public function eventCounts()
+    {
+        return $this->morphMany(EventCount::class, 'model');
     }
 
     /**

@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useRouter} from "next/router";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_EMPLOYEE, GET_EVENT, ALL_EMPLOYEES} from "queries";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {GET_EMPLOYEE, GET_EVENT, ALL_EMPLOYEES, DO_EVENT} from "queries";
 import {CloseSvg} from "icons";
 import {Button, Gallery, AddressCard, EventLabel, Loader} from "UI";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -10,11 +10,11 @@ import EmployeeBox from "components/employee/EmployeeBox";
 import {useTranslation} from "react-i18next";
 import {NextSeo} from "next-seo";
 
-
 const EmployeeEventShow = ({user}) => {
   const router = useRouter();
   const {id, event: eventId, canton, city} = router.query;
   const {t, i18n} = useTranslation();
+  const [doEvent] = useMutation(DO_EVENT);
 
   const {data: {employee} = {}, loading: employeeLoading} = useQuery(
     GET_EMPLOYEE,
@@ -37,6 +37,16 @@ const EmployeeEventShow = ({user}) => {
       page: 1
     }
   });
+
+  useEffect(() => {
+    doEvent({
+      variables: {
+        model_type: 'event',
+        model_id: eventId,
+        event: 'view',
+      }
+    });
+  }, []);
 
   if (employeeLoading || eventLoading || loadingEmployees) {
     return <Loader/>;

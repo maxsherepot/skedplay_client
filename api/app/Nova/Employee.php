@@ -55,7 +55,7 @@ class Employee extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'first_name', 'last_name',
     ];
 
 //    public static function indexQuery(NovaRequest $request, $query)
@@ -205,6 +205,7 @@ class Employee extends Resource
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
                 MorphMany::make('Events'),
+                MorphMany::make('Actions', 'eventCounts', EventCount::class),
             ])
         ];
     }

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 import Link from 'components/SlashedLink'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
-import { Lightbox, GalleryWithThumbnail, AddressCard, EventCard, Loader, Button } from "UI";
-import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EVENTS, ALL_EMPLOYEES } from "queries";
-import { useQuery } from "@apollo/react-hooks";
+import { Lightbox, GalleryWithThumbnail, EventCard, Loader } from "UI";
+import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EMPLOYEES, DO_EVENT } from "queries";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EmployeeSchedule } from "components/schedule";
@@ -30,6 +30,8 @@ const EmployeeInformation = ({ user }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const mapRef = React.useRef();
+
+  const [doEvent] = useMutation(DO_EVENT);
 
   const { loading: cantonsLoading, data: { cantons, cities } = {} } = useQuery(
     CANTONS_AND_CITIES
@@ -63,6 +65,16 @@ const EmployeeInformation = ({ user }) => {
     },
     skip: !viewedGirlsIds || !queryIds.length
   });
+
+  useEffect(() => {
+    doEvent({
+      variables: {
+        model_type: 'employee',
+        model_id: id,
+        event: 'view',
+      }
+    });
+  }, []);
 
   if (cantonsLoading || employeeLoading || loadingEmployees) {
     return <Loader/>;

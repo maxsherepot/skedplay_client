@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
 use Modules\Common\Entities\City;
 use Modules\Common\Entities\ClubScheduleWork;
+use Modules\Common\Entities\EventCount;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Entities\Traits\Priceable;
 use Modules\Common\Entities\Traits\Serviceable;
@@ -162,6 +163,11 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     public function events(): MorphMany
     {
         return $this->morphMany(Event::class, 'owner');
+    }
+
+    public function eventCounts()
+    {
+        return $this->morphMany(EventCount::class, 'model');
     }
 
     public function registerMediaCollections()

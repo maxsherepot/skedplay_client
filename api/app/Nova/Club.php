@@ -390,6 +390,7 @@ class Club extends Resource
                 HasMany::make('Videos'),
                 MorphMany::make('Events'),
                 MorphMany::make('Employees'),
+                MorphMany::make('Actions', 'eventCounts', EventCount::class),
             ]),
         ];
     }

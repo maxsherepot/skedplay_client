@@ -10,6 +10,7 @@ use App\Nova\ContactRequest;
 use App\Nova\Employee;
 use App\Nova\EmployeeComplaint;
 use App\Nova\EmployeeComplaintTheme;
+use App\Nova\EventCount;
 use App\Nova\EventPattern;
 use App\Nova\GirlPattern;
 use App\Nova\Event;
@@ -169,6 +170,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             HelpCenterCategory::class,
             HelpCenterTopic::class,
+
+            EventCount::class,
 
             UiTranslate::class,
             Language::class,

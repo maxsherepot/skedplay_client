@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\EventCount;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Services\Location\Locationable;
 use Modules\Employees\Entities\Employee;
@@ -146,6 +147,11 @@ class Event extends Model implements HasMedia
     public function employees(): BelongsToMany
     {
         return $this->employeesRelation();
+    }
+
+    public function eventCounts()
+    {
+        return $this->morphMany(EventCount::class, 'model');
     }
 
     public function scopeHasCantons(Builder $query, ?array $cantons = null): void

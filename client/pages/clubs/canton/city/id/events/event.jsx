@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useRouter } from "next/router";
 import Link from 'components/SlashedLink'
-import { useQuery } from "@apollo/react-hooks";
-import { GET_CLUB, GET_EVENT } from "queries";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import { GET_CLUB, GET_EVENT, DO_EVENT } from "queries";
 import { Button, Gallery, EventLabel, Loader } from "UI";
 import { ClubBox } from "components/club";
 import { ArrowNextSvg } from "icons";
@@ -15,6 +15,7 @@ const ClubEventShow = ({ user }) => {
   const router = useRouter();
   const { id, event: eventId, canton, city } = router.query;
   const {t, i18n} = useTranslation();
+  const [doEvent] = useMutation(DO_EVENT);
 
   const { data: { club } = {}, loading: clubLoading } = useQuery(GET_CLUB, {
     variables: {
@@ -27,6 +28,16 @@ const ClubEventShow = ({ user }) => {
       id: eventId
     }
   });
+
+  useEffect(() => {
+    doEvent({
+      variables: {
+        model_type: 'event',
+        model_id: eventId,
+        event: 'view',
+      }
+    });
+  }, []);
 
   if (clubLoading || eventLoading) {
     return <Loader/>;

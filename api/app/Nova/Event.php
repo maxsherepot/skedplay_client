@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
@@ -111,6 +112,7 @@ class Event extends Resource
                 ]),
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
+                MorphMany::make('Actions', 'eventCounts', EventCount::class),
             ])
         ];
     }

@@ -6,11 +6,13 @@ import { geolocated } from "react-geolocated";
 import { RoadSvg, Phone1Svg, LinkSvg, AttentionSvg } from "icons";
 import { Button } from "UI";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { DO_EVENT } from "queries";
 
 import Link from 'components/SlashedLink'
 import EmployeeComplaintPopup from "components/popups/EmployeeComplaintPopup";
 import EmployeeComplaintSuccessPopup from "components/popups/EmployeeComplaintSuccessPopup";
 import ym from 'react-yandex-metrika';
+import {useMutation} from "@apollo/react-hooks";
 
 const DistanceView = ({ distanceValue }) => {
   if (!distanceValue) {
@@ -35,6 +37,7 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
   const [showPhone, setShowPhone] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showComplaintSuccessPopup, setShowComplaintSuccessPopup] = useState(false);
+  const [doEvent] = useMutation(DO_EVENT);
 
   if (typeof window === 'undefined') {
     return null;
@@ -69,11 +72,29 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
   const copy = () => {
     setCopied(true);
 
+    doEvent({
+      variables: {
+        model_type: 'employee',
+        model_id: employee.id,
+        event: 'link',
+      }
+    });
+
     setTimeout(() => setCopied(false), 5000);
   };
 
   const showMePhone = () => {
     if (showPhone) {
+      doEvent({
+        variables: {
+          model_type: 'employee',
+          model_id: employee.id,
+          event: 'call',
+        }
+      });
+
+      document.location.href = `tel:${employee.phone}`;
+
       return;
     }
 
@@ -86,6 +107,14 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
       gtag('event', 'show_phone', {'event_category' : 'click'});
       ym('reachGoal', 'show_phone');
     }
+
+    doEvent({
+      variables: {
+        model_type: 'employee',
+        model_id: employee.id,
+        event: 'phone',
+      }
+    });
   };
 
   const onSuccessComplaint = () => {
@@ -186,6 +215,14 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
             onMouseEnter={() => setHover1(true)}
             onMouseLeave={() => setHover1(false)}
             onClick={() => {
+              doEvent({
+                variables: {
+                  model_type: 'employee',
+                  model_id: employee.id,
+                  event: 'route',
+                }
+              });
+
               if (isGeolocationEnabled) {
                 scrollToRef(mapRef);
 

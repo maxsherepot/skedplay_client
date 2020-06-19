@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Link from 'components/SlashedLink'
 import cx from "classnames";
@@ -22,7 +22,7 @@ import {useTranslation} from "react-i18next";
 import Distance from "components/distance";
 import EmployeeMaps from "components/employee/EmployeeMaps";
 import {Formik} from "formik";
-import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES} from "queries";
+import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES, DO_EVENT} from "queries";
 import {getErrors} from "utils/index";
 
 import {NextSeo} from "next-seo";
@@ -46,6 +46,7 @@ const SubscribeClubForm = ({clubId}) => {
   const [createSubscribeClub] = useMutation(CREATE_SUBSCRIBE_CLUB);
   const {t} = useTranslation();
   const router = useRouter();
+  const [doEvent] = useMutation(DO_EVENT);
 
   const handleSubmits = async values => {
     try {
@@ -63,6 +64,14 @@ const SubscribeClubForm = ({clubId}) => {
       if (status) {
         router.reload();
       }
+
+      doEvent({
+        variables: {
+          model_type: 'club',
+          model_id: clubId,
+          event: 'subscribe',
+        }
+      });
 
       return {
         status,
@@ -122,6 +131,8 @@ const ClubInformation = ({user}) => {
   canton = canton.replace('/', '');
   city = city.replace('/', '');
 
+  const [doEvent] = useMutation(DO_EVENT);
+
   const [isShowPhone, toggleShowPhone] = useState(false);
 
   const {loading: cantonsLoading, data: {cantons, cities} = {}} = useQuery(
@@ -139,6 +150,16 @@ const ClubInformation = ({user}) => {
   });
 
   const {t, i18n} = useTranslation();
+
+  useEffect(() => {
+    doEvent({
+      variables: {
+        model_type: 'club',
+        model_id: id,
+        event: 'view',
+      }
+    });
+  }, []);
 
   if (loading || cantonsLoading) {
     return <Loader/>;

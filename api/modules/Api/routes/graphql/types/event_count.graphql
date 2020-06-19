@@ -1,0 +1,8 @@
+type EventCount {
+    id: ID!
+}
+
+extend type Mutation @middleware(checks: ["throttle:10,1"]) {
+    doEvent(model_id: ID!, model_type: String!, event: String!): Boolean
+    @router(action: "Modules\\Api\\Http\\Controllers\\EventActionController@doEvent")
+}
