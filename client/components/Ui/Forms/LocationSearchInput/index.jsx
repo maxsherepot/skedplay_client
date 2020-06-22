@@ -81,7 +81,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
             ])}
             label={t('index.address')}
             defaultValue={defaultValue ? defaultValue : ""}
-            placeholder="Example: street name, city"
+            placeholder={t('common.address_placeholder')}
             name={fieldName}
             {...getInputProps({
               className: 'location-search-input',

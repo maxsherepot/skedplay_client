@@ -78,7 +78,7 @@ const EventsContainer = ({events}) => {
                 <div className="block text-white font-extrabold text-2xl">23</div>
                 <div className="flex text-white text-xl">
                   <div className="w-9 border-t border-yellow mr-3 mt-3"/>
-                  {t('common.events')} {t('common.today')}
+                  {t('common.events')} {t('common.today').toLowerCase()}
                 </div>
               </a>
             </div>
