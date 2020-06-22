@@ -25,8 +25,8 @@ const EmployeeInformation = ({ user }) => {
   const {t, i18n} = useTranslation();
   const router = useRouter();
   let { id, canton, city } = router.query;
-  canton = canton.replace('/', '');
-  city = city.replace('/', '');
+  canton = canton ? canton.replace('/', '') : canton;
+  city = city ? city.replace('/', '') : city;
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const mapRef = React.useRef();
@@ -138,10 +138,10 @@ const EmployeeInformation = ({ user }) => {
 
   const getBigThumbUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
-      if (photo.big_thumb_blur_url) {
+      // if (photo.big_thumb_blur_url) {
         photo.vip = true;
-        return photo.big_thumb_blur_url;
-      }
+        // return photo.big_thumb_blur_url;
+      // }
     }
 
     return photo.big_thumb_url;
@@ -149,10 +149,10 @@ const EmployeeInformation = ({ user }) => {
 
   const getPhotoUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
-      if (photo.blur_url) {
+      // if (photo.blur_url) {
         photo.vip = true;
-        return photo.blur_url;
-      }
+        // return photo.blur_url;
+      // }
     }
 
     return photo.url;
