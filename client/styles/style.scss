@@ -397,6 +397,23 @@ main {
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
+    z-index: 1;
+  }
+
+  img.blur {
+    filter: blur(8px);
+  }
+
+  img.blur-sm {
+    filter: blur(1px);
+  }
+
+  img.blur-xl {
+    filter: blur(12px);
+  }
+
+  img.blur-hd {
+    filter: blur(16px);
   }
 
   @import "components/Ui/AnimationBackground/AnimationBackground";

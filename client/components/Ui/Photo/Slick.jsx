@@ -52,13 +52,17 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
     setSecondNav(slider2);
   });
 
+  const isBlurPhoto = (photo) => {
+    return JSON.parse(photo.custom_properties).porn && !user;
+  };
+
   const getPhoto = (photo) => {
-    if (JSON.parse(photo.custom_properties).porn && !user) {
-      if (photo.thumb_blur_url) {
+    if (isBlurPhoto(photo)) {
+      // if (photo.thumb_blur_url) {
         photo.vip = true;
 
-        return photo.thumb_blur_url;
-      }
+        // return photo.thumb_blur_url;
+      // }
     }
 
     if (photo.thumb_url) {
@@ -105,14 +109,17 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
           // }
 
           return (
-            <div className="relative">
+            <div className="relative" key={i}>
               {image.vip &&
                 <Badge className="center absolute top-0 left-0 bg-red">{t('common.vip_only')}</Badge>
               }
 
               <LazyLoadImage
-                key={i}
-                className={cx("object-cover", className)}
+                className={cx(
+                  "object-cover",
+                  className,
+                  image.vip ? 'blur' : ''
+                )}
                 alt={``}
                 src={image.url}
                 effect="blur"
@@ -162,7 +169,10 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 {images.map((image, i) => (
                   <div className="pr-1 outline-none" key={i}>
                     <LazyLoadImage
-                      className="object-cover rounded-lg h-15 outline-none cursor-pointer border border-white hover:border-red"
+                      className={cx(
+                        "object-cover rounded-lg h-15 outline-none cursor-pointer border border-white hover:border-red",
+                        image.vip ? 'blur-sm' : ''
+                      )}
                       alt={``}
                       src={image.url}
                       onMouseEnter={() => slider1.slickGoTo(i)}

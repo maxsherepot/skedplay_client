@@ -57,7 +57,8 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
               <img
                 className={cx(
                   "thumb-slide object-cover rounded-lg h-36 outline-none cursor-pointer",
-                  i % 2 !== 0 ? "my-2" : null
+                  i % 2 !== 0 ? "my-2" : null,
+                  photo.vip ? 'blur-sm' : '',
                 )}
                 src={photo.big_thumb_url}
                 alt=""
@@ -94,7 +95,10 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
               <img
                 ref={element => setClickRef(element, i)}
                 onClick={() => handleClick(i)}
-                className="object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md"
+                className={cx(
+                  "object-cover rounded-lg h-gallery sm:h-gallery-sm md:h-gallery-md lg:h-gallery-md",
+                  photo.vip ? 'blur-xl' : '',
+                )}
                 src={photo.big_thumb_url}
                 alt=""
               />

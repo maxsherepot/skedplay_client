@@ -2,6 +2,7 @@ import React from "react";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { Badge } from "UI";
 import {useTranslation} from "react-i18next";
+import cx from "classnames";
 
 function Lightbox({ open, index, images, onClose }) {
   const {t} = useTranslation();
@@ -52,7 +53,10 @@ function Lightbox({ open, index, images, onClose }) {
           :
           (
             <img
-              className="react-images__view-image react-images__view-image--isModal css-zjq1i3 css-1ycyyax"
+              className={cx(
+                "react-images__view-image react-images__view-image--isModal css-zjq1i3 css-1ycyyax",
+                data.vip ? "blur-hd" : ''
+              )}
               src={data.src}
             />
           )}

@@ -183,16 +183,20 @@ function GirlCard({
     return getAs();
   };
 
+  const isBlurPhoto = (photo) => {
+    return JSON.parse(photo.custom_properties).porn && !user;
+  };
+
   const getPhoto = (photo) => {
     if (!photo) {
       return '/static/img/girl-no-photo.jpg';
     }
 
-    if (JSON.parse(photo.custom_properties).porn && !user) {
-      if (photo.thumb_blur_url) {
+    if (isBlurPhoto(photo)) {
+      // if (photo.thumb_blur_url) {
         photo.vip = true;
-        return photo.thumb_blur_url;
-      }
+        // return photo.thumb_blur_url;
+      // }
     }
 
     if (photo.thumb_url) {
@@ -222,7 +226,10 @@ function GirlCard({
 
       {preview ? (
         <img
-            className={previewClass}
+            className={cx(
+              previewClass,
+              isBlurPhoto(photo) ? 'blur' : ''
+            )}
             src={getPhoto(photo)}
             alt={``}
         />

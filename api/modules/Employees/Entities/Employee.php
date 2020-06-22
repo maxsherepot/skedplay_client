@@ -313,32 +313,32 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     {
         $this->addMediaConversion('thumb')
 //            ->format('webp')
-            ->width(333)
+            ->width(332)
             ->height(470)
             ->performOnCollections(self::PHOTO_COLLECTION);
 
         $this->addMediaConversion('big_thumb')
 //            ->format('webp')
-            ->width(455)
+            ->width(454)
             ->height(682)
             ->performOnCollections(self::PHOTO_COLLECTION);
 
-        $this->addMediaConversion('thumb_blur')
-            ->width(333)
-            ->height(470)
-            ->blur(85)
-            ->performOnCollections(self::PHOTO_COLLECTION);
-
-        $this->addMediaConversion('big_thumb_blur')
-            ->width(455)
-            ->height(682)
-            ->blur(85)
-            ->performOnCollections(self::PHOTO_COLLECTION);
-
-        $this->addMediaConversion('blur')
-            ->width(1800)
-            ->blur(93)
-            ->performOnCollections(self::PHOTO_COLLECTION);
+//        $this->addMediaConversion('thumb_blur')
+//            ->width(333)
+//            ->height(470)
+//            ->blur(85)
+//            ->performOnCollections(self::PHOTO_COLLECTION);
+//
+//        $this->addMediaConversion('big_thumb_blur')
+//            ->width(455)
+//            ->height(682)
+//            ->blur(85)
+//            ->performOnCollections(self::PHOTO_COLLECTION);
+//
+//        $this->addMediaConversion('blur')
+//            ->width(1800)
+//            ->blur(93)
+//            ->performOnCollections(self::PHOTO_COLLECTION);
     }
 
     public function isClient(): bool
