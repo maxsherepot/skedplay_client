@@ -52,7 +52,7 @@ const EventsContainer = ({events}) => {
               className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/girls">
                 <div className="block text-white font-extrabold text-2xl">
-                  11 243
+                  {(11243).toLocaleString('en')}
                 </div>
                 <div className="flex text-white text-xl">
                   <div className="w-9 border-t border-yellow mr-3 mt-3"/>
@@ -64,7 +64,7 @@ const EventsContainer = ({events}) => {
               className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/clubs">
                 <div className="block text-white font-extrabold text-2xl">
-                  350
+                  {(350).toLocaleString('en')}
                 </div>
                 <div className="flex text-white text-xl">
                   <div className="w-9 border-t border-yellow mr-3 mt-3"/>
@@ -75,7 +75,7 @@ const EventsContainer = ({events}) => {
             <div
               className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/events">
-                <div className="block text-white font-extrabold text-2xl">23</div>
+                <div className="block text-white font-extrabold text-2xl">{(23).toLocaleString('en')}</div>
                 <div className="flex text-white text-xl">
                   <div className="w-9 border-t border-yellow mr-3 mt-3"/>
                   {t('common.events')} {t('common.today').toLowerCase()}
