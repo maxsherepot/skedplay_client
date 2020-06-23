@@ -25,9 +25,9 @@ use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Club
@@ -50,7 +50,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
 {
-    use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable;
+    use Locationable, InteractsWithMedia, SoftDeletes, Serviceable, Priceable, Favoriteable;
 
     const LOGO_COLLECTION = 'club-logo';
 
@@ -164,7 +164,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         return $this->morphMany(Event::class, 'owner');
     }
 
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection(self::LOGO_COLLECTION)->singleFile()->useDisk('media');
         $this->addMediaCollection(self::PHOTO_COLLECTION);

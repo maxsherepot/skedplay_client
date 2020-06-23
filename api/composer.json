@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4.0",
         "ext-json": "*",
         "academe/omnipay-datatrans": "~3.0",
         "advoor/nova-editor-js": "*",
@@ -23,8 +23,8 @@
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laravel/cashier": "10.0.*",
-        "laravel/framework": "7.*",
-        "laravel/nova": "^3.0",
+        "laravel/framework": "^7.0",
+        "laravel/nova": "*",
         "laravel/passport": "^7.3",
         "laravel/tinker": "^2.0",
         "laravelium/sitemap": "*",
@@ -46,7 +46,6 @@
         "spatie/laravel-translatable": "^4.2",
         "spatie/nova-translatable": "^2.0",
         "stevebauman/location": "^5.0",
-        "sudiptpa/paypal-ipn": "^2.0",
         "tightenco/parental": "0.*",
         "ext-gd": "*",
         "ext-exif": "*"
@@ -58,8 +57,8 @@
         "haydenpierce/class-finder": "^0.4.0",
         "laravel/telescope": "^2.1",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.5"
+        "nunomaduro/collision": "^4.1",
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "optimize-autoloader": true,
