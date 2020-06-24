@@ -3,7 +3,7 @@
 namespace Modules\Api\GraphQL\Type;
 
 use Illuminate\Support\Facades\DB;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaType
 {
@@ -11,7 +11,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getThumbUrl(Media $rootValue)
+    public function getThumbUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl('thumb');
     }
@@ -20,7 +20,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getThumbBlurUrl(Media $rootValue)
+    public function getThumbBlurUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl('thumb_blur');
     }
@@ -29,7 +29,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getBigThumbUrl(Media $rootValue)
+    public function getBigThumbUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl('big_thumb');
     }
@@ -38,7 +38,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getBigThumbBlurUrl(Media $rootValue)
+    public function getBigThumbBlurUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl('big_thumb_blur');
     }
@@ -47,7 +47,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getUrl(Media $rootValue)
+    public function getUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl();
     }
@@ -56,7 +56,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getBlurUrl(Media $rootValue)
+    public function getBlurUrl(Media $rootValue): string
     {
         return $rootValue->getFullUrl('blur');
     }
@@ -65,7 +65,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getMimeType(Media $rootValue)
+    public function getMimeType(Media $rootValue): string
     {
         return $rootValue->mime_type;
     }
@@ -74,7 +74,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getCustomProperties(Media $rootValue)
+    public function getCustomProperties(Media $rootValue): string
     {
         return json_encode($rootValue->custom_properties);
     }
@@ -83,7 +83,7 @@ class MediaType
      * @param Media $rootValue
      * @return string
      */
-    function getModelType(Media $rootValue)
+    public function getModelType(Media $rootValue): string
     {
         return $rootValue->model_type;
     }
@@ -92,7 +92,7 @@ class MediaType
      * @param Media $rootValue
      * @return int
      */
-    function getModelId(Media $rootValue)
+    public function getModelId(Media $rootValue): int
     {
         return (int) $rootValue->model_id;
     }
@@ -101,7 +101,7 @@ class MediaType
      * @param Media $rootValue
      * @return int
      */
-    function getCollectionName(Media $rootValue)
+    public function getCollectionName(Media $rootValue): int
     {
         return $rootValue->collection_name;
     }
@@ -110,7 +110,7 @@ class MediaType
      * @param Media $rootValue
      * @return mixed
      */
-    function getCreatedAtDateTime(Media $rootValue)
+    public function getCreatedAtDateTime(Media $rootValue)
     {
         return DB::table('media')
             ->find($rootValue->id)->created_at;

@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Chat\Contracts\RealtimeInterface;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Message extends Model implements RealtimeInterface, HasMedia
 {
-    use HasMediaTrait, SoftDeletes;
+    use InteractsWithMedia, SoftDeletes;
 
     const ATTACHMENTS_COLLECTION = 'attachments';
 
@@ -22,7 +22,7 @@ class Message extends Model implements RealtimeInterface, HasMedia
         'from_client',
     ];
 
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection(self::ATTACHMENTS_COLLECTION);
     }

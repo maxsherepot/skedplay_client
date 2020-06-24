@@ -3,13 +3,14 @@
 namespace Modules\Chat\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class AdminChatMessage extends Model
 {
-    use HasMediaTrait;
+    use InteractsWithMedia;
 
     const ATTACHMENTS_COLLECTION = 'attachments';
 
@@ -19,12 +20,15 @@ class AdminChatMessage extends Model
         'from_admin',
     ];
 
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection(self::ATTACHMENTS_COLLECTION);
     }
 
-    public function chat()
+    /**
+     * @return BelongsTo
+     */
+    public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class, 'chat_id', 'id');
     }

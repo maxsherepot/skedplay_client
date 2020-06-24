@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Modules\Clubs\Entities\Club;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tests\TestCase;
 
 class ClubTest extends TestCase
@@ -361,13 +361,13 @@ class ClubTest extends TestCase
                 'query'     => '
                     mutation (
                         $name: String!,
-                        $club_type_id: Int!, 
-                        $email: String! 
-                        $website: String, 
-                        $phones: [String], 
-                        $description: String!, 
-                        $address: String, 
-                        $lat: String 
+                        $club_type_id: Int!,
+                        $email: String!
+                        $website: String,
+                        $phones: [String],
+                        $description: String!,
+                        $address: String,
+                        $lat: String
                         $lng: String
                     ) {
                         createClub(input: {
@@ -410,13 +410,13 @@ class ClubTest extends TestCase
                     mutation (
                         $id: ID!,
                         $name: String!,
-                        $club_type_id: Int!, 
-                        $email: String! 
-                        $website: String, 
-                        $phones: [String], 
-                        $description: String!, 
-                        $address: String, 
-                        $lat: String 
+                        $club_type_id: Int!,
+                        $email: String!
+                        $website: String,
+                        $phones: [String],
+                        $description: String!,
+                        $address: String,
+                        $lat: String
                         $lng: String
                     ) {
                         updateClub(club: $id, input: {

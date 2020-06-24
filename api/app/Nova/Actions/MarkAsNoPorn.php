@@ -11,7 +11,7 @@ use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\ClubRepository;
 use Modules\Users\Repositories\UserRepository;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MarkAsNoPorn extends Action

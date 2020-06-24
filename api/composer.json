@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4.0",
+        "ext-exif": "*",
+        "ext-gd": "*",
         "ext-json": "*",
         "academe/omnipay-datatrans": "~3.0",
         "advoor/nova-editor-js": "*",
@@ -26,6 +28,7 @@
         "laravel/framework": "^7.0",
         "laravel/nova": "*",
         "laravel/passport": "^7.3",
+        "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",
         "laravelium/sitemap": "*",
         "league/omnipay": "^3",
@@ -46,16 +49,14 @@
         "spatie/laravel-translatable": "^4.2",
         "spatie/nova-translatable": "^2.0",
         "stevebauman/location": "^5.0",
-        "tightenco/parental": "0.*",
-        "ext-gd": "*",
-        "ext-exif": "*"
+        "tightenco/parental": "0.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.2",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "haydenpierce/class-finder": "^0.4.0",
-        "laravel/telescope": "^2.1",
+        "laracasts/generators": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"

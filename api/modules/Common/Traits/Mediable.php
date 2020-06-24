@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Modules\Clubs\Entities\Club;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait Mediable
 {
@@ -21,11 +21,10 @@ trait Mediable
      * @param $files
      * @param string $collection
      * @param array $customProperties
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
-    public function saveAttachments(Model $model, $files, $collection = 'photos', ?array $customProperties = [])
+    public function saveAttachments(Model $model, $files, $collection = 'photos', ?array $customProperties = []): void
     {
         foreach ($files as $k => $file) {
             $this->saveFile($model, $file, $collection);
@@ -52,13 +51,11 @@ trait Mediable
      * @param Model $model
      * @param UploadedFile $file
      * @param $collection
-     * @param array $customProperties
      * @return void
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
-    public function saveFile(Model $model, UploadedFile $file, $collection)
+    public function saveFile(Model $model, UploadedFile $file, $collection): void
     {
         $fileName = $file->getClientOriginalName();
         $extension = Str::slug($file->getClientOriginalExtension());
@@ -74,9 +71,9 @@ trait Mediable
      * @param Model $model
      * @param $id
      * @return void
-     * @throws \Spatie\MediaLibrary\Exceptions\MediaCannotBeDeleted
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\MediaCannotBeDeleted
      */
-    public function deleteFile(Model $model, $id)
+    public function deleteFile(Model $model, $id): void
     {
         /** @var Club|User|Event $model */
         $model->deleteMedia($id);

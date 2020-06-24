@@ -175,7 +175,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null)
+    public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->height(340)->width(420)->performOnCollections(self::PHOTO_COLLECTION);
         $this->addMediaConversion('thumb')->height(150)->width(150)->performOnCollections(self::LOGO_COLLECTION);

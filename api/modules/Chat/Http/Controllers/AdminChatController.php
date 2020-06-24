@@ -7,7 +7,7 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\AdminChat;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class AdminChatController extends Controller
 {
@@ -52,7 +52,7 @@ class AdminChatController extends Controller
         return $chats;
     }
 
-    public function show($chat_id)
+    public function show($chat_id): array
     {
         $chat = AdminChat::with(['user.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(AdminChat::MESSAGES_LIMIT);

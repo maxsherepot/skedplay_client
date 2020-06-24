@@ -15,9 +15,9 @@ use Modules\Clubs\Entities\Club;
 use Modules\Common\Entities\Traits\Favoriteable;
 use Modules\Common\Services\Location\Locationable;
 use Modules\Employees\Entities\Employee;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Event
@@ -27,7 +27,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class Event extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, Favoriteable, Locationable;
+    use SoftDeletes, InteractsWithMedia, Favoriteable, Locationable;
 
     const MAIN_PHOTO_COLLECTION = 'event-main-photo';
 
@@ -102,16 +102,16 @@ class Event extends Model implements HasMedia
         return $this->belongsTo(Club::class);
     }
 
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION)->singleFile()->useDisk('media');;
+        $this->addMediaCollection(self::MAIN_PHOTO_COLLECTION)->singleFile()->useDisk('media');
     }
 
     /**
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null)
+    public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->height(310)

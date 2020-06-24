@@ -24,9 +24,9 @@ use Modules\Common\Services\Location\Locationable;
 use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Language;
 use Modules\Main\Medialibrary\Webp;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class Employee
@@ -40,7 +40,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
-    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
+    use Locationable, InteractsWithMedia, Priceable, Serviceable, Favoriteable;
 
     const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';
@@ -292,7 +292,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
             ->count();
     }
 
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection(self::AVATAR_COLLECTION)->singleFile();
         $this->addMediaCollection(self::PHOTO_COLLECTION);
@@ -303,7 +303,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null)
+    public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
 //            ->format('webp')

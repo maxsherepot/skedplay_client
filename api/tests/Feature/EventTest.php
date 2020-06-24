@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Modules\Clubs\Entities\Club;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\User;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tests\TestCase;
 
 class EventTest extends TestCase

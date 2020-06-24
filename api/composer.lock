@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "852b1ed834b0045dd1b0f0700ede5e38",
+    "content-hash": "5fed93dde2d43abc20db7482299c23bf",
     "packages": [
         {
             "name": "academe/omnipay-datatrans",
@@ -3040,7 +3040,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova",
-                "reference": "fe5f279ef12e11001f323e8d457244f070253182"
+                "reference": "eb7d05d8f3071d1ca4c95178a2ea850c9a342dae"
             },
             "require": {
                 "brick/money": "^0.4.2",
@@ -3099,7 +3099,10 @@
             "keywords": [
                 "admin",
                 "laravel"
-            ]
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "laravel/passport",
@@ -3171,6 +3174,69 @@
                 "passport"
             ],
             "time": "2019-10-08T16:45:24+00:00"
+        },
+        {
+            "name": "laravel/telescope",
+            "version": "v3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/telescope.git",
+                "reference": "2e44c32c4e0b2442b118e73116582d1236b621f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/2e44c32c4e0b2442b118e73116582d1236b621f5",
+                "reference": "2e44c32c4e0b2442b118e73116582d1236b621f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^6.0|^7.0",
+                "moontoast/math": "^1.1",
+                "php": "^7.2",
+                "symfony/var-dumper": "^4.4|^5.0"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "orchestra/testbench": "^4.0|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Telescope\\TelescopeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Telescope\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                }
+            ],
+            "description": "An elegant debug assistant for the Laravel framework.",
+            "keywords": [
+                "debugging",
+                "laravel",
+                "monitoring"
+            ],
+            "time": "2020-05-14T14:45:32+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -6931,7 +6997,7 @@
             "dist": {
                 "type": "path",
                 "url": "./nova-components/UserTopInfo",
-                "reference": "bf2976bd431823f9587dfec183a3f081ade3b46b"
+                "reference": "49f7a812b8feb38e404a5a6f451101550fa60ab8"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -6956,7 +7022,10 @@
             "keywords": [
                 "laravel",
                 "nova"
-            ]
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "spatie/eloquent-sortable",
@@ -7537,16 +7606,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.37.1",
+            "version": "v7.37.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "e3e29131a131785c3d2f85556b0154e8170e9bba"
+                "reference": "da9ae0906966f344dba9530e25ea4e432bcafd64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e3e29131a131785c3d2f85556b0154e8170e9bba",
-                "reference": "e3e29131a131785c3d2f85556b0154e8170e9bba",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/da9ae0906966f344dba9530e25ea4e432bcafd64",
+                "reference": "da9ae0906966f344dba9530e25ea4e432bcafd64",
                 "shasum": ""
             },
             "require": {
@@ -7590,7 +7659,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-06-11T16:27:35+00:00"
+            "time": "2020-06-23T23:07:25+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -10519,44 +10588,37 @@
             "time": "2020-04-20T17:38:50+00:00"
         },
         {
-            "name": "laravel/telescope",
-            "version": "v2.1.7",
+            "name": "laracasts/generators",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/telescope.git",
-                "reference": "5aa2a29faebb0f27b2437292237f4e310a60d5ec"
+                "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
+                "reference": "6d628e0bbcaf913e10024be43231969e8f039432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/5aa2a29faebb0f27b2437292237f4e310a60d5ec",
-                "reference": "5aa2a29faebb0f27b2437292237f4e310a60d5ec",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/6d628e0bbcaf913e10024be43231969e8f039432",
+                "reference": "6d628e0bbcaf913e10024be43231969e8f039432",
                 "shasum": ""
             },
             "require": {
-                "ext-json": "*",
-                "laravel/framework": "~5.8.0|^6.0|^7.0",
-                "moontoast/math": "^1.1",
-                "php": "^7.1.3",
-                "symfony/var-dumper": "^4.1|^5.0"
+                "illuminate/support": "^5.8|~6.0|~7.0",
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "ext-gd": "*",
-                "orchestra/testbench": "^3.8|^4.0|^5.0"
+                "phpspec/phpspec": "~2.1"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                },
                 "laravel": {
                     "providers": [
-                        "Laravel\\Telescope\\TelescopeServiceProvider"
+                        "Laracasts\\Generators\\GeneratorsServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Laravel\\Telescope\\": "src/"
+                    "Laracasts\\Generators\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -10565,21 +10627,16 @@
             ],
             "authors": [
                 {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                },
-                {
-                    "name": "Mohamed Said",
-                    "email": "mohamed@laravel.com"
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
                 }
             ],
-            "description": "An elegant debug assistant for the Laravel framework.",
+            "description": "Advanced Laravel generators, that include schema information.",
             "keywords": [
-                "debugging",
-                "laravel",
-                "monitoring"
+                "generators",
+                "laravel"
             ],
-            "time": "2020-02-18T19:37:42+00:00"
+            "time": "2020-03-29T05:06:14+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -12129,9 +12186,10 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4.0",
-        "ext-json": "*",
+        "ext-exif": "*",
         "ext-gd": "*",
-        "ext-exif": "*"
+        "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

@@ -2,7 +2,7 @@
 
 namespace Modules\Api\GraphQL\Mutations;
 
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DeleteMedia
 {

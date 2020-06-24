@@ -30,7 +30,7 @@ use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class EmployeeController extends Controller
 {
@@ -127,9 +127,9 @@ class EmployeeController extends Controller
      * @param Event $event
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
     public function updateEvent(EventUpdateRequest $request, Event $event)
     {
@@ -206,7 +206,7 @@ class EmployeeController extends Controller
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function deleteFile(FileDeleteRequest $request, Employee $employee)
+    public function deleteFile(FileDeleteRequest $request, Employee $employee): ?array
     {
         $this->authorize('update', $employee);
 
@@ -226,12 +226,12 @@ class EmployeeController extends Controller
         }
     }
 
-    public function favorite(Employee $employee)
+    public function favorite(Employee $employee): void
     {
         $employee->favorite();
     }
 
-    public function unfavorite(Employee $employee)
+    public function unfavorite(Employee $employee): void
     {
         $employee->unfavorite();
     }
@@ -241,7 +241,7 @@ class EmployeeController extends Controller
    * @return array
    * @throws \Illuminate\Auth\Access\AuthorizationException
    */
-    public function schedule(EmployeeScheduleCreateRequest $request)
+    public function schedule(EmployeeScheduleCreateRequest $request): ?array
     {
 //        $this->authorize('create-schedule', Club::class);
         $schedules = $request->all()['input']['schedules'];
@@ -266,7 +266,7 @@ class EmployeeController extends Controller
      * @param \Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest $request
      * @return array
      */
-    public function updateSchedule(EmployeeScheduleUpdateRequest $request)
+    public function updateSchedule(EmployeeScheduleUpdateRequest $request): ?array
     {
 //        $this->authorize('create-schedule', Employee::class);
 
