@@ -96,18 +96,18 @@ class RegistrationTest extends TestCase
         return $this->postGraphQL([
             'query'     => '
                 mutation (
-                    $plan_id: Int, 
-                    $phone: String!, 
-                    $email: String!, 
-                    $first_name: String!, 
-                    $last_name: String, 
-                    $birthday: Date, 
-                    $gender: Int, 
-                    $account_type: String!, 
+                    $plan_id: Int,
+                    $phone: String!,
+                    $email: String!,
+                    $first_name: String!,
+                    $last_name: String,
+                    $birthday: Date,
+                    $gender: Int,
+                    $account_type: String!,
                     $club_type_id: Int,
-                    $lat: String, 
-                    $lng: String, 
-                    $password: String!, 
+                    $lat: String,
+                    $lng: String,
+                    $password: String!,
                     $password_confirmation: String!
                     $recaptcha: String!
                 ) {
@@ -136,7 +136,7 @@ class RegistrationTest extends TestCase
                                 first_name,
                                 last_name,
                                 gender
-                            }                            
+                            }
                         }
                     }
                 }
@@ -149,7 +149,7 @@ class RegistrationTest extends TestCase
     /**
      * @param $phone
      * @param $recaptcha
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
     protected function sendCode($phone, $recaptcha)
     {
@@ -174,7 +174,7 @@ class RegistrationTest extends TestCase
     /**
      * @param $phone
      * @param $code
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @return \Illuminate\Testing\TestResponse
      */
     protected function confirmCode($phone, $code)
     {
