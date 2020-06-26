@@ -7568,16 +7568,16 @@
         },
         {
             "name": "spatie/eloquent-sortable",
-            "version": "3.8.0",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/eloquent-sortable.git",
-                "reference": "5df5d545003f6443ced9684765759ea2e5cf5d91"
+                "reference": "107dec3cad66ccb8f584598ef9bb560af9f3cec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/5df5d545003f6443ced9684765759ea2e5cf5d91",
-                "reference": "5df5d545003f6443ced9684765759ea2e5cf5d91",
+                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/107dec3cad66ccb8f584598ef9bb560af9f3cec1",
+                "reference": "107dec3cad66ccb8f584598ef9bb560af9f3cec1",
                 "shasum": ""
             },
             "require": {
@@ -7614,7 +7614,13 @@
                 "sort",
                 "sortable"
             ],
-            "time": "2020-03-02T19:45:44+00:00"
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-06-26T07:12:34+00:00"
         },
         {
             "name": "spatie/image",
