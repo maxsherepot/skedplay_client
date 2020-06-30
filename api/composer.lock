@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69bddf461ec843034b41302714eb14c5",
+    "content-hash": "e8f058af3296117c31d2fd314d934e6b",
     "packages": [
         {
             "name": "academe/omnipay-datatrans",
