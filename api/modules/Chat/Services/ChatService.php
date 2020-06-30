@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Modules\Chat\Services;
-
 
 use Spatie\MediaLibrary\Models\Media;
 
 class ChatService
 {
-    public function formatChat($chat)
+    public function formatChat($chat): array
     {
         $receiver = $this->getChatReceiver($chat);
 
@@ -33,7 +31,7 @@ class ChatService
         ];
     }
 
-    public function formatChatRoom($chat)
+    public function formatChatRoom($chat): array
     {
         $receiver = $this->getChatReceiver($chat);
 

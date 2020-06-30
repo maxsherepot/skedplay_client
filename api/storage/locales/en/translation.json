@@ -196,7 +196,7 @@
     "agree": "By clicking the “Next step” button, I agree to the terms of service and personal data processing policy",
     "already_have_account": "Already have an account",
     "phone_number": "Phone number",
-    "verification_code_send": "A verification code has been sent your phone number",
+    "verification_code_send": "A verification code has been sent to your phone number",
     "confirmation_code": "Confirmation code",
     "enter_code": "Enter code",
     "account_type": "What account type you need",
@@ -664,12 +664,12 @@
     "start_message": "Greetings! I would like to wish our members and their families a spectacular."
   },
   "after_register": {
-    "welcome_to_portal": "Welcome to our portal",
+    "welcome_to_portal": "Welcome to our portal,",
     "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
     "you_want_to_show_profile": "do you want to show your Profile ?",
     "yes": "Yes",
     "no": "No",
-    "welcome_for_club_owner": "Welcome to our portal {{name}} do you want edit your Profile and Photos now? 2"
+    "welcome_for_club_owner": "Welcome to our portal, {{name}} do you want edit your Profile and Photos now? 2"
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"

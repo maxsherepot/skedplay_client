@@ -3,6 +3,7 @@
 namespace Modules\Chat\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -24,7 +25,10 @@ class AdminChatMessage extends Model
         $this->addMediaCollection(self::ATTACHMENTS_COLLECTION);
     }
 
-    public function chat()
+    /**
+     * @return BelongsTo
+     */
+    public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class, 'chat_id', 'id');
     }

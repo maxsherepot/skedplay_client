@@ -2,10 +2,6 @@ http://demo.local {
     proxy / nextjs:3000
 }
 
-http://skidplay.tk, http://www.skidplay.tk, https://www.skidplay.tk {
-    redir https://skidplay.tk{uri}
-}
-
 http://demo.local:8080 {
     tls off
     root /app/public

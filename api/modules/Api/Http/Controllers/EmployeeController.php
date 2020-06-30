@@ -65,10 +65,8 @@ class EmployeeController extends Controller
     }
 
     /**
-     * @param EmployeeUpdateRequest $request
-     * @param Employee $employee
+     * @param EmployeeCreateRequest $request
      * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Exception
      */
     public function create(EmployeeCreateRequest $request)
@@ -114,6 +112,9 @@ class EmployeeController extends Controller
      * @param EventCreateRequest $request
      * @return \Illuminate\Database\Eloquent\Model
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function createEvent(Employee $employee, EventCreateRequest $request)
     {
@@ -144,7 +145,6 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @param SyncServicesRequest $request
      * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function syncServices(Employee $employee, SyncServicesRequest $request)
     {
@@ -159,7 +159,6 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @param SyncPricesRequest $request
      * @return array
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function syncPrices(Employee $employee, SyncPricesRequest $request)
     {
@@ -263,7 +262,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * @param \Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest $request
+     * @param EmployeeScheduleUpdateRequest $request
      * @return array
      */
     public function updateSchedule(EmployeeScheduleUpdateRequest $request)

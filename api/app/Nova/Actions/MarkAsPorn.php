@@ -6,13 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Actions\Action;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
-use Modules\Employees\Repositories\EmployeeRepository;
-use Modules\Main\Repositories\EventRepository;
-use Modules\Users\Entities\User;
-use Modules\Users\Repositories\ClubRepository;
-use Modules\Users\Repositories\UserRepository;
 use Spatie\MediaLibrary\Models\Media;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MarkAsPorn extends Action
 {

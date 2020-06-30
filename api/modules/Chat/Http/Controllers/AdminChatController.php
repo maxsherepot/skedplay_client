@@ -52,7 +52,7 @@ class AdminChatController extends Controller
         return $chats;
     }
 
-    public function show($chat_id)
+    public function show($chat_id): array
     {
         $chat = AdminChat::with(['user.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(AdminChat::MESSAGES_LIMIT);

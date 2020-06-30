@@ -21,9 +21,6 @@ trait Mediable
      * @param $files
      * @param string $collection
      * @param array $customProperties
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
     public function saveAttachments(Model $model, $files, $collection = 'photos', ?array $customProperties = [])
     {
@@ -52,7 +49,6 @@ trait Mediable
      * @param Model $model
      * @param UploadedFile $file
      * @param $collection
-     * @param array $customProperties
      * @return void
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist

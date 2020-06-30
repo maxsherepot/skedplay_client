@@ -7,13 +7,9 @@ use App\Nova\Actions\MarkAsNoPorn;
 use App\Nova\Actions\MarkAsPorn;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\MediaLibrary\Models\Media;
 

@@ -141,6 +141,10 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         $this->addMediaCollection(self::VERIFY_PHOTO)->singleFile();
     }
 
+    /**
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_AVATAR);

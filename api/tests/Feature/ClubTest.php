@@ -361,13 +361,13 @@ class ClubTest extends TestCase
                 'query'     => '
                     mutation (
                         $name: String!,
-                        $club_type_id: Int!, 
-                        $email: String! 
-                        $website: String, 
-                        $phones: [String], 
-                        $description: String!, 
-                        $address: String, 
-                        $lat: String 
+                        $club_type_id: Int!,
+                        $email: String!
+                        $website: String,
+                        $phones: [String],
+                        $description: String!,
+                        $address: String,
+                        $lat: String
                         $lng: String
                     ) {
                         createClub(input: {
@@ -410,13 +410,13 @@ class ClubTest extends TestCase
                     mutation (
                         $id: ID!,
                         $name: String!,
-                        $club_type_id: Int!, 
-                        $email: String! 
-                        $website: String, 
-                        $phones: [String], 
-                        $description: String!, 
-                        $address: String, 
-                        $lat: String 
+                        $club_type_id: Int!,
+                        $email: String!
+                        $website: String,
+                        $phones: [String],
+                        $description: String!,
+                        $address: String,
+                        $lat: String
                         $lng: String
                     ) {
                         updateClub(club: $id, input: {

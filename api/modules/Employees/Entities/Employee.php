@@ -146,7 +146,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return now()->subDays(self::IS_NEW_DAYS) < $this->created_at;
     }
 
-    public function getReadableTypeAttribute(): ?string
+    public function getReadableTypeAttribute()
     {
         return self::TYPES[$this->attributes['type'] ?? null] ?? null;
     }

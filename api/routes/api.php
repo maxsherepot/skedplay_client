@@ -11,4 +11,6 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('centrifuge-config', [\App\Http\Controllers\CentrifugeController::class, 'config']);
