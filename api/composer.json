@@ -48,7 +48,7 @@
         "santigarcor/laratrust": "^5.2",
         "sentry/sentry-laravel": "1.7.*",
         "skidplay/user-top-info": "*",
-        "spatie/laravel-medialibrary": "8.0.0",
+        "spatie/laravel-medialibrary": "7.0.0",
         "spatie/laravel-translatable": "^4.2",
         "spatie/nova-translatable": "^2.0",
         "stevebauman/location": "^5.0",
