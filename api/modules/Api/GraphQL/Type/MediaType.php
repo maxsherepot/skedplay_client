@@ -3,7 +3,7 @@
 namespace Modules\Api\GraphQL\Type;
 
 use Illuminate\Support\Facades\DB;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Models\Media;
 
 class MediaType
 {

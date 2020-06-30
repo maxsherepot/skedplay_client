@@ -11,7 +11,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Models\Media;
 
 class Photo extends Resource
 {
@@ -20,7 +20,7 @@ class Photo extends Resource
      *
      * @var string
      */
-    public static $model = 'Spatie\MediaLibrary\MediaCollections\Models\Media';
+    public static $model = 'Spatie\MediaLibrary\Models\Media';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

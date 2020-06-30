@@ -2,7 +2,7 @@
 
 namespace Modules\Chat\Services;
 
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Models\Media;
 
 class ChatService
 {

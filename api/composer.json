@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.0",
+        "php": "^7.3.2",
         "ext-exif": "*",
         "ext-gd": "*",
         "ext-json": "*",
@@ -22,11 +22,11 @@
         "epartment/nova-dependency-container": "^1.2",
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.0",
-
+        "fruitcake/laravel-cors": "^2.0",
         "kalnoy/nestedset": "^5.0",
         "laravel/cashier": "10.0.*",
         "laravel/framework": "^7.0",
-        "laravel/nova": "*",
+        "laravel/nova": "^3.0",
         "laravel/passport": "^8.4.1",
         "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",

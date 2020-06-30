@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Exceptions;
-
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Laravel\Nova\Nova;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -31,11 +32,12 @@ class Handler extends ExceptionHandler
      *
      * @param \Throwable $exception
      * @return void
-     * @throws Throwable
+     * @throws Exception
      */
-    public function report(Throwable $exception): void
+    public function report(Throwable $exception)
     {
-        if ($this->shouldReport($exception) && app()->bound('sentry')){
+
+        if (app()->bound('sentry') && $this->shouldReport($exception)){
             app('sentry')->captureException($exception);
         }
 
@@ -50,8 +52,9 @@ class Handler extends ExceptionHandler
      * @return void
      * @throws Throwable
      */
-    public function render($request, Throwable $exception): void
+    public function render($request, Throwable $exception)
     {
+
         parent::render($request, $exception);
     }
 }

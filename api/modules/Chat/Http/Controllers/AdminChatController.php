@@ -7,7 +7,7 @@ use Modules\Api\Http\Controllers\Traits\Statusable;
 use Modules\Chat\Entities\AdminChat;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Models\Media;
 
 class AdminChatController extends Controller
 {

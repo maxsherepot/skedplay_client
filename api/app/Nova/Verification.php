@@ -18,7 +18,7 @@ class Verification extends Resource
      *
      * @var string
      */
-    public static $model = 'Spatie\MediaLibrary\MediaCollections\Models\Media';
+    public static $model = 'Spatie\MediaLibrary\Models\Media';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
