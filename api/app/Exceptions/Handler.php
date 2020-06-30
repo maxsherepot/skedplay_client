@@ -49,12 +49,10 @@ class Handler extends ExceptionHandler
      *
      * @param \Illuminate\Http\Request $request
      * @param Throwable $exception
-     * @return void
      * @throws Throwable
      */
     public function render($request, Throwable $exception)
     {
-
-        parent::render($request, $exception);
+        return parent::render($request, $exception);
     }
 }
