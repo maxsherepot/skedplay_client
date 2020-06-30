@@ -24,9 +24,9 @@ use Modules\Common\Services\Location\Locationable;
 use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Language;
 use Modules\Main\Medialibrary\Webp;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 /**
  * Class Employee
@@ -40,7 +40,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
-    use Locationable, InteractsWithMedia, Priceable, Serviceable, Favoriteable;
+    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
 
     const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';
@@ -145,7 +145,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         return now()->subDays(self::IS_NEW_DAYS) < $this->created_at;
     }
 
-    public function getReadableTypeAttribute(): ?string
+    public function getReadableTypeAttribute()
     {
         return self::TYPES[$this->attributes['type'] ?? null] ?? null;
     }
@@ -292,7 +292,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
             ->count();
     }
 
-    public function registerMediaCollections(): void
+    public function registerMediaCollections()
     {
         $this->addMediaCollection(self::AVATAR_COLLECTION)->singleFile();
         $this->addMediaCollection(self::PHOTO_COLLECTION);
@@ -303,7 +303,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
 //            ->format('webp')

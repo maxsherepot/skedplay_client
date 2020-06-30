@@ -5,12 +5,12 @@ namespace Modules\Chat\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class AdminChatMessage extends Model
 {
-    use InteractsWithMedia;
+    use HasMediaTrait;
 
     const ATTACHMENTS_COLLECTION = 'attachments';
 
@@ -20,7 +20,7 @@ class AdminChatMessage extends Model
         'from_admin',
     ];
 
-    public function registerMediaCollections(): void
+    public function registerMediaCollections()
     {
         $this->addMediaCollection(self::ATTACHMENTS_COLLECTION);
     }

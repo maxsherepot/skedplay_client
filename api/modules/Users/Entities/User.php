@@ -22,9 +22,9 @@ use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Events\Entities\Event;
 use Modules\Users\Entities\Traits\HasFavoriteables;
 use Modules\Users\Entities\Traits\HasPermissionPlan;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Firebase\JWT\JWT;
 
 /**
@@ -40,7 +40,7 @@ use Firebase\JWT\JWT;
  */
 class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia
 {
-    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables, InteractsWithMedia;
+    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables, HasMediaTrait;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;
@@ -135,7 +135,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->where('phone', $username)->first();
     }
 
-    public function registerMediaCollections(): void
+    public function registerMediaCollections()
     {
         $this->addMediaCollection(self::PHOTO_AVATAR)->singleFile();
         $this->addMediaCollection(self::VERIFY_PHOTO)->singleFile();
@@ -145,7 +145,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_AVATAR);
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::VERIFY_PHOTO);
