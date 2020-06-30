@@ -21,6 +21,14 @@ function Clubs({user, isGeolocationEnabled}) {
 
   let {query} = useRouter();
 
+  if (query.canton) {
+    query.canton = query.canton.replace('/', '');
+  }
+
+  if (query.city) {
+    query.city = query.city.replace('/', '');
+  }
+
   const { data: { page, club_types, cantons, cities } = {}, loading} = useQuery(CLUBS_PAGE_DATA, {
     variables: {
       key: 'clubs'

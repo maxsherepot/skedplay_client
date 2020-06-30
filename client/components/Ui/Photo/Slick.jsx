@@ -53,7 +53,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
   });
 
   const isBlurPhoto = (photo) => {
-    return JSON.parse(photo.custom_properties).porn && !user;
+    return JSON.parse(photo.custom_properties || '{}').porn && !user;
   };
 
   const getPhoto = (photo) => {
