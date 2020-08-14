@@ -1,0 +1,20 @@
+
+
+
+
+@media (max-width: 768px) {
+    .edit-employee-header {
+        margin: 0;
+    }
+    .edit-employee-header .account-info-box {
+        width: 100%;
+    }
+    .edit-employee-header .account-info-box > div {
+        flex-direction: column;
+        align-items: center;
+    }
+    .edit-employee-header .account-info-box .stats-box {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+}

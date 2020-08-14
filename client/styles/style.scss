@@ -171,9 +171,17 @@ main {
   }
 }
 
+@media (max-width: 768px){
+    .container {
+        max-width: 100%;
+    }
+}
+
 .login-modal, .register-modal {
   .modal__dialog {
     min-width: 320px;
+    padding-left: 1rem;
+    padding-right: 1rem;
 
     @screen sm {
       min-width: 410px;
@@ -341,6 +349,17 @@ main {
     flex-direction: row;
     justify-content: space-between;
   }
+  @media (max-width: 768px) {
+      .header-profile-div .profile-info-box {
+          flex-direction: column;
+          margin-top: 0.25rem;
+      }
+
+      .header-profile-div .profile-info-box .profile-phone {
+          margin-top: 5px;
+      }
+  }
+
 
   .btn-verify__div {
     display: flex;
@@ -416,6 +435,7 @@ main {
     filter: blur(16px);
   }
 
+  @import "components/employee/Employee";
   @import "components/Ui/AnimationBackground/AnimationBackground";
   @import "components/Ui/Button/Button";
   @import "components/Ui/Header/Header";
@@ -427,6 +447,8 @@ main {
   @import "components/Ui/Dropdown/Dropdown";
   @import "components/Ui/Lang/Lang";
   @import "components/Ui/Loader/Loader";
+  @import "components/Ui/MobileDrawer/MobileDrawer";
+  @import "components/Ui/MobileDrawerMenu/MobileDrawerMenu";
 
   @import "components/Ui/Forms/Checkbox/Checkbox";
   @import "components/Ui/Forms/FormGroup/FormGroup";

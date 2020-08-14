@@ -192,8 +192,8 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
   };
 
   return (
-    <div className={cx(classes)}>
-      <div className="relative">
+    <div className={"edit-employee-header " + cx(classes)}>
+      <div className="avatar-box relative">
         <input
           className="hidden"
           type="file"
@@ -223,7 +223,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
         )}
       </div>
 
-      <div className="flex">
+      <div className="account-info-box flex">
         <div className="flex w-full items-end -mx-2">
           <div className="flex flex-col flex-1 px-2">
             <div className="text-4xl font-extrabold whitespace-no-wrap">{employee.name}</div>
@@ -232,7 +232,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
               <div className="flex items-center">05.06-07.06</div>
             </div>
 
-            <div className="flex items-center">
+            <div className="stats-box flex items-center">
               {!user.is_employee &&
                 <SelectClub className="w-40" owner={employee.owner} employee={employee} clubs={clubs}/>
               }

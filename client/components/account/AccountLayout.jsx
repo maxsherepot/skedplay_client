@@ -35,9 +35,9 @@ const ProfileHeader = ({user}) => (
                 {user.name} {user.age ? `, ${user.age}` : ''}
               </span>
             )}
-            <div className="flex mt-4">
+            <div className="profile-info-box flex mt-4">
               <AccountLabel {...user} />
-              <span className="sm:ml-2">{user.phone}</span>
+              <span className="profile-phone sm:ml-2">{user.phone}</span>
             </div>
           </div>
         </div>

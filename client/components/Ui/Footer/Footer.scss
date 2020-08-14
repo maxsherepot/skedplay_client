@@ -13,3 +13,23 @@
     }
   }
 }
+
+
+@media (max-width: 768px){
+    .footer .links-footer__div {
+        width: 100%;
+    }
+    .footer .links-footer__div-full {
+        justify-content: space-between;
+    }
+    .footer .links-footer__div-full li {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .footer .links-footer__div-full li:last-child {
+        margin-right: 0px;
+    }
+    .footer .links-footer__div-full li:first-child {
+        margin-left: 0px;
+    }
+}

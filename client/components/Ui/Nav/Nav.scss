@@ -6,3 +6,9 @@
     top: -90px;
   }
 }
+
+@media (max-width: 768px) {
+    #menu-hamburger {
+        margin-right: 12px;
+    }
+}

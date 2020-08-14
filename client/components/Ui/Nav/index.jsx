@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Link from 'components/SlashedLink'
 
 import { ProfileSvg, CrownSvg } from "icons";
-import { Logo, Button, Lang, FavoritesCount } from "UI";
+import { Logo, Button, Lang, FavoritesCount, MobileDrawerMenu } from "UI";
 // import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
@@ -289,7 +289,7 @@ function Nav({ user, className }) {
               onClick={handleToggleNav}
             >
               <svg
-                className="stroke-white mt-1"
+                className="stroke-white"
                 width="20"
                 height="14"
                 viewBox="0 0 20 14"
@@ -322,8 +322,9 @@ function Nav({ user, className }) {
           </div>
         </div>
       </div>
+      <MobileDrawerMenu user={user} isOpen={nav} onClose={handleToggleNav}/>
       <div
-        className={classNames("mobile-menu", {
+        className={classNames("hidden mobile-menu", {
           open: nav
         })}
         id="mobile-menu"

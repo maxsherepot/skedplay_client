@@ -74,7 +74,7 @@ function EditEmployeeForm({ initialValues, children }) {
           {isSubmitting && <Loader/>}
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12 my-5">
-            <div className="w-full p-8 hd:p-0">
+            <div className="w-full sm:p-8 hd:p-0">
               {activeStep}
 
               {status && (
@@ -93,7 +93,7 @@ function EditEmployeeForm({ initialValues, children }) {
               activeStep.props.showSubmit === false ? 'hidden' : '',
             ])}
           >
-            <div className="w-full p-8 hd:px-0">
+            <div className="w-full xs:p-8 xs:px-0 hd:px-0">
               <Button
                 type="submit"
                 className="text-xl px-16"

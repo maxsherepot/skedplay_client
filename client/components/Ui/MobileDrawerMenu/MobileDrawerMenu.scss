@@ -1,0 +1,33 @@
+
+
+
+.mobile-drawer-menu {
+  @apply overflow-y-scroll;
+
+  .divider {
+    border: none;
+    height: 1px;
+    margin: 0;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+  ul {
+    @apply mt-12;
+    li {
+      @apply mb-7;
+      a {
+        @apply block text-center font-bold uppercase leading-none tracking-tighter;
+        font-size: 20px;
+      }
+    }
+  }
+  .locales {
+    @apply flex justify-center mb-4;
+    a {
+      @apply block capitalize text-2xl text-dark-grey font-medium mr-4 transition;
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+  }
+}
