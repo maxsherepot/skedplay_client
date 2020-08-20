@@ -117,6 +117,27 @@
     }
   }
 
+  &-secondary-light {
+      @apply text-black;
+      &::before {
+        @apply bg-transparent border-2 border-red;
+      }
+  }
+
+  &-black-light {
+    @apply text-black;
+    &::before {
+      @apply bg-transparent border-2 border-black;
+    }
+  }
+
+  &-white {
+    @apply text-white;
+    &::before {
+      @apply border border-white;
+    }
+  }
+
   &-outline {
     &::before {
       @apply bg-transparent;

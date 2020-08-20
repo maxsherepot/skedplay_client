@@ -172,7 +172,7 @@ const Chats = ({ user }) => {
 
   return (
     <div>
-      <h2 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+      <h2 className="text-4xl font-medium tracking-tighter leading-none mb-5">
         {t('chat.header')}
       </h2>
 

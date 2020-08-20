@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Link from 'components/SlashedLink'
 
 import { ProfileSvg, CrownSvg } from "icons";
-import { Logo, Button, Lang, FavoritesCount, MobileDrawerMenu } from "UI";
+import { Logo, Button, Lang, FavoritesCount, MobileDrawerMenu, MobileDrawerCategory } from "UI";
 // import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
@@ -111,6 +111,8 @@ function Nav({ user, className }) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const [nav, toggleNav] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   let { y: currentY } = useWindowScrollPosition({
     throttle: 500
   });
@@ -242,6 +244,18 @@ function Nav({ user, className }) {
             {/*  </Link>*/}
             {/*}*/}
 
+            <Button
+              size="xxs"
+              weight="normal"
+              level="primary"
+              className="category-button flex items-center px-2 text-xs mx-2 sm:hidden"
+              outline
+              onClick={() => setIsCategoryOpen(true)}
+            >
+              CATEGORY
+            </Button>
+
+
             <FavoriteBlock/>
 
             {(user && !user.is_club_owner) &&
@@ -286,43 +300,15 @@ function Nav({ user, className }) {
             <button
               className="menu-icons__item menu-icons__item_last md:hidden pr-0"
               id="menu-hamburger"
-              onClick={handleToggleNav}
+              onClick={() => setIsAccountOpen(true)}
             >
-              <svg
-                className="stroke-white"
-                width="20"
-                height="14"
-                viewBox="0 0 20 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 7H19M1 1H19M1 13H19"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <svg
-                className="stroke-white mt-1"
-                width="18"
-                height="18"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2L2 20M2 2L20 20"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+                <ProfileSvg />
             </button>
           </div>
         </div>
       </div>
-      <MobileDrawerMenu user={user} isOpen={nav} onClose={handleToggleNav}/>
+      <MobileDrawerMenu user={user} isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)}/>
+      <MobileDrawerCategory user={user} isOpen={isCategoryOpen} onClose={() => setIsCategoryOpen(false)}/>
       <div
         className={classNames("hidden mobile-menu", {
           open: nav

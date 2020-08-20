@@ -1,69 +1,96 @@
 import React from 'react';
 import Link from 'components/SlashedLink'
-import { Lang, MobileDrawer, Button } from "UI";
+import { useApolloClient } from "@apollo/react-hooks";
+import { Avatar, Lang, MobileDrawer, Button } from "UI";
 import {useTranslation} from "react-i18next";
+import { AccountLabel } from "components/account";
+import { setCookie } from "utils";
+import Cookies from 'js-cookie';
+
 
 
 function MobileDrawerMenu({user, isOpen, onClose}) {
+    const client = useApolloClient();
+
+    const signOut = () => {
+      Cookies.remove('token', { path: '' });
+
+      setCookie("token", "", {
+        "max-age": -1
+      });
+
+      client.clearStore().then(() => redirect({}, "/"));
+    };
+
     const { t, i18n } = useTranslation();
+
+
 
     return (
         <MobileDrawer isOpen={isOpen} onClose={onClose}>
             <div className="mobile-drawer-menu container">
-              <ul>
-                <li onClick={onClose}>
-                  <Link href="/girls">
-                    <a>{t('common.girls')}</a>
-                  </Link>
-                </li>
-                <li onClick={onClose}>
-                  <Link href="/trans">
-                    <a>{t('common.trans')}</a>
-                  </Link>
-                </li>
-                <li onClick={onClose}>
-                  <Link href="/clubs">
-                    <a>{t('common.clubs')}</a>
-                  </Link>
-                </li>
-                <li onClick={onClose}>
-                  <Link href="/events">
-                    <a>{t('common.events')}</a>
-                  </Link>
-                </li>
-                <li onClick={onClose}>
-                  <Link href="/vip-escort">
-                    <a>{t('common.vip')}</a>
-                  </Link>
-                </li>
-              </ul>
-              <div className="divider"></div>
+                {
+                    user ?
+                    <div className="flex flex-col items-center justify-center pt-6 pb-6">
+                      <Avatar/>
+                      <div className="mt-2">
+                        {user && user.is_employee ? (
+                          <span className="text-2xl font-medium capitalize">
+                            {user.employee.name} {user.age ? `, ${user.age}` : ''}
+                          </span>
+                        ) : (
+                          <span className="text-2xl font-medium capitalize">
+                            {user.name} {user.age ? `, ${user.age}` : ''}
+                          </span>
+                        )}
+                        <div className="profile-info-box flex flex-col items-center justify-center mt-2">
+                          <AccountLabel {...user} />
+                          <span className="profile-phone sm:ml-2 mt-2">{user.phone}</span>
+                        </div>
+                      </div>
+                    </div>
+                    :
+                    null
+                }
+              <div className="divider mb-4"></div>
               {(user && user.is_club_owner) &&
                 <Link href="/clubs/add">
-                  <a>
-                    <Button className="w-full text-2xl mt-1" onClick={onClose}>{t('common.add_new_club')}</Button>
-                  </a>
+                  <Button className="w-full mt-4"
+                          level="secondary-light"
+                          size="xs"
+                          onClick={onClose}>
+                      {t('common.add_new_club')}
+                  </Button>
                 </Link>
               }
               {(user && user.is_employee && !user.employee) &&
                 <Link href="/girls/add">
-                  <a>
-                    <Button className="w-full text-2xl mt-1" onClick={onClose}>{t('common.add_new_ad')}</Button>
-                  </a>
+                  <Button className="w-full mt-4"
+                          level="secondary-light"
+                          size="xs"
+                          onClick={onClose}>
+                      {t('common.add_new_ad')}
+                  </Button>
                 </Link>
               }
               {(user && user.is_employee && user.employee) &&
                 <Link href="/account/ad">
-                  <a>
-                    <Button className="w-full text-2xl mt-1 mt-8" onClick={onClose}>{t('layout.edit_ad')}</Button>
-                  </a>
+                    <Button className="w-full mt-4"
+                            level="secondary-light"
+                            size="xs"
+                            onClick={onClose}>
+                        {t('layout.edit_ad')}
+                    </Button>
                 </Link>
               }
               {user ? (
                 <Link href="/account" as={`/account`}>
-                  <a onClick={onClose} className="block text-center transition tracking-tighter  text-2xl font-medium my-8">
-                    {t('common.my_account')}
-                  </a>
+                  <Button className="w-full mt-4"
+                          level="black-light"
+                          size="xs"
+                          onClick={onClose}>
+                      {t('common.my_account')}
+                  </Button>
                 </Link>
               ) : (
                 <>
@@ -86,6 +113,17 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                   </Link>
                 </>
               )}
+              {
+                  user ?
+                      <Button className="w-full mt-4 mb-6"
+                              level="black-light"
+                              size="xs"
+                              onClick={() => {onClose(); signOut()}}>
+                          {t('common.sign_out')}
+                      </Button>
+                      :
+                      null
+              }
               <Lang mobile={true} />
             </div>
         </MobileDrawer>

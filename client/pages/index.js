@@ -1,6 +1,6 @@
 import React from "react";
 import Link from 'components/SlashedLink'
-import {Header, Footer, Loader} from "UI";
+import {Header, Footer, Loader, Button} from "UI";
 import {ArrowNextSvg} from "icons";
 import GirlsBox from "components/homepage/GirlsBox";
 import EventsBox from "components/homepage/EventsBox";
@@ -25,14 +25,14 @@ const Animation = () => (
   </div>
 );
 
-const EventsContainer = ({events}) => {
+const EventsContainer = ({user, events}) => {
   const {t, i18n} = useTranslation();
-
+  console.log(user)
   return (
     <div className="container mx-auto relative z-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row">
-        <div className="flex flex-col md:flex-row lg:flex-col">
-          <h1 className="block text-white pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
+        <div className="flex flex-col">
+          <h1 className="block text-white mt-8 pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
               className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
@@ -46,8 +46,48 @@ const EventsContainer = ({events}) => {
               <div className="block company-item__div-ellipse header-red-ellipse md:-mt-1">№1</div>
             </div>
           </h1>
+          {
+              !user ?
+                  <div className="flex mt-2 sm:pl-4 sm:pt-1 md:pl-6 lg:pl-0 whitespace-no-wrap">
+                      <Link href="/register">
+                          <Button
+                            size="xs"
+                            weight="normal"
+                            level="white"
+                            className="flex items-center px-2 text-xs mx-2"
+                            outline
+                          >
+                            Join as Lady
+                          </Button>
+                      </Link>
+                      <Link href="/register">
+                          <Button
+                            size="xs"
+                            weight="normal"
+                            level="white"
+                            className="flex items-center px-2 text-xs mx-2"
+                            outline
+                          >
+                            Club Owner
+                          </Button>
+                      </Link>
+                      <Link href="/register">
+                          <Button
+                            size="xs"
+                            weight="normal"
+                            level="white"
+                            className="flex items-center px-2 text-xs mx-2"
+                            outline
+                          >
+                            Hunter for a Lady
+                          </Button>
+                      </Link>
+                  </div>
+                  :
+                  null
+          }
           <div
-            className="flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:flex-row lg:justify-start lh:ml-0 lg:mt-3">
+            className="hidden flex flex-wrap mt-2 sm:mt-3 sm:justify-between md:flex-col md:ml-12 md:mt-5 lg:flex-row lg:justify-start lh:ml-0 lg:mt-3">
             <div
               className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/girls">
@@ -64,7 +104,7 @@ const EventsContainer = ({events}) => {
               className="flex flex-auto flex-col leading-none mb-9 w-1/2 sm:w-1/3 md:w-full lg:w-auto lg:flex-initial lg:mr-8 xl:mr-16 hover:cursor-pointer">
               <a href="/clubs">
                 <div className="block text-white font-extrabold text-2xl">
-                  {(350).toLocaleString('en')}
+                  {(450).toLocaleString('en')}
                 </div>
                 <div className="flex text-white text-xl">
                   <div className="w-9 border-t border-yellow mr-3 mt-3"/>
@@ -115,7 +155,7 @@ const Index = ({user}) => {
       <Header
         user={user}
         animation={<Animation/>}
-        hero={<EventsContainer events={events}/>}
+        hero={<EventsContainer events={events} user={user}/>}
       />
       <main className="relative z-10 mt-10 xl:mt-12-5">
         <div className="index-bg-bottom"/>

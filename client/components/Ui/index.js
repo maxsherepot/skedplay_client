@@ -14,6 +14,7 @@ export { default as SelectedBar } from "./Filter/SelectedBar";
 export { default as Nav } from "./Nav";
 export { default as MobileDrawer } from "./MobileDrawer";
 export { default as MobileDrawerMenu } from "./MobileDrawerMenu";
+export { default as MobileDrawerCategory } from "./MobileDrawerCategory";
 export { default as SecondaryNav } from "./SecondaryNav";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as EventsGallery } from "./EventsGallery";
