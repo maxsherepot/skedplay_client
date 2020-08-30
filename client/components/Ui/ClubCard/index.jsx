@@ -120,12 +120,14 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
             {renderTime(start_time, end_time)}
           </div>
           <div>
-            <Link
-              href={`/clubs/canton/city/id/information?id=${id}&canton=${city.canton.slug}&city=${city.slug}`}
-              as={`/clubs/${city.canton.slug}/${city.slug}/${id}/information`}
-            >
-              <a>{name}</a>
-            </Link>
+            {(city && city.canton) &&
+              <Link
+                  href={`/clubs/canton/city/id/information?id=${id}&canton=${city.canton.slug}&city=${city.slug}`}
+                  as={`/clubs/${city.canton.slug}/${city.slug}/${id}/information`}
+              >
+                <a>{name}</a>
+              </Link>
+            }
           </div>
           <div>
             <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">{type.name}</button>
