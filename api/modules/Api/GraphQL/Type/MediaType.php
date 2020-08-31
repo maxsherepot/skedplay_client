@@ -104,7 +104,7 @@ class MediaType
      * @param Media $rootValue
      * @return int
      */
-    public function getCollectionName(Media $rootValue): int
+    public function getCollectionName(Media $rootValue): string
     {
         return $rootValue->collection_name;
     }

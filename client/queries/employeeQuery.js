@@ -90,6 +90,7 @@ export const ALL_EMPLOYEES = gql `
           thumb_url
         }
         photos {
+          id
           url
           thumb_url
           thumb_blur_url

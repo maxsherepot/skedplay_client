@@ -134,7 +134,9 @@ const EventsContainer = ({user, events}) => {
 const Index = ({user}) => {
   const {t, i18n} = useTranslation();
 
-  const { data: { page, events, clubs, employees } = {}, loading} = useQuery(INDEX_PAGE_DATA);
+  const { data = {}, loading} = useQuery(INDEX_PAGE_DATA);
+
+  const { page, events, clubs, employees } = data;
 
   if (loading) {
     return <Loader/>
@@ -142,15 +144,17 @@ const Index = ({user}) => {
 
   return (
     <>
-      <NextSeo
-        title={translation.getLangField(page.title, i18n.language)}
-        description={translation.getLangField(page.description, i18n.language)}
+      {page &&
+        <NextSeo
+            title={translation.getLangField(page.title, i18n.language)}
+            description={translation.getLangField(page.description, i18n.language)}
 
-        additionalMetaTags={[{
-          name: 'keywords',
-          content: translation.getLangField(page.keywords, i18n.language)
-        }]}
-      />
+            additionalMetaTags={[{
+              name: 'keywords',
+              content: translation.getLangField(page.keywords, i18n.language)
+            }]}
+        />
+      }
 
       <Header
         user={user}

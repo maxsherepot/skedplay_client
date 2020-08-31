@@ -95,9 +95,11 @@ export const INDEX_PAGE_DATA = gql `
                     name
                 }
                 logo {
+                    id
                     url
                 }
                 photos {
+                    id
                     url
                 }
             }

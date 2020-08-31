@@ -58,6 +58,7 @@ export const ALL_CLUBS = gql`
           id
           name
           photos {
+            id
             url
             thumb_url
           } 
@@ -76,6 +77,7 @@ export const ALL_CLUBS = gql`
           thumb_url
         }
         photos {
+          id
           url
           thumb_url
           custom_properties
@@ -232,6 +234,7 @@ export const GET_CLUB = gql`
           available
         }
         photos {
+          id
           url
           thumb_url
         }
@@ -291,6 +294,7 @@ export const CREATE_CLUB = gql`
         thumb_url
       }
       photos {
+        id
         url
         thumb_url
       }
@@ -325,6 +329,7 @@ export const CREATE_CLUB = gql`
           name
         }
         photos {
+          id
           url
           thumb_url
         }
@@ -340,6 +345,7 @@ export const CREATE_CLUB = gql`
           id
         }
         photos {
+          id
           url
           thumb_url
         }
