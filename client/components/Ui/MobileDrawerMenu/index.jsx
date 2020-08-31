@@ -56,10 +56,10 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                 }
               <div className="divider mb-4"></div>
               {user && <Sidebar user={user}/>}
-              {/*
+
               {(user && user.is_club_owner) &&
                 <Link href="/clubs/add">
-                  <Button className="w-full mt-4"
+                  <Button className="hidden w-full mt-4"
                           level="secondary-light"
                           size="xs"
                           onClick={onClose}>
@@ -69,7 +69,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
               }
               {(user && user.is_employee && !user.employee) &&
                 <Link href="/girls/add">
-                  <Button className="w-full mt-4"
+                  <Button className="hidden w-full mt-4"
                           level="secondary-light"
                           size="xs"
                           onClick={onClose}>
@@ -79,7 +79,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
               }
               {(user && user.is_employee && user.employee) &&
                 <Link href="/account/ad">
-                    <Button className="w-full mt-4"
+                    <Button className="hidden w-full mt-4"
                             level="secondary-light"
                             size="xs"
                             onClick={onClose}>
@@ -89,7 +89,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
               }
               {user ? (
                 <Link href="/account" as={`/account`}>
-                  <Button className="w-full mt-4"
+                  <Button className="hidden w-full mt-4"
                           level="black-light"
                           size="xs"
                           onClick={onClose}>
@@ -119,7 +119,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
               )}
               {
                   user ?
-                      <Button className="w-full mt-4 mb-6"
+                      <Button className="hidden w-full mt-4 mb-6"
                               level="black-light"
                               size="xs"
                               onClick={() => {onClose(); signOut()}}>
@@ -127,7 +127,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                       </Button>
                       :
                       null
-              } */}
+              }
               <div className="divider mt-4 mb-4"></div>
               <Lang mobile={true} />
             </div>

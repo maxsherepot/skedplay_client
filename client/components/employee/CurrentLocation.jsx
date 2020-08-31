@@ -257,7 +257,7 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
               <Phone1Svg color={getColor(hover2)}/>
             </div>
             <div
-              className={cx(
+              className={"flex items-center " + cx(
               getTextColorClass(hover2),
                 "font-bold text-lg"
               )}
