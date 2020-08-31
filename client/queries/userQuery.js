@@ -206,6 +206,7 @@ export const FAVORITE_EMPLOYEES = gql`
                 id
             }
             photos {
+                id
                 url
                 thumb_url
             }

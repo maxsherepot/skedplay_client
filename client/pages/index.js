@@ -94,9 +94,7 @@ const EventsContainer = ({events}) => {
 const Index = ({user}) => {
   const {t, i18n} = useTranslation();
 
-  const { data = {}, loading} = useQuery(INDEX_PAGE_DATA, {
-    fetchPolicy: "no-cache"
-  });
+  const { data = {}, loading} = useQuery(INDEX_PAGE_DATA);
 
   const { page, events, clubs, employees } = data;
 

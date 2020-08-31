@@ -53,7 +53,12 @@ function create(initialState, {
   const isBrowser = typeof window !== "undefined";
 
   const cache = new InMemoryCache({
-    fragmentMatcher
+    fragmentMatcher,
+    typePolicies: {
+      PageAllLangs: {
+        keyFields: ["key"]
+      }
+    },
   }).restore(
     initialState || {}
   );

@@ -93,6 +93,7 @@ export const ALL_EVENTS = gql`
                     name
                 }
                 photos {
+                    id
                     url
                     thumb_url
                 }
@@ -168,6 +169,7 @@ export const EVENTS_BY_OWNER = gql`
                 name
             }
             photos {
+                id
                 url
                 thumb_url
             }
@@ -207,6 +209,7 @@ export const GET_EVENT = gql`
                 name
                 isVip
                 photos {
+                    id
                     url
                     thumb_url
                 }
@@ -247,6 +250,7 @@ export const GET_EVENT = gql`
                     name
                     isVip
                     photos {
+                        id
                         url
                         thumb_url
                     }
