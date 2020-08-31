@@ -13,6 +13,12 @@ const PriceAndService = ({ title, prices, services }) => {
             </div>
             <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
                 <div className="w-full sm:w-1/3 px-2 sm:px-0">
+                    {
+                        prices.length === 0 &&
+                            <div className="w-full h-full flex items-center justify-center">
+                                No Prices yet
+                            </div>
+                    }
                     {prices.map((price) => (
                         <section className="mb-3" key={price.id}>
                             <div className="text-grey">{price.display_name}</div>

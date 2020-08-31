@@ -41,7 +41,7 @@ export default ({clubs, employee, owner, className}) => {
               "text-black"
             )}
           >
-            {selectedClub.label}
+            {(selectedClub || {}).label}
           </div>
         }
         contentStyle={{

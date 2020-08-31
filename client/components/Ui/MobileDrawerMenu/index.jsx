@@ -4,6 +4,8 @@ import { useApolloClient } from "@apollo/react-hooks";
 import { Avatar, Lang, MobileDrawer, Button } from "UI";
 import {useTranslation} from "react-i18next";
 import { AccountLabel } from "components/account";
+import { Sidebar } from "components/account/AccountLayout";
+
 import { setCookie } from "utils";
 import Cookies from 'js-cookie';
 
@@ -32,7 +34,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                 {
                     user ?
                     <div className="flex flex-col items-center justify-center pt-6 pb-6">
-                      <Avatar/>
+                      <Avatar isEmpty/>
                       <div className="mt-2">
                         {user && user.is_employee ? (
                           <span className="text-2xl font-medium capitalize">
@@ -53,6 +55,8 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                     null
                 }
               <div className="divider mb-4"></div>
+              {user && <Sidebar user={user}/>}
+              {/*
               {(user && user.is_club_owner) &&
                 <Link href="/clubs/add">
                   <Button className="w-full mt-4"
@@ -123,7 +127,8 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                       </Button>
                       :
                       null
-              }
+              } */}
+              <div className="divider mt-4 mb-4"></div>
               <Lang mobile={true} />
             </div>
         </MobileDrawer>

@@ -96,8 +96,8 @@ const VerifyMessage = ({user}) => {
       <div className="flex flex-row pl-3 items-center verify-message-div__add">
        <div className="flex items-center justify-center w-full xl:pl-15 xl:pr-15">
         <div className="ml-3 py-2 w-full">
-          <div className="md:flex md:flex-row sm:column">
-            <div className="align-middle flex flex-row msg-verify__div hd:w-9/12 lg:w-8/12 md:w-7/12 sm:w-full">
+          <div className="xs:column sm:flex sm:flex-row">
+            <div className="xs:justify-center sm:justify-end align-middle flex flex-row msg-verify__div w-full">
               <div>
                 <span className="inline-block mr-2 py-2">
                     <AlertTriangleSvg/>
@@ -108,11 +108,11 @@ const VerifyMessage = ({user}) => {
                 <span className="">{t('account.add_pass_or_photo')}</span>
               </div>
             </div>
-            <div className="py-4 my-auto w-full hd:w-3/12 lg:w-4/12 md:w-5/12 sm:w-full btn-verify__div">
+            <div className="py-4 my-auto w-full xs:justify-center sm:justify-start btn-verify__div">
               <label htmlFor="verifyFile" className="inline-block">
               <span
                 className="bg-red border border-xs border-red text-white text-xxs rounded-full px-4 py-2 md:ml-3 sm:ml-1
-                           sm:px-3 sm:py-2 md:px-6 md:py-3 hover:cursor-pointer">
+                           sm:px-3 sm:py-2 md:px-6 md:py-2 hover:cursor-pointer">
                 {t('account.upload_verify_photo')}
               </span>
               </label>
@@ -259,7 +259,7 @@ const ClubMenu = ({clubs}) => {
   });
 };
 
-const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events, employees, employee}}) => {
+export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events, employees, employee}}) => {
   const {t, i18n} = useTranslation();
   const client = useApolloClient();
   const employeeButtonText = employee
@@ -287,7 +287,7 @@ const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, modera
   };
 
   return (
-    <div className="flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
+    <div className="account-layout-sidebar hidden sm:flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
       <div className="flex flex-col py-10 lg:pr-20 xl:pr-20">
         {is_employee && (
           <div>

@@ -13,62 +13,73 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
     setFieldValue(`schedule.${week.day}.at_address`, value);
   };
 
-  return (
-    <div className="flex items-center" key={week.day}>
-      <div className="w-1/12 px-2">{week.name}</div>
-      <Field name="at_address">
-        {({ field: { value, ...rest } }) => (
-          <input type="hidden"/>
-        )}
-      </Field>
-      <div className="w-1/6 px-2">
-        <ToggleField
-          trueLabel={t('steps.alone')}
-          falseLabel={t('steps.at_club')}
-          initValue={alone}
-          onChange={(value) => setAlone(value)}
-        />
-      </div>
-      <div className="w-3/12 px-2">
-        <SelectGroupField
-          label={t('clubs.time')}
-          name="time"
-        >
-          <SelectField
-            className="w-full sm:w-1/2"
-            inputClassName="w-full md:w-1/3"
-            label=""
-            name={`schedule.${week.day}.start`}
-            options={startOptions}
-            placeholder=""
-          />
-          <SelectField
-            className="w-full sm:w-1/2"
-            inputClassName="w-full md:w-1/3"
-            label=""
-            value={isStartDisabled(week.day) ? null : ""}
-            name={`schedule.${week.day}.end`}
-            disabled={isStartDisabled(week.day)}
-            options={timeOptions}
-            placeholder=""
-          />
-        </SelectGroupField>
-      </div>
-      {!alone &&
+  const timetable = (
+      <SelectGroupField
+        label={t('clubs.time')}
+        name="time"
+        className="w-full md:w-3/12a px-2  md:w-8/12 max-w-sm"
+      >
         <SelectField
-          styles={{
-            marginBottom: '1.6rem'
-          }}
-          className="w-3/12 px-2"
+          className="w-full sm:w-1/2"
           inputClassName="w-full md:w-1/3"
-          label={t('schedule.select_available_club')}
-          name={`schedule.${week.day}.club_id`}
-          options={[{value: 0, label: t('schedule.add_my_location')}, ...clubs]}
+          label=""
+          name={`schedule.${week.day}.start`}
+          options={startOptions}
           placeholder=""
-          intValues={true}
-          onSelect={value => setAtAddress(value === 0 ?  1 : 0)}
         />
-      }
+        <SelectField
+          className="w-full sm:w-1/2"
+          inputClassName="w-full md:w-1/3"
+          label=""
+          value={isStartDisabled(week.day) ? null : ""}
+          name={`schedule.${week.day}.end`}
+          disabled={isStartDisabled(week.day)}
+          options={timeOptions}
+          placeholder=""
+        />
+      </SelectGroupField>
+  )
+
+  return (
+    <div className="flex flex-col" key={week.day}>
+        <div className="flex w-full xs:flex-col md:flex-row">
+            <div className="flex items-center justify-between md:w-4/12">
+                <div className="md:w-1/12a px-2">{week.name}</div>
+                <Field name="at_address">
+                  {({ field: { value, ...rest } }) => (
+                    <input type="hidden"/>
+                  )}
+                </Field>
+                <div className="md:w-1/6a px-2">
+                  <ToggleField
+                    trueLabel={t('steps.alone')}
+                    falseLabel={t('steps.at_club')}
+                    initValue={alone}
+                    onChange={(value) => setAlone(value)}
+                  />
+                </div>
+            </div>
+            <div className="w-full md:w-3/12a px-2  md:w-8/12 max-w-sm flex-row">
+                {!alone &&
+                  <SelectField
+                    styles={{
+                      marginBottom: '1.6rem'
+                    }}
+                    className="w-full md:w-3/12a px-2 max-w-sm"
+                    inputClassName="w-full md:w-1/3"
+                    label={t('schedule.select_available_club')}
+                    name={`schedule.${week.day}.club_id`}
+                    options={[{value: 0, label: t('schedule.add_my_location')}, ...clubs]}
+                    placeholder=""
+                    intValues={true}
+                    onSelect={value => setAtAddress(value === 0 ?  1 : 0)}
+                  />
+                }
+                {alone && timetable}
+            </div>
+        </div>
+
+        {!alone && timetable}
       {(!alone && !!values['schedule'][week.day].at_address) &&
         <LocationSearchInput
           styles={{

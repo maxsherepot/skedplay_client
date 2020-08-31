@@ -14,6 +14,7 @@ const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChan
       });
     }
   };
+  console.log(photos)
 
   return (
     <>

@@ -16,6 +16,12 @@
       width: 280px;
     }
 
+    @screen xs {
+      &.viewed {
+        width: 100%;
+      }
+    }
+
     @screen sm {
       &.sized {
         width: 210px;

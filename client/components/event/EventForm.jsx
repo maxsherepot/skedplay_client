@@ -84,15 +84,15 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 {status}
               </div>
             )}
-            <div className="row">
-              <TextField label={t('account.events_actions.title')} name="title" className="w-2/3 inline-block"/>
+            <div className="row flex xs:flex-col sm:flex-row">
+              <TextField label={t('account.events_actions.title')} name="title" className="w-full sm:w-2/3 inline-block"/>
 
               <SelectField
                   label={t('account.events_actions.type')}
                   name="event_type_id"
                   options={(eventTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
                   placeholder=""
-                  className="align-middle pb-4 w-1/4 ml-3 inline-block"
+                  className="align-middle pb-4 w-full sm:w-1/4 sm:ml-3 inline-block"
               />
             </div>
 
@@ -151,24 +151,24 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 </div>
               }
             </div>
-            
+
             <TextField
               type="time"
               name="start_time"
               label="Start time"
               />
 
-            <div className="flex w-full -mx-3">
+          <div className="flex xs:flex-col sm:flex-row w-full -mx-3">
               <TextAreaField
                   rows={6}
                   label={t('account.events_actions.desc')}
                   name="description"
-                  className="relative px-3 w-2/3"
+                  className="relative px-3 w-full sm:w-2/3"
                   placeholder=""
                   textLength={255}
               />
               <FileField
-                  className="px-3 w-1/3"
+                  className="px-3 w-full sm:w-1/3"
                   label="Photo for your Event"
                   name="mainPhoto"
                   preview={event && event.mainPhoto && event.mainPhoto.url}

@@ -92,7 +92,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
           </h1>
         )}
         <Button
-          className="ml-4 uppercase"
+          className="ml-0 sm:ml-4 uppercase"
           size="xxs"
           level="success"
           weight="normal"

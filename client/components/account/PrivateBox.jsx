@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Link from 'components/SlashedLink'
-import {Button, Loader, SelectField, LocationSearchInput, CheckboxField} from "UI";
+import {Avatar, Button, Loader, SelectField, LocationSearchInput, CheckboxField} from "UI";
 import {UserSvg, StarSvg, PhotoSvg, VideoSvg} from "icons";
 import {useTranslation} from "react-i18next";
 import {useMutation, useQuery} from "@apollo/react-hooks";
@@ -135,7 +135,7 @@ const CurrentPosition = ({user}) => {
       <h3 className="text-xl font-bold mb-2">
         Today {moment().format("D MMMM")}
       </h3>
-      <div className="text-lg font-bold mb-2">
+      <div className="text-lg font-bold mb-2 hidden">
         {t('account.your_current_position')}:&nbsp;
         {!!getCurrentPosition() ?
           <>
@@ -156,7 +156,7 @@ const CurrentPosition = ({user}) => {
         }
       </div>
       {!showEditBlock &&
-        <div>
+        <div className="hidden">
           <Button className="w-30" size="xs" onClick={() => setShowEditBlock(true)}>
             {t('common.change')}
           </Button>
@@ -246,6 +246,61 @@ const CurrentPosition = ({user}) => {
   );
 };
 
+const GirlRow = ({ employee, soon, active }) => {
+    const {t, i18n} = useTranslation();
+
+    return (
+      <div className="flex flex-col sm:flex-row items-center my-2">
+          <Avatar className="w-10 h-10 mr-2" isEmpty/>
+
+         <div className="flex flex-col justify-between">
+             <div className="flex flex-col sm:flex-row items-center mt-2 sm:mt-0 sm:ml-2">
+                  <span className="hidden sm:block bg-dark-green h-2 w-2 mr-2 rounded-full" /> <div className=" text-xl"> {employee && employee.name}</div>
+                 {!active ? (
+                   <div className="flex items-center text-grey">
+                       <div className="flex items-center">
+                           {soon && (
+                             <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
+                                 {t('common.coming_soon')}
+                             </div>
+                           )}
+                       </div>
+                   </div>
+                 ) : (
+                   <div className="flex items-center">
+                       <div className="bg-light-grey text-white text-xs rounded-full whitespace-no-wrap px-3 py-1">
+                           {t('common.not_active')}
+                       </div>
+                       <div className="bg-transparent border-2 border-red text-black text-xs font-medium rounded-full whitespace-no-wrap px-3 py-1 ml-3">
+                           {t('common.active_now')}
+                       </div>
+                   </div>
+                 )}
+             </div>
+
+             <div className="flex flex-col sm:flex-row items-center mt-2 sm:ml-2">
+                 <Link href={"/account/ad"}>
+                     <a>
+                         <Button className="px-6" size="xxs" outline style={{ color: "#000" }}>
+                             {t('common.edit')}
+                         </Button>
+                     </a>
+                 </Link>
+
+                 <Link href={"/account/events/create/"}>
+                     <a>
+                         <Button className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2" size="xxs" outline style={{ color: "#000" }}>
+                             New Event
+                         </Button>
+                     </a>
+                 </Link>
+             </div>
+         </div>
+
+      </div>
+    );
+};
+
 const PrivateBox = ({user}) => {
   const {t, i18n} = useTranslation();
 
@@ -277,10 +332,24 @@ const PrivateBox = ({user}) => {
       <div className="flex flex-wrap -mx-3">
         <CurrentPosition user={user}/>
       </div>
-      <div className="flex flex-wrap -mx-3">
-        <div className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5">
+
+      <div className="p-5 hd:p-10 border-light-grey border rounded-lg  shadow hover:cursor-pointer mb-5">
+          <div className="hidden absolute inset-0 flex justify-end m-10">
+              <UserSvg />
+          </div>
+          <div className="flex">
+              <div className="flex flex-col w-full">
+                  <span className="text-xl font-medium">{t('account.my_cards')}</span>
+
+                 <GirlRow key={user.employee.id} employee={user.employee} />
+                </div>
+            </div>
+      </div>
+
+      <div className="hidden flex flex-wrap -mx-3">
+        <div className="px-3 w-full md:w-1/2 hd:w-1/3">
           <div
-            className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
+            className="hidden p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
             <div className="flex flex-col justify-center h-full">
               <div className="flex justify-between">
                 <span className="text-2xl font-bold mb-6">{t('layout.card')} / {t('layout.ad')}</span>
@@ -297,7 +366,7 @@ const PrivateBox = ({user}) => {
           </div>
         </div>
 
-        <div className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5">
+        <div className=" hidden px-3 w-full mb-5">
           <div
             className="p-5 hd:p-10 border-light-grey border rounded-lg hover:border-transparent hover:bg-white shadow hover:cursor-pointer">
             <div className="flex flex-col justify-center h-full">
@@ -305,16 +374,18 @@ const PrivateBox = ({user}) => {
                 <span className="text-2xl font-bold mb-6">{user.employee.events_count} {t('account.events')}</span>
                 <StarSvg/>
               </div>
-                  <a href="/account/events/create/">
-                   <Button className="px-4 btn-size__div" size="sm">
-                     {t('navigation.add_new')}
-                   </Button>
-                  </a>
+                <div>
+                    <a href="/account/events/create/">
+                     <Button className="px-4" size="sm">
+                       {t('navigation.add_new')}
+                     </Button>
+                    </a>
+                </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap -mx-3">
+      <div className="hidden flex flex-wrap -mx-3">
         {counters &&
         counters.map(({counter, title, icon, buttonText}, index) => (
           <div className="px-3 w-full md:w-1/2 hd:w-1/3 mb-5" key={index}>

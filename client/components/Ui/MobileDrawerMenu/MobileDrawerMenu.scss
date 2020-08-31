@@ -10,13 +10,20 @@
     flex-shrink: 0;
     background-color: rgba(0, 0, 0, 0.12);
   }
+  .account-layout-sidebar {
+    display: flex;
+    border: none;
+    > div {
+      padding: 0.5rem;
+    }
+  }
   ul {
-    @apply mt-12;
+    //@apply mt-12;
     li {
-      @apply mb-7;
+      //@apply mb-7;
       a {
-        @apply block text-center font-bold uppercase leading-none tracking-tighter;
-        font-size: 20px;
+        //@apply block text-center font-bold uppercase leading-none tracking-tighter;
+        //font-size: 20px;
       }
     }
   }

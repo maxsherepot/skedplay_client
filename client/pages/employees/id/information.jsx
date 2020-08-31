@@ -161,33 +161,40 @@ const EmployeeInformation = ({ user }) => {
   const [event] = employee.events;
 
   const sidebarColumn = (
-    <>
-      <Lightbox
-        open={isModalOpen}
-        index={lightboxIndex}
-        onClose={onClose}
-        images={[
-          ...employee.photos.map(p => ({...p, type: 'image', url: getPhotoUrl(p)})),
-          ...employee.videos.map(v => ({...v, type: 'video'}))]
-        }
-      />
-
-      <GalleryWithThumbnail
-        photos={[
-          ...employee.photos.map(p => ({...p, type: 'image', big_thumb_url: getBigThumbUrl(p)})),
-          ...employee.videos.map(v => ({...v, url: v.thumb_url, type: 'video'}))
-        ]}
-        handleClick={handleLightboxClick}
-        favorite={
-          <FavoriteButton
-            variables={{ model_id: employee.id, model_type: "employee" }}
-            favorited={employee.favorited}
-            large={false}
+      (employee.photos.length + employee.videos.length === 0) ?
+        <div className="bg-white rounded-lg p-4">
+            <div className="flex justify-center" style={{backgroundColor: "#f6f6f6"}}>
+                <img class="object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-md xl:h-e-photo-xl hd:h-e-photo-hd" style={{width: 200}} src="/static/img/girl-no-photo.jpg" alt=""/>
+            </div>
+        </div>
+        :
+        <>
+          <Lightbox
+            open={isModalOpen}
+            index={lightboxIndex}
+            onClose={onClose}
+            images={[
+              ...employee.photos.map(p => ({...p, type: 'image', url: getPhotoUrl(p)})),
+              ...employee.videos.map(v => ({...v, type: 'video'}))]
+            }
           />
-        }
-        large
-      />
-    </>
+
+          <GalleryWithThumbnail
+            photos={[
+              ...employee.photos.map(p => ({...p, type: 'image', big_thumb_url: getBigThumbUrl(p)})),
+              ...employee.videos.map(v => ({...v, url: v.thumb_url, type: 'video'}))
+            ]}
+            handleClick={handleLightboxClick}
+            favorite={
+              <FavoriteButton
+                variables={{ model_id: employee.id, model_type: "employee" }}
+                favorited={employee.favorited}
+                large={false}
+              />
+            }
+            large
+          />
+        </>
   );
 
   const getStars = starsCount => {
@@ -219,7 +226,7 @@ const EmployeeInformation = ({ user }) => {
         <div className="w-full hd:w-3/5 px-3">
           {/*<div className="text-2xl font-extrabold mb-5">{t('employees.description')}</div>*/}
           <div className="bg-white rounded-t-lg p-4 hd:p-8">
-            {employee.description}
+            {employee.description || "Inc bin Nina, sehr zartliche, mega liebe end sexy Swisslady ind mochte DICH leidenschaftilich verfuhren, Dich kussen, mit Dir schmushen... heisses 69 zusammen geniessen, Dich ausgiebig spuren and mit unschlagbarem Franzosisch verwohnen!"}
           </div>
           <div className="border-b border-divider" />
           <div className="flex flex-col sm:flex-row bg-white rounded-b-lg p-4 hd:p-8">
@@ -340,7 +347,7 @@ const EmployeeInformation = ({ user }) => {
         ) : (
           <>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full lg:w-2/3 hd:w-2/5 px-3">
+              <div className="w-full lg:w-2/3 hd:w-2/5 px-3 ">
                 {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
                 {sidebarColumn}
               </div>
@@ -352,6 +359,7 @@ const EmployeeInformation = ({ user }) => {
 
             <div className="flex flex-wrap -mx-3">
               <div className="w-full hd:w-2/5 px-3">
+
                 <EmployeeSchedule
                   title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
                   employee={employee}
@@ -378,7 +386,13 @@ const EmployeeInformation = ({ user }) => {
                     </a>
                   </Link>
                 </div>
-
+                {employee.events.length === 0 &&
+                    <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
+                        <span className="text-center w-full">
+                            No Events yet
+                        </span>
+                    </div>
+                }
                 {employee.events.length > 0 &&
                   <div className="-mx-3">
                     <Slider

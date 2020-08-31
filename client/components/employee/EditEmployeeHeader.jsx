@@ -192,7 +192,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
   };
 
   return (
-    <div className={"edit-employee-header " + cx(classes)}>
+    <div className={"edit-employee-header w-full sm:w-3/6 " + cx(classes)}>
       <div className="avatar-box relative">
         <input
           className="hidden"
@@ -224,26 +224,26 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
       </div>
 
       <div className="account-info-box flex">
-        <div className="flex w-full items-end -mx-2">
-          <div className="flex flex-col flex-1 px-2">
+        <div className="flex flex-col w-full items-end sm:items-start -mx-2 sm:pl-2 hd:ml-6">
+          <div className="flex flex-col sm:flex-row flex-1 px-2 w-full text-center">
             <div className="text-4xl font-extrabold whitespace-no-wrap">{employee.name}</div>
-            <div className="flex items-center text-grey my-2">
+            <div className="flex items-center text-grey my-2 hidden">
               <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full"/>
               <div className="flex items-center">05.06-07.06</div>
             </div>
 
-            <div className="stats-box flex items-center">
+            <div className="stats-box flex items-center ml-0 sm:ml-2 w-full">
               {!user.is_employee &&
                 <SelectClub className="w-40" owner={employee.owner} employee={employee} clubs={clubs}/>
               }
 
-              <div className="mx-4">{t('account.count_views', {count: 1234})}</div>
+              <div className="mx-4 hidden">{t('account.count_views', {count: 1234})}</div>
 
-              <div className="text-grey">{t('account.day_left', {days: 5})}</div>
+              <div className="text-grey hidden">{t('account.day_left', {days: 5})}</div>
             </div>
           </div>
 
-          <div className="flex justify-between flex-col h-full px-2">
+          <div className="flex justify-between flex-col sm:flex-row h-full px-2 mt-0 sm:mt-2">
             {!user.is_employee &&
               <Button onClick={handleIsVip} className="px-3 mb-3" level="primary" outline size="xxs">
                 {employee.isVip ? (
@@ -255,7 +255,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             }
             <Button
               onClick={handleToggleActive}
-              className="px-3 mb-3"
+              className="px-3 mb-3 ml-0 sm:ml-2"
               level="primary"
               outline
               size="xxs"
@@ -266,7 +266,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             </Button>
 
             {employee.isVip && (
-              <Button onClick={handleAddToGeneral} className="px-3 mb-3" level="primary" outline size="xxs">
+              <Button onClick={handleAddToGeneral} className="px-3 mb-3 ml-0 sm:ml-2" level="primary" outline size="xxs">
                 {employee.inGeneral ? (
                   <span className="text-black">
                     {t('account.only_for_exist_user')}
@@ -279,11 +279,13 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
               </Button>
             )}
             {!user.is_employee &&
-              <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
-                <div className="pt-6">
-                  <p>{t('account.sure_delete_card')}</p>
+                <div className="ml-0 sm:ml-2">
+                    <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
+                      <div className="pt-6">
+                        <p>{t('account.sure_delete_card')}</p>
+                      </div>
+                    </DeletePopup>
                 </div>
-              </DeletePopup>
             }
           </div>
         </div>

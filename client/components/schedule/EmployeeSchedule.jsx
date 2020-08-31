@@ -37,6 +37,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
     return phone;
   };
 
+
   return (
     <>
       <div className="flex items-center">
@@ -47,6 +48,12 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
         </span>
       </div>
       <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
+          {
+              schedule.length == 0 &&
+              <span className="flex justify-center w-full">
+                  No Shedule yet
+              </span>
+          }
         {schedule &&
           schedule.map((s, i) => (
             <section className="mb-3" key={i}>
@@ -116,7 +123,8 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
             </section>
           ))}
 
-        <span className="flex sm:hidden items-center mt-6">
+
+        <span className="flex hidden sm:hidden items-center mt-6">
           <span className="text-sm mr-2">{t('schedule.view_for_month')}</span>
           <CalendarSvg />
         </span>

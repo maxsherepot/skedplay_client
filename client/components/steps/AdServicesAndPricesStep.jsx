@@ -46,18 +46,18 @@ const AdServicesAndPricesStep = () => {
         <div className="px-16">
             <div className="flex flex-wrap -mx-32">
                 {groupServices && groupServices.map((groupService) => (
-                    <div className="w-1/2">
+                    <div className="w-full sm:w-1/2">
                         <div className="row text-center text-2xl">
                             <h2>{groupService.name}</h2>
                         </div>
                         {services.map((service) => (service.group && service.group.id === groupService.id && (
                             <div
-                                className="flex flex-row md:items-center justify-between w-full px-16 mb-6 sm:mb-2"
+                                className="flex flex-row items-center justify-between w-full px-16 mb-6 sm:mb-2"
                                 key={service.id}
                             >
                                 <CheckboxField label={service.name} name={`services.${service.id}.active`} />
 
-                                <div className="-mb-4">
+                                <div className="sm:-mb-4">
                                     <TextField
                                         className="w-32 mt-4 sm:mt-0"
                                         inputClassName="w-32"
