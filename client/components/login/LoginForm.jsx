@@ -60,7 +60,7 @@ const LoginForm = ({ onSubmit }) => {
           />
 
           {error && (
-            <FormGroup className="error text-center">
+            <FormGroup className="error text-center" style={{maxWidth: 315}}>
               <span>{error}</span>
             </FormGroup>
           )}

@@ -2,16 +2,7 @@
 
 
 .mobile-drawer-category {
-  @apply overflow-y-scroll;
-
-  ul {
-    @apply mt-12;
-    li {
-      @apply mb-7;
-      a {
-        @apply block text-center font-bold uppercase leading-none tracking-tighter;
-        font-size: 20px;
-      }
-    }
+  .MuiListItem-root {
+    @apply px-6;
   }
 }

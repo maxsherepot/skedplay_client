@@ -205,13 +205,13 @@ const AdScheduleStep = () => {
             clubs={clubs}
           />
         ))}
-        <DateField
+        {/*<DateField
           className="w-full sm:w-1/2 lg:w-1/3"
           inputClassName="w-full md:w-1/3"
           label={t('steps.activate_date')}
           name="will_activate_at"
           placeholder={t('steps.activate_date')}
-        />
+        />*/}
       </div>
     </div>
   );

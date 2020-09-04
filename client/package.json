@@ -77,6 +77,8 @@
     "react-tiny-popover": "^4.0.0",
     "react-yandex-metrika": "^2.6.0",
     "reactjs-popup": "^1.5.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "slick-carousel": "^1.8.1",
     "sockjs-client": "^1.4.0",
     "styled-components": "^4.4.0",

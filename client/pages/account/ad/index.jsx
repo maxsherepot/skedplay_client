@@ -20,7 +20,6 @@ const AccountAdEdit = ({user}) => {
 
   const employeeId = user.employee.id;
 
-  console.log(GET_EMPLOYEE)
   const { data: { employee } = {}, loading, refetch} = useQuery(GET_EMPLOYEE, {
     variables: {
       id: employeeId
@@ -51,12 +50,16 @@ const AccountAdEdit = ({user}) => {
       <Breadcrumbs/>
 
       <div className="bg-white shadow rounded-lg p-8">
-          <EditEmployeeHeader
-            user={user}
-            employee={employee}
-            refetchEmployee={refetch}
-            classes="flex items-center flex-wrap w-full md:w-6/12 justify-center xl:flex-no-wrap xl:justify-between border border-divider p-3 mx-8 mt-6 rounded-lg hd:w-7/12 hd:mx-auto hd:justify-start"
-          />
+          {
+              getFromLS("employee_form_state") === "done" &&
+                  <EditEmployeeHeader
+                    user={user}
+                    employee={employee}
+                    refetchEmployee={refetch}
+                    classes="flex items-center flex-wrap w-full md:w-6/12 justify-center xl:flex-no-wrap xl:justify-start border border-divider p-3 mx-8 mt-6 rounded-lg hd:w-7/12 hd:mx-auto hd:justify-start"
+                  />
+          }
+
 
         <EditEmployeeBox employee={employee} refetchEmployee={refetch} />
       </div>
@@ -64,6 +67,11 @@ const AccountAdEdit = ({user}) => {
   );
 };
 
+const getFromLS = (key) => {
+    if ((global || window).localStorage) {
+        return (global || window).localStorage.getItem(key)
+    }
+};
 // AccountAdEdit.getLayout = getLayout;
 
 AccountAdEdit.getInitialProps = async ctx => {

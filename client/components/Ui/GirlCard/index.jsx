@@ -22,7 +22,8 @@ function GirlCard({
   sized,
   profileCard,
   viewed,
-  user
+  user,
+  style
 }) {
   function DistanceView({distanceKm}) {
     if (!distanceKm) {
@@ -210,13 +211,15 @@ function GirlCard({
     return photo.url;
   };
 
+
   return (
-    <div className={cx(
-        profileCard ? 'girl_card-club' :'girls__item w-full',
+    <div style={style || {}} className={cx(
+      className ? className : "",
+      profileCard ? 'girl_card-club' :'girls__item w-full',
       "bg-white border border-white",
       girl.isVip ? "border border-red" : "",
       sized ? "sized" : "",
-      viewed ? "viewed" : "",
+      viewed ? "viewed" : ""
     )}>
       <div className="absolute z-20 top-0 right-0 p-3-5">
         <FavoriteButton

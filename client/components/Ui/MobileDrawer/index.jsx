@@ -1,7 +1,24 @@
 import React from 'react';
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
 
-function MobileDrawer({isOpen, onClose, children}) {
+function MobileDrawer({isOpen, onClose, onOpen, children}) {
+
+    return (
+        <SwipeableDrawer open={isOpen}
+                         onOpen={() => onOpen && onOpen()}
+                         onClose={onClose}>
+            {children}
+        </SwipeableDrawer>
+    )
+}
+
+
+
+
+
+
+function MobileDrawerCustom({isOpen, onClose, children}) {
 
     const visibleClass = isOpen ? " visible" : "";
 

@@ -27,7 +27,7 @@ const Animation = () => (
 
 const EventsContainer = ({user, events}) => {
   const {t, i18n} = useTranslation();
-  console.log(user)
+
   return (
     <div className="container mx-auto relative z-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row">

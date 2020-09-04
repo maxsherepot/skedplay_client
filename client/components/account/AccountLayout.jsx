@@ -17,33 +17,38 @@ import Cookies from "js-cookie";
 import redirect from "lib/redirect";
 import { setCookie } from "utils";
 
-const ProfileHeader = ({user}) => (
-    <>
-      {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
-          <VerifyMessage user={user}/>
-      )}
-      <div className="container header-profile-div">
-        <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
-          <Avatar/>
-          <div className="ml-4">
-            {user && user.is_employee ? (
-              <span className="text-2xl font-medium capitalize">
-                {user.employee.name} {user.age ? `, ${user.age}` : ''}
-              </span>
-            ) : (
-              <span className="text-2xl font-medium capitalize">
-                {user.name} {user.age ? `, ${user.age}` : ''}
-              </span>
-            )}
-            <div className="profile-info-box flex mt-4">
-              <AccountLabel {...user} />
-              <span className="profile-phone sm:ml-2">{user.phone}</span>
+const ProfileHeader = ({user}) => {
+    const avatar = (user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
+    return (
+        <>
+          {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
+              <VerifyMessage user={user}/>
+          )}
+          <div className="container header-profile-div">
+            <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
+              <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar} src={avatar}/>
+              <div className="ml-4">
+                {user && user.is_employee ? (
+                  <span className="text-2xl font-medium capitalize">
+                    {user.employee.name} {user.age ? `, ${user.age}` : ''}
+                  </span>
+                ) : (
+                  <span className="text-2xl font-medium capitalize">
+                    {user.name} {user.age ? `, ${user.age}` : ''}
+                  </span>
+                )}
+                <div className="profile-info-box flex mt-4">
+                    <div className="flex">
+                        <AccountLabel {...user} />
+                    </div>
+                  <span className="profile-phone sm:ml-2">{user.phone}</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </>
-);
+        </>
+    )
+};
 
 const VerifyMessage = ({user}) => {
   const {t} = useTranslation();
@@ -79,6 +84,8 @@ const VerifyMessage = ({user}) => {
       };
     }
   };
+
+  return null
 
   return (
     <>

@@ -10,7 +10,7 @@ import {
   UPLOAD_EMPLOYEE_FILES,
   CLUBS_SEARCH,
 } from "queries";
-import {Button, DeletePopup, Loader} from "UI";
+import {Avatar, Button, DeletePopup, Loader} from "UI";
 import {ChangePhotoSvg} from 'icons';
 import cx from 'classnames';
 
@@ -191,6 +191,8 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
     }
   };
 
+  const avatar = (employee.photos || []).length ? employee.photos[0].thumb_url : undefined
+
   return (
     <div className={"edit-employee-header w-full sm:w-3/6 " + cx(classes)}>
       <div className="avatar-box relative">
@@ -200,18 +202,15 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
           ref={avatarRef}
           onChange={handleUploadAvatar}
         />
-        {employee.avatar ?
-          <img
-            className="w-30 h-30 rounded-full object-cover"
-            src={employee.avatar && employee.avatar.url}
-            alt={employee.name}
-          />
-          :
-          <div
-            className="w-30 h-30 rounded-full object-cover bg-light-grey"
-          />
-        }
-        <div className="absolute left-0 top-0 cursor-pointer" onClick={() => avatarRef.current.click()}>
+        {/*
+            <img
+              className="w-30 h-30 rounded-full object-cover"
+              src={employee.avatar && employee.avatar.url}
+              alt={employee.name}
+            />
+        */}
+        <Avatar className="w-30 h-30" isEmpty={!avatar} src={avatar}/>
+        <div className="hidden absolute left-0 top-0 cursor-pointer" onClick={() => avatarRef.current.click()}>
           <ChangePhotoSvg/>
         </div>
         {employee.isVip && (
@@ -295,7 +294,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
 };
 
 EditEmployeeHeader.defaultProps = {
-  classes: "flex items-center flex-wrap justify-center xl:flex-no-wrap xl:justify-between hd:justify-around border border-divider p-3 mx-8 mt-6 rounded-lg"
+  classes: "flex items-center flex-wrap justify-center xl:flex-no-wrap xl:justify-start hd:justify-start border border-divider p-3 mx-8 mt-6 rounded-lg"
 };
 
 export default EditEmployeeHeader;

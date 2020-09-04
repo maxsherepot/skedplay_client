@@ -107,9 +107,10 @@ const GirlsViewedBox = ({employees, user}) => {
           employees.map(employee => (
             <div
               key={employee.id}
+              className="px-4 outline-none"
               // className="sm:w-1/2 md:w-1/4 lg:w-1/12 hd:w-1/12 px-1 hd:px-3"
             >
-              <GirlCard girl={employee} labels={false} slider={false} preview sized={false} viewed={true} user={user} />
+              <GirlCard girl={employee} style={{width: "100%"}} labels={false} slider={false} sized={false} viewed={true} user={user} />
             </div>
           ))}
       </Slider>

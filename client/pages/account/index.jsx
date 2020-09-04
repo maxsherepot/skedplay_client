@@ -9,7 +9,7 @@ const AccountShow = ({ user }) => {
   const {t, i18n} = useTranslation();
 
   let Box;
-
+ 
   if (user.is_employee) {
     Box = <PrivateBox user={user} key={user.id} />;
   } else if (user.is_club_owner) {

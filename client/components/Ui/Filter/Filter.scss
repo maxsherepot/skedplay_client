@@ -1,21 +1,20 @@
 .employee-search {
-  background: url(/static/img/girls-bg.webp);
+  background: url(/static/img/girls-bg.jpg);
   background-size: 100% 100%;
 
 
   @media (max-width: 480px) {
-    background: url(/static/img/girls-bg-sm.webp);
+    background: url(/static/img/girls-bg-sm.jpg);
     background-size: 100% 100%;
   }
 }
 
 .events-search {
-  background: url(/static/img/bg-events.webp);
+  background: url(/static/img/bg-events.jpg);
   background-size: 100% 100%;
 }
 
 .clubs-search {
-  background: url(/static/img/bg-clubs.webp);
+  background: url(/static/img/bg-clubs.jpg);
   background-size: 100% 100%;
 }
-

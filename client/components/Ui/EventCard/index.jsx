@@ -124,13 +124,13 @@ function EventCard({
         {inProfile ? (
           <img
               className=" cover relative overflow-hidden rounded-t-lg c-events-card"
-              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
+              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.png'}
               alt={``}
           />
         ) : (
           <LazyLoadImage
               className="club-card__img cover relative overflow-hidden rounded-t-lg c-events-card"
-              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.webp'}
+              src={thumb && (thumb.thumb_url || thumb.url) || '/static/img/event-none.png'}
               alt={``}
           />
         )}

@@ -9,9 +9,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Badge } from "UI";
 import {useTranslation} from "react-i18next";
 
-function PrevArrow({ className, currentSlide, onClick, onMouseOver}) {
-  const disabled = currentSlide <= 0;
-
+function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver}) {
+  const disabled = currentSlide <= 0
   return (
     <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
       <ArrowLeft
@@ -23,11 +22,11 @@ function PrevArrow({ className, currentSlide, onClick, onMouseOver}) {
   );
 }
 
-function NextArrow({ className, currentSlide, onClick }) {
-  const disabled = currentSlide >= 3;
+function NextArrow({ className, currentSlide, onClick, slideCount, onMouseOver}) {
+  const disabled = currentSlide >= (Math.ceil(slideCount/5) - 1)
 
   return (
-    <div className={className} onClick={onClick}>
+    <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
       <ArrowRight
         className={disabled ? "stroke-divider" : "stroke-red"}
         width="6"
@@ -164,7 +163,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 focusOnSelect={true}
                 adaptiveHeight
                 nextArrow={<NextArrow className="prev-arrow" />}
-                prevArrow={<PrevArrow className="next-arrow" onMouseOver={() => slider1.slickPrev()}/>}
+                prevArrow={<PrevArrow className="next-arrow" onMouseOver={() => {slider2.slickGoTo(0)}}/>}
               >
                 {images.map((image, i) => (
                   <div className="pr-1 outline-none" key={i}>

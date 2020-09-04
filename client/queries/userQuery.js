@@ -19,14 +19,14 @@ export const GET_ME = gql`
             employees_photos
             employees_videos
             verify_photo {
-                id 
+                id
                 name
                 url
                 thumb_url
                 created_at
             }
             avatar {
-                id 
+                id
                 name
                 url
                 thumb_url
@@ -133,6 +133,14 @@ export const GET_ME = gql`
                 videos_count
                 address
                 website
+                photos {
+                  id
+                  url
+                  thumb_url
+                  thumb_blur_url
+                  blur_url
+                  custom_properties
+                }
                 reviews {
                     id
                 }
@@ -149,7 +157,7 @@ export const UPLOAD_USER_AVATAR = gql `
         uploadUserAvatar(
             avatar: $avatar
             collection: $collection
-        ) { 
+        ) {
             status
             message
         }

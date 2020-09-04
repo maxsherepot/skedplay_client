@@ -28,6 +28,7 @@
     "create_account": "Create account",
     "back": "Back",
     "step": "Step",
+
     "next_step": "Next step",
     "gender": "Gender",
     "male": "Male",
@@ -111,7 +112,8 @@
     "copied": "Copied",
     "submit_complaint": "Submit a complaint",
     "vip_only": "VIP only",
-    "address_placeholder": "Example: street name, city"
+    "address_placeholder": "Example: street name, city",
+    "category": "Category"
   },
   "layout": {
     "view_my_account": "View my account",

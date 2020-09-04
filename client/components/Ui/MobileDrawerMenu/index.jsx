@@ -27,6 +27,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
     const { t, i18n } = useTranslation();
 
 
+    const avatar = user ? ((user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined) : undefined
 
     return (
         <MobileDrawer isOpen={isOpen} onClose={onClose}>
@@ -34,7 +35,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                 {
                     user ?
                     <div className="flex flex-col items-center justify-center pt-6 pb-6">
-                      <Avatar isEmpty/>
+                      <Avatar isEmpty={!avatar} src={avatar}/>
                       <div className="mt-2">
                         {user && user.is_employee ? (
                           <span className="text-2xl font-medium capitalize">

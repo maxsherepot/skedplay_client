@@ -42,7 +42,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
     <>
       <div className="flex items-center">
         <div className="text-2xl font-extrabold my-5">{rest.title}</div>
-        <span className="hidden sm:flex items-center ml-9">
+        <span className="hidden sm:hidden items-center ml-9">
           <span className="text-xs mr-2">{t('schedule.view_for_month')}</span>
           <CalendarSvg />
         </span>

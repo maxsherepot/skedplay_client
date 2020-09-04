@@ -347,7 +347,7 @@ const EmployeeInformation = ({ user }) => {
         ) : (
           <>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full lg:w-2/3 hd:w-2/5 px-3 ">
+              <div className="w-full lg:w-2/3 hd:w-2/5 px-3 pb-6" style={{maxWidth: 750}}>
                 {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
                 {sidebarColumn}
               </div>

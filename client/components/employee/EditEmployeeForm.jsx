@@ -6,14 +6,19 @@ import { useSteps } from "hooks";
 import { Button, FormGroup, Loader } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
+import redirect from "lib/redirect";
 import cx from 'classnames';
 
-function EditEmployeeForm({ initialValues, children }) {
+function EditEmployeeForm({ withStep, initialValues, children }) {
   const { step, setStep } = useSteps();
+
 
   const {t, i18n} = useTranslation();
 
   const activeStep = React.Children.toArray(children)[step].props.children;
+  const totalSteps = React.Children.toArray(children).length
+  const isLastStep = step === (totalSteps - 1)
+
 
   const validate = values => {
     if (activeStep.props.validationSchema) {
@@ -26,6 +31,7 @@ function EditEmployeeForm({ initialValues, children }) {
 
     return {};
   };
+
 
   const handleSubmits = async (
     values,
@@ -46,8 +52,17 @@ function EditEmployeeForm({ initialValues, children }) {
         setStatus(message);
       }
 
-      // if (status) {
-      // }
+      if (status) {
+          if (withStep) {
+              if (isLastStep) {
+                  setStep(0)
+                  redirect(undefined, "/account")
+              } else {
+                  setStep(step + 1)
+              }
+              window.scrollTo(0, 0)
+          }
+      }
     }
 
     // if (isLastStep) {
@@ -86,23 +101,49 @@ function EditEmployeeForm({ initialValues, children }) {
           </div>
 
           <div className="border-b border-divider" />
+          {
+              withStep ?
+                  <div className="flex flex-col items-start mx-auto hd:w-7/12">
+                    <div className="w-full p-8 hd:px-0">
+                      <Button
+                        level={step <= 0 ? "grey" : "primary"}
+                        className="w-full sm:w-auto text-xl px-16 mb-4 md:mb-0 sm:mr-4"
+                        onClick={() => {setStep(step - 1); window.scrollTo(0, 0)}}
+                        type="button"
+                        disabled={isSubmitting}
+                      >
+                        {t('common.back')}
+                      </Button>
+                      <Button
+                        type="submit"
+                        className="w-full sm:w-auto text-xl px-16"
+                        disabled={isSubmitting}
+                      >
+                        {isLastStep ? t('ad.save') : t('common.next')}
+                      </Button>
+                    </div>
+                  </div>
 
-          <div
-            className={cx([
-              "flex flex-col items-start mx-auto hd:w-7/12",
-              activeStep.props.showSubmit === false ? 'hidden' : '',
-            ])}
-          >
-            <div className="w-full xs:p-8 xs:px-0 hd:px-0">
-              <Button
-                type="submit"
-                className="text-xl px-16"
-                disabled={isSubmitting}
-              >
-                {t('common.save')}
-              </Button>
-            </div>
-          </div>
+                  :
+
+                  <div
+                    className={cx([
+                      "flex flex-col items-start mx-auto hd:w-7/12",
+                      activeStep.props.showSubmit === false ? 'hidden' : '',
+                    ])}
+                  >
+                    <div className="w-full xs:p-8 xs:px-0 hd:px-0">
+                      <Button
+                        type="submit"
+                        className="w-full sm:w-auto text-xl px-16"
+                        disabled={isSubmitting}
+                      >
+                        {t('common.save')}
+                      </Button>
+                    </div>
+                  </div>
+          }
+
         </form>
       )}
     </Formik>

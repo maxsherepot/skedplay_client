@@ -124,6 +124,7 @@ function RegisterForm({ onSubmit, children }) {
             title={t('register.small_age_title')}
             open={agePopupShow}
             closeOnDocumentClick
+            contentStyle={{width: "auto", maxWidth: "90%"}}
             onClose={() => setAgePopupShow(false)}
           >
             <h3 className="mt-3">{t('register.small_age_text')}</h3>

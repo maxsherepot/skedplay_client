@@ -8,10 +8,12 @@ const StepBox = ({ links, canSetStep }) => {
   const active = step || 0;
 
   return (
-    <div className="flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
+    <div className="step-box flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
       {links.map((name, i) => (
-        <div
-          className="flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3 cursor-pointer"
+        <div className={cx(
+              "flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3 cursor-pointer",
+              active === i ? "" : "xs:hidden sm:flex"
+            )}
           key={i}
           onClick={() => canSetStep ? setStep(i) : ''}
         >
@@ -25,7 +27,7 @@ const StepBox = ({ links, canSetStep }) => {
           </div>
           <div
             className={cx(
-              "ml-4 w-26 font-medium mt-2 xl:mt-0 text-center xl:text-left",
+              " hd:ml-4 sm:w-26 font-medium mt-2 xl:mt-0 text-center xl:text-left",
               active === i ? "text-black" : "text-light-grey"
             )}
           >
