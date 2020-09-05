@@ -216,14 +216,14 @@ class User extends Resource
             BelongsToMany::make('Roles')
                 ->fields(
                     function () {
-                    return [
-                        Text::make('user_type')
-                            ->hideWhenCreating(),
-                    ];
-                }
+                        return [
+                            Text::make('user_type')
+                                ->hideWhenCreating(),
+                        ];
+                    }
                 )->displayUsing(function () {
-                return $this->pivot->role;
-            }),
+                    return $this->pivot->role;
+                }),
 
             Text::make('Type')
                 ->onlyOnIndex()
