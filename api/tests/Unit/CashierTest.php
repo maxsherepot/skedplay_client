@@ -74,9 +74,10 @@ class CashierTest extends TestCase
 //    }
 
     /**
-     * Potential trait method
+     * Potential trait method.
      *
      * @param array $options
+     *
      * @return array
      */
     public function subscribeUserOnPlan(array $options)

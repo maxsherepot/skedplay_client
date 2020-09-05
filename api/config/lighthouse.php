@@ -208,7 +208,7 @@ return [
             ],
             'pusher' => [
                 'driver'     => 'pusher',
-                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@pusher',
+                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
         ],

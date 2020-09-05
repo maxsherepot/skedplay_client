@@ -15,10 +15,10 @@ class EmployeeEventTest extends TestCase
         $user = $this->getUser();
 
         $data = collect([
-            'title'         => 'My event',
-            'description'   => 'About my special event!',
-            'event_type_id' => 1,
-            'club_id'       => 1,
+            'title'             => 'My event',
+            'description'       => 'About my special event!',
+            'event_type_id'     => 1,
+            'club_id'           => 1,
             'employee'          => $user->employee->id,
         ]);
 
@@ -37,8 +37,8 @@ class EmployeeEventTest extends TestCase
                             'id',
                             'name',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -70,6 +70,6 @@ class EmployeeEventTest extends TestCase
             ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 }

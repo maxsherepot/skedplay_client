@@ -53,14 +53,14 @@ return [
         ],
     ],
     'permission_structure' => [
-//        'cru_user' => [
-//            'users' => 'c,r,u'
-//        ],
+        //        'cru_user' => [
+        //            'users' => 'c,r,u'
+        //        ],
     ],
     'permissions_map'      => [
         'c' => 'create',
         'r' => 'read',
         'u' => 'update',
-        'd' => 'delete'
-    ]
+        'd' => 'delete',
+    ],
 ];

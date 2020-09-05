@@ -7,18 +7,14 @@ use App\Nova\Actions\Reject;
 use App\Nova\Filters\EventTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use Eminiarts\Tabs\Tabs;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphTo;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Panel;
 
 class Event extends Resource
@@ -43,11 +39,12 @@ class Event extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title'
+        'id', 'title',
     ];
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -59,7 +56,8 @@ class Event extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -71,7 +69,7 @@ class Event extends Resource
                 ID::make()->sortable(),
 
                 Text::make('Title')
-                    ->displayUsing(function($title) {
+                    ->displayUsing(function ($title) {
                         return Str::limit($title, 30, '...');
                     }),
 
@@ -79,7 +77,7 @@ class Event extends Resource
 
                 MorphTo::make('Owner')->sortable(),
 
-                Text::make('Status', function() {
+                Text::make('Status', function () {
                     return view(
                         'nova.moderation_status',
                         ['status' => $this->status ?? 0]
@@ -101,7 +99,7 @@ class Event extends Resource
 
                     MorphTo::make('Owner')->sortable(),
 
-                    Text::make('Status', function() {
+                    Text::make('Status', function () {
                         return view(
                             'nova.moderation_status',
                             ['status' => $this->status ?? 0]
@@ -113,14 +111,15 @@ class Event extends Resource
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
                 MorphMany::make('Actions', 'eventCounts', EventCount::class),
-            ])
+            ]),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -131,7 +130,8 @@ class Event extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -145,7 +145,8 @@ class Event extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -156,16 +157,17 @@ class Event extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            (new Confirm())->canRun(function($request) {
+            (new Confirm())->canRun(function ($request) {
                 return true;
             }),
-            (new Reject())->canRun(function($request) {
+            (new Reject())->canRun(function ($request) {
                 return true;
             }),
         ];

@@ -5,7 +5,6 @@
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Laratrust
  */
 
 return [
@@ -119,17 +118,17 @@ return [
     */
     'models' => [
         /**
-         * Role model
+         * Role model.
          */
         'role' => '\Modules\Users\Entities\Role',
 
         /**
-         * Permission model
+         * Permission model.
          */
         'permission' => '\Modules\Users\Entities\Permission',
 
         /**
-         * Team model
+         * Team model.
          */
         'team' => 'App\Team',
 
@@ -217,13 +216,13 @@ return [
     */
     'middleware' => [
         /**
-         * Define if the laratrust middleware are registered automatically in the service provider
+         * Define if the laratrust middleware are registered automatically in the service provider.
          */
         'register' => true,
 
         /**
          * Method to be called in the middleware return case.
-         * Available: abort|redirect
+         * Available: abort|redirect.
          */
         'handling' => 'abort',
 
@@ -236,7 +235,7 @@ return [
              * Aborts the execution with a 403 code.
              */
             'abort' => [
-                'code' => 403
+                'code' => 403,
             ],
             /**
              * Redirects the user to the given url.
@@ -245,13 +244,13 @@ return [
              * If the message content is empty it won't be added to the redirection.
              */
             'redirect' => [
-                'url' => '/home',
+                'url'     => '/home',
                 'message' => [
-                    'key' => 'error',
-                    'content' => ''
-                ]
-            ]
-        ]
+                    'key'     => 'error',
+                    'content' => '',
+                ],
+            ],
+        ],
     ],
 
     /*

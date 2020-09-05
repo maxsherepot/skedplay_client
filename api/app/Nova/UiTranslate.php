@@ -3,14 +3,11 @@
 namespace App\Nova;
 
 use App\Nova\Filters\UiTranslateLangFilter;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 
 class UiTranslate extends Resource
 {
@@ -39,6 +36,7 @@ class UiTranslate extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -49,7 +47,8 @@ class UiTranslate extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -77,7 +76,7 @@ class UiTranslate extends Resource
             Text::make('Value')
                 ->sortable()
                 ->rules('required', 'max:3000')
-                ->displayUsing(function($title) {
+                ->displayUsing(function ($title) {
                     return Str::limit($title, 30, '...');
                 }),
         ];
@@ -86,7 +85,8 @@ class UiTranslate extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -97,7 +97,8 @@ class UiTranslate extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -110,7 +111,8 @@ class UiTranslate extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -121,7 +123,8 @@ class UiTranslate extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)

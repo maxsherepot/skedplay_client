@@ -13,7 +13,7 @@ return [
     /** Gateway specific parameters */
     'gateways' => [
         'PayPal_Express' => [
-            'username' => 'bat.format-facilitator@gmail.com',
+            'username'    => 'bat.format-facilitator@gmail.com',
             'landingPage' => ['billing', 'login'],
         ],
     ],

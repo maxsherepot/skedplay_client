@@ -14,9 +14,8 @@ class EmployeeTest extends TestCase
     use DatabaseTransactions;
 
     /**
-     * Todo: Add get photo/video by url tests
+     * Todo: Add get photo/video by url tests.
      */
-
     public function testSearch()
     {
         $this->graphQL('
@@ -32,11 +31,11 @@ class EmployeeTest extends TestCase
                 'employees' => [
                     'data' => [
                         [
-                            'first_name'
-                        ]
-                    ]
-                ]
-            ]
+                            'first_name',
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -60,8 +59,8 @@ class EmployeeTest extends TestCase
                     'last_name',
                     'gender',
                     'age',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -79,8 +78,8 @@ class EmployeeTest extends TestCase
                 'updateEmployee' => [
                     'status'  => true,
                     'message' => null,
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -99,8 +98,8 @@ class EmployeeTest extends TestCase
                     'updateEmployee' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -111,9 +110,9 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -124,9 +123,9 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -137,13 +136,13 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
 
         $media = Media::where([
-            'model_type' => (new Employee)->getMorphClass(),
+            'model_type' => (new Employee())->getMorphClass(),
             'model_id'   => 1,
         ])->first();
 
@@ -157,9 +156,9 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'deleteEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -170,13 +169,13 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
 
         $media = Media::where([
-            'model_type' => (new Employee)->getMorphClass(),
+            'model_type' => (new Employee())->getMorphClass(),
             'model_id'   => 1,
         ])->first();
 
@@ -190,9 +189,9 @@ class EmployeeTest extends TestCase
             ->assertJson([
                 'data' => [
                     'deleteEmployeeFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -214,7 +213,7 @@ class EmployeeTest extends TestCase
             ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 
     protected function uploadPhotoQuery()

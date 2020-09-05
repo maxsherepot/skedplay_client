@@ -2,9 +2,9 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 
 class Role extends Resource
@@ -34,6 +34,7 @@ class Role extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -51,7 +52,8 @@ class Role extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -66,20 +68,22 @@ class Role extends Resource
             Text::make('Description'),
 
             BelongsToMany::make('Users')
-                ->fields(function () {
+                ->fields(
+                    function () {
                     return [
                         Text::make('user_type')
                             ->hideWhenCreating(),
                     ];
                 }
-            ),
+                ),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -90,7 +94,8 @@ class Role extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -102,7 +107,8 @@ class Role extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -113,7 +119,8 @@ class Role extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)

@@ -14,8 +14,9 @@ class AuthTest extends TestCase
     public function getPhone()
     {
         $user = factory(User::class)->create([
-            'phone' => '+41 79 123 45 67'
+            'phone' => '+41 79 123 45 67',
         ]);
+
         return $user->phone;
     }
 
@@ -39,9 +40,9 @@ class AuthTest extends TestCase
                         'name',
                         'phone',
                         'email',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -54,15 +55,15 @@ class AuthTest extends TestCase
         ]);
 
         $response = $this->login($data);
-        $token = $response->json("data.login.access_token");
+        $token = $response->json('data.login.access_token');
 
         $this->logout($token)->assertJson([
             'data' => [
                 'logout' => [
                     'status'  => 'TOKEN_REVOKED',
                     'message' => 'Your session has been terminated',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -70,13 +71,13 @@ class AuthTest extends TestCase
     {
         $this->forgotPassword(
             $this->getPhone(),
-            )->assertJson([
+        )->assertJson([
             'data' => [
                 'forgotPassword' => [
                     'status'  => true,
-                    'message' => 'verification.send.success'
-                ]
-            ]
+                    'message' => 'verification.send.success',
+                ],
+            ],
         ]);
     }
 
@@ -96,13 +97,13 @@ class AuthTest extends TestCase
 
         $this->resetPassword(
             $data,
-            )->assertJson([
+        )->assertJson([
             'data' => [
                 'resetPassword' => [
                     'status'  => true,
-                    'message' => 'verification.check.success'
-                ]
-            ]
+                    'message' => 'verification.check.success',
+                ],
+            ],
         ]);
     }
 
@@ -115,7 +116,7 @@ class AuthTest extends TestCase
         ]);
 
         $response = $this->login($data);
-        $refresh_token = $response->json("data.login.refresh_token");
+        $refresh_token = $response->json('data.login.refresh_token');
 
         $this->refreshToken($refresh_token)->assertJsonStructure([
             'data' => [
@@ -124,8 +125,8 @@ class AuthTest extends TestCase
                     'refresh_token',
                     'expires_in',
                     'token_type',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -168,7 +169,7 @@ class AuthTest extends TestCase
                 }
             ',
         ], [
-            'Authorization' => "Bearer $token"
+            'Authorization' => "Bearer $token",
         ]);
     }
 
@@ -187,7 +188,7 @@ class AuthTest extends TestCase
             'variables' => [
                 'phone'     => $phone,
                 'recaptcha' => 'afafafaf',
-            ]
+            ],
         ]);
     }
 
@@ -202,7 +203,7 @@ class AuthTest extends TestCase
                     }
                 }
             ',
-            'variables' => $data->all()
+            'variables' => $data->all(),
         ]);
     }
 
@@ -220,8 +221,8 @@ class AuthTest extends TestCase
                 }
             ',
             'variables' => [
-                'refresh_token' => $refresh_token
-            ]
+                'refresh_token' => $refresh_token,
+            ],
         ]);
     }
 }

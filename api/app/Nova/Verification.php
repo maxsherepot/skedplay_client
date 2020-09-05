@@ -5,9 +5,9 @@ namespace App\Nova;
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -38,6 +38,7 @@ class Verification extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -54,7 +55,8 @@ class Verification extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -64,11 +66,11 @@ class Verification extends Resource
 
             BelongsTo::make('User', 'model', User::class),
 
-            Text::make('Photo', function() {
+            Text::make('Photo', function () {
                 return view('nova.photo', ['photo' => $this])->render();
             })->asHtml(),
 
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
@@ -82,7 +84,8 @@ class Verification extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -93,7 +96,8 @@ class Verification extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -106,7 +110,8 @@ class Verification extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -117,16 +122,17 @@ class Verification extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            (new Confirm())->canRun(function($request) {
+            (new Confirm())->canRun(function ($request) {
                 return true;
             }),
-            (new Reject())->canRun(function($request) {
+            (new Reject())->canRun(function ($request) {
                 return true;
             }),
         ];
