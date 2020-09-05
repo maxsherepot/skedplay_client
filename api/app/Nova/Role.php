@@ -70,11 +70,11 @@ class Role extends Resource
             BelongsToMany::make('Users')
                 ->fields(
                     function () {
-                    return [
-                        Text::make('user_type')
-                            ->hideWhenCreating(),
-                    ];
-                }
+                        return [
+                            Text::make('user_type')
+                                ->hideWhenCreating(),
+                        ];
+                    }
                 ),
         ];
     }
