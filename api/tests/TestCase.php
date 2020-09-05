@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Modules\Users\Entities\User;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -13,6 +13,7 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $email
+     *
      * @return mixed
      */
     public function getUser($email = 'employee@site.com')

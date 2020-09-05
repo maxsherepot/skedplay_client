@@ -2,123 +2,123 @@
 
 return [
     /**
-     * Editor settings
+     * Editor settings.
      */
     'editorSettings' => [
-        'placeholder' => '',
+        'placeholder'  => '',
         'initialBlock' => 'paragraph',
-        'autofocus' => false,
+        'autofocus'    => false,
     ],
 
     /**
-     * Configure tools
+     * Configure tools.
      */
     'toolSettings' => [
         'header' => [
-            'activated' => true,
+            'activated'   => true,
             'placeholder' => 'Heading',
-            'shortcut' => 'CMD+SHIFT+H'
+            'shortcut'    => 'CMD+SHIFT+H',
         ],
         'list' => [
-            'activated' => true,
+            'activated'     => true,
             'inlineToolbar' => true,
-            'shortcut' => 'CMD+SHIFT+L'
+            'shortcut'      => 'CMD+SHIFT+L',
         ],
         'code' => [
-            'activated' => false,
+            'activated'   => false,
             'placeholder' => '',
-            'shortcut' => 'CMD+SHIFT+C'
+            'shortcut'    => 'CMD+SHIFT+C',
         ],
         'link' => [
             'activated' => true,
-            'shortcut' => 'CMD+SHIFT+L'
+            'shortcut'  => 'CMD+SHIFT+L',
         ],
         'image' => [
-            'activated' => true,
-            'shortcut' => 'CMD+SHIFT+I',
-            'path' => 'public/images',
-            'disk' => 'local',
+            'activated'   => true,
+            'shortcut'    => 'CMD+SHIFT+I',
+            'path'        => 'public/images',
+            'disk'        => 'local',
             'alterations' => [
                 'resize' => [
-                    'width' => false, // integer
+                    'width'  => false, // integer
                     'height' => false, // integer
                 ],
-                'optimize' => true, // true or false
+                'optimize'    => true, // true or false
                 'adjustments' => [
                     'brightness' => false, // -100 to 100
-                    'contrast' => false, // -100 to 100
-                    'gamma' => false // 0.1 to 9.99
+                    'contrast'   => false, // -100 to 100
+                    'gamma'      => false, // 0.1 to 9.99
                 ],
                 'effects' => [
-                    'blur' => false, // 0 to 100
-                    'pixelate' => false, // 0 to 100
+                    'blur'      => false, // 0 to 100
+                    'pixelate'  => false, // 0 to 100
                     'greyscale' => false, // true or false
-                    'sepia' => false, // true or false
-                    'sharpen' => false, // 0 to 100
-                ]
+                    'sepia'     => false, // true or false
+                    'sharpen'   => false, // 0 to 100
+                ],
             ],
             'thumbnails' => [
                 // Specify as many thumbnails as required. Key is used as the name.
                 '_small' => [
                     'resize' => [
-                        'width' => 250, // integer
+                        'width'  => 250, // integer
                         'height' => 250, // integer
                     ],
-                    'optimize' => true, // true or false
+                    'optimize'    => true, // true or false
                     'adjustments' => [
                         'brightness' => false, // -100 to 100
-                        'contrast' => false, // -100 to 100
-                        'gamma' => false // 0.1 to 9.99
+                        'contrast'   => false, // -100 to 100
+                        'gamma'      => false, // 0.1 to 9.99
                     ],
                     'effects' => [
-                        'blur' => false, // 0 to 100
-                        'pixelate' => false, // 0 to 100
+                        'blur'      => false, // 0 to 100
+                        'pixelate'  => false, // 0 to 100
                         'greyscale' => false, // true or false
-                        'sepia' => false, // true or false
-                        'sharpen' => false, // 0 to 100
-                    ]
-                ]
-            ]
+                        'sepia'     => false, // true or false
+                        'sharpen'   => false, // 0 to 100
+                    ],
+                ],
+            ],
         ],
         'inlineCode' => [
             'activated' => true,
-            'shortcut' => 'CMD+SHIFT+A',
+            'shortcut'  => 'CMD+SHIFT+A',
         ],
         'checklist' => [
-            'activated' => true,
+            'activated'     => true,
             'inlineToolbar' => true,
-            'shortcut' => 'CMD+SHIFT+J',
+            'shortcut'      => 'CMD+SHIFT+J',
         ],
         'marker' => [
             'activated' => true,
-            'shortcut' => 'CMD+SHIFT+M',
+            'shortcut'  => 'CMD+SHIFT+M',
         ],
         'delimiter' => [
             'activated' => true,
         ],
         'table' => [
-            'activated' => true,
+            'activated'     => true,
             'inlineToolbar' => true,
         ],
         'raw' => [
-            'activated' => true,
+            'activated'   => true,
             'placeholder' => '',
         ],
         'embed' => [
-            'activated' => true,
+            'activated'     => true,
             'inlineToolbar' => true,
-            'services' => [
+            'services'      => [
                 'codepen' => true,
-                'imgur' => false,
-                'vimeo' => true,
-                'youtube' => true
+                'imgur'   => false,
+                'vimeo'   => true,
+                'youtube' => true,
             ],
         ],
     ],
 
     /**
      * Output validation config
-     * https://github.com/editor-js/editorjs-php
+     * https://github.com/editor-js/editorjs-php.
      */
     'validationSettings' => [
         'tools' => [
@@ -127,30 +127,29 @@ return [
                     'type' => 'string',
                 ],
                 'level' => [
-                    'type' => 'int',
-                    'canBeOnly' => [1, 2, 3, 4, 5]
-                ]
+                    'type'      => 'int',
+                    'canBeOnly' => [1, 2, 3, 4, 5],
+                ],
             ],
             'paragraph' => [
                 'text' => [
-                    'type' => 'string',
-                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class]'
-                ]
+                    'type'        => 'string',
+                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class]',
+                ],
             ],
             'list' => [
                 'style' => [
-                    'type' => 'string',
-                    'canBeOnly' =>
-                        [
-                            0 => 'ordered',
-                            1 => 'unordered',
-                        ],
+                    'type'      => 'string',
+                    'canBeOnly' => [
+                        0 => 'ordered',
+                        1 => 'unordered',
+                    ],
                 ],
                 'items' => [
                     'type' => 'array',
                     'data' => [
                         '-' => [
-                            'type' => 'string',
+                            'type'        => 'string',
                             'allowedTags' => 'i,b,u',
                         ],
                     ],
@@ -164,37 +163,37 @@ return [
                             'type' => 'string',
                         ],
                         'thumbnails' => [
-                            'type' => 'array',
+                            'type'     => 'array',
                             'required' => false,
-                            'data' => [
+                            'data'     => [
                                 '-' => [
                                     'type' => 'string',
-                                ]
+                                ],
                             ],
-                        ]
+                        ],
                     ],
                 ],
                 'caption' => [
-                    'type' => 'string'
+                    'type' => 'string',
                 ],
                 'withBorder' => [
-                    'type' => 'boolean'
+                    'type' => 'boolean',
                 ],
                 'withBackground' => [
-                    'type' => 'boolean'
+                    'type' => 'boolean',
                 ],
                 'stretched' => [
-                    'type' => 'boolean'
-                ]
+                    'type' => 'boolean',
+                ],
             ],
             'code' => [
                 'code' => [
-                    'type' => 'string'
-                ]
+                    'type' => 'string',
+                ],
             ],
             'linkTool' => [
                 'link' => [
-                    'type' => 'string'
+                    'type' => 'string',
                 ],
                 'meta' => [
                     'type' => 'array',
@@ -211,10 +210,10 @@ return [
                                 'url' => [
                                     'type' => 'string',
                                 ],
-                            ]
-                        ]
-                    ]
-                ]
+                            ],
+                        ],
+                    ],
+                ],
             ],
             'checklist' => [
                 'items' => [
@@ -224,12 +223,12 @@ return [
                             'type' => 'array',
                             'data' => [
                                 'text' => [
-                                    'type' => 'string',
-                                    'required' => false
+                                    'type'     => 'string',
+                                    'required' => false,
                                 ],
                                 'checked' => [
-                                    'type' => 'boolean',
-                                    'required' => false
+                                    'type'     => 'boolean',
+                                    'required' => false,
                                 ],
                             ],
 
@@ -249,39 +248,39 @@ return [
                             'data' => [
                                 '-' => [
                                     'type' => 'string',
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
             'raw' => [
                 'html' => [
-                    'type' => 'string',
+                    'type'        => 'string',
                     'allowedTags' => '*',
-                ]
+                ],
             ],
             'embed' => [
                 'service' => [
-                    'type' => 'string'
+                    'type' => 'string',
                 ],
                 'source' => [
-                    'type' => 'string'
+                    'type' => 'string',
                 ],
                 'embed' => [
-                    'type' => 'string'
+                    'type' => 'string',
                 ],
                 'width' => [
-                    'type' => 'int'
+                    'type' => 'int',
                 ],
                 'height' => [
-                    'type' => 'int'
+                    'type' => 'int',
                 ],
                 'caption' => [
-                    'type' => 'string',
+                    'type'     => 'string',
                     'required' => false,
                 ],
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];

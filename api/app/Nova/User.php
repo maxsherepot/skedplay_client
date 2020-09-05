@@ -6,11 +6,10 @@ use App\Nova\Filters\ModerationStatusFilter;
 use App\Nova\Filters\UserRoleFilter;
 use Carbon\Carbon;
 use Eminiarts\Tabs\Tabs;
-use Laravel\Nova\Fields\BelongsTo;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Number;
@@ -36,6 +35,7 @@ class User extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -70,7 +70,8 @@ class User extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -111,13 +112,13 @@ class User extends Resource
             Text::make('Type')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
-                ->displayUsing(function($role) {
+                ->displayUsing(function ($role) {
                     return $role->display_name;
                 }),
 
             DateTime::make('Registration date', 'created_at')->format('YYYY/MM/DD'),
 
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 $status = $this->status ?? 0;
                 $time = $status === \Modules\Users\Entities\User::STATUS_CONFIRMED
                     ? $this->getCreatedAtDiff()
@@ -134,7 +135,8 @@ class User extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -147,7 +149,8 @@ class User extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -161,7 +164,8 @@ class User extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -172,7 +176,8 @@ class User extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
@@ -205,24 +210,24 @@ class User extends Resource
 
     private function getManagerTabFields(): array
     {
-
         return [
             Text::make('Name'),
 
             BelongsToMany::make('Roles')
-                ->fields(function () {
-                    return [
-                        Text::make('user_type')
-                            ->hideWhenCreating(),
-                    ];
-                }
-            )->displayUsing(function () {
-                return $this->pivot->role;
+                ->fields(
+                    function () {
+                        return [
+                            Text::make('user_type')
+                                ->hideWhenCreating(),
+                        ];
+                    }
+                )->displayUsing(function () {
+                    return $this->pivot->role;
                 }),
 
             Text::make('Type')
                 ->onlyOnIndex()
-                ->displayUsing(function($role) {
+                ->displayUsing(function ($role) {
                     return $role->display_name;
                 }),
 
@@ -235,7 +240,7 @@ class User extends Resource
             Text::make('Email'),
 
             Select::make('Gender')->options([
-                \Modules\Users\Entities\User::GENDER_MALE => 'Male',
+                \Modules\Users\Entities\User::GENDER_MALE   => 'Male',
                 \Modules\Users\Entities\User::GENDER_FEMALE => 'Female',
             ])->onlyOnForms(),
 
@@ -247,10 +252,10 @@ class User extends Resource
                 ->hideWhenUpdating()
                 ->onlyOnDetail()
                 ->displayUsing(function () {
-                   return $this->age = Carbon::parse($this->birthday)->age;
-            }),
+                    return $this->age = Carbon::parse($this->birthday)->age;
+                }),
 
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 $status = $this->status ?? 0;
                 $time = $status === \Modules\Users\Entities\User::STATUS_CONFIRMED
                     ? $this->getCreatedAtDiff()
@@ -265,8 +270,7 @@ class User extends Resource
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:6')
-                ->updateRules('nullable', 'string', 'min:6')
-            ,
+                ->updateRules('nullable', 'string', 'min:6'),
 
             PasswordConfirmation::make('Password Confirmation'),
         ];
@@ -276,7 +280,7 @@ class User extends Resource
     {
         return array_merge([
             Text::make('Employee', function () {
-                $url = '/admin/resources/employees/' . $this->employee->id;
+                $url = '/admin/resources/employees/'.$this->employee->id;
 
                 return "<a href='$url'>{$this->employee->name}</a>";
             })->asHtml(),
@@ -297,7 +301,7 @@ class User extends Resource
         return [
             new Tabs('Tabs', [
                 new Panel('About', $this->getEmployeeAboutTabFields()),
-            ])
+            ]),
         ];
     }
 

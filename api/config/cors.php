@@ -12,13 +12,13 @@ return [
     |
     */
 
-    'supportsCredentials' => false,
-    'allowedOrigins' => ['*'],
+    'supportsCredentials'    => false,
+    'allowedOrigins'         => ['*'],
     'allowedOriginsPatterns' => [],
-    'allowedHeaders' => ['*'],
-    'allowedMethods' => ['*'],
-    'exposedHeaders' => [],
-    'maxAge' => 0,
-    'paths' => ['api/*', 'graphql'],
+    'allowedHeaders'         => ['*'],
+    'allowedMethods'         => ['*'],
+    'exposedHeaders'         => [],
+    'maxAge'                 => 0,
+    'paths'                  => ['api/*', 'graphql'],
 
 ];

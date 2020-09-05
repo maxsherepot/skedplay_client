@@ -42,23 +42,23 @@ class EmployeeServicesTest extends TestCase
                                 'id'    => 1,
                                 'pivot' => [
                                     'price' => '100.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 3,
                                 'pivot' => [
                                     'price' => '50.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 4,
                                 'pivot' => [
                                     'price' => '0',
-                                ]
+                                ],
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -80,6 +80,6 @@ class EmployeeServicesTest extends TestCase
                 ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 }

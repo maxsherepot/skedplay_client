@@ -14,8 +14,8 @@ use Modules\Main\Console\ExportTranslates;
 use Modules\Main\Console\GenerateEntitiesAddresses;
 use Modules\Main\Console\InitPages;
 use Modules\Main\Console\InitPatterns;
-use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Main\Console\InsertTranslates;
+use Modules\Main\Console\RefreshTranslatesOnFront;
 use Modules\Users\Console\AddAdminMessageToChats;
 use Modules\Users\Console\InitUsersCards;
 use Modules\Users\Console\SetDefaultStatus;
@@ -48,7 +48,8 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     *
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -56,7 +57,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('events:check:notification')
             ->everyMinute();
 
-         $schedule->command('employees:check:activation')
+        $schedule->command('employees:check:activation')
                   ->daily();
     }
 

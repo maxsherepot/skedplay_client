@@ -31,8 +31,8 @@ class UserTest extends TestCase
                     'updateUser' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -69,7 +69,6 @@ class UserTest extends TestCase
             ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
-
 }

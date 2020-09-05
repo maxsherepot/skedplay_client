@@ -14,7 +14,6 @@ use Modules\Events\Entities\Event;
 use Modules\Main\Entities\Faq;
 use Modules\Main\Entities\FaqItem;
 use Modules\Main\Entities\Language;
-use Modules\Main\Entities\Page;
 use Modules\Main\Entities\UiTranslate;
 use Modules\Main\Observers\LanguageObserver;
 use Modules\Main\Observers\UiTranslateObserver;
@@ -37,13 +36,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function boot()
     {
         Relation::morphMap([
-            'message'          => Message::class,
+            'message'           => Message::class,
             'employee'          => Employee::class,
             'user'              => User::class,
             'club'              => Club::class,
