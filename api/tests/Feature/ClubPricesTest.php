@@ -40,23 +40,23 @@ class ClubPricesTest extends TestCase
                                 'id'    => 2,
                                 'pivot' => [
                                     'price' => '500.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 4,
                                 'pivot' => [
                                     'price' => '990.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 7,
                                 'pivot' => [
                                     'price' => '0.00',
-                                ]
+                                ],
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 

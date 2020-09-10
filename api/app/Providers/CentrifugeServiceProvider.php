@@ -2,17 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Telescope\TelescopeServiceProvider;
-use Modules\Chat\Entities\Message;
-use Modules\Clubs\Entities\Club;
-use Modules\Employees\Entities\Employee;
-use Modules\Events\Entities\Event;
-use Modules\Main\Entities\Faq;
-use Modules\Main\Entities\FaqItem;
-use Modules\Main\Entities\Page;
-use Modules\Users\Entities\User;
 
 class CentrifugeServiceProvider extends ServiceProvider
 {
@@ -37,11 +27,11 @@ class CentrifugeServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function boot()
     {
-
     }
 }

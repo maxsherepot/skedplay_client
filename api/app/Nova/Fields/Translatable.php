@@ -26,15 +26,18 @@ class Translatable extends \Spatie\NovaTranslatable\Translatable
 
                 if ($locale === config('translatable.fallback_locale')) {
                     $translatedField->rules = array_merge(
-                        $translatedField->fallbackLocaleRules ?? [], $translatedField->rules
+                        $translatedField->fallbackLocaleRules ?? [],
+                        $translatedField->rules
                     );
 
                     $translatedField->creationRules = array_merge(
-                        $translatedField->creationFallbackLocaleRules ?? [], $translatedField->creationRules
+                        $translatedField->creationFallbackLocaleRules ?? [],
+                        $translatedField->creationRules
                     );
 
                     $translatedField->updateRules = array_merge(
-                        $translatedField->updateFallbackLocaleRules ?? [], $translatedField->updateRules
+                        $translatedField->updateFallbackLocaleRules ?? [],
+                        $translatedField->updateRules
                     );
                 }
 

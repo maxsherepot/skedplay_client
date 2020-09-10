@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Employees\Entities\VipPattern::class           => \Modules\Employees\Policies\EmployeePatternPolicy::class,
         \Modules\Clubs\Entities\ClubPattern::class              => \Modules\Clubs\Policies\ClubPatternPolicy::class,
         \Modules\Events\Entities\EventPattern::class            => \Modules\Clubs\Policies\ClubPatternPolicy::class,
-        \Modules\Common\Entities\EventCount::class            => \Modules\Common\Policies\ReadOnlyPolicy::class,
+        \Modules\Common\Entities\EventCount::class              => \Modules\Common\Policies\ReadOnlyPolicy::class,
 
         Media::class                                            => \Modules\Main\Policies\MediaPolicy::class,
     ];

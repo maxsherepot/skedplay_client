@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use LaraComponents\Centrifuge\Centrifuge;
 
 class CentrifugeController extends Controller
 {
-
     public function config(\phpcent\Client $client)
     {
         $config = config('broadcasting.connections.centrifuge');
@@ -17,11 +15,11 @@ class CentrifugeController extends Controller
         $token = $client->generateConnectionToken($user);
 
         $res = [
-            'url' => $config['external_url'] . '/connection/sockjs',
-            'user' => $user,
-            'secret' => $config['secret'],
+            'url'       => $config['external_url'].'/connection/sockjs',
+            'user'      => $user,
+            'secret'    => $config['secret'],
             'timestamp' => $timestamp,
-            'token' => $token,
+            'token'     => $token,
         ];
 
         return $res;

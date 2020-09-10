@@ -4,16 +4,12 @@ namespace App\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Laravel\Nova\Actions\DestructiveAction;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Nova\Fields\Textarea;
-use Modules\Employees\Entities\Employee;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
@@ -35,8 +31,9 @@ class Reject extends Action
     /**
      * Perform the action on the given models.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
-     * @param  \Illuminate\Support\Collection  $models
+     * @param \Laravel\Nova\Fields\ActionFields $fields
+     * @param \Illuminate\Support\Collection    $models
+     *
      * @return mixed
      */
     public function handle(ActionFields $fields, Collection $models)

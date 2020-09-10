@@ -43,7 +43,7 @@ class ClubTest extends TestCase
                                         'first_name',
                                         'last_name',
                                         'age',
-                                    ]
+                                    ],
                                 ],
                                 'events'    => [
                                     [
@@ -53,13 +53,13 @@ class ClubTest extends TestCase
                                         'type' => [
                                             'id',
                                             'name',
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ]);
     }
 
@@ -90,7 +90,7 @@ class ClubTest extends TestCase
                             'first_name',
                             'last_name',
                             'age',
-                        ]
+                        ],
                     ],
                     'events'    => [
                         [
@@ -100,11 +100,11 @@ class ClubTest extends TestCase
                             'type' => [
                                 'id',
                                 'name',
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -142,8 +142,8 @@ class ClubTest extends TestCase
                         'address',
                         'lat',
                         'lng',
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -173,8 +173,8 @@ class ClubTest extends TestCase
                 'data' => [
                     'updateClub' => [
                         'status' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -186,8 +186,8 @@ class ClubTest extends TestCase
                 'data' => [
                     'uploadClubFile' => [
                         'status' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -198,9 +198,9 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadClubFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -211,13 +211,13 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadClubFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
 
         $media = Media::where([
-            'model_type' => (new Club)->getMorphClass(),
+            'model_type' => (new Club())->getMorphClass(),
             'model_id'   => 1,
         ])->first();
 
@@ -231,9 +231,9 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'deleteClubFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -244,13 +244,13 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadClubFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
 
         $media = Media::where([
-            'model_type' => (new Club)->getMorphClass(),
+            'model_type' => (new Club())->getMorphClass(),
             'model_id'   => 1,
         ])->first();
 
@@ -264,9 +264,9 @@ class ClubTest extends TestCase
             ->assertJson([
                 'data' => [
                     'deleteClubFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -399,7 +399,7 @@ class ClubTest extends TestCase
                 ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 
     protected function update(Collection $data)
@@ -437,7 +437,7 @@ class ClubTest extends TestCase
                 ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 
     protected function uploadPhotoQuery()

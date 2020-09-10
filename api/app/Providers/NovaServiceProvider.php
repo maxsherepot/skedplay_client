@@ -10,11 +10,11 @@ use App\Nova\ContactRequest;
 use App\Nova\Employee;
 use App\Nova\EmployeeComplaint;
 use App\Nova\EmployeeComplaintTheme;
+use App\Nova\Event;
 use App\Nova\EventCount;
 use App\Nova\EventPattern;
-use App\Nova\GirlPattern;
-use App\Nova\Event;
 use App\Nova\EventType;
+use App\Nova\GirlPattern;
 use App\Nova\GroupService;
 use App\Nova\HelpCenterCategory;
 use App\Nova\HelpCenterTopic;
@@ -34,11 +34,11 @@ use App\Nova\UserCard;
 use App\Nova\Verification;
 use App\Nova\Video;
 use App\Nova\VipPattern;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -106,7 +106,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
+            new Help(),
         ];
     }
 

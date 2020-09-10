@@ -47,5 +47,5 @@ return [
     'map'     => [
         'logger' => \Modules\Users\Services\Sms\Drivers\Logger::class,
         'nexmo'  => \Modules\Users\Services\Sms\Drivers\Nexmo::class,
-    ]
+    ],
 ];

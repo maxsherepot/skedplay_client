@@ -40,23 +40,23 @@ class ClubServicesTest extends TestCase
                                 'id'    => 1,
                                 'pivot' => [
                                     'price' => '120.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 4,
                                 'pivot' => [
                                     'price' => '59.00',
-                                ]
+                                ],
                             ],
                             [
                                 'id'    => 5,
                                 'pivot' => [
                                     'price' => '0',
-                                ]
+                                ],
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -78,6 +78,6 @@ class ClubServicesTest extends TestCase
                 ',
                 'variables' => $data->all(),
             ],
-            );
+        );
     }
 }

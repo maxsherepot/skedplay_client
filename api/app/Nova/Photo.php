@@ -7,8 +7,8 @@ use App\Nova\Actions\MarkAsNoPorn;
 use App\Nova\Actions\MarkAsPorn;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\MediaLibrary\Models\Media;
@@ -40,6 +40,7 @@ class Photo extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -56,7 +57,8 @@ class Photo extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -64,11 +66,11 @@ class Photo extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Photo', function() {
+            Text::make('Photo', function () {
                 return view('nova.photo', ['photo' => $this])->render();
             })->asHtml(),
 
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
@@ -77,7 +79,7 @@ class Photo extends Resource
 
             Text::make('Refuse reason', 'rejected_reason'),
 
-            Text::make('Porn', function() {
+            Text::make('Porn', function () {
                 /** @var Media $media */
                 $media = $this;
                 $isPorn = $media->getCustomProperty('porn');
@@ -94,7 +96,8 @@ class Photo extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -105,7 +108,8 @@ class Photo extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -118,7 +122,8 @@ class Photo extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -129,23 +134,24 @@ class Photo extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            (new Confirm())->canRun(function($request) {
+            (new Confirm())->canRun(function ($request) {
                 return true;
             }),
-            (new Reject())->canRun(function($request) {
+            (new Reject())->canRun(function ($request) {
                 return true;
             }),
 
-            (new MarkAsPorn())->canRun(function($request) {
+            (new MarkAsPorn())->canRun(function ($request) {
                 return true;
             }),
-            (new MarkAsNoPorn())->canRun(function($request) {
+            (new MarkAsNoPorn())->canRun(function ($request) {
                 return true;
             }),
         ];

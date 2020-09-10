@@ -37,8 +37,8 @@ class ClubEventTest extends TestCase
                             'id',
                             'name',
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 

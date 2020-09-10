@@ -3,15 +3,16 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Modules\Users\Entities\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class RegistrationTest extends TestCase
 {
-    use DatabaseTransactions, WithFaker;
+    use DatabaseTransactions;
+    use WithFaker;
 
     protected function getPhone()
     {
@@ -28,9 +29,9 @@ class RegistrationTest extends TestCase
         $this->sendCode($this->getPhone(), Str::random(15))->assertJson([
             'data' => [
                 'sendVerificationCode' => [
-                    'status' => true
-                ]
-            ]
+                    'status' => true,
+                ],
+            ],
         ]);
     }
 
@@ -41,9 +42,9 @@ class RegistrationTest extends TestCase
         $this->confirmCode($this->getPhone(), '0000')->assertJson([
             'data' => [
                 'checkVerificationCode' => [
-                    'status' => true
-                ]
-            ]
+                    'status' => true,
+                ],
+            ],
         ]);
     }
 
@@ -72,11 +73,11 @@ class RegistrationTest extends TestCase
                         'employee' => [
                             'first_name',
                             'last_name',
-                            'gender'
-                        ]
-                    ]
-                ]
-            ]
+                            'gender',
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -141,14 +142,14 @@ class RegistrationTest extends TestCase
                     }
                 }
             ',
-            'variables' => $data->all()
+            'variables' => $data->all(),
         ]);
-
     }
 
     /**
      * @param $phone
      * @param $recaptcha
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function sendCode($phone, $recaptcha)
@@ -174,6 +175,7 @@ class RegistrationTest extends TestCase
     /**
      * @param $phone
      * @param $code
+     *
      * @return \Illuminate\Testing\TestResponse
      */
     protected function confirmCode($phone, $code)

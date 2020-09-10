@@ -26,12 +26,12 @@ class PlanTest extends TestCase
                                 'pivot' => [
                                     'id',
                                     'value',
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 

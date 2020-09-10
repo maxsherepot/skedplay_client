@@ -33,8 +33,8 @@ class EventTest extends TestCase
                     'updateEvent' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -56,8 +56,8 @@ class EventTest extends TestCase
                     'updateEvent' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -75,8 +75,8 @@ class EventTest extends TestCase
                     'updateEvent' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -94,8 +94,8 @@ class EventTest extends TestCase
                     'updateEvent' => [
                         'status'  => true,
                         'message' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -106,9 +106,9 @@ class EventTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEventFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -119,9 +119,9 @@ class EventTest extends TestCase
             ->assertJson([
                 'data' => [
                     'uploadEventFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
 
         $media = Media::where([
@@ -130,7 +130,7 @@ class EventTest extends TestCase
         ])->first();
 
         $data = collect([
-            'event' => 1,
+            'event'    => 1,
             'file_id'  => $media->id,
         ]);
 
@@ -139,9 +139,9 @@ class EventTest extends TestCase
             ->assertJson([
                 'data' => [
                     'deleteEventFile' => [
-                        'status' => true
-                    ]
-                ]
+                        'status' => true,
+                    ],
+                ],
             ]);
     }
 
@@ -163,7 +163,8 @@ class EventTest extends TestCase
                 }
             ',
                 'variables' => $data->all(),
-            ]);
+            ]
+        );
     }
 
     protected function deleteQuery(Collection $data)
@@ -179,7 +180,8 @@ class EventTest extends TestCase
                 }
             ',
                 'variables' => $data->all(),
-            ]);
+            ]
+        );
     }
 
     protected function uploadPhotoQuery()
@@ -224,5 +226,4 @@ class EventTest extends TestCase
             'variables' => $data->all(),
         ]);
     }
-
 }

@@ -7,8 +7,8 @@ use App\Nova\Actions\Reject;
 use App\Nova\Filters\EmployeeTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use Eminiarts\Tabs\Tabs;
-use Laravel\Nova\Fields\Date;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
@@ -17,7 +17,6 @@ use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
-use Skidplay\UserTopInfo\UserTopInfo;
 
 class Employee extends Resource
 {
@@ -33,6 +32,7 @@ class Employee extends Resource
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public static function availableForNavigation(Request $request): bool
@@ -68,7 +68,8 @@ class Employee extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -90,7 +91,7 @@ class Employee extends Resource
             Text::make('User type', 'readable_type'),
             Text::make('Age', 'age'),
             MorphTo::make('Owner'),
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
@@ -103,7 +104,8 @@ class Employee extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -116,7 +118,8 @@ class Employee extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -130,7 +133,8 @@ class Employee extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -141,16 +145,17 @@ class Employee extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            (new Confirm())->canRun(function($request) {
+            (new Confirm())->canRun(function ($request) {
                 return true;
             }),
-            (new Reject())->canRun(function($request) {
+            (new Reject())->canRun(function ($request) {
                 return true;
             }),
         ];
@@ -163,7 +168,7 @@ class Employee extends Resource
             //Text::make('Name'),
             Text::make('First name', 'first_name'),
             Text::make('Last name', 'last_name'),
-            Text::make('Status', function() {
+            Text::make('Status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
@@ -183,9 +188,9 @@ class Employee extends Resource
                 1 => 'Make Vip',
                 0 => 'Cancel Vip',
             ])->onlyOnForms(),
-//           KeyValue::make('Prices', 'prices_list')
-//               ->keyLabel('Time')
-//                ->valueLabel('Price'),
+            //           KeyValue::make('Prices', 'prices_list')
+            //               ->keyLabel('Time')
+            //                ->valueLabel('Price'),
         ];
     }
 
@@ -195,10 +200,10 @@ class Employee extends Resource
             new Tabs('Tabs', [
                 new Panel('About', $this->getAboutTabFields()),
                 MorphToMany::make('Services')
-                    ->fields(function() {
+                    ->fields(function () {
                         return [
-                            Text::make('Price', 'price')->displayUsing(function($price) {
-                                return $price . '$';
+                            Text::make('Price', 'price')->displayUsing(function ($price) {
+                                return $price.'$';
                             }),
                         ];
                     }),
@@ -206,7 +211,7 @@ class Employee extends Resource
                 HasMany::make('Videos'),
                 MorphMany::make('Events'),
                 MorphMany::make('Actions', 'eventCounts', EventCount::class),
-            ])
+            ]),
         ];
     }
 }

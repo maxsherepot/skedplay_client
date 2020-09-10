@@ -6,23 +6,18 @@ use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ClubTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
-use App\Nova\Filters\UserRoleFilter;
 use Eminiarts\Tabs\Tabs;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Panel;
-use Skidplay\UserTopInfo\UserTopInfo;
 
 class Club extends Resource
 {
@@ -77,7 +72,8 @@ class Club extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
@@ -106,9 +102,8 @@ class Club extends Resource
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'role_user.role_id')
             ->where('roles.name', '=', $roleName)
-            ->pluck('users.name','users.id')
-            ->toArray()
-        ;
+            ->pluck('users.name', 'users.id')
+            ->toArray();
     }
 
     private function getAdminTabFields(): array
@@ -116,8 +111,8 @@ class Club extends Resource
         return [
             BelongsTo::make('Manager', 'manager', User::class)->sortable()->nullable()->exceptOnForms(),
 
-            Select::make('Manager','manager_id')->options($this->getUserByRoleName('manager'))->onlyOnForms(),
-            DateTime::make('Set manager date','manager_assignment_at')->onlyOnDetail(),
+            Select::make('Manager', 'manager_id')->options($this->getUserByRoleName('manager'))->onlyOnForms(),
+            DateTime::make('Set manager date', 'manager_assignment_at')->onlyOnDetail(),
         ];
     }
 
@@ -139,21 +134,21 @@ class Club extends Resource
             Text::make('Email'),
             Text::make('Website'),
 
-            Text::make('Club status', 'status', function() {
+            Text::make('Club status', 'status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml()->exceptOnForms(),
 
-            Text::make('User status', function() {
+            Text::make('User status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->user_status ?? 0]
                 )->render();
             })->asHtml(),
 
-            Text::make('Manager status', 'manager_status', function() {
+            Text::make('Manager status', 'manager_status', function () {
                 return view(
                     'nova.manager_status',
                     ['status' => $this->manager_status ?? 0]
@@ -163,23 +158,23 @@ class Club extends Resource
             NovaDependencyContainer::make([
                 Select::make('Club status', 'status')->options([
                     \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED             => 'Confirmed',
                 ])->onlyOnForms(),
 
                 Select::make('User status', 'user_status')->options([
                     \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED             => 'Confirmed',
                 ])->onlyOnForms(),
             ])->dependsOnNotEmpty('user_id')->onlyOnForms(),
 
             Select::make('Manager status', 'manager_status')->options([
-                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
-                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
-                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PENDING    => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED  => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED    => 'Refused',
                 \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
             ])->displayUsingLabels()->onlyOnForms(),
 
-            DateTime::make('Manager set at','manager_assignment_at')->onlyOnDetail(),
+            DateTime::make('Manager set at', 'manager_assignment_at')->onlyOnDetail(),
 
             Text::make('Phones')->withMeta([
                 'extraAttributes' => [
@@ -222,14 +217,14 @@ class Club extends Resource
 
             Select::make('Owner', 'user_id')->options($this->getUserByRoleName('club_owner'))->onlyOnForms()->nullable(),
 
-            Text::make('Club status', function() {
+            Text::make('Club status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml(),
 
-            Text::make('Manager status', 'manager_status', function() {
+            Text::make('Manager status', 'manager_status', function () {
                 return view(
                     'nova.manager_status',
                     ['status' => $this->manager_status ?? 0]
@@ -237,21 +232,21 @@ class Club extends Resource
             })->asHtml()->exceptOnForms(),
 
             Select::make('Manager status', 'manager_status')->options([
-                \Modules\Clubs\Entities\Club::STATUS_PENDING => 'Pending',
-                \Modules\Clubs\Entities\Club::STATUS_CONNECTED => 'Connected',
-                \Modules\Clubs\Entities\Club::STATUS_REFUSED => 'Refused',
+                \Modules\Clubs\Entities\Club::STATUS_PENDING    => 'Pending',
+                \Modules\Clubs\Entities\Club::STATUS_CONNECTED  => 'Connected',
+                \Modules\Clubs\Entities\Club::STATUS_REFUSED    => 'Refused',
                 \Modules\Clubs\Entities\Club::STATUS_PROCESSING => 'Processing',
             ])->displayUsingLabels()->onlyOnForms(),
 
             NovaDependencyContainer::make([
                 Select::make('Club status', 'status')->options([
                     \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED             => 'Confirmed',
                 ])->onlyOnForms(),
 
                 Select::make('User status', 'user_status')->options([
                     \Modules\Users\Entities\User::STATUS_AWAITING_CONFIRMATION => 'Awaiting',
-                    \Modules\Users\Entities\User::STATUS_CONFIRMED => 'Confirmed',
+                    \Modules\Users\Entities\User::STATUS_CONFIRMED             => 'Confirmed',
                 ])->onlyOnForms(),
             ])->dependsOnNotEmpty('user_id'),
 
@@ -262,7 +257,8 @@ class Club extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
@@ -275,7 +271,8 @@ class Club extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -289,7 +286,8 @@ class Club extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -300,16 +298,17 @@ class Club extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            (new Confirm())->canRun(function($request) {
+            (new Confirm())->canRun(function ($request) {
                 return true;
             }),
-            (new Reject())->canRun(function($request) {
+            (new Reject())->canRun(function ($request) {
                 return true;
             }),
         ];
@@ -321,11 +320,9 @@ class Club extends Resource
             $query
                 ->where('manager_id', '=', $request->user()->id)
                 ->orWhere([
-                    ['manager_status', '=',\Modules\Clubs\Entities\Club::STATUS_PENDING],
+                    ['manager_status', '=', \Modules\Clubs\Entities\Club::STATUS_PENDING],
                     ['manager_id', '=', null],
-                ])
-
-            ;
+                ]);
         }
 
         return $query;
@@ -343,18 +340,18 @@ class Club extends Resource
 
             Text::make('Email'),
             Text::make('Website'),
-            Text::make('Phones', function() {
+            Text::make('Phones', function () {
                 return json_decode($this->phones, true);
             })->asHtml(),
 
-            Text::make('Club status', function() {
+            Text::make('Club status', function () {
                 return view(
                     'nova.moderation_status',
                     ['status' => $this->status ?? 0]
                 )->render();
             })->asHtml(),
 
-            Text::make('Manager status', 'manager_status', function() {
+            Text::make('Manager status', 'manager_status', function () {
                 return view(
                     'nova.manager_status',
                     ['manager_status' => $this->manager_status ?? 0]
@@ -384,7 +381,7 @@ class Club extends Resource
     {
         return [
             new Tabs('Tabs', [
-                'About' => $this->getManagerTabFields(),
+                'About'   => $this->getManagerTabFields(),
                 'Manager' => $this->getAdminTabFields(),
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
@@ -404,7 +401,7 @@ class Club extends Resource
                 HasMany::make('Videos'),
                 MorphMany::make('Events'),
                 MorphMany::make('Employees'),
-            ])
+            ]),
         ];
     }
 }
