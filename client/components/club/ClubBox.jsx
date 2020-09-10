@@ -2,6 +2,8 @@ import React from "react";
 import { MainLayout } from "layouts";
 import { SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
 import {useTranslation} from "react-i18next";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 // import slug from 'slug';
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
@@ -78,36 +80,70 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
           />
         }
       >
-        <ul className="flex -mx-4 text-white">
-          <ActiveLink
-            activeClassName="text-black"
-            href={`/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
-            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`}
+          <Tabs
+            value={-1}
+            variant="scrollable"
+            scrollButtons="off"
+            disableRipple
+            aria-label="scrollable prevent tabs example"
           >
-            <a>{t('clubs.information')}</a>
-          </ActiveLink>
+          {
+              tabs.map((tab, i) => {
+                  return (
+                      <Tab className="outline-none" label={(
+                          <ActiveLink
+                            activeClassName="text-black"
+                            href={tab.link(club)}
+                            as={tab.as(club)}
+                          >
+                            <a>{t(tab.name)}</a>
+                          </ActiveLink>
+                      )}/>
+                  )
+              })
+          }
+          </Tabs>
 
-          <ActiveLink
-            activeClassName="text-black"
-            href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
-            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`}
-          >
-            <a>{t('common.our_girls')}</a>
-          </ActiveLink>
-
-          <ActiveLink
-            activeClassName="text-black"
-            href={`/clubs/canton/city/id/events?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
-            as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/events`}
-          >
-            <a>{t('layout.events')}</a>
-          </ActiveLink>
-        </ul>
       </SecondaryNav>
 
       <div className="container">{children}</div>
     </MainLayout>
   );
 };
+
+
+const tabs = [
+    {name: "clubs.information", link: (club) => `/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`, as: (club) => `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`},
+    {name: "common.our_girls", link: (club) => `/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`, as: (club) => `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`},
+    {name: "layout.events", link: (club) => `/clubs/canton/city/id/events?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`, as: (club) => `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/events`},
+]
+
+{/*
+    <ul className="flex -mx-4 text-white">
+      <ActiveLink
+        activeClassName="text-black"
+        href={`/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+        as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`}
+      >
+        <a>{t('clubs.information')}</a>
+      </ActiveLink>
+
+      <ActiveLink
+        activeClassName="text-black"
+        href={`/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+        as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`}
+      >
+        <a>{t('common.our_girls')}</a>
+      </ActiveLink>
+
+      <ActiveLink
+        activeClassName="text-black"
+        href={`/clubs/canton/city/id/events?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`}
+        as={`/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/events`}
+      >
+        <a>{t('layout.events')}</a>
+      </ActiveLink>
+    </ul>
+*/}
 
 export default ClubBox;

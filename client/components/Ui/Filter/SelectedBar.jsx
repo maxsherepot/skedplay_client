@@ -38,6 +38,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
 
   filters &&
     Object.keys(filters).map(key => {
+
       const state = filters[key];
 
       if (Array.isArray(state)) {
@@ -64,7 +65,6 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
         });
       }
     });
-
   const clearValue = ({ key, isArray, value }) => {
     let state = filters[key];
 
@@ -110,6 +110,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
   if (Object.entries(selected).length === 0) {
     return null;
   }
+
 
   return (
     <div className="border-b border-divider">

@@ -17,6 +17,10 @@
       padding: 0.5rem;
     }
   }
+  .c-account__avatar-wrap {
+    width: 70px;
+    height: 70px;
+  }
   ul {
     //@apply mt-12;
     li {
@@ -30,10 +34,14 @@
   .locales {
     @apply flex justify-center mb-4;
     a {
-      @apply block capitalize text-2xl text-dark-grey font-medium mr-4 transition;
+      @apply block capitalize text-2xl text-dark-grey font-medium mr-2 transition px-2;
       &:last-child {
         @apply mr-0;
       }
+    }
+    a.active {
+      background-color: #eee;
+      border-radius: 6px;
     }
   }
 }

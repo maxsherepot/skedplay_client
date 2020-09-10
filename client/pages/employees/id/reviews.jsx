@@ -5,12 +5,14 @@ import {Avatar, MasonryLayout, Pagination, Loader} from "UI";
 import {GET_EMPLOYEE, ALL_REVIEWS, CREATE_REVIEW, ALL_EMPLOYEES} from "queries";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import EmployeeBox from "components/employee/EmployeeBox";
+import Button from "@material-ui/core/Button";
 import {NewReviewForm} from "components/review";
 import {useTranslation} from "react-i18next";
-import React from "react";
+import React, {useState} from "react";
 import {NextSeo} from "next-seo";
 
 const EmployeeReviews = ({user}) => {
+  const [isReviewFormOpen, setIsReviewFormOpen] = useState(false)
   const {t, i18n} = useTranslation();
   const router = useRouter();
   const {id} = router.query;
@@ -143,6 +145,7 @@ const EmployeeReviews = ({user}) => {
     }
   ];
 
+
   return (
     <>
       <NextSeo
@@ -150,13 +153,32 @@ const EmployeeReviews = ({user}) => {
       />
 
       <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
+          {
+              !isReviewFormOpen ?
+                    <div className="flex justify-center hd:hidden mb-4 sm:mb-2">
+                        <Button variant="outlined"  color="secondary" onClick={() => setIsReviewFormOpen(true)}>{t('employees.leave_comment')}</Button>
+                    </div>
+                    :
+                    null
+          }
+
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-          <div className="w-full hd:w-3/12 px-3">
-            <div className="text-2xl font-extrabold my-5">
-              {t('employees.leave_comment')}
+            <span className="w-full flex justify-center hd:hidden">
+                {isReviewFormOpen &&
+                    <div className="w-full px-3" style={{maxWidth: "500px"}}>
+                      <div className="flex justify-center text-center text-2xl font-extrabold my-5">
+                        {t('employees.leave_comment')}
+                      </div>
+                      {sidebarColumn}
+                    </div>
+                }
+            </span>
+            <div className="w-full hd:w-3/12 px-3 hidden hd:block">
+              <div className="text-2xl font-extrabold my-5">
+                {t('employees.leave_comment')}
+              </div>
+              {sidebarColumn}
             </div>
-            {sidebarColumn}
-          </div>
           <div className="w-full hd:w-9/12 px-3">{contentColumn}</div>
         </div>
       </EmployeeBox>

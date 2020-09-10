@@ -297,7 +297,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
       <>
             {
                 withStep ?
-                    <div className="flex flex-col lg:flex-row justify-between">
+                    <div className="flex flex-col lg:flex-row justify-between -mt-6">
                       <StepBox links={links} />
                     </div>
                     :

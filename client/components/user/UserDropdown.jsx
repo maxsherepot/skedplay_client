@@ -27,6 +27,8 @@ const UserDropdown = ({ user }) => {
 
   const { t, i18n } = useTranslation();
 
+  const avatar = user ? ((user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined) : undefined
+
   return (
     <>
       <a
@@ -43,7 +45,7 @@ const UserDropdown = ({ user }) => {
       >
         <div className="flex justify-between p-7">
           <div className="c-account__avatar-wrap">
-            <Avatar />
+            <Avatar isEmpty={!avatar} src={avatar}/>
           </div>
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">

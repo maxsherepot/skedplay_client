@@ -75,19 +75,20 @@ function SelectField({
                       name={name}
                       {...rest}
                     />
-                    <label
-                      className={cx(
-                        "cursor-pointer leading-loose hover:text-red select-none",
-                        value === option.value ? "text-red" : "text-black"
-                      )}
-                      htmlFor={`${name}-${option.value}`}
-                      onClick={() => {
-                        close();
-                        handleSelect(name, option.value);
-                      }}
-                    >
-                      {option.label}
-                    </label>
+                        <label
+                          className={cx(
+                            "cursor-pointer leading-loose hover:text-red select-none",
+                            value === option.value ? "text-red" : "text-black"
+                          )}
+                          style={value === option.value ? {backgroundColor: "#ffeff3", margin: "0 -1rem", padding: "0.25rem 1rem"} : {}}
+                          htmlFor={`${name}-${option.value}`}
+                          onClick={() => {
+                            close();
+                            handleSelect(name, option.value);
+                          }}
+                        >
+                          {option.label}
+                        </label>
                   </Fragment>
                 ))
                 }

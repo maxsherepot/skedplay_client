@@ -12,7 +12,7 @@ import {useTranslation} from "react-i18next";
 function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver}) {
   const disabled = currentSlide <= 0
   return (
-    <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
+    <div className={className} onClick={onClick} onMouseEnter={onMouseOver}>
       <ArrowLeft
         className={disabled ? "stroke-divider" : "stroke-red"}
         width="6"
@@ -174,7 +174,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                       )}
                       alt={``}
                       src={image.url}
-                      onMouseEnter={() => slider1.slickGoTo(i)}
+                      onMouseEnter={() => {slider1.slickGoTo(i)}}
                     />
                   </div>
                 ))}

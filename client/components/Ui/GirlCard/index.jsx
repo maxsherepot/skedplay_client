@@ -31,7 +31,6 @@ function GirlCard({
         <>
           {girl.city &&
           <div className="text-sm text-grey">
-            <div className="inline-block bg-dark-green rounded-full w-2 h-2 mr-2"></div>
             {girl.index ? girl.index + ', ' : ''}{girl.city.name}
           </div>
           }
@@ -170,7 +169,7 @@ function GirlCard({
         as={getAs()}
       >
         <a className="text-sm font-medium leading-tight hover:text-red">
-          {girl.name}, {girl.age}
+          {girl.name}, {girl.age} <div className="inline-block bg-dark-green rounded-full w-2 h-2 ml-1" style={{marginBottom: 1.5}}></div>
         </a>
       </Link>
     );

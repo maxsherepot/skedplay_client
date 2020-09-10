@@ -27,25 +27,28 @@ const Animation = () => (
 
 const EventsContainer = ({user, events}) => {
   const {t, i18n} = useTranslation();
-
+  //text-5-75xl // md:text-6-5xl xl:text-7xl
   return (
     <div className="container mx-auto relative z-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col">
           <h1 className="block text-white mt-8 pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
-              className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-4-65xl sm:text-5-75xl md:text-6-5xl xl:text-7xl">
+              className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-5-75xl ">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
-              <div className="block company-item__div-name ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-8 xl:-mt-10">
+              <div className="block company-item__div-name ml-15 -mt-4 sm:ml-20 sm:-mt-6 md:ml-26 md:-mt-6 xl:-mt-6">
                 {t('index.services')}
               </div>
             </div>
             <div
-              className="flex items-center font-medium tracking-tighter whitespace-no-wrap text-4xl -mt-6 sm:text-5xl sm:-mt-8 md:text-5-5xl md:-mt-8 xl:text-6xl xl:-mt-10">
+              className="flex items-center font-medium tracking-tighter whitespace-no-wrap text-4xl -mt-6 sm:text-5xl sm:-mt-8  xl:-mt-6">
               <div className="block company-item__div-name mr-5 md:mr-6">{t('index.of_switzerland')}</div>
               <div className="block company-item__div-ellipse header-red-ellipse md:-mt-1">№1</div>
             </div>
           </h1>
+          <div className="sm:mt-3 mb-2 text-white sm:pl-4 md:pl-8 lg:pl-0" style={{maxWidth: 500}}>
+              {t('index.description')}
+          </div>
           {
               !user ?
                   <div className="flex mt-2 sm:pl-4 sm:pt-1 md:pl-6 lg:pl-0 whitespace-no-wrap">
@@ -165,7 +168,7 @@ const Index = ({user}) => {
         <div className="index-bg-bottom"/>
         <div className="container">
           <div className="flex text-black items-end leading-none text-black md:text-white">
-            <div className="text-4xl font-extrabold tracking-tighter capitalize">
+            <div className="text-2xl sm:text-2xl font-extrabold tracking-tighter capitalize">
               {t('common.girls')}
             </div>
             <Link href="/girls">
@@ -179,7 +182,7 @@ const Index = ({user}) => {
           <GirlsBox employees={employees} user={user}/>
 
           <div className="flex text-black items-end leading-none mt-8">
-            <div className="text-4xl font-extrabold tracking-tighter">
+            <div className="text-2xl sm:text-2xl font-extrabold tracking-tighter">
               {t('common.best_clubs')}
             </div>
             <Link href="/clubs">

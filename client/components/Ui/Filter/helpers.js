@@ -3,7 +3,6 @@ import * as moment from 'moment';
 export default {
   filterFilters(filters) {
     const filteredFilters = {};
-
     Object.keys(filters).map(key => {
       if (filters[key] === "")  {
         if (['canton_id', 'city_id'].indexOf(key) === -1) {
@@ -208,7 +207,7 @@ export default {
         component: "checkbox",
         name: "show_level",
         label: t('common.coming_soon'),
-        // checked: false,
+        checked: false,
         labelResolver(value) {
           if (value) {
             return this.label;

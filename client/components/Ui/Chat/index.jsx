@@ -112,11 +112,11 @@ function ChatRoom({
   }
 
   Centrifugo.init().then(centrifuge => {
-    if (centrifuge.getSub(chatChannel)) {
+    if (centrifuge && centrifuge.getSub(chatChannel)) {
       return;
     }
 
-    centrifuge.subscribe(chatChannel, data => {
+    centrifuge && centrifuge.subscribe(chatChannel, data => {
       if (data.data.action === 'refresh') {
         refetchChat();
       } else if (data.data.action === 'add') {

@@ -20,6 +20,7 @@ export { default as FavoriteSvg } from "./FavoriteSvg";
 export { default as MessageSvg } from "./MessageSvg";
 export { default as CocktailSvg } from "./CocktailSvg";
 export { default as CalendarSvg } from "./CalendarSvg";
+export { default as MaskSvg } from "./MaskSvg";
 
 /**
  * Control elements

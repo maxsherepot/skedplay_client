@@ -28,20 +28,24 @@ main {
   }
 }
 
+main.react-images__pager {
+    padding-bottom: 0;
+}
+
 .club-card__img {
   height: 335px;
 }
 
 .club-card__footer-div {
-  height: 175px;
+  height: 145px;
   @media (max-width: 1780px) {
-    height: 195px;
+    height: 165px;
   }
   @media (max-width: 1320px) {
-    height: 175px;
+    height: 145px;
   }
   @media (max-width: 767px) {
-    height: 195px;
+    height: 165px;
   }
 }
 
@@ -65,6 +69,24 @@ main {
     flex-direction: column;
     justify-content: space-between;
   }
+}
+
+.MuiTab-root {
+    padding: 0  !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    white-space: inherit !important;
+    letter-spacing: inherit !important;
+    text-transform: inherit !important;
+}
+
+
+@media (min-width: 768px){
+    .MuiTab-root {
+        min-width: 120px !important;
+    }
 }
 
 .girls-slider__section {
@@ -123,6 +145,10 @@ main {
   }
 }
 
+button:focus {
+    outline: none;
+}
+
 .google-map {
   & div>div {
     border-radius: 0.5rem;
@@ -145,6 +171,10 @@ main {
   .gmnoprint div {
     background: none !important;
   }
+}
+
+.container {
+    max-width: auto !important;
 }
 
 .container, .container-simple {
@@ -234,7 +264,7 @@ main {
 
 @media (max-width: 479px) {
   .company-item__div-name {
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-bottom: 10px;
     margin-right: 8px;
   }
@@ -248,11 +278,20 @@ main {
 .services-select__div {
   .dropdown__content.open {
     width: 500px;
+    max-width: 100%;
     > div {
       display: grid;
       grid-template-columns: repeat(3,1fr);
     }
   }
+}
+
+@media (max-width: 768px) {
+    .dropdown__content.open {
+      > div {
+        grid-template-columns: repeat(1,1fr) !important;
+      }
+    }
 }
 
 .girl_card-club {

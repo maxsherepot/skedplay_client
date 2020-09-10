@@ -17,9 +17,23 @@ import {useTranslation} from "react-i18next";
 import DateField from "UI/Forms/DateField";
 import React from "react";
 
-function Filter({ name, header, fields, inititalState, filters, setFilters, setFilter, bgClass }) {
-
+function Filter({ name, header, fields, inititalState, filters, setFilters, onlySeletedBar, setFilter, bgClass }) {
   const {t, i18n} = useTranslation();
+
+  const selectedBar = (
+      <SelectedBar
+        name={name}
+        fields={fields}
+        inititalState={inititalState}
+        filters={filters}
+        setFilter={setFilter}
+        setFilters={setFilters}
+      />
+  )
+
+  if (onlySeletedBar) {
+      return selectedBar
+  }
 
   return (
     <>
@@ -138,7 +152,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
                     })}
                 </div>
                 <div className="flex flex flex-row justify-center items-center w-full -mx-4">
-                    <FormGroup className="mt-5 w-full md:mt-0 md:w-1/3 xl:w-1/4 hd:w-1/5 px-2">
+                    <FormGroup className="mt-0 sm:mt-2 lg:mt-0 hd:mt-4 w-full md:w-1/3 xl:w-1/4 hd:w-1/5 px-2">
                         <Button
                             className="w-full"
                             size="sm"
@@ -154,15 +168,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, setF
           </Formik>
         </div>
       </div>
-
-      <SelectedBar
-        name={name}
-        fields={fields}
-        inititalState={inititalState}
-        filters={filters}
-        setFilter={setFilter}
-        setFilters={setFilters}
-      />
+      {selectedBar}
     </>
   );
 }

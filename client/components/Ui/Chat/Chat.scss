@@ -1,9 +1,9 @@
 .chat {
   background-color: #fff;
-  height: 597px;
+  height: 417px;
 
   .messages {
-    height: 545px;
+    height: 365px;
     border-bottom: 1px solid #dfdfdf;
     padding: 30px;
 
@@ -163,7 +163,18 @@
     @media (max-width: 480px) {
       form {
         max-width: 210px;
+        max-width: calc(100% - 35px);
       }
     }
+  }
+}
+
+
+@media (max-width: 480px) {
+  .chat {
+    height: 400px;
+  }
+  .chat .messages {
+    height: 350px;
   }
 }

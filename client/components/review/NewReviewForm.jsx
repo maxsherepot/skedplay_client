@@ -83,9 +83,9 @@ const NewReviewForm = ({ employee, onSubmit }) => {
             <CheckboxField label={t('review.hide_my_name')} name="hide" />
           </div>
 
-          <div className="flex justify-center my-5">
+          {/*<div className="flex justify-center my-5">
             <Field name="recaptcha" as={Captcha} />
-          </div>
+          </div>*/}
 
           <Button
             className="text-xl min-w-full"

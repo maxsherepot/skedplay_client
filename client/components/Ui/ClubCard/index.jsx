@@ -7,6 +7,7 @@ import { Button } from "UI";
 import { FavoriteButton } from "components/favorite";
 import GoogleMap from "components/GoogleMap";
 import { WebsiteSvg, FavoriteSvg, MapSvg, CloseSvg, RatingSvg } from "icons";
+import LocalBar from "@material-ui/icons/LocalBar";
 import Distance from "components/distance";
 import MapDirection from "components/maps/MapDirection";
 import EntityMaps from "components/maps/EntityMaps";
@@ -173,7 +174,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                 )}
               </div>)}
             </div>
-            <div className="flex flex-col relative mt-3">
+            <div className="hidden flex flex-col relative mt-3">
               <div className="flex">
                 <RatingSvg className="mx-1"/>
                 <RatingSvg className="mx-1"/>
@@ -191,28 +192,28 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                       alt={``}
                   />
                   ) : (
-                  <div>No logo</div>
+                  <div className="flex justify-center"><LocalBar/></div>
               )}
               {employees && employees.length ? (
-                  <span className="text-black mt-2">
+                  <span className="text-black mt-1 flex justify-center text-center">
                   {employees.length} workers
                 </span>
               ) : (
-                  <span className="text-black mt-2">
+                  <span className="text-black mt-1 flex justify-center text-center">
                   0 workers
                 </span>
               )}
             </div>
-              <div className="flex mt-2">
                 {website && (
-                <a href={website}>
-                  <WebsiteSvg></WebsiteSvg>
-                  <span className="ml-1 whitespace-no-wrap text-grey">
-                    {t('index.visit_site')}
-                  </span>
-                </a>
+                    <div className="flex mt-2">
+                        <a href={website}>
+                          <WebsiteSvg></WebsiteSvg>
+                          <span className="ml-1 whitespace-no-wrap text-grey">
+                            {t('index.visit_site')}
+                          </span>
+                        </a>
+                    </div>
                 )}
-              </div>
           </div>
         </div>
       </div>

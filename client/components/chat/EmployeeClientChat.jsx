@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ArrowPrevSvg, } from "icons";
+import { ArrowPrevSvg } from "icons";
 import { ChatList, ChatRoom } from "UI";
 import { ALL_CHATS, ALL_ADMIN_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import Centrifugo from "components/centrifuge";
+import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { Loader } from "UI";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
@@ -142,36 +143,34 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
       ? 'admin_chats'
       : 'user_admin_chats:' + user.id;
 
-    if (chatsChannel && !centrifuge.getSub(chatsChannel)) {
+    if (chatsChannel && centrifuge && !centrifuge.getSub(chatsChannel)) {
       centrifuge.subscribe(chatsChannel, data => subscribe(data, 'simple'));
     }
 
-    if (!centrifuge.getSub(adminChatsChannel)) {
+    if (centrifuge && !centrifuge.getSub(adminChatsChannel)) {
       centrifuge.subscribe(adminChatsChannel, data => subscribe(data, 'admin'));
     }
   });
 
   let mobileChoosedBlock = (
     <>
-      <div
-        className="absolute"
-        style={{
-          top: '33%',
-          left: '10px',
-        }}
-      >
+      <div>
         <a
           className={cx(
             "animation-arrow-left text-sm cursor-pointer",
           )}
           onClick={e => {setSelectedChat(null)}}
         >
-          <ArrowPrevSvg className="stroke-red">
+          {/*<ArrowPrevSvg className="stroke-red">
             <span className="xs:hidden sm:inline-block ml-2">{t('chat.all')}</span>
-          </ArrowPrevSvg>
+          </ArrowPrevSvg>*/}
+          <span className="flex items-center mt-2 -mb-2">
+              <ArrowLeft fontSize="large" className={`text-red stroke-red`}/>
+              <span className="inline-block sm:inline-block sm:ml-1">Back to Channels</span>
+          </span>
         </a>
       </div>
-      <span className="font-bold text-2xl">
+      <span className="font-bold text-2xl hidden">
           {t('chat.chat_with')} {selectedChat && selectedChat.receiver.name}
       </span>
     </>
@@ -179,7 +178,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
 
   let mobileChoseBlock = (
     <>
-      <span className="font-bold text-2xl">
+      <span className="hidden font-bold text-2xl">
           {t('chat.chose_chat')}
       </span>
     </>
@@ -194,7 +193,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
   }
 
   let mobileChatBlock = (
-    <div className="relative block w-full md:hidden bg-white border-2 border-black rounded-lg text-center py-3 mb-3 sm:mx-3 mt-4">
+    <div className="relative block w-full lg:hidden">
       {getMobileChooseBlock()}
     </div>
   );
@@ -203,11 +202,14 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     <>
       <div
         className={cx([
-          selectedChat ? "block" : "hidden md:block",
-          "w-full sm:w-full md:w-2/3 px-3 mb-3"
+          selectedChat ? "block" : "hidden lg:block",
+          "w-full sm:w-full lg:w-2/3 px-3 mb-3"
         ])}
       >
-        <div className="text-2xl font-extrabold my-5">{t('chat.chose_chat')}</div>
+        <div className="text-xl font-bold mt-3 mb-3">{t('chat.chose_chat')}</div>
+        <div className="bg-white rounded-lg flex items-center justify-center" style={{minHeight: 400}}>
+            <span className="text-xl text-grey">Select Channel</span>
+        </div>
       </div>
     </>
   );
@@ -217,11 +219,11 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
       <>
         <div
           className={cx([
-            selectedChat ? "block" : "hidden md:block",
-            "w-full sm:w-full md:w-2/3 px-3"
+            selectedChat ? "block" : "hidden lg:block",
+            "w-full sm:w-full lg:w-2/3 px-3"
           ])}
         >
-          <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
+          <div className="text-xl font-bold mt-3 mb-3 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
           <div>
             <ChatRoom user={user} type={type} selectedChatType={selectedChatType} selectedChat={selectedChat} refetchChats={refetchChats}/>
           </div>
@@ -230,16 +232,17 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     );
   }
 
+  //{/*t('layout.contacts')*/}
   const chatsBlock = (
     <>
       <div
         className={cx([
-          selectedChat ? "hidden md:block" : "block",
-          "w-full sm:w-full md:w-1/3 px-3 mb-3"
+          selectedChat ? "hidden lg:block" : "block",
+          "w-full sm:w-full lg:w-1/3 px-3 mb-3"
         ])}
       >
-        <div className="text-2xl font-extrabold my-5 sm:hidden md:block">{t('layout.contacts')}</div>
-        <div>
+        <div className="text-xl font-bold mt-3 mb-3 md:block">Channels</div>
+        <div style={{maxWidth: 350}}>
           <ChatList type={type} chats={chats} selectedChatType={selectedChatType} selectedChat={selectedChat} selectChat={selectChat}/>
         </div>
       </div>
@@ -248,7 +251,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
 
   if (type === 'client' && employee) {
     return (
-      <div className="flex flex-col sm:flex-row flex-wrap">
+      <div className="flex flex-col lg:flex-row flex-wrap">
         {mobileChatBlock}
         {chatRoomBlock}
         {chatsBlock}
@@ -258,9 +261,9 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
 
   return (
     <>
-      <div className="container">
-        <div className="bg-white shadow rounded-lg p-8">
-          <div className="flex flex-col sm:flex-row flex-wrap -mx-3 bg-xs-grey rounded-lg">
+      <div className="">
+        <div className="bg-white shadow rounded-lg p-4">
+          <div className="flex flex-col lg:flex-row flex-wrap bg-xs-grey rounded-lg pb-2" style={{minHeight: 400}}>
             {mobileChatBlock}
             {chatRoomBlock}
             {chatsBlock}

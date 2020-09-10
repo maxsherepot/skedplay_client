@@ -8,6 +8,7 @@ import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import {useTranslation} from "react-i18next";
 import EmployeeClientChat from "components/chat/EmployeeClientChat";
+import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
 import {LoginBox} from "components/login";
 import LangSelector from "UI/LangSelector";
 import {NextSeo} from "next-seo";
@@ -84,29 +85,46 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
       />
 
       <EmployeeBox employee={employee} user={user} viewed={false} lastBreadcrumbs={lastBreadcrumbs}>
-        <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-          <div className="hidden w-full xl:block xl:w-3/12 px-3">
+        <div className="flex flex-col sm:flex-row flex-wrap -mx-3 mb-10">
+          <div className={"hidden w-full xl:block px-3 " + (user ? " xl:w-3/12 " : " xl:w-4/12 ")}>
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
-          <div className="w-full xl:w-9/12">
+          <div className={"w-full hd:mt-16 " + (user ? " xl:w-9/12 " : " xl:w-8/12 ")}>
             {!user ? (
-              <div className="mt-1">
-                <Modal
-                  title={t('common.login')}
-                  right={<LangSelector />}
-                  modalDialogStyle={{height: '650px'}}
-                >
-                  <div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
-                            <span className="text-white">
-                              {t('chat.chat_available_for_authorized')}
-                            </span>
+              <div className="mt-1 flex flex-col items-center px-2">
+                  <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"
+                       style={{backgroundColor: "#ffeff3", width: "calc(100% - 8px)", maxWidth: 540}}>
+                      <div className="flex">
+                          <div className="flex flex-col w-full">
+                              <div className="flex items-center justify-between">
+                                  <div className="mr-4">
+                                      <AlertTriangleSvg />
+                                  </div>
+                                   <span className="text-lg">{t('chat.chat_available_for_authorized')}</span>
+                              </div>
+                            </div>
+                        </div>
                   </div>
-                  <LoginBox />
-                </Modal>
+                  <div className="w-full" style={{maxWidth: 550}}>
+                      <Modal
+                        title={t('common.login')}
+                        style={{height: "auto"}}
+                        modalDialogStyle={{height: "auto"}}
+                      >
+                        {/*<div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
+                                  <span className="text-white">
+                                    {t('chat.chat_available_for_authorized')}
+                                  </span>
+                        </div>*/}
+                        <LoginBox />
+                      </Modal>
+                  </div>
               </div>
             ) : (
-              <EmployeeClientChat user={user} employee={employee}/>
+                <div className="px-3 mt-3">
+                    <EmployeeClientChat user={user} employee={employee}/>
+                </div>
             )}
           </div>
         </div>

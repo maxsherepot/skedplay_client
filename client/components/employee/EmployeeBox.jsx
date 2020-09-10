@@ -5,7 +5,8 @@ import { MainLayout } from "layouts";
 import { SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
-
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
 import translation from "services/translation";
@@ -87,12 +88,12 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     <>
       <div className="flex flex-col md:flex-row items-center mb-4 xl:mt-4">
         {employee && (
-          <h1 className="text-2xl font-extrabold">
-            {employee.name} {employee.age}
+          <h1 className="text-xl font-extrabold flex items-center">
+            {employee.name}, {employee.age} <div className="inline-block sm:hidden bg-dark-green rounded-full w-2 h-2 ml-2"></div>
           </h1>
         )}
         <Button
-          className="ml-0 sm:ml-4 uppercase"
+          className="ml-0 sm:ml-4 uppercase hidden sm:block"
           size="xxs"
           level="success"
           weight="normal"
@@ -140,53 +141,49 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         }
       >
         {showNavLinks &&
-          <ul className="flex -mx-4 text-white">
-            <ActiveLink
-              activeClassName="text-black"
-              href={getHref('information')}
-              as={getAs('information')}
-            >
-              <a>{t('account.links.information')}</a>
-            </ActiveLink>
-
-            <ActiveLink
-              activeClassName="text-black"
-              href={getHref('events')}
-              as={getAs('events')}
-            >
-              <a>{t('employees.events')}</a>
-            </ActiveLink>
-
-            <ActiveLink
-              activeClassName="text-black"
-              href={getHref('reviews')}
-              as={getAs('reviews')}
-              advancedBlock={
-                <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
-                    {(employee.reviews && employee.reviews.length) || 0}
-                  </span>
-              }
-            >
-              <a>{t('common.reviews')}</a>
-            </ActiveLink>
-
-            <ActiveLink
-              activeClassName="text-black"
-              href={getHref('chat')}
-              as={getAs('chat')}
-              advancedBlock={
-                <>
-                  {employee.user_unread_messages_count > 0 &&
-                  <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
-                        +{employee.user_unread_messages_count}
-                      </span>
-                  }
-                </>
-              }
-            >
-              <a>{t('employees.chat')}</a>
-            </ActiveLink>
-          </ul>
+            <div className="ml-4">
+                <Tabs
+                  value={-1}
+                  variant="scrollable"
+                  scrollButtons="off"
+                  aria-label="scrollable prevent tabs example"
+                >
+                {
+                    tabs.map((tab, i) => {
+                        let advancedBlock = undefined
+                        if (tab.link === "reviews") {
+                            advancedBlock = (
+                                <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                                    {(employee.reviews && employee.reviews.length) || 0}
+                                  </span>
+                            )
+                        } else if (tab.link === "chat") {
+                            advancedBlock = (
+                                <>
+                                  {employee.user_unread_messages_count > 0 &&
+                                  <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                                        +{employee.user_unread_messages_count}
+                                      </span>
+                                  }
+                                </>
+                            )
+                        }
+                        return (
+                                <Tab key={i} className="outline-none" label={(
+                                    <ActiveLink
+                                      activeClassName="text-black"
+                                      href={getHref(tab.link)}
+                                      as={getAs(tab.link)}
+                                      advancedBlock={advancedBlock}
+                                    >
+                                      <a>{t(tab.name)}</a>
+                                    </ActiveLink>
+                                )}/>
+                        )
+                    })
+                }
+                </Tabs>
+            </div>
         }
       </SecondaryNav>
 
@@ -199,6 +196,63 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     </MainLayout>
   );
 };
+
+{/*
+    <ul className="flex -mx-4 text-white">
+      <ActiveLink
+        activeClassName="text-black"
+        href={getHref('information')}
+        as={getAs('information')}
+      >
+        <a>{t('account.links.information')}</a>
+      </ActiveLink>
+
+      <ActiveLink
+        activeClassName="text-black"
+        href={getHref('events')}
+        as={getAs('events')}
+      >
+        <a>{t('employees.events')}</a>
+      </ActiveLink>
+
+      <ActiveLink
+        activeClassName="text-black"
+        href={getHref('reviews')}
+        as={getAs('reviews')}
+        advancedBlock={
+          <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+              {(employee.reviews && employee.reviews.length) || 0}
+            </span>
+        }
+      >
+        <a>{t('common.reviews')}</a>
+      </ActiveLink>
+
+      <ActiveLink
+        activeClassName="text-black"
+        href={getHref('chat')}
+        as={getAs('chat')}
+        advancedBlock={
+          <>
+            {employee.user_unread_messages_count > 0 &&
+            <span className="hidden md:inline-block bg-white text-red px-2 rounded-full text-sm ml-1">
+                  +{employee.user_unread_messages_count}
+                </span>
+            }
+          </>
+        }
+      >
+        <a>{t('employees.chat')}</a>
+      </ActiveLink>
+    </ul>
+*/}
+
+const tabs = [
+    {name: "account.links.information", link: "information"},
+    {name: "employees.events", link: "events"},
+    {name: "common.reviews", link: "reviews"},
+    {name: "employees.chat", link: "chat"}
+]
 
 EmployeeBox.defaultProps = {
   viewed: true,

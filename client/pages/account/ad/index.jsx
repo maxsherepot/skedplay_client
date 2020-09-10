@@ -27,9 +27,9 @@ const AccountAdEdit = ({user}) => {
   });
 
   const Breadcrumbs = () => (
-    <div className="container">
+    <div className="">
       <div className="flex items-center py-4">
-        <ArrowBack back />
+        <ArrowBack back className=""/>
         <div className="ml-10">
           <Link href="/account">
             <a className="text-red hover:text-pink">{t('account.my_account')}</a>

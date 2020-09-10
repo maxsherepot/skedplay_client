@@ -52,7 +52,7 @@ const FavoriteGirls = ({ user }) => {
         ))}
       </div>
       {favoriteEmployees && favoriteEmployees.length === 0 && (
-        <div>
+        <div className="mb-6">
           <div className="font-bold mb-4">{t('favorites.not_girls')}</div>
           <div className="italic">
             {t('favorites.add_girls')}

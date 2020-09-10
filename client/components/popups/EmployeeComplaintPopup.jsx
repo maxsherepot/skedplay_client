@@ -119,11 +119,11 @@ const EmployeeComplaintPopup = ({user, employeeId, trigger, title, onSuccess}) =
                   rows={4}
                 />
 
-                {!user &&
+            {/*{!user &&
                   <div className="flex justify-center my-5">
                     <Field name="recaptcha" as={Captcha} />
                   </div>
-                }
+                }*/}
 
                 <Button
                   className="text-xl min-w-full"

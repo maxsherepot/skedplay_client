@@ -19,7 +19,7 @@ const LoginForm = ({ onSubmit }) => {
         username: "",
         password: "",
         recaptcha: "",
-        remember_me: false
+        remember_me: true
       }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required(), // Todo: add phone number validation
@@ -66,8 +66,8 @@ const LoginForm = ({ onSubmit }) => {
           )}
 
           <div className="flex px-3 my-5">
-            <div className="w-1/2">
-              <CheckboxField label={t('login.remember_me')} name="remember_me" checkboxClass="black-border" />
+            <div className="w-1/2 text-grey">
+              <CheckboxField labelClass="flex items-center" label={t('login.remember_me')} name="remember_me" checkboxClass="black-border" />
             </div>
             <div className="w-1/2 text-right">
               <Link href="/forgot">

@@ -124,7 +124,7 @@
     "terms": "Terms and Conditions & Privacy Policy",
     "add_new_card": "Add new card",
     "archive_sex_workers": "Archive Sex workers",
-    "events": "Events1",
+    "events": "Events",
     "admin": "Admin",
     "edit": "Edit",
     "webpage": "Webpage",
@@ -180,7 +180,8 @@
     "available": "available",
     "attended_us": "attended us",
     "not_available": "not available",
-    "popular": "popular"
+    "popular": "popular",
+    "description": "Hier sind die Kunden sicher, wenn sie ihre bevorzugten Dienste auswählen, und Sexarbeiter und Besitzer von Sexclubs erhalten alles, was sie für den Start, das Wachstum und die Verwaltung ihres Online-Geschäfts benötigen"
   },
   "login": {
     "phone_number": "Phone number",
@@ -351,7 +352,7 @@
     "notifications": "Notifications",
     "newsletter": "Newsletter",
     "are_you_sure_delete_event": "Are you sure you want to delete this event?",
-    "events": "Events1",
+    "events": "Events",
     "event": "Event",
     "create_event": "Create new event",
     "sex_workers": "sex workers",

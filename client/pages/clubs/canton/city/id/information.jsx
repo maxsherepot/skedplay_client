@@ -15,12 +15,15 @@ import {
 } from "icons";
 import {Gallery, EventCard, Loader, TextField} from "UI";
 import {GET_CLUB} from "queries";
+import Button from "@material-ui/core/Button";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {ClubBox, ClubGirlsBox} from "components/club";
 import {ClubSchedule} from "components/schedule";
 import {useTranslation} from "react-i18next";
 import Distance from "components/distance";
 import EmployeeMaps from "components/employee/EmployeeMaps";
+import EmployeeComplaintPopup from "components/popups/EmployeeComplaintPopup";
+import EmployeeComplaintSuccessPopup from "components/popups/EmployeeComplaintSuccessPopup";
 import {Formik} from "formik";
 import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES, DO_EVENT} from "queries";
 import {getErrors} from "utils/index";
@@ -125,6 +128,7 @@ const SubscribeClubForm = ({clubId}) => {
 };
 
 const ClubInformation = ({user}) => {
+  const [showComplaintSuccessPopup, setShowComplaintSuccessPopup] = useState(false);
   const router = useRouter();
   let {id, canton, city} = router.query;
 
@@ -177,12 +181,19 @@ const ClubInformation = ({user}) => {
 
   const canonical = `${process.env.APP_URL}/${i18n.language !== 'de' ? i18n.language + '/' : ''}clubs/${canton}/${city}/${club.id}/information/`;
 
+
   const Contacts = () => (
     <>
       <div className="text-2xl font-extrabold my-5">{t('clubs.address_and_contacts')}</div>
 
       <div className="bg-white rounded-lg p-4">
-        <p className="font-bold">{club.address}</p>
+        <p className="font-medium  flex flex-col">
+            {(club.address || "").split(",").map((item, i) => {
+                return (
+                    <span>{item.trim()}</span>
+                )
+            })}
+        </p>
         {(club.lat && club.lng) &&
         <Distance
           originByGeo={true}
@@ -227,12 +238,12 @@ const ClubInformation = ({user}) => {
   );
 
   const ClubLogo = ({favorited}) => (
-    <div className="flex items-center justify-center relative h-32 lg:h-full w-full">
-      <div className="logo-midd__div">
+    <div className="flex items-center sm:items-start justify-center relative h-32 py-4 sm:py-6 lg:h-full w-full">
+      <div className="logo-midd__div" style={{height: "auto"}}>
         <img src={logo_url} alt=""/>
       </div>
       <div className="mx-8 lg:mx-0"/>
-      <div className="flex flex-col relative lg:absolute inset-0 items-center justify-end lg:mb-4">
+      <div className="hidden flex flex-col relative lg:absolute inset-0 items-center justify-end lg:mb-4">
         <div className="flex mb-2">
           <RatingSvg className="mx-1"/>
           <RatingSvg className="mx-1"/>
@@ -250,6 +261,8 @@ const ClubInformation = ({user}) => {
     </div>
   );
 
+
+
   const contentColumn = (
     <>
       <div className="flex flex-wrap -mx-3">
@@ -261,12 +274,25 @@ const ClubInformation = ({user}) => {
               className="w-full lg:w-3/12 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-divider">
               <ClubLogo favorited={club.favorited}/>
             </div>
-            <div className="flex flex-col justify-between lg:w-9/12 p-4 hd:p-8 lg:h-64">
+            <div className="flex flex-col justify-between lg:w-9/12 p-4 pb-2 hd:p-8 lg:h-64">
               {club.description}
 
-              <div className="flex items-center text-light-grey">
-                <FakeSvg className="float-left"/>
-                <span className="ml-3">{t('clubs.fake_or_not_working')}</span>
+              <div className="mt-2">
+                  <EmployeeComplaintPopup
+                    employeeId={""}
+                    user={user}
+                    onSuccess={() => setShowComplaintSuccessPopup(true)}
+                    trigger={
+                        <Button size="small">
+                            <div className="cursor-pointer flex items-center text-light-grey">
+                              <FakeSvg className="float-left"/>
+                              <span className="ml-3">{t('clubs.fake_or_not_working')}</span>
+                            </div>
+                        </Button>
+                    }
+                  />
+
+                  <EmployeeComplaintSuccessPopup user={user} open={showComplaintSuccessPopup} setOpen={setShowComplaintSuccessPopup}/>
               </div>
             </div>
           </div>

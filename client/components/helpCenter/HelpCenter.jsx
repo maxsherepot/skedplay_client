@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Link from 'components/SlashedLink'
-import {Loader, PageCard} from "UI";
+import {Breadcrumbs, Loader, PageCard} from "UI";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";
 import {HELP_CENTER_CATEGORIES} from 'queries';
@@ -62,7 +62,7 @@ const CategoryItem = ({category, topicSlug, first}) => {
 
       <ul
         className={cx([
-          "transition overflow-hidden w-full text-lg text-red font-medium leading-loose ml-8",
+          "transition overflow-hidden sm:w-full text-lg text-red font-medium leading-loose ml-8",
         ])}
         style={{
           height: open ? `${category.topics.length * 34}px` : '0',
@@ -71,10 +71,11 @@ const CategoryItem = ({category, topicSlug, first}) => {
         {(category.topics || []).map(topic => (
           <li
             className={cx([
-              topicSlug === topic.slug ? "text-black border border-red border-l-0 border-t-0 border-b-0" : ""
+                "pr-4 sm:pr-0 sm:mr-8",
+              topicSlug === topic.slug ? "text-black border-0 lg:border border-red lg:border-l-0 lg:border-t-0 lg:border-b-0" : ""
             ])}
             style={{
-              marginRight: 'calc(2rem - 1px)',
+              //marginRight: 'calc(2rem - 1px)',
             }}
             key={topic.id}
           >
@@ -99,8 +100,8 @@ const Sidebar = ({categories, topicSlug}) => {
   const {t, i18n} = useTranslation();
 
   return (
-    <div className="flex lg:flex-1 justify-end w-auto border-divider border-b lg:border-r">
-      <div className="flex flex-col py-10 md:pl-15" style={{minWidth: '14rem'}}>
+    <div className="flex lg:flex-1 lg:justify-end w-auto border-divider border-b lg:border-r">
+      <div className="flex flex-col pl-4 sm:pl-0 py-10 md:pl-15" style={{minWidth: '14rem'}}>
         {categories.map((category, i) => (
           <CategoryItem category={category} first={i === 0} key={category.id} topicSlug={topicSlug}/>
         ))}
@@ -118,7 +119,7 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
     if (className) return className;
     if (contentClass) return contentClass;
 
-    return "lg:w-3/5 lg:ml-10 px-8 py-12";
+    return "lg:w-3/5 lg:ml-10 px-4 sm:px-8 py-12";
   };
 
   const {data: {helpCenterCategories} = {}, loading} = useQuery(HELP_CENTER_CATEGORIES);
@@ -139,8 +140,19 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
     }
   }
 
+  const breadcrumbs = [
+    {
+      label: t('layout.help_center')
+    }
+  ];
+
   return (
     <>
+    <div className="mt-4">
+        <Breadcrumbs
+          items={breadcrumbs}
+        />
+    </div>
       {selectedTopic &&
         <NextSeo
           title={
@@ -156,14 +168,15 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
         />
       }
 
-      <PageCard fullScreen={true} className="my-10 pl-10 pr-10">
-        <div className="flex flex-col pl-25 lg:flex-row justify-between help-center">
+
+      <PageCard fullScreen={true} className="mt-4 mb-10 pl-4 sm:pl-10 pr-4 sm:pr-10">
+        <div className="flex flex-col sm:pl-8 lg:flex-row justify-between help-center">
           <Sidebar categories={helpCenterCategories} topicSlug={topicSlug}/>
           <div className={getClass()}>
-            <div className="xl:max-w-3/4 lg:max-w-3/4">
+            <div className="xl:max-w-3/4" style={{maxWidth: 550}}>
               {selectedTopic ?
                 <>
-                  <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+                  <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
                     {getLangField(selectedTopic.name, i18n.language)}
                   </h1>
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
@@ -180,5 +193,6 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
     </>
   );
 };
+
 
 export default HelpCenter;

@@ -27,11 +27,21 @@ const DistanceView = ({ distanceValue }) => {
 const AddressCard = ({ className, addressable, isAvailable }) => {
   const {t, i18n} = useTranslation();
 
+  const addressComponent = (
+      <>
+        {(addressable.address || "").split(",").map((item, i) => {
+            return (
+                <span key={i}>{item.trim()}</span>
+            )
+        })}
+      </>
+  )
+
   return (
     <>
       <div className="text-2xl font-extrabold my-5">{t('index.my_address')}</div>
       <div className={cx("bg-white rounded-lg p-4", className)}>
-        <p className="font-bold">{addressable ? addressable.address : 'default address'}</p>
+        <p className="font-bold">{addressable ? addressComponent : 'default address'}</p>
         {(addressable && addressable.lat && addressable.lng) &&
           <Distance
             originByGeo={true}

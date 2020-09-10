@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Distance from "components/distance";
 import cx from "classnames";
 import { geolocated } from "react-geolocated";
-import { RoadSvg, Phone1Svg, LinkSvg, AttentionSvg } from "icons";
+import { RoadSvg, MaskSvg, Phone1Svg, LinkSvg, AttentionSvg } from "icons";
 import { Button } from "UI";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { DO_EVENT } from "queries";
@@ -121,6 +121,17 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
     setShowComplaintSuccessPopup(true);
   };
 
+  const addressComponent = (
+      <>
+          {(address || "").split(",").map((item, i) => {
+              return (
+                  <span>{item.trim()}</span>
+              )
+          })}
+      </>
+  )
+  console.log(112, user, employee)
+
   return (
     <div className="rounded-lg bg-white p-4">
       <div>
@@ -135,26 +146,26 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
                 {t('common.current_location')}
               </div>
               <div className="mt-3">
-                <div>
-                  <Link
-                    href={`/clubs/canton/city/id/information?id=${employee.current_club.id}&canton=${employee.current_club.city.canton.slug}&city=${employee.current_club.city.slug}`}
-                    as={`/clubs/${employee.current_club.city.canton.slug}/${employee.current_club.city.slug}/${employee.current_club.id}/information`}
-                  >
-                    <a className="font-bold text-red text-lg">
-                      {employee.current_club.name}
-                    </a>
-                  </Link>
-                </div>
+                  <div>
+                    <Link
+                      href={`/clubs/canton/city/id/information?id=${employee.current_club.id}&canton=${employee.current_club.city.canton.slug}&city=${employee.current_club.city.slug}`}
+                      as={`/clubs/${employee.current_club.city.canton.slug}/${employee.current_club.city.slug}/${employee.current_club.id}/information`}
+                    >
+                      <a className="font-bold text-red text-lg">
+                        {employee.current_club.name}
+                      </a>
+                    </Link>
+                  </div>
 
-                <div className="mt-1">
-                  <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">
-                    {employee.current_club.type.name}
-                  </button>
-                </div>
+                  <div className="mt-1">
+                    <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">
+                      {employee.current_club.type.name}
+                    </button>
+                  </div>
               </div>
               <div className="mt-3">
-                <span className="font-bold text-lg">
-                  {address}
+                <span className="font-medium text-lg flex flex-col">
+                  {addressComponent}
                 </span>
 
                 <span className="ml-3 text-xs text-grey text-nowrap">
@@ -185,27 +196,34 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
             <div className="text-grey">
               {t('common.current_location')}
             </div>
+            <div className="flex items-center justify-start mt-2">
+                <div>
+                    <button className="font-normal text-xs h-6 uppercase rounded-full px-2 bg-black text-white">Private Account</button>
+                </div>
+                <div className="ml-4">
+                    <MaskSvg/>
+                </div>
+            </div>
             <div className="mt-3">
-            <span className="font-bold text-lg">
-              {address}
-            </span>
-
-              <span className="ml-3 text-xs text-grey">
-              {(!!lat && !!lng) &&
-              <Distance
-                originByGeo={true}
-                destination={{lat, lng}}
-              >
-                <DistanceView/>
-              </Distance>
-              }
-            </span>
+                <span className="font-medium text-lg flex flex-col">
+                  {addressComponent}
+                </span>
+                  {(!!lat && !!lng) &&
+                      <span className="ml-3 text-xs text-grey">
+                          <Distance
+                            originByGeo={true}
+                            destination={{lat, lng}}
+                          >
+                            <DistanceView/>
+                          </Distance>
+                      </span>
+                }
             </div>
           </>
         }
       </div>
 
-      <div className="mt-3">
+      <div className="mt-0">
         {(!!lat && !!lng) &&
           <Button
             className="px-4 w-full flex items-center"

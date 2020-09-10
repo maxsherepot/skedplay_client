@@ -87,7 +87,11 @@ const EmployeeEvents = ({user}) => {
           {/*/>*/}
         </>
       ) : (
-        <div></div>
+            <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-24">
+                <span className="text-center w-full">
+                    No Events yet
+                </span>
+            </div>
       )}
     </>
   );
@@ -106,11 +110,11 @@ const EmployeeEvents = ({user}) => {
 
       <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
-          <div className="w-full lg:w-3/12 px-3">
+          <div className="hidden  lg:block w-full lg:w-4/12 px-3">
             <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
-          <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>
+          <div className="w-full lg:w-8/12 px-3">{contentColumn}</div>
         </div>
       </EmployeeBox>
     </>

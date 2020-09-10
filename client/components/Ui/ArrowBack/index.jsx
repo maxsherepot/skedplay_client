@@ -3,6 +3,7 @@ import Router from "next/router";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { ArrowPrevSvg } from "icons";
+import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { useSteps } from "hooks";
 
 const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
@@ -19,6 +20,7 @@ const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
     setStep(Math.max(step - 1, 0));
   };
 
+
   return (
     <a
       className={cx(
@@ -29,9 +31,13 @@ const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
       )}
       onClick={handleBack}
     >
-      <ArrowPrevSvg className={`stroke-${color === "white" ? color : "red"}`}>
+        <span className="flex items-center">
+            <ArrowLeft fontSize="large" className={`stroke-${color === "white" ? color : "red"} ${color === "white" ? "" : "text-red"}`}/>
+            <span className="inline-block sm:inline-block sm:ml-1">{title}</span>
+        </span>
+      {/*<ArrowPrevSvg className={`stroke-${color === "white" ? color : "red"}`}>
         <span className="hidden sm:inline-block ml-2">{title}</span>
-      </ArrowPrevSvg>
+      </ArrowPrevSvg>*/}
     </a>
   );
 };

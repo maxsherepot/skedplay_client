@@ -19,11 +19,11 @@ const StepBox = ({ links, canSetStep }) => {
         >
           <div
             className={cx(
-              "flex items-center justify-center w-7 h-7 text-white rounded-full",
+              "flex items-center justify-center w-10 h-10 sm:w-7 sm:h-7 text-white rounded-full",
               active === i ? "bg-dark-green" : "bg-divider"
             )}
           >
-            {i + 1}
+            {i + 1}<span className="sm:hidden">/{links.length}</span>
           </div>
           <div
             className={cx(

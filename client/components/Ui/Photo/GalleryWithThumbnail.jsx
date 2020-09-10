@@ -210,8 +210,8 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           </div>
         </div>
 
-        <div className="flex justify-center lg:mb-12 sm:mb-2 absolute bottom-0 left-0 w-full z-10">
-          <div className="text-xl text-white mb-10 sm:mb-3 pb-10 mx-5 my-8 select-none">
+        <div className="flex justify-center absolute bottom-0 left-0 w-full z-10">
+          <div className="text-xl text-white pb-10 mx-5 sm:my-4 select-none">
             {index + 1} / {photos.length}
           </div>
         </div>
