@@ -26,7 +26,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
           {employees &&
             employees.data.map(girl => (
               <div
-                className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 1hd:w-1/5 md:px-2 sm:px-0"
+                className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 hd:w-1/5 md:px-2 sm:px-0"
                 key={girl.id}
               >
                 <GirlCard girl={girl} href="/employee" previewClass="w-full" user={user}/>
