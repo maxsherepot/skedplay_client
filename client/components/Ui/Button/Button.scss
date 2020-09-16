@@ -110,6 +110,16 @@
     }
   }
 
+  &-green {
+    @apply text-white border-2 border-dark-green font-normal;
+    &::before {
+      @apply bg-dark-green border-dark-green text-white;
+    }
+    &::after {
+      @apply bg-dark-green border-dark-green text-white;
+    }
+  }
+
   &-secondary {
     @apply text-black font-normal;
     &::before {

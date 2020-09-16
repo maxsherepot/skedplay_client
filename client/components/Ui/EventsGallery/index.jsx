@@ -40,7 +40,7 @@ function EventsGallery({ events }) {
                   {event.type.name}
                 </div>
                 <div className="absolute bottom-0 left-0 p-5 text-white tracking-tighter sm:px-6">
-                  <div className="font-extrabold text-2xl leading-tight mb-1 sm:text-4xl sm:mb-3">
+                  <div className="font-bold text-2xl leading-tight mb-1 sm:text-2xl sm:mb-3">
                     {event.short_title}
                   </div>
                   <div className="flex font-medium text-lg leading-none">

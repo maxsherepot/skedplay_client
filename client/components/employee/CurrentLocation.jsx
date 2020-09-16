@@ -163,12 +163,12 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
                     </button>
                   </div>
               </div>
-              <div className="mt-3">
+              <div className="mt-3 mb-3 flex flex items-end">
                 <span className="font-medium text-lg flex flex-col">
                   {addressComponent}
                 </span>
 
-                <span className="ml-3 text-xs text-grey text-nowrap">
+                <span className="ml-2 text-xs text-grey text-nowrap" style={{marginBottom: "2px"}}>
                   {(!!lat && !!lng) &&
                     <Distance
                       originByGeo={true}

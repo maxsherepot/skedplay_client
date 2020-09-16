@@ -18,7 +18,7 @@ import redirect from "lib/redirect";
 import { setCookie } from "utils";
 
 const ProfileHeader = ({user}) => {
-    const avatar = (user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
+    const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
     return (
         <>
           {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
@@ -349,7 +349,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
 
         {(is_club_owner || is_moderator) && (
           <>
-            <div className="text-2xl font-extrabold px-5 mt-5">
+            <div className="text-2xl font-bold px-5 mt-5">
               {t('layout.you_have')} {clubs.length} {t('layout.clubs')}
             </div>
 
@@ -368,7 +368,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
         )}
 
         {(is_club_owner || is_moderator) && (
-          <div className="text-2xl font-extrabold px-5 mt-5">{t('layout.menu')}</div>
+          <div className="text-2xl font-bold px-5 mt-5">{t('layout.menu')}</div>
         )}
 
         {/*<div className="mt-4">

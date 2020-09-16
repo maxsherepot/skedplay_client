@@ -7,6 +7,7 @@ import {useMutation, useQuery} from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import moment from 'moment';
 import * as Yup from "yup";
+import AccountActivate from "./AccountActivate";
 import {Field, Formik, useFormikContext} from "formik";
 import {UPDATE_EMPLOYEE_CURRENT_POSITION} from 'queries';
 import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
@@ -248,20 +249,23 @@ const CurrentPosition = ({user}) => {
   );
 };
 
-const GirlRow = ({ employee, soon, active }) => {
+const GirlRow = ({ employee, soon, active, isFormFilled }) => {
     const {t, i18n} = useTranslation();
-
+    const [isPaymentOpen, setPaymentOpen] = useState(false);
     active = false
     const avatar = (employee.photos || []).length ? employee.photos[0].thumb_url : undefined
     return (
       <div className="flex flex-col sm:flex-row items-center my-2">
-          <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar} src={avatar}/>
+          <Avatar className="w-10 h-10 sm:mr-2" isEmpty={!avatar} src={avatar}/>
 
          <div className="flex flex-col justify-between">
              <div className="flex flex-col sm:flex-row items-center mt-2 sm:mt-0 sm:ml-2">
                   <span className={"hidden sm:block h-2 w-2 mr-2 rounded-full" + (active ? " bg-dark-green " : " bg-red ")} /> <div className=" text-xl"> {employee && employee.name}</div>
                  {active ? (
                      <div className="flex items-center ml-2">
+                         <div className="bg-dark-green text-white text-xs rounded-full whitespace-no-wrap px-3">
+                             30.09.20
+                         </div>
                          {soon && (
                            <div className="bg-black text-white text-xs rounded-full whitespace-no-wrap px-3 py-1 ml-2">
                                {t('common.coming_soon')}
@@ -285,24 +289,26 @@ const GirlRow = ({ employee, soon, active }) => {
                          </Button>
                      </a>
                  </Link>
-
-                 <Link href={"/account/events/create/"}>
-                     <a>
-                         <Button className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2" size="xxs" outline style={{ color: "#000" }}>
-                             New Event
-                         </Button>
-                     </a>
-                 </Link>
+                 {
+                     isFormFilled &&
+                         <Link href={"/account/events/create/"}>
+                             <a>
+                                 <Button className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2" size="xxs" outline style={{ color: "#000" }}>
+                                     New Event
+                                 </Button>
+                             </a>
+                         </Link>
+                 }
 
                  {
-                     !active &&
+                     !active && isFormFilled &&
                          <a>
-                             <Button className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2" size="xxs" outline style={{ color: "#000" }}>
+                             <Button level="green" onClick={() => setPaymentOpen(true)} className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2 flex items-center" size="xxs" outline style={{ color: "#000" }}>
                                  {t('common.active_now')}
                              </Button>
                          </a>
                  }
-
+                 <AccountActivate open={isPaymentOpen} onClose={() => setPaymentOpen(false)}/>
              </div>
          </div>
 
@@ -336,7 +342,7 @@ const PrivateBox = ({user}) => {
     }
   ];
 
-
+  const isFormFilled = getFromLS("employee_form_state") === "done"
 
   return (
     <>
@@ -352,7 +358,7 @@ const PrivateBox = ({user}) => {
               <div className="flex flex-col w-full">
                   <span className="text-xl font-medium">{t('account.my_cards')}</span>
 
-                 <GirlRow key={user.employee.id} employee={user.employee} active={user.status === 1}/>
+                 <GirlRow key={user.employee.id} employee={user.employee} active={user.status === 1} isFormFilled={isFormFilled}/>
                 </div>
             </div>
       </div>
@@ -516,6 +522,12 @@ const VerifyMessage = ({user}) => {
     </>
   )
 
+};
+
+const getFromLS = (key) => {
+    if ((global || window).localStorage) {
+        return (global || window).localStorage.getItem(key)
+    }
 };
 
 export default PrivateBox;

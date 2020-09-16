@@ -15,7 +15,7 @@ const Schedule = ({ schedule, schedule_period, title }) => {
   return (
     <>
       <div className="flex items-center mt-5 md:mt-0">
-        <div className="text-2xl font-extrabold mb-5">{title}</div>
+        <div className="text-2xl font-bold mb-5">{title}</div>
       </div>
       <div className="bg-white text-xs sm:text-sm hd:text-base rounded-lg p-4 lg:p-12">
         {schedule &&

@@ -39,7 +39,7 @@ const AddressCard = ({ className, addressable, isAvailable }) => {
 
   return (
     <>
-      <div className="text-2xl font-extrabold my-5">{t('index.my_address')}</div>
+      <div className="text-2xl font-bold my-5">{t('index.my_address')}</div>
       <div className={cx("bg-white rounded-lg p-4", className)}>
         <p className="font-bold">{addressable ? addressComponent : 'default address'}</p>
         {(addressable && addressable.lat && addressable.lng) &&

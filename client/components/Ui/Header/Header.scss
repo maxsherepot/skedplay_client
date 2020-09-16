@@ -221,7 +221,7 @@ header {
     li {
       @apply mb-7;
       a {
-        @apply block text-white transition text-center font-extrabold uppercase leading-none tracking-tighter;
+        @apply block text-white transition text-center font-bold uppercase leading-none tracking-tighter;
         font-size: 2.625rem;
       }
     }

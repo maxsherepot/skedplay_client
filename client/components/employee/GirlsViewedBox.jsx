@@ -83,7 +83,7 @@ const GirlsViewedBox = ({employees, user}) => {
   return (
     <>
       <div className="flex items-end my-5">
-        <div className="text-3xl font-extrabold tracking-tighter leading-none">
+        <div className="text-2xl font-bold tracking-tighter leading-none">
           {t('employees.previously_viewed')}
         </div>
         <Link href="/girls">

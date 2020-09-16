@@ -225,7 +225,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
       <div className="account-info-box flex">
         <div className="flex flex-col w-full items-end sm:items-start -mx-2 sm:pl-2 hd:ml-6">
           <div className="flex flex-col sm:flex-row flex-1 px-2 w-full text-center">
-            <div className="text-4xl font-extrabold whitespace-no-wrap">{employee.name}</div>
+            <div className="text-2xl font-bold whitespace-no-wrap">{employee.name}</div>
             <div className="flex items-center text-grey my-2 hidden">
               <span className="block bg-dark-green h-2 w-2 mr-2 rounded-full"/>
               <div className="flex items-center">05.06-07.06</div>

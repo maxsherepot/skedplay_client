@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { CloseSvg } from "icons";
 import {useTranslation} from "react-i18next";
 
-function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilters }) {
+function SelectedBar({ name, fields, inititalState, isFiltersOpen, filters, setFilter, setFilters }) {
   const selected = [];
   const {t, i18n} = useTranslation();
 
@@ -114,7 +114,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
 
   return (
     <div className="border-b border-divider">
-      <div className="container p-5 flex items-center">
+      <div className={"container sm:ml-auto py-3 sm:py-5 flex items-center overflow-x-auto " + (isFiltersOpen ? "" : "-ml-3")}>
         <div className="hidden sm:block mr-2">{t('index.selected')}:</div>
           {selected.map((s, i) => (
             <div className="flex flex-wrap items-center selected-item__div -mb-4" key={i}>
@@ -125,7 +125,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
                 key={i}
                 onClick={() => clearValue(s)}
               >
-                <span className="text-sm mr-4">{s.label}</span>
+                <span className="text-sm mr-4 whitespace-no-wrap">{s.label}</span>
 
                 <CloseSvg
                   className="stroke-light-grey hover:stroke-red"
@@ -137,7 +137,7 @@ function SelectedBar({ name, fields, inititalState, filters, setFilter, setFilte
           ))}
           <div className="flex flex-wrap items-center -mb-4">
           <span
-            className="text-red cursor-pointer ml-4 mb-4"
+            className="text-red cursor-pointer ml-4 mb-4 mr-2 whitespace-no-wrap"
             onClick={() => clearAllValue()}
           >
             {t('index.clear_all')}

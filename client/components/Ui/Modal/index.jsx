@@ -15,7 +15,7 @@ function Modal({ logo, title, left, right, children, style, modalDialogStyle, co
         <div className="modal__content" style={contentStyle}>
           <div className="modal__content__header relative z-20" style={headerStyle}>
             {left}
-            <div className="modal__title w-11/12 text-4xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">
+            <div className="modal__title w-11/12 text-2xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">
               {title}
             </div>
             {right}

@@ -86,9 +86,9 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const leftInfo = (
     <>
-      <div className="flex flex-col md:flex-row items-center mb-4 xl:mt-4">
+      <div className="flex flex-col md:flex-row items-center mt-4 sm:mt-0 mb-4 xl:mt-4">
         {employee && (
-          <h1 className="text-xl font-extrabold flex items-center">
+          <h1 className="text-xl font-bold flex items-center">
             {employee.name}, {employee.age} <div className="inline-block sm:hidden bg-dark-green rounded-full w-2 h-2 ml-2"></div>
           </h1>
         )}
@@ -135,13 +135,15 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         left={leftInfo}
         right={rightInfo}
         breadcrumbs={
-          <Breadcrumbs
-            items={breadcrumbs}
-          />
+            <div className="hidden sm:block">
+                <Breadcrumbs
+                  items={breadcrumbs}
+                />
+            </div>
         }
       >
         {showNavLinks &&
-            <div className="ml-4">
+            <div className="">
                 <Tabs
                   value={-1}
                   variant="scrollable"

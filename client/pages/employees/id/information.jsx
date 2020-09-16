@@ -189,6 +189,9 @@ const EmployeeInformation = ({ user }) => {
               <FavoriteButton
                 variables={{ model_id: employee.id, model_type: "employee" }}
                 favorited={employee.favorited}
+                small
+                iconWidth={18}
+                iconHeight={16}
                 large={false}
               />
             }
@@ -347,9 +350,11 @@ const EmployeeInformation = ({ user }) => {
         ) : (
           <>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full lg:w-2/3 hd:w-2/5 px-3 pb-6" style={{maxWidth: 750}}>
+              <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{maxWidth: 750}}>
                 {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
-                {sidebarColumn}
+                <div className="">
+                    {sidebarColumn}
+                </div>
               </div>
               <div className="w-full lg:w-1/3 px-3 block sm:flex lg:block hd:hidden justify-center mb-5">
                 <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
@@ -372,7 +377,7 @@ const EmployeeInformation = ({ user }) => {
 
               <div className="w-full hd:w-1/5 px-3">
                 <div className="flex items-end my-5">
-                  <div className="text-2xl font-extrabold tracking-tighter leading-none">
+                  <div className="text-2xl font-bold tracking-tighter leading-none">
                     {t('employees.nachste_event')}
                   </div>
                   <Link

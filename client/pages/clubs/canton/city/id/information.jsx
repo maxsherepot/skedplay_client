@@ -184,7 +184,7 @@ const ClubInformation = ({user}) => {
 
   const Contacts = () => (
     <>
-      <div className="text-2xl font-extrabold my-5">{t('clubs.address_and_contacts')}</div>
+      <div className="text-2xl font-bold my-5">{t('clubs.address_and_contacts')}</div>
 
       <div className="bg-white rounded-lg p-4">
         <p className="font-medium  flex flex-col">
@@ -267,7 +267,7 @@ const ClubInformation = ({user}) => {
     <>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full sm:w-8/12 lg:w-9/12 md:px-3 sm:px-0 lg:h-64">
-          <div className="flex text-2xl font-extrabold my-5">{t('employees.description')}</div>
+          <div className="flex text-2xl font-bold my-5">{t('employees.description')}</div>
 
           <div className="flex flex-col lg:flex-row flex-wrap bg-white rounded-t-lg">
             <div
@@ -310,7 +310,7 @@ const ClubInformation = ({user}) => {
           <>
             <div className="w-full md:w-4/12 lg:w-3/12 px-3 hidden sm:block">
               <div className="flex items-end my-5">
-                <div className="text-2xl font-extrabold tracking-tighter leading-none">
+                <div className="text-2xl font-bold tracking-tighter leading-none">
                   {t('clubs.next_event', {name: club.name})}
                 </div>
               </div>
@@ -338,13 +338,13 @@ const ClubInformation = ({user}) => {
         <div className="w-full hd:w-9/12 md:px-3 sm:px-0">
           <div className="flex flex-col hd:flex-row -mx-3">
             <div className="w-full hd:w-1/2 px-3">
-              <div className="text-2xl font-extrabold mb-5">{t('clubs.photos')}</div>
+              <div className="text-2xl font-bold mb-5">{t('clubs.photos')}</div>
               <Gallery photos={club.photos} height="424px"/>
             </div>
             <div className="w-full hd:w-1/2 px-3 mt-5 hd:mt-0">
               <div className="flex flex-wrap -mx-3">
                 <div className="w-full md:w-7/12 px-3 hd:w-full hd:px-0">
-                  <div className="text-2xl font-extrabold mb-5">
+                  <div className="text-2xl font-bold mb-5">
                     {t('clubs.services_and_pricing')}
                   </div>
                   <div className="bg-white text-sm hd:text-base rounded-lg p-6">

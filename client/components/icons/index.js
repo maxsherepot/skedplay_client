@@ -21,6 +21,7 @@ export { default as MessageSvg } from "./MessageSvg";
 export { default as CocktailSvg } from "./CocktailSvg";
 export { default as CalendarSvg } from "./CalendarSvg";
 export { default as MaskSvg } from "./MaskSvg";
+export { default as TransSvg } from "./TransSvg";
 
 /**
  * Control elements

@@ -45,7 +45,7 @@ const MediaStep = ({ club, refetchClub }) => {
       />
 
       <div className="flex flex-col md:flex-row md:items-end my-5">
-        <div className="text-4xl font-extrabold leading-none">{t('clubs.video')}</div>
+        <div className="text-2xl font-bold leading-none">{t('clubs.video')}</div>
         <span className="md:ml-6 text-xs md:text-lg">
           {t('max_size_uploaded.video')}
         </span>

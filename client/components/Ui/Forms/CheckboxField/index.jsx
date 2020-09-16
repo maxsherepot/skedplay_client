@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox } from "UI";
 import { useFormikContext, useField } from "formik";
+import formErrors from "services/formErrors";
 
 function CheckboxField({ className, checkboxClass, label, labelStyle = {}, labelClass, name, checked, checkedOnlyByProp, onChange, ...rest }) {
-  const { setFieldValue } = useFormikContext();
+  const { touched, errors, values, setFieldValue } = useFormikContext();
+  const error = formErrors.getErrorText(name || "", label || "", touched || {}, errors || {});
   const [field, meta] = useField(name);
 
   const handleChange = event => {
@@ -15,18 +17,21 @@ function CheckboxField({ className, checkboxClass, label, labelStyle = {}, label
   };
 
   return (
-    <label style={labelStyle} className={labelClass}>
-      <Checkbox
-        checkboxClass={checkboxClass}
-        name={name}
-        checked={checkedOnlyByProp ? checked : field.value || checked}
-        value={field.value}
-        onChange={handleChange}
-      />
-      <span className={className} style={{ marginLeft: 4 }}>
-        {label}
-      </span>
-    </label>
+      <>
+          <label style={{display: "flex", ...(labelStyle || {})}} className={(labelClass || "") + " flex items-center "}>
+            <Checkbox
+              checkboxClass={checkboxClass}
+              name={name}
+              checked={checkedOnlyByProp ? checked : field.value || checked}
+              value={field.value}
+              onChange={handleChange}
+            />
+            <span className={"flex flex-col " + className} style={{ marginLeft: 4 }}>
+                <span>{label}</span>
+                {error && <span className="text-red text-sm">{error}</span>}
+            </span>
+          </label>
+      </>
   );
 }
 

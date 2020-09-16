@@ -96,7 +96,7 @@ const ClubGirlsBox = ({ employees, club, user }) => {
   return (
     <>
       <div className="flex items-end my-5">
-        <div className="text-2xl font-extrabold tracking-tighter leading-none">
+        <div className="text-2xl font-bold tracking-tighter leading-none">
           {t('common.our_girls')}
         </div>
         <Link

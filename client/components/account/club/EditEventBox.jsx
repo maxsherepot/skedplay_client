@@ -59,7 +59,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
 
     return (
       <div>
-          <div className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+          <div className="text-2xl font-bold tracking-tighter leading-none mb-5">
               {t('account.update_event')}
           </div>
 

@@ -81,7 +81,7 @@ const AvailableToday = ({employees, clubs, day}) => {
   const isToday = dateFns.isToday(day);
   return (
     <>
-      <div className="text-4xl font-extrabold mb-2">
+      <div className="text-2xl font-bold mb-2">
         {isToday ? `${t('account.available_today')}` : `${t('account.available_to', {date: selectedDate })}`}
       </div>
       <div className="flex flex-wrap -mx-2">
@@ -242,7 +242,7 @@ const AccountClubWorkersShow = ({user}) => {
           </Content>
         </Popup>
 
-        <h1 className="text-4-65xl font-extrabold">
+        <h1 className="text-4-65xl font-bold">
           {t('account.workers_cards')}
         </h1>
 
@@ -277,10 +277,10 @@ const AccountClubWorkersShow = ({user}) => {
           <AvailableToday employees={club.employees} clubs={clubs} day={selectedDay}/>
         </Panel>
         <Panel>
-          <div className="text-4xl font-extrabold mb-2">{t('account.cooming_soon')}</div>
+          <div className="text-2xl font-bold mb-2">{t('account.cooming_soon')}</div>
         </Panel>
         <Panel>
-          <div className="text-4xl font-extrabold mb-2">{t('common.not_active')}</div>
+          <div className="text-2xl font-bold mb-2">{t('common.not_active')}</div>
         </Panel>
       </Tabs>
     </div>

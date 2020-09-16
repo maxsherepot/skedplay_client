@@ -55,6 +55,7 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
                     trueLabel={t('steps.alone')}
                     falseLabel={t('steps.at_club')}
                     initValue={alone}
+                    className="toggle-field"
                     onChange={(value) => setAlone(value)}
                   />
                 </div>
@@ -62,10 +63,7 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
             <div className="w-full md:w-3/12a px-2  md:w-8/12 max-w-sm flex-row">
                 {!alone &&
                   <SelectField
-                    styles={{
-                      marginBottom: '1.6rem'
-                    }}
-                    className="w-full md:w-3/12a px-2 max-w-sm"
+                    className="w-full md:w-3/12a sm:px-2 max-w-sm pt-2 sm:pt-0 sm:pb-3"
                     inputClassName="w-full md:w-1/3"
                     label={t('schedule.select_available_club')}
                     name={`schedule.${week.day}.club_id`}

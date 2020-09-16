@@ -70,6 +70,7 @@ const NewReviewForm = ({ employee, onSubmit }) => {
           <TextAreaField
             label={t('review.describe_your_impressions')}
             name="body"
+            styleTextLength={{display: "none"}}
             placeholder=""
           />
 

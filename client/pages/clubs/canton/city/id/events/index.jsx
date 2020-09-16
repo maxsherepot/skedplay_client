@@ -29,7 +29,7 @@ const ClubEventsIndex = ({ user }) => {
 
   const contentColumn = (
     <>
-      <div className="text-2xl font-extrabold my-5">{t('clubs.meine_events')}</div>
+      <div className="text-2xl font-bold my-5">{t('clubs.meine_events')}</div>
 
       {club.events && club.events ? (
         <>
@@ -68,7 +68,7 @@ const ClubEventsIndex = ({ user }) => {
       <ClubBox club={club} user={user} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
           <div className="w-full lg:w-3/12 px-3">
-            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            <div className="text-2xl font-bold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
           <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>

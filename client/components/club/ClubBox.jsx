@@ -58,8 +58,8 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
   const leftInfo = (
     <>
       {club && (
-        <div className="flex items-center sm:flex-start hd:mt-0">
-          <h1 className="text-2xl font-extrabold">
+        <div className="flex items-center mt-4 sm:mt-0 sm:flex-start hd:mt-0">
+          <h1 className="text-2xl font-bold">
             {club.name}
           </h1>
           <div className="bg-black text-white text-xs rounded-full uppercase mt-1 ml-3 px-3 py-1">
@@ -75,9 +75,11 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
       <SecondaryNav
         left={leftInfo}
         breadcrumbs={
-          <Breadcrumbs
-            items={breadcrumbs}
-          />
+        <div className="hidden sm:block">
+            <Breadcrumbs
+              items={breadcrumbs}
+            />
+        </div>
         }
       >
           <Tabs

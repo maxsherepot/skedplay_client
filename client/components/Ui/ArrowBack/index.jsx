@@ -5,10 +5,11 @@ import cx from "classnames";
 import { ArrowPrevSvg } from "icons";
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { useSteps } from "hooks";
+import {useTranslation} from "react-i18next";
 
 const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
   const { step, setStep } = useSteps();
-
+  const {t, i18n} = useTranslation();
   const handleBack = () => {
     if (back) {
       return Router.back();
@@ -33,7 +34,7 @@ const ArrowBack = ({ className, href, title, color, back, onPopup }) => {
     >
         <span className="flex items-center">
             <ArrowLeft fontSize="large" className={`stroke-${color === "white" ? color : "red"} ${color === "white" ? "" : "text-red"}`}/>
-            <span className="inline-block sm:inline-block sm:ml-1">{title}</span>
+            <span className="inline-block sm:inline-block sm:ml-1">{title || t("common.back")}</span>
         </span>
       {/*<ArrowPrevSvg className={`stroke-${color === "white" ? color : "red"}`}>
         <span className="hidden sm:inline-block ml-2">{title}</span>
@@ -54,7 +55,6 @@ ArrowBack.propTypes = {
 ArrowBack.defaultProps = {
   href: "",
   back: false,
-  title: "Back",
   color: "black",
   onPopup: false,
 };

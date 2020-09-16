@@ -41,7 +41,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
   return (
     <>
       <div className="flex items-center">
-        <div className="text-2xl font-extrabold my-5">{rest.title}</div>
+        <div className="text-2xl font-bold my-5">{rest.title}</div>
         <span className="hidden sm:hidden items-center ml-9">
           <span className="text-xs mr-2">{t('schedule.view_for_month')}</span>
           <CalendarSvg />
@@ -57,7 +57,7 @@ const EmployeeSchedule = ({ employee, ...rest }) => {
         {schedule &&
           schedule.map((s, i) => (
             <section className="mb-3" key={i}>
-              <div className="flex">
+              <div className="flex text-grey">
                 <span className="inline-block w-10 sm:mr-4">
                   {getPeriodDate(s.day)}
                 </span>

@@ -59,7 +59,7 @@ const ClubEventShow = ({ user }) => {
     <div className="flex -mx-3">
       <div className="w-full px-3">
         <div className="flex items-end my-5">
-          <div className="text-2xl font-extrabold tracking-tighter">
+          <div className="text-2xl font-bold tracking-tighter">
             {t('clubs.event_in', {name: club.name})}
           </div>
           <Link
@@ -95,7 +95,7 @@ const ClubEventShow = ({ user }) => {
                 <EventLabel type={event.type} />
               </div>
             </div>
-            <div className="text-2xl font-extrabold truncate my-5">
+            <div className="text-2xl font-bold truncate my-5">
               {event.title}
             </div>
           </div>
@@ -128,7 +128,7 @@ const ClubEventShow = ({ user }) => {
       <ClubBox club={club} user={user} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-2/5 px-3">
-            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            <div className="text-2xl font-bold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
           <div className="w-full lg:w-3/5 px-3">{contentColumn}</div>

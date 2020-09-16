@@ -46,7 +46,7 @@ const AccountSettings = ({ user }) => {
       <div className="container">
         {user.employee ? (
             <div className="">
-              <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
+              <div className="text-2xl font-bold tracking-tighter leading-none my-5 mx-3">
                 {t('account.contact_information')}
               </div>
               <p className="italic mb-5 mx-3">
@@ -61,7 +61,7 @@ const AccountSettings = ({ user }) => {
             </div>
         ) : (
             <div className="">
-              <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
+              <div className="text-2xl font-bold tracking-tighter leading-none my-5 mx-3">
                 {t('account.contact_information')}
               </div>
               <p className="italic mb-5 mx-3">

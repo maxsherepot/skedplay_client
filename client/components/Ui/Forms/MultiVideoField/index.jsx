@@ -115,7 +115,7 @@ function MultiVideoField({
           {previews.length < 2 && (
             <label
               className="relative px-3"
-              style={{ paddingLeft: 0, marginBottom: 0 }}
+              style={{ marginBottom: 0 }}
             >
               {children}
               <input

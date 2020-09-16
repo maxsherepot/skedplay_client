@@ -26,8 +26,8 @@ function Pagination({ page, setPage, total, lastPage }) {
   };
 
   return (
-    <div className="flex items-center justify-center my-5">
-      <div className="flex items-center cursor-pointer" onClick={prev}>
+    <div className="flex items-center justify-center my-5 overflow-x-auto">
+      <div className="hidden sm:flex items-center cursor-pointer" onClick={prev}>
         <ArrowPrevSvg disabled={page <= 1}>
           <span className="mx-1 lg:mx-3">{t('common.prev')}</span>
         </ArrowPrevSvg>
@@ -45,7 +45,7 @@ function Pagination({ page, setPage, total, lastPage }) {
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
       />
-      <div className="flex items-center cursor-pointer" onClick={next}>
+  <div className="hidden sm:flex items-center cursor-pointer" onClick={next}>
         <ArrowNextSvg disabled={page >= lastPage}>
           <span className="mx-1 lg:mx-3">{t('common.next')}</span>
         </ArrowNextSvg>

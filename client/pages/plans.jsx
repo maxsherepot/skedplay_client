@@ -101,7 +101,7 @@ const Plans = ({user}) => {
 
             {(me && me.is_club_owner) && (
               <div>
-                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
                   {t('after_register.welcome_for_club_owner', {name: `${me.name}`})}
                   <div className="row mt-5">
                     <YesButton link="/clubs/add"/>
@@ -113,7 +113,7 @@ const Plans = ({user}) => {
 
             {(me && me.is_employee && me.employee) && (
               <div>
-                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
                   {t('after_register.welcome_to_portal')} {me.employee.name} {t('after_register.you_want_to_edit_profile_or_photos')}
                   <div className="row mt-5">
                     <YesButton link="/account/ad"/>
@@ -126,7 +126,7 @@ const Plans = ({user}) => {
 
             {(me && me.is_client) && (
               <div>
-                <div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+                <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
                   {t('after_register.welcome_to_portal')} {me.name} {t('after_register.you_want_to_show_profile')}
                   <div className="row mt-5">
                     <YesButton link="/account"/>
@@ -137,7 +137,7 @@ const Plans = ({user}) => {
             )}
 
             {/*temporary hide section plans*/}
-            {/*<div className="text-white uppercase font-extrabold text-2xl text-center leading-none mt-10">
+            {/*<div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
                             {t('plans.choose_plan')}
                         </div>
 

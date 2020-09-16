@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { TextField, ButtonGroupField, DateRawField } from "UI";
+import { TextField, CheckboxField, ButtonGroupField, DateRawField } from "UI";
 import {useTranslation} from "react-i18next";
 
 const RegisterStep = () => {
@@ -9,28 +9,26 @@ const RegisterStep = () => {
 
   return (
     <>
-      <ButtonGroupField
-        style={{
-          marginBottom: '50px',
-        }}
-        className="mt-4"
-        label={t('register.account_type')}
-        name="account_type"
-        items={[
-          {
-            name: t('register.employee'),
-            value: "employee"
-          },
-          {
-            name: t('register.club_owner'),
-            value: "club_owner"
-          },
-          {
-            name: t('register.client'),
-            value: "client"
-          }
-        ]}
-      />
+    <div className="mt-4 mb-4 sm:mb-8">
+        <ButtonGroupField
+          label={t('register.account_type')}
+          name="account_type"
+          items={[
+            {
+              name: t('register.employee'),
+              value: "employee"
+            },
+            {
+              name: t('register.club_owner'),
+              value: "club_owner"
+            },
+            {
+              name: t('register.client'),
+              value: "client"
+            }
+          ]}
+        />
+    </div>
 
       <div className="md:flex md:justify-between md:-mx-3">
         <ButtonGroupField
@@ -91,6 +89,19 @@ const RegisterStep = () => {
           placeholder={t('register.password_confirm_placeholder')}
         />
       </div>
+      <div className="flex items-center mt-2 px-2 mb-6 ">
+        <CheckboxField
+          label={(
+              <div className="text-grey text-sm row">
+                 {t('register.creating_account_you_agree')}
+                 <a href="/helpcenter/terms-of-use" className="underline pr-1">{t('register.terms_conditions')}</a>
+                   {t('common.and')}
+                   <a href="/helpcenter/private-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
+               </div>
+          )}
+          name={'creating_account_you_agree'}
+        />
+      </div>
     </>
   );
 };
@@ -102,7 +113,8 @@ RegisterStep.validationSchema = Yup.object().shape({
   gender: Yup.number().required(),
   email: Yup.string().required(),
   password: Yup.string().required(),
-  password_confirmation: Yup.string().required()
+  password_confirmation: Yup.string().required(),
+  creating_account_you_agree: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required')
 });
 
 export default RegisterStep;

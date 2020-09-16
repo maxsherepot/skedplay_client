@@ -174,7 +174,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           ))}
         </Slider>
 
-        <div className="absolute z-20 top-0 right-0 p-3-5">{favorite}</div>
+        <div className="absolute z-20 top-0 right-0 py-6 px-8">{favorite}</div>
 
         <div className="absolute inset-0 flex items-center">
           <div

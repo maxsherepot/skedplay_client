@@ -122,6 +122,7 @@ const GirlsSearch = ({ entityName, entityUrl, rootHeader, header, fields, initia
           <Filter
             name={filterName}
             header={header}
+            isFiltersOpen={isFiltersOpen}
             inititalState={initialFilters[entityName]}
             filters={filtersState}
             fields={fields}

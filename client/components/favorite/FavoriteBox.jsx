@@ -15,7 +15,7 @@ const tabs = [
 const FavoriteBox = ({ user, children }) => {
   const {t, i18n} = useTranslation();
   const leftInfo = (
-    <div className="hidden hd:block text-3xl font-extrabold hd:text-white">
+    <div className="hidden hd:block text-2xl font-bold hd:text-white">
       {t('layout.favorites')}
     </div>
   );

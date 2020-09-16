@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import Link from 'components/SlashedLink'
 
+import Menu from "@material-ui/icons/Menu";
 import { ProfileSvg, CrownSvg } from "icons";
-import { Logo, Button, Lang, FavoritesCount, MobileDrawerMenu, MobileDrawerCategory } from "UI";
+import { Avatar, Logo, Button, Lang, FavoritesCount, MobileDrawerMenu, MobileDrawerCategory } from "UI";
 // import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
 import {useTranslation} from "react-i18next";
@@ -136,7 +137,7 @@ function Nav({ user, className }) {
 
   // const whiteTheme = (className || '').indexOf('nav__theme_white') !== -1;
   const whiteTheme = isInverse || router.pathname !== '/';
-
+  const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
   return (
     <nav
       className={classNames(
@@ -297,13 +298,31 @@ function Nav({ user, className }) {
               </>
             )}
 
-            <button
-              className="menu-icons__item menu-icons__item_last md:hidden pr-0"
-              id="menu-hamburger"
-              onClick={() => setIsAccountOpen(true)}
-            >
-                <ProfileSvg />
-            </button>
+            <div className="flex items-center md:hidden">
+                {
+                    user ?
+                        (
+                            avatar ?
+                                <Avatar className="ml-2" onClick={() => setIsAccountOpen(true)} style={{width: 42, height: 42}} isEmpty={!avatar} src={avatar}/>
+                                :
+                                <button
+                                  className="menu-icons__item menu-icons__item_last md:hidden pr-0"
+                                  id="menu-hamburger"
+                                  onClick={() => setIsAccountOpen(true)}
+                                >
+                                    <ProfileSvg />
+                                </button>
+                        )
+                        :
+                        <button
+                          className="menu-icons__item menu-icons__item_last md:hidden pr-0"
+                          id="menu-hamburger"
+                          onClick={() => setIsAccountOpen(true)}
+                        >
+                            <Menu className="text-grey" style={{color: "#4c4c4c"}}/>
+                        </button>
+                }
+            </div>
           </div>
         </div>
       </div>

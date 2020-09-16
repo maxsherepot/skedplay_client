@@ -14,7 +14,7 @@ function EventsBox({events}) {
   return (
     <div className="relative md:mt-2 lg:flex lg:self-end lg:mb-6 lg:mt-2 lg:flex-col lg:ml-10 hd:ml-42">
       <div className="flex text-white items-end leading-none">
-        <div className="text-4xl font-extrabold tracking-tighter">
+        <div className="text-2xl font-bold tracking-tighter">
           {t('index.fresh_events')}
         </div>
         <Link href="/events">

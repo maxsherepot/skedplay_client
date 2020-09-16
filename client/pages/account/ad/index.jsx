@@ -30,7 +30,7 @@ const AccountAdEdit = ({user}) => {
     <div className="">
       <div className="flex items-center py-4">
         <ArrowBack back className=""/>
-        <div className="ml-10">
+        <div className="ml-10 hidden sm:block">
           <Link href="/account">
             <a className="text-red hover:text-pink">{t('account.my_account')}</a>
           </Link>
@@ -49,7 +49,7 @@ const AccountAdEdit = ({user}) => {
     <div className="container">
       <Breadcrumbs/>
 
-      <div className="bg-white shadow rounded-lg p-8">
+      <div className="bg-white shadow rounded-lg p-4 sm:p-8">
           {
               getFromLS("employee_form_state") === "done" &&
                   <EditEmployeeHeader

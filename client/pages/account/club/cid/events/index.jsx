@@ -113,7 +113,7 @@ const EventList = ({events, club, removeEvent}) => {
 
     return (
         <>
-            <h3 className="text-3xl font-extrabold tracking-tighter leading-none mb-5">
+            <h3 className="text-3xl font-bold tracking-tighter leading-none mb-5">
                 {t('account.events_in')} {club.name}
             </h3>
 

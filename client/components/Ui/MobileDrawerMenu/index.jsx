@@ -28,7 +28,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
     const { t, i18n } = useTranslation();
 
 
-    const avatar = user ? ((user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined) : undefined
+    const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
 
     return (
         <MobileDrawer isOpen={isOpen} onClose={onClose}>
@@ -48,24 +48,24 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                 <div className="container">
                     {
                         user ?
-                        <div className="flex flex items-start justify-start pt-6 pb-6">
+                        <div className="flex flex items-start justify-start pt-3 pb-3">
                             <span className="mt-2">
                                 <Avatar isEmpty={!avatar} src={avatar}/>
                             </span>
 
                           <div className="ml-4">
                             {user && user.is_employee ? (
-                              <span className="text-2xl font-medium capitalize">
+                              <span className="text-xl font-medium capitalize">
                                 {user.employee.name} <span className="hidden">{user.age ? `, ${user.age}` : ''}</span>
                               </span>
                             ) : (
-                              <span className="text-2xl font-medium capitalize">
+                              <span className="text-xl font-medium capitalize">
                                 {user.name} {user.age ? `, ${user.age}` : ''}
                               </span>
                             )}
-                            <div className="profile-info-box flex flex-col items-center justify-center mt-2">
-                              <AccountLabel {...user} />
-                              <span className="profile-phone sm:ml-2 mt-2">{user.phone}</span>
+                            <div className="profile-info-box flex flex-col items-center justify-center">
+                              <AccountLabel {...user} style={{paddingTop: 2, paddingBottom: 2}}/>
+                              <span className="profile-phone sm:ml-2 mt-1 text-sm">{user.phone}</span>
                             </div>
                           </div>
                         </div>

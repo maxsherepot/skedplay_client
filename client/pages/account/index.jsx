@@ -9,7 +9,7 @@ const AccountShow = ({ user }) => {
   const {t, i18n} = useTranslation();
 
   let Box;
- 
+
   if (user.is_employee) {
     Box = <PrivateBox user={user} key={user.id} />;
   } else if (user.is_club_owner) {
@@ -22,7 +22,7 @@ const AccountShow = ({ user }) => {
     <>
       {user.status === 2 &&
         <div className="mb-5">
-          <div className="text-2xl font-extrabold">
+          <div className="text-2xl font-bold">
             {t('account.account_rejected')}
           </div>
           <div className="text-xl">

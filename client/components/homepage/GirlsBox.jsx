@@ -8,7 +8,7 @@ function GirlsBox({employees, user}) {
       {employees &&
         employees.data.map(girl => (
           <div
-            className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 1hd:w-1/5 px-2 "
+            className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 hd:w-1/5 px-2 "
             key={girl.id}
           >
             <GirlCard girl={girl} user={user} />

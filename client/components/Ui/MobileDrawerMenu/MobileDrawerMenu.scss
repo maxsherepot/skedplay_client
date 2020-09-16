@@ -11,10 +11,12 @@
     background-color: rgba(0, 0, 0, 0.12);
   }
   .account-layout-sidebar {
-    display: flex;
     border: none;
+    @apply flex justify-start;
     > div {
       padding: 0.5rem;
+      padding-left: 0;
+      margin-left: -18px;
     }
   }
   .c-account__avatar-wrap {

@@ -32,7 +32,7 @@ const EventsContainer = ({user, events}) => {
     <div className="container mx-auto relative z-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col">
-          <h1 className="block text-white mt-8 pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
+          <h1 className="block text-white mt-3 pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
               className="block relative -mt-1 z-10 font-extrabold uppercase tracking-tighter leading-tight text-5-75xl ">
               <div className="block company-item__div-name">{t('index.intimate')}</div>
@@ -168,7 +168,7 @@ const Index = ({user}) => {
         <div className="index-bg-bottom"/>
         <div className="container">
           <div className="flex text-black items-end leading-none text-black md:text-white">
-            <div className="text-2xl sm:text-2xl font-extrabold tracking-tighter capitalize">
+            <div className="text-2xl sm:text-2xl font-bold tracking-tighter capitalize">
               {t('common.girls')}
             </div>
             <Link href="/girls">
@@ -182,7 +182,7 @@ const Index = ({user}) => {
           <GirlsBox employees={employees} user={user}/>
 
           <div className="flex text-black items-end leading-none mt-8">
-            <div className="text-2xl sm:text-2xl font-extrabold tracking-tighter">
+            <div className="text-2xl sm:text-2xl font-bold tracking-tighter">
               {t('common.best_clubs')}
             </div>
             <Link href="/clubs">

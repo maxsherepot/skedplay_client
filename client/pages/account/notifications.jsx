@@ -16,7 +16,7 @@ const AccountNotifications = ({ user }) => {
     <div className="container">
       <div className="flex items-center py-4">
         <ArrowBack back />
-        <div className="ml-10">
+        <div className="ml-10 hidden sm:block">
           <Link href="/account">
             <a className="text-red hover:text-pink">{t('common.my_account')}</a>
           </Link>

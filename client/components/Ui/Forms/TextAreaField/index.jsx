@@ -11,6 +11,7 @@ function TextField({
   labelClassName,
   label,
   name,
+  styleTextLength,
   textLength,
   autoComplete,
   ...rest
@@ -19,7 +20,7 @@ function TextField({
   const error = formErrors.getErrorText(name, label, touched, errors);
 
   return (
-    <FormGroup className={className} error={!!error}>
+    <FormGroup className={"relative " + (className || "")} error={!!error}>
       <label className={labelClassName} htmlFor={name}>
         {error ? error : label}
       </label>
@@ -27,7 +28,7 @@ function TextField({
       <Field name={name}>
         {({ field }) => (
           <>
-            <span className="absolute right-0 top-0 pr-5 text-sm text-grey">
+            <span className="absolute top-0 right-0 pr-5 text-sm text-grey" style={styleTextLength || {}}>
               {(field.value && field.value.length) || 0} / {textLength}
             </span>
             <textarea

@@ -110,6 +110,7 @@ function RegisterForm({ onSubmit, children }) {
         password_confirmation: "",
         recaptcha: "",
         code: "",
+        creating_account_you_agree: false,
         ref_code: query.ref_code || Cookies.get('ref_code') || '',
       }}
       // validate={validate}
@@ -172,15 +173,6 @@ function RegisterForm({ onSubmit, children }) {
               </Link>
             )}
           </div>
-
-          {isLastStep && (
-              <div className="text-grey text-sm row">
-                {t('register.creating_account_you_agree')}
-                <a href="/helpcenter/terms-of-use" className="underline pr-1">{t('register.terms_conditions')}</a>
-                  {t('common.and')}
-                  <a href="/helpcenter/private-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
-              </div>
-          )}
         </form>
       )}
     </Formik>

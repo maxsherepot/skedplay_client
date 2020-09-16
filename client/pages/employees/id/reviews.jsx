@@ -89,7 +89,7 @@ const EmployeeReviews = ({user}) => {
     <>
       <div className="flex -mx-3">
         <div className="w-full px-3">
-          <div className="text-2xl font-extrabold my-5">
+          <div className="text-2xl font-bold my-5">
             {t('employees.reviews', {first_name: employee.first_name, last_name: employee.last_name})}
           </div>
           <MasonryLayout
@@ -166,7 +166,7 @@ const EmployeeReviews = ({user}) => {
             <span className="w-full flex justify-center hd:hidden">
                 {isReviewFormOpen &&
                     <div className="w-full px-3" style={{maxWidth: "500px"}}>
-                      <div className="flex justify-center text-center text-2xl font-extrabold my-5">
+                      <div className="flex justify-center text-center text-2xl font-bold my-5">
                         {t('employees.leave_comment')}
                       </div>
                       {sidebarColumn}
@@ -174,7 +174,7 @@ const EmployeeReviews = ({user}) => {
                 }
             </span>
             <div className="w-full hd:w-3/12 px-3 hidden hd:block">
-              <div className="text-2xl font-extrabold my-5">
+              <div className="text-2xl font-bold my-5">
                 {t('employees.leave_comment')}
               </div>
               {sidebarColumn}

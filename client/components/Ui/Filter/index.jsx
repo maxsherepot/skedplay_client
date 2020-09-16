@@ -17,12 +17,13 @@ import {useTranslation} from "react-i18next";
 import DateField from "UI/Forms/DateField";
 import React from "react";
 
-function Filter({ name, header, fields, inititalState, filters, setFilters, onlySeletedBar, setFilter, bgClass }) {
+function Filter({ name, header, fields, isFiltersOpen, inititalState, filters, setFilters, onlySeletedBar, setFilter, bgClass }) {
   const {t, i18n} = useTranslation();
 
   const selectedBar = (
       <SelectedBar
         name={name}
+        isFiltersOpen={isFiltersOpen}
         fields={fields}
         inititalState={inititalState}
         filters={filters}
@@ -123,7 +124,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, only
 
                         case "checkbox":
                           return (
-                            <div className="form-group px-4 pb-2 relative" key={index}>
+                            <div className="form-group text-white px-4 pb-2 relative" key={index}>
                               <CheckboxField
                                 className=""
                                 checkboxClass="white"
@@ -152,7 +153,7 @@ function Filter({ name, header, fields, inititalState, filters, setFilters, only
                     })}
                 </div>
                 <div className="flex flex flex-row justify-center items-center w-full -mx-4">
-                    <FormGroup className="mt-0 sm:mt-2 lg:mt-0 hd:mt-4 w-full md:w-1/3 xl:w-1/4 hd:w-1/5 px-2">
+                    <FormGroup className="-mt-3 sm:mt-2 lg:mt-0 hd:mt-4 w-full md:w-1/3 xl:w-1/4 hd:w-1/5 px-2">
                         <Button
                             className="w-full"
                             size="sm"

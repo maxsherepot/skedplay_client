@@ -11,7 +11,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
 
   return (
     <>
-      <div className="container flex items-center justify-between mt-2 sm:mt-4">
+      <div className="container flex items-center text-sm sm:text-base justify-between mt-2 sm:mt-4">
         <div>
           {employees && employees.paginatorInfo
             ? employees.paginatorInfo.total

@@ -176,13 +176,13 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
             <div className="xl:max-w-3/4" style={{maxWidth: 550}}>
               {selectedTopic ?
                 <>
-                  <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
+                  <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
                     {getLangField(selectedTopic.name, i18n.language)}
                   </h1>
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
                 </>
                 :
-                <h1 className="text-4xl font-extrabold tracking-tighter leading-none mb-5">
+                <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5">
                   {t('layout.help_center')}
                 </h1>
               }

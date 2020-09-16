@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 import redirect from "lib/redirect";
 import cx from 'classnames';
 
-function EditEmployeeForm({ withStep, initialValues, children }) {
+function EditEmployeeForm({ withStep, onLastStep, initialValues, children }) {
   const { step, setStep } = useSteps();
 
 
@@ -19,6 +19,21 @@ function EditEmployeeForm({ withStep, initialValues, children }) {
   const totalSteps = React.Children.toArray(children).length
   const isLastStep = step === (totalSteps - 1)
 
+  const onNextStep = (status) => {
+      if (status) {
+          if (withStep) {
+              if (isLastStep) {
+                  onLastStep && onLastStep()
+                  redirect(undefined, "/account")
+                  setStep(0)
+              } else {
+                  setStep(step + 1)
+              }
+              window.scrollTo(0, 0)
+          }
+      }
+
+  }
 
   const validate = values => {
     if (activeStep.props.validationSchema) {
@@ -51,18 +66,7 @@ function EditEmployeeForm({ withStep, initialValues, children }) {
       } else if (!status && message) {
         setStatus(message);
       }
-
-      if (status) {
-          if (withStep) {
-              if (isLastStep) {
-                  setStep(0)
-                  redirect(undefined, "/account")
-              } else {
-                  setStep(step + 1)
-              }
-              window.scrollTo(0, 0)
-          }
-      }
+      return status
     }
 
     // if (isLastStep) {
@@ -84,8 +88,8 @@ function EditEmployeeForm({ withStep, initialValues, children }) {
       validate={validate}
       onSubmit={handleSubmits}
     >
-      {({ handleSubmit, isSubmitting, status }) => (
-        <form onSubmit={handleSubmit}>
+      {({ handleSubmit, isSubmitting, status, submitForm }) => (
+        <form onSubmit={handleSubmit} className="edit-employee-form">
           {isSubmitting && <Loader/>}
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12 my-5">
@@ -106,7 +110,7 @@ function EditEmployeeForm({ withStep, initialValues, children }) {
                   <div className="flex flex-col items-start mx-auto hd:w-7/12">
                     <div className="w-full p-8 hd:px-0">
                       <Button
-                        level={step <= 0 ? "grey" : "primary"}
+                        level={step <= 0 ? "grey" : "secondary-light"}
                         className="w-full sm:w-auto text-xl px-16 mb-4 md:mb-0 sm:mr-4"
                         onClick={() => {setStep(step - 1); window.scrollTo(0, 0)}}
                         type="button"
@@ -115,7 +119,7 @@ function EditEmployeeForm({ withStep, initialValues, children }) {
                         {t('common.back')}
                       </Button>
                       <Button
-                        type="submit"
+                        onClick={() => submitForm().then(() => onNextStep(true))}
                         className="w-full sm:w-auto text-xl px-16"
                         disabled={isSubmitting}
                       >

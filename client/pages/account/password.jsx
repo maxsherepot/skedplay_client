@@ -16,7 +16,7 @@ const AccountPassword = ({user}) => {
         <div className="container">
             <div className="flex items-center py-4">
                 <ArrowBack back/>
-                <div className="ml-10">
+                <div className="ml-10 hidden sm:block">
                     <Link href="/account">
                         <a className="text-red hover:text-pink">{t('common.my_account')}</a>
                     </Link>
@@ -33,7 +33,7 @@ const AccountPassword = ({user}) => {
 
             <div className="container">
                 <div className="bg-white shadow rounded-lg p-8">
-                    <div className="text-2xl font-extrabold tracking-tighter leading-none my-5 mx-3">
+                    <div className="text-2xl font-bold tracking-tighter leading-none my-5 mx-3">
                         {t('account.change_password')}
                     </div>
 

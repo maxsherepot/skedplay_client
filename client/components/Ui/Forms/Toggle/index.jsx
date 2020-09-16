@@ -12,6 +12,7 @@ const Toggle = ({ className, checked, trueLabel, falseLabel }) => {
     )}>
       <span
         className={cx([
+            "text-sm sm:text-base",
           checked ? "" : "",
         ])}
       >
@@ -20,7 +21,7 @@ const Toggle = ({ className, checked, trueLabel, falseLabel }) => {
 
       <span
         className={cx([
-          "transition rounded-full w-7 h-7",
+          "transition rounded-full w-3 h-3 mx-2 sm:w-5 sm:h-5",
           checked ? "bg-red" : "bg-black",
         ])}
       />

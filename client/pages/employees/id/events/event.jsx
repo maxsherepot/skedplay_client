@@ -82,7 +82,7 @@ const EmployeeEventShow = ({user}) => {
   const contentColumn = (
     <div className="flex flex-col lg:flex-row -mx-3">
       <div className="w-full lg:w-2/3 px-3">
-        <div className="text-2xl font-extrabold my-5">{t('employees.with_me')}</div>
+        <div className="text-2xl font-bold my-5">{t('employees.with_me')}</div>
         <div className="relative">
           <img
             className="rounded-t-lg w-full object-cover h-80"
@@ -114,7 +114,7 @@ const EmployeeEventShow = ({user}) => {
         </div>
       </div>
       <div className="w-full lg:w-1/3 px-3">
-        <div className="text-2xl font-extrabold my-5">{t('employees.event_adresse')}</div>
+        <div className="text-2xl font-bold my-5">{t('employees.event_adresse')}</div>
 
         <div className="relative w-full h-80 overflow-hidden">
           <GoogleMap className="absolute top-0 left-0 z-20"/>
@@ -156,7 +156,7 @@ const EmployeeEventShow = ({user}) => {
       <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-wrap -mx-3">
           <div className="w-full lg:w-3/12 px-3">
-            <div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>
+            <div className="text-2xl font-bold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
           <div className="w-full lg:w-9/12 px-3">{contentColumn}</div>

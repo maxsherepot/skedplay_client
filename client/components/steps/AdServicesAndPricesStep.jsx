@@ -24,35 +24,35 @@ const AdServicesAndPricesStep = () => {
 
   return (
     <>
-      <div className="text-4xl font-extrabold mb-5">{t('steps.price')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5">{t('steps.price')}</div>
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           {price_types.map(({ id, display_name }) => (
             <TextField
               key={id}
-              className="w-full md:flex-1 hd:w-1/12 px-2"
+              className="sm:w-3/12 md:w-3/12 lg:w-1/6 w-1/2 hd:w-1/6 px-2"
               inputClassName="w-1/12"
               label={display_name}
               name={`prices.${id}`}
-              after={<span>$</span>}
+              after={<span className="adornment">$</span>}
             />
           ))}
         </div>
       </div>
 
-      <div className="text-4xl font-extrabold my-5">{t('common.services')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 mt-5">{t('common.services')}</div>
 
         <div className="px-16">
             <div className="flex flex-wrap -mx-32">
                 {groupServices && groupServices.map((groupService) => (
                     <div className="w-full sm:w-1/2">
-                        <div className="row text-center text-2xl">
+                        <div className="row text-center text-xl sm:text-2xl">
                             <h2>{groupService.name}</h2>
                         </div>
                         {services.map((service) => (service.group && service.group.id === groupService.id && (
                             <div
-                                className="flex flex-row items-center justify-between w-full px-16 mb-6 sm:mb-2"
+                                className="flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-16 mb-6 sm:mb-2"
                                 key={service.id}
                             >
                                 <CheckboxField label={service.name} name={`services.${service.id}.active`} />
@@ -64,8 +64,8 @@ const AdServicesAndPricesStep = () => {
                                         key={service.id}
                                         label=""
                                         name={`services.${service.id}.price`}
-                                        after={<span>$</span>}
-                                        before={<span>+</span>}
+                                        after={<span className="adornment">$</span>}
+                                        before={<span className="adornment">+</span>}
                                     />
                                 </div>
                             </div>

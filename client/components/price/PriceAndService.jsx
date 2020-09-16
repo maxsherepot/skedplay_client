@@ -8,7 +8,7 @@ const PriceAndService = ({ title, prices, services }) => {
 
     return (
         <>
-            <div className="text-2xl font-extrabold my-5">
+            <div className="text-2xl font-bold my-5">
                 {title}
             </div>
             <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">

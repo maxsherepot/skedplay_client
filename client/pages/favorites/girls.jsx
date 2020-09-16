@@ -38,7 +38,7 @@ const FavoriteGirls = ({ user }) => {
 
   return (
     <FavoriteBox user={user}>
-      <div className="text-2xl font-extrabold my-5">{t('favorites.page_girls')}</div>
+      <div className="text-2xl font-bold my-5">{t('favorites.page_girls')}</div>
 
       <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">
         {favoriteEmployees &&

@@ -27,7 +27,7 @@ const UserDropdown = ({ user }) => {
 
   const { t, i18n } = useTranslation();
 
-  const avatar = user ? ((user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined) : undefined
+  const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
 
   return (
     <>

@@ -17,8 +17,10 @@
 
 body {
   overflow-x: hidden;
-  min-width: 320px;
+  min-width: 280px;
 }
+
+
 
 main {
   padding-bottom: 260px;
@@ -47,6 +49,14 @@ main.react-images__pager {
   @media (max-width: 767px) {
     height: 165px;
   }
+}
+
+.editor-js-block h2 {
+    @apply text-xl font-bold -mb-4;
+}
+
+.editor-js-block p {
+    @apply my-6;
 }
 
 .popup-content {
@@ -83,11 +93,21 @@ main.react-images__pager {
 }
 
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .MuiTab-root {
         min-width: 120px !important;
     }
 }
+
+@media (max-width: 767px) {
+    .payment-dialog .MuiPaper-root.MuiDialog-paper {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        max-height: 100%;
+    }
+}
+
 
 .girls-slider__section {
   padding-right: 11%;
@@ -132,6 +152,7 @@ main.react-images__pager {
 
 }
 
+
 .index-bg-bottom {
   position: absolute;
   bottom: 0;
@@ -173,8 +194,14 @@ button:focus {
   }
 }
 
-.container {
-    max-width: auto !important;
+
+
+@media (min-width: 800px) and (max-width: 1400px) {
+    .container {
+        max-width: initial !important;
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+    }
 }
 
 .container, .container-simple {
@@ -275,13 +302,21 @@ button:focus {
   }
 }
 
+
 .services-select__div {
   .dropdown__content.open {
     width: 500px;
-    max-width: 100%;
     > div {
       display: grid;
       grid-template-columns: repeat(3,1fr);
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .services-select__div {
+    .dropdown__content.open {
+      max-width: 100%;
     }
   }
 }

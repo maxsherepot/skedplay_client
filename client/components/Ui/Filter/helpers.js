@@ -148,8 +148,17 @@ export default {
     };
   },
   getGirlsFilters(cantons, cities, services, employee_race_types, t) {
+      const locationFilters = this.getLocationFilters(cantons, cities, t)
+      const locationFiltersList = []
+      if (locationFilters.length > 0) {
+          locationFiltersList.push(locationFilters[0])
+      }
+      locationFilters.push(this.getDistanceFilter(t))
+      if (locationFilters.length > 1) {
+          locationFiltersList.push(locationFilters[1])
+      }
     return [
-      ...this.getLocationFilters(cantons, cities, t),
+        ...locationFiltersList,
       {
         component: "multi-select",
         name: "services",
@@ -202,7 +211,6 @@ export default {
           return t('common.age_from_to', {from: from, to: to});
         }
       },
-      this.getDistanceFilter(t),
       {
         component: "checkbox",
         name: "show_level",

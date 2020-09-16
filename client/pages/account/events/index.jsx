@@ -174,7 +174,7 @@ const AccountEventsIndex = ({user}) => {
 
     return (
         <>
-            <div className="text-2xl font-extrabold tracking-tighter leading-none mb-5">
+            <div className="text-2xl font-bold tracking-tighter leading-none mb-5">
                 {t('account.events')}
             </div>
 

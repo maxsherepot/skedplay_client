@@ -20,7 +20,7 @@ const ServicesAndPricesStep = () => {
 
   return (
     <>
-      <div className="text-4xl font-extrabold mb-5">Price</div>
+      <div className="text-2xl font-bold mb-5">Price</div>
 
       <div className="px-2">
         <div className="flex flex-wrap -mx-4">
@@ -37,7 +37,7 @@ const ServicesAndPricesStep = () => {
         </div>
       </div>
 
-      <div className="text-4xl font-extrabold my-5">{t('common.services')}</div>
+      <div className="text-2xl font-bold my-5">{t('common.services')}</div>
 
       <div className="px-4">
         <div className="flex flex-wrap -mx-8">

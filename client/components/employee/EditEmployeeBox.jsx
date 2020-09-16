@@ -32,7 +32,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
   const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
   const [updateEmployeeSchedule] = useMutation(UPDATE_EMPLOYEE_SCHEDULE);
   const [updateUser] = useMutation(UPDATE_USER);
-  const [withStep, setWithStep] = useState(getFromLS("employee_form_state") !== "done")
+  const [withStep, setWithStep] = useState(false)
 
   let parameters = {};
   let services = {};
@@ -271,7 +271,9 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
 
   useEffect(() => {
+      const withStep = getFromLS("employee_form_state") !== "done"
       if (withStep) {
+          setWithStep(true)
           const stepState = parseInt(getFromLS("employee_form_state")) || 0
           if (stepState > 0) {
               setStep(stepState)
@@ -279,18 +281,19 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
       }
   }, [])
 
+
   useEffect(() => {
       //saveToLS("employee_form_state", undefined)
-      const stepState = getFromLS("employee_form_state");
-      if (stepState === "done") return
-      if ((links.length - 1) === step) {
-          saveToLS("employee_form_state", "done")
-          return
-      }
-      if ((parseInt(stepState) || 0) < step) {
-          saveToLS("employee_form_state", step)
+      if (withStep) {
+          const stepState = getFromLS("employee_form_state");
+          if (stepState === "done") return
+          if ((parseInt(stepState) || 0) < step) {
+              saveToLS("employee_form_state", step)
+          }
       }
   }, [step])
+
+  const onLastStep = () => saveToLS("employee_form_state", "done")
 
 
   return (
@@ -315,6 +318,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
           <EditEmployeeForm
             withStep={withStep}
+            onLastStep={onLastStep}
             initialValues={initialValues}
           >
             <Panel>

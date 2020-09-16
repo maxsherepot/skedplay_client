@@ -125,7 +125,7 @@ function NewClubForm({ onSubmit }) {
               </FormGroup>
             )}
 
-            <div className="text-4xl font-extrabold">{t('clubs.information')}</div>
+            <div className="text-2xl font-bold">{t('clubs.information')}</div>
             <div className="flex w-full -mx-3">
               <TextField
                 className="px-3 w-1/3"
@@ -161,7 +161,7 @@ function NewClubForm({ onSubmit }) {
               />
             </div>
 
-            <div className="text-4xl font-extrabold mt-12">
+            <div className="text-2xl font-bold mt-12">
               {t('clubs.club_location_and_contacts')}
             </div>
 
@@ -212,7 +212,7 @@ function NewClubForm({ onSubmit }) {
               />
             </div>
 
-            <div className="text-4xl font-extrabold mt-12">
+            <div className="text-2xl font-bold mt-12">
               {t('clubs.set_admin_for_club')}
             </div>
 

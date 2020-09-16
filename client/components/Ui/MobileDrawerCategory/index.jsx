@@ -13,11 +13,12 @@ import Event from '@material-ui/icons/Event';
 import Favorite from '@material-ui/icons/Favorite';
 import Whatshot from '@material-ui/icons/Whatshot';
 import { Lang, MobileDrawer, Button } from "UI";
+import { TransSvg } from "components/icons";
 import {useTranslation} from "react-i18next";
 
 const itemList = [
     {name: "common.girls", icon: <Favorite/>, link: "/girls"},
-    //{name: "common.trans", link: "/trans"},
+    {name: "common.trans", icon: <TransSvg color="#757575" style={{marginLeft: "-2px"}}/>, link: "/trans"},
     {name: "common.clubs", icon: <LocalBar/>, link: "/clubs"},
     {name: "common.events", icon: <Event/>, link: "/events"},
     {name: "common.vip", icon: <Whatshot style={{color: "#ff3395"}}/>, link: "/vip-escort"}
@@ -37,7 +38,7 @@ function MobileDrawerCategory({user, isOpen, onClose}) {
                 <List>
                     {itemList.map((item, index) => {
                         const selected = pathname.includes(item.link)
-                        if (item.name === "common.girls") {
+                        if (item.name === "common.girls1") {
                             return (
                                 <ListItem button selected={selected} onClick={(e) => setIsGirlsMenuOpen(e.currentTarget)}>
                                     <ListItemIcon className="">{item.icon}</ListItemIcon>

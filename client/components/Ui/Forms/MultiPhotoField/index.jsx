@@ -44,14 +44,14 @@ const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageInde
         <div className="flex flex-wrap items-center -mx-4">
           {photos.map((photo, i) => (
               <div
-                  className="relative w-full md:w-38 rounded-lg px-2 mb-6"
+                  className="relative sm:w-full w-1/2 md:w-38 rounded-lg px-2 mb-6"
                   key={i}
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
               >
                 <div className="relative">
                   <img
-                      className="rounded-lg object-cover h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg hd:h-e-photo-hd"
+                      className="rounded-lg object-cover h-56 sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-lg hd:h-e-photo-hd"
                       src={photo && photo.thumb_url}
                   />
 
@@ -196,7 +196,7 @@ function MultiPhotoField({
     <>
       <div className="flex justify-between">
         <div className="flex flex-col md:flex-row md:items-end mb-5">
-          <div className="text-4xl font-extrabold leading-none">{t('clubs.photos')}</div>
+          <div className="text-xl sm:text-2xl font-bold leading-none">{t('clubs.photos')}</div>
           <span className="md:ml-6 text-xs md:text-lg">
               {t('max_size_uploaded.photos')}
             </span>
@@ -207,9 +207,9 @@ function MultiPhotoField({
             onEnter={handleDeleteAll}
             title={`${t('act.delete_all')} ${t('account.photos')}?`}
             deleteButton={
-              <div className="flex items-center mb-5 cursor-pointer">
+              <div className="flex items-center mx-4 sm:mx-0 mb-5 cursor-pointer">
                 <TrashSvg/>
-                <span className="font-bold ml-3">
+                <span className="hidden sm:block font-bold ml-3">
                     {t('act.delete_all')}
                   </span>
               </div>
