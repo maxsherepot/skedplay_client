@@ -11,6 +11,7 @@ import CommonGirlsFilterUrl from "services/CommonGirlsFilterUrl";
 import React from "react";
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
+import initFiltersData from "lib/initFiltersData";
 
 const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl, user}) => {
   const ENTITY_NAME = entityName;
@@ -24,7 +25,7 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl, user}) => {
     }
   });
 
-  const { loading: filtersLoading, data: { filters } = {}, error } = useQuery(GET_FILTERS_STATE);
+  const filters = initFiltersData;
 
   const { loading: seoLoading, data: { employeesSeo } = {}, refetch: refetchSeo } = useQuery(
     EMPLOYEES_SEO,
@@ -40,14 +41,8 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl, user}) => {
     }
   );
 
-  if (loading || seoLoading || filtersLoading) {
+  if (loading || seoLoading) {
     return <Loader/>;
-  }
-
-  if (error || !filters) {
-    console.log(error);
-
-    return 'error';
   }
 
   const commonGirlsFilterUrl = new CommonGirlsFilterUrl(

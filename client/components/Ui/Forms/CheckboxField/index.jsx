@@ -38,7 +38,7 @@ function CheckboxField({ className, checkboxClass, label, labelStyle = {}, label
 CheckboxField.propTypes = {
   labelStyle: PropTypes.object,
   className: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  // label: PropTypes.string.isRequired,
   name: PropTypes.string
 };
 

@@ -15,6 +15,7 @@ import {Router} from "lib/i18n";
 import Head from "next/head";
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
+import initFiltersData from "lib/initFiltersData";
 
 const ENTITY_NAME = "events";
 
@@ -41,10 +42,9 @@ function Events({ user, isGeolocationEnabled }) {
     }
   );
 
-  const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
+  const filters = initFiltersData;
 
-
-  if (loading || filtersLoading || seoLoading) {
+  if (loading || seoLoading) {
     return <Loader/>;
   }
 

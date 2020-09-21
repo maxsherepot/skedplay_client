@@ -13,6 +13,7 @@ import ClubsFilterUrl from "../services/ClubsFilterUrl";
 import {Router} from "lib/i18n";
 import translation from "services/translation";
 import { NextSeo } from 'next-seo';
+import initFiltersData from "lib/initFiltersData";
 
 const ENTITY_NAME = "clubs";
 
@@ -48,9 +49,9 @@ function Clubs({user, isGeolocationEnabled}) {
     }
   );
 
-  const {data: {filters} = {}, loading: filtersLoading, error: filterError} = useQuery(GET_FILTERS_STATE);
+  const filters = initFiltersData;
 
-  if (loading || seoLoading || filtersLoading) {
+  if (loading || seoLoading) {
     return <Loader/>;
   }
 
