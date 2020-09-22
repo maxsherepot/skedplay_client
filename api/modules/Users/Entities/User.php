@@ -124,6 +124,42 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function(self $user) {
+            if (
+                ($user->attributes['role_id'] ?? false)
+                && request()->user()
+                && (
+                    request()->user()->hasRole(User::ACCOUNT_ADMIN)
+                    || request()->user()->hasRole(User::ACCOUNT_MANAGER)
+                )
+            ) {
+                cache()->put('user_role_attach', $user->attributes['role_id'], now()->addSeconds(30));
+
+                $user->attributes = collect($user->getAttributes())
+                    ->filter(fn($value, $key) => $key !== 'role_id')
+                    ->toArray();
+            }
+        });
+
+        static::saved(function(self $user) {
+            if (
+                cache()->get('user_role_attach')
+                && request()->user()
+                && (
+                    request()->user()->hasRole(User::ACCOUNT_ADMIN)
+                    || request()->user()->hasRole(User::ACCOUNT_MANAGER)
+                )
+            ) {
+                $user->syncRoles(Role::where('id', cache()->get('user_role_attach'))->get());
+                cache()->forget('user_role_attach');
+            }
+        });
+    }
+
     /**
      * Find the user instance for the given username.
      *
@@ -149,6 +185,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     {
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::PHOTO_AVATAR);
         $this->addMediaConversion('thumb')->height(470)->performOnCollections(self::VERIFY_PHOTO);
+    }
+
+    public function getRoleIdAttribute(): ?int
+    {
+        return $this->roles->first()->id ?? null;
     }
 
     /**

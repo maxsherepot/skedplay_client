@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
+use Modules\Users\Entities\Role;
 use Skidplay\UserTopInfo\UserTopInfo;
 
 class User extends Resource
@@ -93,7 +94,7 @@ class User extends Resource
         }
 
         if ($request->user()->hasRole('admin')) {
-            return $this->getAdminTabs();
+            return $this->getAdminTabs($user);
         }
 
         if ($request->user()->hasRole('club_owner')) {
@@ -208,22 +209,40 @@ class User extends Resource
         ];
     }
 
-    private function getManagerTabFields(): array
+    private function getManagerTabFields(\Modules\Users\Entities\User $user = null): array
     {
+        $rolesQuery = Role::query();
+
+        if (!\request()->user()->hasRole(Role::ADMIN)) {
+            $rolesQuery->where('name', '!=', 'admin');
+        }
+
+        if ($user && !$user->hasRole('admin')) {
+            $roleFields = [];
+        } else {
+            $roleFields = [
+                Select::make('Role', 'role_id')
+                    ->options($rolesQuery->pluck('name', 'id',))
+                    ->onlyOnForms()
+                    ->required()
+            ];
+        }
+
         return [
             Text::make('Name'),
 
-            BelongsToMany::make('Roles')
-                ->fields(
-                    function () {
-                        return [
-                            Text::make('user_type')
-                                ->hideWhenCreating(),
-                        ];
-                    }
-                )->displayUsing(function () {
-                    return $this->pivot->role;
-                }),
+//            BelongsToMany::make('Roles')
+//                ->fields(
+//                    function () {
+//                        return [
+//                            Text::make('user_type')
+//                                ->hideWhenCreating(),
+//                        ];
+//                    }
+//                )->displayUsing(function () {
+//                    return $this->pivot->role;
+//                }),
+            ...$roleFields,
 
             Text::make('Type')
                 ->onlyOnIndex()
@@ -305,11 +324,11 @@ class User extends Resource
         ];
     }
 
-    private function getAdminTabs(): array
+    private function getAdminTabs(\Modules\Users\Entities\User $user = null): array
     {
         return [
             new Tabs('Tabs', [
-                'About' => $this->getManagerTabFields(),
+                'About' => $this->getManagerTabFields($user),
                 HasOne::make('Verification', 'verify_photo', Verification::class),
             ]),
         ];
