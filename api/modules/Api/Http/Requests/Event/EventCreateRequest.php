@@ -18,7 +18,7 @@ class EventCreateRequest extends GraphQLFormRequest
         $rules = [
             'title'         => 'required|string|max:255',
             'description'   => 'required|string',
-            'event_type_id' => 'bail|required|integer|exists:events,id',
+            'event_type_id' => 'bail|required|integer|exists:event_types,id',
             'club_id'       => 'bail|nullable|integer|exists:clubs,id',
             'address'       => 'string|max:255',
             'mode' => ['required', Rule::in(array_keys(Event::MODES))],

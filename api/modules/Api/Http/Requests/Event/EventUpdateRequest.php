@@ -18,7 +18,7 @@ class EventUpdateRequest extends GraphQLFormRequest
         $rules = [
             'title'         => 'string|max:255',
             'description'   => 'string',
-            'event_type_id' => 'sometimes|numeric|exists:events,id',
+            'event_type_id' => 'sometimes|numeric|exists:event_types,id',
             'club_id'       => 'sometimes|nullable|numeric|exists:clubs,id',
             'address'       => 'string|max:255',
             'mode' => ['required', Rule::in(array_keys(Event::MODES))],
