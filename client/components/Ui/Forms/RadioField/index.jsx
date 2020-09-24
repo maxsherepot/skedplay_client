@@ -37,7 +37,7 @@ function RadioField({ className, name, items, handleChange, defaultValue }) {
               </div>
             </div>
 
-            <span className="text-xl align-middle">
+            <span className="align-middle">
               {item.name}
             </span>
           </label>

@@ -1,6 +1,6 @@
 import React from "react";
 import { MainLayout } from "layouts";
-import { SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
+import { Subscribe, SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
 import {useTranslation} from "react-i18next";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -109,6 +109,9 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
       </SecondaryNav>
 
       <div className="container">{children}</div>
+    <div className="mt-20">
+              <Subscribe image="/static/img/subscribe-girl.png"/>
+          </div>
     </MainLayout>
   );
 };

@@ -283,7 +283,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
 
   useEffect(() => {
-      //saveToLS("employee_form_state", undefined)
+      saveToLS("employee_form_state", undefined)
       if (withStep) {
           const stepState = getFromLS("employee_form_state");
           if (stepState === "done") return

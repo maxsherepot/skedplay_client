@@ -204,12 +204,12 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
                     <MaskSvg/>
                 </div>
             </div>
-            <div className="mt-3">
+            <div className="mt-3 mb-3 flex flex items-end">
                 <span className="font-medium text-lg flex flex-col">
                   {addressComponent}
                 </span>
                   {(!!lat && !!lng) &&
-                      <span className="ml-3 text-xs text-grey">
+                      <span className="ml-2 text-xs text-grey text-nowrap" style={{marginBottom: "2px"}}>
                           <Distance
                             originByGeo={true}
                             destination={{lat, lng}}

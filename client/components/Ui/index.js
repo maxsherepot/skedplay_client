@@ -33,6 +33,7 @@ export { default as MenuDropdown } from "./MenuDropdown";
 export { default as Sort } from "./Sort";
 export { default as Badge } from "./Badge";
 export { default as Pagination } from "./Pagination";
+export { default as Subscribe } from "./Subscribe";
 
 export { default as HorizontalScroll } from "./HorizontalScroll";
 export { default as MasonryLayout } from "./MasonryLayout";

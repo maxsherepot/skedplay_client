@@ -56,7 +56,7 @@ function ChatList({
   const {t, i18n} = useTranslation();
 
   return (
-    <div className="chats rounded-lg overflow-y-scroll">
+    <div className="chats h-full overflow-y-scroll">
       {chats.map(chat => (
         <div
           className={cx(

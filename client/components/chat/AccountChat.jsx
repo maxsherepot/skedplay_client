@@ -37,7 +37,9 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
     return (
       <>
         <Breadcrumbs/>
-        <EmployeeClientChat user={user} chatType={chatType} selectedChatId={selectedChatId}/>
+        <div className="container mb-16" style={{maxWidth: 1100}}>
+            <EmployeeClientChat user={user} chatType={chatType} selectedChatId={selectedChatId}/>
+        </div>
       </>
     )
   }

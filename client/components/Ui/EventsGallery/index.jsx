@@ -45,7 +45,7 @@ function EventsGallery({ events }) {
                   </div>
                   <div className="flex font-medium text-lg leading-none">
                     <div className="block">18.07</div>
-                    <div className="block ml-4">{event.club.address}</div>
+                    <div className="block ml-4">{event && event.club && event.club.address}</div>
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@ function EventsGallery({ events }) {
                   <div className="flex font-medium text-lg leading-none">
                     <div className="block">18.07</div>
                     <div className="block ml-4 gallery-accordion__item__address">
-                      {event.club.address}
+                      {event && event.club && event.club.address}
                     </div>
                   </div>
                 </div>

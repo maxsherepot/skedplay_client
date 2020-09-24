@@ -1,9 +1,9 @@
 .chat {
-  background-color: #fff;
-  height: 417px;
+  //background-color: #fff;
+  height: 100%;
 
   .messages {
-    height: 365px;
+    height: calc(100% - 51px);
     border-bottom: 1px solid #dfdfdf;
     padding: 30px;
 
