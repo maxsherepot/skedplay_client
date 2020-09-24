@@ -69,13 +69,15 @@ const EventForm = ({initialValues, onSubmit, update}) => {
         title: Yup.string().required(),
         mode: Yup.string().required(),
         description: Yup.string().required(),
-        event_type_id: Yup.string().required(),
+        event_type_id: Yup.number().required('Type'),
+        start_time: Yup.string().required(),
         address: Yup.string().required(),
+        mainPhoto: Yup.string().nullable().required(),
       })}
       onSubmit={onSubmit}
     >
       {({handleSubmit, isSubmitting, status, errors}) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="new-event-form">
           {isSubmitting && <Loader/>}
 
           <div className="px-2">
@@ -103,7 +105,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                 {
                   name: t('account.events_actions.regular'),
                   value: 1,
-                  class: 'mr-20 mb-2'
+                  class: 'mr-4 sm:mr-20 mb-2'
                 },
                 {
                   name: t('account.events_actions.period_or_day'),
@@ -121,24 +123,25 @@ const EventForm = ({initialValues, onSubmit, update}) => {
                   <div className="text-red">
                     {errors.days}
                   </div>
-
-                  {dayCheckboxes.map((day, i) => (
-                    <CheckboxField
-                      key={day.value}
-                      className="text-lg align-middle mr-8"
-                      labelClass="inline-block mb-2"
-                      label={day.label}
-                      name={`days[${day.value}]`}
-                    />
-                  ))}
+                  <div className="flex flex-wrap sm:block">
+                      {dayCheckboxes.map((day, i) => (
+                        <CheckboxField
+                          key={day.value}
+                          className="text-lg align-middle mr-4 sm:mr-8"
+                          labelClass="inline-block mb-2"
+                          label={day.label}
+                          name={`days[${day.value}]`}
+                        />
+                      ))}
+                  </div>
                 </>
                 :
-                <div className="flex">
+                <div className="flex flex-col sm:flex-row">
                   <DateField
                     name="start_date"
                     label={t('account.events_actions.start_date.label')}
                     placeholder={t('account.events_actions.start_date.placeholder')}
-                    className="mr-5"
+                    className="sm:mr-5"
                     minDateTomorrow={true}
                   />
 
@@ -158,17 +161,17 @@ const EventForm = ({initialValues, onSubmit, update}) => {
               label="Start time"
               />
 
-          <div className="flex xs:flex-col sm:flex-row w-full -mx-3">
+          <div className="flex xs:flex-col sm:flex-row w-full sm:-mx-3">
               <TextAreaField
                   rows={6}
                   label={t('account.events_actions.desc')}
                   name="description"
-                  className="relative px-3 w-full sm:w-2/3"
+                  className="relative sm:px-3 w-full sm:w-3/5"
                   placeholder=""
                   textLength={255}
               />
               <FileField
-                  className="px-3 w-full sm:w-1/3"
+                  className="sm:px-3 w-full sm:w-2/5"
                   label="Photo for your Event"
                   name="mainPhoto"
                   preview={event && event.mainPhoto && event.mainPhoto.url}

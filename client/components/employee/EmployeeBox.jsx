@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import cx from "classnames";
 import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
-import { SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
+import { Subscribe, SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
 import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
 import Tabs from "@material-ui/core/Tabs";
@@ -11,7 +11,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_PAGE} from 'queries';
 import translation from "services/translation";
 
-const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs, showNavLinks }) => {
+const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs, showNavLinks, noName }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
 
@@ -86,7 +86,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const leftInfo = (
     <>
-      <div className="flex flex-col md:flex-row items-center mt-4 sm:mt-0 mb-4 xl:mt-4">
+      <div className={"flex flex-col md:flex-row items-center mt-4 sm:mt-0 mb-4 xl:mt-4 " + (noName ? "hidden" : "")}>
         {employee && (
           <h1 className="text-xl font-bold flex items-center">
             {employee.name}, {employee.age} <div className="inline-block sm:hidden bg-dark-green rounded-full w-2 h-2 ml-2"></div>
@@ -194,6 +194,9 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         {(viewed && employees.length > 0) &&
           <GirlsViewedBox employees={employees} user={user}/>
         }
+      </div>
+      <div>
+          <Subscribe image="/static/img/subscribe-girl.png"/>
       </div>
     </MainLayout>
   );

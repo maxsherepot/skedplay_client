@@ -380,7 +380,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
         {!is_moderator &&
           <div className="mt-4">
             <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                <Link href="/account/messages-and-chats">
+                <Link href="/account/messages-and-chats/chat">
                   <a>
                     {t('layout.messages')} / {t('layout.chats')}
                   </a>
@@ -407,7 +407,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
 
         <div className="mt-4">
             <span
-              className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
+              className="text-xl text-grey font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
               onClick={() => signOut()}
             >
               {t('common.sign_out')}
@@ -423,7 +423,7 @@ const AccountLayout = ({contentClass, user, className, children}) => {
     if (className) return className;
     if (contentClass) return contentClass;
 
-    return "lg:w-3/5 lg:ml-10 px-4 py-12";
+    return "lg:w-3/5 lg:ml-10 px-4 py-6 sm:py-12";
   };
 
   return (

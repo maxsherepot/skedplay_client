@@ -25,7 +25,7 @@ function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver})
 }
 
 function NextArrow({ currentSlide, onClick, slideCount, onMouseOver}) {
-  const disabled = currentSlide >= (Math.ceil(slideCount/4) + 1)
+  const disabled = currentSlide >= slideCount - 4
 
   if (disabled) {
       return null
@@ -61,7 +61,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
 
 
   return (
-    <div className="flex -mx-2">
+    <div className="flex sm:-mx-2">
       <div className="hidden md:block">
         <Slider
           className="gallery w-33"
@@ -120,7 +120,7 @@ function GalleryWithThumbnail({ photos, favorite, large, handleClick }) {
           ))}
         </Slider>
       </div>
-      <div className="relative overflow-hidden flex-1 px-2">
+      <div className="relative overflow-hidden flex-1 sm:px-2">
         <Slider
           className="relative block z-10"
           asNavFor={secondNav}

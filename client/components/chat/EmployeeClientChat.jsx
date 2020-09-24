@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ArrowPrevSvg } from "icons";
-import { ChatList, ChatRoom } from "UI";
+import { Avatar, ChatList, ChatRoom } from "UI";
 import { ALL_CHATS, ALL_ADMIN_CHATS } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import Centrifugo from "components/centrifuge";
-import ArrowLeft from "@material-ui/icons/ArrowLeft";
+import ArrowBack from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
 import { Loader } from "UI";
 import cx from "classnames";
 import {useTranslation} from "react-i18next";
@@ -152,35 +153,34 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     }
   });
 
+
+  const receiver = (selectedChat || {}).receiver || {}
+  const receiverAvatar = receiver.avatar
   let mobileChoosedBlock = (
     <>
-      <div>
-        <a
-          className={cx(
-            "animation-arrow-left text-sm cursor-pointer",
-          )}
-          onClick={e => {setSelectedChat(null)}}
-        >
-          {/*<ArrowPrevSvg className="stroke-red">
-            <span className="xs:hidden sm:inline-block ml-2">{t('chat.all')}</span>
-          </ArrowPrevSvg>*/}
-          <span className="flex items-center mt-2 -mb-2">
-              <ArrowLeft fontSize="large" className={`text-red stroke-red`}/>
-              <span className="inline-block sm:inline-block sm:ml-1">Back to Channels</span>
-          </span>
-        </a>
-      </div>
-      <span className="font-bold text-2xl hidden">
-          {t('chat.chat_with')} {selectedChat && selectedChat.receiver.name}
-      </span>
+      <div className="bg-white flex rounded-t-md items-center py-2 px-2 border-b" style={{height: 60, borderColor: "#eee"}}>
+          <IconButton onClick={e => setSelectedChat(null)}>
+              <ArrowBack/>
+          </IconButton>
+          <div className="flex items-center ml-2">
+              <div className="mr-2">
+                  <Avatar isEmpty={!receiverAvatar} src={receiverAvatar} styleEmptyIcon={{width: 20}} style={{width: 45, height: 45}}/>
+              </div>
+              <span>
+                  {receiver.name}
+              </span>
+          </div>
+     </div>
     </>
   );
 
   let mobileChoseBlock = (
     <>
-      <span className="hidden font-bold text-2xl">
-          {t('chat.chose_chat')}
-      </span>
+      <div className="bg-white flex rounded-t-md items-center py-2 px-2 border-b" style={{height: 60, borderColor: "#eee"}}>
+          <div className="text-xl w-full flex items-center justify-center">
+               {t('chat.chose_chat')}
+          </div>
+     </div>
     </>
   );
 
@@ -193,7 +193,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
   }
 
   let mobileChatBlock = (
-    <div className="relative block w-full lg:hidden">
+    <div className="relative block w-full md:hidden">
       {getMobileChooseBlock()}
     </div>
   );
@@ -202,12 +202,12 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     <>
       <div
         className={cx([
-          selectedChat ? "block" : "hidden lg:block",
-          "w-full sm:w-full lg:w-2/3 px-3 mb-3"
+          selectedChat ? "block" : "hidden md:block",
+          "w-full sm:w-full md:w-2/3 md:pr-6 mb-3"
         ])}
       >
         <div className="text-xl font-bold mt-3 mb-3">{t('chat.chose_chat')}</div>
-        <div className="bg-white rounded-lg flex items-center justify-center" style={{minHeight: 400}}>
+        <div className="bg-white rounded-lg flex items-center justify-center" style={{height: 400}}>
             <span className="text-xl text-grey">Select Channel</span>
         </div>
       </div>
@@ -219,12 +219,12 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
       <>
         <div
           className={cx([
-            selectedChat ? "block" : "hidden lg:block",
-            "w-full sm:w-full lg:w-2/3 px-3"
+            selectedChat ? "block" : "hidden md:block",
+            "w-full sm:w-full md:w-2/3 md:pr-6 mb-3"
           ])}
         >
-          <div className="text-xl font-bold mt-3 mb-3 sm:hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
-          <div>
+          <div className="text-xl font-bold mt-3 mb-3 hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
+          <div className="md:rounded-lg bg-white" style={{height: 400}}>
             <ChatRoom user={user} type={type} selectedChatType={selectedChatType} selectedChat={selectedChat} refetchChats={refetchChats}/>
           </div>
         </div>
@@ -237,12 +237,12 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     <>
       <div
         className={cx([
-          selectedChat ? "hidden lg:block" : "block",
-          "w-full sm:w-full lg:w-1/3 px-3 mb-3"
+          selectedChat ? "hidden md:block" : "block",
+          "w-full sm:w-full md:w-1/3 mb-3"
         ])}
       >
-        <div className="text-xl font-bold mt-3 mb-3 md:block">Channels</div>
-        <div style={{maxWidth: 350}}>
+        <div className="text-xl font-bold mt-3 mb-3 hidden md:block">Channels</div>
+        <div className="md:rounded-lg bg-white md:max-w-sm" style={{height: 400}}>
           <ChatList type={type} chats={chats} selectedChatType={selectedChatType} selectedChat={selectedChat} selectChat={selectChat}/>
         </div>
       </div>
@@ -251,7 +251,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
 
   if (type === 'client' && employee) {
     return (
-      <div className="flex flex-col lg:flex-row flex-wrap">
+      <div className="flex flex-col md:flex-row flex-wrap">
         {mobileChatBlock}
         {chatRoomBlock}
         {chatsBlock}
@@ -262,8 +262,8 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
   return (
     <>
       <div className="">
-        <div className="bg-white shadow rounded-lg p-4">
-          <div className="flex flex-col lg:flex-row flex-wrap bg-xs-grey rounded-lg pb-2" style={{minHeight: 400}}>
+        <div className="">
+          <div className="flex flex-col md:flex-row flex-wrap bg-xs-grey rounded-lg pb-2" style={{minHeight: 400}}>
             {mobileChatBlock}
             {chatRoomBlock}
             {chatsBlock}

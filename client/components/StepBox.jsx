@@ -11,7 +11,7 @@ const StepBox = ({ links, canSetStep }) => {
     <div className="step-box flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
       {links.map((name, i) => (
         <div className={cx(
-              "flex flex-1 flex-col xl:flex-row items-center xl:items-start xl:w-1/5 my-3 cursor-pointer",
+              "flex flex-1 flex-col items-center my-3 cursor-pointer",
               active === i ? "" : "xs:hidden sm:flex"
             )}
           key={i}
@@ -27,7 +27,7 @@ const StepBox = ({ links, canSetStep }) => {
           </div>
           <div
             className={cx(
-              " hd:ml-4 sm:w-26 font-medium mt-2 xl:mt-0 text-center xl:text-left",
+              "  sm:w-26 font-medium mt-2 text-center",
               active === i ? "text-black" : "text-light-grey"
             )}
           >

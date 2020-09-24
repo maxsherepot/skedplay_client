@@ -99,6 +99,11 @@ main.react-images__pager {
     }
 }
 
+.tabs-normal .MuiTab-root {
+    min-width: 72px !important;
+    margin-right: 20px
+}
+
 @media (max-width: 767px) {
     .payment-dialog .MuiPaper-root.MuiDialog-paper {
         height: 100%;
@@ -150,6 +155,26 @@ main.react-images__pager {
     }
   }
 
+}
+
+@media (max-width: 768px) {
+    .new-event-form .form-group input, .new-event-form .dropdown__trigger {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    .new-event-form .dropdown__trigger::after {
+        top: 1rem;
+    }
+    .new-event-form .form-group .absolute.right-0, .new-event-form .form-group .absolute.left-0 {
+        padding-bottom: 8px;
+    }
+    .new-event-form .btn {
+        height: 45px;
+        font-size: 18px;
+    }
+    .new-event-form .toggle-field {
+        height: 30px;
+    }
 }
 
 
@@ -524,6 +549,7 @@ button:focus {
   @import "components/Ui/MobileDrawer/MobileDrawer";
   @import "components/Ui/MobileDrawerMenu/MobileDrawerMenu";
   @import "components/Ui/MobileDrawerCategory/MobileDrawerCategory";
+  @import "components/Ui/Subscribe/Subscribe";
 
   @import "components/Ui/Forms/Checkbox/Checkbox";
   @import "components/Ui/Forms/FormGroup/FormGroup";

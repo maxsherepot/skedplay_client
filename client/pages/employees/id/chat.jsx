@@ -125,7 +125,7 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
                   </div>
               </div>
             ) : (
-                <div className="px-3 mt-3">
+                <div className="px-3 mt-3 hd:-mt-10">
                     <EmployeeClientChat user={user} employee={employee}/>
                 </div>
             )}

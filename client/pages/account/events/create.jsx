@@ -54,7 +54,7 @@ const AccountEventsCreate = ({user}) => {
 
   return (
     <>
-      <div className="text-2xl font-bold tracking-tighter leading-none mb-5">
+      <div className="text-xl sm:text-2xl font-bold mb-5">
         {t('account.create_event')}
       </div>
 

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import {groupBy} from "lodash";
 import {  Loader  } from "UI";
+import Button from "@material-ui/core/Button";
 import {useQuery, useLazyQuery, useMutation} from "@apollo/react-hooks";
 import {CHAT_ROOM, ADMIN_CHAT_ROOM, SEND_MESSAGE, SEND_ADMIN_MESSAGE} from "queries";
 import Centrifugo from "components/centrifuge";
@@ -293,7 +294,7 @@ function ChatRoom({
   }
 
   return (
-    <div className="chat rounded-lg">
+    <div className="chat">
       <div className="messages overflow-y-scroll" ref={messagesEndRef}>
         {Object.keys(messagesByDate).map((date) => {
           return <div key={date} className="date-wrap">
@@ -383,12 +384,13 @@ function ChatRoom({
             rows="1"
             name="text"
             value={messageText}
+            placeholder="Type something..."
             onChange={e => setMessageText(e.target.value)}
             className="flex-grow outline-none resize-none px-3 py-1"
             onKeyPress={e => {e.key === 'Enter' && sendMessageEventHandler(e)}}
           />
-
-          <a href="#" onClick={sendMessageEventHandler} className="text-pink font-bold text-xl ml-3">Send</a>
+      <Button variant="outlined" onClick={sendMessageEventHandler} color="secondary">Send</Button>
+          <a href="#" onClick={sendMessageEventHandler} className="hidden text-pink font-bold text-xl ml-3">Send</a>
         </form>
       </div>
     </div>
