@@ -8,7 +8,7 @@ export default {
         user_status: 1,
         status: 1,
         services: [],
-        inGeneral: true,
+        // inGeneral: true,
         gender: "",
         race_type_id: "",
         orderBy: [
@@ -64,7 +64,7 @@ export default {
         // active: 1,
         show_level: true,
         type: 2,
-        inGeneral: true,
+        // inGeneral: true,
         canton_id: "",
         city_id: "",
         services: [],
