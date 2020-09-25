@@ -73,7 +73,6 @@ services:
         hard: 65536
 
   app:
-    image: skidplay_app:alpine
     build: .docker/
     container_name: "skidplay_app"
     volumes:
