@@ -19,13 +19,18 @@ class MyDocument extends Document {
           <NextScript />
           <Script>
             {() => {
-              (function (d, t) {
-                var bh = d.createElement(t),
-                  s = d.getElementsByTagName(t)[0];
-                bh.type = "text/javascript";
-                bh.src = `https://www.bugherd.com/sidebarv2.js?apikey=${process.env.BUGHERD_API_KEY}`;
-                s.parentNode.insertBefore(bh, s);
-              })(document, "script");
+              window.markerConfig = {
+                destination: '5f67532a3206c724fba9af59',
+              };
+
+              !function (e, r, t) {
+                if (e.__Marker) return;
+                e.__Marker = {};
+                var n = r.createElement("script");
+                n.async = 1, n.src = "https://edge.marker.io/latest/shim.js";
+                var s = r.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(n, s)
+              }(window, document);
             }}
           </Script>
 
