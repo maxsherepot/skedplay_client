@@ -350,4 +350,15 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     {
         return true;
     }
+
+    public function updateShowLevel(): void
+    {
+        if ($this->active) {
+            $this->show_level = Employee::SHOW_LEVEL_ACTIVE;
+        } elseif ($this->soon) {
+            $this->show_level = Employee::SHOW_LEVEL_SOON;
+        } else {
+            $this->show_level = Employee::SHOW_LEVEL_HIDDEN;
+        }
+    }
 }

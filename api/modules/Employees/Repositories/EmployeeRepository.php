@@ -112,6 +112,9 @@ class EmployeeRepository implements HasMediable
 
         $employee->update($collection->toArray());
 
+        $employee->refresh()->updateShowLevel();
+        $employee->save();
+
         $this->storeParameters($employee, $collection);
         $this->storeLanguages($employee, $collection);
 
