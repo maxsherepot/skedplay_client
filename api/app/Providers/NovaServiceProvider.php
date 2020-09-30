@@ -27,6 +27,7 @@ use App\Nova\Race;
 use App\Nova\Role;
 use App\Nova\RoleUser;
 use App\Nova\Service;
+use App\Nova\Setting;
 use App\Nova\TransPattern;
 use App\Nova\UiTranslate;
 use App\Nova\User;
@@ -175,6 +176,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
             UiTranslate::class,
             Language::class,
+
+            Setting::class,
         ]);
     }
 }

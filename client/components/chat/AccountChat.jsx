@@ -33,7 +33,7 @@ const Breadcrumbs = () => {
 const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId = null }) => {
   const {t, i18n} = useTranslation();
 
-  if (user.is_employee || user.is_client_chat_member || chatType === 'admin') {
+  if (user.is_client_chat_member || chatType === 'admin') {
     return (
       <>
         <Breadcrumbs/>
@@ -44,7 +44,7 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
     )
   }
 
-  const { loading, error, data } = useQuery(gql `
+  const clubsEmployeesQuery = gql `
       query clubOwnerWithEmployees {
           me {
               id
@@ -58,7 +58,21 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
               }
           }
       }
-  `);
+  `;
+
+  const userEmployeesQuery = gql `
+      query userWithEmployees {
+          me {
+              id
+              employees {
+                  id
+                  name
+              }
+          }
+      }
+  `;
+
+  const { loading, error, data } = useQuery(user.is_employee ? userEmployeesQuery : clubsEmployeesQuery);
 
   const [selectedEmployee, selectEmployee] = useState(null);
 
@@ -71,8 +85,15 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
     );
   }
 
+  const employees = user.is_employee ? data.me.employees : data.me.employees_club_owners;
+
+  const employeesOptions = employees.map(e => ({
+    label: user.is_employee ? e.name : `${e.name} / ${e.club.name}`,
+    value: e.id
+  }));
+
   if (selectedEmployeeId && !selectedEmployee) {
-    selectEmployee(data.me.employees_club_owners.find(e => parseInt(e.id) === parseInt(selectedEmployeeId)))
+    selectEmployee(employees.find(e => parseInt(e.id) === parseInt(selectedEmployeeId)))
   }
 
   return (
@@ -85,9 +106,9 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
             // inputClassName="w-full md:w-1/3"
             label=""
             name="employee_id"
-            options={data.me.employees_club_owners.map(e => ({label: `${e.name} / ${e.club.name}`, value: e.id}))}
+            options={employeesOptions}
             placeholder={t('chat.select_employee')}
-            onSelect={employeeId => selectEmployee(data.me.employees_club_owners.find(e => e.id === employeeId))}
+            onSelect={employeeId => selectEmployee(employees.find(e => e.id === employeeId))}
           />
         </Formik>
       </div>

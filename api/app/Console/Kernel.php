@@ -3,9 +3,12 @@
 namespace App\Console;
 
 use App\Console\Commands\BossCommand;
+use App\Console\Commands\ClearAllCommand;
+use App\Console\Commands\DeployCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Clubs\Console\CreatePossibleClub;
+use Modules\Common\Console\InitSettings;
 use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Employees\Console\ImportFakeEmployees;
 use Modules\Events\Console\CheckEventsNotification;
@@ -43,6 +46,9 @@ class Kernel extends ConsoleKernel
         ImportFakeEmployees::class,
         InitPatterns::class,
         InitUsersCards::class,
+        InitSettings::class,
+        ClearAllCommand::class,
+        DeployCommand::class,
     ];
 
     /**
@@ -57,8 +63,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('events:check:notification')
             ->everyMinute();
 
-        $schedule->command('employees:check:activation')
-                  ->daily();
+//        $schedule->command('employees:check:activation')
+//                  ->daily();
     }
 
     /**

@@ -5,10 +5,13 @@ import { useSteps } from "hooks";
 import { Button, FormGroup, Loader } from "UI";
 import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
+import {useApolloClient} from "@apollo/react-hooks";
 
 function NewAdForm({ children, clubId }) {
   const { step, setStep } = useSteps();
   const {t, i18n} = useTranslation();
+
+  const apolloClient = useApolloClient();
 
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
@@ -64,7 +67,7 @@ function NewAdForm({ children, clubId }) {
         if (clubId) {
           redirect({}, `/account/club/${clubId}`);
         } else {
-          redirect({}, "/girls");
+          redirect({}, "/account");
         }
       } catch (e) {
         if (getErrors(e) instanceof Object) {

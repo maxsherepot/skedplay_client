@@ -5,8 +5,8 @@ export default {
         type: 1,
         canton_id: "",
         city_id: "",
-        user_status: 1,
-        status: 1,
+        // user_status: 1,
+        // status: 1,
         services: [],
         // inGeneral: true,
         gender: "",
@@ -38,8 +38,8 @@ export default {
         city_id: "",
         services: [],
         gender: "",
-        user_status: 1,
-        status: 1,
+        // user_status: 1,
+        // status: 1,
         race_type_id: "",
         orderBy: [
             {
@@ -68,8 +68,8 @@ export default {
         canton_id: "",
         city_id: "",
         services: [],
-        user_status: 1,
-        status: 1,
+        // user_status: 1,
+        // status: 1,
         gender: "",
         race_type_id: "",
         orderBy: [

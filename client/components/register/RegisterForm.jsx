@@ -71,7 +71,7 @@ function RegisterForm({ onSubmit, children }) {
 
     if (isLastStep) {
 
-      let birthday = moment(values.birthday, 'DD.MM.YYYY');
+      let birthday = moment(new Date(values.birthday), 'DD.MM.YYYY');
 
       if (birthday && moment().diff(birthday, 'years') < 18) {
         setAgePopupShow(true);

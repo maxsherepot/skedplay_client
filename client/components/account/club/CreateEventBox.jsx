@@ -3,10 +3,10 @@ import {getErrors} from "utils";
 import {EventForm} from "components/event";
 import {useRouter} from "next/router";
 
-const CreateEventBox = ({ initialValues, onSubmit}) => {
+const CreateEventBox = ({ initialValues, employees, onSubmit}) => {
     const router = useRouter();
     const { query: {cid}} = useRouter();
-    const clubId = cid.replace('/', '');
+    const clubId = cid ? cid.replace('/', '') : null;
 
     const handleSubmits = async (
         values,
@@ -47,7 +47,7 @@ const CreateEventBox = ({ initialValues, onSubmit}) => {
     };
 
     return (
-        <EventForm initialValues={initialValues} onSubmit={handleSubmits} />
+        <EventForm employees={employees} initialValues={initialValues} onSubmit={handleSubmits} />
     );
 };
 

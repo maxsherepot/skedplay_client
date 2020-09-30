@@ -14,7 +14,9 @@ class ChatService
 
         if (!$avatar) {
             $avatar = $receiver->toArray()['avatar'] ?? null;
-            $avatar = Media::find($avatar['id']);
+            if ($avatar) {
+                $avatar = Media::find($avatar['id']);
+            }
         }
 
         return [

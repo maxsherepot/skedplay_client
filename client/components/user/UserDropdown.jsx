@@ -9,6 +9,7 @@ import { AccountLabel } from "components/account";
 import { setCookie } from "utils";
 import {useTranslation} from "react-i18next";
 import Cookies from 'js-cookie';
+import AddGirlLinkWrap from "components/account/AddGirlLinkWrap";
 
 const UserDropdown = ({ user }) => {
 
@@ -27,7 +28,7 @@ const UserDropdown = ({ user }) => {
 
   const { t, i18n } = useTranslation();
 
-  const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
+  const avatar = user && user.avatar ? user.avatar.thumb_url : null;
 
   return (
     <>
@@ -92,15 +93,15 @@ const UserDropdown = ({ user }) => {
             {(!user.is_club_owner && !user.is_moderator) &&
               <Link href="/account/messages-and-chats">
                 <div className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                  {t('common.messages_chats')} ({user.is_employee ? user.employee.unread_messages_count || 0 : user.unread_messages_count || 0})
+                  {t('common.messages_chats')} ({user.unread_messages_count || 0})
                 </div>
               </Link>
             }
-            {user.is_employee &&  user.employee && user.employee.reviews.length !== 0 && (
-              <div className="text-red font-medium hover:text-pink cursor-pointer">
-                {t('common.reviews')}
-              </div>
-            )}
+            {/*{user.is_employee &&  user.employee && user.employee.reviews.length !== 0 && (*/}
+            {/*  <div className="text-red font-medium hover:text-pink cursor-pointer">*/}
+            {/*    {t('common.reviews')}*/}
+            {/*  </div>*/}
+            {/*)}*/}
 
             {user.is_club_owner &&
             <>
@@ -129,12 +130,14 @@ const UserDropdown = ({ user }) => {
             {/*    {t('common.my_clubs')}*/}
             {/*  </div>*/}
             {/*)}*/}
-            {(user.is_employee && !user.employee) && (
-              <Link href="/girls/add">
-                <a className="flex items-center mb-2">
-                  <AddSvg /> <span className="ml-2">{t('common.add_new_ad')}</span>
-                </a>
-              </Link>
+            {(user.is_employee) && (
+              <AddGirlLinkWrap>
+                <Link href="/girls/add">
+                  <a className="flex items-center mb-2">
+                    <AddSvg /> <span className="ml-2">{t('common.add_new_ad')}</span>
+                  </a>
+                </Link>
+              </AddGirlLinkWrap>
             )}
             {/*{(user.is_employee && user.employee) && (*/}
             {/*  <Link href="/account/ad">*/}

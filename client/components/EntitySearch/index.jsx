@@ -15,7 +15,7 @@ const EntitySearch = ({ rootHeader, header, entityName, fields, initialFilters, 
   let filtersForQuery = Object.assign({}, filtersState);
 
   if (filtersForQuery.__typename === 'EventFilters' && filtersForQuery.date) {
-    filtersForQuery.date = moment(filtersForQuery.date).format('YYYY-MM-DD H:mm:ss')
+    filtersForQuery.date = moment(new Date(filtersForQuery.date)).format('YYYY-MM-DD H:mm:ss')
   }
 
   const { loading: entitiesLoading, error: entitiesError, data = {}, refetch, networkStatus } = useQuery(entityQuery, {

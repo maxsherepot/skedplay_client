@@ -29,11 +29,11 @@ class EventRepository implements HasMediable
     {
         $collection = $this->handleInput($collection);
 
-        /** @var Club|Employee $model */
+        /** @var Club|User $model */
         $event = $model->events()->create($collection->toArray());
 
         $event->status = User::STATUS_CONFIRMED;
-        $event->user_status = $model->user_status;
+        $event->user_status = $model->user_status ?? $model->status;
 
         $event->save();
 

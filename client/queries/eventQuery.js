@@ -287,6 +287,15 @@ export const UPDATE_CLUB_EVENT = gql`
     }
 `;
 
+export const UPDATE_EMPLOYEE_EVENT = gql`
+    mutation updateEmployeeEvent($event: ID!, $input: EventUpdateInput) {
+        updateEmployeeEvent(event: $event, input: $input) {
+            status
+            message
+        }
+    }
+`;
+
 export const UPDATE_EVENT = gql`
     mutation updateEvent($event: ID!, $input: EventUpdateInput) {
         updateEvent(event: $event, input: $input) {

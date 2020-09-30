@@ -174,8 +174,6 @@ trait Locationable
                 throw ValidationException::withMessages(['current_address' => ['wrong_address']]);
             }
 
-            json_decode(str_replace(mb_substr(file_get_contents(storage_path('clubs.json')), 0, 1), '', file_get_contents(storage_path('clubs.json'))));
-
             $model->current_city_id = $city->id;
 
             $model->current_lat = $coordinates->getLat();

@@ -14,10 +14,6 @@ GirlsAd.getInitialProps = async ctx => {
     redirect(ctx, "/login");
   }
 
-  if (user.is_employee && user.employee) {
-    redirect(ctx, '/account/ad');
-  }
-
   return { user };
 };
 

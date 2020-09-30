@@ -28,7 +28,9 @@ use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeComplaint;
 use Modules\Employees\Repositories\EmployeeRepository;
 use Modules\Events\Entities\Event;
+use Modules\Main\Repositories\EmployeeEventRepository;
 use Modules\Main\Repositories\EventRepository;
+use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -42,7 +44,7 @@ class EmployeeController extends Controller
     private $employees;
 
     /**
-     * @var EventRepository
+     * @var EmployeeEventRepository
      */
     protected $events;
 
@@ -56,7 +58,7 @@ class EmployeeController extends Controller
      */
     private $prices;
 
-    public function __construct(EmployeeRepository $employees, EventRepository $events, ServiceRepository $services, PriceRepository $prices)
+    public function __construct(EmployeeRepository $employees, EmployeeEventRepository $events, ServiceRepository $services, PriceRepository $prices)
     {
         $this->employees = $employees;
         $this->events = $events;
@@ -108,7 +110,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * @param Employee $employee
      * @param EventCreateRequest $request
      * @return \Illuminate\Database\Eloquent\Model
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -116,11 +117,14 @@ class EmployeeController extends Controller
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig
      */
-    public function createEvent(Employee $employee, EventCreateRequest $request)
+    public function createEvent(EventCreateRequest $request)
     {
+        /** @var User $user */
+        $user = auth('api')->user();
+
         $this->authorize('create', Event::class);
 
-        return $this->events->store($employee, collect($request->all()));
+        return $this->events->store($user, collect($request->all()));
     }
 
     /**
@@ -193,6 +197,8 @@ class EmployeeController extends Controller
                 $this->employees::UPLOAD_FILE_SUCCESS
             );
         } catch (\Exception $exception) {
+            Log::error($exception->getMessage(), [$exception->getFile(), $exception->getLine()]);
+
             return $this->fail(
                 $this->employees::UPLOAD_FILE_FAILED
             );

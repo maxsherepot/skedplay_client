@@ -124,9 +124,12 @@ function GirlCard({
             <button className="flex items-center justify-center rounded-full bg-xs-grey w-7 h-7">
               <CocktailSvg />
             </button>
-            <button className="flex items-center justify-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
-              <span className="text-white font-bold text-2xs">100%</span>
-            </button>
+            {(girl.status === 1 && girl.user_status === 1) ? (
+              <button className="flex items-center justify-center rounded-full bg-red w-7 h-7 ml-3 mt-2">
+                <span className="text-white font-bold text-2xs">100%</span>
+              </button>
+            ) : ''}
+
           </div>
         </>
     );

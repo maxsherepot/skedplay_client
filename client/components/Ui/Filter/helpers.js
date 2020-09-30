@@ -273,7 +273,7 @@ export default {
           defaultValue: "",
           labelResolver(value) {
             if (value) {
-              return moment(value).format('DD.MM.YYYY');
+              return moment(new Date(value)).format('DD.MM.YYYY');
             }
 
             return null;

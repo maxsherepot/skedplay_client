@@ -161,7 +161,7 @@ function Footer({ user }) {
     });
   }
 
-  const startYear = moment('2020').format( 'YYYY');
+  const startYear = moment(new Date('2020')).format('YYYY');
   let currentYear = moment().format('YYYY');
 
   let dateYear = currentYear > startYear ? startYear + " - " + currentYear : startYear;

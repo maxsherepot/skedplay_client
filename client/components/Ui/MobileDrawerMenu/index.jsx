@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import { setCookie } from "utils";
 import Cookies from 'js-cookie';
+import AddGirlLinkWrap from "components/account/AddGirlLinkWrap";
 
 
 
@@ -28,7 +29,7 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
     const { t, i18n } = useTranslation();
 
 
-    const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
+    const avatar = user && user.avatar ? user.avatar.thumb_url : null;
 
     return (
         <MobileDrawer isOpen={isOpen} onClose={onClose}>
@@ -54,15 +55,9 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                             </span>
 
                           <div className="ml-4">
-                            {user && user.is_employee ? (
-                              <span className="text-xl font-medium capitalize">
-                                {user.employee.name} <span className="hidden">{user.age ? `, ${user.age}` : ''}</span>
-                              </span>
-                            ) : (
-                              <span className="text-xl font-medium capitalize">
+                            <span className="text-xl font-medium capitalize">
                                 {user.name} {user.age ? `, ${user.age}` : ''}
                               </span>
-                            )}
                             <div className="profile-info-box flex flex-col items-center justify-center">
                               <AccountLabel {...user} style={{paddingTop: 2, paddingBottom: 2}}/>
                               <span className="profile-phone sm:ml-2 mt-1 text-sm">{user.phone}</span>
@@ -85,26 +80,28 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                       </Button>
                     </Link>
                   }
-                  {(user && user.is_employee && !user.employee) &&
-                    <Link href="/girls/add">
-                      <Button className="hidden w-full mt-4"
-                              level="secondary-light"
-                              size="xs"
-                              onClick={onClose}>
-                          {t('common.add_new_ad')}
-                      </Button>
-                    </Link>
-                  }
-                  {(user && user.is_employee && user.employee) &&
-                    <Link href="/account/ad">
+                  {(user && user.is_employee) &&
+                    <AddGirlLinkWrap>
+                      <Link href="/girls/add">
                         <Button className="hidden w-full mt-4"
                                 level="secondary-light"
                                 size="xs"
                                 onClick={onClose}>
-                            {t('layout.edit_ad')}
+                            {t('common.add_new_ad')}
                         </Button>
-                    </Link>
+                      </Link>
+                    </AddGirlLinkWrap>
                   }
+                  {/*{(user && user.is_employee && user.employee) &&*/}
+                  {/*  <Link href="/account/ad">*/}
+                  {/*      <Button className="hidden w-full mt-4"*/}
+                  {/*              level="secondary-light"*/}
+                  {/*              size="xs"*/}
+                  {/*              onClick={onClose}>*/}
+                  {/*          {t('layout.edit_ad')}*/}
+                  {/*      </Button>*/}
+                  {/*  </Link>*/}
+                  {/*}*/}
                   {user ? (
                     <Link href="/account" as={`/account`}>
                       <Button className="hidden w-full mt-4"

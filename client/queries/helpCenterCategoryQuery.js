@@ -2,10 +2,11 @@ import gql from "graphql-tag";
 
 export const HELP_CENTER_CATEGORIES = gql`
     query helpCenterCategories {
-        helpCenterCategories {
+        helpCenterCategories(active: 1) {
             id
             name
-            topics {
+            active
+            topics(active: 1) {
                 id
                 slug
                 name
@@ -15,6 +16,7 @@ export const HELP_CENTER_CATEGORIES = gql`
                 title
                 description
                 keywords
+                active
             }
         }
     }

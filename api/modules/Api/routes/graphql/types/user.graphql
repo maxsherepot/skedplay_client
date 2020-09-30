@@ -22,6 +22,7 @@ type User {
     fucking_avatar: Media
     employees: [Employee] @morphMany
     employee: Employee
+    events: [Event] @belongsToMany
     # counters
     employees_photos: Int
     employees_videos: Int

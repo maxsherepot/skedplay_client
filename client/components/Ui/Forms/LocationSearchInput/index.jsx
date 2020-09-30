@@ -80,7 +80,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
               inputClassName,
             ])}
             label={t('index.address')}
-            defaultValue={defaultValue ? defaultValue : ""}
+            // defaultValue={defaultValue ? defaultValue : ""}
             placeholder={t('common.address_placeholder')}
             name={fieldName}
             {...getInputProps({
@@ -89,7 +89,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
           />
           {!!suggestions.length &&
           <div className="autocomplete-dropdown-container">
-            {suggestions.map(suggestion => {
+            {suggestions.map((suggestion, i) => {
               const className = suggestion.active
                 ? 'suggestion-item--active'
                 : 'suggestion-item';
@@ -103,6 +103,7 @@ function LocationSearchInput({initAddress, className, inputClassName, defaultVal
                     className,
                     style,
                   })}
+                  key={i}
                 >
                   <span>{suggestion.description}</span>
                 </div>

@@ -8,13 +8,14 @@ import {getErrors} from "utils";
 import {
   CREATE_EMPLOYEE_EVENT,
   GET_MY_EMPLOYEE_EVENTS_COUNT,
-  EVENTS_BY_OWNER,
+  EVENTS_BY_OWNER, GET_MY_EMPLOYEES,
 } from "queries";
-import {useMutation} from "@apollo/react-hooks";
+import {useMutation, useQuery} from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
+import CreateEventBox from "components/account/club/CreateEventBox";
+import {Loader} from 'UI';
 
 const AccountEventsCreate = ({user}) => {
-  const router = useRouter();
   const [createUserEvent] = useMutation(CREATE_EMPLOYEE_EVENT, {
     refetchQueries: [
       {
@@ -22,35 +23,12 @@ const AccountEventsCreate = ({user}) => {
       }
     ]
   });
-  const {t, i18n} = useTranslation();
 
-  const handleSubmits = async (
-    values,
-    {setSubmitting, setErrors}
-  ) => {
-    delete values.index;
+  const onSubmit = async variables => await createUserEvent(variables);
 
-    values.days = (values.days || [])
-      .map((checked, day) => checked ? day : null)
-      .filter(day => day !== null);
+  const {loading: employeesLoading, data} = useQuery(GET_MY_EMPLOYEES);
 
-    try {
-      await createUserEvent({
-        variables: {
-          employee: user.employee.id,
-          input: values,
-        }
-      });
-
-      router.back();
-    } catch (e) {
-      if (getErrors(e) instanceof Object) {
-        setErrors(getErrors(e));
-      }
-    }
-
-    setSubmitting(false);
-  };
+  const employees = (data && data.me && data.me.employees) || [];
 
   return (
     <>
@@ -60,6 +38,7 @@ const AccountEventsCreate = ({user}) => {
 
       <EventForm
         initialValues={{
+          employees: [],
           title: "",
           event_type_id: "",
           description: "",
@@ -71,12 +50,20 @@ const AccountEventsCreate = ({user}) => {
           days: [],
           employees_ids: [],
           club_id: null,
+          price: null,
           photos: [],
           mainPhoto: null,
-          price: null,
         }}
-        onSubmit={handleSubmits}
+        onSubmit={onSubmit}
       />
+    </>
+  );
+
+  return (
+    <>
+      <div className="text-xl sm:text-2xl font-bold mb-5">
+        {t('account.create_event')}
+      </div>
     </>
   );
 };

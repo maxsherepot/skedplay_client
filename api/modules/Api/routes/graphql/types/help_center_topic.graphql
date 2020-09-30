@@ -3,6 +3,7 @@ type HelpCenterTopicAllLangs {
     slug: String!
     name: String!
     hyphen: Int!
+    active: Int!
     content: String!
     content_html: JSON!
     title: String

@@ -87,6 +87,7 @@ class Verification implements VerificationInterface
                 static::trimPhoneNumber($phoneNumber)
             );
 
+
             $this->response = array_merge(
                 $this->success(self::GENERATE_CODE_SUCCESS),
                 ['expires_at' => $now + $this->codeProcessor->getLifetime()]
@@ -109,6 +110,7 @@ class Verification implements VerificationInterface
     public function checkCode(string $code, string $phoneNumber, callable $callback = null): void
     {
         try {
+
             if (!is_numeric($code)) {
                 throw new ValidationException('Incorrect code was provided');
             }

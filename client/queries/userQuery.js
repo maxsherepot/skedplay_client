@@ -31,7 +31,7 @@ export const GET_ME = gql`
                 url
                 thumb_url
             }
-#            employees_events
+            #            employees_events
             unread_messages_count
             status
             rejected_reason
@@ -134,12 +134,12 @@ export const GET_ME = gql`
                 address
                 website
                 photos {
-                  id
-                  url
-                  thumb_url
-                  thumb_blur_url
-                  blur_url
-                  custom_properties
+                    id
+                    url
+                    thumb_url
+                    thumb_blur_url
+                    blur_url
+                    custom_properties
                 }
                 reviews {
                     id
@@ -149,7 +149,7 @@ export const GET_ME = gql`
     }
 `;
 
-export const UPLOAD_USER_AVATAR = gql `
+export const UPLOAD_USER_AVATAR = gql`
     mutation uploadUserAvatar(
         $avatar: Upload!
         $collection: String!
@@ -164,7 +164,7 @@ export const UPLOAD_USER_AVATAR = gql `
     }
 `;
 
-export const UPLOAD_VERIFY_PHOTO = gql `
+export const UPLOAD_VERIFY_PHOTO = gql`
     mutation uploadUserVerifyPhoto(
         $verify_photo: Upload!
         $collection: String!
@@ -175,6 +175,30 @@ export const UPLOAD_VERIFY_PHOTO = gql `
         ) {
             status
             message
+        }
+    }
+`;
+
+export const GET_MY_EMPLOYEES = gql`
+    query me {
+        me {
+            id
+            employees {
+                id
+                name
+                events_count
+                photos_count
+                videos_count
+                soon
+                active
+                status
+                photos {
+                    id
+                    url
+                    thumb_url
+                    custom_properties
+                }
+            }
         }
     }
 `;

@@ -70,7 +70,7 @@ TextField.propTypes = {
   name: PropTypes.string.isRequired,
   width: PropTypes.string,
   after: PropTypes.node,
-  type: PropTypes.oneOf(["text", "password", "email"])
+  type: PropTypes.oneOf(["text", "password", "email", "time"])
 };
 
 TextField.defaultProps = {

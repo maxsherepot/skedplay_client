@@ -6,6 +6,7 @@ export const HELP_CENTER_TOPICS = gql`
             id
             slug
             name
+            active
             title
             description
             keywords
@@ -19,6 +20,7 @@ export const HELP_CENTER_TOPIC = gql`
             id
             slug
             name
+            active
             content
             content_html
             title

@@ -33,10 +33,10 @@ class ChatController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $employee_id = func_get_args()[0] ?? null;
+        $employeeId = func_get_args()[0] ?? null;
 
         $chats = $this->repository
-            ->getChatsQuery($user, is_numeric($employee_id) ? (int) $employee_id : null)
+            ->getChatsQuery($user, is_numeric($employeeId) ? (int) $employeeId : null)
             ->with(['employee.avatar', 'client.avatar'])
             ->withCount([
                 'messages' => function($query) use ($user) {
@@ -53,18 +53,25 @@ class ChatController extends Controller
         return $chats;
     }
 
-    public function show($chat_id)
+    public function show()
     {
+        $chatId = func_get_args()[0] ?? null;
+
         $chat = Chat::with(['employee.avatar', 'client.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(Chat::MESSAGES_LIMIT);
-        }])->findOrFail($chat_id);
+        }])->findOrFail($chatId);
 
+        /** @var User $user */
         $user = auth()->user();
 
         if ($user->is_client_chat_member) {
             $chatMemberId = $user->id;
         } elseif ($user->is_employee) {
-            $chatMemberId = $user->employee->id;
+            $chatMemberId = $chat->employee_id;
+
+            if (!$user->employees()->where('id', $chatMemberId)->first()) {
+                return $this->fail('chat not found');
+            }
         } else {
             $chatMemberId = $chat->employee_id;
 

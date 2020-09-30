@@ -4,6 +4,7 @@ namespace Modules\Users\Services\Sms\Channels;
 
 use Illuminate\Notifications\Notification;
 use Modules\Users\Services\Sms\SmsBuilder;
+use Modules\Users\Services\Sms\SmsManager;
 
 class SmsChannel
 {
@@ -20,6 +21,7 @@ class SmsChannel
         $message = $notification->toSms($notifiable);
 
         $this->validate($message);
+        /** @var SmsManager $manager */
         $manager = app()->make('sms');
 
         if (!empty($message->getDriver())) {

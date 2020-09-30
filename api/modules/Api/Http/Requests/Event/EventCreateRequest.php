@@ -22,7 +22,7 @@ class EventCreateRequest extends GraphQLFormRequest
             'club_id'       => 'bail|nullable|integer|exists:clubs,id',
             'address'       => 'string|max:255',
             'mode' => ['required', Rule::in(array_keys(Event::MODES))],
-            'employees_ids' => ['required_with:club_id', 'array'],
+            'employees_ids' => ['required', 'array'],
             'employees_ids.*' => 'integer',
             'end_date' => 'nullable|date',
         ];
@@ -32,6 +32,10 @@ class EventCreateRequest extends GraphQLFormRequest
             $rules['days.*'] = ['integer'];
         } elseif (intval($this->get('mode')) === Event::MODE_DATE) {
             $rules['start_date'] = ['required', 'date'];
+        }
+
+        if (!$this->get('club_id')) {
+            $rules['employees_ids'][] = 'min:1';
         }
 
         return $rules;

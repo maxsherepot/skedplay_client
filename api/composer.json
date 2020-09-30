@@ -17,6 +17,7 @@
         "barryvdh/laravel-ide-helper": "^2.6",
         "barryvdh/laravel-omnipay": "0.3.*@dev",
         "centrifugal/phpcent": "~3.0",
+        "dillingham/nova-items-field": "^0.6.0",
         "doctrine/dbal": "^2.9",
         "eminiarts/nova-tabs": "^1.2.2",
         "epartment/nova-dependency-container": "^1.2",

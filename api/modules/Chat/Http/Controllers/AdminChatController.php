@@ -84,7 +84,7 @@ class AdminChatController extends Controller
         $user = auth()->user();
 
         return AdminChat::query()
-            ->with(['lastMessage.attachments', 'user.avatar', 'user.employee.avatar'])
+            ->with(['lastMessage.attachments', 'user.avatar'])
             ->when(!$user->is_admin, function(Builder $builder) use ($user) {
                 $builder->where('user_id', $user->id);
             })
@@ -93,9 +93,7 @@ class AdminChatController extends Controller
             ->map(function(AdminChat $chat) {
                 $chat->last_message = $chat->lastMessage;
 
-                $avatar = $chat->user->isEmployee()
-                    ? $chat->user->employee->avatar
-                    : $chat->user->avatar;
+                $avatar = $chat->user->avatar;
 
                 $chat->user->fucking_avatar = $avatar;
 
@@ -108,9 +106,7 @@ class AdminChatController extends Controller
         $avatar = null;
 
         if ($user->isAdmin()) {
-            $avatar = $chatUser->isEmployee()
-                ? $chatUser->employee->avatar
-                : $this->getUserAvatar($chatUser);
+            $avatar = $this->getUserAvatar($chatUser);
         }
 
         return !$user->isAdmin() ?
@@ -136,18 +132,10 @@ class AdminChatController extends Controller
 
     private function getUserAvatar($chatUser)
     {
-        if ($chatUser->isEmployee()) {
-            $userAvatar = $chatUser->employee->avatar;
-            if (!$userAvatar) {
-                $userAvatar = $chatUser->employee->toArray()['avatar'] ?? null;
-                $userAvatar = Media::find($userAvatar['id']);
-            }
-        } else {
-            $userAvatar = $chatUser->avatar;
-            if (!$userAvatar) {
-                $userAvatar = $chatUser->toArray()['avatar'] ?? null;
-                $userAvatar = Media::find($userAvatar['id']);
-            }
+        $userAvatar = $chatUser->avatar;
+        if (!$userAvatar) {
+            $userAvatar = $chatUser->toArray()['avatar'] ?? null;
+            $userAvatar = Media::find($userAvatar['id']);
         }
 
         return $userAvatar;

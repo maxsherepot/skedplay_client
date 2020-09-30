@@ -96,38 +96,38 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
           <div className={"w-full hd:mt-6 " + (user ? " xl:w-9/12 " : " xl:w-8/12 ")}>
             {!user ? (
               <div className="mt-1 flex flex-col items-center px-2">
-                  <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"
-                       style={{backgroundColor: "#ffeff3", width: "calc(100% - 8px)", maxWidth: 540}}>
-                      <div className="flex">
-                          <div className="flex flex-col w-full">
-                              <div className="flex items-center justify-between">
-                                  <div className="mr-4">
-                                      <AlertTriangleSvg />
-                                  </div>
-                                   <span className="text-lg">{t('chat.chat_available_for_authorized')}</span>
-                              </div>
-                            </div>
+                <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"
+                     style={{backgroundColor: "#ffeff3", width: "calc(100% - 8px)", maxWidth: 540}}>
+                  <div className="flex">
+                    <div className="flex flex-col w-full">
+                      <div className="flex items-center justify-between">
+                        <div className="mr-4">
+                          <AlertTriangleSvg />
                         </div>
+                        <span className="text-lg">{t('chat.chat_available_for_authorized')}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-full" style={{maxWidth: 550}}>
-                      <Modal
-                        title={t('common.login')}
-                        style={{height: "auto"}}
-                        modalDialogStyle={{height: "auto"}}
-                      >
-                        {/*<div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
+                </div>
+                <div className="w-full" style={{maxWidth: 550}}>
+                  <Modal
+                    title={t('common.login')}
+                    style={{height: "auto"}}
+                    modalDialogStyle={{height: "auto"}}
+                  >
+                    {/*<div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
                                   <span className="text-white">
                                     {t('chat.chat_available_for_authorized')}
                                   </span>
                         </div>*/}
-                        <LoginBox />
-                      </Modal>
-                  </div>
+                    <LoginBox />
+                  </Modal>
+                </div>
               </div>
             ) : (
-                <div className="px-3 mt-3 hd:-mt-10">
-                    <EmployeeClientChat user={user} employee={employee}/>
-                </div>
+              <div className="px-3 mt-3 hd:-mt-10">
+                <EmployeeClientChat user={user} employee={employee} employeeId={employee.id}/>
+              </div>
             )}
           </div>
         </div>
@@ -140,7 +140,7 @@ ClientChatComponent.getInitialProps = async ctx => {
   const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
 
   if (!user) {
-      return {};
+    return {};
   }
 
   return { user };

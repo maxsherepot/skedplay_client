@@ -12,9 +12,14 @@ import {NextSeo} from "next-seo";
 
 const EmployeeEventShow = ({user}) => {
   const router = useRouter();
-  const {id, event: eventId, canton, city} = router.query;
+  let {id, event: eventId, canton, city} = router.query;
   const {t, i18n} = useTranslation();
   const [doEvent] = useMutation(DO_EVENT);
+
+  id = id.replace('/', '');
+  eventId = eventId.replace('/', '');
+  canton = canton.replace('/', '');
+  city = city.replace('/', '');
 
   const {data: {employee} = {}, loading: employeeLoading} = useQuery(
     GET_EMPLOYEE,
@@ -58,7 +63,7 @@ const EmployeeEventShow = ({user}) => {
     return <Loader/>;
   }
 
-  if (!employee || !event || parseInt(event.owner_id) !== parseInt(employee.id)) {
+  if (!employee || !event || !event.employees.map(e => e.id).includes(employee.id)) {
     const err = new Error();
     err.code = 'ENOENT';
     throw err;

@@ -3,6 +3,7 @@
 namespace Modules\Employees\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Modules\Clubs\Entities\Club;
 use Modules\Common\Database\Seeders\CommonableSeeder;
 use Modules\Employees\Entities\Employee;
@@ -53,6 +54,19 @@ class EmployeeTableSeeder extends Seeder
      */
     public function createEmployee($owner)
     {
+        $addresses = [
+            'Hagenholzstrasse 110, Цюрих, Швейцария',
+            'Sulgenrain 22, Берн, Швейцария',
+            'Брандштрассе 33, Шлирен, Швейцария',
+            'Zihlmattweg 44, Люцерн, Швейцария',
+            'Rue de l\'Athénée 44, Женева, Швейцария',
+            'Aeschenvorstadt 56, Базель, Швейцария',
+            'Im oberen Gern 61, Винтертур, Швейцария',
+            'Lettenstrasse 78, Кильхберг, Швейцария',
+            'Lindauerstrasse 23, Tagelswangen, Швейцария',
+            'Hertensteinstrasse 156, Веггис, Швейцария',
+        ];
+
         $employee = new Employee([
             'first_name'  => $this->faker->firstName,
             'last_name'   => $this->faker->lastName,
@@ -61,9 +75,9 @@ class EmployeeTableSeeder extends Seeder
             'description' => $this->faker->text,
             'text'        => $this->faker->text(1000),
             'type'        => random_int(1, 2),
-            'address'     => $this->faker->address,
-            'lat'         => $this->faker->latitude,
-            'lng'         => $this->faker->longitude,
+            'address'     => Arr::random($addresses),
+//            'lat'         => $this->faker->latitude,
+//            'lng'         => $this->faker->longitude,
             'isVip'       => $this->faker->boolean
         ]);
 

@@ -4,6 +4,7 @@ namespace Modules\Clubs\Observers;
 
 use Carbon\Carbon;
 use Modules\Clubs\Entities\Club;
+use Modules\Users\Entities\User;
 use Modules\Users\Repositories\ClubRepository;
 
 /**
@@ -35,6 +36,16 @@ class ClubObserver
     {
         $this->setCommentDate($club);
         $this->setManagerAssignmentDate($club);
+
+        if (!request()->user()) {
+            return;
+        }
+
+        if (!request()->user()->hasRole(User::ACCOUNT_MANAGER)) {
+            return;
+        }
+
+        $club->manager_id = request()->user()->id;
     }
 
     public function setCommentDate(Club $club): void

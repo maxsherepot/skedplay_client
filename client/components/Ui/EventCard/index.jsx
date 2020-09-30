@@ -40,8 +40,8 @@ function renderToday(start_date, end_date, mode) {
   }
 
   const today = moment().unix();
-  const start = moment(start_date).set({hour:0, minute:0, second:0, millisecond:0}).unix();
-  const end = moment(end_date).set({hour:23, minute:59, second:59, millisecond:0}).unix();
+  const start = moment(new Date(start_date)).set({hour:0, minute:0, second:0, millisecond:0}).unix();
+  const end = moment(new Date(end_date)).set({hour:23, minute:59, second:59, millisecond:0}).unix();
 
   if (start > today || end < today) {
     return '';

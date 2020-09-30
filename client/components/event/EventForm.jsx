@@ -22,7 +22,7 @@ import FileField from "UI/Forms/FileField";
 import {useRouter} from "next/router";
 import {GET_ME} from "queries/userQuery";
 
-const EventForm = ({initialValues, onSubmit, update}) => {
+const EventForm = ({initialValues, onSubmit, update, employees}) => {
   const {t} = useTranslation();
   const [mode, setMode] = useState(initialValues.mode || "1");
   const {query: {eid}} = useRouter();
@@ -35,7 +35,8 @@ const EventForm = ({initialValues, onSubmit, update}) => {
   const {data: {event} = {}, loading} = useQuery(GET_EVENT, {
     variables: {
       id: eid
-    }
+    },
+    skip: !eid
   });
 
   if (loading || eventTypesLoading || loadingMe) {
@@ -51,10 +52,6 @@ const EventForm = ({initialValues, onSubmit, update}) => {
     {label: t('common.days_short.fri'), value: 5},
     {label: t('common.days_short.sat'), value: 6},
   ];
-
-  let defaultAddress = event && event.address ? event.address : (me && me.employee && me.employee.address || '');
-
-  //let setDefaultAddress = defaultAddress.endsWith(', Switzerland') ? defaultAddress : '';
 
   let days = [];
 
@@ -72,7 +69,7 @@ const EventForm = ({initialValues, onSubmit, update}) => {
         event_type_id: Yup.number().required('Type'),
         start_time: Yup.string().required(),
         address: Yup.string().required(),
-        mainPhoto: Yup.string().nullable().required(),
+        // mainPhoto: Yup.string().nullable().required(),
       })}
       onSubmit={onSubmit}
     >
@@ -181,13 +178,9 @@ const EventForm = ({initialValues, onSubmit, update}) => {
 
             <LocationSearchInput
               className="w-full"
-              initAddress={defaultAddress}
-              defaultValue={defaultAddress}
             />
 
-            {initialValues.club &&
-              <EventEmployeesField clubEmployees={initialValues.club.employees} eventEmployees={initialValues.employees}/>
-            }
+            <EventEmployeesField clubEmployees={employees} eventEmployees={initialValues.employees}/>
 
             {/*<div className="flex flex-wrap mb-4 mt-4">*/}
             {/*  <MultiPhotoField */}

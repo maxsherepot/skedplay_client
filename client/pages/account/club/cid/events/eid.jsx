@@ -28,7 +28,7 @@ const AccountClubEventsEdit = () => {
     }
 
     return (
-        <EditEventBox initialValues={{ ...event, event_type_id: +event.type.id }} onSubmit={onSubmit} />
+        <EditEventBox employees={event.club.employees} initialValues={{ ...event, event_type_id: +event.type.id }} onSubmit={onSubmit} />
     );
 };
 

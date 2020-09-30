@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Fields\Translatable;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
@@ -56,6 +57,7 @@ class HelpCenterCategory extends Resource
     {
         return [
             ID::make()->sortable(),
+            Boolean::make('active'),
 
             Translatable::make([
                 Text::make('Name')

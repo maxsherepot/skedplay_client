@@ -146,7 +146,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
   deleteEmployee(employee: ID!): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@delete")
 
-  createEmployeeEvent(employee: ID!, input: EventInput @spread): Event
+  createEmployeeEvent(input: EventInput @spread): Event
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@createEvent")
 
   updateEmployeeEvent(event: ID!, input: EventUpdateInput @spread): StatusPayload

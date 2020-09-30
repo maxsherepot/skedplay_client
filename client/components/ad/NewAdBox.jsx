@@ -5,7 +5,7 @@ import {
   SYNC_EMPLOYEE_PRICES,
   SYNC_EMPLOYEE_SERVICES,
   UPLOAD_EMPLOYEE_FILES,
-  CREATE_EMPLOYEE_SCHEDULE,
+  CREATE_EMPLOYEE_SCHEDULE, GET_MY_EMPLOYEES,
 } from "queries";
 import { getErrors } from "utils";
 import { employeeRules } from "rules";
@@ -47,8 +47,9 @@ const NewAdBox = ({clubId}) => {
             services: JSON.stringify(values.services),
             parameters: JSON.stringify(values.parameters),
             languages: JSON.stringify(values.languages),
-          }
-        }
+          },
+        },
+        refetchQueries: !clubId ? [{query: GET_MY_EMPLOYEES}] : [],
       });
 
       setEmployeeId(id);

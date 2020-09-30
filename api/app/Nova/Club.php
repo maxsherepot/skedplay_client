@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ChangeClubStatus;
+use App\Nova\Actions\Comment;
 use App\Nova\Actions\Confirm;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ClubTypeFilter;
@@ -18,6 +20,7 @@ use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NovaItemsField\Items;
 
 class Club extends Resource
 {
@@ -176,11 +179,16 @@ class Club extends Resource
 
             DateTime::make('Manager set at', 'manager_assignment_at')->onlyOnDetail(),
 
-            Text::make('Phones')->withMeta([
-                'extraAttributes' => [
-                    'placeholder' => '+4171-111-11-11',
-                ],
-            ])->rules('required'),
+            Text::make('Phones')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->displayUsing(fn($value) => implode('<br>', $value))
+                ->asHtml(),
+
+            Items::make('Phones')
+                ->onlyOnForms()
+                ->required()
+                ->placeholder('+4171-111-11-11'),
 
             Text::make('Comment'),
 
@@ -198,11 +206,17 @@ class Club extends Resource
             BelongsTo::make('Type', 'type', ClubType::class)->sortable(),
 
             Text::make('Address')->hideFromIndex(),
-            Text::make('Phone', 'phones')->withMeta([
-                'extraAttributes' => [
-                    'placeholder' => '+4171-111-11-11',
-                ],
-            ]),
+
+            Text::make('Phones')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->displayUsing(fn($value) => implode('<br>', $value))
+                ->asHtml(),
+
+            Items::make('Phones')
+                ->onlyOnForms()
+                ->required()
+                ->placeholder('+4171-111-11-11'),
 
             Text::make('Email')->onlyOnForms(),
             Text::make('Website')->onlyOnForms(),
@@ -307,10 +321,20 @@ class Club extends Resource
         return [
             (new Confirm())->canRun(function ($request) {
                 return true;
-            }),
+            })->showOnTableRow(),
             (new Reject())->canRun(function ($request) {
                 return true;
-            }),
+            })->showOnTableRow(),
+            (new ChangeClubStatus())
+                ->canRun(function ($request) {
+                    return true;
+                })
+                ->showOnTableRow(),
+            (new Comment())
+                ->canRun(function ($request) {
+                    return true;
+                })
+                ->showOnTableRow(),
         ];
     }
 

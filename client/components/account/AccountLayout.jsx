@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from 'components/SlashedLink'
 import Router, {useRouter} from "next/router";
-import {Avatar, Button, PageCard} from "UI";
+import {Avatar, Button, PageCard, Loader} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
-import {GET_MY_EMPLOYEE_EVENTS_COUNT} from 'queries';
+import {GET_MY_EMPLOYEE_EVENTS_COUNT, GET_MY_EMPLOYEES, SETTINGS} from 'queries';
 import {useTranslation} from "react-i18next";
 import {UPLOAD_VERIFY_PHOTO} from "queries/userQuery";
 import {getErrors} from "utils/index";
@@ -16,37 +16,33 @@ import cx from "classnames";
 import Cookies from "js-cookie";
 import redirect from "lib/redirect";
 import { setCookie } from "utils";
+import AddGirlLinkWrap from "components/account/AddGirlLinkWrap";
 
 const ProfileHeader = ({user}) => {
-    const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
-    return (
-        <>
-          {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
-              <VerifyMessage user={user}/>
-          )}
-          <div className="container header-profile-div">
-            <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
-              <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar} src={avatar}/>
-              <div className="ml-4">
-                {user && user.is_employee ? (
-                  <span className="text-2xl font-medium capitalize">
-                    {user.employee.name} {user.age ? `, ${user.age}` : ''}
-                  </span>
-                ) : (
-                  <span className="text-2xl font-medium capitalize">
-                    {user.name} {user.age ? `, ${user.age}` : ''}
-                  </span>
-                )}
-                <div className="profile-info-box flex mt-4">
-                    <div className="flex">
-                        <AccountLabel {...user} />
-                    </div>
-                  <span className="profile-phone sm:ml-2">{user.phone}</span>
-                </div>
+  const avatar = user && user.avatar ? user.avatar.thumb_url : null;
+
+  return (
+      <>
+        {user && (user.is_employee || user.is_club_owner) && user.status === 0 && (
+            <VerifyMessage user={user}/>
+        )}
+        <div className="container header-profile-div">
+          <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
+            <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar} src={avatar}/>
+            <div className="ml-4">
+              <span className="text-2xl font-medium capitalize">
+                {user.name} {user.age ? `, ${user.age}` : ''}
+              </span>
+              <div className="profile-info-box flex mt-4">
+                  <div className="flex">
+                      <AccountLabel {...user} />
+                  </div>
+                <span className="profile-phone sm:ml-2">{user.phone}</span>
               </div>
             </div>
           </div>
-        </>
+        </div>
+      </>
     )
 };
 
@@ -58,7 +54,7 @@ const VerifyMessage = ({user}) => {
   if (user.verify_photo) {
     let dateUploadPhoto = user.verify_photo['created_at'];
 
-    date = moment(dateUploadPhoto.slice(0, 10), 'YYYY-MM-DD').format('DD-MM-YYYY');
+    date = moment(new Date(dateUploadPhoto.slice(0, 10)), 'YYYY-MM-DD').format('DD-MM-YYYY');
     time = dateUploadPhoto.slice(11, 16);
   }
 
@@ -266,22 +262,22 @@ const ClubMenu = ({clubs}) => {
   });
 };
 
-export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events, employees, employee}}) => {
+export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events}}) => {
   const {t, i18n} = useTranslation();
   const client = useApolloClient();
-  const employeeButtonText = employee
-    ? t('layout.edit_ad')
-    : t('layout.add_ad');
-
-  const employeeLink = employee
-    ? '/account/ad'
-    : '/girls/add';
 
   if (is_moderator) {
     clubs = moderated_clubs;
   }
 
-  const {loading: userCountsLoading, error: userCountsError, data: {me: userCounts} = {}} = useQuery(GET_MY_EMPLOYEE_EVENTS_COUNT);
+  const {loading: employeesLoading, data} = useQuery(GET_MY_EMPLOYEES, {
+    skip: !is_employee
+  });
+  const {loading: userCountsLoading, error: userCountsError, data: {me: userCounts} = {}} = useQuery(GET_MY_EMPLOYEE_EVENTS_COUNT, {
+    skip: !is_employee
+  });
+
+  const employees = (data && data.me && data.me.employees) || [];
 
   const signOut = () => {
     Cookies.remove('token', { path: '' });
@@ -295,33 +291,53 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
 
   return (
     <div className="account-layout-sidebar hidden sm:flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
+      {(employeesLoading) && <Loader/>}
       <div className="flex flex-col py-10 lg:pr-20 xl:pr-20">
-        {is_employee && (
-          <div>
-            <span
-              className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-              {t('account.my_card')}
+        {is_employee &&
+          <>
+            <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+              My Ad/Cards
             </span>
-            <ul className="text-lg font-medium leading-loose ml-10 mt-4">
-              <li>
-                {employee.name}
-              </li>
-              <li>
-                <Link href={employeeLink}>
-                  <a className="text-red hover:text-black focus:text-black">
-                    {t('layout.edit_my_card')}
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        )}
+
+            <div>
+              <ul className="text-lg font-medium leading-loose ml-10 mt-4">
+                {!employeesLoading &&
+                  <>
+                    {employees.map(employee => (
+                      <li key={employee.id}>
+                        <Link
+                          as={`/account/ad/${employee.id}`}
+                          href={`/account/ad/eid/?eid=${employee.id}`}
+                        >
+                          <a className="text-red hover:text-black focus:text-black">
+                            {employee.name}
+                          </a>
+                        </Link>
+                      </li>
+                    ))}
+
+                    <AddGirlLinkWrap employeesCount={employees.length}>
+                      <li className="hover:text-black focus:text-black">
+                        <Link href="/girls/add">
+                          <a>
+                            {t('layout.add_new_card')}
+                          </a>
+                        </Link>
+                      </li>
+                    </AddGirlLinkWrap>
+                  </>
+                }
+              </ul>
+            </div>
+
+          </>
+        }
 
         {is_employee && (
           <div className="mt-5">
-                  <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
-                      {t('layout.my_events')}
-                  </span>
+            <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+                {t('layout.my_events')}
+            </span>
             <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
               <li className="hover:text-black focus:text-black">
                 <Link href="/account/events/create">

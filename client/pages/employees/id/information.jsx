@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'components/SlashedLink'
 import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
@@ -162,44 +162,46 @@ const EmployeeInformation = ({ user }) => {
   const [event] = employee.events;
 
   const sidebarColumn = (
-      (employee.photos.length + employee.videos.length === 0) ?
-        <div className="bg-white rounded-lg p-4">
-            <div className="flex justify-center" style={{backgroundColor: "#f6f6f6"}}>
-                <img class="object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-md xl:h-e-photo-xl hd:h-e-photo-hd" style={{width: 200}} src="/static/img/girl-no-photo.jpg" alt=""/>
-            </div>
+    (employee.photos.length + employee.videos.length === 0) ?
+      <div className="bg-white rounded-lg p-4">
+        <div className="flex justify-center" style={{ backgroundColor: '#f6f6f6' }}>
+          <img
+            className="object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-md xl:h-e-photo-xl hd:h-e-photo-hd"
+            style={{ width: 200 }} src="/static/img/girl-no-photo.jpg" alt=""/>
         </div>
-        :
-        <>
-          <Lightbox
-            open={isModalOpen}
-            index={lightboxIndex}
-            onClose={onClose}
-            images={[
-              ...employee.photos.map(p => ({...p, type: 'image', url: getPhotoUrl(p)})),
-              ...employee.videos.map(v => ({...v, type: 'video'}))]
-            }
-          />
+      </div>
+      :
+      <>
+        <Lightbox
+          open={isModalOpen}
+          index={lightboxIndex}
+          onClose={onClose}
+          images={[
+            ...employee.photos.map(p => ({ ...p, type: 'image', url: getPhotoUrl(p) })),
+            ...employee.videos.map(v => ({ ...v, type: 'video' }))]
+          }
+        />
 
-          <GalleryWithThumbnail
-            photos={[
-              ...employee.photos.map(p => ({...p, type: 'image', big_thumb_url: getBigThumbUrl(p)})),
-              ...employee.videos.map(v => ({...v, url: v.thumb_url, type: 'video'}))
-            ]}
-            handleClick={handleLightboxClick}
-            favorite={
-              <FavoriteButton
-                variables={{ model_id: employee.id, model_type: "employee" }}
-                favorited={employee.favorited}
-                small
-                iconWidth={18}
-                iconHeight={16}
-                large={false}
-              />
-            }
-            large
-          />
-        </>
-  );
+        <GalleryWithThumbnail
+          photos={[
+            ...employee.photos.map(p => ({ ...p, type: 'image', big_thumb_url: getBigThumbUrl(p) })),
+            ...employee.videos.map(v => ({ ...v, url: v.thumb_url, type: 'video' }))
+          ]}
+          handleClick={handleLightboxClick}
+          favorite={
+            <FavoriteButton
+              variables={{ model_id: employee.id, model_type: 'employee' }}
+              favorited={employee.favorited}
+              small
+              iconWidth={18}
+              iconHeight={16}
+              large={false}
+            />
+          }
+          large
+        />
+      </>
+  )
 
   const getStars = starsCount => {
     let stars = [];
@@ -298,15 +300,21 @@ const EmployeeInformation = ({ user }) => {
             <div className="w-full sm:w-2/5">
               <div className="flex sm:flex-col items-end">
                 {employee.isVip && (
-                    <div className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
-                      {t('status.vip')}
-                    </div>
+                  <div
+                    className="flex items-center justify-center bg-red text-white text-xl font-bold w-15 h-15 rounded-full sm:mb-3">
+                    {t('status.vip')}
+                  </div>
                 )}
-                <div className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
-                  100%
-                </div>
-                <div className="flex items-center justify-center bg-white border-2 border-divider w-15 h-15 rounded-full">
-                  <CocktailSvg height={30} width={30} />
+
+                {(employee.status === 1 && employee.user_status === 1) ?
+                  (<div
+                      className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
+                      100%
+                    </div>
+                  ) : ''}
+                <div
+                  className="flex items-center justify-center bg-white border-2 border-divider w-15 h-15 rounded-full">
+                  <CocktailSvg height={30} width={30}/>
                 </div>
               </div>
             </div>
@@ -364,7 +372,7 @@ const EmployeeInformation = ({ user }) => {
                   {sidebarColumn}
               </div>
             <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{maxWidth: 750}}>
+              <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{ maxWidth: 750 }}>
                 {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
                 <div className="hidden sm:block">
                     {sidebarColumn}

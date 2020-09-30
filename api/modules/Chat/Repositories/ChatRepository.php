@@ -59,26 +59,16 @@ class ChatRepository
             ->leftJoin('messages', 'messages.chat_id', '=', 'chats.id')
             ->orderBy('updated_at', 'desc');
 
-        if ($user->is_club_owner) {
-            if (!$employeeId) {
-                return $query->whereEmployeeId(0);
-//                throw new \Exception('club owner must specify employee id');
-            }
-
-            return $query->whereEmployeeId($employeeId);
+        if ($user->is_client_chat_member) {
+            return $query->whereClientId($user->id);
         }
 
-        $chatMemberId = $user->is_client_chat_member
-            ? $user->id
-            : $user->employee->id;
+        if (!$employeeId) {
+            return $query->whereEmployeeId(0);
+//            throw new \Exception('club owner or employee user must specify employee id');
+        }
 
-        return $query
-            ->when($user->is_client_chat_member, function($query) use ($chatMemberId) {
-                $query->whereClientId($chatMemberId);
-            })
-            ->when($user->is_employee, function($query) use ($chatMemberId) {
-                $query->whereEmployeeId($chatMemberId);
-            });
+        return $query->whereEmployeeId($employeeId);
     }
 
     public function getUserChatsWithLastMessages(User $user): Collection
@@ -101,7 +91,10 @@ class ChatRepository
 
         if ($user->is_employee) {
             return $query
-                ->where('employee_id', $user->employee->id)
+                ->whereIn(
+                    'employee_id',
+                    $user->employees->pluck('id')
+                )
                 ->get();
         }
 

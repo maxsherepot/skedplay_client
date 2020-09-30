@@ -8,3 +8,4 @@ export { default as AccountLabel } from "./AccountLabel";
 export { default as PrivateBox } from "./PrivateBox";
 export { default as ClubOwnerBox } from "./ClubOwnerBox";
 export { default as ClientBox } from "./ClientBox";
+export { default as AddGirlLinkWrap } from "./AddGirlLinkWrap";

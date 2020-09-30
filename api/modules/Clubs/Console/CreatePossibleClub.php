@@ -56,18 +56,29 @@ class CreatePossibleClub extends Command
                 ['name' => $club->type]
             );
 
+            $clubModel = Club::query()->where('name', $club->name)->first();
+
+            if ($clubModel) {
+                $this->info('Duplicate club: [ ' . $club->id . ' ]');
+
+                continue;
+            }
+
             try {
-                Club::query()->updateOrCreate([
-                        'name' => $club->name
-                    ], [
-                        'address' => $club->adress,
-                        'club_type_id' => $type->id,
-                        'website' => $club->www,
-                        'phones' => $club->phone,
-                        'email' => $club->email,
-                        'comment' => $club->comment,
-                    ]
-                );
+                $phones = collect(explode(',', $club->phone))
+                    ->map(
+                        fn(string $phone) => str_replace(['(', ')', ' ', '-'], '', trim($phone))
+                    );
+
+                Club::query()->create([
+                    'name' => $club->name,
+                    'address' => $club->adress,
+                    'club_type_id' => $type->id,
+                    'website' => $club->www,
+                    'phones' => $phones,
+                    'email' => $club->email,
+                    'comment' => $club->comment,
+                ]);
 
                 $this->info('Complete club: [ ' . $club->id . ' ]');
             } catch (\Exception $exception) {

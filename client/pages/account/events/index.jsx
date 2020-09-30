@@ -21,8 +21,8 @@ const AccountEventsIndex = ({user}) => {
     const {data: {eventsByOwner} = {}, loading} = useQuery(EVENTS_BY_OWNER, {
         fetchPolicy: 'no-cache',
         variables: {
-            owner_id: user.employee.id,
-            owner_type: "employee"
+            owner_id: user.id,
+            owner_type: "user"
         }
     });
 
@@ -71,8 +71,8 @@ const AccountEventsIndex = ({user}) => {
                 {
                     query: EVENTS_BY_OWNER,
                     variables: {
-                        owner_id: user.employee.id,
-                        owner_type: "employee"
+                        owner_id: user.id,
+                        owner_type: "user"
                     }
                 },
                 {
@@ -139,6 +139,7 @@ const AccountEventsIndex = ({user}) => {
                                 </DeletePopup>
                             </div>
                         </div>
+
                     </div>
 
                     {/*<div className="capitalize text-grey">*/}

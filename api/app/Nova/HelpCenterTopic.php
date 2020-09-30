@@ -60,6 +60,7 @@ class HelpCenterTopic extends Resource
 
             BelongsTo::make('Category', 'category', HelpCenterCategory::class),
             Boolean::make('Hyphen'),
+            Boolean::make('active'),
             Number::make('Sort order', 'sort_order'),
 
             Translatable::make([

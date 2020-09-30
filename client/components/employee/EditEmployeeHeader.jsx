@@ -8,7 +8,7 @@ import {
   DELETE_EMPLOYEE,
   UPDATE_EMPLOYEE,
   UPLOAD_EMPLOYEE_FILES,
-  CLUBS_SEARCH,
+  CLUBS_SEARCH, SETTINGS, GET_MY_EMPLOYEES,
 } from "queries";
 import {Avatar, Button, DeletePopup, Loader} from "UI";
 import {ChangePhotoSvg} from 'icons';
@@ -29,13 +29,41 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
     }
   });
 
+  const {loading: settingsLoading, data: {settings} = {}} = useQuery(SETTINGS);
+
+  const {loading: employeesLoading, data} = useQuery(GET_MY_EMPLOYEES, {
+    skip: !user.is_employee
+  });
+
+  const employees = (data && data.me && data.me.employees) || [];
+
   const avatarRef = React.createRef();
 
-  if (loadingClubs) return <Loader/>;
+  if (loadingClubs || settingsLoading) return <Loader/>;
 
   if (!clubsSearch) {
     return null;
   }
+
+  const canActivateCard = () => {
+    if (!user.is_employee) {
+      return true;
+    }
+
+    if (employeesLoading) {
+      return false;
+    }
+
+    const maxActiveCardsCount = settings.find(s => s.key === 'employee_active_cards_count');
+
+    if (!maxActiveCardsCount) {
+      return false;
+    }
+
+    return employees.filter(e => e.active).length < maxActiveCardsCount.value;
+  };
+
+
 
   const clubs = clubsSearch
     .filter(c => user.is_employee || parseInt(c.user_id) === parseInt(user.id))
@@ -191,7 +219,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
     }
   };
 
-  const avatar = (employee.photos || []).length ? employee.photos[0].thumb_url : undefined
+  const avatar = (employee.photos || []).length ? employee.photos[0].thumb_url : undefined;
 
   return (
     <div className={"edit-employee-header w-full sm:w-3/6 " + cx(classes)}>
@@ -254,7 +282,10 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             }
             <Button
               onClick={handleToggleActive}
-              className="px-3 mb-3 ml-0 sm:ml-2"
+              className={cx([
+                "px-3 mb-3 ml-0 sm:ml-2 mr-0 sm:mr-2",
+                !employee.active && !canActivateCard() ? 'hidden' : '',
+              ])}
               level="primary"
               outline
               size="xxs"
@@ -265,7 +296,7 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
             </Button>
 
             {employee.isVip && (
-              <Button onClick={handleAddToGeneral} className="px-3 mb-3 ml-0 sm:ml-2" level="primary" outline size="xxs">
+              <Button onClick={handleAddToGeneral} className="px-3 mb-3 mr-0 sm:mr-2" level="primary" outline size="xxs">
                 {employee.inGeneral ? (
                   <span className="text-black">
                     {t('account.only_for_exist_user')}
@@ -277,15 +308,13 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
                 )}
               </Button>
             )}
-            {!user.is_employee &&
-                <div className="ml-0 sm:ml-2">
-                    <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
-                      <div className="pt-6">
-                        <p>{t('account.sure_delete_card')}</p>
-                      </div>
-                    </DeletePopup>
+            <div className="">
+              <DeletePopup onEnter={handleDelete} title={`${t('act.delete')} ${employee.name}?`}>
+                <div className="pt-6">
+                  <p>{t('account.sure_delete_card')}</p>
                 </div>
-            }
+              </DeletePopup>
+            </div>
           </div>
         </div>
       </div>

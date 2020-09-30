@@ -162,7 +162,7 @@ function ClubCard({ id, name, city, favorited, phones, photos, gridClasses = tru
                     "w-8": !showNumber
                   })}
                 >
-                  {phonesList}
+                  {phonesList[0]}
                 </span>
                 {!showNumber && (
                   <span

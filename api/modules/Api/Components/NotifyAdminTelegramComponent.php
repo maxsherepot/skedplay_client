@@ -2,20 +2,25 @@
 
 namespace Modules\Api\Components;
 
+use GuzzleHttp\Client;
+
 class NotifyAdminTelegramComponent
 {
     public function sendNotification(string $text): bool
     {
-        $apiToken = env('TELEGRAM_TOKEN');
+        $client = new Client();
+
+        $apiToken = config('telegram_notificator.token');
 
         $data = [
-           'chat_id' => env('TELEGRAM_ADMIN_CHANNEL'),
+            'chat_id' => config('telegram_notificator.channel'),
             'text' => $text
         ];
 
-        $url = 'https://api.telegram.org/bot'.$apiToken.'/sendMessage?'.http_build_query($data);
+        $client->post('https://api.telegram.org/bot'.$apiToken.'/sendMessage', [
+            'json' => $data,
+        ]);
 
-        file_get_contents($url);
         return true;
     }
 }

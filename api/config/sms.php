@@ -23,13 +23,18 @@ return [
     */
     'drivers' => [
         'logger' => [
-            'from' => 'Skidpay',
+            'from' => 'Skedpay',
         ],
         // Install: composer require nexmo/client
         'nexmo'  => [
             'key'    => env('NEXMO_API_KEY', null),
             'secret' => env('NEXMO_API_SECRET', null),
-            'from'   => 'Skidpay',
+            'from'   => 'Skedpay',
+        ],
+        'plivo' => [
+            'key' => env('PLIVO_AUTH_ID'),
+            'secret' => env('PLIVO_AUTH_TOKEN'),
+            'from'   => env('PLIVO_FROM'),
         ],
     ],
     /*
@@ -47,5 +52,6 @@ return [
     'map'     => [
         'logger' => \Modules\Users\Services\Sms\Drivers\Logger::class,
         'nexmo'  => \Modules\Users\Services\Sms\Drivers\Nexmo::class,
+        'plivo'  => \Modules\Users\Services\Sms\Drivers\Plivo::class,
     ],
 ];

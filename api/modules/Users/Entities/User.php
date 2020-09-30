@@ -289,6 +289,11 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return $this->belongsToMany(Role::class)->withPivot('user_type','user_id');
     }
 
+    public function events(): MorphMany
+    {
+        return $this->morphMany(Event::class, 'owner');
+    }
+
     /**
      * @return mixed
      */
@@ -324,9 +329,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
      */
     public function getEmployeesEventsAttribute()
     {
-        return $this->employees->reduce(function ($count, $employee) {
-            return $count + $employee->events->count();
-        }, 0);
+        return $this->events()->count();
     }
 
     /**
@@ -371,6 +374,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         return JWT::encode(['sub' => $this->id], config('chat.centrifuge_secret'), 'HS256');
     }
 
+
     public function getChatsQuery()
     {
         return Chat::query()
@@ -381,6 +385,8 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
 
     public function unreadMessagesCount(): int
     {
+        // TODO сделать для каждой роли свой счетчик
+
         return Message::query()
             ->select(['messages.*'])
             ->leftJoin('chats', 'chats.id', '=', 'messages.chat_id')

@@ -56,22 +56,10 @@ class RegisterController extends Controller
 
         $data->put('user_id', $user->id);
 
-        switch ($request->get('account_type')) {
-            case User::ACCOUNT_EMPLOYEE:
-                (new EmployeeRepository())->store($user, $data);
-                break;
-        }
-
         event(new Registered($user));
 
-        if ($request->get('account_type') === User::ACCOUNT_EMPLOYEE) {
-            $message = 'A new employee had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/employees/'.$user->id
-            ;
-        } else {
-            $message = 'A new ' . $request->get('account_type') .
-                'had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/users/'.$user->id
-            ;
-        }
+        $message = 'A new ' . $request->get('account_type') .
+            ' had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/users/'.$user->id;
 
         try {
             (new NotifyAdminTelegramComponent)->sendNotification($message);

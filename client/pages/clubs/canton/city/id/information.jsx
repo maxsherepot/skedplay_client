@@ -190,7 +190,7 @@ const ClubInformation = ({user}) => {
         <p className="font-medium  flex flex-col">
             {(club.address || "").split(",").map((item, i) => {
                 return (
-                    <span>{item.trim()}</span>
+                    <span key={item}>{item.trim()}</span>
                 )
             })}
         </p>
@@ -221,7 +221,7 @@ const ClubInformation = ({user}) => {
                 "w-8": !isShowPhone
               })}
             >
-              +{phone}
+              {phone}
             </span>
             {!isShowPhone && (
               <span

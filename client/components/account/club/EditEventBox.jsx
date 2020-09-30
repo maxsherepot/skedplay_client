@@ -8,7 +8,7 @@ import { getErrors } from "utils";
 import {EventForm} from "components/event";
 import {useTranslation} from "react-i18next";
 
-const EditEventBox = ({ initialValues, onSubmit }) => {
+const EditEventBox = ({ initialValues, onSubmit, employees }) => {
     const router = useRouter();
     const {t, i18n} = useTranslation();
 
@@ -64,6 +64,7 @@ const EditEventBox = ({ initialValues, onSubmit }) => {
           </div>
 
           <EventForm
+            employees={employees}
             update={true}
             initialValues={initialValues}
             onSubmit={handleSubmits}

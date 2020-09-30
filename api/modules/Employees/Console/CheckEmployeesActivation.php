@@ -3,7 +3,11 @@
 namespace Modules\Employees\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
+use Modules\Clubs\Entities\Club;
+use Modules\Common\Entities\Setting;
 use Modules\Employees\Entities\Employee;
+use Modules\Users\Entities\User;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -40,8 +44,26 @@ class CheckEmployeesActivation extends Command
      */
     public function handle()
     {
-        Employee::whereActive(0)->whereNotNull('will_activate_at')->chunk(100, function($employees) {
-            $employees->map(function($employee) {
+        $maxActiveCount = Setting::where('key', 'employee_active_cards_count')->first()->value ?? 2;
+
+//        if ($user->employees()->where('active', 1)->count() >= $maxActiveCount) {
+//            throw new \Exception("employee user can have only $maxActiveCount active cards");
+//        }
+//
+        $owners = [Club::class, User::class];
+
+        foreach ($owners as $owner) {
+            /** @var Builder $query */
+            $query = $owner::query();
+
+            $query->with([
+                'employees' => fn($q) => $q->where('active', 0)->whereNotNull('will_activate_at')
+            ]);
+
+            /** @var Club|User $ownerModel */
+            $ownerModel = $query->get();
+
+            foreach ($ownerModel->employees as $employee) {
                 $employee->soon = $employee->will_activate_at->subDays(Employee::SOON_DAYS) < now() ? 1 : 0;
                 $employee->active = $employee->will_activate_at < now() ? 1 : 0;
 
@@ -54,8 +76,8 @@ class CheckEmployeesActivation extends Command
                 }
 
                 $employee->save();
-            });
-        });
+            }
+        }
     }
 
     /**

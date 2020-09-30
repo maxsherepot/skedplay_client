@@ -70,9 +70,9 @@ class LaratrustSeeder extends Seeder
                 $this->command->info("Creating '{$key}' user");
 
                 // Create default user for each role
-                //$user = $this->storeUser($key);
+                $user = $this->storeUser($key);
 
-                //$user->attachRole($role);
+                $user->attachRole($role);
            }
         }
 

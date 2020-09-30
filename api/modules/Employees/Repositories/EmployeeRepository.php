@@ -4,12 +4,17 @@ namespace Modules\Employees\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Modules\Api\Components\NotifyAdminTelegramComponent;
+use Modules\Clubs\Entities\Club;
 use Modules\Common\Contracts\HasMediable;
 use Modules\Common\Entities\EmployeeScheduleWork;
+use Modules\Common\Entities\Setting;
 use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Modules\Main\Entities\Language;
+use Modules\Users\Entities\User;
 
 class EmployeeRepository implements HasMediable
 {
@@ -22,15 +27,19 @@ class EmployeeRepository implements HasMediable
      */
     public function create(Collection $data)
     {
+        /** @var User $user */
         $user = auth('api')->user();
 
         if (($user->is_club_owner || $user->is_moderator) && $clubId = $data->get('club_id')) {
+            /** @var Club $employeeOwner */
             $employeeOwner = $user->clubs()->findOrFail($clubId);
         } else {
             $employeeOwner = $user;
 
-            if ($user->employee) {
-                throw new \Exception('employee user can have only one ad');
+            $maxCount = Setting::where('key', 'employee_cards_count')->first()->value ?? 20;
+
+            if ($user->employees()->count() >= $maxCount) {
+                throw new \Exception("employee user can have only $maxCount cards");
             }
         }
 
@@ -43,6 +52,8 @@ class EmployeeRepository implements HasMediable
             $data->put('last_name', $name[1]);
         }
 
+        $data->put('active', 0);
+
         /** @var Employee $employee */
         $employee = $this->store($employeeOwner, $data);
 
@@ -53,6 +64,14 @@ class EmployeeRepository implements HasMediable
 
         if ($fakeEmployee) {
             $fakeEmployee->delete();
+        }
+
+        $message = 'A new employee had been registered for moderation '.rtrim(env('APP_URL'),'/').'/admin/resources/employees/'.$employee->id;
+
+        try {
+            (new NotifyAdminTelegramComponent)->sendNotification($message);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), [$e->getTrace()]);
         }
 
         return $employee->toArray();
@@ -107,6 +126,14 @@ class EmployeeRepository implements HasMediable
         if ($collection->get('club_id')) {
             if ($employee->owner_type === 'club' && $employee->owner_id === $employee->club->id) {
                 $collection['owner_id'] = $collection->get('club_id');
+            }
+        }
+
+        if (intval($collection->get('active'))) {
+            $maxActiveCount = Setting::where('key', 'employee_active_cards_count')->first()->value ?? 2;
+
+            if ($user->employees()->where('active', 1)->count() >= $maxActiveCount) {
+                throw new \Exception("employee user can have only $maxActiveCount active cards");
             }
         }
 

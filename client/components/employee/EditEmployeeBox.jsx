@@ -50,7 +50,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
   const initialValues = {
     name: `${employee.first_name} ${employee.last_name}`,
-    birthday: moment(employee.birthday).format('DD.MM.YYYY'),
+    birthday: moment(new Date(employee.birthday)).format('DD.MM.YYYY'),
     gender: employee.gender,
     service_for: employee.service_for || [],
     race_type_id: employee.race_type_id,
@@ -269,41 +269,42 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
     t('account.schedule_and_activation')
   ];
 
+  // TODO перенести вот это что ниже(я так понял тут запоминается последний заполненый шаг) на сторону бэкенда, т.к. работниц много, они могут с разных браузеров заполнять инфу.
 
-  useEffect(() => {
-      const withStep = getFromLS("employee_form_state") !== "done"
-      if (withStep) {
-          setWithStep(true)
-          const stepState = parseInt(getFromLS("employee_form_state")) || 0
-          if (stepState > 0) {
-              setStep(stepState)
-          }
-      }
-  }, [])
+  // useEffect(() => {
+  //     const withStep = getFromLS("employee_form_state") !== "done"
+  //     if (withStep) {
+  //         setWithStep(true)
+  //         const stepState = parseInt(getFromLS("employee_form_state")) || 0
+  //         if (stepState > 0) {
+  //             setStep(stepState)
+  //         }
+  //     }
+  // }, [])
 
 
-  useEffect(() => {
-      saveToLS("employee_form_state", undefined)
-      if (withStep) {
-          const stepState = getFromLS("employee_form_state");
-          if (stepState === "done") return
-          if ((parseInt(stepState) || 0) < step) {
-              saveToLS("employee_form_state", step)
-          }
-      }
-  }, [step])
+  // useEffect(() => {
+  //     saveToLS("employee_form_state", undefined)
+  //     if (withStep) {
+  //         const stepState = getFromLS("employee_form_state");
+  //         if (stepState === "done") return
+  //         if ((parseInt(stepState) || 0) < step) {
+  //             saveToLS("employee_form_state", step)
+  //         }
+  //     }
+  // }, [step])
 
   const onLastStep = () => saveToLS("employee_form_state", "done")
 
 
   return (
       <>
-            {
-                withStep ?
-                    <div className="flex flex-col lg:flex-row justify-between -mt-6">
-                      <StepBox links={links} />
-                    </div>
-                    :
+            {/*{*/}
+            {/*    withStep ?*/}
+            {/*        <div className="flex flex-col lg:flex-row justify-between -mt-6">*/}
+            {/*          <StepBox links={links} />*/}
+            {/*        </div>*/}
+            {/*        :*/}
                     <Tabs>
                         <div className="xs:px-0 hd:w-7/12 mx-auto px-8 hd:px-0 pt-12 md:px-8">
                           {links.map((link, index) => (
@@ -311,7 +312,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
                           ))}
                         </div>
                     </Tabs>
-            }
+            {/*}*/}
 
 
           <div className="border-t border-divider"/>

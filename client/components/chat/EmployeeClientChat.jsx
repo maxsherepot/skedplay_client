@@ -18,7 +18,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
   const [selectedChat, setSelectedChat] = useState(null);
   const [selectedChatType, setSelectedChatType] = useState(chatType || 'simple');
 
-  let { data: { chats: simpleChats } = [], loading: chatsLoading, refetch: refetchSimpleChats } = useQuery(
+  let { data: { chats: simpleChats } = {}, loading: chatsLoading, refetch: refetchSimpleChats } = useQuery(
     ALL_CHATS,
     {
       fetchPolicy: 'no-cache',

@@ -26,3 +26,4 @@ export * from "queries/pageQuery";
 export * from "queries/employeeComplaintQuery";
 export * from "queries/seoQuery";
 export * from "queries/eventCountQuery";
+export * from "queries/settingQuery";

@@ -18,7 +18,12 @@ class CodeProcessorProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(CodeProcessorInterface::class, function () {
-//            return new CodeProcessor();
+            $driver = config('code_processor.driver');
+
+            if ($driver === 'random') {
+                return new CodeProcessor();
+            }
+
             return new StaticCodeProcessor();
         });
     }
