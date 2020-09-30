@@ -45,11 +45,7 @@ class CreatePossibleClub extends Command
 
         $json = trim($clubs);
 
-        $stupidSymbol = mb_substr($json, 0, 1);
-
-        $jsonNormal = str_replace($stupidSymbol,'', $json);
-
-        $clubs = json_decode($jsonNormal);
+        $clubs = json_decode($json);
 
         foreach ($clubs as $club) {
             $type = ClubType::query()->updateOrCreate(
