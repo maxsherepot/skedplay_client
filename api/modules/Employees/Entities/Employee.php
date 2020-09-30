@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Modules\Chat\Entities\Chat;
 use Modules\Chat\Entities\ChatMember;
@@ -41,7 +42,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class Employee extends Model implements HasMedia, HasLocation, ChatMember
 {
-    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable;
+    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable, SoftDeletes;
 
     const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';

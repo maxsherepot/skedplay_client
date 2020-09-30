@@ -52,7 +52,7 @@ class CreatePossibleClub extends Command
                 ['name' => $club->type]
             );
 
-            $clubModel = Club::query()->where('name', $club->name)->first();
+            $clubModel = Club::query()->where('id', $club->id)->first();
 
             if ($clubModel) {
                 $this->info('Duplicate club: [ ' . $club->id . ' ]');
@@ -67,6 +67,7 @@ class CreatePossibleClub extends Command
                     );
 
                 Club::query()->create([
+                    'id' => $club->id,
                     'name' => $club->name,
                     'address' => $club->adress,
                     'club_type_id' => $type->id,

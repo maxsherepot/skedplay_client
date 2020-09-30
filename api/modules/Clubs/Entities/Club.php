@@ -72,6 +72,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     ];
 
     protected $fillable = [
+        'id',
         'name',
         'slug',
         'club_type_id',
