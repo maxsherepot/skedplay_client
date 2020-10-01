@@ -53,7 +53,7 @@ export default function AccountActivate({open, onClose}) {
                     </IconButton>
                 </div>
             </div>
-            <div className="">
+            <div className="hidden">
                 <Tabs
                   value={paymentMethod}
                   onChange={(e, v) => setPaymentMethod(v)}

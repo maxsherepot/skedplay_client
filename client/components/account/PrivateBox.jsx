@@ -252,8 +252,8 @@ const CurrentPosition = ({user}) => {
 const GirlRow = ({ employee, soon, active, isFormFilled }) => {
     const {t, i18n} = useTranslation();
     const [isPaymentOpen, setPaymentOpen] = useState(false);
-    active = false
     const avatar = (employee.photos || []).length ? employee.photos[0].thumb_url : undefined
+    isFormFilled = true
     return (
       <div className="flex flex-col sm:flex-row items-center my-2">
           <Avatar className="w-10 h-10 sm:mr-2" isEmpty={!avatar} src={avatar}/>

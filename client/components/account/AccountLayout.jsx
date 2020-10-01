@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from 'components/SlashedLink'
 import Router, {useRouter} from "next/router";
-import {Avatar, Button, PageCard} from "UI";
+import {Avatar, SecondaryNav, Button, PageCard} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import redirect from "lib/redirect";
 import { setCookie } from "utils";
 
-const ProfileHeader = ({user}) => {
+export const ProfileHeader = ({user}) => {
     const avatar = (user && user.employee && user.employee.photos || []).length ? user.employee.photos[0].thumb_url : undefined
     return (
         <>
@@ -428,7 +428,13 @@ const AccountLayout = ({contentClass, user, className, children}) => {
 
   return (
     <>
-      <ProfileHeader user={user}/>
+      <div className="hidden sm:block">
+          <ProfileHeader user={user}/>
+      </div>
+      <div className="my-4 sm:hidden">
+          <SecondaryNav className="bg-transparent">
+          </SecondaryNav>
+      </div>
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
           <Sidebar user={user}/>

@@ -12,6 +12,7 @@ import {
 } from "queries";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import Add from "@material-ui/icons/Add";
 import {useApolloClient, useMutation, useQuery} from "@apollo/react-hooks";
 import Link from 'components/SlashedLink'
 import {useTranslation} from "react-i18next";
@@ -160,20 +161,18 @@ const AccountEventsIndex = ({user}) => {
 
         return (
             <>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between sm:-mt-4">
                     <div className="text-2xl font-bold tracking-tighter leading-none">
                         {t('account.events')}
                     </div>
                     <Link href={`/account/events/create`}>
                         <a>
                             <Button
-                                className="px-3"
-                                level="primary-black"
-                                outline
+                                className="px-4 flex items-center"
                                 size="sm"
                                 type="button"
                             >
-                                {t('layout.add_new_event')}
+                                <Add className="mr-1"/>{t('layout.add_new_event')}
                             </Button>
                         </a>
                     </Link>

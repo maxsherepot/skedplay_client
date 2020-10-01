@@ -5,6 +5,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {Loader, SelectField, ArrowBack} from "UI";
 import {Formik} from "formik";
 import Link from 'components/SlashedLink'
+import {ProfileHeader} from "../account/AccountLayout";
 import {useTranslation} from "react-i18next";
 
 const Breadcrumbs = () => {
@@ -14,7 +15,7 @@ const Breadcrumbs = () => {
     <div className="container">
       <div className="flex items-center py-4">
         <ArrowBack back />
-        <div className="ml-10">
+        <div className="ml-10 hidden sm:block">
           <Link href="/account">
             <a className="text-red hover:text-pink">{t('account.my_account')}</a>
           </Link>
@@ -37,6 +38,9 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
     return (
       <>
         <Breadcrumbs/>
+        <div className="container hidden sm:block -mt- -ml-10 -mb-4">
+             <ProfileHeader user={user}/>
+        </div>
         <div className="container mb-16" style={{maxWidth: 1100}}>
             <EmployeeClientChat user={user} chatType={chatType} selectedChatId={selectedChatId}/>
         </div>

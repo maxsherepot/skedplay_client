@@ -2,11 +2,11 @@ import React from "react";
 
 import { ArrowBack } from "UI";
 
-const SecondaryNav = ({ left, children, right, breadcrumbs, title }) => {
+const SecondaryNav = ({ left, children, right, breadcrumbs, className, title }) => {
   return (
     <>
       <div
-        className="bg-white border-b border-xs-grey"
+        className={(className || "bg-white border-b border-xs-grey")}
       >
         <div className="container w-full flex">
           <div className="w-full flex items-center justify-between">
