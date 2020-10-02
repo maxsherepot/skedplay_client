@@ -125,12 +125,11 @@ const CurrentLocation = ({user, employee, mapRef, isGeolocationEnabled}) => {
       <>
           {(address || "").split(",").map((item, i) => {
               return (
-                  <span>{item.trim()}</span>
+                  <span key={i}>{item.trim()}</span>
               )
           })}
       </>
   )
-  console.log(112, user, employee)
 
   return (
     <div className="rounded-lg bg-white p-4">

@@ -29,6 +29,7 @@ import {CREATE_SUBSCRIBE_CLUB, CANTONS_AND_CITIES, DO_EVENT} from "queries";
 import {getErrors} from "utils/index";
 
 import {NextSeo} from "next-seo";
+import translation from "services/translation";
 
 const DistanceView = ({distanceKm}) => {
   if (!distanceKm) {
@@ -410,7 +411,7 @@ const ClubInformation = ({user}) => {
                             <div key={service.id} className="px-2">
                               <div
                                 className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                                {service.name}
+                                {translation.getLangField(JSON.parse(service.name), i18n.language)}
                               </div>
                             </div>
                           ))}

@@ -7,6 +7,15 @@ type Service {
     group: GroupService @belongsTo
 }
 
+type ServiceAllLangs {
+    id: ID!
+    name: JSON!
+    slug: String!
+    pivot: ServicePivot
+    group_id: Int
+    group: GroupService @belongsTo
+}
+
 type GroupService {
     id: ID!
     name: String
@@ -22,6 +31,6 @@ input ServiceInput {
 }
 
 extend type Query {
-    services: [Service!]! @all
+    services: [ServiceAllLangs!]! @all
     groupServices: [GroupService!]! @all
 }

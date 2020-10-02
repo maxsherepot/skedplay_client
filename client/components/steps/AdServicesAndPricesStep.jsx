@@ -4,6 +4,7 @@ import { GET_PRICE_TYPES, GET_SERVICES } from "queries";
 import { useQuery } from "@apollo/react-hooks";
 import {useTranslation} from "react-i18next";
 import {GET_GROUP_SERVICES} from "queries/serviceQuery";
+import translation from "services/translation";
 
 const AdServicesAndPricesStep = () => {
   const { data: { price_types } = {}, loading: priceLoading } = useQuery(
@@ -35,7 +36,7 @@ const AdServicesAndPricesStep = () => {
                           className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-16 mb-6 sm:mb-2"}
                           key={service.id}
                       >
-                          <CheckboxField label={service.name} name={`services.${service.id}.active`} />
+                        <CheckboxField label={translation.getLangField(JSON.parse(service.name), i18n.language)} name={`services.${service.id}.active`} />
 
                           <div className="ml-2 sm:-mb-4">
                               <TextField

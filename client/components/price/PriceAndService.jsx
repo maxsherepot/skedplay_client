@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PlusSvg } from "icons";
 import {useTranslation} from "react-i18next";
+import translation from "services/translation";
 
 const PriceAndService = ({ title, prices, services }) => {
     const {t, i18n} = useTranslation();
@@ -32,7 +33,7 @@ const PriceAndService = ({ title, prices, services }) => {
                         {services.map(service => (
                             <div key={service.id} className="px-2">
                                 <div className="bg-white border border-divider rounded-full px-3 py-1 text-xs mb-4">
-                                    {service.name}
+                                    {translation.getLangField(JSON.parse(service.name), i18n.language)}
                                 </div>
                             </div>
                         ))}

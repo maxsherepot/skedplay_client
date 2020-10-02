@@ -4,23 +4,16 @@ namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Support\Str;
-use Modules\Common\Entities\Traits\NameSlugable;
 use Modules\Employees\Entities\Employee;
-use Spatie\Translatable\HasTranslations;
 
-class Service extends Model
+class ServiceAllLangs extends Model
 {
-
-    use SoftDeletes, NameSlugable, HasTranslations;
+    protected $table = 'services';
 
     public $timestamps = false;
 
     protected $appends = ['slug'];
-
-    public $translatable = ['name'];
 
     public function employees()
     {
@@ -37,6 +30,8 @@ class Service extends Model
 
     public function getSlugAttribute(): string
     {
-        return Str::slug($this->name);
+        $translates = json_decode($this->name, true);
+
+        return Str::slug($translates['en'] ?? $translates['de'] ?? $translates['fr']);
     }
 }

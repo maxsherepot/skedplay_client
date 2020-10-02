@@ -43,7 +43,7 @@ function TextField({
             {...rest}
             autoComplete={autoComplete || 'off'}
             id={name}
-            className={cx("form-control", inputClassName, {
+            className={cx("form-control text-black", inputClassName, {
               "pl-10": before
             })}
             {...field}

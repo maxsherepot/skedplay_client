@@ -30,7 +30,7 @@ type Club {
   city: City @belongsTo
   employees: [Employee] @morphMany
   prices: [Price] @belongsToMany
-  services: [Service] @belongsToMany
+  services: [ServiceAllLangs] @belongsToMany
   events: [Event] @belongsToMany
   photos: [Media] @hasMany
   videos: [Media] @hasMany

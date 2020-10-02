@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import translation from 'services/translation'
 
 export default {
   filterFilters(filters) {
@@ -147,16 +148,17 @@ export default {
       }
     };
   },
-  getGirlsFilters(cantons, cities, services, employee_race_types, t) {
-      const locationFilters = this.getLocationFilters(cantons, cities, t)
-      const locationFiltersList = []
-      if (locationFilters.length > 0) {
-          locationFiltersList.push(locationFilters[0])
-      }
-      locationFilters.push(this.getDistanceFilter(t))
-      if (locationFilters.length > 1) {
-          locationFiltersList.push(locationFilters[1])
-      }
+  getGirlsFilters(cantons, cities, services, employee_race_types, t, i18n) {
+    const locationFilters = this.getLocationFilters(cantons, cities, t)
+    const locationFiltersList = []
+    if (locationFilters.length > 0) {
+        locationFiltersList.push(locationFilters[0])
+    }
+    locationFilters.push(this.getDistanceFilter(t))
+    if (locationFilters.length > 1) {
+        locationFiltersList.push(locationFilters[1])
+    }
+
     return [
         ...locationFiltersList,
       {
@@ -167,7 +169,7 @@ export default {
         showCheckboxes: true,
         className: "w-full sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/7 hd:w-1/7 px-2 services-select__div",
         options: services.map(s => {
-          return { label: s.name, value: s.id };
+          return { label: translation.getLangField(JSON.parse(s.name), i18n.language), value: s.id };
         })
       },
       /*{

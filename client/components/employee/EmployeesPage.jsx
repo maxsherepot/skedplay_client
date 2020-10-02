@@ -63,7 +63,7 @@ const EmployeesPage = ({isGeolocationEnabled, entityName, entityUrl, user}) => {
   workFilters[ENTITY_NAME] = commonGirlsFilterUrl.setFilters(workFilters[ENTITY_NAME]);
 
   let fields = [
-    ...helpers.getGirlsFilters(cantons, cities, services, employee_race_types, t),
+    ...helpers.getGirlsFilters(cantons, cities, services, employee_race_types, t, i18n),
   ];
 
   if (!isGeolocationEnabled) {

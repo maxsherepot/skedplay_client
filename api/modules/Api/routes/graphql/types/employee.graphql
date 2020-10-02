@@ -44,7 +44,7 @@ type Employee {
   schedule: [EmployeeSchedule] @hasMany
   events: [Event] @belongsToMany
   prices: [Price] @belongsToMany
-  services: [Service] @belongsToMany
+  services: [ServiceAllLangs] @belongsToMany(relation: "serviceAllLangs")
   languages: [EmployeeLanguage] @belongsToMany(relation: "languages")
   avatar: Media @hasOne
   photos: [Media] @hasMany

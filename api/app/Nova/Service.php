@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Fields\Translatable;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -54,11 +55,14 @@ class Service extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Translatable::make([
+                Text::make('Name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            BelongsTo::make('Group', 'group', GroupService::class)->sortable(),
+            ])->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
+
+            BelongsTo::make('Group', 'group', GroupService::class)->sortable()->required(),
         ];
     }
 
