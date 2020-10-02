@@ -18,7 +18,7 @@ import redirect from "lib/redirect";
 import { setCookie } from "utils";
 import AddGirlLinkWrap from "components/account/AddGirlLinkWrap";
 
-const ProfileHeader = ({user}) => {
+export const ProfileHeader = ({user}) => {
   const avatar = user && user.avatar ? user.avatar.thumb_url : null;
 
   return (
