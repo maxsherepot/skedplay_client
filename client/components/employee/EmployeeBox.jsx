@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cx from "classnames";
+import { useRouter } from "next/router";
 import { PhoneSvg } from "icons";
 import { MainLayout } from "layouts";
 import { Subscribe, SecondaryNav, Button, ActiveLink, Breadcrumbs, Loader } from "UI";
@@ -14,6 +15,7 @@ import translation from "services/translation";
 const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs, showNavLinks, noName }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
+  const { asPath } = useRouter();
 
   const girlType = parseInt(employee.type) === 1
     ? 'girls'
@@ -84,7 +86,8 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
     return `/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/${page}`;
   };
 
-  const leftInfo = (
+
+  let leftInfo = (
     <>
       <div className={"flex flex-col md:flex-row items-center mt-4 sm:mt-0 mb-4 xl:mt-4 " + (noName ? "hidden" : "")}>
         {employee && (
@@ -103,6 +106,9 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
       </div>
     </>
   );
+  if (asPath.includes("/chat")) {
+      leftInfo = null
+  }
 
   // const phone = employee.phone || employee.owner.phone;
 

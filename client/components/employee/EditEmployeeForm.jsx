@@ -108,10 +108,10 @@ function EditEmployeeForm({ withStep, onLastStep, initialValues, children }) {
           {
               withStep ?
                   <div className="flex flex-col items-start mx-auto hd:w-7/12">
-                    <div className="w-full p-8 hd:px-0">
+                    <div className="w-full p-8 hd:px-0 flex flex-col-reverse sm:block">
                       <Button
                         level={step <= 0 ? "grey" : "secondary-light"}
-                        className="w-full sm:w-auto text-xl px-16 mb-4 md:mb-0 sm:mr-4"
+                        className="w-full sm:w-auto text-xl px-16 sm:mr-4"
                         onClick={() => {setStep(step - 1); window.scrollTo(0, 0)}}
                         type="button"
                         disabled={isSubmitting}
@@ -120,7 +120,7 @@ function EditEmployeeForm({ withStep, onLastStep, initialValues, children }) {
                       </Button>
                       <Button
                         onClick={() => submitForm().then(() => onNextStep(true))}
-                        className="w-full sm:w-auto text-xl px-16"
+                        className="w-full sm:w-auto text-xl px-16 mb-4 md:mb-0"
                         disabled={isSubmitting}
                       >
                         {isLastStep ? t('ad.save') : t('common.next')}

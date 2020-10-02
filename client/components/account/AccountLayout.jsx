@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import Link from 'components/SlashedLink'
 import Router, {useRouter} from "next/router";
-import {Avatar, Button, PageCard, Loader} from "UI";
+import {Avatar, SecondaryNav, Button, PageCard, Loader} from "UI";
 import {getLayout as getMainLayout} from 'layouts';
 import {AccountLabel} from "components/account";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
@@ -444,7 +444,13 @@ const AccountLayout = ({contentClass, user, className, children}) => {
 
   return (
     <>
-      <ProfileHeader user={user}/>
+      <div className="hidden sm:block">
+          <ProfileHeader user={user}/>
+      </div>
+      <div className="my-4 sm:hidden">
+          <SecondaryNav className="bg-transparent">
+          </SecondaryNav>
+      </div>
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
           <Sidebar user={user}/>

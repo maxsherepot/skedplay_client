@@ -120,7 +120,7 @@ const EventForm = ({initialValues, onSubmit, update, employees}) => {
                   <div className="text-red">
                     {errors.days}
                   </div>
-                  <div className="flex flex-wrap sm:block">
+                  <div className="flex flex-wrap ">
                       {dayCheckboxes.map((day, i) => (
                         <CheckboxField
                           key={day.value}
