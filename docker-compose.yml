@@ -83,14 +83,6 @@ services:
     links:
       - "websocket:skedplay.ch"
 
-  php:
-    image: skidplay_app:alpine
-    container_name: "skidplay_php"
-    volumes:
-      - ./api:/app
-    depends_on:
-      - app
-
   node:
     container_name: "skidplay_node"
     build: ./.docker/node

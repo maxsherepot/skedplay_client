@@ -52,11 +52,13 @@ class AdminChatController extends Controller
         return $chats;
     }
 
-    public function show($chat_id): array
+    public function show(): array
     {
+        $chatId = func_get_args()[0] ?? null;
+
         $chat = AdminChat::with(['user.avatar', 'messages' => function($query) {
             return $query->with('attachments')->limit(AdminChat::MESSAGES_LIMIT);
-        }])->findOrFail($chat_id);
+        }])->findOrFail($chatId);
 
         /** @var User $user */
         $user = auth()->user();
@@ -135,7 +137,9 @@ class AdminChatController extends Controller
         $userAvatar = $chatUser->avatar;
         if (!$userAvatar) {
             $userAvatar = $chatUser->toArray()['avatar'] ?? null;
-            $userAvatar = Media::find($userAvatar['id']);
+            if ($userAvatar) {
+                $userAvatar = Media::find($userAvatar['id']);
+            }
         }
 
         return $userAvatar;
