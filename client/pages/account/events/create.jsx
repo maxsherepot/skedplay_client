@@ -32,11 +32,9 @@ const AccountEventsCreate = ({user}) => {
 
   return (
     <>
-      <div className="text-xl sm:text-2xl font-bold mb-5">
-        {t('account.create_event')}
-      </div>
-
-      <EventForm
+      {employeesLoading && <Loader/>}
+      <CreateEventBox
+        employees={employees}
         initialValues={{
           employees: [],
           title: "",
@@ -56,14 +54,6 @@ const AccountEventsCreate = ({user}) => {
         }}
         onSubmit={onSubmit}
       />
-    </>
-  );
-
-  return (
-    <>
-      <div className="text-xl sm:text-2xl font-bold mb-5">
-        {t('account.create_event')}
-      </div>
     </>
   );
 };

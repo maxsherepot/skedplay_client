@@ -4,7 +4,9 @@ import AccountChat from "components/chat/AccountChat";
 import {useRouter} from "next/router";
 
 const Chats = ({ user }) => {
-  const {query: {eid: employeeId, cid: chatId, ctype: chatType}} = useRouter();
+  const {query: {eid, cid, ctype: chatType}} = useRouter();
+  const employeeId = eid.replace('/', '');
+  const chatId = cid.replace('/', '');
 
   return (
     <AccountChat user={user} chatType={chatType} selectedEmployeeId={employeeId} selectedChatId={chatId}/>
