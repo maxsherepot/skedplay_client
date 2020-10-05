@@ -4,11 +4,14 @@ namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Modules\Employees\Entities\Employee;
 
 class ServiceAllLangs extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'services';
 
     public $timestamps = false;

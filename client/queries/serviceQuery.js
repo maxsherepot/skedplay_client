@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const GIRLS_FILTER_OPTIONS = gql`
   query options {
-    services {
+    services(trashed: WITHOUT) {
       id
       name
       slug
@@ -18,7 +18,7 @@ export const GIRLS_FILTER_OPTIONS = gql`
 
 export const GET_SERVICES = gql`
     query services {
-        services {
+        services(trashed: WITHOUT) {
             id
             name
             slug
