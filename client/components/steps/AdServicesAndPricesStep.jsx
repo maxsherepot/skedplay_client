@@ -19,48 +19,50 @@ const AdServicesAndPricesStep = () => {
 
   const {t, i18n} = useTranslation();
 
-  if (priceLoading || serviceLoading) {
+  if (priceLoading || serviceLoading || groupServicesLoading) {
     return <Loader/>;
   }
 
   const renderGroupService = (groupService, isHorizontal) => {
-      if (!groupService) return null
+      if (!groupService) return null;
+
+      const currentGroupServices = services.filter(s => s.group && s.group.id === groupService.id);
+
+      if (!currentGroupServices.length) {
+        return null;
+      }
+
       return (
           <div className={isHorizontal ? "w-full" : "w-full sm:w-1/2"}>
               <div className="row text-center text-xl sm:text-2xl">
                   <h2>{groupService.name}</h2>
               </div>
               <div className={isHorizontal ? "flex flex-wrap" : ""}>
-                  {services.map((service) => (service.group && service.group.id === groupService.id && (
-                      <div
-                          className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-16 mb-6 sm:mb-2"}
-                          key={service.id}
-                      >
-                        <CheckboxField label={translation.getLangField(JSON.parse(service.name), i18n.language)} name={`services.${service.id}.active`} />
+                  {currentGroupServices.map((service) => (
+                    <div
+                      className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-16 mb-6 sm:mb-2"}
+                      key={service.id}
+                    >
+                      <CheckboxField label={translation.getLangField(JSON.parse(service.name), i18n.language)} name={`services.${service.id}.active`} />
 
-                          <div className="ml-2 sm:-mb-4">
-                              <TextField
-                                  className="w-32 mt-4 sm:mt-0"
-                                  inputClassName="w-32"
-                                  key={service.id}
-                                  label=""
-                                  max="9999"
-                                  name={`services.${service.id}.price`}
-                                  after={<span className="adornment">CHF</span>}
-                                  before={<span className="adornment">+</span>}
-                              />
-                          </div>
+                      <div className="ml-2 sm:-mb-4">
+                        <TextField
+                          className="w-32 mt-4 sm:mt-0"
+                          inputClassName="w-32"
+                          key={service.id}
+                          label=""
+                          max="9999"
+                          name={`services.${service.id}.price`}
+                          after={<span className="adornment">CHF</span>}
+                          before={<span className="adornment">+</span>}
+                        />
                       </div>
-                  )))}
+                    </div>
+                  ))}
               </div>
           </div>
       )
   }
-
-  const groupService1 = groupServices.length > 0 && groupServices[0]
-  const groupService2 = groupServices.length > 1 && groupServices[1]
-  const groupService3 = groupServices.length > 2 && groupServices[2]
-  const groupService4 = groupServices.length > 3 && groupServices[3]
 
   return (
     <>
@@ -84,16 +86,23 @@ const AdServicesAndPricesStep = () => {
 
       <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 mt-5">{t('common.services')}</div>
 
-          <div className="mb-12">
-              {renderGroupService(groupService2, true)}
-          </div>
-        <div className="px-16">
-            <div className="flex flex-wrap -mx-32">
-                {renderGroupService(groupService1)}
-                {renderGroupService(groupService3)}
-                {renderGroupService(groupService4)}
+      {groupServices.map((group, i) => {
+        if (i === 0) {
+          return (
+            <div key={group.id} className="mb-12">
+              {renderGroupService(group, true)}
             </div>
-        </div>
+          );
+        }
+
+        return (
+          <div key={group.id} className="px-16">
+            <div className="flex flex-wrap -mx-32">
+              {renderGroupService(group)}
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 };

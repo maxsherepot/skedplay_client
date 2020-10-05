@@ -31,6 +31,6 @@ input ServiceInput {
 }
 
 extend type Query {
-    services: [ServiceAllLangs!]! @all
+    services(trashed: Trashed @trashed): [ServiceAllLangs!]! @all @softDeletes
     groupServices: [GroupService!]! @all
 }
