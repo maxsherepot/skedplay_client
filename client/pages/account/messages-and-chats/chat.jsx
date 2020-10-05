@@ -5,8 +5,8 @@ import {useRouter} from "next/router";
 
 const Chats = ({ user }) => {
   const {query: {eid, cid, ctype: chatType}} = useRouter();
-  const employeeId = eid.replace('/', '');
-  const chatId = cid.replace('/', '');
+  const employeeId = eid ? eid.replace('/', '') : eid;
+  const chatId = cid ? cid.replace('/', '') : cid;
 
   return (
     <AccountChat user={user} chatType={chatType} selectedEmployeeId={employeeId} selectedChatId={chatId}/>
