@@ -6,7 +6,7 @@ export const employeeRules = Yup.object().shape({
     // gender: Yup.string().required().nullable(),
     race_type_id: Yup.string().required().nullable(),
     type: Yup.string().nullable(),
-    description: Yup.string().required().nullable(),
+    description: Yup.string().required().max(1500).nullable(),
     index: Yup.string().nullable(),
     // city: Yup.string().nullable(),
     address: Yup.string().required(),

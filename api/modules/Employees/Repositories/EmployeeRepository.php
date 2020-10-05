@@ -57,6 +57,9 @@ class EmployeeRepository implements HasMediable
         /** @var Employee $employee */
         $employee = $this->store($employeeOwner, $data);
 
+        $employee->status = 0;
+        $employee->save();
+
         $this->storeParameters($employee, $data);
         $this->storeLanguages($employee, $data);
 

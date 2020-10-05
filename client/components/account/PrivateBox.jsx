@@ -122,7 +122,7 @@ const PrivateBox = ({user}) => {
             <div className="flex flex-col w-full">
               <span className="text-xl font-medium">{t('account.my_cards')}</span>
               {employees.map(employee => (
-                <GirlRow key={employee.id} employee={employee} soon={employee.soon} active={employee.status === 1}/>
+                <GirlRow key={employee.id} employee={employee} soon={employee.soon} active={false/*employee.status === 1*/}/>
               ))}
             </div>
           </div>

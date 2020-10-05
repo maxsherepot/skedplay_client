@@ -124,6 +124,7 @@ const AdInformationStep = () => {
             rows="5"
             label={t('steps.about_yourself')}
             name="description"
+            textLength={1500}
           />
         </div>
       </div>
