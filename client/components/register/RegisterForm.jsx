@@ -99,6 +99,7 @@ function RegisterForm({ onSubmit, children }) {
 
   return (
     <Formik
+      className='h-screen'
       initialValues={{
         account_type: query.role || "",
         birthday: "",

@@ -29,6 +29,7 @@ use Modules\Main\Medialibrary\Webp;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Modules\Common\Entities\SubscribeEmployee;
 
 /**
  * Class Employee
@@ -171,6 +172,11 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     public function race_type(): BelongsTo
     {
         return $this->belongsTo(EmployeeRaceType::class, 'race_type_id');
+    }
+
+    public function subscribers(): HasMany
+    {
+        return $this->hasMany(SubscribeEmployee::class);
     }
 
     public function eventCounts()

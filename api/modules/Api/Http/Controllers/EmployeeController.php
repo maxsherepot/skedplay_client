@@ -3,20 +3,31 @@
 namespace Modules\Api\Http\Controllers;
 
 use Carbon\Carbon;
+use Modules\Events\Entities\Event;
 use Illuminate\Support\Facades\Log;
-use Modules\Api\Http\Controllers\Traits\Statusable;
-use Modules\Api\Http\Requests\Common\ContactRequestCreateRequest;
-use Modules\Api\Http\Requests\Common\SyncPricesRequest;
-use Modules\Api\Http\Requests\Common\SyncServicesRequest;
-use Modules\Api\Http\Requests\Employee\EmployeeComplaintCreateRequest;
-use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
-use Modules\Api\Http\Requests\Employee\EmployeeUpdateCurrentPositionRequest;
-use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
-use Modules\Api\Http\Requests\Event\EventCreateRequest;
-use Modules\Api\Http\Requests\Event\EventUpdateRequest;
+use Modules\Common\Entities\Service;
+use Spatie\MediaLibrary\Models\Media;
+use Modules\Common\Entities\PriceType;
+use Nwidart\Modules\Routing\Controller;
+use Modules\Employees\Entities\Employee;
+use Modules\Common\Entities\ContactRequest;
+use Modules\Main\Repositories\EventRepository;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
+use Modules\Common\Repositories\PriceRepository;
+use Modules\Employees\Entities\EmployeeComplaint;
+use Modules\Common\Repositories\ServiceRepository;
+use Modules\Api\Http\Controllers\Traits\Statusable;
+use Modules\Employees\Repositories\EmployeeRepository;
+use Modules\Api\Http\Requests\Common\SyncPricesRequest;
+use Modules\Api\Http\Requests\Event\EventCreateRequest;
+use Modules\Api\Http\Requests\Event\EventUpdateRequest;
+use Modules\Api\Http\Requests\Common\SyncServicesRequest;
 use Modules\Api\Http\Requests\Review\ReviewCreateRequest;
+use Modules\Employees\Services\EmployeeNotificationSender;
+use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
+use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
+use Modules\Api\Http\Requests\Common\ContactRequestCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleUpdateRequest;
 use Modules\Common\Entities\ContactRequest;
@@ -58,12 +69,15 @@ class EmployeeController extends Controller
      */
     private $prices;
 
-    public function __construct(EmployeeRepository $employees, EmployeeEventRepository $events, ServiceRepository $services, PriceRepository $prices)
+    private $employeeNotificationSender;
+
+    public function __construct(EmployeeRepository $employees, EmployeeEventRepository $events, ServiceRepository $services, PriceRepository $prices, EmployeeNotificationSender $employeeNotificationSender)
     {
         $this->employees = $employees;
         $this->events = $events;
         $this->services = $services;
         $this->prices = $prices;
+        $this->employeeNotificationSender = $employeeNotificationSender;
     }
 
     /**
@@ -88,6 +102,8 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         $this->employees->update($employee, collect($request->all()));
+
+        $this->employeeNotificationSender->updateProfile($employee);
 
         return $this->success();
     }
@@ -142,7 +158,12 @@ class EmployeeController extends Controller
 
         $response = $this->events->update($event, collect($request->all()));
 
-        return $response ? $this->success() : $this->fail();
+        if ($response) {
+            $this->employeeNotificationSender->updateEvent($event->owner, $event);
+            return $this->success();
+        }
+
+        return $this->fail();
     }
 
     /**
@@ -193,9 +214,13 @@ class EmployeeController extends Controller
                 $customProperties
             );
 
+            $this->employeeNotificationSender->addedNewPhotoOrVideo($employee);
+
             return $this->success(
                 $this->employees::UPLOAD_FILE_SUCCESS
             );
+
+
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), [$exception->getFile(), $exception->getLine()]);
 
@@ -302,6 +327,8 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         $this->employees->storeCurrentPosition($employee, collect($request->validated()));
+
+        $this->employeeNotificationSender->updatePosition($employee);
 
         return $this->success();
     }

@@ -11,7 +11,6 @@ use Modules\Clubs\Console\CreatePossibleClub;
 use Modules\Common\Console\InitSettings;
 use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Employees\Console\ImportFakeEmployees;
-use Modules\Events\Console\CheckEventsNotification;
 use Modules\Main\Console\CheckTranslatesConsistency;
 use Modules\Main\Console\ExportTranslates;
 use Modules\Main\Console\GenerateEntitiesAddresses;
@@ -37,7 +36,6 @@ class Kernel extends ConsoleKernel
         ExportTranslates::class,
         RefreshTranslatesOnFront::class,
         CheckTranslatesConsistency::class,
-        CheckEventsNotification::class,
         AddAdminMessageToChats::class,
         SetDefaultStatus::class,
         GenerateEntitiesAddresses::class,

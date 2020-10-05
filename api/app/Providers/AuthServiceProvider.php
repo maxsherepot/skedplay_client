@@ -41,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
         \Modules\Common\Entities\EventCount::class              => \Modules\Common\Policies\ReadOnlyPolicy::class,
         \Modules\Common\Entities\Setting::class              => \Modules\Common\Policies\SettingPolicy::class,
 
+        \Modules\Common\Entities\EmailTemplate::class           => \Modules\Common\Policies\EmailTemplatePolicy::class,
+        \Modules\Common\Entities\SubscribeClub::class           => \Modules\Common\Policies\SubscribeClubPolicy::class,
+        \Modules\Common\Entities\SubscribeEmployee::class       => \Modules\Common\Policies\SubscribeEmployeePolicy::class,
+
         Media::class                                            => \Modules\Main\Policies\MediaPolicy::class,
     ];
 
