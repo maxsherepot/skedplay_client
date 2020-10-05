@@ -19,7 +19,7 @@ const AdServicesAndPricesStep = () => {
 
   const {t, i18n} = useTranslation();
 
-  if (priceLoading || serviceLoading) {
+  if (priceLoading || serviceLoading || groupServicesLoading) {
     return <Loader/>;
   }
 
