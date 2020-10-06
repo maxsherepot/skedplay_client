@@ -8,6 +8,7 @@ use App\Console\Commands\DeployCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Clubs\Console\CreatePossibleClub;
+use Modules\Common\Console\EmailTemplatesInit;
 use Modules\Common\Console\InitSettings;
 use Modules\Employees\Console\CheckEmployeesActivation;
 use Modules\Employees\Console\ImportFakeEmployees;
@@ -47,6 +48,7 @@ class Kernel extends ConsoleKernel
         InitSettings::class,
         ClearAllCommand::class,
         DeployCommand::class,
+        EmailTemplatesInit::class,
     ];
 
     /**

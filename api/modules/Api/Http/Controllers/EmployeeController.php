@@ -3,15 +3,12 @@
 namespace Modules\Api\Http\Controllers;
 
 use Carbon\Carbon;
+use Modules\Api\Http\Requests\Employee\EmployeeComplaintCreateRequest;
+use Modules\Api\Http\Requests\Employee\EmployeeUpdateCurrentPositionRequest;
 use Modules\Events\Entities\Event;
 use Illuminate\Support\Facades\Log;
-use Modules\Common\Entities\Service;
-use Spatie\MediaLibrary\Models\Media;
-use Modules\Common\Entities\PriceType;
 use Nwidart\Modules\Routing\Controller;
 use Modules\Employees\Entities\Employee;
-use Modules\Common\Entities\ContactRequest;
-use Modules\Main\Repositories\EventRepository;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Common\Repositories\PriceRepository;
@@ -27,23 +24,10 @@ use Modules\Api\Http\Requests\Review\ReviewCreateRequest;
 use Modules\Employees\Services\EmployeeNotificationSender;
 use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
-use Modules\Api\Http\Requests\Common\ContactRequestCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleUpdateRequest;
-use Modules\Common\Entities\ContactRequest;
-use Modules\Common\Entities\PriceType;
-use Modules\Common\Entities\Service;
-use Modules\Common\Repositories\PriceRepository;
-use Modules\Common\Repositories\ServiceRepository;
-use Modules\Employees\Entities\Employee;
-use Modules\Employees\Entities\EmployeeComplaint;
-use Modules\Employees\Repositories\EmployeeRepository;
-use Modules\Events\Entities\Event;
 use Modules\Main\Repositories\EmployeeEventRepository;
-use Modules\Main\Repositories\EventRepository;
 use Modules\Users\Entities\User;
-use Nwidart\Modules\Routing\Controller;
-use Spatie\MediaLibrary\Models\Media;
 
 class EmployeeController extends Controller
 {

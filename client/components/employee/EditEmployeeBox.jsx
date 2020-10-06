@@ -6,7 +6,6 @@ import {
   SYNC_EMPLOYEE_SERVICES,
   UPDATE_EMPLOYEE,
   UPDATE_EMPLOYEE_SCHEDULE,
-  UPDATE_USER,
   UPLOAD_EMPLOYEE_FILES,
 } from "queries";
 import {Tab, Panel} from "UI";
@@ -31,7 +30,6 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
   const [syncEmployeeServices] = useMutation(SYNC_EMPLOYEE_SERVICES);
   const [uploadEmployeeFiles] = useMutation(UPLOAD_EMPLOYEE_FILES);
   const [updateEmployeeSchedule] = useMutation(UPDATE_EMPLOYEE_SCHEDULE);
-  const [updateUser] = useMutation(UPDATE_USER);
   const [withStep, setWithStep] = useState(false)
 
   let parameters = {};

@@ -1,26 +1,45 @@
 <?php
 
-namespace Modules\Common\database\seeders;
+namespace Modules\Common\Console;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Console\Command;
 use Modules\Common\Entities\EmailTemplate;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
-class EmailTemplateTableSeeder extends Seeder
+class EmailTemplatesInit extends Command
 {
     /**
-     * Run the database seeds.
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $signature = 'email_templates:init';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description.';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
-    public function run()
+    public function __construct()
     {
-        return;
+        parent::__construct();
+    }
 
-
-        DB::table('email_templates')->truncate();
-
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
         $templates = [
             [
                 'name' => 'Club create event',
@@ -73,10 +92,10 @@ class EmailTemplateTableSeeder extends Seeder
                 'button_text_en' => 'show event',
                 'button_text_de' => 'de show event',
                 'button_text_fr' => 'fr show event',
-                'text_en' => 'new event {event_title} from {emplayee_name}',
-                'text_de' => 'de new event {event_title} from {emplayee_name}',
-                'text_fr' => 'fr new event {event_title} from {emplayee_name}',
-                'text_variables' => ['{event_title}', '{emplayee_name}']
+                'text_en' => 'new event {event_title} from {employee_name}',
+                'text_de' => 'de new event {event_title} from {employee_name}',
+                'text_fr' => 'fr new event {event_title} from {employee_name}',
+                'text_variables' => ['{event_title}', '{employee_name}']
             ],
             [
                 'name' => 'Employee update event',
@@ -87,10 +106,10 @@ class EmailTemplateTableSeeder extends Seeder
                 'button_text_en' => 'show event',
                 'button_text_de' => 'de show event',
                 'button_text_fr' => 'fr show event',
-                'text_en' => 'update event {event_title} from {emplayee_name}',
-                'text_de' => 'de update event {event_title} from {emplayee_name}',
-                'text_fr' => 'fr update event {event_title} from {emplayee_name}',
-                'text_variables' => ['{event_title}', '{emplayee_name}']
+                'text_en' => 'update event {event_title} from {employee_name}',
+                'text_de' => 'de update event {event_title} from {employee_name}',
+                'text_fr' => 'fr update event {event_title} from {employee_name}',
+                'text_variables' => ['{event_title}', '{employee_name}']
             ],
             [
                 'name' => 'Employee update position',
@@ -101,10 +120,10 @@ class EmailTemplateTableSeeder extends Seeder
                 'button_text_en' => 'show profile',
                 'button_text_de' => 'de show profile',
                 'button_text_fr' => 'fr show profile',
-                'text_en' => '{emplayee_name} update position',
-                'text_de' => 'de {emplayee_name} update position',
-                'text_fr' => 'fr {emplayee_name} update position',
-                'text_variables' => ['{emplayee_name}']
+                'text_en' => '{employee_name} update position',
+                'text_de' => 'de {employee_name} update position',
+                'text_fr' => 'fr {employee_name} update position',
+                'text_variables' => ['{employee_name}']
             ],
             [
                 'name' => 'Employee update profile',
@@ -115,10 +134,10 @@ class EmailTemplateTableSeeder extends Seeder
                 'button_text_en' => 'show profile',
                 'button_text_de' => 'de show profile',
                 'button_text_fr' => 'fr show profile',
-                'text_en' => '{emplayee_name} updating profile',
-                'text_de' => 'de {emplayee_name} updating profile',
-                'text_fr' => 'fr {emplayee_name} updating profile',
-                'text_variables' => ['{emplayee_name}']
+                'text_en' => '{employee_name} updating profile',
+                'text_de' => 'de {employee_name} updating profile',
+                'text_fr' => 'fr {employee_name} updating profile',
+                'text_variables' => ['{employee_name}']
             ],
             [
                 'name' => 'Employee added new photo or video',
@@ -129,15 +148,43 @@ class EmailTemplateTableSeeder extends Seeder
                 'button_text_en' => 'show',
                 'button_text_de' => 'de show',
                 'button_text_fr' => 'fr show',
-                'text_en' => '{emplayee_name} added new photo or video',
-                'text_de' => 'de {emplayee_name} added new photo or video',
-                'text_fr' => 'fr {emplayee_name} added new photo or video',
-                'text_variables' => ['{emplayee_name}']
+                'text_en' => '{employee_name} added new photo or video',
+                'text_de' => 'de {employee_name} added new photo or video',
+                'text_fr' => 'fr {employee_name} added new photo or video',
+                'text_variables' => ['{employee_name}']
             ],
         ];
 
         foreach($templates as $template) {
+            if (EmailTemplate::where('key', $template['key'])->first()) {
+                continue;
+            }
+
             EmailTemplate::create($template);
         }
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['example', InputArgument::REQUIRED, 'An example argument.'],
+        ];
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
+        ];
     }
 }
