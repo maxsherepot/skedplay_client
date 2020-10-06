@@ -37,7 +37,7 @@ const AddEmployee = ({clubId}) => {
       </div>
       <PageCard>
         <div className="flex flex-col lg:flex-row justify-between">
-          <StepBox links={links} />
+          <StepBox links={links} stepsKey={'create_employee'} />
         </div>
         <div className="border-b border-divider" />
         <NewAdBox clubId={clubId}/>

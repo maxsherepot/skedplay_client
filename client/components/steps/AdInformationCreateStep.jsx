@@ -21,7 +21,8 @@ const AdInformationCreateStep = () => {
   const {data: {club} = {}, clubLoading} = useQuery(GET_CLUB, {
         variables: {
             id: cid
-        }
+        },
+        skip: !cid
   });
 
   const {loading: citiesLoading, data: {cities} = {}} = useQuery(

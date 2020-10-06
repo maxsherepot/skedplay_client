@@ -1,8 +1,8 @@
 import cx from "classnames";
 import { useSteps } from "hooks";
 
-const StepBox = ({ links, canSetStep }) => {
-  const { step, setStep } = useSteps();
+const StepBox = ({ links, canSetStep, stepsKey }) => {
+  const { step, setStep } = useSteps(stepsKey || null);
 
   // Todo: Add check step.
   const active = step || 0;

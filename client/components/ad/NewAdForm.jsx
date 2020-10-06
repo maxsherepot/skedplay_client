@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import {useApolloClient} from "@apollo/react-hooks";
 
 function NewAdForm({ children, clubId }) {
-  const { step, setStep } = useSteps();
+  const { step, setStep } = useSteps('create_employee');
   const {t, i18n} = useTranslation();
 
   const apolloClient = useApolloClient();
@@ -63,12 +63,14 @@ function NewAdForm({ children, clubId }) {
 
     if (isLastStep) {
       try {
-        // setStep(0);
+
         if (clubId) {
           redirect({}, `/account/club/${clubId}`);
         } else {
           redirect({}, "/account");
         }
+
+        setStep(0);
       } catch (e) {
         if (getErrors(e) instanceof Object) {
           setErrors(getErrors(e));
