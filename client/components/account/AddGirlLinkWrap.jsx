@@ -33,8 +33,6 @@ export default ({employeesCount, children}) => {
   };
 
   if (!canCreateCard()) {
-    const maxCardsCount = (settings || []).find(s => s.key === 'employee_cards_count');
-    return `${employeesCount} ${(maxCardsCount || {}).value}`;
     return '';
   }
 

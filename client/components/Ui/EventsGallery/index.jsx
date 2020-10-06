@@ -33,7 +33,7 @@ function EventsGallery({ events }) {
             <div className="flex relative events-slide" key={event.id}>
               <img
                 className="block object-cover w-full"
-                src={event.photos[0].thumb_url}
+                src={event.photos[0] ? event.photos[0].thumb_url : '/static/img/event-none.png'}
               />
               <div className="shadow-down-gradient absolute w-full h-full z-10 top-0 left-0">
                 <div className="badge rounded-full uppercase font-medium text-xs pt-2 pb-2 px-4 leading-none absolute top-0 left-0 bg-yellow mt-5 ml-5">
@@ -68,7 +68,7 @@ function EventsGallery({ events }) {
             >
               <img
                 className="block object-cover w-full"
-                src={event.photos[0].thumb_url}
+                src={event.photos[0] ? event.photos[0].thumb_url : '/static/img/event-none.png'}
               />
               <div className="shadow-down-gradient absolute w-full h-full z-10 top-0 left-0">
                   <div className="relative h-15 ml-12">
