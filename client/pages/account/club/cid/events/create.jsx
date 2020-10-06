@@ -49,6 +49,7 @@ const AccountClubEventsCreate = () => {
         mainPhoto: null,
       }}
       onSubmit={onSubmit}
+      employees={club.employees}
     />
   );
 };

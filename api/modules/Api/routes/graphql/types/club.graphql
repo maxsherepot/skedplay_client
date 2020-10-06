@@ -30,7 +30,7 @@ type Club {
   city: City @belongsTo
   employees: [Employee] @morphMany
   prices: [Price] @belongsToMany
-  services: [ServiceAllLangs] @belongsToMany
+  services: [ServiceAllLangs] @belongsToMany(relation: "serviceAllLangs")
   events: [Event] @belongsToMany
   photos: [Media] @hasMany
   videos: [Media] @hasMany
