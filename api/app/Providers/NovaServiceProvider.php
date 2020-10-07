@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use App\Nova\Dashboards\UserInsights;
 use App\Nova\Dashboards\EmailSubscriptions;
+use App\Nova\InfoUser;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -206,6 +207,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             EmailTemplate::class,
             ClubSubscriber::class,
             EmployeeSubscriber::class,
+
+            InfoUser::class,
         ]);
     }
 }

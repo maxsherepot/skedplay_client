@@ -463,4 +463,9 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
     {
         return $this->hasRole(self::ACCOUNT_ADMIN);
     }
+
+    public function info(): HasOne
+    {
+        return $this->hasOne(InfoUser::class, 'user_id', 'id');
+    }
 }

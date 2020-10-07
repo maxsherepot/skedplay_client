@@ -24,6 +24,7 @@
         "facade/ignition": "^2.0",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
+        "jenssegers/agent": "^2.6",
         "kalnoy/nestedset": "^5.0",
         "laravel/cashier": "10.0.*",
         "laravel/framework": "^7.0",

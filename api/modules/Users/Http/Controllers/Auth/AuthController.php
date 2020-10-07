@@ -13,6 +13,7 @@ use Modules\Users\Http\Requests\Auth\ResetPasswordRequest;
 use Modules\Users\Repositories\UserRepository;
 use Modules\Users\Services\Verification\Verification;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
+use Modules\Users\Entities\InfoUser;
 
 class AuthController extends BaseAuthResolver
 {
@@ -49,6 +50,15 @@ class AuthController extends BaseAuthResolver
 
         $model = app(config('auth.providers.users.model'));
         $user = $model->where('phone', $request->get('username'))->firstOrFail();
+
+
+        $userInfo = $user->info ?? new InfoUser;
+        $userInfo->fill([
+            'user_id' => $user->id,
+            'ip' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'browser_locale' => $request->server('HTTP_ACCEPT_LANGUAGE')
+        ])->save();
 
         if ($user->status === User::STATUS_REFUSED) {
             throw new AuthenticationException('user blocked by reason: '. $user->rejected_reason);

@@ -21,6 +21,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Modules\Users\Entities\Role;
 use Skidplay\UserTopInfo\UserTopInfo;
+use Laravel\Nova\Fields\BelongsTo;
 
 class User extends Resource
 {
@@ -240,6 +241,8 @@ class User extends Resource
 
         return [
             Text::make('Name'),
+
+            BelongsTo::make('Info', 'info', 'App\Nova\InfoUser'),
 
 //            BelongsToMany::make('Roles')
 //                ->fields(
