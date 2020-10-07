@@ -7,32 +7,47 @@
         </svg>
         <span class="sidebar-label">{{ __('Resources') }}</span>
     </h3>
+    @php
+        $sortNav = collect([
+                'SEO',
+                'Users & Freier',
+                'Clubs',
+                'Sex workers',
+                'Requests & Verifications',
+                'Settings & Components',
+                'Languages & Content',
+                'Other'
+            ]);
+    @endphp
+    @foreach($sortNav as $item)
+        @foreach ($navigation as $group => $resources)
+            @if ($item == $group)
+                @if (count($groups) > 1)
+                    <h4 class="ml-8 mb-4 text-xs text-white-50% uppercase tracking-wide">{{ $group }}</h4>
+                @endif
 
-    @foreach($navigation->reverse() as $group => $resources)
-        @if (count($groups) > 1)
-            <h4 class="ml-8 mb-4 text-xs text-white-50% uppercase tracking-wide">{{ $group }}</h4>
-        @endif
-
-        <ul class="list-reset mb-8">
-            @foreach($resources as $resource)
-                <li class="leading-tight mb-4 ml-8 text-sm">
-                    <router-link :to="{
+                <ul class="list-reset mb-8">
+                    @foreach($resources as $resource)
+                        <li class="leading-tight mb-4 ml-8 text-sm">
+                            <router-link :to="{
                         name: 'index',
                         params: {
                             resourceName: '{{ $resource::uriKey() }}'
                         }
                     }" class="text-white text-justify no-underline dim">
-                        {{ $resource::label() }}
-                    </router-link>
-                    @if($resource::isShowBadge() && $count = $resource::getNotSeenCount())
-                        <span
-                            class="badge badge-info resource-not-seen-count"
-                            data-class="{{ $resource::$model }}"
-                            data-resource="{{ strtolower(\Illuminate\Support\Str::kebab(substr(strrchr($resource, "\\"), 1)))  }}s"
-                        >{{ $count }}</span>
-                    @endif
-                </li>
-            @endforeach
-        </ul>
+                                {{ $resource::label() }}
+                            </router-link>
+                            @if($resource::isShowBadge() && $count = $resource::getNotSeenCount())
+                                <span
+                                    class="badge badge-info resource-not-seen-count"
+                                    data-class="{{ $resource::$model }}"
+                                    data-resource="{{ strtolower(\Illuminate\Support\Str::kebab(substr(strrchr($resource, "\\"), 1)))  }}s"
+                                >{{ $count }}</span>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        @endforeach
     @endforeach
 @endif
