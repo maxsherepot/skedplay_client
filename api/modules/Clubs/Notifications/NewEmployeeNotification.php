@@ -9,13 +9,16 @@ use Illuminate\Notifications\Notification;
 use Modules\Common\Entities\EmailTemplate;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Modules\Clubs\Helpers;
+use Modules\Employees\Entities\Employee;
 
-class UpdateProfileNotification extends Notification implements ShouldQueue
+class NewEmployeeNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     private $club;
-    public const TEMPLATE_KEY = 'club_update_profile';
+    private $employee;
+    public const TEMPLATE_KEY = 'club_new_employee';
 
     /**
      * Create a new notification instance.
@@ -23,9 +26,10 @@ class UpdateProfileNotification extends Notification implements ShouldQueue
      * @return void
      */
 
-    public function __construct(Club $club)
+    public function __construct(Club $club, Employee $employee)
     {
         $this->club = $club;
+        $this->employee = $employee;
     }
 
     /**
@@ -49,11 +53,13 @@ class UpdateProfileNotification extends Notification implements ShouldQueue
     {
         $template = EmailTemplate::where('key', self::TEMPLATE_KEY)->first();
 
-        $link = config('app.front_app_url') . '/clubs/' . $this->club->id . '/information/';
+        $link = Helpers::createFrontLink($this->club);
+
         $text = str_replace(
                 $template->text_variables,
             [
                 $this->club->name,
+                $this->employee->name,
             ],
             $template->text
         );

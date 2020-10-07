@@ -8,14 +8,14 @@ use Illuminate\Notifications\Notification;
 use Modules\Common\Entities\EmailTemplate;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Modules\Employees\Helpers;
 
-class UpdatePositionNotification extends Notification implements ShouldQueue
+class ProfileActivatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     private $employee;
-
-    public const TEMPLATE_KEY = 'employee_update_position';
+    public const TEMPLATE_KEY = 'employee_profile_activated';
 
     /**
      * Create a new notification instance.
@@ -49,7 +49,8 @@ class UpdatePositionNotification extends Notification implements ShouldQueue
     {
         $template = EmailTemplate::where('key', self::TEMPLATE_KEY)->first();
 
-        $link = config('app.front_app_url') . '/employees/' . $this->employee->id . '/information/';
+        $link = Helpers::createFrontLink($this->employee);
+
         $text = str_replace(
                 $template->text_variables,
             [

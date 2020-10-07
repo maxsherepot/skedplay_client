@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notification;
 use Modules\Common\Entities\EmailTemplate;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Modules\Employees\Helpers;
 
 class CreateEventNotification extends Notification implements ShouldQueue
 {
@@ -26,8 +27,8 @@ class CreateEventNotification extends Notification implements ShouldQueue
 
     public function __construct(Employee $employee, Event $event)
     {
-        $this->event = $event;
         $this->employee = $employee;
+        $this->event = $event;
     }
 
     /**
@@ -51,7 +52,8 @@ class CreateEventNotification extends Notification implements ShouldQueue
     {
         $template = EmailTemplate::where('key', self::TEMPLATE_KEY)->first();
 
-        $link = config('app.front_app_url') . '/employees/'.$this->employee->id.'/events/'.$this->event->id;
+        $link = Helpers::createFrontEventLink($this->employee, $this->event);
+
         $text = str_replace(
                 $template->text_variables,
             [

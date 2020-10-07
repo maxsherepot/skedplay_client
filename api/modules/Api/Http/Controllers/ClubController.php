@@ -16,7 +16,6 @@ use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Api\Http\Requests\Schedule\ClubScheduleCreateRequest;
 use Modules\Api\Http\Requests\Schedule\ClubScheduleUpdateRequest;
 use Modules\Clubs\Entities\Club;
-use Modules\Clubs\Services\ClubNotificationSender;
 use Modules\Common\Entities\PriceType;
 use Modules\Common\Entities\Service;
 use Modules\Common\Repositories\PriceRepository;
@@ -50,15 +49,12 @@ class ClubController extends Controller
      */
     private $prices;
 
-    private $clubNotificationSender;
-
-    public function __construct(ClubRepository $clubs, ClubEventRepository $events, ServiceRepository $services, PriceRepository $prices, ClubNotificationSender $clubNotificationSender)
+    public function __construct(ClubRepository $clubs, ClubEventRepository $events, ServiceRepository $services, PriceRepository $prices)
     {
         $this->clubs = $clubs;
         $this->events = $events;
         $this->services = $services;
         $this->prices = $prices;
-        $this->clubNotificationSender = $clubNotificationSender;
     }
 
   /**
@@ -102,7 +98,6 @@ class ClubController extends Controller
 
             $this->clubs->update($club, collect($request->all()));
 
-            $this->clubNotificationSender->updateProfile($club);
 
         } catch (\Throwable $th) {
             return $this->fail($th->getMessage());
@@ -186,8 +181,6 @@ class ClubController extends Controller
             Log::error($e->getMessage(), [$e->getTrace()]);
         }
 
-        $this->clubNotificationSender->createEvent($club, $event);
-
         return $event;
     }
 
@@ -207,7 +200,6 @@ class ClubController extends Controller
         $response = $this->events->update($event, collect($request->all()));
 
         if ($response) {
-            $this->clubNotificationSender->updateEvent($event->club, $event);
             return $this->success();
         }
 

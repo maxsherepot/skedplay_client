@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Employees\Entities\EmployeeOwnerInterface;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Modules\Clubs\Services\ClubNotificationSender;
 
 /**
  * Class Club
@@ -102,6 +103,28 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     protected $dates = [
         'created_at'
     ];
+
+    protected static function booted()
+    {
+        static::updated(function ($club) {
+            if ($club->status === Club::STATUS_CONNECTED) {
+                if ($club->isСontactsСhanged()) {
+                    (new ClubNotificationSender)->updateContact($club);
+                    return;
+                }
+            }
+        });
+    }
+
+    public function isСontactsСhanged()
+    {
+        return $this->isDirty('address')
+            || $this->isDirty('lat')
+            || $this->isDirty('lng')
+            || $this->isDirty('phones')
+            || $this->isDirty('email')
+            || $this->isDirty('website');
+    }
 
     public function subscribers(): HasMany
     {

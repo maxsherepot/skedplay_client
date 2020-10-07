@@ -1,23 +1,22 @@
 <?php
 
-namespace Modules\Employees\Notifications;
+namespace Modules\Clubs\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Modules\Events\Entities\Event;
-use Modules\Employees\Entities\Employee;
+use Modules\Clubs\Entities\Club;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Modules\Common\Entities\EmailTemplate;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Modules\Employees\Helpers;
+use Modules\Clubs\Helpers;
 
-class UpdateEventNotification extends Notification implements ShouldQueue
+class UpdateContactNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $event;
-    private $employee;
-    public const TEMPLATE_KEY = 'employee_update_event';
+    private $club;
+    public const TEMPLATE_KEY = 'club_update_contact';
 
     /**
      * Create a new notification instance.
@@ -25,10 +24,9 @@ class UpdateEventNotification extends Notification implements ShouldQueue
      * @return void
      */
 
-    public function __construct(Employee $employee, Event $event)
+    public function __construct(Club $club)
     {
-        $this->employee = $employee;
-        $this->event = $event;
+        $this->club = $club;
     }
 
     /**
@@ -52,13 +50,12 @@ class UpdateEventNotification extends Notification implements ShouldQueue
     {
         $template = EmailTemplate::where('key', self::TEMPLATE_KEY)->first();
 
-        $link = Helpers::createFrontEventLink($this->employee, $this->event);
+        $link = Helpers::createFrontLink($this->club);
 
         $text = str_replace(
                 $template->text_variables,
             [
-                $this->event->title,
-                $this->employee->name,
+                $this->club->name,
             ],
             $template->text
         );

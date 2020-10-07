@@ -30,6 +30,9 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 use Modules\Common\Entities\SubscribeEmployee;
+use Modules\Clubs\Services\ClubNotificationSender;
+use Modules\Employees\Services\EmployeeNotificationSender;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class Employee
@@ -48,6 +51,9 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';
     const VIDEO_COLLECTION = 'employee-video';
+
+    const STATUS_CONFIRMED = 1;
+    const STATUS_AWAITING_CONFIRMED = 0;
 
     const TYPE_GIRL = 1;
     const TYPE_TRANS = 2;
@@ -109,6 +115,42 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
     protected $casts = [
         'service_for' => 'array',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($employee) {
+            if ($employee->status === Employee::STATUS_CONFIRMED) {
+                $club = $employee->club;
+                if ($club) {
+                    (new ClubNotificationSender)->newEmployee($club, $employee);
+                }
+            }
+        });
+        static::updated(function ($employee) {
+            if ($employee->status === Employee::STATUS_CONFIRMED) {
+                $club = $employee->club;
+                if ($employee->isDirty('status')) {
+                    (new EmployeeNotificationSender)->profileActivated($employee);
+                    if ($club) {
+                        (new ClubNotificationSender)->newEmployee($club, $employee);
+                    }
+                }
+                if ($employee->isСontactsСhanged()) {
+                    (new EmployeeNotificationSender)->updateContact($employee);
+                }
+            }
+        });
+    }
+
+    public function isСontactsСhanged()
+    {
+        return $this->isDirty('address')
+            || $this->isDirty('lat')
+            || $this->isDirty('lng')
+            || $this->isDirty('phones')
+            || $this->isDirty('email')
+            || $this->isDirty('website');
+    }
 
     public function getLanguagesAttribute($value)
     {

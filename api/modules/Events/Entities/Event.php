@@ -19,6 +19,8 @@ use Modules\Employees\Entities\Employee;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Modules\Clubs\Services\ClubNotificationSender;
+use Modules\Employees\Services\EmployeeNotificationSender;
 
 /**
  * Class Event
@@ -31,6 +33,9 @@ class Event extends Model implements HasMedia
     use SoftDeletes, HasMediaTrait, Favoriteable, Locationable;
 
     const MAIN_PHOTO_COLLECTION = 'event-main-photo';
+
+    const STATUS_CONFIRMED = 1;
+    const STATUS_AWAITING_CONFIRMED = 0;
 
     const MODE_REGULAR = 1;
     const MODE_DATE = 2;
@@ -66,17 +71,41 @@ class Event extends Model implements HasMedia
         'end_date',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($event) {
+            if ($event->status === Event::STATUS_CONFIRMED) {
+                $event->sendNotifications('createEvent');
+            }
+        });
+        static::updated(function ($event) {
+            if ($event->status === Event::STATUS_CONFIRMED) {
+                if ($event->isDirty('status')) {
+                    $event->sendNotifications('createEvent');
+                    return;
+                }
+                // $event->sendNotifications('updateEvent');
+            }
+        });
+    }
+
+    public function sendNotifications($notifyMethodName) {
+        $club = $this->club;
+        $employees = $this->employees;
+        if ($club && $club->status === Club::STATUS_CONNECTED) {
+            (new ClubNotificationSender)->{$notifyMethodName}($club, $this);
+        }
+        foreach($employees as $employee) {
+            (new EmployeeNotificationSender)->{$notifyMethodName}($employee, $this);
+        }
+    }
+
     /**
      * @return string
      */
     public function getShortTitleAttribute()
     {
         return Str::limit($this->title, 10);
-    }
-
-    public function getEmployeesAttribute()
-    {
-        return $this->employees;
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notification;
 use Modules\Common\Entities\EmailTemplate;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Modules\Employees\Helpers;
 
 class AddedNewPhotoOrVideoNotification extends Notification implements ShouldQueue
 {
@@ -48,7 +49,8 @@ class AddedNewPhotoOrVideoNotification extends Notification implements ShouldQue
     {
         $template = EmailTemplate::where('key', self::TEMPLATE_KEY)->first();
 
-        $link = config('app.front_app_url') . '/employees/' . $this->employee->id . '/information/';
+        $link = Helpers::createFrontLink($this->employee);
+
         $text = str_replace(
                 $template->text_variables,
             [

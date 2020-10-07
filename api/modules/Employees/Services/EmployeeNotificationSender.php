@@ -5,12 +5,11 @@ namespace Modules\Employees\Services;
 use Modules\Events\Entities\Event;
 use Modules\Employees\Entities\Employee;
 use Illuminate\Support\Facades\Notification;
-use Modules\Common\Entities\SubscribeEmployee;
 use Modules\Employees\Notifications\CreateEventNotification;
 use Modules\Employees\Notifications\UpdateEventNotification;
-use Modules\Employees\Notifications\UpdateProfileNotification;
-use Modules\Employees\Notifications\UpdatePositionNotification;
 use Modules\Employees\Notifications\AddedNewPhotoOrVideoNotification;
+use Modules\Employees\Notifications\UpdateContactNotification;
+use Modules\Employees\Notifications\ProfileActivatedNotification;
 
 class EmployeeNotificationSender
 {
@@ -25,14 +24,14 @@ class EmployeeNotificationSender
         Notification::send($employee->subscribers, new UpdateEventNotification($employee, $event));
     }
 
-    public function updateProfile(Employee $employee)
+    public function updateContact(Employee $employee)
     {
-        Notification::send($employee->subscribers, new UpdateProfileNotification($employee));
+        Notification::send($employee->subscribers, new UpdateContactNotification($employee));
     }
 
-    public function updatePosition(Employee $employee)
+    public function profileActivated(Employee $employee)
     {
-        Notification::send($employee->subscribers, new UpdatePositionNotification($employee));
+        Notification::send($employee->subscribers, new ProfileActivatedNotification($employee));
     }
 
     public function addedNewPhotoOrVideo(Employee $employee)

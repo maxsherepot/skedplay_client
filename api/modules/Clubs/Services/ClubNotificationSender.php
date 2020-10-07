@@ -4,12 +4,13 @@ namespace Modules\Clubs\Services;
 
 use Modules\Clubs\Entities\Club;
 use Modules\Events\Entities\Event;
-use Illuminate\Support\Facades\Log;
-use Modules\Common\Entities\SubscribeClub;
 use Illuminate\Support\Facades\Notification;
 use Modules\Clubs\Notifications\CreateEventNotification;
 use Modules\Clubs\Notifications\UpdateEventNotification;
 use Modules\Clubs\Notifications\UpdateProfileNotification;
+use Modules\Clubs\Notifications\UpdateContactNotification;
+use Modules\Clubs\Notifications\NewEmployeeNotification;
+use Modules\Employees\Entities\Employee;
 
 class ClubNotificationSender
 {
@@ -24,9 +25,14 @@ class ClubNotificationSender
         Notification::send($club->subscribers, new UpdateEventNotification($club, $event));
     }
 
-    public function updateProfile(Club $club)
+    public function updateContact(Club $club)
     {
-        Notification::send($club->subscribers, new UpdateProfileNotification($club));
+        Notification::send($club->subscribers, new UpdateContactNotification($club));
+    }
+
+    public function newEmployee(Club $club, Employee $employee)
+    {
+        Notification::send($club->subscribers, new NewEmployeeNotification($club, $employee));
     }
 
 }

@@ -87,8 +87,6 @@ class EmployeeController extends Controller
 
         $this->employees->update($employee, collect($request->all()));
 
-        $this->employeeNotificationSender->updateProfile($employee);
-
         return $this->success();
     }
 
@@ -143,7 +141,6 @@ class EmployeeController extends Controller
         $response = $this->events->update($event, collect($request->all()));
 
         if ($response) {
-            $this->employeeNotificationSender->updateEvent($event->owner, $event);
             return $this->success();
         }
 
@@ -198,7 +195,9 @@ class EmployeeController extends Controller
                 $customProperties
             );
 
-            $this->employeeNotificationSender->addedNewPhotoOrVideo($employee);
+            if (!empty($request->get('files'))) {
+                $this->employeeNotificationSender->addedNewPhotoOrVideo($employee);
+            }
 
             return $this->success(
                 $this->employees::UPLOAD_FILE_SUCCESS
@@ -311,8 +310,6 @@ class EmployeeController extends Controller
         $this->authorize('update', $employee);
 
         $this->employees->storeCurrentPosition($employee, collect($request->validated()));
-
-        $this->employeeNotificationSender->updatePosition($employee);
 
         return $this->success();
     }
