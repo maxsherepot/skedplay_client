@@ -42,6 +42,7 @@ class DeployCommand extends Command
      */
     public function handle()
     {
-
+        $this->call('migrate');
+        $this->call('email_templates:init');
     }
 }
