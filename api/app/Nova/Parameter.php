@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Spatie\NovaTranslatable\Translatable;
 
 class Parameter extends Resource
 {
@@ -71,13 +72,13 @@ class Parameter extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name', 'name')
-                ->hideWhenUpdating()
-                ->hideFromDetail(),
+            Translatable::make([
+                Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
 
-            Code::make('Name', 'name')->json()
-                ->hideFromIndex()
-                ->hideWhenCreating(),
+            ])->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
+
         ];
     }
 

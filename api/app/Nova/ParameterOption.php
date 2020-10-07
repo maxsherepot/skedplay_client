@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Spatie\NovaTranslatable\Translatable;
 
 class ParameterOption extends Resource
 {
@@ -75,13 +76,12 @@ class ParameterOption extends Resource
             BelongsTo::make('Parameter', 'parameter', Parameter::class)->sortable(),
             //Text::make('parameter_id'),
 
-            Text::make('Value', 'value')
-                ->hideWhenUpdating()
-                ->hideFromDetail(),
+            Translatable::make([
+                Text::make('Value')
+                ->sortable()
+                ->rules('required', 'max:255'),
 
-            Code::make('Value', 'value')->json()
-                ->hideFromIndex()
-                ->hideWhenCreating(),
+            ])->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
         ];
     }
 

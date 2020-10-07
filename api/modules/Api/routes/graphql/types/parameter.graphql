@@ -1,21 +1,33 @@
 type EmployeeParameter {
     id: ID!
-    parameter: Parameter! @belongsTo
-    parameter_option: ParameterOption! @belongsTo(relation: "parameterOption")
+    parameter: ParameterAllLangs! @belongsTo(relation: "parameter")
+    parameter_option: ParameterOptionAllLangs! @belongsTo(relation: "parameterOption")
 }
 
 type Parameter {
     id: ID!
-    name: JSON!
+    name: String!
+    options: [ParameterOption!]! @hasMany
+}
+
+type ParameterAllLangs {
+    id: ID!
+    name: String!
     options: [ParameterOption!]! @hasMany
 }
 
 type ParameterOption {
     id: ID!
-    value: JSON!
+    value: String!
+    parameter: Parameter @belongsTo
+}
+
+type ParameterOptionAllLangs {
+    id: ID!
+    value: String!
     parameter: Parameter @belongsTo
 }
 
 extend type Query {
-    parameters: [Parameter!]! @all
+    parameters: [ParameterAllLangs!]! @all
 }

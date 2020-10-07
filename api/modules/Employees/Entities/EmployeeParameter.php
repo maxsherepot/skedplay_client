@@ -4,6 +4,8 @@ namespace Modules\Employees\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Employees\Entities\ParameterAllLangs;
+use Modules\Employees\Entities\ParameterOptionAllLangs;
 
 class EmployeeParameter extends Model
 {
@@ -17,11 +19,11 @@ class EmployeeParameter extends Model
 
     public function parameter(): BelongsTo
     {
-        return $this->belongsTo(Parameter::class);
+        return $this->belongsTo(ParameterAllLangs::class);
     }
 
     public function parameterOption(): BelongsTo
     {
-        return $this->belongsTo(ParameterOption::class);
+        return $this->belongsTo(ParameterOptionAllLangs::class);
     }
 }

@@ -5,27 +5,19 @@ namespace Modules\Employees\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
+use Modules\Employees\Entities\ParameterAllLangs;
 
-class ParameterOption extends Model
+class ParameterOptionAllLangs extends Model
 {
-    use HasTranslations;
 
-    public $translatable = [
-        'value',
-    ];
-
-    protected $fillable = [
-        'parameter_id',
-        'value',
-    ];
+    protected $table = 'parameter_options';
 
     /**
      * @return BelongsTo
      */
     public function parameter(): BelongsTo
     {
-        return $this->belongsTo(Parameter::class, 'parameter_id');
+        return $this->belongsTo(ParameterAllLangs::class, 'parameter_id');
     }
-
 
 }

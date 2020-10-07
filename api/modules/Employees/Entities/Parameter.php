@@ -87,12 +87,4 @@ class Parameter extends Model
         return $this->hasMany(ParameterOption::class);
     }
 
-    public function getAttributeValue($key)
-    {
-        if (! $this->isTranslatableAttribute($key)) {
-            return parent::getAttributeValue($key);
-        }
-
-        return $this->getTranslations($key);
-    }
 }
