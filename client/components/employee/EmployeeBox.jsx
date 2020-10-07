@@ -8,14 +8,20 @@ import GirlsViewedBox from "components/employee/GirlsViewedBox";
 import {useTranslation} from "react-i18next";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_PAGE} from 'queries';
+import {useQuery, useMutation} from "@apollo/react-hooks";
+import {GET_PAGE, CREATE_SUBSCRIBE_EMPLOYEE, DO_EVENT} from 'queries';
 import translation from "services/translation";
+import {getErrors} from "utils/index";
 
 const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcrumbs, showNavLinks, noName }) => {
   const [showNumber, setToggleNumber] = useState(false);
   const {t, i18n} = useTranslation();
   const { asPath } = useRouter();
+
+  const [createSubscribeEmployee] = useMutation(CREATE_SUBSCRIBE_EMPLOYEE);
+  const [doEvent] = useMutation(DO_EVENT);
+  const [isSubscribed, setIsSubscribed] = useState(false)
+
 
   const girlType = parseInt(employee.type) === 1
     ? 'girls'
@@ -135,6 +141,45 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
 
   const rightInfo = null;
 
+
+  const handleSubscribe = async values => {
+    try {
+      const {
+        data: {
+          createSubscribeEmployee: {status, message}
+        }
+      } = await createSubscribeEmployee({
+        variables: {
+          email: values.email,
+          employee_id: employee.id,
+          locale: i18n.language
+        }
+      });
+
+      setIsSubscribed(status)
+
+      doEvent({
+        variables: {
+          model_type: 'employee',
+          model_id: employee.id,
+          event: 'subscribe',
+        }
+      });
+
+      return {
+        status,
+        message
+      };
+    } catch (e) {
+      const errors = getErrors(e);
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
+    }
+  };
+
   return (
     <MainLayout user={user}>
       <SecondaryNav
@@ -202,7 +247,7 @@ const EmployeeBox = ({ employee, employees, user, viewed, children, lastBreadcru
         }
       </div>
       <div>
-          <Subscribe image="/static/img/subscribe-girl.png"/>
+        <Subscribe isSubscribed={isSubscribed} onSubmit={handleSubscribe} text="Subscribe for Updates and Keep track of all things from this Worker" imageUrl="/static/img/subscribe-girl.png"/>
       </div>
     </MainLayout>
   );

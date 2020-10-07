@@ -1,0 +1,12 @@
+type SubscribeEmployee {
+    id: ID!
+    email: String!
+    employee_id: Int!
+    locale: String!
+    employee: Employee @belongsTo
+}
+
+extend type Mutation {
+    createSubscribeEmployee(email: String!, employee_id: Int!, locale: String!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\CommonController@createSubscribeEmployee")
+}

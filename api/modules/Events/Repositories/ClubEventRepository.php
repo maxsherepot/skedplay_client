@@ -1,15 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Repositories;
+namespace Modules\Events\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
+use Modules\Clubs\Entities\Club;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Modules\Common\Contracts\HasMediable;
-use Modules\Common\Traits\Mediable;
-use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
-use Modules\Clubs\Entities\Club;
+use Modules\Common\Traits\Mediable;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Employees\Entities\Employee;
+use Modules\Common\Contracts\HasMediable;
+use Modules\Main\Repositories\EventRepository;
 
 class ClubEventRepository implements HasMediable
 {

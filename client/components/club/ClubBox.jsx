@@ -1,16 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import { MainLayout } from "layouts";
 import { Subscribe, SecondaryNav, ActiveLink, Loader, Breadcrumbs } from "UI";
 import {useTranslation} from "react-i18next";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 // import slug from 'slug';
-import {useQuery} from "@apollo/react-hooks";
-import {GET_PAGE} from 'queries';
+import {useQuery, useMutation} from "@apollo/react-hooks";
+import {GET_PAGE, CREATE_SUBSCRIBE_CLUB, DO_EVENT} from 'queries';
 import translation from "services/translation";
+import {getErrors} from "utils/index";
 
 const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
   const {t, i18n} = useTranslation();
+
+  const [createSubscribeClub] = useMutation(CREATE_SUBSCRIBE_CLUB);
+  const [doEvent] = useMutation(DO_EVENT);
+  const [isSubscribed, setIsSubscribed] = useState(false)
 
   const { data: { page } = {}, loading: pageLoading} = useQuery(GET_PAGE, {
     variables: {
@@ -70,6 +75,48 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
     </>
   );
 
+  const handleSubscribe = async values => {
+    try {
+      const {
+        data: {
+          createSubscribeClub: {status, message}
+        }
+      } = await createSubscribeClub({
+        variables: {
+          email: values.email,
+          club_id: club.id,
+          locale: i18n.language
+        }
+      });
+
+      setIsSubscribed(status)
+
+      doEvent({
+        variables: {
+          model_type: 'club',
+          model_id: club.id,
+          event: 'subscribe',
+        }
+      });
+
+      console.log(status)
+      console.log(message)
+
+      return {
+        status,
+        message
+      };
+    } catch (e) {
+      console.log(e)
+      const errors = getErrors(e);
+      return {
+        status: false,
+        message: "Server error",
+        errors
+      };
+    }
+  };
+
   const tabs = [
     {name: "clubs.information", link: (club) => `/clubs/canton/city/id/information?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`, as: (club) => `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/information`},
     {name: "common.our_girls", link: (club) => `/clubs/canton/city/id/girls?id=${club.id}&canton=${club.city.canton.slug}&city=${club.city.slug}`, as: (club) => `/clubs/${club.city.canton.slug}/${club.city.slug}/${club.id}/girls`},
@@ -114,9 +161,9 @@ const ClubBox = ({ club, user, children, lastBreadcrumbs }) => {
       </SecondaryNav>
 
       <div className="container">{children}</div>
-    <div className="mt-20">
-              <Subscribe image="/static/img/subscribe-girl.png"/>
-          </div>
+      <div className="mt-20">
+        <Subscribe isSubscribed={isSubscribed} onSubmit={handleSubscribe} text="Subscribe for Updates and Keep track of all things from this Club" imageUrl="/static/img/subscribe-girl.png"/>
+      </div>
     </MainLayout>
   );
 };

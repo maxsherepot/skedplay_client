@@ -8,50 +8,47 @@ import { getErrors } from "utils";
 import {useTranslation} from "react-i18next";
 import redirect from "lib/redirect";
 import cx from 'classnames';
+import * as Yup from 'yup';
 
-function SubscribeForm({ initialValues, children }) {
+function SubscribeForm({ isSubscribed, onSubmit, text, children }) {
+
   const {t, i18n} = useTranslation();
-
-
-  const validate = values => {
-    return {};
-  };
-
-
-  const handleSubmits = async (
-    values,
-    { setSubmitting, setErrors, setStatus }
-  ) => {
-  };
 
   return (
     <Formik
-      initialValues={initialValues}
-      validate={validate}
-      onSubmit={handleSubmits}
+      initialValues={{
+        email: "",
+      }}
+      validationSchema={Yup.object().shape({
+        email: Yup.string().email().required(),
+      })}
+      onSubmit={onSubmit}
     >
-      {({ handleSubmit, isSubmitting, status, submitForm }) => (
+      {({ handleSubmit, isSubmitting, values }) => (
         <form onSubmit={handleSubmit} className="edit-employee-form w-full">
           {isSubmitting && <Loader/>}
 
           <h2 className="text-2xl sm:text-3xl font-bold mb-1">Get Notified!</h2>
-          <p className="text-md text-grey mb-6">Subscribe for Updates and Keep track of all things from this Worker </p>
+      <p className="text-md text-grey mb-6">{text}</p>
 
           <TextField
             className="w-full"
             inputClassName="w-1/3"
             label={"Your email address"}
-            name="name"
+            type="text"
+            value={values.email}
+            disabled={isSubscribed}
+            name="email"
           />
 
-      <div className="w-full mt-10 mb-4">
+          <div className="w-full mt-10 mb-4">
                 <Button
                   type="submit"
                   size="xs"
                   className="w-full sm:w-auto text-xl px-16"
-                  disabled={isSubmitting}
+                  disabled={isSubscribed}
                 >
-                  Subscribe!
+                  {isSubscribed ? 'Subscribed. Thank you!' : 'Subscribe!'}
                 </Button>
               </div>
 

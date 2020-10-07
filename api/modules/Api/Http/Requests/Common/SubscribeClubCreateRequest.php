@@ -14,6 +14,7 @@ class SubscribeClubCreateRequest extends GraphQLFormRequest
         return [
             'email'     => 'required|email|string',
             'club_id'   => 'required|integer',
+            'locale'   => 'required|string',
         ];
     }
 

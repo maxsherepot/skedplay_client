@@ -3,32 +3,34 @@
 namespace Modules\Clubs\Entities;
 
 use DateTime;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Log;
-use Modules\Common\Entities\City;
-use Modules\Common\Entities\ClubScheduleWork;
-use Modules\Common\Entities\EventCount;
-use Modules\Common\Entities\Traits\Favoriteable;
-use Modules\Common\Entities\Traits\Priceable;
-use Modules\Common\Entities\Traits\Serviceable;
-use Modules\Common\Services\Location\HasLocation;
-use Modules\Common\Services\Location\Locationable;
-use Modules\Employees\Entities\Employee;
-use Modules\Employees\Entities\EmployeeOwnerInterface;
-use Modules\Events\Entities\Event;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Modules\Common\Entities\City;
+use Modules\Events\Entities\Event;
+use Illuminate\Support\Facades\Log;
 use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Common\Entities\EventCount;
+use Modules\Employees\Entities\Employee;
+use Illuminate\Database\Eloquent\Builder;
+use Modules\Common\Entities\SubscribeClub;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Common\Entities\ClubScheduleWork;
+use Modules\Common\Entities\Traits\Priceable;
+use Modules\Common\Entities\Traits\Serviceable;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Modules\Common\Entities\Traits\Favoriteable;
+use Modules\Common\Services\Location\HasLocation;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Modules\Common\Services\Location\Locationable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Employees\Entities\EmployeeOwnerInterface;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Modules\Clubs\Services\ClubNotificationSender;
 
 /**
  * Class Club
@@ -101,6 +103,33 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
     protected $dates = [
         'created_at'
     ];
+
+    protected static function booted()
+    {
+        static::updated(function ($club) {
+            if ($club->status === Club::STATUS_CONNECTED) {
+                if ($club->isСontactsСhanged()) {
+                    (new ClubNotificationSender)->updateContact($club);
+                    return;
+                }
+            }
+        });
+    }
+
+    public function isСontactsСhanged()
+    {
+        return $this->isDirty('address')
+            || $this->isDirty('lat')
+            || $this->isDirty('lng')
+            || $this->isDirty('phones')
+            || $this->isDirty('email')
+            || $this->isDirty('website');
+    }
+
+    public function subscribers(): HasMany
+    {
+        return $this->hasMany(SubscribeClub::class);
+    }
 
     /**
      * @return MorphMany

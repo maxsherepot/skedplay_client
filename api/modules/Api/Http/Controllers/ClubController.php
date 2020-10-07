@@ -21,7 +21,7 @@ use Modules\Common\Entities\Service;
 use Modules\Common\Repositories\PriceRepository;
 use Modules\Common\Repositories\ServiceRepository;
 use Modules\Events\Entities\Event;
-use Modules\Main\Repositories\ClubEventRepository;
+use Modules\Events\Repositories\ClubEventRepository;
 use Modules\Users\Repositories\ClubRepository;
 use Nwidart\Modules\Routing\Controller;
 
@@ -94,7 +94,14 @@ class ClubController extends Controller
     {
         $this->authorize('update', $club);
 
-        $this->clubs->update($club, collect($request->all()));
+        try {
+
+            $this->clubs->update($club, collect($request->all()));
+
+
+        } catch (\Throwable $th) {
+            return $this->fail($th->getMessage());
+        }
 
         return $this->success();
     }
@@ -192,7 +199,11 @@ class ClubController extends Controller
 
         $response = $this->events->update($event, collect($request->all()));
 
-        return $response ? $this->success() : $this->fail();
+        if ($response) {
+            return $this->success();
+        }
+
+        return $this->fail();
     }
 
     /**
@@ -283,4 +294,5 @@ class ClubController extends Controller
             return $this->fail();
         }
     }
+
 }

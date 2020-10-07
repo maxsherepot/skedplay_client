@@ -42,20 +42,6 @@ class DeployCommand extends Command
      */
     public function handle()
     {
-        $this->call('settings:init');
 
-        $clearAll = $this->confirm('Do clear girls, clubs and users?');
-
-        if ($clearAll) {
-            $this->call('clear:all');
-        }
-
-        $importClubs = $this->confirm('Do import new clubs?');
-
-        if ($importClubs) {
-            $this->call('possible:club:create', ['filename' => 'clubs-new.json']);
-        }
-
-        $this->warn("Don't forget to replace nova version to 3!!!");
     }
 }

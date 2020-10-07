@@ -17,19 +17,13 @@ class SubscribeClubRepository
     {
         DB::beginTransaction();
 
-        $subscription = SubscribeClub::query()->create($collection->toArray());
-        $subscription->save();
+        $data = $collection->toArray();
+
+        $subscription = SubscribeClub::firstOrCreate(['email' => $data['email']], $data);
 
         DB::commit();
 
         return $subscription;
     }
 
-    public function getSubscribersByClubId(int $club_id)
-    {
-        return SubscribeClub::query()
-            ->where('club_id', '=', $club_id)
-            ->cursor()
-        ;
-    }
 }
