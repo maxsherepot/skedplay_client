@@ -43,6 +43,8 @@ use App\Nova\EmployeeComplaintTheme;
 use App\Nova\EmployeeSubscriber;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use App\Nova\Dashboards\UserInsights;
+use App\Nova\Dashboards\EmailSubscriptions;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -54,6 +56,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::style('nova', public_path('css/nova.css'));
+        Nova::script('nova', public_path('js/nova.js'));
 
         Field::macro('fallbackLocaleRules', function ($rules) {
             $this->fallbackLocaleRules = ($rules instanceof Rule || is_string($rules)) ? func_get_args() : $rules;
@@ -99,6 +104,19 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Gate::define('viewNova', function ($user) {
             return $user->hasRole('admin');
         });
+    }
+
+    /**
+     * Get the extra dashboards that should be displayed on the Nova dashboard.
+     *
+     * @return array
+     */
+    protected function dashboards()
+    {
+        return [
+            new UserInsights,
+            new EmailSubscriptions,
+        ];
     }
 
     /**
@@ -184,6 +202,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             EmployeeSubscriber::class,
 
             Setting::class,
+
+            EmailTemplate::class,
+            ClubSubscriber::class,
+            EmployeeSubscriber::class,
         ]);
     }
 }

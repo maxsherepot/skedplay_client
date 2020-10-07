@@ -10,6 +10,7 @@ use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphMany;
@@ -26,12 +27,21 @@ class Event extends Resource
      */
     public static $model = 'Modules\Events\Entities\Event';
 
+    protected static $showBadge = true;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Requests & Verifications';
 
     /**
      * The columns that should be searched.
@@ -111,6 +121,10 @@ class Event extends Resource
                 HasMany::make('Photos'),
                 HasMany::make('Videos'),
                 MorphMany::make('Actions', 'eventCounts', EventCount::class),
+                Boolean::make('Просмотрено', 'seen')
+                    ->sortable()
+                    ->hideWhenUpdating()
+                    ->hideWhenCreating(),
             ]),
         ];
     }

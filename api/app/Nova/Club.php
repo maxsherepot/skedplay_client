@@ -13,6 +13,7 @@ use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -32,6 +33,8 @@ class Club extends Resource
      * @var string
      */
     public static $model = 'Modules\Clubs\Entities\Club';
+
+    protected static $showBadge = true;
 
     public static $with = [
     ];
@@ -55,6 +58,13 @@ class Club extends Resource
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Clubs';
 
     /**
      * The columns that should be searched.
@@ -265,6 +275,10 @@ class Club extends Resource
             ])->dependsOnNotEmpty('user_id'),
 
             Text::make('Comment')->hideFromIndex(),
+            Boolean::make('Просмотрено', 'seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
         ];
     }
 

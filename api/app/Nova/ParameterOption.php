@@ -25,6 +25,23 @@ class ParameterOption extends Resource
     public static $title = 'name';
 
     /**
+     * Get the displayble label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Parameters Option Workers';
+    }
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Settings & Components';
+
+    /**
      * The columns that should be searched.
      *
      * @var array

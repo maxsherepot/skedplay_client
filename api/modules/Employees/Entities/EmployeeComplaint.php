@@ -2,12 +2,16 @@
 
 namespace Modules\Employees\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class EmployeeComplaint extends Model
+class EmployeeComplaint extends Model implements ViewedEntity
 {
-    protected $fillable = ['name', 'email', 'message', 'theme_id', 'employee_id'];
+    use ViewedEntityDefault;
+
+    protected $fillable = ['name', 'email', 'message', 'theme_id', 'employee_id','seen'];
 
     public function theme(): BelongsTo
     {

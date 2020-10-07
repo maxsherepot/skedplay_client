@@ -16,7 +16,7 @@ final class MediaPolicy
 
     public function view()
     {
-        return false;
+        return true;
     }
 
 //    public function update()

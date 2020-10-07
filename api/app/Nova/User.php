@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasOne;
@@ -30,6 +31,8 @@ class User extends Resource
      */
     public static $model = 'Modules\Users\Entities\User';
 
+    protected static $showBadge = true;
+
     public static $with = [
         'roles',
     ];
@@ -51,6 +54,13 @@ class User extends Resource
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Users & Freier';
 
     /**
      * The columns that should be searched.
@@ -273,6 +283,10 @@ class User extends Resource
                 ->displayUsing(function () {
                     return $this->age = Carbon::parse($this->birthday)->age;
                 }),
+            Boolean::make('Просмотрено', 'seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
 
             Text::make('Status', function () {
                 $status = $this->status ?? 0;

@@ -11,5 +11,6 @@ class ContactRequest extends Model
         'name',
         'email',
         'message',
+        'seen',
     ];
 }

@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
@@ -16,12 +17,21 @@ class ContactRequest extends Resource
      */
     public static $model = 'Modules\Common\Entities\ContactRequest';
 
+    protected static $showBadge = true;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Requests & Verifications';
 
     /**
      * The columns that should be searched.
@@ -67,6 +77,10 @@ class ContactRequest extends Resource
                 ->displayUsing(function ($message) {
                     return Str::limit($message, 30);
                 }),
+            Boolean::make('Просмотрено', 'seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
         ];
     }
 

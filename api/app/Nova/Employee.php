@@ -8,8 +8,10 @@ use App\Nova\Filters\EmployeeTypeFilter;
 use App\Nova\Filters\ModerationStatusFilter;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphTo;
@@ -26,6 +28,8 @@ class Employee extends Resource
      * @var string
      */
     public static $model = 'Modules\Employees\Entities\Employee';
+
+    protected static $showBadge = true;
 
     public static $with = [
     ];
@@ -48,6 +52,13 @@ class Employee extends Resource
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Sex workers';
 
     /**
      * The columns that should be searched.
@@ -98,6 +109,10 @@ class Employee extends Resource
                 )->render();
             })->asHtml(),
             Text::make('In system', 'created_at_diff'),
+            Boolean::make('Просмотрено', 'seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
         ];
     }
 

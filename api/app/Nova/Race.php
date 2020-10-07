@@ -23,6 +23,13 @@ class Race extends Resource
     public static $title = 'name';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Settings & Components';
+
+    /**
      * The columns that should be searched.
      *
      * @var array

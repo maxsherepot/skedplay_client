@@ -2,6 +2,8 @@
 
 namespace Modules\Users\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -38,9 +40,9 @@ use Firebase\JWT\JWT;
  * @property int age
  * @property string password
  */
-class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia
+class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMedia, ViewedEntity
 {
-    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables, HasMediaTrait;
+    use Billable, HasApiTokens, LaratrustUserTrait, HasPermissionPlan, Notifiable, HasFavoriteables, HasMediaTrait, ViewedEntityDefault;
 
     use Authorizable {
         Authorizable::can insteadof LaratrustUserTrait;
@@ -97,6 +99,7 @@ class User extends AuthUser implements EmployeeOwnerInterface, ChatMember, HasMe
         'email',
         'password',
         'avatar',
+        'seen',
     ];
 
     protected $appends = [

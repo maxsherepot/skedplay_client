@@ -2,6 +2,8 @@
 
 namespace Modules\Clubs\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use DateTime;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
@@ -51,9 +53,9 @@ use Modules\Clubs\Services\ClubNotificationSender;
  * @property datetime comment_set_at
  * @property string comment
  */
-class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface
+class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterface, ViewedEntity
 {
-    use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable;
+    use Locationable, HasMediaTrait, SoftDeletes, Serviceable, Priceable, Favoriteable, ViewedEntityDefault;
 
     const LOGO_COLLECTION = 'club-logo';
 
@@ -92,6 +94,7 @@ class Club extends Model implements HasMedia, HasLocation, EmployeeOwnerInterfac
         'start_time',
         'end_time',
         'comment',
+        'seen',
     ];
 
     protected $casts = [

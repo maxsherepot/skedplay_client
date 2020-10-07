@@ -2,12 +2,16 @@
 
 namespace Modules\Users\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserCard extends Model
+class UserCard extends Model implements ViewedEntity
 {
-    protected $fillable = ['user_id', 'card_type', 'user_type', 'code', 'expires_at', 'ref_user_id'];
+    use ViewedEntityDefault;
+
+    protected $fillable = ['user_id', 'card_type', 'user_type', 'code', 'expires_at', 'ref_user_id', 'seen'];
 
     protected $dates = ['expires_at'];
 

@@ -16,6 +16,8 @@ const app = process.env.npm_config_app || 'main';
 
 mix
   .react(`resources/js/apps/${app}/app.js`, '')
+  // .sass('resources/sass/nova.scss', 'public/css')
+  .js('resources/js/nova/nova.js', 'public/js')
   .setPublicPath(`public/js/apps/${app}`)
   .webpackConfig(config);
 

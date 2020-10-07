@@ -26,6 +26,13 @@ class UiTranslate extends Resource
     public static $title = 'key';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Languages & Content';
+
+    /**
      * The columns that should be searched.
      *
      * @var array

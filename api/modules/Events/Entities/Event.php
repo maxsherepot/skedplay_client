@@ -2,6 +2,8 @@
 
 namespace Modules\Events\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -28,9 +30,9 @@ use Modules\Employees\Services\EmployeeNotificationSender;
  * @property int status
  * @property int user_status
  */
-class Event extends Model implements HasMedia
+class Event extends Model implements HasMedia, ViewedEntity
 {
-    use SoftDeletes, HasMediaTrait, Favoriteable, Locationable;
+    use SoftDeletes, HasMediaTrait, Favoriteable, Locationable, ViewedEntityDefault;
 
     const MAIN_PHOTO_COLLECTION = 'event-main-photo';
 
@@ -60,6 +62,7 @@ class Event extends Model implements HasMedia
         'end_date',
         'start_time',
         'isSent',
+        'seen',
     ];
 
     protected $casts = [

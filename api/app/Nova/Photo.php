@@ -8,6 +8,7 @@ use App\Nova\Actions\MarkAsPorn;
 use App\Nova\Actions\Reject;
 use App\Nova\Filters\ModerationStatusFilter;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -20,7 +21,11 @@ class Photo extends Resource
      *
      * @var string
      */
-    public static $model = 'Spatie\MediaLibrary\Models\Media';
+    public static $model = 'Modules\Main\Entities\Media';
+
+    protected static $showBadge = true;
+
+    public static $with = ['viewRelation'];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -28,6 +33,13 @@ class Photo extends Resource
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Requests & Verifications';
 
     /**
      * The columns that should be searched.
@@ -90,6 +102,10 @@ class Photo extends Resource
 
                 return 'No porn';
             })->asHtml(),
+            Boolean::make('Просмотрено', 'viewRelation.seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
         ];
     }
 
@@ -155,5 +171,24 @@ class Photo extends Resource
                 return true;
             }),
         ];
+    }
+
+    /**
+     * Count for badges in nav sidebar
+     *
+     * @return int|null
+     */
+    public static function getNotSeenCount(): ?int
+    {
+        if (!static::$showBadge) {
+            return null;
+        }
+
+        return static::$model::whereDoesntHave('viewRelation', function($query) {
+            $query->where('seen', 1);
+        })
+            ->where('collection_name', 'like', '%photo%')
+            ->count();
+
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Modules\Employees\Entities;
 
+use App\Models\ViewedEntity;
+use App\Models\ViewedEntityDefault;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,9 +46,9 @@ use Illuminate\Support\Facades\Log;
  * @property int user_status
  * @property string rejected_reason
  */
-class Employee extends Model implements HasMedia, HasLocation, ChatMember
+class Employee extends Model implements HasMedia, HasLocation, ChatMember, ViewedEntity
 {
-    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable, SoftDeletes;
+    use Locationable, HasMediaTrait, Priceable, Serviceable, Favoriteable, SoftDeletes, ViewedEntityDefault;
 
     const AVATAR_COLLECTION = 'avatar';
     const PHOTO_COLLECTION = 'employee-photo';
@@ -91,6 +93,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember
         'soon',
         'show_level',
         'fake',
+        'seen',
         'phone',
         'birthday',
         'index',

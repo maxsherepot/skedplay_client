@@ -11,8 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('admin')->middleware('admin')->group(function() {
     Route::get('/users/{id}', 'UserController@show');
     Route::post('/users/{id}/confirm', 'UserController@confirm');
     Route::post('/users/{id}/reject', 'UserController@reject');
+
+    Route::get('/admin/check-resource-seen', 'AdminController@checkResourceSeen');
+
 });

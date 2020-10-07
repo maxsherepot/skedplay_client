@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -18,12 +19,21 @@ class UserCard extends Resource
      */
     public static $model = 'Modules\Users\Entities\UserCard';
 
+    protected static $showBadge = true;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
+
+    /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Users & Freier';
 
     /**
      * The columns that should be searched.
@@ -76,6 +86,10 @@ class UserCard extends Resource
             Text::make('Code')->rules('required', 'string', 'max:7'),
 
             Text::make('Full code')->readonly(),
+            Boolean::make('Просмотрено', 'seen')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
         ];
     }
 
