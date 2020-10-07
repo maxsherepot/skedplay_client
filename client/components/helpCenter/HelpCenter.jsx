@@ -3,7 +3,7 @@ import Link from 'components/SlashedLink'
 import {Breadcrumbs, Loader, PageCard} from "UI";
 import {AddSvg, ChevronDownSvg, ChevronRightSvg} from "icons";
 import {useQuery} from "@apollo/react-hooks";
-import {HELP_CENTER_CATEGORIES} from 'queries';
+import {HELP_CENTER_CATEGORIES, GET_PAGE} from 'queries';
 import {useTranslation} from "react-i18next";
 import cx from 'classnames';
 import translation from "services/translation";
@@ -110,7 +110,7 @@ const Sidebar = ({categories, topicSlug}) => {
   );
 };
 
-const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
+const HelpCenter = ({header, contentClass, user, className, topicSlug, page: indexPage}) => {
   const {t, i18n} = useTranslation();
 
   topicSlug = topicSlug ? topicSlug.replace(/\/$/, '') : topicSlug;
@@ -182,9 +182,12 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug}) => {
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />
                 </>
                 :
-                <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5">
-                  {t('layout.help_center')}
-                </h1>
+                <>
+                  <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
+                    {getLangField(indexPage.title, i18n.language)}
+                  </h1>
+                  <div dangerouslySetInnerHTML={{__html: getLangField(indexPage.content_html, i18n.language)}} />
+                </>
               }
             </div>
           </div>

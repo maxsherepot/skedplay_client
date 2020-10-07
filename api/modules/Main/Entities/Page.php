@@ -9,9 +9,9 @@ class Page extends Model
 {
     use HasTranslations;
 
-    public $translatable = ['title', 'header', 'description', 'keywords'];
+    public $translatable = ['title', 'header', 'description', 'keywords', 'content'];
 
     protected $fillable = [
-        'key', 'title', 'header', 'description', 'keywords'
+        'key', 'title', 'header', 'description', 'keywords', 'content'
     ];
 }

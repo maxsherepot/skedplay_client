@@ -2,6 +2,8 @@ type PageAllLangs {
     id: ID!
     key: String!
     title: String!
+    content: String
+    content_html: JSON
     header: String!
     description: String
     keywords: String

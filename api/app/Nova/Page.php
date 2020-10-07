@@ -6,6 +6,8 @@ use App\Nova\Fields\Translatable;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Advoor\NovaEditorJs\NovaEditorJs;
 
 class Page extends Resource
 {
@@ -51,28 +53,37 @@ class Page extends Resource
      */
     public function fields(Request $request)
     {
+
+        $fields = [
+            Text::make('Key')
+                ->sortable()
+                ->hideWhenUpdating()
+                ->hideWhenCreating(),
+
+            Text::make('Title')
+                ->rules('required', 'max:255'),
+
+            Text::make('Header')
+                ->rules('required', 'max:255'),
+
+            Text::make('Description')
+                ->rules('max:600'),
+
+            Text::make('Keywords')
+                ->rules('max:255'),
+
+        ];
+
+        if ($this->key === 'help-center') {
+            $fields[] = NovaEditorJs::make('Content')
+                ->rules('required')
+                ->hideFromIndex();
+        }
+
         return [
             ID::make()->sortable(),
 
-            Translatable::make([
-                Text::make('Key')
-                    ->sortable()
-                    ->hideWhenUpdating()
-                    ->hideWhenCreating(),
-
-                Text::make('Title')
-                    ->rules('required', 'max:255'),
-
-                Text::make('Header')
-                    ->rules('required', 'max:255'),
-
-                Text::make('Description')
-                    ->rules('max:600'),
-
-                Text::make('Keywords')
-                    ->rules('max:255'),
-
-            ])->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
+            Translatable::make($fields)->locales(\Modules\Main\Entities\Language::all()->pluck('code')->toArray()),
         ];
     }
 

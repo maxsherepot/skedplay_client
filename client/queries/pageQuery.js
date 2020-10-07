@@ -6,6 +6,8 @@ export const INDEX_PAGE_DATA = gql `
             id
             key
             title
+            content
+            content_html
             header
             description
             keywords
@@ -146,6 +148,8 @@ export const GET_PAGES = gql `
       id
       key
       title
+      content
+      content_html
       header
       description
       keywords
@@ -159,6 +163,8 @@ export const GET_PAGE = gql `
             id
             key
             title
+            content
+            content_html
             header
             description
             keywords
