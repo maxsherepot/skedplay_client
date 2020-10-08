@@ -40,7 +40,7 @@ class EmployeeComplaint extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email', 'theme',
+        'id', 'name', 'email',
     ];
 
     /**
