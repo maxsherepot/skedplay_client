@@ -21,6 +21,11 @@ type GroupService {
     name: String
 }
 
+type GroupServiceAllLangs {
+    id: ID!
+    name: String
+}
+
 type ServicePivot {
     price: String
 }
@@ -32,5 +37,5 @@ input ServiceInput {
 
 extend type Query {
     services(trashed: Trashed @trashed): [ServiceAllLangs!]! @all @softDeletes
-    groupServices: [GroupService!]! @all
+    groupServices: [GroupServiceAllLangs!]! @all
 }

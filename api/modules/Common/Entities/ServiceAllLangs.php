@@ -28,7 +28,7 @@ class ServiceAllLangs extends Model
      */
     public function group(): BelongsTo
     {
-        return $this->belongsTo(GroupService::class,  'group_id');
+        return $this->belongsTo(GroupServiceAllLangs::class,  'group_id');
     }
 
     public function getSlugAttribute(): string

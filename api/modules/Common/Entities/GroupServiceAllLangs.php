@@ -3,7 +3,6 @@
 namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class GroupService
@@ -11,20 +10,14 @@ use Spatie\Translatable\HasTranslations;
  * @property int $id
  * @property string name
  */
-class GroupService extends Model
+class GroupServiceAllLangs extends Model
 {
-    use HasTranslations;
-
-    public $translatable = ['name'];
+    protected $table = 'group_services';
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'id', 'name'
-    ];
-
     public function services()
     {
-        return $this->hasMany(Service::class,  'group_id');
+        return $this->hasMany(ServiceAllLangs::class,  'group_id');
     }
 }
