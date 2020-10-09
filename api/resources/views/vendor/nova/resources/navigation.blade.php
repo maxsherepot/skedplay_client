@@ -9,13 +9,13 @@
     </h3>
     @php
         $sortNav = collect([
-                'SEO',
                 'Users & Freier',
                 'Clubs',
                 'Sex workers',
                 'Requests & Verifications',
                 'Settings & Components',
                 'Languages & Content',
+                'SEO',
                 'Other'
             ]);
     @endphp

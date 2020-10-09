@@ -24,3 +24,9 @@
 .badge-inverse {
     background-color: #333333;
 }
+.relative > h1{
+    display: inline-block;
+    background-color: #a9d2fe;
+    border-radius: 7px;
+    padding: 2px 3px;
+}
