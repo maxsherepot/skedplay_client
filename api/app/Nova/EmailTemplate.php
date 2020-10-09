@@ -23,7 +23,7 @@ class EmailTemplate extends Resource
      */
     public static $title = 'name';
 
-    public static $group = 'Email';
+    public static $group = 'Languages & Content';
 
     /**
      * The columns that should be searched.
