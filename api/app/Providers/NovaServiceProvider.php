@@ -3,49 +3,49 @@
 namespace App\Providers;
 
 use App\Nova\Club;
-use App\Nova\Page;
-use App\Nova\Race;
-use App\Nova\Role;
-use App\Nova\User;
-use App\Nova\Event;
-use App\Nova\Photo;
-use App\Nova\Video;
-use App\Nova\Service;
-use App\Nova\ClubType;
-use App\Nova\Employee;
-use App\Nova\Language;
-use App\Nova\UserCard;
-use Laravel\Nova\Nova;
-use App\Nova\EventType;
-use App\Nova\Parameter;
-use App\Nova\EventCount;
-use App\Nova\VipPattern;
 use App\Nova\ClubPattern;
 use App\Nova\ClubSubscriber;
-use App\Nova\GirlPattern;
-use App\Nova\UiTranslate;
+use App\Nova\ClubType;
 use App\Nova\ContactPhone;
+use App\Nova\ContactRequest;
+use App\Nova\Dashboards\EmailSubscriptions;
+use App\Nova\Dashboards\UserInsights;
+use App\Nova\EmailTemplate;
+use App\Nova\Employee;
+use App\Nova\EmployeeComplaint;
+use App\Nova\EmployeeComplaintTheme;
+use App\Nova\EmployeeSubscriber;
+use App\Nova\Event;
+use App\Nova\EventCount;
 use App\Nova\EventPattern;
+use App\Nova\EventType;
+use App\Nova\GirlPattern;
 use App\Nova\GroupService;
 use App\Nova\HelpCenterCategory;
 use App\Nova\HelpCenterTopic;
+use App\Nova\InfoUser;
+use App\Nova\Language;
+use App\Nova\Page;
+use App\Nova\Parameter;
 use App\Nova\ParameterOption;
+use App\Nova\Photo;
+use App\Nova\Race;
+use App\Nova\Role;
+use App\Nova\Service;
 use App\Nova\Setting;
 use App\Nova\TransPattern;
+use App\Nova\UiTranslate;
+use App\Nova\User;
+use App\Nova\UserCard;
 use App\Nova\Verification;
-use App\Nova\EmailTemplate;
-use App\Nova\ContactRequest;
+use App\Nova\Video;
+use App\Nova\VipPattern;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Fields\Field;
-use App\Nova\EmployeeComplaint;
-use Illuminate\Validation\Rule;
-use App\Nova\EmployeeComplaintTheme;
-use App\Nova\EmployeeSubscriber;
-use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use App\Nova\Dashboards\UserInsights;
-use App\Nova\Dashboards\EmailSubscriptions;
-use App\Nova\InfoUser;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -115,8 +115,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
-            new UserInsights,
-            new EmailSubscriptions,
+            new UserInsights(),
+            new EmailSubscriptions(),
         ];
     }
 

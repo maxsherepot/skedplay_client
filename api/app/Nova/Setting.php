@@ -3,7 +3,6 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
@@ -36,7 +35,7 @@ class Setting extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'label', 'key'
+        'id', 'label', 'key',
     ];
 
     /**

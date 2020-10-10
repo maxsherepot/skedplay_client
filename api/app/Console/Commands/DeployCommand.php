@@ -3,11 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Modules\Clubs\Entities\Club;
-use Modules\Employees\Entities\Employee;
-use Modules\Users\Entities\Role;
-use Modules\Users\Entities\User;
 
 class DeployCommand extends Command
 {
