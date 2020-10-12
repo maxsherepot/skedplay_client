@@ -10,7 +10,7 @@ use Modules\Common\Traits\Mediable;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Employees\Entities\Employee;
 use Modules\Common\Contracts\HasMediable;
-use Modules\Main\Repositories\EventRepository;
+use Modules\Events\Repositories\EventRepository;
 
 class ClubEventRepository implements HasMediable
 {

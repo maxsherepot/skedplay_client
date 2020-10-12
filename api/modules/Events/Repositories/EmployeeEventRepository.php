@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Repositories;
+namespace Modules\Events\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -10,6 +10,7 @@ use Modules\Common\Traits\Mediable;
 use Modules\Employees\Entities\Employee;
 use Modules\Events\Entities\Event;
 use Modules\Clubs\Entities\Club;
+use Modules\Events\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 
 class EmployeeEventRepository implements HasMediable

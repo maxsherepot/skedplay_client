@@ -65,6 +65,7 @@ class Kernel extends ConsoleKernel
 
 //        $schedule->command('employees:check:activation')
 //                  ->daily();
+        $schedule->command('employee:deactivation')->everyFiveMinutes();
     }
 
     /**

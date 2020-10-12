@@ -10,7 +10,7 @@ use Modules\Api\Http\Requests\Event\EventUpdateRequest;
 use Modules\Api\Http\Requests\FileDeleteRequest;
 use Modules\Api\Http\Requests\FileUploadRequest;
 use Modules\Events\Entities\Event;
-use Modules\Main\Repositories\EventRepository;
+use Modules\Events\Repositories\EventRepository;
 use Nwidart\Modules\Routing\Controller;
 
 class EventController extends Controller

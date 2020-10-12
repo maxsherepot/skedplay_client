@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Modules\Main\Repositories;
+namespace Modules\Events\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

@@ -26,7 +26,7 @@ use Modules\Api\Http\Requests\Employee\EmployeeCreateRequest;
 use Modules\Api\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleCreateRequest;
 use Modules\Api\Http\Requests\Schedule\EmployeeScheduleUpdateRequest;
-use Modules\Main\Repositories\EmployeeEventRepository;
+use Modules\Events\Repositories\EmployeeEventRepository;
 use Modules\Users\Entities\User;
 
 class EmployeeController extends Controller
@@ -324,5 +324,28 @@ class EmployeeController extends Controller
         }
 
         return EmployeeComplaint::create($data);
+    }
+
+    public function activationEmployee()
+    {
+        $employeeId = intval(\request('employee'));
+        $days = \request('days');
+
+        if ((int)$days !== 7) {
+            return $this->fail();
+        }
+
+        /** @var Employee $employee */
+        $employee = Employee::findOrFail($employeeId);
+
+        $employee->active = 1;
+        $employee->activated_at = now();
+        $employee->activation_expires_at = now()->addDays((int)$days);
+
+        $employee->updateShowLevel();
+
+        $employee->save();
+
+        return $this->success();
     }
 }

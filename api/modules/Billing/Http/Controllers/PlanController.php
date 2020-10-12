@@ -13,7 +13,7 @@ use Modules\Billing\Http\Requests\CheckoutRequest;
 use Modules\Billing\Repositories\InvoiceRepository;
 use Modules\Billing\Repositories\TransactionRepository;
 use Modules\Billing\Services\Cashier;
-use Modules\Main\Repositories\EventRepository;
+use Modules\Events\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Nwidart\Modules\Routing\Controller;
 

@@ -62,17 +62,19 @@ const GirlRow = ({ employee, soon, active }) => {
                  {/*  </a>*/}
                  {/*</Link>*/}
 
-                 {
-                     !active &&
-                         <a>
-                             <Button level="green" onClick={() => setPaymentOpen(true)} className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2 flex items-center" size="xxs" outline style={{ color: "#000" }}>
-                                 {t('common.active_now')}
-                             </Button>
-                         </a>
-                 }
-                 <AccountActivate open={isPaymentOpen} onClose={() => setPaymentOpen(false)}/>
-             </div>
-         </div>
+          {
+            !active &&
+            <a>
+              <Button level="green" onClick={() => setPaymentOpen(true)}
+                      className="px-6 whitespace-no-wrap mt-2 sm:mt-0 sm:ml-2 flex items-center" size="xxs" outline
+                      style={{color: "#000"}}>
+                {t('common.active_now')}
+              </Button>
+            </a>
+          }
+          <AccountActivate open={isPaymentOpen} employee={employee} onClose={() => setPaymentOpen(false)}/>
+        </div>
+      </div>
 
       </div>
     );

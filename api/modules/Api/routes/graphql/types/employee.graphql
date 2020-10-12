@@ -60,6 +60,8 @@ type Employee {
   user_unread_messages_count: Int! @method(name: "userUnreadMessagesCount")
   will_activate_at: String
   active: Int!
+  activated_at: DateTime
+  activation_expires_at: DateTime
   soon: Int!
 }
 
@@ -166,4 +168,7 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
 
   updateEmployeeCurrentPosition(employee: ID!, input: EmployeeCurrentPositionInput @spread): StatusPayload
     @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@updateCurrentPosition")
+
+  activationEmloyee(employee: ID!, days: Int!): StatusPayload
+    @router(action: "Modules\\Api\\Http\\Controllers\\EmployeeController@activationEmployee")
 }

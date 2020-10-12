@@ -280,20 +280,21 @@ const EditEmployeeHeader = ({user, employee, refetchEmployee, classes}) => {
                 )}
               </Button>
             }
-            <Button
-              onClick={handleToggleActive}
-              className={cx([
+            {(!user.is_employee || employee.activation_expires_at !== null) &&
+              <Button
+                onClick={handleToggleActive}
+                className={cx([
                 "px-3 mb-3 ml-0 sm:ml-2 mr-0 sm:mr-2",
-                !employee.active && !canActivateCard() ? 'hidden' : '',
-              ])}
-              level="primary"
-              outline
-              size="xxs"
-            >
-              <span className="text-black">
-                {employee.active ? t('account.deactivate') : t('account.activate')}
-              </span>
-            </Button>
+                !employee.active && !canActivateCard() ? 'hidden' : '',])}
+                level="primary"
+                outline
+                size="xxs"
+              >
+                <span className="text-black">
+                  {employee.active ? t('account.deactivate') : t('account.activate')}
+                </span>
+              </Button>
+            }
 
             {employee.isVip && (
               <Button onClick={handleAddToGeneral} className="px-3 mb-3 mr-0 sm:mr-2" level="primary" outline size="xxs">

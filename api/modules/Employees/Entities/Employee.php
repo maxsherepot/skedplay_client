@@ -90,6 +90,7 @@ class Employee extends Model implements HasMedia, HasLocation, ChatMember, Viewe
         'inGeneral',
         'will_activate_at',
         'active',
+        'activation_expires_at',
         'soon',
         'show_level',
         'fake',

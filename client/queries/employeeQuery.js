@@ -173,6 +173,8 @@ export const GET_EMPLOYEE = gql `
       current_lat
       current_lng
       active
+      activated_at
+      activation_expires_at
       will_activate_at
       favorited {
         id
@@ -356,6 +358,15 @@ export const UPDATE_EMPLOYEE = gql `
       message
     }
   }
+`;
+
+export const ACTIVATION_EMPLOYEE = gql `
+    mutation activationEmloyee($employee: ID!, $days: Int!) {
+        activationEmloyee(employee: $employee, days: $days) {
+            status
+            message
+        }
+    }
 `;
 
 export const GET_EMPLOYEE_SCHEDULE = gql `

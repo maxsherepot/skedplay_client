@@ -9,17 +9,19 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Close from "@material-ui/icons/Close";
-
+import {ACTIVATION_EMPLOYEE, GET_EMPLOYEE, GET_MY_EMPLOYEES} from 'queries';
+import {useMutation} from "@apollo/react-hooks";
 import Payment from "@material-ui/icons/Payment";
 import Receipt from "@material-ui/icons/Receipt";
 import PhoneIphone from "@material-ui/icons/PhoneIphone";
 import Phone from "@material-ui/icons/Phone";
+import {now} from "moment";
 
 
 const paymentData = [
-    {period: "3 days", payment: "Payment of 10.90 CHF", color: "#909090"},
+    // {period: "3 days", payment: "Payment of 10.90 CHF", color: "#909090"},
     {period: "7 days", payment: "Payment of 25.90 CHF", color: "#FF3366"},
-    {period: "30 days", payment: "Payment of 59.90 CHF", color: "#00C337"}
+    // {period: "30 days", payment: "Payment of 59.90 CHF", color: "#00C337"}
 ]
 
 const paymentMethods = [
@@ -31,9 +33,28 @@ const paymentMethods = [
     {name: "Sofort", icon: <Receipt/>}
 ]
 
-export default function AccountActivate({open, onClose}) {
+export default function AccountActivate({open, onClose, employee}) {
     const [paymentMethod, setPaymentMethod] = useState(0)
     const [paymentPlan, setPaymentPlan] = useState(0)
+
+    const [activationEmployee] = useMutation(ACTIVATION_EMPLOYEE, {
+        refetchQueries: [
+            {
+                query: GET_MY_EMPLOYEES,
+            }
+        ]
+    });
+
+    const tryToActive = async (days) => {
+
+        await activationEmployee({
+            variables: {
+                employee: employee.id,
+                days: days,
+            }
+        });
+
+    };
 
     return (
         <Dialog
@@ -96,6 +117,10 @@ export default function AccountActivate({open, onClose}) {
                         <Button
                           className="w-full px-4"
                           size="sm"
+                          onClick={() => {
+                              tryToActive(7);
+                              onClose();
+                          }}
                         >
                           Continue
                         </Button>

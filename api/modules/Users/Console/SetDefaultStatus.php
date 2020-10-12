@@ -4,7 +4,7 @@ namespace Modules\Users\Console;
 
 use Illuminate\Console\Command;
 use Modules\Employees\Repositories\EmployeeRepository;
-use Modules\Main\Repositories\EventRepository;
+use Modules\Events\Repositories\EventRepository;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\ClubRepository;
 use Modules\Users\Repositories\UserRepository;
