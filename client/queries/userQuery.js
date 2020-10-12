@@ -192,6 +192,8 @@ export const GET_MY_EMPLOYEES = gql`
                 soon
                 active
                 status
+                activated_at
+                activation_expires_at
                 photos {
                     id
                     url
