@@ -11,6 +11,8 @@ class InfoUser extends Model
 
     protected $fillable = ['ip', 'user_agent', 'browser_locale', 'user_id'];
 
+    protected $appends = ['agent'];
+
     public function user(): BelongsTo
     {
         return $this->BelongsTo(User::class);
@@ -34,13 +36,8 @@ class InfoUser extends Model
         return $platform ? $platform . ' ' . $this->agent->version($platform) : null;
     }
 
-    protected static function boot()
+    public function getAgentAttribute()
     {
-        parent::boot();
-
-        static::retrieved(function($model){
-             $model->agent = new Agent([], $model->user_agent);
-        });
+        return new Agent([], $this->user_agent);
     }
-
 }
