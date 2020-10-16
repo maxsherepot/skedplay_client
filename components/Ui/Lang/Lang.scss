@@ -1,0 +1,31 @@
+.lang-text {
+  @apply text-white;
+
+  &.text-black-important {
+    color: #000!important;
+  }
+}
+
+.nav__theme_white {
+  .lang-text {
+    @apply text-black;
+  }
+  .menu__item a:hover {
+    color: #FF3366;
+  }
+}
+
+nav {
+  li.menu__item {
+    a.vip {
+      color: #FF3366!important;
+    }
+    &.select__section {
+      width: 5rem;
+    }
+    &.menu__item_dropdown .select__section {
+      width: 7rem;
+    }
+  }
+}
+

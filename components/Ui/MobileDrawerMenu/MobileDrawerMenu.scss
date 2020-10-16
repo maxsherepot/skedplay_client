@@ -1,0 +1,49 @@
+
+
+
+.mobile-drawer-menu {
+  @apply overflow-y-scroll;
+
+  .divider {
+    border: none;
+    height: 1px;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+  .account-layout-sidebar {
+    border: none;
+    @apply flex justify-start;
+    > div {
+      padding: 0.5rem;
+      padding-left: 0;
+      margin-left: -18px;
+    }
+  }
+  .c-account__avatar-wrap {
+    width: 70px;
+    height: 70px;
+  }
+  ul {
+    //@apply mt-12;
+    li {
+      //@apply mb-7;
+      a {
+        //@apply block text-center font-bold uppercase leading-none tracking-tighter;
+        //font-size: 20px;
+      }
+    }
+  }
+  .locales {
+    @apply flex justify-center mb-4;
+    a {
+      @apply block capitalize text-2xl text-dark-grey font-medium mr-2 transition px-2;
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+    a.active {
+      background-color: #eee;
+      border-radius: 6px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.form-group {
+  @apply mb-4;
+  label {
+    @apply block text-sm pl-5;
+    margin-bottom: 0.3rem;
+  }
+  &.error {
+    label,
+    span {
+      @apply text-red;
+    }
+    .form-control {
+      @apply border-red;
+      &:focus {
+        @apply border-dark-red;
+      }
+    }
+  }
+}

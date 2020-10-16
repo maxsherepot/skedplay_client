@@ -1,0 +1,30 @@
+.event-employees-field {
+  .club-employee, .event-employee {
+    @apply flex justify-between flex-col border border-light-grey px-4 pt-2 pb-3;
+    margin: 0 20px 20px 0;
+    width: 156px;
+    border-radius: 8px;
+
+    img {
+      @apply rounded-full;
+      width: 120px;
+      height: 120px;
+    }
+
+    .event-employee-name {
+      span {
+        max-width: 100px;
+        display: inline-block;
+      }
+    }
+  }
+
+  .club-employee {
+    max-height: 265px;
+  }
+
+  .event-employee {
+     height: 200px;
+  }
+}
+

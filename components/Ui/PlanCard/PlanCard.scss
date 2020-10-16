@@ -1,0 +1,27 @@
+.plans {
+  @apply flex justify-center flex-col;
+  &__item {
+    @apply bg-white rounded-lg pt-5 pb-8 mx-4 mb-4;
+    .plans__body {
+      @apply px-4;
+    }
+  }
+}
+
+@screen xl {
+  .plans {
+    @apply w-1218 mx-auto;
+  }
+}
+
+@screen md {
+  .plans {
+    @apply flex-row;
+    &__item {
+      width: 30%;
+      .plans__body {
+        @apply px-9;
+      }
+    }
+  }
+}

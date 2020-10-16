@@ -1,0 +1,259 @@
+$nav_height: 90px;
+$mob_nan_height: 70px;
+
+header {
+  padding-top: $mob_nan_height + 1px;
+  .nav {
+    height: $mob_nan_height;
+    .logo {
+      svg {
+        @apply text-white;
+        fill: currentColor;
+        width: 118px;
+      }
+    }
+
+    &__theme_white {
+      @apply bg-white;
+      .logo {
+        svg {
+          @apply text-black;
+        }
+      }
+
+      .menu {
+        &__item {
+          a {
+            @apply text-black;
+          }
+          &_dropdown {
+            span {
+              @apply text-black;
+            }
+          }
+        }
+      }
+      .menu-icons__item {
+        @apply text-black;
+      }
+      .category-button {
+        @apply text-black;
+      }
+
+      #menu-hamburger {
+        svg {
+          @apply text-black;
+          stroke: currentColor;
+        }
+      }
+    }
+  }
+
+  @screen lg {
+    .nav {
+      .logo {
+        svg {
+          width: 135px;
+        }
+      }
+    }
+  }
+
+  @screen xl {
+    padding-top: $nav_height + 1px;
+    .nav {
+      height: $nav_height;
+      .logo {
+        svg {
+          width: 177px;
+        }
+      }
+    }
+  }
+}
+
+.header-red-ellipse {
+  @apply flex justify-center items-center rounded-full;
+  min-width: 78px;
+  height: 78px;
+  background-color: #e30b17;
+
+  @media (max-width: 480px) {
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  @screen sm {
+    min-width: 70px;
+    height: 70px;
+    font-size: 2.0rem;
+  }
+  @screen md {
+    min-width: 90px;
+    height: 90px;
+    font-size: 2.5rem;
+  }
+  @screen xl {
+    min-width: 100px;
+    height: 100px;
+  }
+}
+
+.menu {
+  @apply hidden ml-10 mt-1;
+
+  &__item {
+    @apply flex justify-center mr-2;
+    @include background-hover;
+    a {
+      @apply text-white capitalize font-medium text-lg transition pl-5 pr-5;
+      &:hover {
+        @apply text-red;
+      }
+    }
+    &_dropdown {
+      @apply relative cursor-pointer;
+      span {
+        @apply text-white capitalize font-medium text-lg pr-3 whitespace-no-wrap;
+      }
+      ul {
+        @apply absolute top-0 rounded-lg border-black border bg-white z-10 overflow-hidden transition;
+        max-height: 0;
+        opacity: 0;
+        left: -1.5rem;
+        li {
+          a {
+            @apply text-black transition pl-6 pr-8;
+            &:hover {
+              @apply text-red;
+            }
+          }
+        }
+      }
+      &:hover {
+        ul {
+          opacity: 1;
+          max-height: 1000px;
+        }
+      }
+    }
+  }
+
+  @screen md {
+    @apply flex;
+  }
+
+  @screen lg {
+    @apply ml-16;
+    &__item {
+      @apply mr-3;
+      a,
+      span {
+        @apply text-xl;
+      }
+    }
+  }
+
+  @screen xl {
+    @apply ml-25 mt-0;
+    &__item {
+      @apply mr-7;
+      a,
+      span {
+        @apply text-2xl;
+      }
+    }
+  }
+}
+
+.menu-icons {
+  @apply pt-1;
+  &__item {
+    @apply text-white text-sm transition whitespace-no-wrap pr-6;
+    &.last {
+      padding-right: 0 !important;
+    }
+    &:focus {
+      @apply outline-none;
+    }
+    &:hover {
+      @apply text-red;
+    }
+
+    &.hovered {
+      @include background-hover;
+    }
+
+    padding: 2px 10px!important;
+  }
+
+  @screen sm {
+    &__item {
+      @apply pr-4;
+    }
+  }
+
+  @screen md {
+    &__item {
+      &_last {
+        //padding-right: 0 !important;
+      }
+    }
+  }
+
+  @screen lg {
+    &__item {
+      @apply pr-10;
+    }
+  }
+}
+
+.mobile-menu {
+  @apply absolute bg-black w-full overflow-y-scroll transition shadow-xl;
+  top: $mob_nan_height;
+  max-height: 0;
+  height: calc(100vh - #{$mob_nan_height});
+  &.open {
+    max-height: 1000px;
+  }
+  ul {
+    @apply mt-12;
+    li {
+      @apply mb-7;
+      a {
+        @apply block text-white transition text-center font-bold uppercase leading-none tracking-tighter;
+        font-size: 2.625rem;
+      }
+    }
+  }
+  .locales {
+    @apply flex justify-center mb-4;
+    a {
+      @apply block capitalize text-2xl text-dark-grey font-medium mr-4 transition;
+      &:last-child {
+        @apply mr-0;
+      }
+      &.active {
+        @apply text-white;
+      }
+    }
+  }
+}
+
+#menu-hamburger {
+  width: 25px;
+  svg {
+    display: none;
+  }
+  svg:first-child {
+    display: block;
+  }
+  &.open {
+    svg {
+      display: none;
+    }
+    svg:last-child {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@import "_mixins/font-face";
+
+$assetPath: "/static/fonts";
+
+@include font-face("TTNorms", "#{$assetPath}/TTNorms/TTNorms-Regular");
+@include font-face("TTNorms", "#{$assetPath}/TTNorms/TTNorms-Medium", 500);
+@include font-face("TTNorms", "#{$assetPath}/TTNorms/TTNorms-Bold", bold);
+@include font-face("TTNorms", "#{$assetPath}/TTNorms/TTNorms-ExtraBold", 800);
+@include font-face("TTNorms", "#{$assetPath}/TTNorms/TTNorms-Italic", normal, italic);

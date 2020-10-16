@@ -1,0 +1,14 @@
+.nav {
+  top: 0;
+  transition: top 0.2s ease-in-out;
+
+  &.nav-up {
+    top: -90px;
+  }
+}
+
+@media (max-width: 768px) {
+    #menu-hamburger {
+        margin-right: 12px;
+    }
+}

@@ -1,0 +1,23 @@
+.animation-arrow-left {
+  img, svg {
+    @apply transition;
+  }
+
+  &:hover {
+    img, svg {
+      transform: translateX(-3px);
+    }
+  }
+}
+
+.animation-arrow-right {
+  img, svg {
+    @apply transition;
+  }
+
+  &:hover {
+    img, svg {
+      transform: translateX(3px);
+    }
+  }
+}

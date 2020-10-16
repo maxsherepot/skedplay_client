@@ -1,0 +1,20 @@
+.autocomplete-dropdown-container {
+  position: absolute;
+  top: 77px;
+
+  border-radius: 0.5rem;
+  height: auto;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-color: #000000;
+  z-index: 50;
+  width: 100%;
+
+  padding: 1rem;
+
+  .suggestion-item {
+    &--active {
+
+    }
+  }
+}

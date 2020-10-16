@@ -1,0 +1,42 @@
+.modal {
+  @apply flex justify-center items-center;
+  &__dialog {
+    @apply min-w-full px-1;
+  }
+
+  &__logo {
+    @apply my-4;
+    img {
+      margin-left: -30px;
+    }
+  }
+
+  @screen sm {
+    @apply h-screen;
+    &__dialog {
+      //min-width: 410px;
+    }
+    &__logo {
+      margin-bottom: 62px;
+    }
+  }
+
+  &__content {
+    @apply bg-white;
+    border-radius: 10px;
+
+    &__header {
+      @apply border-b border-divider flex justify-between items-center;
+      padding: 30px 30px 28px;
+    }
+
+    &__body {
+      @apply relative z-10;
+      padding: 0 20px 20px;
+
+      @screen sm {
+        padding: 0 30px 30px;
+      }
+    }
+  }
+}

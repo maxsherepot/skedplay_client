@@ -1,0 +1,8 @@
+section {
+  display: flex;
+  align-items: center;
+}
+.line {
+  @apply flex-1 bg-divider mx-3;
+  height: 2px;
+}

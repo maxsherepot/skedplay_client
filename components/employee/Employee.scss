@@ -1,0 +1,37 @@
+
+
+
+
+@media (max-width: 768px) {
+    .edit-employee-header {
+        margin: 0;
+    }
+    .edit-employee-header .account-info-box {
+        width: 100%;
+    }
+    .edit-employee-header .account-info-box > div {
+        flex-direction: column;
+        align-items: center;
+    }
+    .edit-employee-header .account-info-box .stats-box {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    .edit-employee-form .form-group input, .edit-employee-form .dropdown__trigger {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    .edit-employee-form .dropdown__trigger::after {
+        top: 1rem;
+    }
+    .edit-employee-form .form-group .absolute.right-0, .edit-employee-form .form-group .absolute.left-0 {
+        padding-bottom: 8px;
+    }
+    .edit-employee-form .btn {
+        height: 45px;
+        font-size: 18px;
+    }
+    .edit-employee-form .toggle-field {
+        height: 30px;
+    }
+}

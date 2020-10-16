@@ -1,0 +1,75 @@
+.heart-slider-wrap {
+  position: relative;
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  border-width: 1px;
+  min-width: 100%;
+  border-color: #CCCCCC;
+  font-size: 1.0625rem;
+  line-height: 1;
+  height: 3.125rem;
+
+  &__from, &__to, &__center {
+    height: 2.95rem;
+    line-height: 3.125rem;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  &__from {
+    width: calc(50% - 1px);
+    padding-left: 1px;
+    border-right: 1px solid #f6f6f6;
+  }
+
+  &__to {
+    width: 50%;
+  }
+
+  &__center {
+    width: 100%;
+  }
+
+  .slider-inner-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .heart-slider {
+      width: 75%;
+    }
+
+    .track {
+      background-color: #FF3366;
+      height: 2px;
+      transform: scaleX(0.9);
+
+      &.track-0, &.track-2 {
+        display: none;
+      }
+    }
+
+    .thumb {
+      width: 25px;
+      height: 21px;
+      top: -8px;
+      background: url(/static/img/heart.svg);
+      background-repeat: no-repeat;
+      outline: none;
+    }
+  }
+
+  &.simple {
+    .slider-inner-wrap {
+      .track {
+        &.track-0, &.track-2 {
+          display: block;
+        }
+      }
+    }
+  }
+}

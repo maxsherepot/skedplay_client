@@ -1,0 +1,575 @@
+@import "fonts";
+@import "slick";
+@import "_leaders";
+@import "_animations";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@mixin background-hover {
+  @apply transition;
+  border-radius: 18px;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+body {
+  overflow-x: hidden;
+  min-width: 280px;
+  font-variant-ligatures: none;
+}
+
+
+
+main {
+  padding-bottom: 260px;
+
+  @media (max-width: 1320px) {
+    padding-bottom: 100px;
+  }
+}
+
+main.react-images__pager {
+    padding-bottom: 0;
+}
+
+.club-card__img {
+  height: 335px;
+}
+
+.club-card__footer-div {
+  height: 145px;
+  @media (max-width: 1780px) {
+    height: 165px;
+  }
+  @media (max-width: 1320px) {
+    height: 145px;
+  }
+  @media (max-width: 767px) {
+    height: 165px;
+  }
+}
+
+.editor-js-block h2 {
+    @apply text-xl font-bold -mb-4;
+}
+
+.editor-js-block p {
+    @apply my-6;
+}
+
+.popup-content {
+  max-height: 100%;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.event-photo__div {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  &-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.MuiTab-root {
+    padding: 0  !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    white-space: inherit !important;
+    letter-spacing: inherit !important;
+    text-transform: inherit !important;
+}
+
+
+@media (min-width: 768px) {
+    .MuiTab-root {
+        min-width: 120px !important;
+    }
+}
+
+.tabs-normal .MuiTab-root {
+    min-width: 72px !important;
+    margin-right: 20px
+}
+
+@media (max-width: 767px) {
+    .payment-dialog .MuiPaper-root.MuiDialog-paper {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        max-height: 100%;
+    }
+}
+
+
+.girls-slider__section {
+  padding-right: 11%;
+}
+.contain-section {
+  &__img-man {
+    object-fit: fill;
+    width: 100%;
+    max-width: 600px;
+    height: 380px;
+
+    @media (max-width: 580px) {
+      height: 300px;
+    }
+
+    @media (max-width: 325px) {
+      height: 250px;
+    }
+  }
+
+  &__img-woman {
+    object-fit: fill;
+    width: 100%;
+    max-width: 300px;
+
+    @media (max-width: 580px) {
+      max-width: 250px;
+    }
+
+    @media (max-width: 325px) {
+      max-width: 200px;
+    }
+  }
+}
+
+.error__btn-wrap {
+  @media (max-width: 445px) {
+    a:first-child {
+      margin-bottom: 1rem;
+    }
+  }
+
+}
+
+@media (max-width: 768px) {
+    .new-event-form .form-group input, .new-event-form .dropdown__trigger {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    .new-event-form .dropdown__trigger::after {
+        top: 1rem;
+    }
+    .new-event-form .form-group .absolute.right-0, .new-event-form .form-group .absolute.left-0 {
+        padding-bottom: 8px;
+    }
+    .new-event-form .btn {
+        height: 45px;
+        font-size: 18px;
+    }
+    .new-event-form .toggle-field {
+        height: 30px;
+    }
+}
+
+
+.index-bg-bottom {
+  position: absolute;
+  bottom: 0;
+  background:url(/static/img/bg-bottom.webp);
+  background-size: 100% 100%;
+  height: 619px;
+  width: 100%;
+
+  @media (max-width: 1320px) {
+    height: 322px;
+  }
+}
+
+button:focus {
+    outline: none;
+}
+
+.google-map {
+  & div>div {
+    border-radius: 0.5rem;
+  }
+
+  a[href^="http://maps.google.com/maps"] {
+    display: none !important;
+  }
+
+  a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+  }
+
+  .gmnoprint a,
+  .gmnoprint span,
+  .gm-style-cc {
+    display: none;
+  }
+
+  .gmnoprint div {
+    background: none !important;
+  }
+}
+
+
+
+@media (min-width: 800px) and (max-width: 1400px) {
+    .container {
+        max-width: initial !important;
+        padding-left: 50px !important;
+        padding-right: 50px !important;
+    }
+}
+
+.container, .container-simple {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &.without-p {
+    padding: 0!important;
+  }
+
+  @screen sm {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @screen hd {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  @screen 2hd {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 768px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+.login-modal, .register-modal {
+  .modal__dialog {
+    min-width: 320px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @screen sm {
+      min-width: 410px;
+    }
+  }
+}
+
+// Center react-images photo
+.react-images__view-image {
+  margin: 0 auto;
+}
+
+.form-control {
+  @apply block bg-white rounded-full border min-w-full border-light-grey text-lg leading-none transition px-5 h-13 pt-3;
+  padding-bottom: 0.9rem;
+
+  &:focus {
+    @apply outline-none border-dark-green;
+  }
+}
+
+.slick-dots {
+  display: flex!important;
+  justify-content: center;
+
+  li {
+    margin-left: 20px;
+
+    &.slick-active {
+      button {
+        @apply bg-pink;
+      }
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    button {
+      outline: none;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #fff;
+      font-size: 0;
+      line-height: 0;
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .company-item__div-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    margin-right: 8px;
+  }
+
+  .company-item__div-ellipse {
+    font-size: 1.8rem;
+    width: 10px;
+  }
+}
+
+
+.services-select__div {
+  .dropdown__content.open {
+    width: 500px;
+    > div {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+    }
+  }
+}
+
+@media (max-width: 479px) {
+  .services-select__div {
+    .dropdown__content.open {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+    .dropdown__content.open {
+      > div {
+        grid-template-columns: repeat(1,1fr) !important;
+      }
+    }
+}
+
+.girl_card-club {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+}
+  .logo-small {
+    &__div {
+      position: relative;
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .logo-midd {
+    &__div {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .c-account {
+    &__avatar {
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+
+      &-wrap:hover, &--empty {
+        .c-account__avatar-plus {
+          display: block;
+        }
+      }
+
+      &-wrap {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #dfdfdf;
+      }
+
+      &-input {
+        display: none;
+      }
+
+      &-plus {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .verify-message-div__add  {
+    background-color: #C7F0FF;
+    padding: 0 20px;
+    height: 100%;
+    @screen sm {
+      padding: 0 10px;
+    }
+    @screen md {
+      padding: 0 25px;
+    }
+  }
+
+  .verify-message-div__message {
+    background-color: #FFD683;
+    padding: 0 70px;
+    height: 4rem;
+    @screen sm {
+      padding: 0 20px;
+    }
+    @screen md {
+      padding: 0 50px;
+    }
+  }
+
+  .selected-item__div :hover {
+    background-color: #FFF3F3;
+  }
+
+  .header-profile-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+      .header-profile-div .profile-info-box {
+          flex-direction: column;
+          margin-top: 0.25rem;
+      }
+
+      .header-profile-div .profile-info-box .profile-phone {
+          margin-top: 5px;
+      }
+  }
+
+
+  .btn-verify__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    @screen md {
+      justify-content: start;
+    }
+  }
+
+  .msg-verify__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    @screen sm {
+      justify-content: center;
+    }
+    @screen md {
+      justify-content: flex-end;
+    }
+  }
+
+  .btn-size__div {
+    min-width: 60%;
+  }
+
+  .btn-footer__div {
+    min-width: 10rem;
+  }
+
+  .c-events-time {
+    opacity: 0;
+  }
+
+  .links-footer__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 55%;
+    &-full {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  .c-events-card:hover .c-events-time {
+    opacity: 1;
+    transition: opacity .2s;
+  }
+
+  .center {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 1;
+  }
+
+  img.blur {
+    filter: blur(8px);
+  }
+
+  img.blur-sm {
+    filter: blur(1px);
+  }
+
+  img.blur-xl {
+    filter: blur(12px);
+  }
+
+  img.blur-hd {
+    filter: blur(16px);
+  }
+
+  @import "components/employee/Employee";
+  @import "components/Ui/AnimationBackground/AnimationBackground";
+  @import "components/Ui/Button/Button";
+  @import "components/Ui/Header/Header";
+  @import "components/Ui/Footer/Footer";
+  @import "components/Ui/Pagination/Pagination";
+  @import "components/Ui/HorizontalScroll/HorizontalScroll";
+  @import "components/Ui/Modal/Modal";
+  @import "components/Ui/Nav/Nav";
+  @import "components/Ui/Dropdown/Dropdown";
+  @import "components/Ui/Lang/Lang";
+  @import "components/Ui/Loader/Loader";
+  @import "components/Ui/MobileDrawer/MobileDrawer";
+  @import "components/Ui/MobileDrawerMenu/MobileDrawerMenu";
+  @import "components/Ui/MobileDrawerCategory/MobileDrawerCategory";
+  @import "components/Ui/Subscribe/Subscribe";
+
+  @import "components/Ui/Forms/Checkbox/Checkbox";
+  @import "components/Ui/Forms/FormGroup/FormGroup";
+  @import "components/Ui/Forms/GroupRadio/GroupRadio";
+  @import "components/Ui/Forms/RangeSlider/RangeSlider";
+  @import "components/Ui/Forms/DateField/DateField";
+  @import "components/Ui/Forms/ButtonGroupField/ButtonGroup";
+  @import "components/Ui/Forms/SelectGroupField/SelectGroup";
+  @import "components/Ui/Forms/Label/Label";
+  @import "components/Ui/Forms/RadioField/RadioField";
+  @import "components/Ui/Forms/LocationSearchInput/LocationSearchInput";
+  @import "components/Ui/Forms/EventEmployeesField/EventEmployeesField";
+  @import "components/Ui/Calendar/Calendar";
+  @import "components/Ui/PlanCard/PlanCard";
+  @import "components/Ui/GirlCard/GirlCard";
+  @import "components/Ui/EventsGallery/EventsGallery";
+  @import "components/Ui/ChatList/ChatList";
+  @import "components/Ui/Chat/Chat";
+  @import "components/Ui/Filter/Filter";
+
+//@import "components/about/style";
+@import "help_center";

@@ -1,0 +1,103 @@
+.girls {
+  &__item {
+    @apply block relative overflow-hidden bg-cover bg-center mb-5;
+    border-radius: 10px;
+
+    .badge {
+      //width: 57px;
+      text-align: center;
+      //padding: 0;
+      padding: 0 10px;
+      line-height: 26px;
+      height: 26px;
+    }
+
+    &.viewed {
+      width: 280px;
+    }
+
+    @screen xs {
+      &.viewed {
+        width: 100%;
+      }
+    }
+
+    @screen sm {
+      &.sized {
+        width: 210px;
+      }
+
+      &.viewed {
+        width: 210px;
+      }
+    }
+
+    @screen md {
+      &.sized {
+        width: 229px;
+      }
+
+      &.viewed {
+        width: 167px;
+      }
+    }
+
+    @screen lg {
+      &.sized {
+        width: 306px;
+      }
+
+      &.viewed {
+        width: 176px;
+      }
+    }
+
+    @screen xl {
+      &.sized {
+        width: 332px;
+      }
+
+      &.viewed {
+        width: 242px;
+      }
+
+      .show-on-hover {
+        @apply transition;
+        height: 0;
+        opacity: 0;
+      }
+
+      .hide-on-hover {
+        @apply transition;
+        height: 40px;
+        opacity: 1;
+      }
+
+      &:hover {
+        .show-on-hover {
+          height: 40px;
+          opacity: 1;
+        }
+
+        .hide-on-hover {
+          height: 0;
+          opacity: 0;
+        }
+      }
+    }
+
+    @screen hd {
+      &.viewed {
+        width: 332px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+    .girls > div {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}

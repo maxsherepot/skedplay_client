@@ -1,0 +1,75 @@
+.dropdown {
+  @apply relative;
+
+  &__trigger {
+    @apply relative block bg-white rounded-full border min-w-full border-light-grey text-lg leading-none h-13 overflow-hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 1rem;
+      top: 1.25rem;
+      background-image: url("/static/img/arrow-down.svg");
+      background-size: 15px 8px;
+      height: 8px;
+      width: 15px;
+      cursor: pointer;
+    }
+  }
+
+  &.transparent {
+    .dropdown__trigger {
+      border: none;
+      background: transparent;
+      padding-right: 40px;
+      font-weight: 500;
+      padding-bottom: 5px;
+
+      &::after {
+        background-size: 10px 8px;
+        width: 10px;
+      }
+    }
+  }
+
+  &__trigger--disabled {
+    &::after {
+      content: "";
+      background-image: url("/static/img/arrow-down-grey.svg");
+    }
+  }
+
+  &__content {
+    &.open {
+      @apply absolute top-0 rounded-lg h-auto overflow-visible bg-white border border-black z-50 w-full py-4 px-4;
+      @apply overflow-y-scroll h-64;
+
+      input[type="radio"] {
+        @apply w-px h-px inline-block absolute;
+        opacity: 0.01;
+      }
+
+      label {
+        @apply py-1;
+        padding-left: 0;
+        margin: 0;
+      }
+    }
+  }
+
+
+  &.lang {
+    .dropdown__trigger {
+      font-weight: normal;
+      padding-bottom: 0;
+    }
+
+    .dropdown__content {
+      &.open {
+        overflow-y: initial;
+        @apply h-auto;
+
+      }
+    }
+  }
+}

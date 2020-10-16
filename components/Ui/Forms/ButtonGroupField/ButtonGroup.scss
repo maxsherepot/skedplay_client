@@ -1,0 +1,39 @@
+.button-group {
+  @apply flex -mx-2;
+
+  .button {
+    @apply bg-transparent flex-auto border border-light-grey rounded-full text-sm px-1 py-2 outline-none;
+
+    @screen sm {
+      @apply px-9 py-3 text-base;
+    }
+  }
+
+  .button {
+    transition: box-shadow .2s cubic-bezier(0.47, 0, 0.75, 0.72);
+
+    &:hover {
+      @apply text-red;
+      box-shadow: 1px 1px 1px rgba(0,0,0,.1) inset, -1px -1px 1px rgba(0,0,0,.1) inset, -1px 1px 1px rgba(0,0,0,.1) inset, 1px -1px 1px rgba(0,0,0,.1) inset;
+    }
+
+    &.active {
+      @apply bg-light-grey text-black;
+    }
+
+    &:not(:last-child) {
+      @apply rounded-r-none;
+      &::before,
+      &::after {
+        @apply rounded-r-none;
+      }
+    }
+    &:not(:first-child) {
+      @apply rounded-l-none -ml-px;
+      &::before,
+      &::after {
+        @apply rounded-l-none -ml-px;
+      }
+    }
+  }
+}
