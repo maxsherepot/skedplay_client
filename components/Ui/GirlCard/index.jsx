@@ -186,10 +186,18 @@ function GirlCard({
     return getAs();
   };
 
+
+////////////////////////////////////////////
+
+
   const isBlurPhoto = (photo) => {
     if (!photo) {
       return '';
     }
+
+
+///////////////////////////////////////////
+
 
     return JSON.parse(photo.custom_properties).porn && !user;
   };
