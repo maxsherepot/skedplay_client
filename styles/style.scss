@@ -21,7 +21,9 @@ body {
   font-variant-ligatures: none;
 }
 
-
+body button {
+  font-variant-ligatures: none; 
+}
 
 main {
   padding-bottom: 260px;
@@ -265,6 +267,8 @@ button:focus {
     min-width: 320px;
     padding-left: 1rem;
     padding-right: 1rem;
+    font-variant-ligatures: none;
+
 
     @screen sm {
       min-width: 410px;
