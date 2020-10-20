@@ -240,15 +240,15 @@ function Nav({ user, className }) {
               </AddGirlLinkWrap>
             }
 
-            {/*{(user && user.is_employee && user.employee) &&*/}
-            {/*  <Link href="/account/ad">*/}
-            {/*    <a className="menu-icons__item hidden sm:block">*/}
-            {/*      <button className="bg-red text-white px-5 py-2 rounded-full">*/}
-            {/*        {t('layout.edit_ad')}*/}
-            {/*      </button>*/}
-            {/*    </a>*/}
-            {/*  </Link>*/}
-            {/*}*/}
+            {(user && user.is_employee && user.employee) &&
+          <Link href="/account/ad">
+            <a className="menu-icons__item hidden sm:block">
+              <button className="bg-red text-white px-5 py-2 rounded-full">
+                    {t('layout.edit_ad')}
+                  </button>
+                </a>
+              </Link>
+            }
 
             <Button
               size="xxs"
@@ -383,13 +383,13 @@ function Nav({ user, className }) {
               </Link>
             </AddGirlLinkWrap>
           }
-          {/*{(user && user.is_employee && user.employee) &&*/}
+          {/* {(user && user.is_employee && user.employee) &&*/}
           {/*  <Link href="/account/ad">*/}
           {/*    <a>*/}
           {/*      <Button className="w-full text-2xl mt-1" onClick={handleToggleNav}>{t('layout.edit_ad')}</Button>*/}
           {/*    </a>*/}
           {/*  </Link>*/}
-          {/*}*/}
+          {/*} */}
           {user ? (
             <Link href="/account" as={`/account`}>
               <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">

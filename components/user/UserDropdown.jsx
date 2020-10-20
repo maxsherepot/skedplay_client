@@ -45,9 +45,17 @@ const UserDropdown = ({ user }) => {
         toggle={toggleUserMenu}
       >
         <div className="flex justify-between p-7">
+          
+
+
+
           <div className="c-account__avatar-wrap">
-            <Avatar isEmpty={!avatar} src={avatar}/>
+            <Avatar isEmpty={!avatar}/>
           </div>
+
+
+
+
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">
               <div className="text-2xl font-medium capitalize">{user.name}</div>
@@ -139,13 +147,13 @@ const UserDropdown = ({ user }) => {
                 </Link>
               </AddGirlLinkWrap>
             )}
-            {/*{(user.is_employee && user.employee) && (*/}
-            {/*  <Link href="/account/ad">*/}
-            {/*    <a className="flex items-center mb-2">*/}
-            {/*      <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>*/}
-            {/*    </a>*/}
-            {/*  </Link>*/}
-            {/*)}*/}
+            {(user.is_employee && user.employee) && (
+             <Link href="/account/ad">
+               <a className="flex items-center mb-2">
+                 <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>
+               </a>
+             </Link>
+            )}
             {user.is_employee && (
               <>
                 <Link href="/account">

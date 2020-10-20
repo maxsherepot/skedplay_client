@@ -28,7 +28,9 @@ export const ProfileHeader = ({user}) => {
         )}
         <div className="container header-profile-div">
           <div className="flex items-center justify-center ml:pl-0 md:pr-20 lg:pr-7 lg:pl-0 xl:pl-15 xl:pr-15 lg:w-7/12 py-8">
-            <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar} src={avatar}/>
+            
+            <Avatar className="w-10 h-10 mr-2" isEmpty={!avatar}/>
+
             <div className="ml-4">
               <span className="text-2xl font-medium capitalize">
                 {user.name} {user.age ? `, ${user.age}` : ''}
