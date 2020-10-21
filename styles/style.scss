@@ -15,10 +15,13 @@
   }
 }
 
+* {
+  font-variant-ligatures: none;
+}
+
 body {
   overflow-x: hidden;
   min-width: 280px;
-  font-variant-ligatures: none;
 }
 
 body button {

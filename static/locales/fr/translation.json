@@ -1,5 +1,6 @@
 {
   "common": {
+    "search": "CHERCHER",
     "of": "of",
     "girls": "girls",
     "boys": "boys",
@@ -181,7 +182,7 @@
     "attended_us": "attended us",
     "not_available": "not available",
     "popular": "popular",
-    "description": "Ici, les clients sont en sécurité lorsqu'ils choisissent leurs services préférés, et les travailleurs du sexe et les propriétaires de clubs de sexe obtiennent tout ce qu'il leur faut pour démarrer, développer et gérer leurs affaires en ligne",
+    "description": "Ici, les clients sont en sécurité lorsqu'ils choisissent leurs services préférés, et les travailleurs du sexe et les propriétaires de clubs de sexe obtiennent tout ce qu'il leur faut pour démarrer, développer et gérer leurs affaires en ligne"
   },
   "login": {
     "phone_number": "Phone number",
