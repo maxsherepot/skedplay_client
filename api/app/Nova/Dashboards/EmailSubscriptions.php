@@ -2,11 +2,11 @@
 
 namespace App\Nova\Dashboards;
 
-use Laravel\Nova\Dashboard;
-use App\Nova\Metrics\ClubEmailSubscriptionsPerDay;
-use App\Nova\Metrics\EmployeeEmailSubscriptionsPerDay;
 use App\Nova\Metrics\ClubEmailSubscriptions;
+use App\Nova\Metrics\ClubEmailSubscriptionsPerDay;
 use App\Nova\Metrics\EmployeeEmailSubscriptions;
+use App\Nova\Metrics\EmployeeEmailSubscriptionsPerDay;
+use Laravel\Nova\Dashboard;
 
 class EmailSubscriptions extends Dashboard
 {
@@ -28,8 +28,8 @@ class EmailSubscriptions extends Dashboard
     public function cards()
     {
         return [
-            new ClubEmailSubscriptions,
-            (new ClubEmailSubscriptionsPerDay)->width('2/3'),
+            new ClubEmailSubscriptions(),
+            (new ClubEmailSubscriptionsPerDay())->width('2/3'),
             // new EmployeeEmailSubscriptions,
             // (new EmployeeEmailSubscriptionsPerDay)->width('2/3')
         ];

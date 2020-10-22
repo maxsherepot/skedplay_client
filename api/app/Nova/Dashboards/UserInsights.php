@@ -2,9 +2,9 @@
 
 namespace App\Nova\Dashboards;
 
-use Laravel\Nova\Dashboard;
 use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\UsersPerDay;
+use Laravel\Nova\Dashboard;
 
 class UserInsights extends Dashboard
 {
@@ -26,8 +26,8 @@ class UserInsights extends Dashboard
     public function cards()
     {
         return [
-            new NewUsers,
-            (new UsersPerDay)->width('2/3'),
+            new NewUsers(),
+            (new UsersPerDay())->width('2/3'),
         ];
     }
 

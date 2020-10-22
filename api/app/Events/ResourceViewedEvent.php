@@ -3,17 +3,15 @@
 namespace App\Events;
 
 use App\Models\ViewedEntity;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class ResourceViewedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
     /**
      * @var string
      */
@@ -27,7 +25,7 @@ class ResourceViewedEvent
      * Create a new event instance.
      *
      * @param string $model
-     * @param int $id
+     * @param int    $id
      */
     public function __construct(string $model, int $id)
     {

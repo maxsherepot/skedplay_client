@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 trait ViewedEntityDefault
 {
     public function view(): void
