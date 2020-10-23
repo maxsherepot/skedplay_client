@@ -7,9 +7,9 @@ import ArrowRight from "./ArrowRight";
 import Link from 'components/SlashedLink'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Badge } from "UI";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
-function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver}) {
+function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver }) {
   const disabled = currentSlide <= 0
   return (
     <div className={className} onClick={onClick} onMouseEnter={onMouseOver}>
@@ -22,8 +22,8 @@ function PrevArrow({ className, currentSlide, slideCount, onClick, onMouseOver})
   );
 }
 
-function NextArrow({ className, currentSlide, onClick, slideCount, onMouseOver}) {
-  const disabled = currentSlide >= (Math.ceil(slideCount/5) - 1)
+function NextArrow({ className, currentSlide, onClick, slideCount, onMouseOver }) {
+  const disabled = currentSlide >= (Math.ceil(slideCount / 5) - 1)
 
   return (
     <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
@@ -37,7 +37,7 @@ function NextArrow({ className, currentSlide, onClick, slideCount, onMouseOver})
 }
 
 function Slick({ id, photos, labels, available, slider, className, link, as, noPhotoSrc, user }) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [sliderCardId, setSliderCardId] = useState(null);
 
   const [mainNav, setMainNav] = useState(null);
@@ -58,9 +58,9 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
   const getPhoto = (photo) => {
     if (isBlurPhoto(photo)) {
       // if (photo.thumb_blur_url) {
-        photo.vip = true;
+      photo.vip = true;
 
-        // return photo.thumb_blur_url;
+      // return photo.thumb_blur_url;
       // }
     }
 
@@ -71,7 +71,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
     return photo.url;
   };
 
-  const images = photos.map(photo => ({url: getPhoto(photo), vip: photo.vip}));
+  const images = photos.map(photo => ({ url: getPhoto(photo), vip: photo.vip }));
   const isActiveSlider = sliderCardId === id && slider;
 
   function getImagesBlock() {
@@ -98,12 +98,12 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
         {images.map((image, i) => {
           // if (i === 0) {
           //   return (
-          //       <img
-          //           key={i}
-          //           className={cx("object-cover", className)}
-          //           src={image}
-          //           alt=""
-          //       />
+          //     <img
+          //       key={i}
+          //       className={cx("object-cover", className)}
+          //       src={image}
+          //       alt=""
+          //     />
           //   );
           // }
 
@@ -151,6 +151,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
         {images.length > 0 &&
           <div className={cx([
             "flex w-full absolute transition bottom-0 flex-col lg:justify-end  overflow-hidden",
+            
             isActiveSlider ? "h-0 lg:h-24" : "h-0",
           ])}>
             <div className="slider px-6 pt-3">
@@ -158,12 +159,13 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 asNavFor={mainNav}
                 ref={slider => setSlider2(slider)}
                 slidesToShow={5}
+                slidesToScroll={1}
                 infinite={false}
                 swipeToSlide={true}
                 focusOnSelect={true}
                 adaptiveHeight
                 nextArrow={<NextArrow className="prev-arrow" />}
-                prevArrow={<PrevArrow className="next-arrow" onMouseOver={() => {slider2.slickGoTo(0)}}/>}
+                prevArrow={<PrevArrow className="next-arrow" onMouseOver={() => { slider2.slickGoTo(0) }} />}
               >
                 {images.map((image, i) => (
                   <div className="pr-1 outline-none" key={i}>
@@ -174,7 +176,9 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                       )}
                       alt={``}
                       src={image.url}
-                      onMouseEnter={() => {slider1.slickGoTo(i)}}
+
+                      //onMouseEnter={() => { slider1.slickGoTo(i) }}
+                      
                     />
                   </div>
                 ))}
