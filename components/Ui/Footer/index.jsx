@@ -237,12 +237,12 @@ function Footer({ user }) {
             <FooterLeftIcons />
           </div>
 
-          <div className="w-full lg:w-2/4 my-11 mt-2 inline-block h-full text-center">
-            <div className="text-grey text-sm">
+          <div className="text-xs md:text-sm w-2/3 lg:w-2/4 my-11 mt-2 inline-block h-full text-center">
+            <div className="text-grey">
               {t('layout.copyright')} {dateYear} {t('layout.all_rights_reserved')}
             </div>
 
-            <div className="text-grey text-sm">
+            <div className="text-grey">
               <a href="/helpcenter/terms-and-conditions/" className="hover:text-red">
                 {t('layout.terms_conditions')}
               </a> & &nbsp;
@@ -252,9 +252,14 @@ function Footer({ user }) {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/4 my-6 inline-block flex justify-around">
+          {/* <div className="w-full lg:w-1/4 my-6 inline-block flex justify-around">
+            <FooterRightIcons />
+          </div> */}
+
+          <div className="hidden md:flex w-full lg:w-1/4 my-6 inline-block justify-around">
             <FooterRightIcons />
           </div>
+
         </div>
       </div>
 
