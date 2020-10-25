@@ -121,7 +121,11 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 )}
                 alt={``}
                 src={image.url}
-                effect="blur"
+
+              /////////////"white card" effect at 75-80% zoom
+              //effect="blur"
+              ////////////
+
               />
             </div>
           );
@@ -151,7 +155,6 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
         {images.length > 0 &&
           <div className={cx([
             "flex w-full absolute transition bottom-0 flex-col lg:justify-end  overflow-hidden",
-            
             isActiveSlider ? "h-0 lg:h-24" : "h-0",
           ])}>
             <div className="slider px-6 pt-3">
@@ -159,7 +162,6 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 asNavFor={mainNav}
                 ref={slider => setSlider2(slider)}
                 slidesToShow={5}
-                slidesToScroll={1}
                 infinite={false}
                 swipeToSlide={true}
                 focusOnSelect={true}
@@ -177,8 +179,8 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                       alt={``}
                       src={image.url}
 
-                      //onMouseEnter={() => { slider1.slickGoTo(i) }}
-                      
+                    //onMouseEnter={() => { slider1.slickGoTo(i) }}
+
                     />
                   </div>
                 ))}
