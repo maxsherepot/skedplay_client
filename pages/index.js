@@ -30,7 +30,7 @@ const EventsContainer = ({ user, events }) => {
   //text-5-75xl // md:text-6-5xl xl:text-7xl
   return (
     <div className="container mx-auto relative z-10 overflow-hidden">
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row scale">
         <div className="flex flex-col">
           <h1 className="block text-white mt-3 pl-1 pt-1 sm:pl-4 sm:pt-1 md:pl-8 lg:pl-0 lg:pt-1">
             <div
@@ -167,8 +167,8 @@ const Index = ({ user }) => {
       <main className="relative z-10 mt-10 xl:mt-12-5">
         <div className="index-bg-bottom" />
         <div className="container">
-          <div className="flex text-black items-end leading-none text-black md:text-white">
-            <div className="text-2xl sm:text-2xl font-bold tracking-tighter capitalize">
+          <div className="flex text-black items-end leading-none text-black md:text-white scale">
+            <div className="text-2xl sm:text-2xl font-bold tracking-tighter capitalize ">
               {t('common.girls')}
             </div>
             <Link href="/girls">
