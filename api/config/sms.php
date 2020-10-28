@@ -32,7 +32,7 @@ return [
             'from'   => 'Skedpay',
         ],
         'plivo' => [
-            'key' => env('PLIVO_AUTH_ID'),
+            'key'    => env('PLIVO_AUTH_ID'),
             'secret' => env('PLIVO_AUTH_TOKEN'),
             'from'   => env('PLIVO_FROM'),
         ],

@@ -7,6 +7,7 @@ use App\Nova\Filters\UserRoleFilter;
 use Carbon\Carbon;
 use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
@@ -21,7 +22,6 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Modules\Users\Entities\Role;
 use Skidplay\UserTopInfo\UserTopInfo;
-use Laravel\Nova\Fields\BelongsTo;
 
 class User extends Resource
 {
@@ -233,9 +233,9 @@ class User extends Resource
         } else {
             $roleFields = [
                 Select::make('Role', 'role_id')
-                    ->options($rolesQuery->pluck('name', 'id',))
+                    ->options($rolesQuery->pluck('name', 'id', ))
                     ->onlyOnForms()
-                    ->required()
+                    ->required(),
             ];
         }
 
@@ -244,17 +244,17 @@ class User extends Resource
 
             BelongsTo::make('Info', 'info', 'App\Nova\InfoUser'),
 
-//            BelongsToMany::make('Roles')
-//                ->fields(
-//                    function () {
-//                        return [
-//                            Text::make('user_type')
-//                                ->hideWhenCreating(),
-//                        ];
-//                    }
-//                )->displayUsing(function () {
-//                    return $this->pivot->role;
-//                }),
+            //            BelongsToMany::make('Roles')
+            //                ->fields(
+            //                    function () {
+            //                        return [
+            //                            Text::make('user_type')
+            //                                ->hideWhenCreating(),
+            //                        ];
+            //                    }
+            //                )->displayUsing(function () {
+            //                    return $this->pivot->role;
+            //                }),
             ...$roleFields,
 
             Text::make('Type')

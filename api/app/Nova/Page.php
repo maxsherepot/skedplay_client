@@ -2,12 +2,11 @@
 
 namespace App\Nova;
 
+use Advoor\NovaEditorJs\NovaEditorJs;
 use App\Nova\Fields\Translatable;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Advoor\NovaEditorJs\NovaEditorJs;
 
 class Page extends Resource
 {
@@ -60,7 +59,6 @@ class Page extends Resource
      */
     public function fields(Request $request)
     {
-
         $fields = [
             Text::make('Key')
                 ->sortable()

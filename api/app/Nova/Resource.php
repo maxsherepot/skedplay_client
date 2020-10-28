@@ -9,6 +9,7 @@ use Laravel\Nova\Resource as NovaResource;
 abstract class Resource extends NovaResource
 {
     protected static $showBadge = false;
+
     /**
      * Build an "index" query for the given resource.
      *
@@ -68,7 +69,7 @@ abstract class Resource extends NovaResource
     }
 
     /**
-     * Count for badges in nav sidebar
+     * Count for badges in nav sidebar.
      *
      * @return int|null
      */

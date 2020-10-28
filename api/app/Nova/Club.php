@@ -192,7 +192,7 @@ class Club extends Resource
             Text::make('Phones')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
-                ->displayUsing(fn($value) => implode('<br>', $value))
+                ->displayUsing(fn ($value) => implode('<br>', $value))
                 ->asHtml(),
 
             Items::make('Phones')
@@ -220,7 +220,7 @@ class Club extends Resource
             Text::make('Phones')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
-                ->displayUsing(fn($value) => implode('<br>', $value))
+                ->displayUsing(fn ($value) => implode('<br>', $value))
                 ->asHtml(),
 
             Items::make('Phones')

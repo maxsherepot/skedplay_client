@@ -45,30 +45,30 @@ class ClearAllCommand extends Command
     {
         Employee::withTrashed()
             ->where('fake', 0)
-            ->chunk(10, function(Collection $employees) {
-                 foreach ($employees as $employee) {
-                     $employee->chats()->forceDelete();
-                     $employee->events()->delete();
-                     $employee->delete();
-                 }
+            ->chunk(10, function (Collection $employees) {
+                foreach ($employees as $employee) {
+                    $employee->chats()->forceDelete();
+                    $employee->events()->delete();
+                    $employee->delete();
+                }
             });
 
         Club::withTrashed()
-            ->chunk(10, function(Collection $clubs) {
+            ->chunk(10, function (Collection $clubs) {
                 foreach ($clubs as $club) {
                     $club->forceDelete();
                 }
             });
 
         Event::withTrashed()
-            ->chunk(10, function(Collection $events) {
+            ->chunk(10, function (Collection $events) {
                 foreach ($events as $event) {
                     $event->forceDelete();
                 }
             });
 
         User::query()
-            ->chunk(10, function(Collection $users) {
+            ->chunk(10, function (Collection $users) {
                 /** @var User $user */
                 foreach ($users as $user) {
                     if ($user->hasRole(Role::ADMIN)) {

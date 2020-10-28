@@ -174,7 +174,7 @@ class Photo extends Resource
     }
 
     /**
-     * Count for badges in nav sidebar
+     * Count for badges in nav sidebar.
      *
      * @return int|null
      */
@@ -184,11 +184,10 @@ class Photo extends Resource
             return null;
         }
 
-        return static::$model::whereDoesntHave('viewRelation', function($query) {
+        return static::$model::whereDoesntHave('viewRelation', function ($query) {
             $query->where('seen', 1);
         })
             ->where('collection_name', 'like', '%photo%')
             ->count();
-
     }
 }
