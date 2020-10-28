@@ -243,10 +243,10 @@ function Footer({ user }) {
             </div>
 
             <div className="text-grey text-sm">
-              <a href="https://skidplay.tk/helpcenter/terms-of-use" className="hover:text-red">
+              <a href="/helpcenter/terms-and-conditions" className="hover:text-red">
                 {t('layout.terms_conditions')}
               </a> & &nbsp;
-              <a href="https://skidplay.tk/helpcenter/private-policy" className="hover:text-red">
+              <a href="/helpcenter/privacy-policy" className="hover:text-red">
                 {t('layout.privacy_policy')}
               </a>
             </div>

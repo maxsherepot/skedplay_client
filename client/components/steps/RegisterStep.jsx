@@ -94,9 +94,9 @@ const RegisterStep = () => {
           label={(
               <div className="text-grey text-sm row">
                  {t('register.creating_account_you_agree')}
-                 <a href="/helpcenter/terms-of-use" className="underline pr-1">{t('register.terms_conditions')}</a>
+                 <a href="/helpcenter/terms-and-conditions" className="underline pr-1">{t('register.terms_conditions')}</a>
                    {t('common.and')}
-                   <a href="/helpcenter/private-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
+                   <a href="/helpcenter/privacy-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
                </div>
           )}
           name={'creating_account_you_agree'}

@@ -55,7 +55,7 @@ function SubscribeForm({ isSubscribed, onSubmit, text, children }) {
               <div className="flex items-center mt-6 px-2 mb-6 ">
                   <div className="text-grey text-sm row">
                      To learn how we process your data, visit our
-                       <a href="/helpcenter/private-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
+                       <a href="/helpcenter/privacy-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
                            You can unsubscribe at any time without costs.
                    </div>
                   </div>
