@@ -40,7 +40,7 @@ function Filter({ name, header, fields, isFiltersOpen, inititalState, filters, s
     <>
       <div
         className={cx([
-          "flex flex-col py-4",
+          "flex flex-col py-4 lg:py-1",
           bgClass
         ])}
       >

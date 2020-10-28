@@ -152,7 +152,7 @@ function Nav({ user, className }) {
         className
       )}
     >
-      <div className="container mx-auto h-full scale px-0">
+      <div className="container mx-auto h-full px-0">
         <div className="flex justify-between h-full items-center px-0">
           <div className="flex h-full items-center">
             <Link href="/">
@@ -240,7 +240,7 @@ function Nav({ user, className }) {
               </AddGirlLinkWrap>
             }
 
-            {(user && user.is_employee && user.employee) &&
+            {/* {(user && user.is_employee && user.employee) &&
               <Link href="/account/ad">
                 <a className="menu-icons__item hidden sm:block">
                   <button className="bg-red text-white px-5 py-2 rounded-full">
@@ -248,7 +248,7 @@ function Nav({ user, className }) {
                   </button>
                 </a>
               </Link>
-            }
+            } */}
 
             <Button
               size="xxs"

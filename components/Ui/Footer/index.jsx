@@ -189,7 +189,7 @@ function Footer({ user }) {
         </Content>
       </Popup>
 
-      <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6 scale">
+      <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
         <div className="flex flex-col justify-center text-center links-footer__div">
           <ul className="flex items-center justify-around leading-loose links-footer__div-full text-lg">
             <li className="mr-8">
@@ -230,7 +230,7 @@ function Footer({ user }) {
 
       <div className="border-dark-grey border-b" />
 
-      <div className="w-full scale">
+      <div className="w-full">
         <div className="container without-p w-full md:max-w-3/4 flex flex-col justify-between items-center lg:flex-row lg:max-w-full">
 
           <div className="w-full lg:w-1/4 flex justify-around lg:justify-start items-end my-6">
