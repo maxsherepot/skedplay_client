@@ -31,13 +31,19 @@ body {
   
   .container {
     transform: scale(0.85);
-
-    max-width: initial !important;
     padding-left: 0px !important;
     padding-right: 0px !important;
-
-    //background-color: rgb(174, 255, 174);
+    background-color: rgba(174, 255, 237, 0.37);
   };
+
+  .no-scale {
+    transform: scale(1);
+  }
+
+  .scale {
+    transform: scale(0.85);
+    background-color: rgba(174, 255, 237, 0.37);
+  }
 
 }
 ///////////////////////////////////////////////

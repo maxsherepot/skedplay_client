@@ -26,9 +26,9 @@ const AdInformationStep = () => {
 
   return (
     <>
-      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5">{t('account.links.information')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 scale">{t('account.links.information')}</div>
 
-      <div className="px-2">
+      <div className="px-2 scale">
         <div className="flex flex-wrap -mx-4">
           <TextField
             className="w-full sm:w-1/3 px-2"
@@ -129,9 +129,9 @@ const AdInformationStep = () => {
         </div>
       </div>
 
-      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5">{t('contacts_popup.your_working_location')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 scale">{t('contacts_popup.your_working_location')}</div>
 
-      <div className="px-2">
+      <div className="px-2 scale">
         <div className="flex flex-wrap -mx-4">
           <LocationSearchInput/>
 
@@ -192,14 +192,14 @@ const AdInformationStep = () => {
         </div>
       </div>
 
-      <div className="flex items-end my-5">
+      <div className="flex items-end my-5 scale">
         <div className="text-xl sm:text-2xl font-bold leading-none">
           {t('steps.personal_info')}
         </div>
         <div className="ml-6">{t('steps.optional')}</div>
       </div>
 
-      <div className="px-2">
+      <div className="px-2 scale">
         <div className="flex flex-wrap -mx-4">
           {parameters &&
             parameters.map(({ id, name, options }) => (

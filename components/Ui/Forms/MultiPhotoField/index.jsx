@@ -194,7 +194,7 @@ function MultiPhotoField({
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between scale">
         <div className="flex flex-col md:flex-row md:items-end mb-5">
           <div className="text-xl sm:text-2xl font-bold leading-none">{t('clubs.photos')}</div>
           <span className="md:ml-6 text-xs md:text-lg">
@@ -222,7 +222,7 @@ function MultiPhotoField({
         }
       </div>
 
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap scale lg:-mt-12">
         <FormGroup
           className={cx(className, "relative")}
           error={!!error}

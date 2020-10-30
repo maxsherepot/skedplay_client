@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CalendarSvg } from "icons";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const Schedule = ({ schedule, schedule_period, title }) => {
   const getPeriodDate = day => {
@@ -10,7 +10,7 @@ const Schedule = ({ schedule, schedule_period, title }) => {
     return schedule_period[index] && schedule_period[index].date;
   };
 
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <>
@@ -38,10 +38,10 @@ const Schedule = ({ schedule, schedule_period, title }) => {
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
-                  <div>{t('about.clubs.day_off')}</div>
-                </div>
-              )}
+                  <div className="flex justify-end w-3/6 sm:w-2/5 sm:w-7/12 text-light-grey">
+                    <div>{t('about.clubs.day_off')}</div>
+                  </div>
+                )}
             </section>
           ))}
 

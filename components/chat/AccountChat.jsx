@@ -41,7 +41,7 @@ const AccountChat = ({ user, chatType, selectedEmployeeId = null, selectedChatId
         <div className="container hidden sm:block -mt- -ml-10 -mb-4">
              <ProfileHeader user={user}/>
         </div>
-        <div className="container mb-16" style={{maxWidth: 1100}}>
+        <div className="container mb-16 no-scale" style={{maxWidth: 1100}}>
             <EmployeeClientChat user={user} chatType={chatType} selectedChatId={selectedChatId}/>
         </div>
       </>
