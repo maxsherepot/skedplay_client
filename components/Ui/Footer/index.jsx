@@ -189,10 +189,10 @@ function Footer({ user }) {
         </Content>
       </Popup>
 
-      <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
-        <div className="flex flex-col justify-center text-center links-footer__div">
+      <div className="container no-scale flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
+        <div className="flex flex-col justify-center text-center links-footer__div  lg:pr-20">
           <ul className="flex items-center justify-around leading-loose links-footer__div-full text-lg">
-            <li className="mr-8">
+            <li className="mr-8 lg:mr-2 scale">
               <Link href='/about'>
                 <a className="text-white">
                   {t('layout.about')}
@@ -201,10 +201,10 @@ function Footer({ user }) {
             </li>
             {/* Only odd */}
 
-            <ContactsPopup className="mr-8" user={user} onSuccess={onSuccessContacts} />
+            <ContactsPopup className="mr-8 lg:mr-0 scale" user={user} onSuccess={onSuccessContacts} />
             <ContactsCallbackSuccessPopup user={user} open={contactsSuccessOpen} setOpen={setContactsSuccessOpen} />
 
-            <li className="">
+            <li className="scale">
               <Link href={`/helpcenter`}>
                 <a>
                   {t('layout.help_center')}

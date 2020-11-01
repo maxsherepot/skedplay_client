@@ -12,7 +12,7 @@ function Modal({ logo, title, left, right, children, style, modalDialogStyle, co
             <a className="modal__logo block text-center">{logo}</a>
           </Link>
         }
-        <div className="modal__content scale lg:-mt-10" style={contentStyle}>
+        <div className="modal__content lg:-mt-10" style={contentStyle}>
           <div className="modal__content__header relative z-20" style={headerStyle}>
             {left}
             <div className="modal__title w-11/12 text-2xl font-extrabold tracking-tightest flex justify-center items-center mx-3 -z-1 uppercase">

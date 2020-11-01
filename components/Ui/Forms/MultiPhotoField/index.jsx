@@ -195,7 +195,7 @@ function MultiPhotoField({
   return (
     <>
       <div className="flex justify-between scale">
-        <div className="flex flex-col md:flex-row md:items-end mb-5">
+        <div className="flex flex-col md:flex-row md:items-end mb-5 lg:mb-10">
           <div className="text-xl sm:text-2xl font-bold leading-none">{t('clubs.photos')}</div>
           <span className="md:ml-6 text-xs md:text-lg">
               {t('max_size_uploaded.photos')}
