@@ -321,7 +321,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
                     <AddGirlLinkWrap employeesCount={employees.length}>
                       <li className="hover:text-black focus:text-black">
                         <Link href="/girls/add">
-                          <a>
+                          <a className="border_dashed">
                             {t('layout.add_new_card')}
                           </a>
                         </Link>
@@ -343,7 +343,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
             <ul className="text-lg text-red font-medium leading-loose ml-10 mt-4">
               <li className="hover:text-black focus:text-black">
                 <Link href="/account/events/create">
-                  <a>
+                  <a className="border_dashed">
                     {t('layout.add_new_event')}
                   </a>
                 </Link>
