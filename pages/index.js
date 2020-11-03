@@ -166,8 +166,8 @@ const Index = ({ user }) => {
       />
       <main className="relative z-10 mt-10 xl:mt-12-5 ">
         <div className="index-bg-bottom" />
-        <div className="container lg:-mt-32 lg:-mb-40">
-          <div className="flex text-black items-end leading-none text-black md:text-white">
+        <div className="container no-scale">
+          <div className="flex text-black items-end leading-none text-black md:text-white scale lg:-mt-4 ">
             <div className="text-2xl sm:text-2xl font-bold tracking-tighter capitalize ">
               {t('common.girls')}
             </div>
@@ -181,7 +181,7 @@ const Index = ({ user }) => {
           </div>
           <GirlsBox employees={employees} user={user} />
 
-          <div className="flex text-black items-end leading-none mt-8">
+          <div className="flex text-black items-end leading-none mt-8 scale lg:-mb-20">
             <div className="text-2xl sm:text-2xl font-bold tracking-tighter">
               {t('common.best_clubs')}
             </div>

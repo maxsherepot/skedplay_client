@@ -15,7 +15,7 @@ const SecondaryNav = ({ left, children, right, breadcrumbs, className, title }) 
               <div className="hidden xl:flex items-center px-2">{left}</div>
             </div>
 
-            <div className="ml-2 sm:ml-4 w-9/12 sm:w-auto">
+            <div className="ml-2 sm:ml-4 w-9/12 sm:w-auto scale12">
                 {children}
             </div>
 

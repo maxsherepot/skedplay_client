@@ -214,7 +214,7 @@ function Footer({ user }) {
           </ul>
         </div>
 
-        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3">
+        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3 lg:pl-20">
           {/*<Button size="xs" className="my-4 md:mr-4 md:w-40" outline>*/}
           {/*  {t('layout.create_site')}*/}
           {/*</Button>*/}
