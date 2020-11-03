@@ -308,7 +308,7 @@ function Nav({ user, className }) {
                 user ?
                   (
                     avatar ?
-                      <Avatar className="ml-2" onClick={() => setIsAccountOpen(true)} style={{ width: 42, height: 42 }} isEmpty={!avatar} src={avatar} />
+                      <Avatar className="ml-2" onClick={() => setIsAccountOpen(true)} style={{ width: 24, height: 24 }} isEmpty={!avatar} src={avatar} />
                       :
                       <button
                         className="menu-icons__item menu-icons__item_last md:hidden pr-0"

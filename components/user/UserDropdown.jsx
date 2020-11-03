@@ -7,7 +7,7 @@ import { AddSvg, ProfileSvg } from "icons";
 import { Avatar, MenuDropdown, Button, FavoritesCount } from "UI";
 import { AccountLabel } from "components/account";
 import { setCookie } from "utils";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Cookies from 'js-cookie';
 import AddGirlLinkWrap from "components/account/AddGirlLinkWrap";
 
@@ -45,17 +45,9 @@ const UserDropdown = ({ user }) => {
         toggle={toggleUserMenu}
       >
         <div className="flex justify-between p-7">
-          
-
-
-
           <div className="c-account__avatar-wrap">
-            <Avatar isEmpty={!avatar}/>
+            <Avatar isEmpty={!avatar} />
           </div>
-
-
-
-
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">
               <div className="text-2xl font-medium capitalize">{user.name}</div>
@@ -94,7 +86,7 @@ const UserDropdown = ({ user }) => {
             {user.is_client && (
               <Link href="/favorites/girls">
                 <a className="text-red font-medium hover:text-pink cursor-pointer mb-2">
-                  {t('common.my_favorites')} (<FavoritesCount/>)
+                  {t('common.my_favorites')} (<FavoritesCount />)
                 </a>
               </Link>
             )}
@@ -112,25 +104,25 @@ const UserDropdown = ({ user }) => {
             {/*)}*/}
 
             {user.is_club_owner &&
-            <>
-              {user.clubs && user.clubs.length > 0 ? (
-                <div>
-                  {user.clubs.map(club =>
-                    <Link href={`/account/club/cid?cid=${club.id}`} as={`/account/club/${club.id}`} key={club.id}>
-                      <a className="hover:text-red flex m-1 hover:cursor-pointer">
-                        {club.name}
-                      </a>
-                    </Link>
+              <>
+                {user.clubs && user.clubs.length > 0 ? (
+                  <div>
+                    {user.clubs.map(club =>
+                      <Link href={`/account/club/cid?cid=${club.id}`} as={`/account/club/${club.id}`} key={club.id}>
+                        <a className="hover:text-red flex m-1 hover:cursor-pointer">
+                          {club.name}
+                        </a>
+                      </Link>
+                    )}
+                  </div>
+                ) : (
+                    <div>
+                      <span>
+                        {t('account.add_your_first_club')}
+                      </span>
+                    </div>
                   )}
-                </div>
-              ) : (
-                <div>
-                  <span>
-                    {t('account.add_your_first_club')}
-                  </span>
-                </div>
-              )}
-            </>}
+              </>}
           </div>
           <div className="w-1/2">
             {/*{user.is_club_owner && (*/}
@@ -148,11 +140,11 @@ const UserDropdown = ({ user }) => {
               </AddGirlLinkWrap>
             )}
             {(user.is_employee && user.employee) && (
-             <Link href="/account/ad">
-               <a className="flex items-center mb-2">
-                 <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>
-               </a>
-             </Link>
+              <Link href="/account/ad">
+                <a className="flex items-center mb-2">
+                  <AddSvg /> <span className="ml-2">{t('layout.edit_ad')}</span>
+                </a>
+              </Link>
             )}
             {user.is_employee && (
               <>
@@ -170,18 +162,18 @@ const UserDropdown = ({ user }) => {
               </>
             )}
             {user.is_club_owner && (
-                <>
-                  <Link href="/account">
-                    <a className="flex hover:text-red cursor-pointer mb-2">
-                      {t('layout.view_my_account')}
-                    </a>
-                  </Link>
-                  <Link href="/clubs/add">
-                    <a className="flex items-center">
-                      <AddSvg />
-                      <span className="ml-2">{t('common.add_new_club')}</span>
-                    </a>
-                  </Link>
+              <>
+                <Link href="/account">
+                  <a className="flex hover:text-red cursor-pointer mb-2">
+                    {t('layout.view_my_account')}
+                  </a>
+                </Link>
+                <Link href="/clubs/add">
+                  <a className="flex items-center">
+                    <AddSvg />
+                    <span className="ml-2">{t('common.add_new_club')}</span>
+                  </a>
+                </Link>
               </>
             )}
           </div>

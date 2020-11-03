@@ -53,12 +53,12 @@ function Avatar({ className, src, isEmpty, styleEmptyIcon, style, onClick}) {
   return (
       <>
         {src ? (
-            <div className={classNames("c-account__avatar-wrap",className)} style={style || {}} onClick={onClick}>
-              <img className="c-account__avatar" src={src}/>
+            <div className={classNames("c-account__avatar-wrap ",className)} style={style || {}} onClick={onClick}>
+              <img className="c-account__avatar " src={src}/>
             </div>
         ) : (
-            <div className={`c-account__avatar-wrap ${me && me.avatar ? '' : 'c-account__avatar--empty'}`}>
-              {me && me.avatar ? <img className="c-account__avatar" src={me.avatar.url}/> : '' }
+            <div className={`c-account__avatar-wrap  ${me && me.avatar ? '' : 'c-account__avatar--empty '}`}>
+              {me && me.avatar ? <img className="c-account__avatar " src={me.avatar.url}/> : '' }
               <label htmlFor="fileUpload" className="c-account__avatar-plus">
                 <AddPhotoSvg/>
               </label>
