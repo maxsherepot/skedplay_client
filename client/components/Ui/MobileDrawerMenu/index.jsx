@@ -51,7 +51,8 @@ function MobileDrawerMenu({user, isOpen, onClose}) {
                         user ?
                         <div className="flex flex items-start justify-start pt-3 pb-3">
                             <span className="mt-2">
-                                <Avatar isEmpty={!avatar} src={avatar}/>
+                                <Avatar isEmpty={!avatar} //src={avatar}
+                                />
                             </span>
 
                           <div className="ml-4">

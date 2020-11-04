@@ -46,7 +46,8 @@ const UserDropdown = ({ user }) => {
       >
         <div className="flex justify-between p-7">
           <div className="c-account__avatar-wrap">
-            <Avatar isEmpty={!avatar} src={avatar}/>
+            <Avatar isEmpty={!avatar} //src={avatar}
+            />
           </div>
           <div className="flex flex-col flex-1 ml-4">
             <div className="flex items-center">
