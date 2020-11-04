@@ -186,7 +186,7 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug, page: ind
                   <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
                     {getLangField(indexPage.title, i18n.language)}
                   </h1>
-                  <div dangerouslySetInnerHTML={{__html: getLangField(indexPage.content_html, i18n.language)}} />
+                  <div dangerouslySetInnerHTML={{ __html: getLangField(helpCenterCategories[0].topics[0].content_html, i18n.language) }} />
                 </>
               }
             </div>
