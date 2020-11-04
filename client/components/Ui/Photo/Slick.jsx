@@ -121,7 +121,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                 )}
                 alt={``}
                 src={image.url}
-                effect="blur"
+                //effect="blur"
               />
             </div>
           );
@@ -174,7 +174,7 @@ function Slick({ id, photos, labels, available, slider, className, link, as, noP
                       )}
                       alt={``}
                       src={image.url}
-                      onMouseEnter={() => {slider1.slickGoTo(i)}}
+                      //onMouseEnter={() => {slider1.slickGoTo(i)}}
                     />
                   </div>
                 ))}
