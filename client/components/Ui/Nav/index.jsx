@@ -258,7 +258,7 @@ function Nav({ user, className }) {
               outline
               onClick={() => setIsCategoryOpen(true)}
             >
-              CATEGORY
+              {t('common.search')}
             </Button>
 
 
