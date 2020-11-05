@@ -162,7 +162,7 @@ const AccountEventsIndex = ({user}) => {
 
         return (
             <>
-                <div className="flex items-center justify-between sm:-mt-4">
+                <div className="flex items-center justify-between sm:-mt-4 scale">
                     <div className="text-2xl font-bold tracking-tighter leading-none">
                         {t('account.events')}
                     </div>
@@ -199,7 +199,7 @@ const AccountEventsIndex = ({user}) => {
                     </Tabs>
                 </div>
 
-                <div className="flex flex-wrap mt-5 -mx-3">
+                <div className="flex flex-wrap mt-5 -mx-3 scale">
                     {eventsFiltered.map(e =>
                         <EventCard
                         key={e.id} event={e}/>)}

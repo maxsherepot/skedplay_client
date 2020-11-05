@@ -40,3 +40,9 @@
     }
   }
 }
+
+@media (min-width: 1000px) {
+  .modal__content__header, .modal__content__body {
+    transform: scale(0.85);
+  }
+} 

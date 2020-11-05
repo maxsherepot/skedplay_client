@@ -41,7 +41,7 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
   )
 
   return (
-    <div className="flex flex-col" key={week.day}>
+    <div className="flex flex-col scale" key={week.day}>
         <div className="flex w-full xs:flex-col md:flex-row">
             <div className="flex items-center justify-between md:w-4/12">
                 <div className="md:w-1/12a px-2">{week.name}</div>

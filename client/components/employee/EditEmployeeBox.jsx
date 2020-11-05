@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
-import {useMutation} from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import {
   SYNC_EMPLOYEE_PRICES,
   SYNC_EMPLOYEE_SERVICES,
@@ -8,21 +8,21 @@ import {
   UPDATE_EMPLOYEE_SCHEDULE,
   UPLOAD_EMPLOYEE_FILES,
 } from "queries";
-import {Tab, Panel} from "UI";
-import {Tabs} from "@bumaga/tabs";
+import { Tab, Panel } from "UI";
+import { Tabs } from "@bumaga/tabs";
 import { useSteps } from "hooks";
 
-import {defaultSchedule, getErrors} from "utils";
-import {employeeRules} from "rules";
-import {EditEmployeeForm} from "components/employee";
-import {AdInformationStep, AdMediaStep, AdScheduleStep, AdServicesAndPricesStep,} from 'components/steps';
+import { defaultSchedule, getErrors } from "utils";
+import { employeeRules } from "rules";
+import { EditEmployeeForm } from "components/employee";
+import { AdInformationStep, AdMediaStep, AdScheduleStep, AdServicesAndPricesStep, } from 'components/steps';
 import StepBox from "components/StepBox";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 
 const EditEmployeeBox = ({ employee, refetchEmployee }) => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const { step, setStep } = useSteps();
 
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
@@ -63,7 +63,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
     prices,
     services,
     parameters,
-    languages: (employee.languages || []).map(l => ({code: l.code, stars: l.pivot.stars})),
+    languages: (employee.languages || []).map(l => ({ code: l.code, stars: l.pivot.stars })),
     schedule: defaultSchedule(employee.schedule),
     will_activate_at: employee.will_activate_at,
     photos: [],
@@ -82,7 +82,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
       const {
         data: {
-          updateEmployee: {status, message}
+          updateEmployee: { status, message }
         }
       } = await updateEmployee({
         variables: {
@@ -216,7 +216,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
   const onSubmitSchedule = async values => {
     try {
-      let payload = values.schedule.map(({ day, start, end, order, club_id, address, at_address}) => {
+      let payload = values.schedule.map(({ day, start, end, order, club_id, address, at_address }) => {
         const clubInt = parseInt(club_id);
 
         return {
@@ -296,77 +296,77 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
 
 
   return (
-      <>
-            {/*{*/}
-            {/*    withStep ?*/}
-            {/*        <div className="flex flex-col lg:flex-row justify-between -mt-6">*/}
-            {/*          <StepBox links={links} />*/}
-            {/*        </div>*/}
-            {/*        :*/}
-                    <Tabs>
-                        <div className="xs:px-0 hd:w-7/12 mx-auto px-8 hd:px-0 pt-12 md:px-8">
-                          {links.map((link, index) => (
-                            <Tab onClick={() => setStep(index)} key={index}>{link}</Tab>
-                          ))}
-                        </div>
-                    </Tabs>
-            {/*}*/}
+    <>
+      {/*{*/}
+      {/*    withStep ?*/}
+      {/*        <div className="flex flex-col lg:flex-row justify-between -mt-6">*/}
+      {/*          <StepBox links={links} />*/}
+      {/*        </div>*/}
+      {/*        :*/}
+      <Tabs>
+        <div className="xs:px-0 hd:w-7/12 mx-auto px-8 hd:px-0 pt-12 md:px-8 lg:-mb-2 font-minimize">
+          {links.map((link, index) => (
+            <Tab onClick={() => setStep(index)} key={index}>{link}</Tab>
+          ))}
+        </div>
+      </Tabs>
+      {/*}*/}
 
 
-          <div className="border-t border-divider"/>
+      <div className="border-t border-divider" />
 
-          <EditEmployeeForm
-            withStep={withStep}
-            onLastStep={onLastStep}
-            initialValues={initialValues}
+      <EditEmployeeForm
+        withStep={withStep}
+        onLastStep={onLastStep}
+        initialValues={initialValues}
+      >
+        <Panel>
+          <EditEmployeeForm.Step
+            validationSchema={employeeRules}
+            onStepSubmit={onSubmitInfo}
           >
-            <Panel>
-              <EditEmployeeForm.Step
-                validationSchema={employeeRules}
-                onStepSubmit={onSubmitInfo}
-              >
-                <AdInformationStep />
-              </EditEmployeeForm.Step>
-            </Panel>
+            <AdInformationStep />
+          </EditEmployeeForm.Step>
+        </Panel>
 
-            <Panel>
-              <EditEmployeeForm.Step onStepSubmit={onSubmitPricesAndServices}>
-                <AdServicesAndPricesStep/>
-              </EditEmployeeForm.Step>
-            </Panel>
+        <Panel>
+          <EditEmployeeForm.Step onStepSubmit={onSubmitPricesAndServices}>
+            <AdServicesAndPricesStep />
+          </EditEmployeeForm.Step>
+        </Panel>
 
-            <Panel>
-              <EditEmployeeForm.Step onStepSubmit={onSubmitMedia} showSubmit={false}>
-                <AdMediaStep employeeId={employee.id} photos={employee.photos} refetchEmployee={refetchEmployee} videos={employee.videos} onSubmitMedia={onSubmitMedia} />
-              </EditEmployeeForm.Step>
-            </Panel>
+        <Panel>
+          <EditEmployeeForm.Step onStepSubmit={onSubmitMedia} showSubmit={false}>
+            <AdMediaStep employeeId={employee.id} photos={employee.photos} refetchEmployee={refetchEmployee} videos={employee.videos} onSubmitMedia={onSubmitMedia} />
+          </EditEmployeeForm.Step>
+        </Panel>
 
-            <Panel>
-              <EditEmployeeForm.Step onStepSubmit={onSubmitSchedule}>
-                <AdScheduleStep />
-              </EditEmployeeForm.Step>
-            </Panel>
-          </EditEmployeeForm>
+        <Panel>
+          <EditEmployeeForm.Step onStepSubmit={onSubmitSchedule}>
+            <AdScheduleStep />
+          </EditEmployeeForm.Step>
+        </Panel>
+      </EditEmployeeForm>
 
 
-        {/*<div className="border-b border-divider" />*/}
-      </>
+      {/*<div className="border-b border-divider" />*/}
+    </>
   );
 };
 
 const getFromLS = (key) => {
-    if ((global || window).localStorage) {
-        return (global || window).localStorage.getItem(key)
-    }
+  if ((global || window).localStorage) {
+    return (global || window).localStorage.getItem(key)
+  }
 };
 
 const saveToLS = (key, value) => {
-    if ((global || window).localStorage) {
-        (global || window).localStorage.setItem(
-            key,
-            value
-        );
-    }
+  if ((global || window).localStorage) {
+    (global || window).localStorage.setItem(
+      key,
+      value
+    );
+  }
 };
 
 

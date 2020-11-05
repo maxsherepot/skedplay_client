@@ -53,7 +53,7 @@ const CategoryItem = ({category, topicSlug, first}) => {
   return (
     <div>
       <span
-        className="flex items-center text-xl font-medium px-0 py-2 hover:cursor-pointer"
+        className="flex items-center text-xl font-medium px-0 py-2 hover:cursor-pointer scale"
         onClick={toggleOpen}
       >
         {getPrefix()}
@@ -62,7 +62,7 @@ const CategoryItem = ({category, topicSlug, first}) => {
 
       <ul
         className={cx([
-          "transition overflow-hidden sm:w-full text-lg text-red font-medium leading-loose ml-8",
+          "transition overflow-hidden sm:w-full text-lg text-red font-medium leading-loose ml-8 scale",
         ])}
         style={{
           height: open ? `${category.topics.length * 34}px` : '0',
@@ -176,7 +176,7 @@ const HelpCenter = ({header, contentClass, user, className, topicSlug, page: ind
             <div className="xl:max-w-3/4" style={{maxWidth: 550}}>
               {selectedTopic ?
                 <>
-                  <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5" style={{lineBreak: "anywhere"}}>
+                  <h1 className="text-2xl font-bold tracking-tighter leading-none mb-5 scale" style={{lineBreak: "anywhere"}}>
                     {getLangField(selectedTopic.name, i18n.language)}
                   </h1>
                   <div dangerouslySetInnerHTML={{__html: getLangField(selectedTopic.content_html, i18n.language)}} />

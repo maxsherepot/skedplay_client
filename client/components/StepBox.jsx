@@ -8,7 +8,7 @@ const StepBox = ({ links, canSetStep, stepsKey }) => {
   const active = step || 0;
 
   return (
-    <div className="step-box flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8">
+    <div className="step-box flex w-full flex-wrap items-start justify-between hd:mx-auto hd:w-7/12 px-8 hd:px-0 my-4 xl:my-8 scale">
       {links.map((name, i) => (
         <div className={cx(
               "flex flex-1 flex-col items-center my-3 cursor-pointer",

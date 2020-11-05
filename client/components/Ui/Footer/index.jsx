@@ -101,7 +101,6 @@ const FooterLeftIcons = () => {
     </>
   );
 };
-
 const FooterRightIcons = () => {
   const icons = [
     { icon: CardsSvg, text: 'Cards' },
@@ -110,7 +109,6 @@ const FooterRightIcons = () => {
     { icon: ApplePaySvg, text: 'Apple pay' },
     { icon: SofortSvg, text: 'Sofort' },
   ];
-
   return (
     <>
       {icons.map((icon, i) => (
@@ -119,7 +117,6 @@ const FooterRightIcons = () => {
     </>
   );
 };
-
 function Footer({ user }) {
   const { t, i18n } = useTranslation();
   const client = useApolloClient();
@@ -129,29 +126,22 @@ function Footer({ user }) {
   } = useQuery(GET_ME);
   const [banPopupShow, setBanPopupShow] = useState(false);
   const [contactsSuccessOpen, setContactsSuccessOpen] = useState(false);
-
   const signOut = () => {
     setCookie("token", "", {
       "max-age": -1
     });
-
     setBanPopupShow(false);
-
     client.clearStore().then(() => redirect({}, "/"));
   };
-
   if (user) {
     Centrifugo.init().then(centrifuge => {
       const channel = 'user_status:' + user.id;
-
       if (!centrifuge) {
         return;
       }
-
       if (centrifuge.getSub(channel)) {
         return;
       }
-
       centrifuge.subscribe(channel, data => {
         if (data.data.status === 'rejected') {
           console.log(data.data.status);
@@ -160,16 +150,12 @@ function Footer({ user }) {
       });
     });
   }
-
   const startYear = moment(new Date('2020')).format('YYYY');
   let currentYear = moment().format('YYYY');
-
   let dateYear = currentYear > startYear ? startYear + " - " + currentYear : startYear;
-
   const onSuccessContacts = () => {
     setContactsSuccessOpen(true);
   };
-
   return (
     <div className="footer flex flex-col bg-black">
       <Popup
@@ -188,11 +174,10 @@ function Footer({ user }) {
           <h3 className="mt-3">{t('account.reason')}: {me && me.rejected_reason ? me.rejected_reason : ''} </h3>
         </Content>
       </Popup>
-
-      <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
-        <div className="flex flex-col justify-center text-center links-footer__div">
+      <div className="container no-scale flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
+        <div className="flex flex-col justify-center text-center links-footer__div  lg:pr-24 hd:pr-32 ">
           <ul className="flex items-center justify-around leading-loose links-footer__div-full text-lg">
-            <li className="mr-8">
+            <li className="mr-8 lg:mr-2 scale">
               <Link href='/about'>
                 <a className="text-white">
                   {t('layout.about')}
@@ -200,11 +185,9 @@ function Footer({ user }) {
               </Link>
             </li>
             {/* Only odd */}
-
-            <ContactsPopup className="mr-8" user={user} onSuccess={onSuccessContacts} />
+            <ContactsPopup className="mr-8 lg:mr-0 scale" user={user} onSuccess={onSuccessContacts} />
             <ContactsCallbackSuccessPopup user={user} open={contactsSuccessOpen} setOpen={setContactsSuccessOpen} />
-
-            <li className="">
+            <li className="scale">
               <Link href={`/helpcenter`}>
                 <a>
                   {t('layout.help_center')}
@@ -213,8 +196,7 @@ function Footer({ user }) {
             </li>
           </ul>
         </div>
-
-        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3">
+        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3 lg:pl-24 hd:pl-32 ">
           {/*<Button size="xs" className="my-4 md:mr-4 md:w-40" outline>*/}
           {/*  {t('layout.create_site')}*/}
           {/*</Button>*/}
@@ -227,45 +209,35 @@ function Footer({ user }) {
           }
         </div>
       </div>
-
       <div className="border-dark-grey border-b" />
-
-      <div className="w-full pl-10 pr-10">
+      <div className="w-full">
         <div className="container without-p w-full md:max-w-3/4 flex flex-col justify-between items-center lg:flex-row lg:max-w-full">
-
           <div className="w-full lg:w-1/4 flex justify-around lg:justify-start items-end my-6">
             <FooterLeftIcons />
           </div>
-
           <div className="text-xs md:text-sm w-2/3 lg:w-2/4 my-11 mt-2 inline-block h-full text-center">
             <div className="text-grey">
               {t('layout.copyright')} {dateYear} {t('layout.all_rights_reserved')}
             </div>
-
             <div className="text-grey">
-              <a href="/helpcenter/terms-and-conditions" className="hover:text-red">
+              <a href="/helpcenter/terms-and-conditions/" className="hover:text-red">
                 {t('layout.terms_conditions')}
               </a> & &nbsp;
-              <a href="/helpcenter/privacy-policy" className="hover:text-red">
+              <a href="/helpcenter/privacy-policy/" className="hover:text-red">
                 {t('layout.privacy_policy')}
               </a>
             </div>
           </div>
-
           {/* <div className="w-full lg:w-1/4 my-6 inline-block flex justify-around">
-            <FooterRightIcons/>
+            <FooterRightIcons />
           </div> */}
-
           <div className="hidden md:flex w-full lg:w-1/4 my-6 inline-block justify-around">
             <FooterRightIcons />
           </div>
-          
         </div>
       </div>
-
       <CookiesBlock />
     </div>
   );
 };
-
 export default Footer;
