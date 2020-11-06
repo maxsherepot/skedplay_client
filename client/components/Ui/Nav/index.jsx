@@ -308,7 +308,7 @@ function Nav({ user, className }) {
               <button
                 className="menu-icons__item menu-icons__item_last md:hidden pr-0"
                 id="menu-hamburger"
-                onClick={() => setIsAccountOpen(true)}
+               onClick={() => setIsAccountOpen(true)}
               >
                 <Menu className="text-grey" style={{ color: "#232323" }} />
               </button>

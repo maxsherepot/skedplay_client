@@ -262,7 +262,7 @@ const ClubMenu = ({clubs}) => {
   });
 };
 
-export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events}}) => {
+export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs, moderated_clubs, employees_events},onClose}) => {
   const {t, i18n} = useTranslation();
   const client = useApolloClient();
 
@@ -304,12 +304,15 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
                 {!employeesLoading &&
                   <>
                     {employees.map(employee => (
-                      <li key={employee.id}>
+                      <li 
+                      onClick={onClose}
+                      key={employee.id}>
                         <Link
                           as={`/account/ad/${employee.id}`}
                           href={`/account/ad/eid/?eid=${employee.id}`}
                         >
-                          <a className="text-red hover:text-black focus:text-black">
+                          <a 
+                          className="text-red hover:text-black focus:text-black">
                             {employee.name}
                           </a>
                         </Link>
@@ -317,7 +320,9 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
                     ))}
 
                     <AddGirlLinkWrap employeesCount={employees.length}>
-                      <li className="hover:text-black focus:text-black">
+                      <li 
+                      onClick={onClose}
+                      className="hover:text-black focus:text-black">
                         <Link href="/girls/add">
                           <a className="border_dashed">
                             {t('layout.add_new_card')}
@@ -329,7 +334,6 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
                 }
               </ul>
             </div>
-
           </>
         }
 
@@ -339,14 +343,18 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
                 {t('layout.my_events')}
             </span>
             <ul className="text-lg font-medium leading-loose ml-10 mt-4">
-              <li className="hover:text-black focus:text-black">
+              <li 
+              onClick={onClose}
+              className="hover:text-black focus:text-black">
                 <Link href="/account/events/create">
                   <a className="border_dashed">
                     {t('layout.add_new_event')}
                   </a>
                 </Link>
               </li>
-              <li className="hover:text-black text-red focus:text-black">
+              <li 
+              onClick={onClose}
+              className="hover:text-black text-red focus:text-black">
                 <Link href="/account/events">
                   <a>
                     {t('layout.events_archive')}
@@ -395,7 +403,9 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
 
         {!is_moderator &&
           <div className="mt-4">
-            <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+            <span 
+            onClick={onClose}
+            className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
                 <Link href="/account/messages-and-chats/chat">
                   <a>
                     {t('layout.messages')} / {t('layout.chats')}
@@ -415,7 +425,9 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
 
         <div className="mt-4">
           <Link href="/account/settings">
-            <a className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
+            <a 
+            onClick={onClose}
+            className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">
               {t('layout.settings')}
             </a>
           </Link>
