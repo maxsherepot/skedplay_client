@@ -28,6 +28,10 @@ body button {
   font-variant-ligatures: none; 
 }
 
+.border_dashed {
+  border-bottom: 2px dashed #FF3366;
+}
+
 @media (min-width: 1000px) {
   
   .container {
@@ -52,6 +56,8 @@ body button {
     font-size: 85%;
   }
 }
+
+
 
 main {
   padding-bottom: 260px;
