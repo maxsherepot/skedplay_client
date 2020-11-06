@@ -7,8 +7,8 @@ import { ProfileSvg, CrownSvg } from "icons";
 import { Avatar, Logo, Button, Lang, FavoritesCount, MobileDrawerMenu, MobileDrawerCategory } from "UI";
 // import { UserDropdown } from "components/user";
 import { usePrevious, useWindowScrollPosition } from "hooks";
-import {useTranslation} from "react-i18next";
-import {useRouter} from "next/router";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 import favorites from "services/favorites";
 import cx from 'classnames';
 
@@ -39,29 +39,29 @@ const FavoriteBlock = () => {
             />
           </svg>
         ) : (
-          <svg
-            className="inline-block stroke-red mr-1"
-            width="17"
-            height="15"
-            viewBox="0 0 17 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.8434 2.14929C14.4768 1.78493 14.0417 1.4959 13.5627 1.2987C13.0837 1.1015 12.5704 1 12.0519 1C11.5335 1 11.0201 1.1015 10.5411 1.2987C10.0621 1.4959 9.62698 1.78493 9.26046 2.14929L8.49981 2.90512L7.73916 2.14929C6.99882 1.41366 5.9947 1.00038 4.94771 1.00038C3.90071 1.00038 2.89659 1.41366 2.15626 2.14929C1.41592 2.88493 1 3.88267 1 4.92302C1 5.96336 1.41592 6.9611 2.15626 7.69674L2.91691 8.45256L8.49981 14L14.0827 8.45256L14.8434 7.69674C15.21 7.33255 15.5009 6.90014 15.6994 6.42422C15.8979 5.94829 16 5.43818 16 4.92302C16 4.40785 15.8979 3.89774 15.6994 3.42182C15.5009 2.94589 15.21 2.51348 14.8434 2.14929Z"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
+            <svg
+              className="inline-block stroke-red mr-1"
+              width="17"
+              height="15"
+              viewBox="0 0 17 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.8434 2.14929C14.4768 1.78493 14.0417 1.4959 13.5627 1.2987C13.0837 1.1015 12.5704 1 12.0519 1C11.5335 1 11.0201 1.1015 10.5411 1.2987C10.0621 1.4959 9.62698 1.78493 9.26046 2.14929L8.49981 2.90512L7.73916 2.14929C6.99882 1.41366 5.9947 1.00038 4.94771 1.00038C3.90071 1.00038 2.89659 1.41366 2.15626 2.14929C1.41592 2.88493 1 3.88267 1 4.92302C1 5.96336 1.41592 6.9611 2.15626 7.69674L2.91691 8.45256L8.49981 14L14.0827 8.45256L14.8434 7.69674C15.21 7.33255 15.5009 6.90014 15.6994 6.42422C15.8979 5.94829 16 5.43818 16 4.92302C16 4.40785 15.8979 3.89774 15.6994 3.42182C15.5009 2.94589 15.21 2.51348 14.8434 2.14929Z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
 
-        <FavoritesCount/>
+        <FavoritesCount />
       </a>
     </Link>
   );
 };
 
-const VipButton = ({whiteTheme}) => {
+const VipButton = ({ whiteTheme }) => {
   const { t, i18n } = useTranslation();
   const [vipHover, setVipHover] = useState(false);
 
@@ -92,7 +92,7 @@ const VipButton = ({whiteTheme}) => {
         onMouseEnter={() => setVipHover(true)}
         onMouseLeave={() => setVipHover(false)}
       >
-        <CrownSvg color={getColor()}/>
+        <CrownSvg color={getColor()} />
         <span
           className={cx(
             "ml-1",
@@ -140,7 +140,7 @@ function Nav({ user, className }) {
   const whiteTheme = isInverse || router.pathname !== '/';
 
   const avatar = user && user.avatar ? user.avatar.thumb_url : null;
-  
+
   return (
     <nav
       className={classNames(
@@ -179,7 +179,7 @@ function Nav({ user, className }) {
                     {t('common.girls')}
                   </span>
                   <span className="inline-block">
-                    <img src="/static/img/arrow-down.svg"/>
+                    <img src="/static/img/arrow-down.svg" />
                   </span>
                   <svg
                     className="inline-block strokeWhite"
@@ -209,13 +209,13 @@ function Nav({ user, className }) {
                 </Link>
               </li>
               <li className="flex items-center">
-                <VipButton whiteTheme={whiteTheme}/>
+                <VipButton whiteTheme={whiteTheme} />
               </li>
             </ul>
           </div>
           <div className="menu-icons flex items-center justify-between">
             <span className="menu-icons__item hidden md:block">
-              <Lang black={isInverse || router.pathname !== '/'}/>
+              <Lang black={isInverse || router.pathname !== '/'} />
             </span>
 
             {(user && user.is_club_owner && user.clubs.length > 0) &&
@@ -240,15 +240,15 @@ function Nav({ user, className }) {
               </AddGirlLinkWrap>
             }
 
-            {/*{(user && user.is_employee && user.employee) &&*/}
-            {/*  <Link href="/account/ad">*/}
-            {/*    <a className="menu-icons__item hidden sm:block">*/}
-            {/*      <button className="bg-red text-white px-5 py-2 rounded-full">*/}
-            {/*        {t('layout.edit_ad')}*/}
-            {/*      </button>*/}
-            {/*    </a>*/}
-            {/*  </Link>*/}
-            {/*}*/}
+            {/* {(user && user.is_employee && user.employee) &&
+             <Link href="/account/ad">
+               <a className="menu-icons__item hidden sm:block">
+                 <button className="bg-red text-white px-5 py-2 rounded-full">
+                   {t('layout.edit_ad')}
+                 </button>
+               </a>
+             </Link>
+            } */}
 
             <Button
               size="xxs"
@@ -261,8 +261,7 @@ function Nav({ user, className }) {
               {t('common.search')}
             </Button>
 
-
-            <FavoriteBlock/>
+            <FavoriteBlock />
 
             {(user && !user.is_club_owner) &&
               <Link href="/account/messages-and-chats">
@@ -284,55 +283,64 @@ function Nav({ user, className }) {
               </Link>
             }
 
-            {user ? (
+            <div className="flex items-center md:hidden">
+              {
+                user ?
+                  (
+                    avatar ?
+                      <Link href="/account">
+                        <Avatar className="ml-2" style={{ width: 20, height: 20 }} isEmpty={!avatar} src={avatar} />
+                      </Link>
+                      :
+                      <Link href="/account">
+                        <div>
+                          <ProfileSvg />
+                        </div>
+                      </Link>
+                  )
+                  :
+                  ""
+              }
+            </div>
+
+            {/* ///////////////////  MENU */}
+            <div className="flex items-center md:hidden">
+              <button
+                className="menu-icons__item menu-icons__item_last md:hidden pr-0"
+                id="menu-hamburger"
+                onClick={() => setIsAccountOpen(true)}
+              >
+                <Menu className="text-grey" style={{ color: "#232323" }} />
+              </button>
+            </div>
+            {/* //////////////////////// */}
+
+            {/* ///////////////////  PROFILE ICON */}
+            {/* */} {user ? (
               <UserDropdown user={user} />
             ) : (
-              <>
-                <Link href="/login">
-                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block">
-                    <ProfileSvg />
-                    {t('common.login')}
-                  </a>
-                </Link>
+                <>
+                  <Link href="/login">
+                    <a className="menu-icons__item hovered menu-icons__item_last hidden md:block">
+                      <ProfileSvg />
+                      {t('common.login')}
+                    </a>
+                  </Link>
 
-                <Link href="/register">
-                  <a className="menu-icons__item hovered menu-icons__item_last hidden sm:block last">
-                    {t('common.sign_up')}
-                  </a>
-                </Link>
-              </>
-            )}
+                  <Link href="/register">
+                    <a className="menu-icons__item hovered menu-icons__item_last hidden md:block last">
+                      {t('common.sign_up')}
+                    </a>
+                  </Link>
+                </>
+              )}
 
-            <div className="flex items-center md:hidden">
-                {
-                    user ?
-                        (
-                            avatar ?
-                                <Avatar className="ml-2" onClick={() => setIsAccountOpen(true)} style={{width: 20, height: 20}} isEmpty={!avatar} src={avatar}/>
-                                :
-                                <button
-                                  className="menu-icons__item menu-icons__item_last md:hidden pr-0"
-                                  id="menu-hamburger"
-                                  onClick={() => setIsAccountOpen(true)}
-                                >
-                                    <ProfileSvg />
-                                </button>
-                        )
-                        :
-                        <button
-                          className="menu-icons__item menu-icons__item_last md:hidden pr-0"
-                          id="menu-hamburger"
-                          onClick={() => setIsAccountOpen(true)}
-                        >
-                            <Menu className="text-grey" style={{color: "#4c4c4c"}}/>
-                        </button>
-                }
-            </div>
+
           </div>
         </div>
       </div>
-      <MobileDrawerMenu user={user} isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)}/>
-      <MobileDrawerCategory user={user} isOpen={isCategoryOpen} onClose={() => setIsCategoryOpen(false)}/>
+      <MobileDrawerMenu user={user} isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
+      <MobileDrawerCategory user={user} isOpen={isCategoryOpen} onClose={() => setIsCategoryOpen(false)} />
       <div
         className={classNames("hidden mobile-menu", {
           open: nav
@@ -397,23 +405,23 @@ function Nav({ user, className }) {
               </a>
             </Link>
           ) : (
-            <>
-              <Link href="/login">
-                <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
-                  {t('common.login')}
-                </a>
-              </Link>
-              <Link href="/register">
-                <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
-                  {t('common.sign_up')}
-                </a>
-              </Link>
-            </>
-          )}
+              <>
+                <Link href="/login">
+                  <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+                    {t('common.login')}
+                  </a>
+                </Link>
+                <Link href="/register">
+                  <a onClick={handleToggleNav} className="block text-center transition tracking-tighter text-white hover:text-red text-2xl font-medium my-8">
+                    {t('common.sign_up')}
+                  </a>
+                </Link>
+              </>
+            )}
           <Lang mobile={true} />
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }
 
