@@ -32,12 +32,14 @@ function Lang({ mobile, black, className }) {
             "de" === i18n.language ? "active" : "",])}
           onClick={e => { e.preventDefault(); i18n.changeLanguage("de") }}
         > de </a>
+
         <a
           href={getLangUrl("fr")}
           className={cx([
             "fr" === i18n.language ? "active" : "",])}
           onClick={e => { e.preventDefault(); i18n.changeLanguage("fr") }}
         > fr </a>
+        
         <a
           href={getLangUrl("en")}
           className={cx([
