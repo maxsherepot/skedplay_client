@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import cx from "classnames";
-import {Fragment, useState} from "react";
+import { Fragment, useState } from "react";
 import React from "react";
 import { Dropdown } from "UI";
 import { i18n } from 'lib/i18n';
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 function Lang({ mobile, black, className }) {
-  const {asPath} = useRouter();
+  const { asPath } = useRouter();
 
   const getLangUrl = (lang) => {
     let path = asPath;
@@ -26,18 +26,24 @@ function Lang({ mobile, black, className }) {
   if (mobile) {
     return (
       <div className="locales">
-        {i18n.options.allLanguages.reverse().map((lang, index) => (
-          <a
-            href={getLangUrl(lang)}
-            className={cx([
-              lang === i18n.language ? "active" : "",
-            ])}
-            key={index}
-            onClick={e => {e.preventDefault(); i18n.changeLanguage(lang)}}
-          >
-            {lang}
-          </a>
-        ))}
+        <a
+          href={getLangUrl("de")}
+          className={cx([
+            "de" === i18n.language ? "active" : "",])}
+          onClick={e => { e.preventDefault(); i18n.changeLanguage("de") }}
+        > de </a>
+        <a
+          href={getLangUrl("fr")}
+          className={cx([
+            "fr" === i18n.language ? "active" : "",])}
+          onClick={e => { e.preventDefault(); i18n.changeLanguage("fr") }}
+        > fr </a>
+        <a
+          href={getLangUrl("en")}
+          className={cx([
+            "en" === i18n.language ? "active" : "",])}
+          onClick={e => { e.preventDefault(); i18n.changeLanguage("en") }}
+        > en </a>
       </div>
     );
   }
@@ -61,7 +67,7 @@ function Lang({ mobile, black, className }) {
         )
       }
     >
-      {({close}) => (
+      {({ close }) => (
         <>
           {i18n.options.allLanguages.reverse().map((lang, index) => (
             <a
