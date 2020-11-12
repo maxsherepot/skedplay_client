@@ -1,36 +1,36 @@
 import React from "react";
-import {GET_EMPLOYEE_PARAMETERS, CITIES} from "queries";
-import {useQuery} from "@apollo/react-hooks";
-import {TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader, GroupCheckbox} from "UI";
-import {useTranslation} from "react-i18next";
-import {GET_RACE_TYPES} from "queries/employeeQuery";
+import { GET_EMPLOYEE_PARAMETERS, CITIES } from "queries";
+import { useQuery } from "@apollo/react-hooks";
+import { TextField, PhoneField, DateRawField, SelectField, TextAreaField, LocationSearchInput, Loader, GroupCheckbox } from "UI";
+import { useTranslation } from "react-i18next";
+import { GET_RACE_TYPES } from "queries/employeeQuery";
 import translation from "services/translation";
 import LangSelector from "components/ad/LangSelector";
-import {GET_CLUB} from "queries/clubQuery";
-import {useRouter} from "next/router";
+import { GET_CLUB } from "queries/clubQuery";
+import { useRouter } from "next/router";
 
 const AdInformationCreateStep = () => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const {data: {parameters} = {}} = useQuery(
+  const { data: { parameters } = {} } = useQuery(
     GET_EMPLOYEE_PARAMETERS
   );
 
-  const {data: {employee_race_types: raceTypes} = {}, racesTypeLoading} = useQuery(GET_RACE_TYPES);
-  const {query: {cid}} = useRouter();
-  const {data: {club} = {}, clubLoading} = useQuery(GET_CLUB, {
-        variables: {
-            id: cid
-        },
-        skip: !cid
+  const { data: { employee_race_types: raceTypes } = {}, racesTypeLoading } = useQuery(GET_RACE_TYPES);
+  const { query: { cid } } = useRouter();
+  const { data: { club } = {}, clubLoading } = useQuery(GET_CLUB, {
+    variables: {
+      id: cid
+    },
+    skip: !cid
   });
 
-  const {loading: citiesLoading, data: {cities} = {}} = useQuery(
+  const { loading: citiesLoading, data: { cities } = {} } = useQuery(
     CITIES
   );
 
   if (citiesLoading || racesTypeLoading || clubLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
@@ -40,14 +40,14 @@ const AdInformationCreateStep = () => {
       <div className="px-2">
         <div className="flex flex-wrap -mx-4 scale">
           <TextField
-            className="w-full sm:w-1/3 px-2"
+            className="w-1/2 sm:w-1/3 px-2"
             inputClassName="w-1/3"
             label={t('common.name')}
             name="name"
           />
 
           <DateRawField
-            className="w-full sm:w-1/3 px-2"
+            className="w-1/2 sm:w-1/3 px-2"
             inputClassName="w-1/3"
             label={t('register.birth')}
             name="birthday"
@@ -75,8 +75,8 @@ const AdInformationCreateStep = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4 scale">
-          <SelectField
-            className="w-full sm:w-1/2 lg:w-1/3 px-2"
+          {/* <SelectField
+            className="w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label={t('common.gender')}
             name="gender"
@@ -91,22 +91,22 @@ const AdInformationCreateStep = () => {
               }
             ]}
             placeholder=""
-          />
+          /> */}
 
           <SelectField
-            className="w-full sm:w-1/2 lg:w-1/3 px-2"
+            className="w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label={t('steps.category')}
             name="type"
             options={[
-                {
-                    label: t('layout.girls'),
-                    value: 1
-                },
-                {
-                    label: t('steps.gender_type_trans'),
-                    value: 2
-                },
+              {
+                label: t('layout.girls'),
+                value: 1
+              },
+              {
+                label: t('steps.gender_type_trans'),
+                value: 2
+              },
             ]}
             placeholder=""
           />
@@ -116,7 +116,7 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('common.race_nationality')}
             name="race_type_id"
-            options={(raceTypes || []).map(e => ({label: e.name, value: parseInt(e.id)}))}
+            options={(raceTypes || []).map(e => ({ label: e.name, value: parseInt(e.id) }))}
             placeholder=""
           />
 
@@ -134,7 +134,7 @@ const AdInformationCreateStep = () => {
       <div className="px-2 scale">
         <div className="flex flex-wrap -mx-4">
           <LocationSearchInput
-              initAddress={club && club.address || ''}
+            initAddress={club && club.address || ''}
           />
 
           <TextField
@@ -160,8 +160,8 @@ const AdInformationCreateStep = () => {
             inputClassName="w-full md:w-1/3"
             label={t('clubs.phone_exampl')}
             name="phone"
-            defaultValue={club && club.phones.slice(2,17) || ''}
-            placeholder={club && club.phones.slice(2,17) || ''}
+            defaultValue={t('clubs.phone_exampl').slice(19)}
+            placeholder={t('clubs.phone_exampl').slice(15, 30)}
           />
 
           <TextField
@@ -193,18 +193,18 @@ const AdInformationCreateStep = () => {
       <div className="px-2 scale">
         <div className="flex flex-wrap -mx-4">
           {parameters &&
-          parameters.map(({id, name, options}) => (
-            <SelectField
-              key={id}
-              className="w-full sm:w-1/3 md:w-1/6 px-2"
-              inputClassName="w-full md:w-1/3"
-              label={translation.getLangField(name, i18n.language)}
-              name={`parameters.${id}`}
-              value=""
-              options={options.map(o => ({value: o.id, label: translation.getLangField(o.value, i18n.language)}))}
-              placeholder=""
-            />
-          ))}
+            parameters.map(({ id, name, options }) => (
+              <SelectField
+                key={id}
+                className="w-1/2 sm:w-1/3 md:w-1/6 px-2"
+                inputClassName="w-full md:w-1/3"
+                label={translation.getLangField(name, i18n.language)}
+                name={`parameters.${id}`}
+                value=""
+                options={options.map(o => ({ value: o.id, label: translation.getLangField(o.value, i18n.language) }))}
+                placeholder=""
+              />
+            ))}
         </div>
 
         <LangSelector />

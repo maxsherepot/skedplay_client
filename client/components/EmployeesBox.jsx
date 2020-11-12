@@ -22,7 +22,7 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
       </div>
 
       <div className="container">
-        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">
+        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4 lg:-mt-10 lg:-mb-10">
           {employees &&
             employees.data.map(girl => (
               <div

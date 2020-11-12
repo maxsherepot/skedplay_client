@@ -43,7 +43,7 @@ const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChan
         }
       />
 
-      <div className="flex flex-col md:flex-row md:items-end my-5 scale lg:-mt-8">
+      <div className="flex flex-col md:flex-row md:items-end my-5 scale lg:-mt-2">
         <div className="text-xl sm:text-2xl font-bold leading-none">{t('clubs.video')}</div>
         <span className="md:ml-6 text-xs md:text-lg">
           {t('max_size_uploaded.video')}

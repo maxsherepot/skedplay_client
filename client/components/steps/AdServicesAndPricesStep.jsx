@@ -37,7 +37,7 @@ const AdServicesAndPricesStep = () => {
               <div className="row text-center text-xl sm:text-2xl">
                   <h2>{translation.getLangField(groupService.name, i18n.language)}</h2>
               </div>
-              <div className={isHorizontal ? "flex flex-wrap scale lg:-mt-32 lg:-mb-32" : ""}>
+              <div className={isHorizontal ? "flex flex-wrap scale lg:-mt-16 lg:-mb-32" : ""}>
                   {currentGroupServices.map((service) => (
                     <div
                       className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-0 mb-6 sm:mb-2 scale"}

@@ -263,7 +263,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     <>
       <div className="">
         <div className="">
-          <div className="flex flex-col md:flex-row flex-wrap bg-xs-grey rounded-lg pb-2" style={{minHeight: 400}}>
+          <div className="flex flex-col md:flex-row flex-wrap bg-xs-grey rounded-lg pb-2 lg:-mt-16" style={{minHeight: 400}}>
             {mobileChatBlock}
             {chatRoomBlock}
             {chatsBlock}

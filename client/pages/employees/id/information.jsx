@@ -5,25 +5,25 @@ import checkLoggedIn from "lib/checkLoggedIn";
 import { ArrowNextSvg, RatingSvg, CocktailSvg } from "icons";
 import { Lightbox, GalleryWithThumbnail, EventCard, Loader } from "UI";
 import { CANTONS_AND_CITIES, GET_EMPLOYEE, ALL_EMPLOYEES, DO_EVENT } from "queries";
-import {useMutation, useQuery} from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { FavoriteButton } from "components/favorite";
 import EmployeeBox from "components/employee/EmployeeBox";
 import { EmployeeSchedule } from "components/schedule";
 import PriceAndService from "components/price/PriceAndService";
 import AlertTriangleSvg from "components/icons/AlertTriangleSvg";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import EmployeeMaps from "components/employee/EmployeeMaps";
-import {LoginBox} from "components/login";
+import { LoginBox } from "components/login";
 import Modal from "UI/Modal";
 import translation from "services/translation";
 
-import {NextSeo} from "next-seo";
+import { NextSeo } from "next-seo";
 import CurrentLocation from "components/employee/CurrentLocation";
 import Slider from "react-slick";
 import Cookies from 'js-cookie';
 
 const EmployeeInformation = ({ user }) => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   let { id, canton, city } = router.query;
   canton = canton ? canton.replace('/', '') : canton;
@@ -78,13 +78,13 @@ const EmployeeInformation = ({ user }) => {
   }, []);
 
   if (cantonsLoading || employeeLoading || loadingEmployees) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const employees = employeesData ? employeesData.employees.data || [] : [];
 
   if (!employees) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   if (!employee || employee.user_status === 2 || employee.status === 2) {
@@ -140,8 +140,8 @@ const EmployeeInformation = ({ user }) => {
   const getBigThumbUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
       // if (photo.big_thumb_blur_url) {
-        photo.vip = true;
-        // return photo.big_thumb_blur_url;
+      photo.vip = true;
+      // return photo.big_thumb_blur_url;
       // }
     }
 
@@ -151,8 +151,8 @@ const EmployeeInformation = ({ user }) => {
   const getPhotoUrl = (photo) => {
     if (JSON.parse(photo.custom_properties).porn && !user) {
       // if (photo.blur_url) {
-        photo.vip = true;
-        // return photo.blur_url;
+      photo.vip = true;
+      // return photo.blur_url;
       // }
     }
 
@@ -167,7 +167,7 @@ const EmployeeInformation = ({ user }) => {
         <div className="flex justify-center" style={{ backgroundColor: '#f6f6f6' }}>
           <img
             className="object-cover w-full h-photo sm:h-photo-sm md:h-e-photo-md lg:h-e-photo-md xl:h-e-photo-xl hd:h-e-photo-hd"
-            style={{ width: 200 }} src="/static/img/girl-no-photo.jpg" alt=""/>
+            style={{ width: 200 }} src="/static/img/girl-no-photo.jpg" alt="" />
         </div>
       </div>
       :
@@ -271,11 +271,11 @@ const EmployeeInformation = ({ user }) => {
               }
 
               {employee.parameters.map(p => (
-                  <section className="my-3" key={p.id}>
-                    <div className="text-grey">{translation.getLangField(p.parameter.name, i18n.language)}</div>
-                    <div className="line" />
-                    <div className="w-32">{translation.getLangField(p.parameter_option.value, i18n.language)}</div>
-                  </section>
+                <section className="my-3" key={p.id}>
+                  <div className="text-grey">{translation.getLangField(p.parameter.name, i18n.language)}</div>
+                  <div className="line" />
+                  <div className="w-32">{translation.getLangField(p.parameter_option.value, i18n.language)}</div>
+                </section>
               ))}
 
               {!!employee.languages.length &&
@@ -287,10 +287,10 @@ const EmployeeInformation = ({ user }) => {
                       <div className="flex items-center justify-between mb-2" key={lang.id}>
                         {t('language.' + lang.code)}
                         <span className="flex justify-between w-16">
-                        <div className="flex ml-2">
-                          {getStars(lang.pivot.stars)}
-                        </div>
-                      </span>
+                          <div className="flex ml-2">
+                            {getStars(lang.pivot.stars)}
+                          </div>
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -308,20 +308,20 @@ const EmployeeInformation = ({ user }) => {
 
                 {(employee.status === 1 && employee.user_status === 1) ?
                   (<div
-                      className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
-                      100%
+                    className="flex items-center justify-center bg-black text-white font-bold w-15 h-15 rounded-full mx-4 sm:mx-0 sm:mb-3">
+                    100%
                     </div>
                   ) : ''}
                 <div
                   className="flex items-center justify-center bg-white border-2 border-divider w-15 h-15 rounded-full">
-                  <CocktailSvg height={30} width={30}/>
+                  <CocktailSvg height={30} width={30} />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="w-2/5 px-3 hidden hd:block">
-          <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
+          <CurrentLocation user={user} employee={employee} mapRef={mapRef} />
         </div>
       </div>
     </>
@@ -334,170 +334,170 @@ const EmployeeInformation = ({ user }) => {
         canonical={canonical()}
       />
 
-  <EmployeeBox employee={employee} user={user} noName={!user && (employee.isVip === true)} employees={employees} showNavLinks={user || !employee.isVip}>
+      <EmployeeBox employee={employee} user={user} noName={!user && (employee.isVip === true)} employees={employees} showNavLinks={user || !employee.isVip}>
         {!user && (employee.isVip === true) ? (
-            <div className="mt-4 flex flex-col items-center">
-                <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"
-                     style={{backgroundColor: "#ffeff3", width: "calc(100% - 8px)", maxWidth: 540}}>
-                    <div className="flex">
-                        <div className="flex flex-col w-full">
-                            <div className="flex items-center justify-between">
-                                <div className="mr-4">
-                                    <AlertTriangleSvg />
-                                </div>
-                                 <span className="text-lg">{t('chat.chat_available_for_authorized')}</span>
-                            </div>
-                          </div>
-                      </div>
+          <div className="mt-4 flex flex-col items-center">
+            <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"
+              style={{ backgroundColor: "#ffeff3", width: "calc(100% - 8px)", maxWidth: 540 }}>
+              <div className="flex">
+                <div className="flex flex-col w-full">
+                  <div className="flex items-center justify-between">
+                    <div className="mr-4">
+                      <AlertTriangleSvg />
+                    </div>
+                    <span className="text-lg">{t('chat.chat_available_for_authorized')}</span>
+                  </div>
                 </div>
-                <div className="w-full" style={{maxWidth: 550}}>
-                    <Modal
-                      title={t('common.login')}
-                      style={{height: "auto"}}
-                      modalDialogStyle={{height: "auto"}}
-                    >
-                      {/*<div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
+              </div>
+            </div>
+            <div className="w-full" style={{ maxWidth: 550 }}>
+              <Modal
+                title={t('common.login')}
+                style={{ height: "auto" }}
+                modalDialogStyle={{ height: "auto" }}
+              >
+                {/*<div className="mt-3 mb-2 bg-red p-3 w-2/3 text-center mx-auto">
                                 <span className="text-white">
                                   {t('chat.chat_available_for_authorized')}
                                 </span>
                       </div>*/}
-                      <LoginBox />
-                    </Modal>
-                </div>
+                <LoginBox />
+              </Modal>
             </div>
+          </div>
         ) : (
 
-          <>
-              <div className="sm:hidden" style={{marginLeft:-20, marginRight: -20}}>
-                  {sidebarColumn}
+            <>
+              <div className="sm:hidden" style={{ marginLeft: -20, marginRight: -20 }}>
+                {sidebarColumn}
               </div>
-            <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
-              <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{ maxWidth: 750 }}>
-                {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
-                <div className="hidden sm:block">
+              <div className="flex flex-col sm:flex-row flex-wrap -mx-3 lg:-mt-48 hd:-mt-32">
+                <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{ maxWidth: 750 }}>
+                  {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
+                  <div className="hidden sm:block">
                     {sidebarColumn}
-                </div>
-              </div>
-              <div className="w-full lg:w-1/3 px-3 block sm:flex lg:block hd:hidden justify-center mb-5">
-                <CurrentLocation user={user} employee={employee} mapRef={mapRef}/>
-              </div>
-              <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
-            </div>
-
-            <div className="flex flex-wrap -mx-3">
-              <div className="w-full hd:w-2/5 px-3">
-
-                <EmployeeSchedule
-                  title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
-                  employee={employee}
-                />
-              </div>
-
-              <div className="w-full hd:w-2/5 px-3">
-                <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
-              </div>
-
-              <div className="w-full hd:w-1/5 px-3">
-                <div className="flex items-end my-5">
-                  <div className="text-2xl font-bold tracking-tighter leading-none">
-                    {t('employees.nachste_event')}
                   </div>
-                  <Link
-                    href={getHref('events')}
-                    as={getAs('events')}
-                  >
-                    <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
-                      <ArrowNextSvg>
-                        <span className="mr-1">{t('employees.all_events')}</span>
-                      </ArrowNextSvg>
-                    </a>
-                  </Link>
                 </div>
-                {employee.events.length === 0 &&
+                <div className="w-full lg:w-1/3 px-3 block sm:flex lg:block hd:hidden justify-center mb-5">
+                  <CurrentLocation user={user} employee={employee} mapRef={mapRef} />
+                </div>
+                <div className="w-full hd:w-3/5 px-3">{contentColumn}</div>
+              </div>
+
+              <div className="flex flex-wrap -mx-3">
+                <div className="w-full hd:w-2/5 px-3">
+
+                  <EmployeeSchedule
+                    title={`${t('schedule.my_schedule_in')} ${employee.club ? employee.club.name : ""}`}
+                    employee={employee}
+                  />
+                </div>
+
+                <div className="w-full hd:w-2/5 px-3">
+                  <PriceAndService title={t('titles.price_and_service')} prices={employee.prices} services={employee.services} />
+                </div>
+
+                <div className="w-full hd:w-1/5 px-3">
+                  <div className="flex items-end my-5">
+                    <div className="text-2xl font-bold tracking-tighter leading-none">
+                      {t('employees.nachste_event')}
+                    </div>
+                    <Link
+                      href={getHref('events')}
+                      as={getAs('events')}
+                    >
+                      <a className="block text-sm whitespace-no-wrap transition hover:text-red ml-4">
+                        <ArrowNextSvg>
+                          <span className="mr-1">{t('employees.all_events')}</span>
+                        </ArrowNextSvg>
+                      </a>
+                    </Link>
+                  </div>
+                  {employee.events.length === 0 &&
                     <div className="flex flex-col sm:flex-row bg-white text-sm hd:text-base rounded-lg p-4 lg:p-12">
-                        <span className="text-center w-full">
-                            No Events yet
+                      <span className="text-center w-full">
+                        No Events yet
                         </span>
                     </div>
-                }
-                {employee.events.length > 0 &&
-                  <div className="-mx-3">
-                    <Slider
-                      className="relative block"
-                      arrows={false}
-                      infinite={false}
-                      swipeToSlide={true}
-                      slidesToShow={1}
-                      // autoplay={true}
-                      // dots={true}
-                      // autoplaySpeed={5000}
-                      responsive={[
-                        // {
-                        //   breakpoint: 2800,
-                        //   settings: {
-                        //     slidesToShow: 1,
-                        //     slidesToScroll: 1,
-                        //     // infinite: true,
-                        //   }
-                        // },
-                        // {
-                        //   breakpoint: 1779,
-                        //   settings: {
-                        //     slidesToShow: 4,
-                        //     slidesToScroll: 1,
-                        //     // infinite: true,
-                        //   }
-                        // },
-                        {
-                          breakpoint: 1320,
-                          settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 1,
-                            // infinite: true,
-                          }
-                        },
-                        {
-                          breakpoint: 768,
-                          settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            // infinite: true,
-                          }
-                        },
-                        {
-                          breakpoint: 480,
-                          settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            // infinite: true,
-                            dots: true
-                          }
-                        },
-                      ]}
-                    >
-                      {employee.events.map((event, index) => {
-                        return (
-                          <EventCard
-                            key={event.id}
-                            href={`/${girlType}/canton/city/id/events`}
-                            inProfile={true}
-                            linkQueryParams={`?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`}
-                            as={`/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/events`}
-                            {...event}
-                          />
-                        );
-                      })}
-                    </Slider>
-                  </div>
-                }
+                  }
+                  {employee.events.length > 0 &&
+                    <div className="-mx-3">
+                      <Slider
+                        className="relative block"
+                        arrows={false}
+                        infinite={false}
+                        swipeToSlide={true}
+                        slidesToShow={1}
+                        // autoplay={true}
+                        // dots={true}
+                        // autoplaySpeed={5000}
+                        responsive={[
+                          // {
+                          //   breakpoint: 2800,
+                          //   settings: {
+                          //     slidesToShow: 1,
+                          //     slidesToScroll: 1,
+                          //     // infinite: true,
+                          //   }
+                          // },
+                          // {
+                          //   breakpoint: 1779,
+                          //   settings: {
+                          //     slidesToShow: 4,
+                          //     slidesToScroll: 1,
+                          //     // infinite: true,
+                          //   }
+                          // },
+                          {
+                            breakpoint: 1320,
+                            settings: {
+                              slidesToShow: 3,
+                              slidesToScroll: 1,
+                              // infinite: true,
+                            }
+                          },
+                          {
+                            breakpoint: 768,
+                            settings: {
+                              slidesToShow: 2,
+                              slidesToScroll: 1,
+                              // infinite: true,
+                            }
+                          },
+                          {
+                            breakpoint: 480,
+                            settings: {
+                              slidesToShow: 1,
+                              slidesToScroll: 1,
+                              // infinite: true,
+                              dots: true
+                            }
+                          },
+                        ]}
+                      >
+                        {employee.events.map((event, index) => {
+                          return (
+                            <EventCard
+                              key={event.id}
+                              href={`/${girlType}/canton/city/id/events`}
+                              inProfile={true}
+                              linkQueryParams={`?id=${employee.id}&canton=${employee.city.canton.slug}&city=${employee.city.slug}`}
+                              as={`/${girlType}/${employee.city.canton.slug}/${employee.city.slug}/${employee.id}/events`}
+                              {...event}
+                            />
+                          );
+                        })}
+                      </Slider>
+                    </div>
+                  }
+                </div>
               </div>
-            </div>
 
-            <div className="mt-6 mb-6" ref={mapRef}>
-              <EmployeeMaps employee={employee} goBtn={true}/>
-            </div>
-          </>
-        )}
+              <div className="mt-6 mb-6" ref={mapRef}>
+                <EmployeeMaps employee={employee} goBtn={true} />
+              </div>
+            </>
+          )}
       </EmployeeBox>
     </>
   );

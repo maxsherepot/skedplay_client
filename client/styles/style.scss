@@ -15,17 +15,13 @@
   }
 }
 
-* {
+*, body, button, input{
   font-variant-ligatures: none;
 }
 
 body {
   overflow-x: hidden;
   min-width: 280px;
-}
-
-body button {
-  font-variant-ligatures: none; 
 }
 
 .border_dashed {
@@ -55,8 +51,15 @@ body button {
   .font-minimize {
     font-size: 85%;
   }
+
+  // .mv {
+  //   max-width: 1780px;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // }
 }
 
+//max-width: 1780px;
 
 
 main {

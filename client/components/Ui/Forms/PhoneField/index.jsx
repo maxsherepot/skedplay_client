@@ -4,6 +4,8 @@ import dot from "dot-object";
 import PropTypes from "prop-types";
 import { Field, useFormikContext } from "formik";
 import InputMask from 'react-input-mask';
+import {useTranslation} from "react-i18next";
+
 
 import { FormGroup } from "UI";
 import formErrors from "services/formErrors";
@@ -21,6 +23,7 @@ function PhoneField({
   ...rest
 }) {
   const { touched, errors, values } = useFormikContext();
+  const {t, i18n} = useTranslation();
 
   const initialValue = defaultValue || dot.pick(name, values) || values[name];
 
@@ -68,7 +71,8 @@ function PhoneField({
               "pl-10": before
             })}
             {...field}
-            value={value}
+            //value={value}
+            //value={t('clubs.phone_exampl').slice(19)}
             style={before ? { paddingLeft: "2.5rem" } : null}
             beforeMaskedValueChange={beforeMaskedValueChange}
           />
