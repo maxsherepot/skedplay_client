@@ -102,8 +102,8 @@ function NewAdForm({ children, clubId }) {
         schedule: [
           {
             day: 0,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 6,
             employee_id: null,
@@ -111,8 +111,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 1,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 0,
             employee_id: null,
@@ -120,8 +120,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 2,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 1,
             employee_id: null,
@@ -129,8 +129,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 3,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 2,
             employee_id: null,
@@ -138,8 +138,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 4,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 3,
             employee_id: null,
@@ -147,8 +147,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 5,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 4,
             employee_id: null,
@@ -156,8 +156,8 @@ function NewAdForm({ children, clubId }) {
           },
           {
             day: 6,
-            start: null,
-            end: null,
+            start: "18:00",
+            end: "02:00",
             available: true,
             order: 5,
             employee_id: null,

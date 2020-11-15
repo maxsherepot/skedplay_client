@@ -109,10 +109,16 @@ function MultiVideoField({
       <div className="px-2 mb-8">
         <div className="flex flex-wrap items-center -mx-4">
 
-          <DisplayPreviews videos={previews} indexes={indexes} setPreviews={setPreviews} />
+          <DisplayPreviews 
+          videos={previews} 
+          indexes={indexes} setPreviews={setPreviews} />
 
           {/* Todo: Add plan's constrait! */}
           {previews.length < 2 && (
+            
+            
+            
+            
             <label
               className="relative px-3"
               style={{ marginBottom: 0 }}
@@ -127,6 +133,10 @@ function MultiVideoField({
                 onChange={handleChange}
               />
             </label>
+
+
+
+
           )}
         </div>
       </div>

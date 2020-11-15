@@ -32,7 +32,7 @@ const AccountSettings = ({ user }) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container no-scale">
         <div className="">
           <div className="text-2xl font-bold tracking-tighter leading-none my-5 mx-3">
             {t('account.contact_information')}

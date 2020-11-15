@@ -40,7 +40,7 @@ const DisplayPreviews = ({ photos, setPreviews, mainImageIndex, setMainImageInde
   };
 
   return (
-      <div className="px-2 mb-8">
+      <div className="px-2 mb-4">
         <div className="flex flex-wrap items-center -mx-4">
           {photos.map((photo, i) => (
               <div
@@ -242,17 +242,24 @@ function MultiPhotoField({
               refetchEntity={refetchEntity}
             />
 
-            <label className="relative" style={{ paddingLeft: 0 }}>
+
+
+
+            <label className="relative pr-4 sm:pr-0" style={{ paddingLeft: 0 }}>
               {trigger}
               <input
                 className="absolute inset-0 opacity-0 w-full cursor-pointer z-20"
                 type="file"
                 accept={accept}
-                required={required}
+                required
                 multiple
                 onChange={handleChange}
               />
             </label>
+
+
+
+            
           </>
         </FormGroup>
       </div>

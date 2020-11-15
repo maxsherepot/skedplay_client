@@ -28,8 +28,47 @@ body {
   border-bottom: 2px dashed #FF3366;
 }
 
+.min {
+  min-width: 124px;
+  min-height: 224px;
+}
+
+@media (min-width: 1000px){
+  .box {
+    max-width: 850px;
+  }
+
+  .min {
+    max-width: 142px;
+  }
+}
+
+@media (min-width: 1320px){
+  .box {
+  	max-width: 1120px;
+  }
+}
+
+@media (min-width: 1440px){
+  .box {
+  	max-width: 1230px;
+  }
+}
+
+@media (min-width: 1600px){
+  .box {
+  	max-width: 1364px;
+  }
+}
+
+@media (min-width: 1780px){
+  .box {
+  	max-width: 1510px;
+  }
+}
+
+
 @media (min-width: 1000px) {
-  
   .container {
     transform: scale(0.85);
     padding-left: 0px !important;
@@ -52,14 +91,7 @@ body {
     font-size: 85%;
   }
 
-  // .mv {
-  //   max-width: 1780px;
-  //   margin-left: auto;
-  //   margin-right: auto;
-  // }
 }
-
-//max-width: 1780px;
 
 
 main {
@@ -298,6 +330,7 @@ button:focus {
         max-width: 100%;
     }
 }
+
 
 .login-modal, .register-modal {
   .modal__dialog {

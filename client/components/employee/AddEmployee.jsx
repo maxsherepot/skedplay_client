@@ -25,7 +25,7 @@ const AddEmployee = ({clubId}) => {
     <>
       <div className="container">
         <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto py-8">
-          <div className="text-4-65xl font-bold">{t('ad.new')}</div>
+          <div className="text-2xl md:text-4-65xl  font-bold">{t('ad.new')}</div>
           <div
             className="flex items-center cursor-pointer"
             onClick={() => router.back()}

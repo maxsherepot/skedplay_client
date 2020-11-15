@@ -28,18 +28,11 @@ const AdMediaStep = ({ photos, videos, employeeId, refetchEmployee, submitOnChan
         modelType={'employee'}
         mediaCollection={'employee-photo'}
         trigger={
-          <Button
-            className="px-3"
-            level="primary-black"
-            outline
-            size="sm"
-            type="button"
-          >
-            <div className="flex items-center">
-              <BlackPlusSvg />
-              <span className="ml-2">{t('account.from_device')}</span>
+          <div className="border border-light-grey border-dashed rounded-lg sm:w-full w-1/2 md:w-38 rounded-lg px-2 mb-6 min flex items-center justify-center -mt-4">
+            <div className="flex flex-col items-center">
+              <AddPhotoSvg />
             </div>
-          </Button>
+          </div>
         }
       />
 

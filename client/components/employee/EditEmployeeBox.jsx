@@ -304,7 +304,7 @@ const EditEmployeeBox = ({ employee, refetchEmployee }) => {
       {/*        </div>*/}
       {/*        :*/}
       <Tabs>
-        <div className="xs:px-0 hd:w-7/12 mx-auto px-8 hd:px-0 pt-12 md:px-8 lg:-mb-2 font-minimize">
+        <div className="xs:px-0 hd:w-6/12 mx-auto px-8 hd:px-0 pt-12 md:px-8 lg:-mb-2 font-minimize">
           {links.map((link, index) => (
             <Tab onClick={() => setStep(index)} key={index}>{link}</Tab>
           ))}

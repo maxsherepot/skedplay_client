@@ -50,7 +50,7 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
                     <input type="hidden"/>
                   )}
                 </Field>
-                <div className="md:w-1/6a px-2">
+                {/* <div className="md:w-1/6a px-2">
                   <ToggleField
                     trueLabel={t('steps.alone')}
                     falseLabel={t('steps.at_club')}
@@ -58,7 +58,7 @@ const WeekRow = ({week, schedule, startOptions, timeOptions, isStartDisabled, cl
                     className="toggle-field"
                     onChange={(value) => setAlone(value)}
                   />
-                </div>
+                </div> */}
             </div>
             <div className="w-full md:w-3/12a px-2  md:w-8/12 max-w-sm flex-row">
                 {!alone &&
@@ -143,31 +143,31 @@ const AdScheduleStep = () => {
   const weeks = [
     {
       day: 0,
-      name: t('day.sunday')
-    },
-    {
-      day: 1,
       name: t('day.monday')
     },
     {
-      day: 2,
+      day: 1,
       name: t('day.tuesday')
     },
     {
-      day: 3,
+      day: 2,
       name: t('day.wednesday')
     },
     {
-      day: 4,
+      day: 3,
       name: t('day.thursday')
     },
     {
-      day: 5,
+      day: 4,
       name: t('day.friday')
     },
     {
-      day: 6,
+      day: 5,
       name: t('day.saturday')
+    },
+    {
+      day: 6,
+      name: t('day.sunday')
     }
   ];
 
