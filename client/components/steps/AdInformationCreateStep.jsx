@@ -164,13 +164,13 @@ const AdInformationCreateStep = () => {
             placeholder={t('clubs.phone_exampl').slice(15, 30)}
           />
 
-          <TextField
+          {/* <TextField
             className="w-full md:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
             label={t('clubs.mail')}
             name="email"
             value={club && club.email || ''}
-          />
+          /> */}
 
           <TextField
             className="w-full md:w-1/3 px-2"
@@ -178,7 +178,7 @@ const AdInformationCreateStep = () => {
             label={t('layout.webpage')}
             name="website"
             placeholder="www.example.com"
-            value={club && club.website || ''}
+            value={club && club.website || 'http://'}
           />
         </div>
       </div>

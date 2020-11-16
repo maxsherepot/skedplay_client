@@ -140,7 +140,7 @@ const LangSelector = () => {
               className="w-full flex items-center sm:w-1/3 px-2 cursor-pointer"
               onClick={() => addLanguage(arrayHelpers)}
             >
-              <AddSvg /> <div className="ml-2">Add language</div>
+              <AddSvg /> <div className="ml-2">{t('ad.add_language')}</div>
             </div>
           </div>
         )}

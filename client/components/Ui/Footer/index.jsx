@@ -179,7 +179,7 @@ function Footer({ user }) {
       <div className="container no-scale flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6 lg:my-4 box">
 
         <div className="flex flex-col justify-center text-center links-footer__div ">
-          <ul className="flex items-center justify-around leading-loose links-footer__div-full text-lg">
+          <ul className="flex items-center justify-around leading-loose links-footer__div-full text-sm md:text-lg">
             <li className="mr-8 scale">
               <Link href='/about'>
                 <a className="text-white">

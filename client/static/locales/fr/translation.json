@@ -345,6 +345,8 @@
     "chat_available_for_authorized": "Chat is available only for Registered users, please Sign up or Register"
   },
   "account": {
+    "delete_account":"Delete account",
+    "really_delete_account": "Do you really want to delete your account?",
     "my_account": "My account",
     "account_settings": "Account setting",
     "contact_information": "Contact Information",
@@ -618,6 +620,7 @@
     "fr": "French"
   },
   "ad": {
+    "add_language": "Add language",
     "delete_language": "Delete language",
     "add_friend": "Add a friend",
     "save": "Save ad",

@@ -6,8 +6,14 @@ import { getErrors } from "utils";
 import { useTranslation } from "react-i18next";
 import Popup from "reactjs-popup";
 import Content from "UI/Popup/Content";
-import {CloseSvg } from "icons";
 
+
+const contentStyle = {
+  background: "transparent",
+  width: 400,
+  padding: 0,
+  border: "none",
+};
 
 
 const EditAccount = ({ initialValues, onSubmit }) => {
@@ -67,61 +73,60 @@ const EditAccount = ({ initialValues, onSubmit }) => {
     >
       {({ handleSubmit, isSubmitting, status }) => (
         <form onSubmit={handleSubmit}>
-          <div className="px-2">
+          <div className="px-0 sm:px-2">
             {status && (
               <div className="text-dark-green text-white px-1 mb-3">
                 {status}
               </div>
             )}
-            <TextField className="w-1/3" label={t('account.user_name')} name="name" />
-            <TextField className="w-1/3" label={t('account.contact_email')} name="email" />
-            <PhoneField
-              className="w-1/3"
-              label={t('account.contact_phone_number')}
-              name="phone"
-            />
-
-            <Button
-              type="submit"
-              className="px-8"
-              size="sm"
-              disabled={isSubmitting}
-            >
-              {t('account.save_changes')}
-            </Button>
-
-
-
+            <TextField className="sm:w-1/3" label={t('account.user_name')} name="name" />
+            <TextField className="sm:w-1/3" label={t('account.contact_email')} name="email" />
+            <PhoneField className="sm:w-1/3" label={t('account.contact_phone_number')} name="phone" />
 
             <Popup
               modal
               closeOnDocumentClick
               onClose={closeModal}
-              open={showModal}
-              contentStyle={{
-                width: "100%",
-                maxWidth: "600px",
-              }}
+              open={banPopupShow}
+              contentStyle={contentStyle}
             >
               <Content
-                title={"Account delete"}
-                //close={closeModal}
+                title={t('account.delete_account')}
+                close={closeModal}
               >
-                <div 
-                className="absolute top-0 right-0 m-4 cursor-pointer" 
-                onClick={closeModal}>
-                  <CloseSvg />
-                </div>
-
-                <h3 className="mt-3">Do you really want to delete your account?</h3>
+                <h3 className="mt-3">{t('account.really_delete_account')}</h3>
+                <Button
+                  type="button"
+                  onClick={() => console.log("Delete account action")}
+                  className="px-3 mr-4 mt-8"
+                  level="primary"
+                  size="xs" >
+                  {t('answer.yes_delete')}
+                </Button>
               </Content>
             </Popup>
 
+            <div className="" >
+              <Button
+                type="submit"
+                className="px-8"
+                size="sm"
+                disabled={isSubmitting}
+              >
+                {t('account.save_changes')}
+              </Button>
 
-            <span
-              className="text-xl text-grey font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
-              onClick={showModal}
-            >delete profile</span>
+              <button
+                type="button"
+                className="mt-4 md:mt-0 md:ml-8 text-md text-grey font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer"
+                onClick={showModal}
+              > {t('account.delete_account')}</button>
+            </div>
+
+
+
+
+
 
 
 

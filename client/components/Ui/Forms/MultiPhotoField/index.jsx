@@ -241,10 +241,6 @@ function MultiPhotoField({
               selectable={selectable}
               refetchEntity={refetchEntity}
             />
-
-
-
-
             <label className="relative pr-4 sm:pr-0" style={{ paddingLeft: 0 }}>
               {trigger}
               <input
@@ -256,10 +252,6 @@ function MultiPhotoField({
                 onChange={handleChange}
               />
             </label>
-
-
-
-            
           </>
         </FormGroup>
       </div>
