@@ -292,7 +292,7 @@ export const Sidebar = ({user: {is_club_owner, is_moderator, is_employee, clubs,
   return (
     <div className="account-layout-sidebar hidden sm:flex lg:flex-1 justify-center lg:justify-end w-auto border-divider border-b lg:border-r">
       {(employeesLoading) && <Loader/>}
-      <div className="flex flex-col py-10 lg:pr-20 xl:pr-20 scale">
+      <div className="flex flex-col py-10 lg:pr-20 xl:pr-20">
         {is_employee &&
           <>
             <span className="text-xl font-medium px-5 py-2 rounded-full hover:bg-pink-100 hover:cursor-pointer">

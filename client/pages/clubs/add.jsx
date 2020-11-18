@@ -30,9 +30,9 @@ const ClubsAdd = ({ user }) => {
 
   return (
     <>
-      <div className="container no-scale">
+      <div className="container">
         <Breadcrumbs />
-          <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto pt-4 pb-8 scale">
+          <div className="flex flex-col md:flex-row items-center justify-between hd:w-7/12 mx-auto pt-4 pb-8">
             <div className="text-4-65xl font-extrabold">{t('clubs.add_club')}</div>
             <div
               className="flex items-center cursor-pointer"

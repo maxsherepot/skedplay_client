@@ -155,17 +155,17 @@ const EmployeeReviews = ({user}) => {
       <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
           {
               !isReviewFormOpen ?
-                    <div className="flex justify-center hd:hidden mb-4 sm:mb-2 lg:-mt-56">
+                    <div className="flex justify-center hd:hidden mb-4 sm:mb-2">
                         <Button variant="outlined"  color="secondary" onClick={() => setIsReviewFormOpen(true)}>{t('employees.leave_comment')}</Button>
                     </div>
                     :
                     null
           }
 
-        <div className="flex flex-col sm:flex-row flex-wrap -mx-3 hd:-mt-56">
+        <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
             <span className="w-full flex justify-center hd:hidden">
                 {isReviewFormOpen &&
-                    <div className="w-full px-3  lg:-mt-64" style={{maxWidth: "500px"}}>
+                    <div className="w-full px-3 " style={{maxWidth: "500px"}}>
                       <div className="flex justify-center text-center text-2xl font-bold my-5">
                         {t('employees.leave_comment')}
                       </div>

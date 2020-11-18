@@ -76,7 +76,7 @@ function Error({statusCode}) {
                     </div>
                 </div>
 
-                <div className="containe">
+                <div className="container">
                     <img className="absolute inset-0 flex items-start justify-center mx-auto w-1/2 contain-section__img-man"
                          src="/static/img/man.webp" alt=""/>
                     <img className="absolute inset-0 flex items-start justify-center mx-auto mt-16 w-1/4 contain-section__img-woman"

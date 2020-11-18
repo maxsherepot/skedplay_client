@@ -8,7 +8,6 @@
           margin: 1rem 0;
           &::before {
             @apply text-red;
-
             content: "\2022";
             font-weight: bold;
             display: inline-block;
@@ -56,11 +55,11 @@
   }
 }
 
-@media (min-width: 1000px) {
-  .help-center .editor-js-content  {
-    font-size: 85%;
-  }
-}
+// @media (min-width: 1000px) {
+//   .help-center .editor-js-content  {
+//     font-size: 85%;
+//   }
+// }
 
 
 

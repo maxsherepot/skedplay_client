@@ -371,7 +371,7 @@ const EmployeeInformation = ({ user }) => {
               <div className="sm:hidden" style={{ marginLeft: -20, marginRight: -20 }}>
                 {sidebarColumn}
               </div>
-              <div className="flex flex-col sm:flex-row flex-wrap -mx-3 lg:-mt-48 hd:-mt-32">
+              <div className="flex flex-col sm:flex-row flex-wrap -mx-3">
                 <div className="w-full lg:w-2/3 hd:w-2/5 sm:px-3 pb-6" style={{ maxWidth: 750 }}>
                   {/*<div className="text-2xl font-extrabold my-5">{t('employees.gallery')}</div>*/}
                   <div className="hidden sm:block">

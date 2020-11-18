@@ -109,7 +109,7 @@ const EmployeeEvents = ({user}) => {
       />
 
       <EmployeeBox employee={employee} user={user} employees={employees} lastBreadcrumbs={lastBreadcrumbs}>
-        <div className="flex flex-wrap -mx-3 lg:-mt-24">
+        <div className="flex flex-wrap -mx-3">
           <div className="hidden  lg:block w-full lg:w-4/12 px-3">
             <div className="text-2xl font-bold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}

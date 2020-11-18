@@ -37,10 +37,10 @@ const AdServicesAndPricesStep = () => {
         <div className="row text-center text-xl sm:text-2xl">
           <h2>{translation.getLangField(groupService.name, i18n.language)}</h2>
         </div>
-        <div className={isHorizontal ? "flex flex-wrap scale lg:-mt-16 lg:-mb-32" : ""}>
+        <div className={isHorizontal ? "flex flex-wrap" : ""}>
           {currentGroupServices.map((service) => (
             <div
-              className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-0 mb-6 sm:mb-2 scale"}
+              className={isHorizontal ? "flex flex-row items-center justify-between w-full sm:w-auto sm:mr-6 sm:mb-8" : "flex flex-row items-center justify-between w-full px-16 sm:px-8 lg:px-16 mb-6 sm:mb-2"}
               key={service.id}
             >
               <CheckboxField label={translation.getLangField(JSON.parse(service.name), i18n.language)} name={`services.${service.id}.active`} />
@@ -66,9 +66,9 @@ const AdServicesAndPricesStep = () => {
 
   return (
     <>
-      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 scale">{t('steps.price')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5">{t('steps.price')}</div>
 
-      <div className="px-2 scale">
+      <div className="px-2">
         <div className="flex flex-wrap -mx-4" required>
           {price_types.map(({ id, display_name, }) => (
             <TextField
@@ -84,7 +84,7 @@ const AdServicesAndPricesStep = () => {
         </div>
       </div>
 
-      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 mt-5 scale">{t('common.services')}</div>
+      <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5 mt-5">{t('common.services')}</div>
 
       {groupServices.map((group, i) => {
         if (i === 0) {
@@ -97,7 +97,7 @@ const AdServicesAndPricesStep = () => {
 
         return (
           <div key={group.id} className="px-16">
-            <div className="flex flex-wrap -mx-32 lg:-ml-8">
+            <div className="flex flex-wrap -mx-32">
               {renderGroupService(group)}
             </div>
           </div>

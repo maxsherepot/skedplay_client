@@ -121,7 +121,7 @@ const PrivateBox = ({user}) => {
       {employeesLoading && <Loader/>}
 
       {employees.length > 0 &&
-      <div className="p-5 hd:p-10 border-light-grey border rounded-lg  shadow mb-5 scale">
+      <div className="p-5 hd:p-10 border-light-grey border rounded-lg  shadow mb-5">
         <div className="hidden absolute inset-0 flex justify-end m-10">
           <UserSvg/>
         </div>

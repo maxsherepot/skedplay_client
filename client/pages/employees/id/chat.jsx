@@ -89,11 +89,11 @@ const ClientChatComponent = ({ user, type = 'client' }) => {
 
       <EmployeeBox employee={employee} user={user} viewed={false} lastBreadcrumbs={lastBreadcrumbs}>
         <div className="flex flex-col sm:flex-row flex-wrap -mx-3 mb-10">
-          <div className={"hidden w-full xl:block px-3 hd:mt-9 " + (user ? " xl:w-3/12 " : " xl:hidden ")}>
+          <div className={"hidden w-full xl:block px-3 hd:mt-9 " + (user ? " xl:w-3/12 " : "xl:w-4/12")}>
             <div className="hidden text-2xl font-bold my-5">{t('employees.gallery')}</div>
             {sidebarColumn}
           </div>
-          <div className={"w-full hd:mt-6 " + (user ? " xl:w-9/12 " : " w-full xl:-mt-4 ")}>
+          <div className={"w-full hd:mt-6 " + (user ? " xl:w-9/12 " : " xl:w-8/12")}>
             {!user ? (
               <div className="mt-1 flex flex-col items-center px-2">
                 <div className="px-5 py-3 hd:px-10 relative border-light-grey border rounded-lg sm:mt-2 mb-8"

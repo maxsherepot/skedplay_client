@@ -188,7 +188,7 @@ function NewAdForm({ children, clubId }) {
           <div className="border-b border-divider" />
 
           <div className="flex flex-col items-start mx-auto hd:w-7/12">
-            <div className="w-full p-3 hd:px-0 scale">
+            <div className="w-full p-3 hd:px-0">
               <Button
                 type="submit"
                 className="text-xl px-16 mb-4 md:mb-0 mr-4 w-full sm:w-auto"

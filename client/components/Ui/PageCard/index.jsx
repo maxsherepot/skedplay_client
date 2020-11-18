@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function PageCard({ className, children, fullScreen }) {
   return (
     <div className={cx([
-        fullScreen ? "w-full" : "container no-scale",
+        fullScreen ? "w-full" : "container",
       className
     ])}>
       <div className="bg-white rounded shadow">{children}</div>

@@ -136,7 +136,7 @@ function EditEmployeeForm({ withStep, onLastStep, initialValues, children }) {
                       activeStep.props.showSubmit === false ? 'hidden' : '',
                     ])}
                   >
-                    <div className="w-full xs:p-8 xs:px-0 hd:px-0 scale">
+                    <div className="w-full xs:p-8 xs:px-0 hd:px-0">
                       <Button
                         type="submit"
                         className="w-full sm:w-auto text-xl px-16"

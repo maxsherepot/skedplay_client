@@ -22,11 +22,11 @@ function EmployeesBox({ sortComponent, employees, loading, error, page, setPage,
       </div>
 
       <div className="container">
-        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4 lg:-mt-10 lg:-mb-10">
+        <div className="girls flex flex-col mt-7 sm:flex-row sm:justify-start sm:flex-wrap -mx-4">
           {employees &&
             employees.data.map(girl => (
               <div
-                className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/5 md:px-2 sm:px-0"
+                className="flex justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 hd:w-1/5 md:px-2 sm:px-0"
                 key={girl.id}
               >
                 <GirlCard girl={girl} href="/employee" previewClass="w-full" user={user}/>

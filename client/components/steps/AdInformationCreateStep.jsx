@@ -35,10 +35,10 @@ const AdInformationCreateStep = () => {
 
   return (
     <>
-      <div className="text-2xl font-bold mb-5 scale">{t('account.links.information')}</div>
+      <div className="text-2xl font-bold mb-5">{t('account.links.information')}</div>
 
       <div className="px-2">
-        <div className="flex flex-wrap -mx-4 scale">
+        <div className="flex flex-wrap -mx-4">
           <TextField
             className="w-1/2 sm:w-1/3 px-2"
             inputClassName="w-1/3"
@@ -74,7 +74,7 @@ const AdInformationCreateStep = () => {
           />
         </div>
 
-        <div className="flex flex-wrap -mx-4 scale">
+        <div className="flex flex-wrap -mx-4">
           {/* <SelectField
             className="w-1/2 lg:w-1/3 px-2"
             inputClassName="w-full md:w-1/3"
@@ -129,9 +129,9 @@ const AdInformationCreateStep = () => {
         </div>
       </div>
 
-      <div className="text-2xl font-bold my-5 scale">{t('contacts_popup.your_working_location')}</div>
+      <div className="text-2xl font-bold my-5">{t('contacts_popup.your_working_location')}</div>
 
-      <div className="px-2 scale">
+      <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           <LocationSearchInput
             initAddress={club && club.address || ''}
@@ -183,14 +183,14 @@ const AdInformationCreateStep = () => {
         </div>
       </div>
 
-      <div className="flex items-end my-5 scale">
+      <div className="flex items-end my-5">
         <div className="text-2xl font-bold leading-none">
           {t('steps.personal_info')}
         </div>
         <div className="ml-6">{t('steps.optional')}</div>
       </div>
 
-      <div className="px-2 scale">
+      <div className="px-2">
         <div className="flex flex-wrap -mx-4">
           {parameters &&
             parameters.map(({ id, name, options }) => (

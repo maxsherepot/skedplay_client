@@ -269,7 +269,7 @@ const AccountAdEdit = ({user}) => {
 
   const Breadcrumbs = ({employee}) => (
     <div className="">
-      <div className="flex items-center py-4 scale">
+      <div className="flex items-center py-4">
         <ArrowBack back className=""/>
         <div className="ml-10 hidden sm:block">
           <Link href="/account">
@@ -287,7 +287,7 @@ const AccountAdEdit = ({user}) => {
   }
 
   return (
-    <div className="container no-scale">
+    <div className="container">
       <Breadcrumbs employee={employee}/>
 
       <div className="bg-white shadow rounded-lg p-4 sm:p-8">
@@ -295,7 +295,7 @@ const AccountAdEdit = ({user}) => {
           user={user}
           employee={employee}
           refetchEmployee={refetch}
-          classes="flex items-center flex-wrap w-full md:w-6/12 justify-center xl:flex-no-wrap xl:justify-start border border-divider p-3 mx-8 mt-6 rounded-lg hd:w-7/12 hd:mx-auto hd:justify-start lg:ml-24 xl:ml-32"
+          classes="flex items-center flex-wrap w-full md:w-6/12 justify-center xl:flex-no-wrap xl:justify-start border border-divider p-3 mx-8 mt-6 rounded-lg hd:w-7/12 hd:mx-auto hd:justify-start"
         />
 
         <div className="flex flex-wrap -mx-3">

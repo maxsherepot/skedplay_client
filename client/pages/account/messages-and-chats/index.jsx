@@ -37,7 +37,7 @@ const ChatCard = ({chat, type}) => {
 
   return (
     <div className="w-full flex flex-col pt-4 mb-5">
-      <div className="w-full flex justify-between items-center mb-4 scale">
+      <div className="w-full flex justify-between items-center mb-4">
         <div className={cx([
           "flex",
           chat.last_message[fromField] ? "" : "flex-row-reverse"
@@ -106,7 +106,7 @@ const ChatCard = ({chat, type}) => {
         <div className="text-grey text-sm">{t('common.type')}: {t('common.chat')}</div>
       </div>
 
-      <div className="w-full bg-xs-grey rounded-b rounded-tr p-5 relative scale">
+      <div className="w-full bg-xs-grey rounded-b rounded-tr p-5 relative">
         <div className="absolute bg-xs-grey" style={{
           width: '18px',
           height: '18px',
@@ -172,7 +172,7 @@ const Chats = ({ user }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-medium tracking-tighter leading-none mb-5 scale">
+      <h2 className="text-2xl font-medium tracking-tighter leading-none mb-5">
         {t('chat.header')}
       </h2>
 

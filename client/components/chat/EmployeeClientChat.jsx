@@ -203,7 +203,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
       <div
         className={cx([
           selectedChat ? "block" : "hidden md:block",
-          "w-full sm:w-full md:w-2/3 md:pr-6 mb-3 scale"
+          "w-full sm:w-full md:w-2/3 md:pr-6 mb-3"
         ])}
       >
         <div className="text-xl font-bold mt-3 mb-3">{t('chat.chose_chat')}</div>
@@ -220,7 +220,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
         <div
           className={cx([
             selectedChat ? "block" : "hidden md:block",
-            "w-full sm:w-full md:w-2/3 md:pr-6 mb-3 scale"
+            "w-full sm:w-full md:w-2/3 md:pr-6 mb-3"
           ])}
         >
           <div className="text-xl font-bold mt-3 mb-3 hidden md:block">{t('chat.chat_with')} {selectedChat.receiver.name}</div>
@@ -238,7 +238,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
       <div
         className={cx([
           selectedChat ? "hidden md:block" : "block",
-          "w-full sm:w-full md:w-1/3 mb-3 scale"
+          "w-full sm:w-full md:w-1/3 mb-3"
         ])}
       >
         <div className="text-xl font-bold mt-3 mb-3 hidden md:block">Channels</div>
@@ -263,7 +263,7 @@ const EmployeeClientChat = ({ user, employeeId, chatType, selectedChatId, employ
     <>
       <div className="">
         <div className="">
-          <div className="flex flex-col md:flex-row flex-wrap bg-xs-grey rounded-lg pb-2 lg:-mt-16" style={{minHeight: 400}}>
+          <div className="flex flex-col md:flex-row flex-wrap bg-xs-grey rounded-lg pb-2" style={{minHeight: 400}}>
             {mobileChatBlock}
             {chatRoomBlock}
             {chatsBlock}

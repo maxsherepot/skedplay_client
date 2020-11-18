@@ -74,7 +74,7 @@ const EventForm = ({initialValues, onSubmit, update, employees}) => {
       onSubmit={onSubmit}
     >
       {({handleSubmit, isSubmitting, status, errors}) => (
-        <form onSubmit={handleSubmit} className="new-event-form lg:-mt-10 scale">
+        <form onSubmit={handleSubmit} className="new-event-form">
           {isSubmitting && <Loader/>}
 
           <div className="px-2">

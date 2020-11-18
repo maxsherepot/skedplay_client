@@ -39,7 +39,7 @@ const About = ({user}) => {
         <div id="about" className="q-sections__start-bg">
           <section className="section q-section q-section-1 _full-height _no-bg">
             <div className="q-inner">
-              <div className="q-section__inner scale">
+              <div className="q-section__inner">
                 <div className="q-section__main-info _center-text">
                   <img src="/static/img/about-logo.svg" alt="Skedplay" className="inline-block q-section__main-info--logo"/>
                   <h1 className="q-section__main-info--title"><Trans i18nKey="about.header_1"/></h1>
@@ -52,7 +52,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-2 _no-bg">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-24">
+              <div className="q-section__inner">
                 <span className="q-section__main-info--title _center-text"><Trans i18nKey="about.marketplace.header_1"/></span>
                 <div className="q-about">
                   <div className="q-about__item">
@@ -123,7 +123,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-3 _center-text _no-bg">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-24">
+              <div className="q-section__inner">
                 <span className="q-section__title _pb"><Trans i18nKey="about.marketplace.header_2"/></span>
                 <div className="q-section__text">
                   <p><Trans i18nKey="about.marketplace.desc"/></p>
@@ -135,7 +135,7 @@ const About = ({user}) => {
         <div id="clubs">
           <section className="section q-section q-section-4 _white _center-text">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-24">
+              <div className="q-section__inner">
                 <span className="q-section__title"><Trans i18nKey="about.clubs.header"/></span>
                 <div className="q-section__text">
                   <p><Trans i18nKey="about.clubs.desc"/></p>
@@ -149,7 +149,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-6 _white">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-32">
+              <div className="q-section__inner">
                 <div className="q-section__cols _double-col _phone-block">
                   <div className="q-section__text-container">
                     <span className="q-section__title"><Trans i18nKey="about.clubs.item_1.header"/></span>
@@ -166,7 +166,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-7 _white">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-40 lg:-mb-40">
+              <div className="q-section__inner">
                 <div className="q-section__cols _img-first _double-col">
                   <div className="q-section__text-container">
                     <span className="q-section__title"><Trans i18nKey="about.clubs.item_2.header"/></span>
@@ -238,7 +238,7 @@ const About = ({user}) => {
         <div id="workers">
           <section className="section q-section q-section-8">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-24">
+              <div className="q-section__inner">
                 <div className="q-new js-animated-text">
                 <span className="q-new__title">
                   <span className="q-new__title--text _small"><Trans i18nKey="about.workers.header_1"/></span>
@@ -316,7 +316,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-9">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-40">
+              <div className="q-section__inner">
                 <div className="q-free">
                   <div className="q-free__text">
                     <div className="q-free__text--info">
@@ -342,7 +342,7 @@ const About = ({user}) => {
           </section>
           <section className="section q-section q-section-10">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-32 lg:-mb-20">
+              <div className="q-section__inner">
                 <div className="q-premium">
                   <div className="q-premium__text">
                     <span className="q-premium__text--title"><Trans i18nKey="about.workers.header_6"/></span>
@@ -366,7 +366,7 @@ const About = ({user}) => {
         <div id="clients">
           <section className="section q-section q-section-11 _white">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-32">
+              <div className="q-section__inner">
                 <div className="q-graph js-animated-chart">
                   <span className="q-graph__title"><Trans i18nKey="about.clients.header_1"/></span>
                   <div className="q-graph__list">
@@ -401,9 +401,9 @@ const About = ({user}) => {
               </div>
             </div>
           </section>
-          <section className="section q-section q-section-12 _white lg:-mb-20">
+          <section className="section q-section q-section-12 _white">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-32">
+              <div className="q-section__inner">
                 <div className="q-benefits">
                   <div className="q-benefits__text--container">
                     <span className="q-benefits__title"><Trans i18nKey="about.clients.header_2"/></span>
@@ -422,7 +422,7 @@ const About = ({user}) => {
         <div id="final">
           <section className="section q-section q-section-13 _center-text _bg-with-logo">
             <div className="q-inner">
-              <div className="q-section__inner scale lg:-mt-20">
+              <div className="q-section__inner">
                 <span className="q-section__title _pbl"><Trans i18nKey="about.clients.header_3"/></span>
                 <div className="q-section__text">
                   <p><Trans i18nKey="about.clients.desc_3"/></p>

@@ -176,11 +176,11 @@ function Footer({ user }) {
         </Content>
       </Popup>
 
-      <div className="container no-scale flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6 lg:my-4 box">
+      <div className="container flex flex-col md:flex-row-reverse lg:justify-between w-full text-white my-6">
 
-        <div className="flex flex-col justify-center text-center links-footer__div ">
+        <div className="flex flex-col justify-center text-center links-footer__div">
           <ul className="flex items-center justify-around leading-loose links-footer__div-full text-sm md:text-lg">
-            <li className="mr-8 scale">
+            <li className="mr-8">
               <Link href='/about'>
                 <a className="text-white">
                   {t('layout.about')}
@@ -188,9 +188,9 @@ function Footer({ user }) {
               </Link>
             </li>
             {/* Only odd */}
-            <ContactsPopup className="mr-8 scale" user={user} onSuccess={onSuccessContacts} />
+            <ContactsPopup className="mr-8" user={user} onSuccess={onSuccessContacts} />
             <ContactsCallbackSuccessPopup user={user} open={contactsSuccessOpen} setOpen={setContactsSuccessOpen} />
-            <li className="scale">
+            <li className="">
               <Link href={`/helpcenter`}>
                 <a>
                   {t('layout.help_center')}
@@ -201,7 +201,7 @@ function Footer({ user }) {
         </div>
 
 
-        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3 ">
+        <div className="w-full flex flex-col sm:flex-row sm:justify-center md:justify-between md:w-1/2 lg:w-1/3">
           {/*<Button size="xs" className="my-4 md:mr-4 md:w-40" outline>*/}
           {/*  {t('layout.create_site')}*/}
           {/*</Button>*/}
@@ -215,16 +215,12 @@ function Footer({ user }) {
         </div>
       </div>
       
-      
       <div className="border-dark-grey border-b" />
-
-
-
 
       <div className="container w-full pl-10 pr-10">
         <div className="without-p w-full flex flex-col justify-between items-center lg:flex-row lg:max-w-full">
           
-          <div className="w-full lg:w-1/4 flex justify-between lg:justify-start items-end my-6">
+          <div className="w-full lg:w-1/4 flex justify-around lg:justify-start items-end my-6">
             <FooterLeftIcons />
           </div>
 
@@ -242,11 +238,8 @@ function Footer({ user }) {
               </a>
             </div>
           </div>
-          {/* <div className="w-full lg:w-1/4 my-6 inline-block flex justify-around">
-            <FooterRightIcons />
-          </div> */}
 
-          <div className="hidden md:flex w-full lg:w-1/4 my-6 inline-block justify-around lg:-mr-4 hd:-mr-6">
+          <div className="hidden md:flex w-full lg:w-1/4 my-6 inline-block justify-around lg:-mr-4 xl:-mr-6 hd:-mr-8">
             <FooterRightIcons />
           </div>
         </div>
