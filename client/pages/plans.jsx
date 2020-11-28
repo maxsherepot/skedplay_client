@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Link from 'components/SlashedLink'
 import redirect from "lib/redirect";
 import checkLoggedIn from "lib/checkLoggedIn";
@@ -11,12 +11,12 @@ import {
   GroupRadio
 } from "UI";
 import PlansBox from "components/plans/PlansBox";
-import {useTranslation} from "react-i18next";
-import {GET_ME} from "queries/userQuery";
-import {useQuery} from "@apollo/react-hooks";
+import { useTranslation } from "react-i18next";
+import { GET_ME } from "queries/userQuery";
+import { useQuery } from "@apollo/react-hooks";
 import Loader from "UI/Loader";
 
-const Plans = ({user}) => {
+const Plans = ({ user }) => {
   const periods = [
     {
       name: "3 months",
@@ -32,20 +32,20 @@ const Plans = ({user}) => {
     }
   ];
   const {
-    data: {me} = {},
+    data: { me } = {},
     loading
   } = useQuery(GET_ME);
 
   const [period, setPeriod] = useState(periods[0].value);
 
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (loading) {
-    return <Loader/>
+    return <Loader />
   }
 
-  const YesButton = ({link}) => {
-    const {t, i18n} = useTranslation();
+  const YesButton = ({ link }) => {
+    const { t, i18n } = useTranslation();
 
     return (
       <div className="mt-3 inline-block text-center">
@@ -62,8 +62,8 @@ const Plans = ({user}) => {
     );
   };
 
-  const NoButton = ({link}) => {
-    const {t, i18n} = useTranslation();
+  const NoButton = ({ link }) => {
+    const { t, i18n } = useTranslation();
 
     return (
       <div className="ml-8 inline-block text-center">
@@ -83,55 +83,74 @@ const Plans = ({user}) => {
 
   return (
     <>
-      <AnimationBackground full/>
+      <AnimationBackground full />
       <div className="container mx-auto">
         <div className="flex items-center flex-col">
           <div className="w-full px-3 md:w-header-plans md:px-0 mt-6 sm:mt-12">
             <div className="relative flex justify-between items-center">
-              <ArrowBack href="/register" color="white"/>
+              <ArrowBack href="/register" color="white" />
               <div className="absolute top-0 left-0 h-full flex justify-center items-center w-full">
                 <Link href="/">
                   <a className="block text-center w-2/4 sm:w-full">
-                    <Logo/>
+                    <Logo />
                   </a>
                 </Link>
               </div>
-              <LangSelector black={false}/>
+              <LangSelector black={false} />
             </div>
 
             {(me && me.is_club_owner) && (
               <div>
                 <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
-                  {t('after_register.welcome_for_club_owner', {name: `${me.name}`})}
+                  {t('after_register.welcome_for_club_owner', { name: `${me.name}` })}
                   <div className="row mt-5">
-                    <YesButton link="/clubs/add"/>
-                    <NoButton link="/account"/>
+                    <div className="mt-3 inline-block text-center">
+                      <Link href="/clubs/add">
+                        <Button
+                          className="w-20 text-xl min-w-full uppercase"
+                          type="submit"
+                          size="xs"
+                        >
+                          {t('after_register.add_club_button')}
+                        </Button>
+                      </Link>
+                    </div>
+                    {/* <NoButton link="/account"/> */}
                   </div>
                 </div>
               </div>
             )}
 
+
             {(me && me.is_employee && me.employee) && (
               <div>
                 <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
-                  {t('after_register.welcome_to_portal')} {me.employee.name} {t('after_register.you_want_to_edit_profile_or_photos')}
+                  {t('after_register.welcome_for_employee', { name: `${me.employee.name}` })}
                   <div className="row mt-5">
-                    <YesButton link="/account/ad"/>
-                    <NoButton link="/account"/>
+                    <div className="mt-3 inline-block text-center">
+                      <Link href="/account/ad">
+                        <Button
+                          className="w-20 text-xl min-w-full uppercase"
+                          type="submit"
+                          size="xs"
+                        >
+                          {t('after_register.add_employee_button')}
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-
               </div>
             )}
 
             {(me && me.is_client) && (
               <div>
                 <div className="text-white uppercase font-bold text-2xl text-center leading-none mt-10">
-                  {t('after_register.welcome_to_portal')} {me.name} {t('after_register.you_want_to_show_profile')}
-                  <div className="row mt-5">
-                    <YesButton link="/account"/>
-                    <NoButton link="/"/>
-                  </div>
+                  {t('after_register.welcome_for_client', { name: `${me.name}` })}
+                  {/* <div className="row mt-5">
+                     <YesButton link="/account" />
+                    <NoButton link="/" /> 
+                  </div>*/}
                 </div>
               </div>
             )}
@@ -160,12 +179,12 @@ const Plans = ({user}) => {
 };
 
 Plans.getInitialProps = async ctx => {
-  const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);
+  const { loggedInUser: user } = await checkLoggedIn(ctx.apolloClient);
   if (!user) {
     redirect(ctx, "/login");
   }
 
-  return {user};
+  return { user };
 };
 
 Plans.getLayout = page => page;

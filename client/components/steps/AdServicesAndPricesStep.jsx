@@ -69,7 +69,7 @@ const AdServicesAndPricesStep = () => {
       <div className="text-xl sm:text-2xl font-bold mb-2 sm:mb-5">{t('steps.price')}</div>
 
       <div className="px-2">
-        <div className="flex flex-wrap -mx-4" required>
+        <div className="flex flex-wrap -mx-4">
           {price_types.map(({ id, display_name, }) => (
             <TextField
               key={id}

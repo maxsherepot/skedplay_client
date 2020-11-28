@@ -620,8 +620,12 @@
     "african": "African"
   },
   "language": {
-    "russian": "Russian",
     "english": "English",
+    "romanian":"Romanian",
+    "italian":"Italian",
+    "hungarian":"Hungarian",
+    "spanish":"Spanish",
+    "russian":"Russian",
     "en": "English",
     "de": "German",
     "fr": "French"

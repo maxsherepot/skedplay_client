@@ -1,14 +1,17 @@
-import React, {useState} from "react";
-import {SelectField} from "UI";
-import {FieldArray, useFormikContext} from "formik";
-import {RatingSvg, TrashSvg} from "icons";
-import {useTranslation} from "react-i18next";
+import React, { useState } from "react";
+import { SelectField } from "UI";
+import { FieldArray, useFormikContext } from "formik";
+import { RatingSvg, TrashSvg } from "icons";
+import { useTranslation } from "react-i18next";
 import AddSvg from "components/icons/AddSvg";
 import dot from "dot-object";
 
 const LangSelector = () => {
   const { values, setFieldValue } = useFormikContext();
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  //i18n.options.allLanguages.push("rus")
+ //i18n.options.allLanguages.push( "rus")
 
   const languages = i18n.options.allLanguages.map(lang => {
     return {
@@ -16,6 +19,41 @@ const LangSelector = () => {
       value: lang
     };
   });
+
+ //console.log(languages)
+ // console.log( i18n.options.allLanguages)
+
+
+  languages.push(
+    {
+      label: t('language.romanian'),
+      value: "rom",
+      id:4
+    },
+  )
+  //console.log(values.languages)
+
+  //   {
+  //     label: t('language.italian'),
+  //     value: "itl",
+  //     id:5
+  //   },
+  //   {
+  //     label: t('language.hungarian'),
+  //     value: "hun",
+  //     id:6
+  //   },
+  //   {
+  //     label: t('language.spanish'),
+  //     value: "spa",
+  //     id:7
+  //   },
+  //   {
+  //     label: t('language.russian'),
+  //     value: "rus",
+  //     id:8
+  //   },
+  // )
 
   const [availableLang, setAvailableLang] = useState([]);
 
@@ -36,20 +74,20 @@ const LangSelector = () => {
           className="cursor-pointer mr-2"
           onClick={() => setStars(+i + 1)}
         >
-            <span className="xss:hidden block sm:hidden">
-                <RatingSvg
-                  width={22}
-                  height={20}
-                  checked={i < value}
-                />
-            </span>
-            <span className="hidden sm:block">
-                <RatingSvg
-                  width={29}
-                  height={27}
-                  checked={i < value}
-                />
-            </span>
+          <span className="xss:hidden block sm:hidden">
+            <RatingSvg
+              width={22}
+              height={20}
+              checked={i < value}
+            />
+          </span>
+          <span className="hidden sm:block">
+            <RatingSvg
+              width={29}
+              height={27}
+              checked={i < value}
+            />
+          </span>
         </div>
       );
     }
@@ -57,7 +95,7 @@ const LangSelector = () => {
     return (
       <div className="flex flex-wrap w-full px-2 mb-4">
         {stars}
-        <input type="hidden" name={name} value={value}/>
+        <input type="hidden" name={name} value={value} />
       </div>
     );
   };
@@ -90,6 +128,12 @@ const LangSelector = () => {
   const addLanguage = (arrayHelpers) => {
     setFieldValue('languages', [...values.languages, {language: '', stars: 1}]);
     arrayHelpers.push("");
+
+    // if (values.languages.length > 7) {
+    //   setFieldValue('languages', [...values.languages, {language: '', stars: 1}]);
+    // }
+    // setFieldValue('languages', [...values.languages, { language: '', stars: 1 }]);
+    // arrayHelpers.push("");
   };
 
   const setChangeField = (lang, index, code) => {
@@ -109,6 +153,7 @@ const LangSelector = () => {
     return [...languages].filter(lang => !chosenLanguages.includes(lang.value) || lang.value === selectLangCode);
   };
 
+
   return (
     <div className="flex flex-wrap items-center -mx-4">
       <label className="text-grey ml-2 mb-3">Language</label>
@@ -127,11 +172,11 @@ const LangSelector = () => {
                   options={langList(language.code)}
                 />
 
-            <div className="w-5/12 sm:w-auto">
-                    <RatingField name={`languages.${index}.stars`}/>
+                <div className="w-5/12 sm:w-auto">
+                  <RatingField name={`languages.${index}.stars`} />
                 </div>
                 <div className="w-1/12 sm:w-auto">
-                    <FieldControl  arrayHelpers={arrayHelpers} index={index}/>
+                  <FieldControl arrayHelpers={arrayHelpers} index={index} />
                 </div>
               </div>
             ))}

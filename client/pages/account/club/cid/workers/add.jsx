@@ -7,9 +7,9 @@ import checkLoggedIn from "lib/checkLoggedIn";
 const ClubEmployeeAdd = () => {
   let {query: {cid: clubId}} = useRouter();
   clubId = clubId.replace('/', '');
-
   return <AddEmployee clubId={clubId} />;
 };
+
 
 ClubEmployeeAdd.getInitialProps = async ctx => {
   const {loggedInUser: user} = await checkLoggedIn(ctx.apolloClient);

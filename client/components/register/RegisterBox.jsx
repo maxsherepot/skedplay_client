@@ -26,9 +26,9 @@ const RegisterBox = () => {
 
     if (process.env.ANALYTICS_SCRIPTS === 'true') {
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
 
-      gtag('event', 'registration', {'event_category' : 'click'});
+      gtag('event', 'registration', { 'event_category': 'click' });
       ym('reachGoal', 'registration');
     }
 
@@ -103,23 +103,25 @@ const RegisterBox = () => {
 
   return (
     <RegisterForm onSubmit={register}>
+
+      <RegisterForm.Step validationSchema={RegisterStep.validationSchema}>
+        <RegisterStep />
+      </RegisterForm.Step>
+
       <RegisterForm.Step
         validationSchema={SendCodeStep.validationSchema}
-        onStepSubmit={onSubmitSendCode}
-      >
+        onStepSubmit={onSubmitSendCode}>
         <SendCodeStep />
       </RegisterForm.Step>
 
       <RegisterForm.Step
         validationSchema={CheckCodeStep.validationSchema}
-        onStepSubmit={onSubmitCheckCode}
-      >
+        onStepSubmit={onSubmitCheckCode}>
         <CheckCodeStep phone={phone} />
       </RegisterForm.Step>
 
-      <RegisterForm.Step validationSchema={RegisterStep.validationSchema}>
-        <RegisterStep />
-      </RegisterForm.Step>
+
+
     </RegisterForm>
   );
 };

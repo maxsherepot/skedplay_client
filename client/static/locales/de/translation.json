@@ -613,14 +613,18 @@
     "african": "African"
   },
   "language": {
-    "russian": "Russian",
     "english": "English",
+    "romanian": "Rumänisch",
+    "italian": "Italienisch",
+    "hungarian": "Ungarisch",
+    "spanish": "Spanisch",
+    "russian": "Russisch",
     "en": "English",
     "de": "German",
     "fr": "French"
   },
   "ad": {
-    "add_language": "Add language",
+    "add_language": "Sprache hinzufügen",
     "delete_language": "Delete language",
     "add_friend": "Add a friend",
     "save": "Save ad",
@@ -664,12 +668,16 @@
     "start_message": "Greetings! I would like to wish our members and their families a spectacular."
   },
   "after_register": {
-    "welcome_to_portal": "Welcome to our portal",
+    "welcome_to_portal": "Herzlich Willkommen",
     "you_want_to_edit_profile_or_photos": "do you want edit your Profile and Photos now?",
     "you_want_to_show_profile": "do you want to show your Profile ?",
     "yes": "Yes",
     "no": "No",
-    "welcome_for_club_owner": "Welcome to our portal {{name}} do you want edit your Profile and Photos now? 2"
+    "welcome_for_club_owner": "Herzlich Willkommen {{name}} zu Skedplay. Deine private Daten werden bei uns gespeichert und nicht veröffentlicht. Du kannst dein Club / Bar jetzt erstellen und bearbeiten.",
+    "welcome_for_employee": "Herzlich Willkommen {{name}} zu Skedplay. Deine private Daten werden bei uns gespeichert und nicht veröffentlicht. Du kannst dein Inserat jetzt erstellen und dich so geben wie du möchtest.",
+    "welcome_for_client": "Herzlich Willkommen {{name}} zu Skedplay. Deine private Daten werden bei uns gespeichert und nicht veröffentlicht. Du kannst dein Profil bearbeiten - Abenteuer Suchen - Chatten.",
+    "add_club_button": "Club erstellen",
+    "add_employee_button": "Inserat erstellen"
   },
   "questions": {
     "sure_to_delete_all_photos": "Are you sure want to delete all photos?"

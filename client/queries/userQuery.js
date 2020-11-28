@@ -337,3 +337,7 @@ export const MY_EVENTS_COUNT_FRAGMENT = gql`
         employees_events
     }
 `;
+
+// export const DELETE_ACCOUNT = gql`
+//     //console.log(13)
+// `;

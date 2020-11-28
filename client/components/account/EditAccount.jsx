@@ -3,9 +3,11 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { Button, TextField, PhoneField } from "UI";
 import { getErrors } from "utils";
+//import { DELETE_ACCOUNT } from "queries";
 import { useTranslation } from "react-i18next";
 import Popup from "reactjs-popup";
 import Content from "UI/Popup/Content";
+import {useMutation} from "@apollo/react-hooks";
 
 
 const contentStyle = {
@@ -19,6 +21,7 @@ const contentStyle = {
 const EditAccount = ({ initialValues, onSubmit }) => {
   const { t, i18n } = useTranslation();
   const [banPopupShow, setBanPopupShow] = useState(false);
+  //const [onDeleteAccount] = useMutation(DELETE_ACCOUNT)
 
   const handleSubmits = async (
     { name, email, phone },
@@ -59,6 +62,16 @@ const EditAccount = ({ initialValues, onSubmit }) => {
     // client.clearStore().then(() => redirect({}, "/"));
   };
 
+  const onDelete = async () => {
+    console.log("Delete account action")
+    try {
+      await onDeleteAccount()
+      closeModal()
+    } catch (e) {
+      console.error("Something went wrong")
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -97,7 +110,7 @@ const EditAccount = ({ initialValues, onSubmit }) => {
                 <h3 className="mt-3">{t('account.really_delete_account')}</h3>
                 <Button
                   type="button"
-                  onClick={() => console.log("Delete account action")}
+                  onClick={onDelete}
                   className="px-3 mr-4 mt-8"
                   level="primary"
                   size="xs" >
@@ -122,15 +135,6 @@ const EditAccount = ({ initialValues, onSubmit }) => {
                 onClick={showModal}
               > {t('account.delete_account')}</button>
             </div>
-
-
-
-
-
-
-
-
-
           </div>
         </form>
       )}

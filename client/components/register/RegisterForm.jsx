@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Formik, validateYupSchema, yupToFormErrors } from "formik";
 import PropTypes from "prop-types";
 import Link from 'components/SlashedLink'
@@ -8,12 +8,16 @@ import moment from 'moment';
 import { useSteps } from "hooks";
 import { Button, FormGroup, Popup } from "UI";
 import { getErrors } from "utils";
-import {useTranslation} from "react-i18next";
-import {useRouter} from "next/router";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 import Cookies from 'js-cookie';
 
+const getDefaultAccountType = () => {
+  return Cookies.get('account_type')
+}
+
 function RegisterForm({ onSubmit, children }) {
-  const {query} = useRouter();
+  const { query } = useRouter();
   const { t, i18n } = useTranslation();
   const { step, setStep } = useSteps();
   const [agePopupShow, setAgePopupShow] = useState(false);
@@ -22,8 +26,18 @@ function RegisterForm({ onSubmit, children }) {
   const activeStep = React.Children.toArray(children)[step];
   const isLastStep = step === React.Children.count(children) - 1;
 
+  const defaultAccountType = getDefaultAccountType()
+
   React.useEffect(() => {
-    document.querySelector('.modal__content').style.maxWidth = isLastStep ? '700px' : '410px';
+    //document.querySelector('.modal__content').style.maxWidth = isLastStep ? '700px' : '410px';
+
+
+
+
+
+
+
+
     // document.querySelector('.modal__dialog').style.minWidth = '410px';
     document.querySelector('.animation-arrow-left').style.display = isLastStep ? 'none' : 'inline';
     document.querySelector('.modal__title').style.margin = isLastStep ? 'auto' : '';
@@ -75,9 +89,7 @@ function RegisterForm({ onSubmit, children }) {
 
       if (birthday && moment().diff(birthday, 'years') < 18) {
         setAgePopupShow(true);
-
         setSubmitting(false);
-
         return;
       }
 
@@ -101,9 +113,10 @@ function RegisterForm({ onSubmit, children }) {
     <Formik
       className='h-screen'
       initialValues={{
-        account_type: query.role || "",
+        account_type: query.role || defaultAccountType || "",
         birthday: "",
         first_name: "",
+        last_name: "",
         phone: "",
         email: "",
         gender: "",
@@ -126,7 +139,7 @@ function RegisterForm({ onSubmit, children }) {
             title={t('register.small_age_title')}
             open={agePopupShow}
             closeOnDocumentClick
-            contentStyle={{width: "auto", maxWidth: "90%"}}
+            contentStyle={{ width: "auto", maxWidth: "90%" }}
             onClose={() => setAgePopupShow(false)}
           >
             <h3 className="mt-3">{t('register.small_age_text')}</h3>

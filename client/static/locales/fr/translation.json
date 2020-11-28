@@ -182,7 +182,7 @@
     "attended_us": "attended us",
     "not_available": "not available",
     "popular": "popular",
-    "description": "Ici, les clients sont en sécurité lorsqu'ils choisissent leurs services préférés, et les travailleurs du sexe et les propriétaires de clubs de sexe obtiennent tout ce qu'il leur faut pour démarrer, développer et gérer leurs affaires en ligne",
+    "description": "Ici, les clients sont en sécurité lorsqu'ils choisissent leurs services préférés, et les travailleurs du sexe et les propriétaires de clubs de sexe obtiennent tout ce qu'il leur faut pour démarrer, développer et gérer leurs affaires en ligne"
   },
   "login": {
     "phone_number": "Phone number",
@@ -345,7 +345,7 @@
     "chat_available_for_authorized": "Chat is available only for Registered users, please Sign up or Register"
   },
   "account": {
-    "delete_account":"Delete account",
+    "delete_account": "Delete account",
     "really_delete_account": "Do you really want to delete your account?",
     "my_account": "My account",
     "account_settings": "Account setting",
@@ -613,14 +613,18 @@
     "african": "African"
   },
   "language": {
-    "russian": "Russian",
     "english": "English",
+    "romanian": "Roumain",
+    "italian": "Italien",
+    "hungarian": "Hongrois",
+    "spanish": "Espagnol",
+    "russian": "Russe",
     "en": "English",
     "de": "German",
     "fr": "French"
   },
   "ad": {
-    "add_language": "Add language",
+    "add_language": "Ajouter une langue",
     "delete_language": "Delete language",
     "add_friend": "Add a friend",
     "save": "Save ad",

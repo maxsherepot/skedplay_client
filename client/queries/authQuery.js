@@ -28,6 +28,9 @@ export const REGISTER_USER = gql`
     $account_type: String!
     $birthday: String!
     $first_name: String!
+
+    $last_name: String!
+    
     $phone: String!
     $email: String!
     $password: String!
@@ -40,6 +43,9 @@ export const REGISTER_USER = gql`
         account_type: $account_type
         birthday: $birthday
         first_name: $first_name
+
+        last_name: $last_name
+
         phone: $phone
         email: $email
         password: $password

@@ -178,7 +178,7 @@ const AdInformationCreateStep = () => {
             label={t('layout.webpage')}
             name="website"
             placeholder="www.example.com"
-            value={club && club.website || 'http://'}
+            value={club && club.website || ''}
           />
         </div>
       </div>

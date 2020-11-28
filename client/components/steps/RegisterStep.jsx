@@ -94,9 +94,16 @@ const RegisterStep = () => {
           label={(
               <div className="text-grey text-sm row">
                  {t('register.creating_account_you_agree')}
-                 <a href="/helpcenter/terms-and-conditions" className="underline pr-1">{t('register.terms_conditions')}</a>
+                
+                 <a href="/helpcenter/terms-of-use"
+                 target="_blank" 
+                 className="underline pr-1">{t('register.terms_conditions')}</a>
                    {t('common.and')}
-                   <a href="/helpcenter/privacy-policy" className="underline pl-1">{t('layout.privacy_policy')}</a>.
+                   
+                   <a href="/helpcenter/private-policy"
+                   target="_blank" 
+                   className="underline pl-1">{t('layout.privacy_policy')}</a>.
+                   
                </div>
           )}
           name={'creating_account_you_agree'}
@@ -110,6 +117,9 @@ RegisterStep.validationSchema = Yup.object().shape({
   account_type: Yup.string().required(),
   birthday: Yup.string().required(),
   first_name: Yup.string().required(),
+
+  last_name: Yup.string().required(),
+
   gender: Yup.number().required(),
   email: Yup.string().required(),
   password: Yup.string().required(),
